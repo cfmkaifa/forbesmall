@@ -265,7 +265,7 @@
 												</div>
 											[#elseif memberAttribute.type == "IMAGE" || memberAttribute.type == "LICENSE_IMAGE" || memberAttribute.type == "ID_CARD_IMAGE" || memberAttribute.type == "ORGANIZATION_IMAGE" || memberAttribute.type == "TAX_IMAGE"]
 												<div class="col-xs-9 col-sm-4">
-													<input name="memberAttribute${memberAttribute.id}" type="hidden" value="${member.getAttributeValue(memberAttribute)}" data-provide="fileinput" data-file-type="IMAGE">
+													<input name="memberAttribute_${memberAttribute.id}" type="hidden" value="${member.getAttributeValue(memberAttribute)}" data-provide="fileinput" data-file-type="IMAGE">
 												</div>
 											[#elseif memberAttribute.type == "SELECT"]
 												<div class="col-xs-9 col-sm-4">
