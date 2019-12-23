@@ -46,7 +46,6 @@ public class MemberAttribute extends OrderedEntity<Long> {
 		 * 姓名
 		 */
 		NAME,
-
 		/**
 		 * 性别
 		 */
@@ -90,7 +89,71 @@ public class MemberAttribute extends OrderedEntity<Long> {
 		/**
 		 * 多选项
 		 */
-		CHECKBOX
+		CHECKBOX,
+		
+		/**
+		 * 图片
+		 */
+		IMAGE,
+
+		/**
+		 * 日期
+		 */
+		DATE,
+		/**
+		 * 营业执照
+		 */
+		LICENSE_NUMBER,
+
+		/**
+		 * 营业执照图片
+		 */
+		LICENSE_IMAGE,
+
+		/**
+		 * 法人姓名
+		 */
+		LEGAL_PERSON,
+
+		/**
+		 * 法人身份证
+		 */
+		ID_CARD,
+
+		/**
+		 * 法人身份证图片
+		 */
+		ID_CARD_IMAGE,
+
+		/**
+		 * 组织机构代码
+		 */
+		ORGANIZATION_CODE,
+
+		/**
+		 * 组织机构代码证图片
+		 */
+		ORGANIZATION_IMAGE,
+
+		/**
+		 * 纳税人识别号
+		 */
+		IDENTIFICATION_NUMBER,
+
+		/**
+		 * 税务登记证图片
+		 */
+		TAX_IMAGE,
+
+		/**
+		 * 银行开户名
+		 */
+		BANK_NAME,
+
+		/**
+		 * 公司银行账号
+		 */
+		BANK_ACCOUNT
 	}
 
 	/**

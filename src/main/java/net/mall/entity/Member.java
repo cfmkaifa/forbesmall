@@ -202,6 +202,73 @@ public class Member extends User {
 	 */
 	@Length(max = 200)
 	private String phone;
+	
+	
+	/**
+	 * 营业执照号
+	 */
+	@Length(max = 200)
+	private String licenseNumber;
+
+	/**
+	 * 营业执照号图片
+	 */
+	@Length(max = 200)
+	private String licenseImage;
+
+	/**
+	 * 法人代表姓名
+	 */
+	@Length(max = 200)
+	private String legalPerson;
+
+	/**
+	 * 法人代表身份证
+	 */
+	@Length(max = 200)
+	private String idCard;
+
+	/**
+	 * 法人代表身份证图片
+	 */
+	@Length(max = 200)
+	private String idCardImage;
+
+	/**
+	 * 组织机构代码
+	 */
+	@Length(max = 200)
+	private String organizationCode;
+
+	/**
+	 * 组织机构代码证图片
+	 */
+	@Length(max = 200)
+	private String organizationImage;
+
+	/**
+	 * 纳税人识别号
+	 */
+	@Length(max = 200)
+	private String identificationNumber;
+
+	/**
+	 * 税务登记证图片
+	 */
+	@Length(max = 200)
+	private String taxImage;
+
+	/**
+	 * 银行开户名
+	 */
+	@Length(max = 200)
+	private String bankName;
+
+	/**
+	 * 银行账号
+	 */
+	@Length(max = 200)
+	private String bankAccount;
 
 	/**
 	 * 会员注册项值0
@@ -1172,7 +1239,30 @@ public class Member extends User {
 			return getZipCode();
 		case PHONE:
 			return getPhone();
+		case LICENSE_NUMBER:
+			return getLicenseNumber();
+		case LICENSE_IMAGE:
+			return getLicenseImage();
+		case LEGAL_PERSON:
+			return getLegalPerson();
+		case ID_CARD:
+			return getIdCard();
+		case ID_CARD_IMAGE:
+			return getIdCardImage();
+		case ORGANIZATION_CODE:
+			return getOrganizationCode();
+		case ORGANIZATION_IMAGE:
+			return getOrganizationImage();
+		case IDENTIFICATION_NUMBER:
+			return getIdentificationNumber();
+		case TAX_IMAGE:
+			return getTaxImage();
+		case BANK_NAME:
+			return getBankName();
+		case BANK_ACCOUNT:
+			return getBankAccount();
 		case TEXT:
+		case IMAGE:
 		case SELECT:
 			if (memberAttribute.getPropertyIndex() != null) {
 				try {
@@ -1207,6 +1297,164 @@ public class Member extends User {
 		}
 		return null;
 	}
+	
+	
+	
+	
+
+	/** 
+	 * @return licenseNumber 
+	 */
+	public String getLicenseNumber() {
+		return licenseNumber;
+	}
+
+	/** 
+	 * @param licenseNumber 要设置的 licenseNumber 
+	 */
+	public void setLicenseNumber(String licenseNumber) {
+		this.licenseNumber = licenseNumber;
+	}
+
+	/** 
+	 * @return licenseImage 
+	 */
+	public String getLicenseImage() {
+		return licenseImage;
+	}
+
+	/** 
+	 * @param licenseImage 要设置的 licenseImage 
+	 */
+	public void setLicenseImage(String licenseImage) {
+		this.licenseImage = licenseImage;
+	}
+
+	/** 
+	 * @return legalPerson 
+	 */
+	public String getLegalPerson() {
+		return legalPerson;
+	}
+
+	/** 
+	 * @param legalPerson 要设置的 legalPerson 
+	 */
+	public void setLegalPerson(String legalPerson) {
+		this.legalPerson = legalPerson;
+	}
+
+	/** 
+	 * @return idCard 
+	 */
+	public String getIdCard() {
+		return idCard;
+	}
+
+	/** 
+	 * @param idCard 要设置的 idCard 
+	 */
+	public void setIdCard(String idCard) {
+		this.idCard = idCard;
+	}
+
+	/** 
+	 * @return idCardImage 
+	 */
+	public String getIdCardImage() {
+		return idCardImage;
+	}
+
+	/** 
+	 * @param idCardImage 要设置的 idCardImage 
+	 */
+	public void setIdCardImage(String idCardImage) {
+		this.idCardImage = idCardImage;
+	}
+
+	/** 
+	 * @return organizationCode 
+	 */
+	public String getOrganizationCode() {
+		return organizationCode;
+	}
+
+	/** 
+	 * @param organizationCode 要设置的 organizationCode 
+	 */
+	public void setOrganizationCode(String organizationCode) {
+		this.organizationCode = organizationCode;
+	}
+
+	/** 
+	 * @return organizationImage 
+	 */
+	public String getOrganizationImage() {
+		return organizationImage;
+	}
+
+	/** 
+	 * @param organizationImage 要设置的 organizationImage 
+	 */
+	public void setOrganizationImage(String organizationImage) {
+		this.organizationImage = organizationImage;
+	}
+
+	/** 
+	 * @return identificationNumber 
+	 */
+	public String getIdentificationNumber() {
+		return identificationNumber;
+	}
+
+	/** 
+	 * @param identificationNumber 要设置的 identificationNumber 
+	 */
+	public void setIdentificationNumber(String identificationNumber) {
+		this.identificationNumber = identificationNumber;
+	}
+
+	/** 
+	 * @return taxImage 
+	 */
+	public String getTaxImage() {
+		return taxImage;
+	}
+
+	/** 
+	 * @param taxImage 要设置的 taxImage 
+	 */
+	public void setTaxImage(String taxImage) {
+		this.taxImage = taxImage;
+	}
+
+	/** 
+	 * @return bankName 
+	 */
+	public String getBankName() {
+		return bankName;
+	}
+
+	/** 
+	 * @param bankName 要设置的 bankName 
+	 */
+	public void setBankName(String bankName) {
+		this.bankName = bankName;
+	}
+
+	/** 
+	 * @return bankAccount 
+	 */
+	public String getBankAccount() {
+		return bankAccount;
+	}
+
+	/** 
+	 * @param bankAccount 要设置的 bankAccount 
+	 */
+	public void setBankAccount(String bankAccount) {
+		this.bankAccount = bankAccount;
+	}
 
 	/**
 	 * 设置会员注册项值
@@ -1222,6 +1470,61 @@ public class Member extends User {
 			return;
 		}
 		switch (memberAttribute.getType()) {
+		case LICENSE_NUMBER:
+			if (memberAttributeValue instanceof String || memberAttributeValue == null) {
+				setLicenseNumber((String) memberAttributeValue);
+			}
+			break;
+		case LICENSE_IMAGE:
+			if (memberAttributeValue instanceof String || memberAttributeValue == null) {
+				setLicenseImage((String) memberAttributeValue);
+			}
+			break;
+		case LEGAL_PERSON:
+			if (memberAttributeValue instanceof String || memberAttributeValue == null) {
+				setLegalPerson((String) memberAttributeValue);
+			}
+			break;
+		case ID_CARD:
+			if (memberAttributeValue instanceof String || memberAttributeValue == null) {
+				setIdCard((String) memberAttributeValue);
+			}
+			break;
+		case ID_CARD_IMAGE:
+			if (memberAttributeValue instanceof String || memberAttributeValue == null) {
+				setIdCardImage((String) memberAttributeValue);
+			}
+			break;
+		case ORGANIZATION_CODE:
+			if (memberAttributeValue instanceof String || memberAttributeValue == null) {
+				setOrganizationCode((String) memberAttributeValue);
+			}
+			break;
+		case ORGANIZATION_IMAGE:
+			if (memberAttributeValue instanceof String || memberAttributeValue == null) {
+				setOrganizationImage((String) memberAttributeValue);
+			}
+			break;
+		case IDENTIFICATION_NUMBER:
+			if (memberAttributeValue instanceof String || memberAttributeValue == null) {
+				setIdentificationNumber((String) memberAttributeValue);
+			}
+			break;
+		case TAX_IMAGE:
+			if (memberAttributeValue instanceof String || memberAttributeValue == null) {
+				setTaxImage((String) memberAttributeValue);
+			}
+			break;
+		case BANK_NAME:
+			if (memberAttributeValue instanceof String || memberAttributeValue == null) {
+				setBankName((String) memberAttributeValue);
+			}
+			break;
+		case BANK_ACCOUNT:
+			if (memberAttributeValue instanceof String || memberAttributeValue == null) {
+				setBankAccount((String) memberAttributeValue);
+			}
+			break;
 		case NAME:
 			if (memberAttributeValue instanceof String || memberAttributeValue == null) {
 				setName((String) memberAttributeValue);

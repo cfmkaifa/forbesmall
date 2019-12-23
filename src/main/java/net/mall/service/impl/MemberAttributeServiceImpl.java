@@ -159,17 +159,27 @@ public class MemberAttributeServiceImpl extends BaseServiceImpl<MemberAttribute,
 	public Object toMemberAttributeValue(MemberAttribute memberAttribute, String[] values) {
 		Assert.notNull(memberAttribute, "[Assertion failed] - memberAttribute is required; it must not be null");
 		Assert.notNull(memberAttribute.getType(), "[Assertion failed] - memberAttribute type is required; it must not be null");
-
 		if (ArrayUtils.isEmpty(values)) {
 			return null;
 		}
-
 		String value = values[0].trim();
 		switch (memberAttribute.getType()) {
 		case NAME:
 		case ADDRESS:
 		case ZIP_CODE:
 		case PHONE:
+		case LICENSE_NUMBER:
+		case LICENSE_IMAGE:
+		case LEGAL_PERSON:
+		case ID_CARD:
+		case ID_CARD_IMAGE:
+		case ORGANIZATION_CODE:
+		case ORGANIZATION_IMAGE:
+		case IDENTIFICATION_NUMBER:
+		case TAX_IMAGE:
+		case BANK_NAME:
+		case BANK_ACCOUNT:
+		case IMAGE:
 		case TEXT:
 			return StringUtils.isNotEmpty(value) ? value : null;
 		case GENDER:

@@ -15,6 +15,7 @@
 	<link href="${base}/resources/common/css/awesome-bootstrap-checkbox.css" rel="stylesheet">
 	<link href="${base}/resources/common/css/bootstrap-select.css" rel="stylesheet">
 	<link href="${base}/resources/common/css/bootstrap-datetimepicker.css" rel="stylesheet">
+	<link href="${base}/resources/common/css/bootstrap-fileinput.css" rel="stylesheet">
 	<link href="${base}/resources/common/css/base.css" rel="stylesheet">
 	<link href="${base}/resources/admin/css/base.css" rel="stylesheet">
 	<!--[if lt IE 9]>
@@ -27,6 +28,7 @@
 	<script src="${base}/resources/common/js/bootstrap-select.js"></script>
 	<script src="${base}/resources/common/js/moment.js"></script>
 	<script src="${base}/resources/common/js/bootstrap-datetimepicker.js"></script>
+	<script src="${base}/resources/common/js/bootstrap-fileinput.js"></script>
 	<script src="${base}/resources/common/js/jquery.lSelect.js"></script>
 	<script src="${base}/resources/common/js/jquery.nicescroll.js"></script>
 	<script src="${base}/resources/common/js/jquery.validate.js"></script>
@@ -218,10 +220,10 @@
 								<div id="profile" class="tab-pane">
 									[#list memberAttributes as memberAttribute]
 										<div class="form-group">
-											<label class="col-xs-3 col-sm-2 control-label[#if memberAttribute.isRequired] item-required[/#if]" for="businessAttribute_${memberAttribute.id}">${memberAttribute.name}:</label>
+											<label class="col-xs-3 col-sm-2 control-label[#if memberAttribute.isRequired] item-required[/#if]" for="memberAttribute${memberAttribute.id}">${memberAttribute.name}:</label>
 											[#if memberAttribute.type == "NAME"]
 												<div class="col-xs-9 col-sm-4">
-													<input id="businessAttribute_${memberAttribute.id}" name="memberAttribute_${memberAttribute.id}" class="form-control" type="text" value="${member.name}" maxlength="200">
+													<input id="memberAttribute${memberAttribute.id}" name="memberAttribute_${memberAttribute.id}" class="form-control" type="text" value="${member.name}" maxlength="200">
 												</div>
 											[#elseif memberAttribute.type == "GENDER"]
 												<div class="col-xs-9 col-sm-10">
@@ -235,7 +237,7 @@
 											[#elseif memberAttribute.type == "BIRTH"]
 												<div class="col-xs-9 col-sm-4">
 													<div class="input-group">
-														<input id="businessAttribute_${memberAttribute.id}" name="memberAttribute_${memberAttribute.id}" class="form-control" type="text" value="${member.birth}" data-provide="datetimepicker">
+														<input id="memberAttribute${memberAttribute.id}" name="memberAttribute_${memberAttribute.id}" class="form-control" type="text" value="${member.birth}" data-provide="datetimepicker">
 														<span class="input-group-addon">
 															<i class="iconfont icon-calendar"></i>
 														</span>
@@ -247,23 +249,27 @@
 												</div>
 											[#elseif memberAttribute.type == "ADDRESS"]
 												<div class="col-xs-9 col-sm-4">
-													<input id="businessAttribute_${memberAttribute.id}" name="memberAttribute_${memberAttribute.id}" class="form-control" type="text" value="${member.address}" maxlength="200">
+													<input id="memberAttribute${memberAttribute.id}" name="memberAttribute_${memberAttribute.id}" class="form-control" type="text" value="${member.address}" maxlength="200">
 												</div>
 											[#elseif memberAttribute.type == "ZIP_CODE"]
 												<div class="col-xs-9 col-sm-4">
-													<input id="businessAttribute_${memberAttribute.id}" name="memberAttribute_${memberAttribute.id}" class="form-control" type="text" value="${member.zipCode}" maxlength="200">
+													<input id="memberAttribute${memberAttribute.id}" name="memberAttribute_${memberAttribute.id}" class="form-control" type="text" value="${member.zipCode}" maxlength="200">
 												</div>
 											[#elseif memberAttribute.type == "PHONE"]
 												<div class="col-xs-9 col-sm-4">
-													<input id="businessAttribute_${memberAttribute.id}" name="memberAttribute_${memberAttribute.id}" class="form-control" type="text" value="${member.phone}" maxlength="200">
+													<input id="memberAttribute${memberAttribute.id}" name="memberAttribute_${memberAttribute.id}" class="form-control" type="text" value="${member.phone}" maxlength="200">
 												</div>
-											[#elseif memberAttribute.type == "TEXT"]
+											[#elseif memberAttribute.type == "TEXT" || memberAttribute.type == "LICENSE_NUMBER" || memberAttribute.type == "LEGAL_PERSON" || memberAttribute.type == "ID_CARD" || memberAttribute.type == "ORGANIZATION_CODE" || memberAttribute.type == "IDENTIFICATION_NUMBER" || memberAttribute.type == "BANK_NAME" || memberAttribute.type == "BANK_ACCOUNT"]
 												<div class="col-xs-9 col-sm-4">
-													<input id="businessAttribute_${memberAttribute.id}" name="memberAttribute_${memberAttribute.id}" class="form-control" type="text" value="${member.getAttributeValue(memberAttribute)}" maxlength="200">
+													<input id="memberAttribute${memberAttribute.id}" name="memberAttribute_${memberAttribute.id}" class="form-control" type="text" value="${member.getAttributeValue(memberAttribute)}" maxlength="200">
+												</div>
+											[#elseif memberAttribute.type == "IMAGE" || memberAttribute.type == "LICENSE_IMAGE" || memberAttribute.type == "ID_CARD_IMAGE" || memberAttribute.type == "ORGANIZATION_IMAGE" || memberAttribute.type == "TAX_IMAGE"]
+												<div class="col-xs-9 col-sm-4">
+													<input name="memberAttribute${memberAttribute.id}" type="hidden" value="${member.getAttributeValue(memberAttribute)}" data-provide="fileinput" data-file-type="IMAGE">
 												</div>
 											[#elseif memberAttribute.type == "SELECT"]
 												<div class="col-xs-9 col-sm-4">
-													<select id="businessAttribute_${memberAttribute.id}" name="memberAttribute_${memberAttribute.id}" class="selectpicker form-control" data-size="10">
+													<select id="memberAttribute${memberAttribute.id}" name="memberAttribute_${memberAttribute.id}" class="selectpicker form-control" data-size="10">
 														<option value="">${message("common.choose")}</option>
 														[#list memberAttribute.options as option]
 															<option value="${option}"[#if option == member.getAttributeValue(memberAttribute)] selected[/#if]>${option}</option>

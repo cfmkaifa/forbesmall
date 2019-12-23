@@ -88,7 +88,20 @@ public class BusinessAttributeController extends BaseController {
 				return Results.UNPROCESSABLE_ENTITY;
 			}
 			businessAttribute.setPattern(null);
-		} else if (BusinessAttribute.Type.TEXT.equals(businessAttribute.getType()) || BusinessAttribute.Type.IMAGE.equals(businessAttribute.getType()) || BusinessAttribute.Type.DATE.equals(businessAttribute.getType())) {
+		} else if (BusinessAttribute.Type.TEXT.equals(businessAttribute.getType()) 
+				|| BusinessAttribute.Type.IMAGE.equals(businessAttribute.getType()) 
+				|| BusinessAttribute.Type.DATE.equals(businessAttribute.getType())
+				|| BusinessAttribute.Type.BANK_ACCOUNT.equals(businessAttribute.getType())
+				|| BusinessAttribute.Type.BANK_NAME.equals(businessAttribute.getType())
+				|| BusinessAttribute.Type.TAX_IMAGE.equals(businessAttribute.getType())
+				|| BusinessAttribute.Type.IDENTIFICATION_NUMBER.equals(businessAttribute.getType())
+				|| BusinessAttribute.Type.ORGANIZATION_IMAGE.equals(businessAttribute.getType())
+				|| BusinessAttribute.Type.ORGANIZATION_CODE.equals(businessAttribute.getType())
+				|| BusinessAttribute.Type.ID_CARD.equals(businessAttribute.getType())
+				|| BusinessAttribute.Type.ID_CARD_IMAGE.equals(businessAttribute.getType())
+				|| BusinessAttribute.Type.LEGAL_PERSON.equals(businessAttribute.getType())
+				|| BusinessAttribute.Type.LICENSE_IMAGE.equals(businessAttribute.getType())
+				|| BusinessAttribute.Type.LICENSE_NUMBER.equals(businessAttribute.getType())) {
 			businessAttribute.setOptions(null);
 		} else {
 			return Results.UNPROCESSABLE_ENTITY;

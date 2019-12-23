@@ -14,6 +14,7 @@
 	<link href="${base}/resources/common/css/iconfont.css" rel="stylesheet">
 	<link href="${base}/resources/common/css/awesome-bootstrap-checkbox.css" rel="stylesheet">
 	<link href="${base}/resources/common/css/bootstrap-datetimepicker.css" rel="stylesheet">
+	<link href="${base}/resources/common/css/bootstrap-fileinput.css" rel="stylesheet">
 	<link href="${base}/resources/common/css/base.css" rel="stylesheet">
 	<link href="${base}/resources/shop/css/base.css" rel="stylesheet">
 	<link href="${base}/resources/member/css/register.css" rel="stylesheet">
@@ -26,6 +27,7 @@
 	<script src="${base}/resources/common/js/bootstrap-growl.js"></script>
 	<script src="${base}/resources/common/js/moment.js"></script>
 	<script src="${base}/resources/common/js/bootstrap-datetimepicker.js"></script>
+	<script src="${base}/resources/common/js/bootstrap-fileinput.js"></script>
 	<script src="${base}/resources/common/js/jquery.lSelect.js"></script>
 	<script src="${base}/resources/common/js/jquery.validate.js"></script>
 	<script src="${base}/resources/common/js/jquery.validate.additional.js"></script>
@@ -230,9 +232,13 @@
 									[#list memberAttributes as memberAttribute]
 										<div class="form-group">
 											<label class="col-xs-3 control-label[#if memberAttribute.isRequired] item-required[/#if]" for="memberAttribute_${memberAttribute.id}">${memberAttribute.name}:</label>
-											[#if memberAttribute.type == "NAME" || memberAttribute.type == "ADDRESS" || memberAttribute.type == "ZIP_CODE" || memberAttribute.type == "PHONE" || memberAttribute.type == "TEXT"]
+											[#if memberAttribute.type == "NAME" || memberAttribute.type == "ADDRESS" || memberAttribute.type == "ZIP_CODE" || memberAttribute.type == "PHONE" || memberAttribute.type == "TEXT" || memberAttribute.type == "LICENSE_NUMBER" || memberAttribute.type == "LEGAL_PERSON" || memberAttribute.type == "ID_CARD" || memberAttribute.type == "ORGANIZATION_CODE" || memberAttribute.type == "IDENTIFICATION_NUMBER" || memberAttribute.type == "BANK_NAME" || memberAttribute.type == "BANK_ACCOUNT" ]
 												<div class="col-xs-8">
 													<input id="memberAttribute_${memberAttribute.id}" name="memberAttribute_${memberAttribute.id}" class="form-control" type="text" maxlength="200">
+												</div>
+											[#elseif memberAttribute.type == "LICENSE_IMAGE" || memberAttribute.type == "ID_CARD_IMAGE" || memberAttribute.type == "ORGANIZATION_IMAGE" || memberAttribute.type == "TAX_IMAGE" || memberAttribute.type == "IMAGE"]
+												<div class="col-xs-8">
+													<input name="memberAttribute_${memberAttribute.id}" type="hidden" value="" data-provide="fileinput" data-file-type="IMAGE">
 												</div>
 											[#elseif memberAttribute.type == "GENDER"]
 												<div class="col-xs-8">

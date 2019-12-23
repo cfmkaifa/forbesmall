@@ -181,6 +181,17 @@
 							<label class="col-xs-3 col-sm-2 control-label">${message("BusinessAttribute.type")}:</label>
 							<div class="col-xs-9 col-sm-4">
 								<select id="type" name="type" class="selectpicker form-control" data-size="10">
+									<option value="LICENSE_NUMBER">${message("BusinessAttribute.Type.LICENSE_NUMBER")}</option>
+									<option value="LICENSE_IMAGE">${message("BusinessAttribute.Type.LICENSE_IMAGE")}</option>					
+									<option value="LEGAL_PERSON">${message("BusinessAttribute.Type.LEGAL_PERSON")}</option>
+									<option value="ID_CARD">${message("BusinessAttribute.Type.ID_CARD")}</option>
+									<option value="ID_CARD_IMAGE">${message("BusinessAttribute.Type.ID_CARD_IMAGE")}</option>
+									<option value="ORGANIZATION_CODE">${message("BusinessAttribute.Type.ORGANIZATION_CODE")}</option>
+									<option value="ORGANIZATION_IMAGE">${message("BusinessAttribute.Type.ORGANIZATION_IMAGE")}</option>
+									<option value="IDENTIFICATION_NUMBER">${message("BusinessAttribute.Type.IDENTIFICATION_NUMBER")}</option>
+									<option value="TAX_IMAGE">${message("BusinessAttribute.Type.TAX_IMAGE")}</option>
+									<option value="BANK_NAME">${message("BusinessAttribute.Type.BANK_NAME")}</option>
+									<option value="BANK_ACCOUNT">${message("BusinessAttribute.Type.BANK_ACCOUNT")}</option>
 									<option value="TEXT">${message("BusinessAttribute.Type.TEXT")}</option>
 									<option value="SELECT">${message("BusinessAttribute.Type.SELECT")}</option>
 									<option value="CHECKBOX">${message("BusinessAttribute.Type.CHECKBOX")}</option>

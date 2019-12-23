@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mall>
 	<setting name="siteName" value="商城" />
-	<setting name="siteUrl" value="http://www.chinafibermarketing.net" />
+	<!-- http://www.chinafibermarketing.net -->
+	<setting name="siteUrl" value="http://localhost:8080" />
 	<setting name="fileUrl" value="http://fds.chinafibermarketing.net" />
 	<setting name="logo" value="" />
 	<setting name="hotSearch" value="" />

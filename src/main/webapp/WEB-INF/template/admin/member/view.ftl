@@ -141,10 +141,14 @@
 													<dd>${member.address}</dd>
 												[#elseif memberAttribute.type == "ZIP_CODE"]
 													<dd>${member.zipCode}</dd>
-												[#elseif memberAttribute.type == "PHONE"]
+												[#elseif memberAttribute.type == "PHONE" ]
 													<dd>${member.phone}</dd>
-												[#elseif memberAttribute.type == "TEXT"]
+												[#elseif memberAttribute.type == "TEXT" || memberAttribute.type == "LICENSE_NUMBER" || memberAttribute.type == "LEGAL_PERSON" || memberAttribute.type == "ID_CARD" || memberAttribute.type == "ORGANIZATION_CODE" || memberAttribute.type == "IDENTIFICATION_NUMBER" || memberAttribute.type == "BANK_NAME" || memberAttribute.type == "BANK_ACCOUNT" || memberAttribute.type == "DATE"]
 													<dd>${member.getAttributeValue(memberAttribute)}</dd>
+												[#elseif memberAttribute.type == "IMAGE" || memberAttribute.type == "LICENSE_IMAGE" || memberAttribute.type == "ID_CARD_IMAGE" || memberAttribute.type == "ORGANIZATION_IMAGE" || memberAttribute.type == "TAX_IMAGE"]
+													<dd>
+														<img class="img-thumbnail" src="${member.getAttributeValue(memberAttribute)}" alt="${memberAttribute.name}" width="50" data-action="zoom">
+													</dd>
 												[#elseif memberAttribute.type == "SELECT"]
 													<dd>${member.getAttributeValue(memberAttribute)}</dd>
 												[#elseif memberAttribute.type == "CHECKBOX"]

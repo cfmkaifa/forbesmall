@@ -90,7 +90,20 @@ public class MemberAttributeController extends BaseController {
 				return Results.UNPROCESSABLE_ENTITY;
 			}
 			memberAttribute.setPattern(null);
-		} else if (MemberAttribute.Type.TEXT.equals(memberAttribute.getType())) {
+		} else if (MemberAttribute.Type.TEXT.equals(memberAttribute.getType()) 
+				|| MemberAttribute.Type.IMAGE.equals(memberAttribute.getType()) 
+				|| MemberAttribute.Type.DATE.equals(memberAttribute.getType())
+				|| MemberAttribute.Type.BANK_ACCOUNT.equals(memberAttribute.getType())
+				|| MemberAttribute.Type.BANK_NAME.equals(memberAttribute.getType())
+				|| MemberAttribute.Type.TAX_IMAGE.equals(memberAttribute.getType())
+				|| MemberAttribute.Type.IDENTIFICATION_NUMBER.equals(memberAttribute.getType())
+				|| MemberAttribute.Type.ORGANIZATION_IMAGE.equals(memberAttribute.getType())
+				|| MemberAttribute.Type.ORGANIZATION_CODE.equals(memberAttribute.getType())
+				|| MemberAttribute.Type.ID_CARD.equals(memberAttribute.getType())
+				|| MemberAttribute.Type.ID_CARD_IMAGE.equals(memberAttribute.getType())
+				|| MemberAttribute.Type.LEGAL_PERSON.equals(memberAttribute.getType())
+				|| MemberAttribute.Type.LICENSE_IMAGE.equals(memberAttribute.getType())
+				|| MemberAttribute.Type.LICENSE_NUMBER.equals(memberAttribute.getType())) {
 			memberAttribute.setOptions(null);
 		} else {
 			return Results.UNPROCESSABLE_ENTITY;

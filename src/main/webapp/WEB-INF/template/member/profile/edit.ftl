@@ -14,6 +14,7 @@
 	<link href="${base}/resources/common/css/iconfont.css" rel="stylesheet">
 	<link href="${base}/resources/common/css/awesome-bootstrap-checkbox.css" rel="stylesheet">
 	<link href="${base}/resources/common/css/bootstrap-datetimepicker.css" rel="stylesheet">
+	<link href="${base}/resources/common/css/bootstrap-fileinput.css" rel="stylesheet">
 	<link href="${base}/resources/common/css/base.css" rel="stylesheet">
 	<link href="${base}/resources/shop/css/base.css" rel="stylesheet">
 	<link href="${base}/resources/member/css/base.css" rel="stylesheet">
@@ -26,6 +27,7 @@
 	<script src="${base}/resources/common/js/bootstrap-growl.js"></script>
 	<script src="${base}/resources/common/js/moment.js"></script>
 	<script src="${base}/resources/common/js/bootstrap-datetimepicker.js"></script>
+	<script src="${base}/resources/common/js/bootstrap-fileinput.js"></script>
 	<script src="${base}/resources/common/js/jquery.lSelect.js"></script>
 	<script src="${base}/resources/common/js/jquery.validate.js"></script>
 	<script src="${base}/resources/common/js/jquery.validate.additional.js"></script>
@@ -140,9 +142,13 @@
 									[#list memberAttributes as memberAttribute]
 										<div class="form-group">
 											<label class="col-xs-3 col-sm-2 control-label[#if memberAttribute.isRequired] item-required[/#if]"[#if memberAttribute.type != "GENDER" && memberAttribute.type != "AREA" && memberAttribute.type != "CHECKBOX"] for="memberAttribute_${memberAttribute.id}"[/#if]>${memberAttribute.name}:</label>
-											[#if memberAttribute.type == "NAME"]
+											[#if memberAttribute.type == "NAME" || memberAttribute.type == "LICENSE_NUMBER" || memberAttribute.type == "LEGAL_PERSON" || memberAttribute.type == "ID_CARD" || memberAttribute.type == "PHONE" || memberAttribute.type == "ORGANIZATION_CODE" || memberAttribute.type == "IDENTIFICATION_NUMBER" || memberAttribute.type == "BANK_NAME" || memberAttribute.type == "BANK_ACCOUNT" || memberAttribute.type == "TEXT"]
 												<div class="col-xs-9 col-sm-4">
-													<input id="memberAttribute_${memberAttribute.id}" name="memberAttribute_${memberAttribute.id}" class="form-control" type="text" value="${currentUser.name}" maxlength="200">
+													<input id="memberAttribute_${memberAttribute.id}" name="memberAttribute_${memberAttribute.id}" class="form-control" type="text" value="${currentUser.getAttributeValue(memberAttribute)}" maxlength="200">
+												</div>
+											[#elseif memberAttribute.type == "LICENSE_IMAGE" || memberAttribute.type == "ID_CARD_IMAGE" || memberAttribute.type == "ORGANIZATION_IMAGE" || memberAttribute.type == "TAX_IMAGE" || memberAttribute.type == "IMAGE"]
+												<div class="col-xs-9 col-sm-4">
+													<input name="memberAttribute_${memberAttribute.id}" type="hidden" value="${currentUser.getAttributeValue(memberAttribute)}" data-provide="fileinput" data-file-type="IMAGE">
 												</div>
 											[#elseif memberAttribute.type == "GENDER"]
 												<div class="col-xs-9 col-sm-10">
@@ -179,10 +185,6 @@
 											[#elseif memberAttribute.type == "PHONE"]
 												<div class="col-xs-9 col-sm-4">
 													<input id="memberAttribute_${memberAttribute.id}" name="memberAttribute_${memberAttribute.id}" class="form-control" type="text" value="${currentUser.phone}" maxlength="200">
-												</div>
-											[#elseif memberAttribute.type == "TEXT"]
-												<div class="col-xs-9 col-sm-4">
-													<input id="memberAttribute_${memberAttribute.id}" name="memberAttribute_${memberAttribute.id}" class="form-control" type="text" value="${currentUser.getAttributeValue(memberAttribute)}" maxlength="200">
 												</div>
 											[#elseif memberAttribute.type == "SELECT"]
 												<div class="col-xs-9 col-sm-4">
