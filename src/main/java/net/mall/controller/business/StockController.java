@@ -29,6 +29,7 @@ import net.mall.entity.Business;
 import net.mall.entity.Sku;
 import net.mall.entity.StockLog;
 import net.mall.entity.Store;
+import net.mall.entity.Specification.Sample;
 import net.mall.exception.UnauthorizedException;
 import net.mall.security.CurrentStore;
 import net.mall.security.CurrentUser;
@@ -56,7 +57,8 @@ public class StockController extends BaseController {
 	@ModelAttribute
 	public void populateModel(String skuSn, @CurrentStore Store currentStore, ModelMap model) {
 		Sku sku = skuService.findBySn(skuSn);
-		if (sku != null && !currentStore.equals(sku.getStore())) {
+		if (sku != null && (!currentStore.equals(sku.getStore())
+				|| sku.getSample().equals(Sample.YES) )) {
 			throw new UnauthorizedException();
 		}
 		model.addAttribute("sku", sku);

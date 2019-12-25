@@ -222,7 +222,7 @@ public class ProductController extends BaseController {
 		model.addAttribute("orderType", orderType);
 		model.addAttribute("pageNumber", pageNumber);
 		model.addAttribute("pageSize", pageSize);
-		model.addAttribute("page", productService.findPage(type, storeType, null, productCategory, null, brand, promotion, productTag, null, attributeValueMap, startPrice, endPrice, true, true, null, true, isOutOfStock, null, null, orderType, pageable));
+		model.addAttribute("page", productService.findPage(type,0, storeType, null, productCategory, null, brand, promotion, productTag, null, attributeValueMap, startPrice, endPrice, true, true, null, true, isOutOfStock, null, null, orderType, pageable));
 		return "shop/product/list";
 	}
 
@@ -256,7 +256,7 @@ public class ProductController extends BaseController {
 		model.addAttribute("orderType", orderType);
 		model.addAttribute("pageNumber", pageNumber);
 		model.addAttribute("pageSize", pageSize);
-		model.addAttribute("page", productService.findPage(type, storeType, null, null, storeProductCategory, brand, promotion, productTag, null, null, startPrice, endPrice, true, true, null, true, isOutOfStock, null, null, orderType, pageable));
+		model.addAttribute("page", productService.findPage(type,0, storeType, null, null, storeProductCategory, brand, promotion, productTag, null, null, startPrice, endPrice, true, true, null, true, isOutOfStock, null, null, orderType, pageable));
 		return "shop/product/list";
 	}
 
@@ -292,7 +292,7 @@ public class ProductController extends BaseController {
 		}
 
 		Pageable pageable = new Pageable(pageNumber, pageSize);
-		return ResponseEntity.ok(productService.findPage(type, null, null, productCategory, storeProductCategory, brand, promotion, productTag, null, attributeValueMap, startPrice, endPrice, true, true, null, true, null, null, null, orderType, pageable).getContent());
+		return ResponseEntity.ok(productService.findPage(type,0, null, null, productCategory, storeProductCategory, brand, promotion, productTag, null, attributeValueMap, startPrice, endPrice, true, true, null, true, null, null, null, orderType, pageable).getContent());
 	}
 
 	/**

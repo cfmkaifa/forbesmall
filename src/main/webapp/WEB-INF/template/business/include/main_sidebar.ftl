@@ -79,7 +79,7 @@
 					</a>
 				</h4>
 			</div>
-			<div id="productPanelCollapse" class="panel-collapse collapse[#if .main_template_name?matches("business/index.*|business/product/.*|business/stock/.*|business/product_notify/.*|business/consultation/.*|business/review/.*")] in[/#if]">
+			<div id="productPanelCollapse" class="panel-collapse collapse[#if .main_template_name?matches("business/index.*|business/product/.*|business/stock/.*|business/product_notify/.*|business/consultation/.*|business/review/.*|business/sample/.*")] in[/#if]">
 				<div class="panel-body">
 					<ul class="list-group">
 						<li class="list-group-item[#if .main_template_name?matches("business/product/.*")] active[/#if]">
@@ -91,6 +91,17 @@
 								[/@product_count]
 							</a>
 						</li>
+						[#if currentStore.sample == "YES" ]
+							<li class="list-group-item[#if .main_template_name?matches("business/sample/.*")] active[/#if]">
+								<a href="${base}/business/sample/list">
+									<i class="iconfont icon-weixuanzhong"></i>
+									${message("business.mainSidebar.sampleProductList")}
+									[@product_count storeId = currentStore.id isStockAlert = true]
+										<span class="label label-warning" title="${message("business.mainSidebar.stockAlertProduct")}" data-toggle="tooltip">${count}</span>
+									[/@product_count]
+								</a>
+							</li>
+						[/#if]
 						<li class="list-group-item[#if .main_template_name?matches("business/stock/.*")] active[/#if]">
 							<a href="${base}/business/stock/log">
 								<i class="iconfont icon-weixuanzhong"></i>

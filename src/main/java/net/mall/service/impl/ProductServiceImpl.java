@@ -71,6 +71,7 @@ import net.mall.entity.ProductTag;
 import net.mall.entity.Promotion;
 import net.mall.entity.Sku;
 import net.mall.entity.Sn;
+import net.mall.entity.Specification.Sample;
 import net.mall.entity.SpecificationItem;
 import net.mall.entity.StockLog;
 import net.mall.entity.Store;
@@ -199,9 +200,9 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
 
 	@Override
 	@Transactional(readOnly = true)
-	public Page<Product> findPage(Product.Type type, Store.Type storeType, Store store, ProductCategory productCategory, StoreProductCategory storeProductCategory, Brand brand, Promotion promotion, ProductTag productTag, StoreProductTag storeProductTag, Map<Attribute, String> attributeValueMap,
+	public Page<Product> findPage(Product.Type type,Integer method, Store.Type storeType, Store store, ProductCategory productCategory, StoreProductCategory storeProductCategory, Brand brand, Promotion promotion, ProductTag productTag, StoreProductTag storeProductTag, Map<Attribute, String> attributeValueMap,
 			BigDecimal startPrice, BigDecimal endPrice, Boolean isMarketable, Boolean isList, Boolean isTop, Boolean isActive, Boolean isOutOfStock, Boolean isStockAlert, Boolean hasPromotion, Product.OrderType orderType, Pageable pageable) {
-		return productDao.findPage(type, storeType, store, productCategory, storeProductCategory, brand, promotion, productTag, storeProductTag, attributeValueMap, startPrice, endPrice, isMarketable, isList, isTop, isActive, isOutOfStock, isStockAlert, hasPromotion, orderType, pageable);
+		return productDao.findPage(type,method, storeType, store, productCategory, storeProductCategory, brand, promotion, productTag, storeProductTag, attributeValueMap, startPrice, endPrice, isMarketable, isList, isTop, isActive, isOutOfStock, isStockAlert, hasPromotion, orderType, pageable);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -594,6 +595,76 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
 		return product;
 	}
 
+	
+	/****
+	 * modifySample方法慨述:修改样品规格
+	 * @param product
+	 * @param sku
+	 * @return Product
+	 * @创建人 huanghy
+	 * @创建时间 2019年12月24日 上午10:47:27
+	 * @修改人 (修改了该文件，请填上修改人的名字)
+	 * @修改日期 (请填上修改该文件时的日期)
+	 */
+	@Override
+	@CacheEvict(value = { "product"}, allEntries = true)
+	public Product modifySample(Product product, Sku sku,Store currentStore){
+		Assert.notNull(product, "[Assertion failed] - product is required; it must not be null");
+		Assert.isTrue(!product.hasSpecification(), "[Assertion failed] - product must not have specification");
+		Assert.notNull(sku, "[Assertion failed] - sku is required; it must not be null");
+		Assert.state(!sku.hasSpecification(), "[Assertion failed] - sku must not have specification");
+		Product pProduct = productDao.find(product.getId());
+		switch (pProduct.getType()) {
+		case GENERAL:
+			sku.setExchangePoint(0L);
+			break;
+		case EXCHANGE:
+			sku.setPrice(BigDecimal.ZERO);
+			sku.setMaxCommission(BigDecimal.ZERO);
+			sku.setRewardPoint(0L);
+			product.setPromotions(null);
+			break;
+		case GIFT:
+			sku.setPrice(BigDecimal.ZERO);
+			sku.setMaxCommission(BigDecimal.ZERO);
+			sku.setRewardPoint(0L);
+			sku.setExchangePoint(0L);
+			product.setPromotions(null);
+			break;
+		}
+		if (sku.getMarketPrice() == null) {
+			sku.setMarketPrice(calculateDefaultMarketPrice(sku.getPrice()));
+		}
+		if (sku.getRewardPoint() == null) {
+			sku.setRewardPoint(calculateDefaultRewardPoint(sku.getPrice()));
+		} else {
+			long maxRewardPoint = calculateMaxRewardPoint(sku.getPrice());
+			sku.setRewardPoint(sku.getRewardPoint() > maxRewardPoint ? maxRewardPoint : sku.getRewardPoint());
+		}
+		if (pProduct.hasSpecification()) {
+			for (Sku pSku : pProduct.getSkus()) {
+				if(Sample.YES.equals(pSku.getSample())){
+					skuDao.remove(pSku);
+				}
+			}
+			if (sku.getStock() == null) {
+				throw new IllegalArgumentException();
+			}
+			sku.setSample(Sample.YES);
+			setValue(sku);
+			skuDao.persist(sku);
+			stockIn(sku);
+		}
+		List<SpecificationItem> specificationItems = product.getSpecificationItems();
+		if(null != specificationItems 
+				&& specificationItems.size() > 0){
+			pProduct.setSpecificationItems(specificationItems);
+		}
+		pProduct.setSampleStore(currentStore);
+		return pProduct;
+	}
+	
+	
 	@Override
 	@CacheEvict(value = { "product", "productCategory" }, allEntries = true)
 	public Product modify(Product product, Sku sku) {
@@ -603,7 +674,6 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
 		Assert.notNull(sku, "[Assertion failed] - sku is required; it must not be null");
 		Assert.isTrue(sku.isNew(), "[Assertion failed] - sku must be new");
 		Assert.state(!sku.hasSpecification(), "[Assertion failed] - sku must not have specification");
-
 		Product pProduct = productDao.find(product.getId());
 		switch (pProduct.getType()) {
 		case GENERAL:
@@ -644,12 +714,15 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
 
 		if (pProduct.hasSpecification()) {
 			for (Sku pSku : pProduct.getSkus()) {
-				skuDao.remove(pSku);
+				if(Sample.NO.equals(pSku.getSample())){
+					skuDao.remove(pSku);
+				}
 			}
 			if (sku.getStock() == null) {
 				throw new IllegalArgumentException();
 			}
 			setValue(sku);
+			sku.setSample(Sample.NO);
 			skuDao.persist(sku);
 			stockIn(sku);
 		} else {
@@ -671,6 +744,136 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
 
 		return pProduct;
 	}
+	
+	
+	
+	/***
+	 * modifySample方法慨述:批量添加SKU
+	 * @param product
+	 * @param skus
+	 * @param currentStore
+	 * @return Product
+	 * @创建人 huanghy
+	 * @创建时间 2019年12月24日 上午11:03:49
+	 * @修改人 (修改了该文件，请填上修改人的名字)
+	 * @修改日期 (请填上修改该文件时的日期)
+	 */
+	@Override
+	@CacheEvict(value = { "product"}, allEntries = true)
+	public Product modifySample(Product product, List<Sku> skus,Store currentStore){
+		Assert.notNull(product, "[Assertion failed] - product is required; it must not be null");
+		Assert.isTrue(product.hasSpecification(), "[Assertion failed] - product must have specification");
+		Assert.notEmpty(skus, "[Assertion failed] - skus must not be empty: it must contain at least 1 element");
+		final List<SpecificationItem> specificationItems = product.getSpecificationItems();
+		/***删除过滤掉
+		 * **/
+		skus.removeIf(sku -> CollectionUtils.isEmpty(sku.getSpecificationValues()));
+		if (CollectionUtils.exists(skus, new Predicate() {
+			private Set<List<Integer>> set = new HashSet<>();
+			public boolean evaluate(Object object) {
+				Sku sku = (Sku) object;
+				return sku == null || !sku.isNew() || !sku.hasSpecification() || !set.add(sku.getSpecificationValueIds()) || !specificationValueService.isValid(specificationItems, sku.getSpecificationValues());
+			}
+		})) {
+			throw new IllegalArgumentException();
+		}
+		Sku defaultSku = (Sku) CollectionUtils.find(skus, new Predicate() {
+			public boolean evaluate(Object object) {
+				Sku sku = (Sku) object;
+				return sku != null && sku.getIsDefault();
+			}
+		});
+		if (defaultSku == null) {
+			defaultSku = skus.get(0);
+			defaultSku.setIsDefault(true);
+		}
+		Product pProduct = productDao.find(product.getId());
+		for (Sku sku : skus) {
+			switch (pProduct.getType()) {
+			case GENERAL:
+				sku.setExchangePoint(0L);
+				break;
+			case EXCHANGE:
+				sku.setPrice(BigDecimal.ZERO);
+				sku.setMaxCommission(BigDecimal.ZERO);
+				sku.setRewardPoint(0L);
+				product.setPromotions(null);
+				break;
+			case GIFT:
+				sku.setPrice(BigDecimal.ZERO);
+				sku.setMaxCommission(BigDecimal.ZERO);
+				sku.setRewardPoint(0L);
+				sku.setExchangePoint(0L);
+				product.setPromotions(null);
+				break;
+			}
+			if (sku.getMarketPrice() == null) {
+				sku.setMarketPrice(calculateDefaultMarketPrice(sku.getPrice()));
+			}
+			if (sku.getRewardPoint() == null) {
+				sku.setRewardPoint(calculateDefaultRewardPoint(sku.getPrice()));
+			} else {
+				long maxRewardPoint = calculateMaxRewardPoint(sku.getPrice());
+				sku.setRewardPoint(sku.getRewardPoint() > maxRewardPoint ? maxRewardPoint : sku.getRewardPoint());
+			}
+			if (sku != defaultSku) {
+				sku.setIsDefault(false);
+			}
+			sku.setMaxCommission(sku.getMaxCommission().compareTo(sku.getPrice()) > 0 ? BigDecimal.ZERO : sku.getMaxCommission());
+			sku.setAllocatedStock(0);
+			sku.setProduct(pProduct);
+			sku.setCartItems(null);
+			sku.setOrderItems(null);
+			sku.setOrderShippingItems(null);
+			sku.setProductNotifies(null);
+			sku.setStockLogs(null);
+		}
+		if (pProduct.hasSpecification()) {
+			for (Sku pSku : pProduct.getSkus()) {
+				if ((Sample.YES.equals(pSku.getSample())) 
+						&& !exists(skus, pSku.getSpecificationValueIds())) {
+					skuDao.remove(pSku);
+				}
+			}
+			for (Sku sku : skus) {
+				Sku pSku = find(pProduct.getSkus(), sku.getSpecificationValueIds());
+				if (pSku != null) {
+					pSku.setPrice(sku.getPrice());
+					pSku.setCost(sku.getCost());
+					pSku.setMarketPrice(sku.getMarketPrice());
+					pSku.setMaxCommission(sku.getMaxCommission().compareTo(sku.getPrice()) > 0 ? BigDecimal.ZERO : sku.getMaxCommission());
+					pSku.setRewardPoint(sku.getRewardPoint());
+					pSku.setExchangePoint(sku.getExchangePoint());
+					pSku.setIsDefault(sku.getIsDefault());
+					pSku.setSpecificationValues(sku.getSpecificationValues());
+				} else {
+					if (sku.getStock() == null) {
+						throw new IllegalArgumentException();
+					}
+					setValue(sku);
+					sku.setSample(Sample.YES);
+					skuDao.persist(sku);
+					stockIn(sku);
+				}
+			}
+		} else {
+			if(Sample.YES.equals(pProduct.getDefaultSku().getSample())){
+				skuDao.remove(pProduct.getDefaultSku());
+			}
+			for (Sku sku : skus) {
+				if (sku.getStock() == null) {
+					throw new IllegalArgumentException();
+				}
+				sku.setSample(Sample.YES);
+				setValue(sku);
+				skuDao.persist(sku);
+				stockIn(sku);
+			}
+		}
+		pProduct.setSpecificationItems(specificationItems);
+		pProduct.setSampleStore(currentStore);
+		return pProduct;
+	}
 
 	@Override
 	@CacheEvict(value = { "product", "productCategory" }, allEntries = true)
@@ -679,8 +882,10 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
 		Assert.isTrue(!product.isNew(), "[Assertion failed] - product must not be new");
 		Assert.isTrue(product.hasSpecification(), "[Assertion failed] - product must have specification");
 		Assert.notEmpty(skus, "[Assertion failed] - skus must not be empty: it must contain at least 1 element");
-
 		final List<SpecificationItem> specificationItems = product.getSpecificationItems();
+		/***删除过滤掉
+		 * **/
+		skus.removeIf(sku -> CollectionUtils.isEmpty(sku.getSpecificationValues()));
 		if (CollectionUtils.exists(skus, new Predicate() {
 			private Set<List<Integer>> set = new HashSet<>();
 
@@ -747,7 +952,8 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
 
 		if (pProduct.hasSpecification()) {
 			for (Sku pSku : pProduct.getSkus()) {
-				if (!exists(skus, pSku.getSpecificationValueIds())) {
+				if (Sample.NO.equals(pSku.getSample())
+						&& !exists(skus, pSku.getSpecificationValueIds())) {
 					skuDao.remove(pSku);
 				}
 			}
@@ -766,6 +972,7 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
 					if (sku.getStock() == null) {
 						throw new IllegalArgumentException();
 					}
+					sku.setSample(Sample.NO);
 					setValue(sku);
 					skuDao.persist(sku);
 					stockIn(sku);
@@ -777,6 +984,7 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
 				if (sku.getStock() == null) {
 					throw new IllegalArgumentException();
 				}
+				sku.setSample(Sample.NO);
 				setValue(sku);
 				skuDao.persist(sku);
 				stockIn(sku);

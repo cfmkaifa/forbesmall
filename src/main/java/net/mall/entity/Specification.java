@@ -40,6 +40,14 @@ public class Specification extends OrderedEntity<Long> {
 	 */
 	public static final int MAX_OPTION_SIZE = 100;
 
+	/**是否样品
+	 */
+	public enum Sample {
+		NO,
+		YES
+	}
+	
+	
 	/**
 	 * 名称
 	 */
@@ -48,6 +56,12 @@ public class Specification extends OrderedEntity<Long> {
 	@Column(nullable = false)
 	private String name;
 
+
+	/****是否样品
+	 */
+	private Sample sample;
+	
+	
 	/**
 	 * 绑定分类
 	 */
@@ -121,6 +135,26 @@ public class Specification extends OrderedEntity<Long> {
 	public void setOptions(List<String> options) {
 		this.options = options;
 	}
+	
+	
+	
+
+	/** 
+	 * @return sample 
+	 */
+	public Sample getSample() {
+		return sample;
+	}
+
+	/** 
+	 * @param sample 要设置的 sample 
+	 */
+	public void setSample(Sample sample) {
+		this.sample = sample;
+	}
+
+
+
 
 	/**
 	 * 类型转换 - 可选项

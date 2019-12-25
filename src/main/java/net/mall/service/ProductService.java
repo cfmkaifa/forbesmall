@@ -174,6 +174,7 @@ public interface ProductService extends BaseService<Product, Long> {
 	 * 查找商品分页
 	 * 
 	 * @param type
+	 * @param  method(0自己商品，1-代销商品)
 	 *            类型
 	 * @param storeType
 	 *            店铺类型
@@ -217,7 +218,7 @@ public interface ProductService extends BaseService<Product, Long> {
 	 *            分页信息
 	 * @return 商品分页
 	 */
-	Page<Product> findPage(Product.Type type, Store.Type storeType, Store store, ProductCategory productCategory, StoreProductCategory storeProductCategory, Brand brand, Promotion promotion, ProductTag productTag, StoreProductTag storeProductTag, Map<Attribute, String> attributeValueMap,
+	Page<Product> findPage(Product.Type type,Integer method, Store.Type storeType, Store store, ProductCategory productCategory, StoreProductCategory storeProductCategory, Brand brand, Promotion promotion, ProductTag productTag, StoreProductTag storeProductTag, Map<Attribute, String> attributeValueMap,
 			BigDecimal startPrice, BigDecimal endPrice, Boolean isMarketable, Boolean isList, Boolean isTop, Boolean isActive, Boolean isOutOfStock, Boolean isStockAlert, Boolean hasPromotion, Product.OrderType orderType, Pageable pageable);
 
 	/**
@@ -354,7 +355,37 @@ public interface ProductService extends BaseService<Product, Long> {
 	 * @return 商品
 	 */
 	Product modify(Product product, Sku sku);
+	
+	
+	
+	/****
+	 * modifySample方法慨述:修改样品规格
+	 * @param product
+	 * @param sku
+	 * @return Product
+	 * @创建人 huanghy
+	 * @创建时间 2019年12月24日 上午10:47:27
+	 * @修改人 (修改了该文件，请填上修改人的名字)
+	 * @修改日期 (请填上修改该文件时的日期)
+	 */
+	Product modifySample(Product product, Sku sku,Store currentStore);
 
+	
+	
+	/***
+	 * modifySample方法慨述:批量添加SKU
+	 * @param product
+	 * @param skus
+	 * @param currentStore
+	 * @return Product
+	 * @创建人 huanghy
+	 * @创建时间 2019年12月24日 上午11:03:49
+	 * @修改人 (修改了该文件，请填上修改人的名字)
+	 * @修改日期 (请填上修改该文件时的日期)
+	 */
+	Product modifySample(Product product, List<Sku> skus,Store currentStore);
+	
+	
 	/**
 	 * 修改
 	 * 

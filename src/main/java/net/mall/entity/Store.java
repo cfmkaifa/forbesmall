@@ -45,6 +45,8 @@ import org.hibernate.validator.constraints.URL;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
+import net.mall.entity.Specification.Sample;
+
 /**
  * Entity - 店铺
  * 
@@ -380,6 +382,12 @@ public class Store extends BaseEntity<Long> {
 	 */
 	@OneToMany(mappedBy = "store", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	private Set<Statistic> statistics = new HashSet<>();
+	
+	
+	
+	/****是否样品
+	 */
+	private Sample sample;
 
 	/**
 	 * 获取名称
@@ -1270,6 +1278,20 @@ public class Store extends BaseEntity<Long> {
 	public void preUpdate() {
 		setEmail(StringUtils.lowerCase(getEmail()));
 		setMobile(StringUtils.lowerCase(getMobile()));
+	}
+
+	/** 
+	 * @return sample 
+	 */
+	public Sample getSample() {
+		return sample;
+	}
+
+	/** 
+	 * @param sample 要设置的 sample 
+	 */
+	public void setSample(Sample sample) {
+		this.sample = sample;
 	}
 
 }

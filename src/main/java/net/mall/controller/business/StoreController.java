@@ -298,6 +298,7 @@ public class StoreController extends BaseController {
 		currentStore.setZipCode(store.getZipCode());
 		currentStore.setIntroduction(store.getIntroduction());
 		currentStore.setKeyword(store.getKeyword());
+		currentStore.setSample(store.getSample());
 		if (!isValid(currentStore, BaseEntity.Update.class)) {
 			return Results.UNPROCESSABLE_ENTITY;
 		}

@@ -40,6 +40,7 @@ import net.mall.entity.Sku;
 import net.mall.entity.Store;
 import net.mall.entity.StoreProductCategory;
 import net.mall.entity.StoreProductTag;
+import net.mall.entity.Specification.Sample;
 import net.mall.util.SystemUtils;
 
 /**
@@ -256,7 +257,7 @@ public class ProductDaoImpl extends BaseDaoImpl<Product, Long> implements Produc
 	}
 
 	@Override
-	public Page<Product> findPage(Product.Type type, Store.Type storeType, Store store, ProductCategory productCategory, StoreProductCategory storeProductCategory, Brand brand, Promotion promotion, ProductTag productTag, StoreProductTag storeProductTag, Map<Attribute, String> attributeValueMap,
+	public Page<Product> findPage(Product.Type type,Integer method,Store.Type storeType, Store store, ProductCategory productCategory, StoreProductCategory storeProductCategory, Brand brand, Promotion promotion, ProductTag productTag, StoreProductTag storeProductTag, Map<Attribute, String> attributeValueMap,
 			BigDecimal startPrice, BigDecimal endPrice, Boolean isMarketable, Boolean isList, Boolean isTop, Boolean isActive, Boolean isOutOfStock, Boolean isStockAlert, Boolean hasPromotion, Product.OrderType orderType, Pageable pageable) {
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 		CriteriaQuery<Product> criteriaQuery = criteriaBuilder.createQuery(Product.class);
@@ -274,9 +275,14 @@ public class ProductDaoImpl extends BaseDaoImpl<Product, Long> implements Produc
 			restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.in(root.get("store")).value(subquery));
 		}
 		if (store != null) {
-			restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("store"), store));
+			if(0==method){
+				restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("store"), store));
+			}
+			if(1==method){
+				restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.notEqual(root.get("store"), store));
+			}
 		}
-		if (productCategory != null) {
+		if (productCategory != null && productCategory.getId() != null) {
 			Subquery<ProductCategory> subquery = criteriaQuery.subquery(ProductCategory.class);
 			Root<ProductCategory> subqueryRoot = subquery.from(ProductCategory.class);
 			subquery.select(subqueryRoot);

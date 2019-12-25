@@ -579,6 +579,16 @@ public class Product extends BaseEntity<Long> {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(nullable = false, updatable = false)
 	private net.mall.entity.Store store;
+	
+	
+	/****样品店铺
+	 */
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="sample_store_id")
+	private net.mall.entity.Store sampleStore;
+	
+	
+	
 
 	/**
 	 * 商品分类
@@ -1662,6 +1672,21 @@ public class Product extends BaseEntity<Long> {
 	 */
 	public void setStore(net.mall.entity.Store store) {
 		this.store = store;
+	}
+
+	
+	/** 
+	 * @return sampleStore 
+	 */
+	public net.mall.entity.Store getSampleStore() {
+		return sampleStore;
+	}
+
+	/** 
+	 * @param sampleStore 要设置的 sampleStore 
+	 */
+	public void setSampleStore(net.mall.entity.Store sampleStore) {
+		this.sampleStore = sampleStore;
 	}
 
 	/**

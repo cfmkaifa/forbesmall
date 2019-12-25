@@ -128,6 +128,15 @@
 							</div>
 						</div>
 						<div class="form-group">
+							<label class="col-xs-3 col-sm-2 control-label">${message("Specification.sample")}:</label>
+							<div class="col-xs-9 col-sm-4">
+								<select name="sample" class="selectpicker form-control" data-live-search="true" data-size="10">
+									<option value="NO" title="NO" [#if currentStore.sample?has_content && currentStore.sample == "NO" ]selected[/#if] >NO</option>
+									<option value="YES" title="YES" [#if currentStore.sample?has_content && currentStore.sample == "YES" ]selected[/#if]>YES</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
 							<label class="col-xs-3 col-sm-2 control-label" for="phone">${message("Store.phone")}:</label>
 							<div class="col-xs-9 col-sm-4">
 								<input id="phone" name="phone" class="form-control" type="text" value="${currentStore.phone}" maxlength="200">

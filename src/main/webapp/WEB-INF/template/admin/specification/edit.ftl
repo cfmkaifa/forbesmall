@@ -153,6 +153,12 @@
 							</div>
 						</div>
 						<div class="form-group">
+							<label class="col-xs-3 col-sm-2 control-label">${message("Specification.sample")}:</label>
+							<div class="col-xs-9 col-sm-4">
+								<p class="form-control-static">${specification.sample}</p>
+							</div>
+						</div>
+						<div class="form-group">
 							<label class="col-xs-3 col-sm-2 control-label" for="order">${message("common.order")}:</label>
 							<div class="col-xs-9 col-sm-4">
 								<input id="order" name="order" class="form-control" type="text" value="${specification.order}" maxlength="9">

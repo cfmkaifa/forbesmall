@@ -226,51 +226,50 @@
 								var stock = skuValue != null && skuValue.stock != null ? skuValue.stock : "";
 								var isDefault = skuValue != null && skuValue.isDefault != null ? skuValue.isDefault : false;
 								var isEnabled = skuValue != null && skuValue.isEnabled != null ? skuValue.isEnabled : false;
-								var sample = (skuValue != null && skuValue.sample != null) ? skuValue.sample : true;
+								var sample = skuValue != null && skuValue.sample != null ? skuValue.sample : true;
 							%>
 							<%_.each(entries, function(entry, j) {%>
 								<td>
 									<p class="form-control-static"><%-entry.value%></p>
-									<input name="skuList[<%-i%>].specificationValues[<%-j%>].id" <%-!sample ? " disabled" : ""%> type="hidden" value="<%-entry.id%>">
-									<input name="skuList[<%-i%>].specificationValues[<%-j%>].value" <%-!sample ? " disabled" : ""%> type="hidden" value="<%-entry.value%>">
+									<input name="skuList[<%-i%>].specificationValues[<%-j%>].id"  <%-!sample ? " disabled" : ""%> type="hidden" value="<%-entry.id%>">
+									<input name="skuList[<%-i%>].specificationValues[<%-j%>].value" <%-!sample ? " disabled" : ""%>  type="hidden" value="<%-entry.value%>">
 								</td>
 							<%});%>
-							
 							[#if product.type == "GENERAL"]
 								<td>
-									<input name="skuList[<%-i%>].price"  class="price form-control" <%-!sample ? " disabled" : ""%> type="text" value="<%-price%>" maxlength="16"<%-!isEnabled ? " disabled" : ""%>>
+									<input name="skuList[<%-i%>].price"     <%-!sample ? " disabled" : ""%> class="price form-control" type="text" value="<%-price%>" maxlength="16"<%-!isEnabled ? " disabled" : ""%>>
 								</td>
 							[/#if]
 							<td>
-								<input name="skuList[<%-i%>].cost" sample=<%-sample%> class="cost form-control" type="text" <%-!sample ? " disabled" : ""%> value="<%-cost%>" maxlength="16"<%-!isEnabled ? " disabled" : ""%>>
+								<input name="skuList[<%-i%>].cost"  sample=<%-sample%>  <%-!sample ? " disabled" : ""%> class="cost form-control" type="text" value="<%-cost%>" maxlength="16"<%-!isEnabled ? " disabled" : ""%>>
 							</td>
 							<td>
-								<input name="skuList[<%-i%>].marketPrice" class="market-price form-control" type="text" <%-!sample ? " disabled" : ""%> value="<%-marketPrice%>" maxlength="16"<%-!isEnabled ? " disabled" : ""%>>
+								<input name="skuList[<%-i%>].marketPrice" <%-!sample ? " disabled" : ""%> class="market-price form-control" type="text" value="<%-marketPrice%>" maxlength="16"<%-!isEnabled ? " disabled" : ""%>>
 							</td>
 							[#if product.type == "GENERAL"]
 								<td>
-									<input name="skuList[<%-i%>].maxCommission" class="max-commission form-control" <%-!sample ? " disabled" : ""%> type="text" value="<%-maxCommission%>" maxlength="16"<%-!isEnabled ? " disabled" : ""%>>
+									<input name="skuList[<%-i%>].maxCommission" <%-!sample ? " disabled" : ""%> class="max-commission form-control" type="text" value="<%-maxCommission%>" maxlength="16"<%-!isEnabled ? " disabled" : ""%>>
 								</td>
 								<td>
-									<input name="skuList[<%-i%>].rewardPoint" class="reward-point form-control"  <%-!sample ? " disabled" : ""%> type="text" value="<%-rewardPoint%>" maxlength="9"<%-!isEnabled ? " disabled" : ""%>>
+									<input name="skuList[<%-i%>].rewardPoint"  <%-!sample ? " disabled" : ""%> class="reward-point form-control" type="text" value="<%-rewardPoint%>" maxlength="9"<%-!isEnabled ? " disabled" : ""%>>
 								</td>
 							[/#if]
 							[#if product.type == "EXCHANGE"]
 								<td>
-									<input name="skuList[<%-i%>].exchangePoint" class="exchange-point form-control"  <%-!sample ? " disabled" : ""%> type="text" value="<%-exchangePoint%>" maxlength="9"<%-!isEnabled ? " disabled" : ""%>>
+									<input name="skuList[<%-i%>].exchangePoint" <%-!sample ? " disabled" : ""%> class="exchange-point form-control" type="text" value="<%-exchangePoint%>" maxlength="9"<%-!isEnabled ? " disabled" : ""%>>
 								</td>
 							[/#if]
 							<td>
 								<%if (initSkuValue != null) {%>
 									<div class="input-group">
-										<input name="skuList[<%-i%>].stock" class="stock form-control" type="text"  value="<%-initSkuValue.stock%>" maxlength="9" title="${message("Sku.allocatedStock")}: <%-initSkuValue.allocatedStock%>" style="min-width: 70px;" <%-!sample ? " disabled" : ""%>>
+										<input name="skuList[<%-i%>].stock" class="stock form-control" type="text" value="<%-initSkuValue.stock%>" maxlength="9" title="${message("Sku.allocatedStock")}: <%-initSkuValue.allocatedStock%>" style="min-width: 70px;" <%-!sample ? " disabled" : ""%> >
 										<div class="input-group-btn">
-											<a class="sn btn btn-default" href="${base}/business/stock/stock_in?skuSn=<%-initSkuValue.sn%>" <%-!sample ? " disabled" : ""%> title="${message("business.product.stockIn")}" data-toggle="tooltip">+</a>
-											<a class="sn btn btn-default" href="${base}/business/stock/stock_out?skuSn=<%-initSkuValue.sn%>" <%-!sample ? " disabled" : ""%> title="${message("business.product.stockOut")}" data-toggle="tooltip">-</a>
+											<a class="sn btn btn-default" <%-!sample ? " disabled" : ""%> href="${base}/business/stock/stock_in?skuSn=<%-initSkuValue.sn%>" title="${message("business.product.stockIn")}" data-toggle="tooltip">+</a>
+											<a class="sn btn btn-default" <%-!sample ? " disabled" : ""%> href="${base}/business/stock/stock_out?skuSn=<%-initSkuValue.sn%>" title="${message("business.product.stockOut")}" data-toggle="tooltip">-</a>
 										</div>
 									</div>
 								<%} else {%>
-									<input name="skuList[<%-i%>].stock" class="stock form-control" type="text" value="<%-stock%>" <%-!sample ? " disabled" : ""%>  maxlength="9"<%-!isEnabled ? " disabled" : ""%>>
+									<input name="skuList[<%-i%>].stock" class="stock form-control" type="text" <%-!sample ? " disabled" : ""%> value="<%-stock%>" maxlength="9"<%-!isEnabled ? " disabled" : ""%>>
 								<%}%>
 							</td>
 							<td>
@@ -282,7 +281,7 @@
 							</td>
 							<td>
 								<div class="checkbox">
-									<input name="isEnabled" class="is-enabled" type="checkbox" <%-!sample ? " disabled" : ""%> value="true"<%-isEnabled ? " checked" : ""%>>
+									<input name="isEnabled" class="is-enabled" type="checkbox"  <%-!sample ? " disabled" : ""%> value="true"<%-isEnabled ? " checked" : ""%>>
 									<label></label>
 								</div>
 							</td>
@@ -350,20 +349,20 @@
 				[#if product.hasSpecification()]
 					[#list product.skus as sku]
 						initSkuValues["${sku.specificationValueIds?join(",")}"] = {
-							id: ${sku.id},
-							sn: "${sku.sn}",
-							price: ${sku.price},
-							cost: ${sku.cost!"null"},
-							marketPrice: ${sku.marketPrice},
-							maxCommission: ${sku.maxCommission},
-							rewardPoint: ${sku.rewardPoint},
-							exchangePoint: ${sku.exchangePoint},
-							stock: ${sku.stock},
-							allocatedStock: ${sku.allocatedStock},
-							isDefault: ${sku.isDefault?string("true", "false")},
-							sample:[#if sku.sample=="NO" ]true[#else]false[/#if],
-							isEnabled: true
-						};
+								id: ${sku.id},
+								sn: "${sku.sn}",
+								price: ${sku.price},
+								cost: ${sku.cost!"null"},
+								marketPrice: ${sku.marketPrice},
+								maxCommission: ${sku.maxCommission},
+								rewardPoint: ${sku.rewardPoint},
+								exchangePoint: ${sku.exchangePoint},
+								stock: ${sku.stock},
+								allocatedStock: ${sku.allocatedStock},
+								sample:[#if sku.sample=="YES" ]true[#else]false[/#if],
+								isDefault: ${sku.isDefault?string("true", "false")},
+								isEnabled: true
+							};
 					[/#list]
 					buildSkuTable(initSkuValues);
 				[#else]
@@ -603,6 +602,7 @@
 				$specificationContent.on("change", "input:text", function() {
 					var $element = $(this);
 					var value = $.trim($element.val());
+					
 					if (value == "") {
 						$element.val($element.data("value"));
 						return false;
@@ -894,7 +894,7 @@
 						});
 						localStorage.setItem("previousProductCategoryId", $productCategoryId.val());
 						$(form).ajaxSubmit({
-							successRedirectUrl: "${base}/business/product/list"
+							successRedirectUrl: "${base}/business/sample/list"
 						});
 					}
 				});
@@ -918,7 +918,7 @@
 				</li>
 				<li class="active">${message("business.product.edit")}</li>
 			</ol>
-			<form id="productForm" class="form-horizontal" action="${base}/business/product/update" method="post">
+			<form id="productForm" class="form-horizontal" action="${base}/business/sample/update" method="post">
 				<input name="productId" type="hidden" value="${product.id}">
 				<input id="isDefault" name="sku.isDefault" type="hidden" value="true">
 				<div class="panel panel-default">
@@ -948,19 +948,17 @@
 								<div class="form-group">
 									<label class="col-xs-3 col-sm-2 control-label item-required">${message("Product.productCategory")}:</label>
 									<div class="col-xs-9 col-sm-4">
-										<select id="productCategoryId" name="productCategoryId" class="selectpicker form-control" data-live-search="true" data-size="10">
+										<select id="productCategoryId" name="productCategoryId" class="selectpicker form-control" data-live-search="true" data-size="10" disabled="disabled" >
 											<option value="">${message("common.choose")}</option>
 											[#list productCategoryTree as productCategory]
-												[#if allowedProductCategories?seq_contains(productCategory) || allowedProductCategoryParents?seq_contains(productCategory)]
-													<option value="${productCategory.id}" title="${productCategory.name}"[#if productCategory == product.productCategory] selected[/#if][#if !allowedProductCategories?seq_contains(productCategory)] disabled[/#if]>
+												<option value="${productCategory.id}" title="${productCategory.name}"[#if productCategory == product.productCategory] selected[/#if]>
 														[#if productCategory.grade != 0]
 															[#list 1..productCategory.grade as i]
 																&nbsp;&nbsp;
 															[/#list]
 														[/#if]
 														${productCategory.name}
-													</option>
-												[/#if]
+												</option>
 											[/#list]
 										</select>
 									</div>
@@ -968,7 +966,7 @@
 								<div class="form-group">
 									<label class="col-xs-3 col-sm-2 control-label">${message("Product.storeProductCategory")}:</label>
 									<div class="col-xs-9 col-sm-4">
-										<select name="storeProductCategoryId" class="selectpicker form-control" data-live-search="true" data-size="10">
+										<select name="storeProductCategoryId" class="selectpicker form-control" data-live-search="true" data-size="10" disabled="disabled">
 											<option value="">${message("common.choose")}</option>
 											[#list storeProductCategoryTree as storeProductCategory]
 												<option value="${storeProductCategory.id}" title="${storeProductCategory.name}"[#if storeProductCategory == product.storeProductCategory] selected[/#if]>
@@ -998,54 +996,54 @@
 								<div class="form-group">
 									<label class="col-xs-3 col-sm-2 control-label item-required" for="name">${message("Product.name")}:</label>
 									<div class="col-xs-9 col-sm-4">
-										<input id="name" name="name" class="form-control" type="text" value="${product.name}" maxlength="200">
+										<input id="name" name="name" class="form-control" type="text" value="${product.name}" maxlength="200" disabled="disabled">
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="col-xs-3 col-sm-2 control-label" for="caption">${message("Product.caption")}:</label>
 									<div class="col-xs-9 col-sm-4">
-										<input id="caption" name="caption" class="form-control" type="text" value="${product.caption}" maxlength="200">
+										<input id="caption" name="caption" class="form-control" type="text" value="${product.caption}" maxlength="200" disabled="disabled">
 									</div>
 								</div>
 								[#if product.type == "GENERAL"]
 									<div class="[#if product.hasSpecification()]hidden-element[/#if] form-group">
 										<label class="col-xs-3 col-sm-2 control-label item-required" for="price">${message("Sku.price")}:</label>
 										<div class="col-xs-9 col-sm-4">
-											<input id="price" name="sku.price" class="form-control" type="text" value="${product.defaultSku.price}" maxlength="16"[#if product.hasSpecification()] disabled[/#if]>
+											<input id="price" name="sku.price" class="form-control" type="text" value="${product.defaultSku.price}" maxlength="16" disabled="disabled">
 										</div>
 									</div>
 								[/#if]
 								<div class="[#if product.hasSpecification()]hidden-element[/#if] form-group">
 									<label class="col-xs-3 col-sm-2 control-label" for="cost">${message("Sku.cost")}:</label>
 									<div class="col-xs-9 col-sm-4" title="${message("business.product.costTitle")}" data-toggle="tooltip">
-										<input id="cost" name="sku.cost" class="form-control" type="text" value="${product.defaultSku.cost}" maxlength="16"[#if product.hasSpecification()] disabled[/#if]>
+										<input id="cost" name="sku.cost" class="form-control" type="text" value="${product.defaultSku.cost}" maxlength="16" disabled="disabled">
 									</div>
 								</div>
 								<div class="[#if product.hasSpecification()]hidden-element[/#if] form-group">
 									<label class="col-xs-3 col-sm-2 control-label" for="marketPrice">${message("Sku.marketPrice")}:</label>
 									<div class="col-xs-9 col-sm-4" title="${message("business.product.marketPriceTitle")}" data-toggle="tooltip">
-										<input id="marketPrice" name="sku.marketPrice" class="form-control" type="text" value="${product.defaultSku.marketPrice}" maxlength="16"[#if product.hasSpecification()] disabled[/#if]>
+										<input id="marketPrice" name="sku.marketPrice" class="form-control" type="text" value="${product.defaultSku.marketPrice}" maxlength="16" disabled="disabled">
 									</div>
 								</div>
 								[#if product.type == "GENERAL"]
 									<div class="[#if product.hasSpecification()]hidden-element[/#if] form-group">
 										<label class="col-xs-3 col-sm-2 control-label item-required" for="maxCommission">${message("Sku.maxCommission")}:</label>
 										<div class="col-xs-9 col-sm-4" title="${message("business.product.maxCommission")}" data-toggle="tooltip">
-											<input id="maxCommission" name="sku.maxCommission" class="form-control" type="text" value="${product.defaultSku.maxCommission}" maxlength="16"[#if product.hasSpecification()] disabled[/#if]>
+											<input id="maxCommission" name="sku.maxCommission" class="form-control" type="text" value="${product.defaultSku.maxCommission}" maxlength="16" disabled="disabled">
 										</div>
 									</div>
 								[/#if]
 								<div class="form-group">
 									<label class="col-xs-3 col-sm-2 control-label" for="unit">${message("Product.unit")}:</label>
 									<div class="col-xs-9 col-sm-4">
-										<input id="unit" name="unit" class="form-control" type="text" value="${product.unit}" maxlength="200">
+										<input id="unit" name="unit" class="form-control" type="text" value="${product.unit}" maxlength="200" disabled="disabled">
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="col-xs-3 col-sm-2 control-label" for="weight">${message("Product.weight")}:</label>
 									<div class="col-xs-9 col-sm-4">
 										<div class="input-group">
-											<input id="weight" name="weight" class="form-control" type="text" value="${product.weight}" maxlength="9">
+											<input id="weight" name="weight" class="form-control" type="text" value="${product.weight}" maxlength="9" disabled="disabled">
 											<span class="input-group-addon">${message("common.unit.gram")}</span>
 										</div>
 									</div>
@@ -1054,7 +1052,7 @@
 									<div class="[#if product.hasSpecification()]hidden-element[/#if] form-group">
 										<label class="col-xs-3 col-sm-2 control-label" for="rewardPoint">${message("Sku.rewardPoint")}:</label>
 										<div class="col-xs-9 col-sm-4" title="${message("business.product.rewardPointTitle")}" data-toggle="tooltip">
-											<input id="rewardPoint" name="sku.rewardPoint" class="form-control" type="text" value="${product.defaultSku.rewardPoint}" maxlength="9"[#if product.hasSpecification()] disabled[/#if]>
+											<input id="rewardPoint" name="sku.rewardPoint" class="form-control" type="text" value="${product.defaultSku.rewardPoint}" maxlength="9" disabled="disabled">
 										</div>
 									</div>
 								[/#if]
@@ -1062,7 +1060,7 @@
 									<div class="[#if product.hasSpecification()]hidden-element[/#if] form-group">
 										<label class="col-xs-3 col-sm-2 control-label item-required" for="exchangePoint">${message("Sku.exchangePoint")}:</label>
 										<div class="col-xs-9 col-sm-4">
-											<input id="exchangePoint" name="sku.exchangePoint" class="form-control" type="text" value="${product.defaultSku.exchangePoint}" maxlength="9"[#if product.hasSpecification()] disabled[/#if]>
+											<input id="exchangePoint" name="sku.exchangePoint" class="form-control" type="text" value="${product.defaultSku.exchangePoint}" maxlength="9" disabled="disabled">
 										</div>
 									</div>
 								[/#if]
@@ -1070,7 +1068,7 @@
 									<div class="hidden-element form-group">
 										<label class="col-xs-3 col-sm-2 control-label item-required" for="stock">${message("Sku.stock")}:</label>
 										<div class="col-xs-9 col-sm-4">
-											<input id="stock" name="sku.stock" class="form-control" type="text" value="1" maxlength="9" disabled>
+											<input id="stock" name="sku.stock" class="form-control" type="text" value="1" maxlength="9" disabled="disabled">
 										</div>
 									</div>
 								[#else]
@@ -1090,7 +1088,7 @@
 								<div class="form-group">
 									<label class="col-xs-3 col-sm-2 control-label">${message("Product.brand")}:</label>
 									<div class="col-xs-9 col-sm-4">
-										<select name="brandId" class="selectpicker form-control" data-live-search="true" data-size="10">
+										<select name="brandId" class="selectpicker form-control" data-live-search="true" data-size="10" disabled="disabled">
 											<option value="">${message("common.choose")}</option>
 											[#list brands as brand]
 												<option value="${brand.id}"[#if brand == product.brand] selected[/#if]>${brand.name}</option>
@@ -1098,85 +1096,21 @@
 										</select>
 									</div>
 								</div>
-								[#if product.type == "GENERAL" && promotions?has_content]
-									<div class="form-group">
-										<label class="col-xs-3 col-sm-2 control-label">${message("Product.promotions")}:</label>
-										<div class="col-xs-9 col-sm-10">
-											[#list promotions as promotion]
-												<div class="checkbox checkbox-inline">
-													<input id="promotion_${promotion.id}" name="promotionIds" type="checkbox" value="${promotion.id}"[#if product.promotions?seq_contains(promotion)] checked[/#if]>
-													<label for="promotion_${promotion.id}">${promotion.name}</label>
-												</div>
-											[/#list]
-										</div>
-									</div>
-								[/#if]
-								[#if productTags?has_content]
-									<div class="form-group">
-										<label class="col-xs-3 col-sm-2 control-label">${message("Product.productTags")}:</label>
-										<div class="col-xs-9 col-sm-10">
-											[#list productTags as productTag]
-												<div class="checkbox checkbox-inline">
-													<input id="productTag_${productTag.id}" name="productTagIds" type="checkbox" value="${productTag.id}"[#if product.productTags?seq_contains(productTag)] checked[/#if]>
-													<label for="productTag_${productTag.id}">${productTag.name}</label>
-												</div>
-											[/#list]
-										</div>
-									</div>
-								[/#if]
-								[#if storeProductTags?has_content]
-									<div class="form-group">
-										<label class="col-xs-3 col-sm-2 control-label">${message("Product.storeProductTags")}:</label>
-										<div class="col-xs-9 col-sm-10">
-											[#list storeProductTags as storeProductTag]
-												<div class="checkbox checkbox-inline">
-													<input id="storeProductTags_${storeProductTag.id}" name="storeProductTagIds" type="checkbox" value="${storeProductTag.id}"[#if product.storeProductTags?seq_contains(storeProductTag)] checked[/#if]>
-													<label for="storeProductTags_${storeProductTag.id}">${storeProductTag.name}</label>
-												</div>
-											[/#list]
-										</div>
-									</div>
-								[/#if]
-								<div class="form-group">
-									<label class="col-xs-3 col-sm-2 control-label">${message("common.setting")}:</label>
-									<div class="col-xs-9 col-sm-4">
-										<div class="checkbox checkbox-inline">
-											<input name="_isMarketable" type="hidden" value="false">
-											<input id="isMarketable" name="isMarketable" type="checkbox" value="true"[#if product.isMarketable] checked[/#if]>
-											<label for="isMarketable">${message("Product.isMarketable")}</label>
-										</div>
-										<div class="checkbox checkbox-inline">
-											<input name="_isList" type="hidden" value="false">
-											<input id="isList" name="isList" type="checkbox" value="true"[#if product.isList] checked[/#if]>
-											<label for="isList">${message("Product.isList")}</label>
-										</div>
-										<div class="checkbox checkbox-inline">
-											<input name="_isTop" type="hidden" value="false">
-											<input id="isTop" name="isTop" type="checkbox" value="true"[#if product.isTop] checked[/#if]>
-											<label for="isTop">${message("Product.isTop")}</label>
-										</div>
-										<div class="checkbox checkbox-inline">
-											<input name="_isDelivery" type="hidden" value="false">
-											<input id="isDelivery" name="isDelivery" type="checkbox" value="true"[#if product.isDelivery] checked[/#if]>
-											<label for="isDelivery">${message("Product.isDelivery")}</label>
-										</div>
-									</div>
-								</div>
 								<div class="form-group">
 									<label class="col-xs-3 col-sm-2 control-label" for="memo">${message("Product.memo")}:</label>
 									<div class="col-xs-9 col-sm-4">
-										<input id="memo" name="memo" class="form-control" type="text" value="${product.memo}" maxlength="200">
+										<input id="memo" name="memo" class="form-control" type="text" value="${product.memo}" maxlength="200" disabled="disabled">
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="col-xs-3 col-sm-2 control-label" for="keyword">${message("Product.keyword")}:</label>
 									<div class="col-xs-9 col-sm-4" title="${message("business.product.keywordTitle")}" data-toggle="tooltip">
-										<input id="keyword" name="keyword" class="form-control" type="text" value="${product.keyword}" maxlength="200">
+										<input id="keyword" name="keyword" class="form-control" type="text" value="${product.keyword}" maxlength="200" disabled="disabled">
 									</div>
 								</div>
 							</div>
 							<div id="introduction" class="tab-pane">
-								<textarea name="introduction" data-provide="editor">${product.introduction}</textarea>
+								<textarea name="introduction" data-provide="editor" disabled="disabled" >${product.introduction}</textarea>
 							</div>
 							<div id="productImage" class="tab-pane">
 								<div class="form-group">
@@ -1186,18 +1120,6 @@
 								</div>
 							</div>
 							<div id="parameter" class="tab-pane">
-								<div class="form-group">
-									<div class="col-xs-10 col-xs-offset-2">
-										<button id="addParameterButton" class="btn btn-default" type="button">
-											<i class="iconfont icon-add"></i>
-											${message("business.product.addParameter")}
-										</button>
-										<button id="resetParameter" class="btn btn-default" type="button">
-											<i class="iconfont icon-repeal"></i>
-											${message("business.product.resetParameter")}
-										</button>
-									</div>
-								</div>
 								<div id="parameterContent">
 									[#list product.parameterValues as parameterValue]
 										<div class="item" data-parameter-index="${parameterValue_index}" data-parameter-entry-index="${parameterValue.entries?size}">
@@ -1206,27 +1128,16 @@
 													<p class="form-control-static">${message("Parameter.group")}:</p>
 												</div>
 												<div class="col-xs-6 col-sm-4">
-													<input name="parameterValues[${parameterValue_index}].group" class="parameter-group form-control" type="text" value="${parameterValue.group}" maxlength="200">
-												</div>
-												<div class="col-xs-3 col-sm-6">
-													<p class="form-control-static">
-														<a class="remove group" href="javascript:;">[${message("common.delete")}]</a>
-														<a class="add" href="javascript:;">[${message("common.add")}]</a>
-													</p>
+													<input name="parameterValues[${parameterValue_index}].group" class="parameter-group form-control" type="text" value="${parameterValue.group}" maxlength="200" disabled="disabled">
 												</div>
 											</div>
 											[#list parameterValue.entries as entry]
 												<div class="form-group">
 													<div class="col-xs-3 col-sm-1 col-sm-offset-1">
-														<input name="parameterValues[${parameterValue_index}].entries[${entry_index}].name" class="parameter-entry-name form-control text-right" type="text" value="${entry.name}" maxlength="200">
+														<input name="parameterValues[${parameterValue_index}].entries[${entry_index}].name" class="parameter-entry-name form-control text-right" type="text" value="${entry.name}" maxlength="200" disabled="disabled">
 													</div>
 													<div class="col-xs-6 col-sm-4">
-														<input name="parameterValues[${parameterValue_index}].entries[${entry_index}].value" class="parameter-entry-value form-control" type="text" value="${entry.value}" maxlength="200">
-													</div>
-													<div class="col-xs-3 col-sm-6">
-														<p class="form-control-static">
-															<a class="remove" href="javascript:;">[${message("common.delete")}]</a>
-														</p>
+														<input name="parameterValues[${parameterValue_index}].entries[${entry_index}].value" class="parameter-entry-value form-control" type="text" value="${entry.value}" maxlength="200" disabled="disabled">
 													</div>
 												</div>
 											[/#list]
@@ -1239,7 +1150,7 @@
 									<div class="form-group">
 										<label class="col-xs-3 col-sm-2 control-label">${attribute.name}:</label>
 										<div class="col-xs-9 col-sm-4">
-											<select name="attribute_${attribute.id}" class="selectpicker form-control">
+											<select name="attribute_${attribute.id}" class="selectpicker form-control" disabled="disabled">
 												<option value="">${message("common.choose")}</option>
 												[#list attribute.options as option]
 													<option value="${option}"[#if option == product.getAttributeValue(attribute)] selected[/#if]>${option}</option>

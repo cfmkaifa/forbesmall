@@ -46,6 +46,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 
 import net.mall.BaseAttributeConverter;
 import net.mall.Setting;
+import net.mall.entity.Specification.Sample;
 import net.mall.plugin.GiftPromotionPlugin.GiftAttribute;
 import net.mall.util.SystemUtils;
 
@@ -218,6 +219,12 @@ public class Sku extends BaseEntity<Long> {
 	 */
 	@ManyToMany(mappedBy = "gifts", fetch = FetchType.LAZY)
 	private Set<GiftAttribute> giftAttributes = new HashSet<>();
+	
+	
+	/****是否样品
+	 */
+	private Sample sample;
+
 
 	/**
 	 * 获取编号
@@ -696,6 +703,23 @@ public class Sku extends BaseEntity<Long> {
 	public int getAvailableStock() {
 		int availableStock = getStock() - getAllocatedStock();
 		return availableStock >= 0 ? availableStock : 0;
+	}
+	
+	
+	
+
+	/** 
+	 * @return sample 
+	 */
+	public Sample getSample() {
+		return sample;
+	}
+
+	/** 
+	 * @param sample 要设置的 sample 
+	 */
+	public void setSample(Sample sample) {
+		this.sample = sample;
 	}
 
 	/**

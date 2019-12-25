@@ -165,6 +165,15 @@
 							</div>
 						</div>
 						<div class="form-group">
+							<label class="col-xs-3 col-sm-2 control-label">${message("Specification.sample")}:</label>
+							<div class="col-xs-9 col-sm-4">
+								<select name="sample" class="selectpicker form-control" data-live-search="true" data-size="10">
+									<option value="NO" title="NO">NO</option>
+									<option value="YES" title="YES">YES</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
 							<label class="col-xs-3 col-sm-2 control-label" for="order">${message("common.order")}:</label>
 							<div class="col-xs-9 col-sm-4">
 								<input id="order" name="order" class="form-control" type="text" maxlength="9">

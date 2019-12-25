@@ -30,6 +30,7 @@
 
 				<entry key="/business/index/**" value="businessAuthc,perms[business:index]" />
 				<entry key="/business/product/**" value="businessAuthc,perms[business:product]" />
+				<entry key="/business/sample/**" value="businessAuthc,perms[business:product]" />
 				<entry key="/business/stock/**" value="businessAuthc,perms[business:stock]" />
 				<entry key="/business/product_notify/**" value="businessAuthc,perms[business:productNotify]" />
 				<entry key="/business/consultation/**" value="businessAuthc,perms[business:consultation]" />
