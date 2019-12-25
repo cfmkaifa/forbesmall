@@ -58,7 +58,7 @@ public class StockController extends BaseController {
 	public void populateModel(String skuSn, @CurrentStore Store currentStore, ModelMap model) {
 		Sku sku = skuService.findBySn(skuSn);
 		if (sku != null && (!currentStore.equals(sku.getStore())
-				|| sku.getSample().equals(Sample.YES) )) {
+				&& sku.getSample().equals(Sample.NO) )) {
 			throw new UnauthorizedException();
 		}
 		model.addAttribute("sku", sku);

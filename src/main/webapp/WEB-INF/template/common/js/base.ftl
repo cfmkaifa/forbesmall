@@ -650,21 +650,21 @@
 			
 			Checkout.DEFAULTS = {
 				skuId: null,
-				quantity: 1
+				quantity: 1,
+				methodCode:"general"
 			};
 			
 			Checkout.prototype.execute = function() {
 				var that = this;
 				var skuId = typeof this.options.skuId === "function" ? this.options.skuId(this.$element) : this.options.skuId;
 				var quantity = typeof this.options.quantity === "function" ? this.options.quantity(this.$element) : this.options.quantity;
+				var methodCode = typeof this.options.methodCode === "function" ? this.options.methodCode(this.$element) : this.options.methodCode;
 				var beforeEvent = $.Event("before.mall.checkout");
-				
 				this.$element.trigger(beforeEvent);
 				if (beforeEvent.isDefaultPrevented()) {
 					return;
 				}
-				
-				$.checkout(skuId, quantity);
+				$.checkout(skuId, quantity,methodCode);
 			};
 			
 			function Plugin(option) {
@@ -1360,11 +1360,12 @@
 			};
 			
 			// 结算
-			$.checkout = function(skuId, quantity) {
+			$.checkout = function(skuId, quantity,methodCode) {
 				if (skuId != null) {
 					$.get(checkSkuUrl, {
 						skuId: skuId,
-						quantity: quantity
+						quantity: quantity,
+						methodCode:methodCode
 					}).done(function() {
 						location.href = checkoutUrl + "?" + $.param({
 							skuId: skuId,

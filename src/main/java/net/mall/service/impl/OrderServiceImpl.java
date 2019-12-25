@@ -416,19 +416,16 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		Assert.notNull(cart, "[Assertion failed] - cart is required; it must not be null");
 		Assert.notNull(cart.getMember(), "[Assertion failed] - cart member is required; it must not be null");
 		Assert.state(!cart.isEmpty(), "[Assertion failed] - cart must not be empty");
-
 		Setting setting = SystemUtils.getSetting();
 		Member member = cart.getMember();
 		BigDecimal price = BigDecimal.ZERO;
 		BigDecimal discount = BigDecimal.ZERO;
 		Long rewardPoint = 0L;
 		BigDecimal couponDiscount = BigDecimal.ZERO;
-
 		List<Order> orders = new ArrayList<>();
 		for (Map.Entry<Store, Set<CartItem>> entry : cart.getCartItemGroup().entrySet()) {
 			Store store = entry.getKey();
 			Set<CartItem> cartItems = entry.getValue();
-
 			price = cart.getPrice(store);
 			discount = cart.getDiscount(store);
 			rewardPoint = cart.getRewardPoint(store);
@@ -457,7 +454,6 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 			order.setStore(store);
 			order.setPromotionNames(new ArrayList<>(cart.getPromotionNames(store)));
 			order.setCoupons(new ArrayList<>(cart.getCoupons(store)));
-
 			if (shippingMethod != null && shippingMethod.isSupported(paymentMethod) && cart.getIsDelivery(store)) {
 				order.setFreight(!cart.isFreeShipping(store) ? shippingMethodService.calculateFreight(shippingMethod, store, receiver, cart.getWeight(store, true, true)) : BigDecimal.ZERO);
 				order.setShippingMethod(shippingMethod);
@@ -465,7 +461,6 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 				order.setFreight(BigDecimal.ZERO);
 				order.setShippingMethod(null);
 			}
-
 			if (couponCode != null && cart.isCouponAllowed(store) && cart.isValid(store, couponCode)) {
 				order.setCouponDiscount(couponDiscount.compareTo(BigDecimal.ZERO) >= 0 ? couponDiscount : BigDecimal.ZERO);
 				order.setCouponCode(couponCode);
@@ -473,10 +468,8 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 				order.setCouponDiscount(BigDecimal.ZERO);
 				order.setCouponCode(null);
 			}
-
 			order.setTax(calculateTax(order));
 			order.setAmount(calculateAmount(order));
-
 			if (balance != null && balance.compareTo(BigDecimal.ZERO) > 0 && balance.compareTo(member.getAvailableBalance()) <= 0) {
 				BigDecimal currentAmountPaid = balance.compareTo(order.getAmount()) > 0 ? order.getAmount() : balance;
 				order.setAmountPaid(currentAmountPaid);
@@ -484,7 +477,6 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 			} else {
 				order.setAmountPaid(BigDecimal.ZERO);
 			}
-
 			if (cart.getIsDelivery(store) && receiver != null) {
 				order.setConsignee(receiver.getConsignee());
 				order.setAreaName(receiver.getAreaName());
@@ -493,7 +485,6 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 				order.setPhone(receiver.getPhone());
 				order.setArea(receiver.getArea());
 			}
-
 			List<OrderItem> orderItems = order.getOrderItems();
 			for (CartItem cartItem : cartItems) {
 				Sku sku = cartItem.getSku();
@@ -515,7 +506,6 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 					orderItems.add(orderItem);
 				}
 			}
-
 			for (Sku gift : cart.getGifts(store)) {
 				OrderItem orderItem = new OrderItem();
 				orderItem.setSn(gift.getSn());

@@ -260,7 +260,6 @@
 				var $willExchange = $("#willExchange");
 				var skuId = ${defaultSku.id};
 				var skuData = {};
-				
 				[#if product.hasSpecification()]
 					[#list product.skus as sku]
 						skuData["${sku.specificationValueIds?join(",")}"] = {
@@ -269,10 +268,10 @@
 							marketPrice: ${sku.marketPrice},
 							rewardPoint: ${sku.rewardPoint},
 							exchangePoint: ${sku.exchangePoint},
+							sample:"${sku.sample}",
 							isOutOfStock: ${sku.isOutOfStock?string("true", "false")}
 						};
 					[/#list]
-					
 					// 锁定规格值
 					lockSpecificationValue();
 				[/#if]

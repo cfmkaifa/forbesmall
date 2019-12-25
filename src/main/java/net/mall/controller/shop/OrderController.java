@@ -47,6 +47,7 @@ import net.mall.entity.Receiver;
 import net.mall.entity.ShippingMethod;
 import net.mall.entity.Sku;
 import net.mall.entity.Store;
+import net.mall.entity.Specification.Sample;
 import net.mall.plugin.PaymentPlugin;
 import net.mall.security.CurrentCart;
 import net.mall.security.CurrentUser;
@@ -89,15 +90,21 @@ public class OrderController extends BaseController {
 
 	/**
 	 * 检查SKU
+	 * methodCode  sample -样品购买
 	 */
 	@GetMapping("/check_sku")
-	public ResponseEntity<?> checkSku(Long skuId, Integer quantity) {
+	public ResponseEntity<?> checkSku(Long skuId, Integer quantity,
+			String methodCode) {
 		if (quantity == null || quantity < 1) {
 			return Results.UNPROCESSABLE_ENTITY;
 		}
 		Sku sku = skuService.find(skuId);
 		if (sku == null) {
 			return Results.unprocessableEntity("shop.order.skuNotExist");
+		}
+		if ("sample".equals(methodCode) 
+				&& Sample.NO.equals(sku.getSample())) {
+			return Results.unprocessableEntity("shop.order.skuSampleNotExist");
 		}
 		if (Product.Type.GIFT.equals(sku.getType())) {
 			return Results.unprocessableEntity("shop.order.skuNotForSale");
@@ -272,9 +279,7 @@ public class OrderController extends BaseController {
 			if (quantity == null || quantity < 1) {
 				return UNPROCESSABLE_ENTITY_VIEW;
 			}
-
 			cart = generateCart(currentUser, sku, quantity);
-
 			switch (sku.getType()) {
 			case GENERAL:
 				orderType = Order.Type.GENERAL;
@@ -308,10 +313,8 @@ public class OrderController extends BaseController {
 		if (orderType == null) {
 			return UNPROCESSABLE_ENTITY_VIEW;
 		}
-
 		Receiver defaultReceiver = receiverService.findDefault(currentUser);
 		List<Order> orders = orderService.generate(orderType, cart, defaultReceiver, null, null, null, null, null, null);
-
 		BigDecimal price = BigDecimal.ZERO;
 		BigDecimal fee = BigDecimal.ZERO;
 		BigDecimal freight = BigDecimal.ZERO;
@@ -323,7 +326,6 @@ public class OrderController extends BaseController {
 		Long rewardPoint = 0L;
 		Long exchangePoint = 0L;
 		boolean isDelivery = false;
-
 		for (Order order : orders) {
 			price = price.add(order.getPrice());
 			fee = fee.add(order.getFee());
@@ -339,7 +341,6 @@ public class OrderController extends BaseController {
 				isDelivery = true;
 			}
 		}
-
 		model.addAttribute("skuId", skuId);
 		model.addAttribute("quantity", quantity);
 		model.addAttribute("cart", cart);
@@ -357,7 +358,6 @@ public class OrderController extends BaseController {
 		model.addAttribute("rewardPoint", rewardPoint);
 		model.addAttribute("exchangePoint", exchangePoint);
 		model.addAttribute("isDelivery", isDelivery);
-
 		List<PaymentMethod> paymentMethods = new ArrayList<>();
 		if (cart.contains(Store.Type.GENERAL)) {
 			CollectionUtils.select(paymentMethodService.findAll(), new Predicate() {
@@ -697,7 +697,6 @@ public class OrderController extends BaseController {
 		Assert.state(!Product.Type.GIFT.equals(sku.getType()), "[Assertion failed] - sku type can't be GIFT");
 		Assert.notNull(quantity, "[Assertion failed] - quantity is required; it must not be null");
 		Assert.state(quantity > 0, "[Assertion failed] - quantity must be greater than 0");
-
 		Cart cart = new Cart();
 		Set<CartItem> cartItems = new HashSet<>();
 		CartItem cartItem = new CartItem();

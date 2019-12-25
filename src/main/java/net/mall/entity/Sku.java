@@ -691,6 +691,16 @@ public class Sku extends BaseEntity<Long> {
 	public net.mall.entity.Store getStore() {
 		return getProduct() != null ? getProduct().getStore() : null;
 	}
+	
+	
+	
+	/**获取代销店铺
+	 * @return 店铺
+	 */
+	@Transient
+	public net.mall.entity.Store getSampleStore() {
+		return getProduct() != null ? getProduct().getSampleStore() : null;
+	}
 
 	/**
 	 * 获取可用库存

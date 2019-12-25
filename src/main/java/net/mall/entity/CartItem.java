@@ -16,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
 import net.mall.Setting;
+import net.mall.entity.Specification.Sample;
 import net.mall.util.SystemUtils;
 
 /**
@@ -118,7 +119,7 @@ public class CartItem extends BaseEntity<Long> {
 	 */
 	@Transient
 	public Store getStore() {
-		return getSku() != null ? getSku().getStore() : null;
+		return getSku() != null ? (Sample.YES.equals(getSku().getSample())?getSku().getSampleStore():getSku().getStore()) : null;
 	}
 
 	/**

@@ -54,7 +54,6 @@
 		[#escape x as x?js_string]
 			<script>
 			$().ready(function() {
-				
 				var $productNotifyForm = $("#productNotifyForm");
 				var $productNotifyModal = $("#productNotifyModal");
 				var $productNotifyEmail = $("#productNotifyForm input[name='email']");
@@ -69,6 +68,7 @@
 				var $specificationValue = $("#specification dd a");
 				var $quantity = $("#quantity");
 				var $buy = $("#buy");
+				var $sampleBuy = $("#sampleBuy");
 				var $addCart = $("#addCart");
 				var $exchange = $("#exchange");
 				var $addProductNotify = $("#addProductNotify");
@@ -77,7 +77,6 @@
 				var skuId = ${defaultSku.id};
 				var skuData = {};
 				var historyProductIdsLocalStorageKey = "historyProductIds";
-				
 				[#if product.hasSpecification()]
 					[#list product.skus as sku]
 						skuData["${sku.specificationValueIds?join(",")}"] = {
@@ -86,25 +85,22 @@
 							marketPrice: ${sku.marketPrice},
 							rewardPoint: ${sku.rewardPoint},
 							exchangePoint: ${sku.exchangePoint},
+							sample:"${sku.sample}",
 							isOutOfStock: ${sku.isOutOfStock?string("true", "false")}
 						};
 					[/#list]
-					
 					// 锁定规格值
 					lockSpecificationValue();
 				[/#if]
-				
 				// 浏览记录
 				var historyProductIdsLocalStorage = localStorage.getItem(historyProductIdsLocalStorageKey);
 				var historyProductIds = historyProductIdsLocalStorage != null ? JSON.parse(historyProductIdsLocalStorage) : [];
-				
 				historyProductIds = $.grep(historyProductIds, function(historyProductId, i) {
 					return historyProductId != ${product.id};
 				});
 				historyProductIds.unshift(${product.id});
 				historyProductIds = historyProductIds.slice(0, 10);
 				localStorage.setItem(historyProductIdsLocalStorageKey, JSON.stringify(historyProductIds));
-				
 				// 到货通知
 				$productNotifyModal.on("show.bs.modal", function(event) {
 					if ($.trim($productNotifyEmail.val()) == "") {
@@ -119,7 +115,6 @@
 						});
 					}
 				});
-				
 				// 商品图片放大镜
 				$zoom.jqzoom({
 					zoomWidth: 378,
@@ -128,12 +123,10 @@
 					preloadText: null,
 					preloadImages: false
 				});
-				
 				// 商品缩略图
 				$thumbnailProductImageItem.hover(function() {
 					$(this).click();
 				});
-				
 				// 规格值选择
 				$specificationValue.click(function() {
 					var $element = $(this);
@@ -174,10 +167,18 @@
 						$exchangePoint.text(sku.exchangePoint);
 						if (sku.isOutOfStock) {
 							$buy.add($addCart).add($exchange).prop("disabled", true);
+							$sampleBuy.prop("disabled", true);
 							$addProductNotify.show();
 							$actionTips.text("${message("shop.product.skuLowStock")}").fadeIn();
 						} else {
 							$buy.add($addCart).add($exchange).prop("disabled", false);
+							if("YES"==sku.sample){
+								$sampleBuy.prop("disabled", false);
+								$buy.prop("disabled", true);
+							} else {
+								$sampleBuy.prop("disabled", true);
+								$buy.prop("disabled", false);
+							}
 							$addProductNotify.hide();
 							$actionTips.empty().fadeOut();
 						}
@@ -185,6 +186,7 @@
 						skuId = null;
 						$specification.addClass("warning");
 						$buy.add($addCart).add($exchange).prop("disabled", true);
+						$sampleBuy.prop("disabled", true);
 						$addProductNotify.hide();
 						$actionTips.text("${message("shop.product.specificationRequired")}").fadeIn();
 					}
@@ -223,6 +225,19 @@
 						return $quantity.val();
 					}
 				});
+				// 样品购买
+				$sampleBuy.checkout({
+					skuId: function() {
+						return skuId;
+					},
+					quantity: function() {
+						return $quantity.val();
+					},
+					methodCode:function(){
+						return "sample";
+					}
+				});
+				
 				
 				// 加入购物车
 				$addCart.addCart({
@@ -501,6 +516,7 @@
 						<div class="action">
 							[#if product.type == "GENERAL"]
 								<button id="buy" class="btn btn-default btn-lg" type="button"[#if defaultSku.isOutOfStock] disabled[/#if]>${message("shop.product.buy")}</button>
+								<button id="sampleBuy" class="btn btn-default btn-lg" type="button"[#if defaultSku.isOutOfStock] disabled[/#if]>${message("shop.product.sampleBuy")}</button>
 								<button id="addCart" class="btn btn-primary btn-lg" type="button"[#if defaultSku.isOutOfStock] disabled[/#if]>
 									<i class="iconfont icon-cart"></i>
 									${message("shop.product.addCart")}
