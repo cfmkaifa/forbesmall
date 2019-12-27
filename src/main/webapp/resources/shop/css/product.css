@@ -35,6 +35,7 @@
 	line-height: 25px;
 	margin-bottom: 10px;
 	border-bottom: 1px solid #f0f0f0;
+	text-align: center;
 }
 
 .featured-product .featured-product-body li img {
@@ -49,6 +50,7 @@
 .featured-product .featured-product-body li:last-child {
 	margin-bottom: 0px;
 	border-bottom: none;
+	text-align: center;
 }
 
 .featured-product .featured-product-body li strong {
@@ -375,7 +377,7 @@
 .listimg {
 	width: 82px;
 	height: 82px;
-	margin: 18px 8px 0px 0px;
+	margin: 9px 8px 0px 0px;
 }
 .product-list .list .list-item:nth-child(-n+5) {
 	margin-top: 0px;
@@ -778,11 +780,11 @@
 }
 
 .product-detail .quantity dl dt {
-	width: 80px;
+	width: 138px;
 	line-height: 30px;
 	color: #999999;
 	font-weight: normal;
-	text-align: left;
+	text-align: right;
 }
 
 .product-detail .quantity dl dd {
@@ -792,7 +794,7 @@
 
 .product-detail .quantity dl dd .spinner {
 	float: left;
-	margin-right: 10px;
+	margin-left: 40px;
 }
 
 .product-detail .quantity dl dd .unit {
@@ -1469,7 +1471,7 @@
 }
 /* 按钮 */
 .detailsbutton-2 {
-	margin: 7px 0px 0px 45px;
+	margin: 0px 20px 0px 0px;
 }
 .data-2 {
 	font-size: 12px;
@@ -1626,7 +1628,7 @@
 }
 /* 按钮 */
 .detailsbutton-2 {
-	margin: 7px 0px 0px 45px;
+	margin: 0px 20px 0px 0px;;
 }
 .data-2 {
 	font-size: 12px;
