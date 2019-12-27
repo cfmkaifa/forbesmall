@@ -506,52 +506,147 @@
 									[#list page.content as product]
 										[#assign defaultSku = product.defaultSku /]
 										<li class="list-item">
-											<div class="list-item-body">
+											<div class="list-item-body" style="display: flex;justify-content: space-around;">
 												<a href="${base}${product.path}" target="_blank">
-													<img id="productImage${product.id}" class="lazy-load img-responsive center-block" src="${base}/resources/common/images/transparent.png" alt="${product.name}" data-original="${product.thumbnail!setting.defaultThumbnailProductImage}">
+													<img id="productImage${product.id}" class="listimg lazy-load img-responsive" src="${base}/resources/common/images/transparent.png" alt="${product.name}" data-original="${product.thumbnail!setting.defaultThumbnailProductImage}">
 												</a>
-												<strong>
-													[#if product.type == "GENERAL"]
+												[#--规格--]
+                                                <div class="product-left-2">
+                                                    <ul>
+                                                        <li class="product-li-12">
+
+															<span class="product-name">
+																<b>
+																	<a href="${base}${product.path}" target="_blank">
+																	<h5 class="text-overflow" title="${product.name}">${product.name}</h5>
+																	[#if product.caption?has_content]
+																	<h6 class="text-overflow" title="${product.caption}">${product.caption}</h6>
+																	[/#if]
+																	</a>
+																</b>
+															</span>
+                                                                <span class="product-specifications">
+																	${defaultSku.specificationVal}
+																</span>
+                                                                <span class="product-brand">
+																	<a href="${base}${product.brand.path}" target="_blank">
+																		${product.brand.name}
+																</span>
+                                                        </li>
+                                                        <li>
+                                                            <span class="specific-2">
+															说明:
+															</span>
+															[#noautoesc]${product.introduction}[/#noautoesc]
+                                                        </li>
+                                                        <li>
+                                                        </li>
+                                                        <li>
+                                                            <div class="star-level">
+                                                                <div class="xing-2">
+                                                                    <span class="iconfont">&#xe70b;</span>5星
+                                                                </div>
+                                                                <div class="points-2">
+                                                                    1000分
+                                                                </div>
+                                                            </div>
+                                                            <div class="company-2">
+                                                                <p class="text-center">
+                                                                    <a href="${base}${product.store.path}" title="${product.store.name}" target="_blank">${abbreviate(product.store.name, 15)}</a>
+																	[#if product.store.type == "SELF"]
+                                                                        <span class="label label-primary">${message("Store.Type.SELF")}</span>
+																	[/#if]
+                                                                </p>
+																[#--<span class="iconfont">&#xe683;</span>--]
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="price-2">
+												<p class="kg-2">
+													<b>
+														[#if product.type == "GENERAL"]
 														${currency(defaultSku.price, true)}
 														[#if setting.isShowMarketPrice]
-															<del>${currency(defaultSku.marketPrice, true)}</del>
+														[#--<del>${currency(defaultSku.marketPrice, true)}</del>--]
 														[/#if]
-													[#elseif product.type == "EXCHANGE"]
+														[#elseif product.type == "EXCHANGE"]
 														${message("Sku.exchangePoint")}: ${defaultSku.exchangePoint}
-													[/#if]
-												</strong>
-												<a href="${base}${product.path}" target="_blank">
-													<h5 class="text-overflow" title="${product.name}">${product.name}</h5>
-													[#if product.caption?has_content]
-														<h6 class="text-overflow" title="${product.caption}">${product.caption}</h6>
-													[/#if]
-												</a>
-												<p class="text-center">
-													<a href="${base}${product.store.path}" title="${product.store.name}" target="_blank">${abbreviate(product.store.name, 15)}</a>
-													[#if product.store.type == "SELF"]
-														<span class="label label-primary">${message("Store.Type.SELF")}</span>
-													[/#if]
+														[/#if]
+                                                        <span class="unit">/${product.unit!message("product.defaultUnit")}</span>
+                                                    </b>
 												</p>
-											</div>
-											<div class="list-item-footer clearfix">
-												[#if product.type == "GENERAL"]
-													<a href="javascript:;" data-action="addCart" data-sku-id="${defaultSku.id}" data-cart-target="#mainSidebarCart" data-product-image-target="#productImage${product.id}">
-														<i class="iconfont icon-cart"></i>
-														${message("shop.product.addCart")}
+
+                                                    <p class="guarantee">质量保障书</p>
+                                                </div>
+                                                <div class="icon-2">
+                                                    <ul>
+                                                        <li>
+                                                            <span class="iconfont">&#xe633;</span>定额违约金
+                                                        </li>
+                                                        <li>
+                                                            <span class="iconfont">&#xe634;</span>仓库快结
+                                                        </li>
+                                                        <li>
+                                                            <span class="iconfont">&#xe615;</span>融资支付
+                                                        </li>
+                                                        <li>
+                                                            <span class="iconfont">&#xe602;</span>闪电开票
+                                                        </li>
+                                                        <li>
+                                                            <span class="iconfont">&#xe78e;</span>视频验货
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="detailsbutton-2">
+                                                    [#--<p class="data-2">2019-12-12  13:52:10</p>--]
+                                                        <p class="data-2">${product.createdDate}</p>
+													<a href="${base}${product.path}" target="_blank">
+                                                        <button type="button" class="button-2">查看详情</button>
 													</a>
-												[#elseif product.type == "EXCHANGE"]
-													<a href="javascript:;" data-action="checkout" data-sku-id="${defaultSku.id}">
-														<i class="iconfont icon-present"></i>
-														${message("shop.product.exchange")}
-													</a>
-												[/#if]
-												<a class="add-product-favorite" href="javascript:;" title="${message("shop.product.addProductFavorite")}" data-action="addProductFavorite" data-product-id="${product.id}">
-													<i class="iconfont icon-like"></i>
-												</a>
-												<a class="add-compare" href="javascript:;" title="${message("shop.product.addCompare")}" data-product-id="${product.id}">
-													<i class="iconfont icon-list"></i>
-												</a>
-											</div>
+                                                </div>
+												[#--<strong>--]
+													[#--[#if product.type == "GENERAL"]--]
+														[#--${currency(defaultSku.price, true)}--]
+														[#--[#if setting.isShowMarketPrice]--]
+															[#--<del>${currency(defaultSku.marketPrice, true)}</del>--]
+														[#--[/#if]--]
+													[#--[#elseif product.type == "EXCHANGE"]--]
+														[#--${message("Sku.exchangePoint")}: ${defaultSku.exchangePoint}--]
+													[#--[/#if]--]
+												[#--</strong>--]
+												[#--<a href="${base}${product.path}" target="_blank">--]
+													[#--<h5 class="text-overflow" title="${product.name}">${product.name}</h5>--]
+													[#--[#if product.caption?has_content]--]
+														[#--<h6 class="text-overflow" title="${product.caption}">${product.caption}</h6>--]
+													[#--[/#if]--]
+												[#--</a>--]
+												[#--<p class="text-center">--]
+													[#--<a href="${base}${product.store.path}" title="${product.store.name}" target="_blank">${abbreviate(product.store.name, 15)}</a>--]
+													[#--[#if product.store.type == "SELF"]--]
+														[#--<span class="label label-primary">${message("Store.Type.SELF")}</span>--]
+													[#--[/#if]--]
+												[#--</p>--]
+											[#--</div>--]
+											[#--<div class="list-item-footer clearfix">--]
+												[#--[#if product.type == "GENERAL"]--]
+													[#--<a href="javascript:;" data-action="addCart" data-sku-id="${defaultSku.id}" data-cart-target="#mainSidebarCart" data-product-image-target="#productImage${product.id}">--]
+														[#--<i class="iconfont icon-cart"></i>--]
+														[#--${message("shop.product.addCart")}--]
+													[#--</a>--]
+												[#--[#elseif product.type == "EXCHANGE"]--]
+													[#--<a href="javascript:;" data-action="checkout" data-sku-id="${defaultSku.id}">--]
+														[#--<i class="iconfont icon-present"></i>--]
+														[#--${message("shop.product.exchange")}--]
+													[#--</a>--]
+												[#--[/#if]--]
+												[#--<a class="add-product-favorite" href="javascript:;" title="${message("shop.product.addProductFavorite")}" data-action="addProductFavorite" data-product-id="${product.id}">--]
+													[#--<i class="iconfont icon-like"></i>--]
+												[#--</a>--]
+												[#--<a class="add-compare" href="javascript:;" title="${message("shop.product.addCompare")}" data-product-id="${product.id}">--]
+													[#--<i class="iconfont icon-list"></i>--]
+												[#--</a>--]
+											[#--</div>--]
 										</li>
 									[/#list]
 								</ul>

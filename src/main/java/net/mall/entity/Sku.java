@@ -937,4 +937,19 @@ public class Sku extends BaseEntity<Long> {
 	public static class SpecificationValueConverter extends BaseAttributeConverter<List<SpecificationValue>> {
 	}
 
+
+	@Transient
+	public String getSpecificationVal(){
+		List<SpecificationValue> specificationValues = getSpecificationValues();
+		StringBuilder specValSb =  new StringBuilder();
+		specificationValues.forEach(specificationValue -> {
+			specValSb.append(specificationValue.getValue());
+			specValSb.append("*");
+		});
+		if(specValSb.length() > 1){
+			return specValSb.toString().substring(0,specValSb.toString().lastIndexOf("*"));
+		} else {
+			return specValSb.toString();
+		}
+	}
 }

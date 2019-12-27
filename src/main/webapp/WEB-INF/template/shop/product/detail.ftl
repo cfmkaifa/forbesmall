@@ -27,6 +27,7 @@
 	<link href="${base}/resources/common/css/base.css" rel="stylesheet">
 	<link href="${base}/resources/shop/css/base.css" rel="stylesheet">
 	<link href="${base}/resources/shop/css/product.css" rel="stylesheet">
+    <link href="${base}/resources/shop/css/iconfont1.css" rel="stylesheet">
 	<!--[if lt IE 9]>
 		<script src="${base}/resources/common/js/html5shiv.js"></script>
 		<script src="${base}/resources/common/js/respond.js"></script>
@@ -50,6 +51,7 @@
 	<script src="${base}/resources/common/js/velocity.ui.js"></script>
 	<script src="${base}/resources/common/js/base.js"></script>
 	<script src="${base}/resources/shop/js/base.js"></script>
+    <script src="${base}/resources/common/js/iconfont1.js"></script>
 	[#noautoesc]
 		[#escape x as x?js_string]
 			<script>
@@ -416,49 +418,15 @@
 						[/#if]
 					</div>
 					<div class="summary">
-						<dl class="dl-horizontal clearfix">
-							<dt>${message("Product.sn")}:</dt>
-							<dd>${product.sn}</dd>
-							[#if product.type != "GENERAL"]
-								<dt>${message("Product.type")}:</dt>
-								<dd>${message("Product.Type." + product.type)}</dd>
-							[/#if]
-							[#if product.type == "GENERAL"]
-								<dt>${message("Sku.price")}:</dt>
-								<dd>
-									<strong id="price">${currency(defaultSku.price, true)}</strong>
-								</dd>
-								[#if setting.isShowMarketPrice]
-									<dt>${message("Sku.marketPrice")}:</dt>
-									<dd>
-										<del id="marketPrice">${currency(defaultSku.marketPrice, true)}</del>
-									</dd>
-								[/#if]
-								[#if product.validPromotions?has_content]
-									<dt>${message("Product.promotions")}:</dt>
-									<dd>
-										[#list product.validPromotions as promotion]
-											<a class="label label-default" href="${base}${promotion.path}" target="_blank">${promotion.name}</a>
-										[/#list]
-									</dd>
-								[/#if]
-								[#if defaultSku.rewardPoint > 0]
-									<dt>${message("Sku.rewardPoint")}:</dt>
-									<dd id="rewardPoint">${defaultSku.rewardPoint}</dd>
-								[/#if]
-							[#else]
-								[#if product.type == "EXCHANGE"]
-									<dt>${message("Sku.exchangePoint")}:</dt>
-									<dd>
-										<strong id="exchangePoint">${defaultSku.exchangePoint}</strong>
-									</dd>
-								[/#if]
-								[#if setting.isShowMarketPrice]
-									<dt>${message("Sku.marketPrice")}:</dt>
-									<dd id="marketPrice">${currency(defaultSku.marketPrice, true)}</dd>
-								[/#if]
-							[/#if]
-						</dl>
+                        <div class="money-2">
+                            <p>
+							   单价：<strong id="price" class="unit-2">${product.price}</strong>
+								<span class="unit-2">/${product.unit}</span>
+							</p>
+                            <p><span>[#noautoesc]介绍：${product.introduction}[/#noautoesc]</span></p>
+                            <p>上架时间：<span>${product.createdDate}</span></p>
+                            <p>服务电话：<span>${product.store.phone}</span></p>
+                        </div>
 						<ul class="clearfix">
 							<li>
 								${message("Product.monthSales")}:
@@ -481,7 +449,7 @@
 								<dl class="dl-horizontal clearfix">
 									[#list product.specificationItems as specificationItem]
 										<dt>
-											<span title="${specificationItem.name}">${abbreviate(specificationItem.name, 8)}:</span>
+											<span title="${specificationItem.name}">${specificationItem.name}:</span>
 										</dt>
 										<dd>
 											[#list specificationItem.entries as entry]
@@ -509,7 +477,7 @@
 											</a>
 										</span>
 									</div>
-									<span class="unit">${product.unit!message("shop.product.defaultUnit")}</span>
+									<span class="unit">${defaultSku.totalUnit}</span>
 								</dd>
 							</dl>
 						</div>
@@ -645,18 +613,26 @@
 								<h4>${message("shop.product.parameter")}</h4>
 							</div>
 							<div class="parameter-body">
-								<table>
+								<table class=" table-2">
 									[#list product.parameterValues as parameterValue]
 										<tr>
 											<th class="group" colspan="2">${parameterValue.group}</th>
 										</tr>
 										[#list parameterValue.entries as entry]
 											<tr>
-												<th>${entry.name}</th>
+												<td>${entry.name}</td>
 												<td>${entry.value}</td>
 											</tr>
-										[/#list]
+									     [/#list]
 									[/#list]
+								[#--	[#list product.specificationItems as parameterSpec]
+                                        <tr>
+                                            <td>${parameterSpec.name}：</td>
+										[#list parameterSpec.entries as entry]
+											<td>${entry.value}</td>
+										[/#list]
+                                        </tr>
+									[/#list]--]
 								</table>
 							</div>
 						</div>
