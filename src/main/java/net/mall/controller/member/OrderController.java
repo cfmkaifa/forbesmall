@@ -139,7 +139,6 @@ public class OrderController extends BaseController {
 		if (order == null) {
 			return UNPROCESSABLE_ENTITY_VIEW;
 		}
-
 		Setting setting = SystemUtils.getSetting();
 		model.addAttribute("isKuaidi100Enabled", StringUtils.isNotEmpty(setting.getKuaidi100Customer()) && StringUtils.isNotEmpty(setting.getKuaidi100Key()));
 		model.addAttribute("order", order);

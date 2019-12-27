@@ -316,6 +316,9 @@ public class Order extends BaseEntity<Long> {
 	@Length(max = 200)
 	@Pattern(regexp = "^\\d{3,4}-?\\d{7,9}$")
 	private String phone;
+	
+	@Column(name="certificate_path")
+	private String certificatePath;
 
 	/**
 	 * 附言
@@ -1409,6 +1412,20 @@ public class Order extends BaseEntity<Long> {
 	 */
 	public Set<OrderReturns> getOrderReturns() {
 		return orderReturns;
+	}
+
+	/** 
+	 * @return certificatePath 
+	 */
+	public String getCertificatePath() {
+		return certificatePath;
+	}
+
+	/** 
+	 * @param certificatePath 要设置的 certificatePath 
+	 */
+	public void setCertificatePath(String certificatePath) {
+		this.certificatePath = certificatePath;
 	}
 
 	/**

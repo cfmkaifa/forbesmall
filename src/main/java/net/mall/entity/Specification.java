@@ -47,7 +47,6 @@ public class Specification extends OrderedEntity<Long> {
 		YES
 	}
 	
-	
 	/**
 	 * 名称
 	 */

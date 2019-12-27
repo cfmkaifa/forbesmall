@@ -201,6 +201,8 @@
 							<th>${message("Sku.exchangePoint")}</th>
 						[/#if]
 						<th>${message("Sku.stock")}</th>
+						<th>${message("Product.unit")}</th>
+						<th>${product.unit}</th>
 						<th>${message("Sku.isDefault")}</th>
 						<th>${message("business.product.isEnabled")}</th>
 					</tr>
@@ -224,6 +226,8 @@
 								var rewardPoint = skuValue != null && skuValue.rewardPoint != null ? skuValue.rewardPoint : "";
 								var exchangePoint = skuValue != null && skuValue.exchangePoint != null ? skuValue.exchangePoint : "";
 								var stock = skuValue != null && skuValue.stock != null ? skuValue.stock : "";
+								var unit = skuValue != null && skuValue.unit != null ? skuValue.unit : "";
+								var totalUnit = skuValue != null && skuValue.totalUnit != null ? skuValue.totalUnit : "";
 								var isDefault = skuValue != null && skuValue.isDefault != null ? skuValue.isDefault : false;
 								var isEnabled = skuValue != null && skuValue.isEnabled != null ? skuValue.isEnabled : false;
 								var sample = skuValue != null && skuValue.sample != null ? skuValue.sample : true;
@@ -264,13 +268,19 @@
 									<div class="input-group">
 										<input name="skuList[<%-i%>].stock" class="stock form-control" type="text" value="<%-initSkuValue.stock%>" maxlength="9" title="${message("Sku.allocatedStock")}: <%-initSkuValue.allocatedStock%>" style="min-width: 70px;" <%-!sample ? " disabled" : ""%> >
 										<div class="input-group-btn">
-											<a class="sn btn btn-default" <%-!sample ? " disabled" : ""%> href="${base}/business/stock/stock_in?skuSn=<%-initSkuValue.sn%>" title="${message("business.product.stockIn")}" data-toggle="tooltip">+</a>
-											<a class="sn btn btn-default" <%-!sample ? " disabled" : ""%> href="${base}/business/stock/stock_out?skuSn=<%-initSkuValue.sn%>" title="${message("business.product.stockOut")}" data-toggle="tooltip">-</a>
+											<a class="sn btn btn-default" href="${base}/business/stock/stock_in?skuSn=<%-initSkuValue.sn%>" <%-!sample ? " disabled" : ""%> title="${message("business.product.stockIn")}" data-toggle="tooltip">+</a>
+											<a class="sn btn btn-default" href="${base}/business/stock/stock_out?skuSn=<%-initSkuValue.sn%>" <%-!sample ? " disabled" : ""%> title="${message("business.product.stockOut")}" data-toggle="tooltip">-</a>
 										</div>
 									</div>
 								<%} else {%>
 									<input name="skuList[<%-i%>].stock" class="stock form-control" type="text" <%-!sample ? " disabled" : ""%> value="<%-stock%>" maxlength="9"<%-!isEnabled ? " disabled" : ""%>>
 								<%}%>
+							</td>
+							<td>
+								<input name="skuList[<%-i%>].unit" class="unit form-control" type="text" <%-!sample ? " disabled" : ""%> value="<%-unit%>" maxlength="9"<%-!isEnabled ? " disabled" : ""%>>
+							</td>
+							<td>
+								<input name="skuList[<%-i%>].totalUnit" class="totalUnit form-control" type="text" <%-!sample ? " disabled" : ""%> value="<%-totalUnit%>" maxlength="9"<%-!isEnabled ? " disabled" : ""%>>
 							</td>
 							<td>
 								<div class="checkbox">
@@ -358,6 +368,8 @@
 								rewardPoint: ${sku.rewardPoint},
 								exchangePoint: ${sku.exchangePoint},
 								stock: ${sku.stock},
+								unit:"${sku.skuUnit}",
+							    totalUnit:${sku.totalUnit},
 								allocatedStock: ${sku.allocatedStock},
 								sample:[#if sku.sample=="YES" ]true[#else]false[/#if],
 								isDefault: ${sku.isDefault?string("true", "false")},
@@ -434,14 +446,10 @@
 					dropZoneEnabled: false,
 					overwriteInitial: false,
 					initialPreviewAsData: true,
+					showBrowse:false,
+					showUpload:false,
 					initialPreview: $.map(productImages, function(productImage) {
 						return productImage.large;
-					}),
-					initialPreviewConfig: $.map(productImages, function(productImage, i) {
-						return {
-							url: "${base}/business/product/delete_product_image",
-							key: i
-						}
 					}),
 					initialPreviewThumbTags: $.map(productImages, function(productImage) {
 						return {
@@ -460,13 +468,14 @@
 						}
 					},
 					layoutTemplates: {
-						footer: '<div class="file-thumbnail-footer">{inputs}{actions}</div>',
-						actions: '<div class="file-actions"><div class="file-footer-buttons">{upload} {download} {delete} {zoom} {other}</div>{drag}<div class="clearfix"></div></div>'
+							actionDelete:'',
+							footer: '<div class="file-thumbnail-footer">{actions}</div>'
 					},
 					fileActionSettings: {
 						showUpload: false,
-						showRemove: true,
-						showDrag: false
+						showRemove: false,
+						showDrag: false,
+						showBrowse:false
 					},
 					removeFromPreviewOnError: true,
 					showAjaxErrorDetails: false
@@ -692,6 +701,8 @@
 								rewardPoint: $element.find("input.reward-point").val(),
 								exchangePoint: $element.find("input.exchange-point").val(),
 								stock: $element.find("input.stock").val(),
+								unit:$element.find("input.unit").val(),
+								totalUnit:$element.find("input.totalUnit").val(),
 								isDefault: $element.find("input.is-default").prop("checked"),
 								isEnabled: $element.find("input.is-enabled").prop("checked"),
 								sample:($($cost).attr("sample")=="false"?false:true)
@@ -802,6 +813,10 @@
 						digits: true
 					},
 					stock: {
+						required: true,
+						digits: true
+					},
+					totalUnit: {
 						required: true,
 						digits: true
 					}

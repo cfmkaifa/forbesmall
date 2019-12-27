@@ -173,11 +173,22 @@ public class CartItem extends BaseEntity<Long> {
 	public BigDecimal getPrice() {
 		if (getSku() != null && getSku().getPrice() != null) {
 			Setting setting = SystemUtils.getSetting();
-			if (getCart() != null && getCart().getMember() != null && getCart().getMember().getMemberRank() != null) {
+			if (getCart() != null 
+					&& getCart().getMember() != null 
+					&& getCart().getMember().getMemberRank() != null) {
 				MemberRank memberRank = getCart().getMember().getMemberRank();
 				if (memberRank.getScale() != null) {
-					return setting.setScale(getSku().getPrice().multiply(new BigDecimal(String.valueOf(memberRank.getScale()))));
+					if(getSku().getTotalUnit() != null){
+						return setting.setScale(getSku().getPrice()
+								.multiply(getSku().getTotalUnit())
+								.multiply(new BigDecimal(String.valueOf(memberRank.getScale()))));
+					}
+					return setting.setScale(getSku().getPrice()
+								.multiply(new BigDecimal(String.valueOf(memberRank.getScale()))));
 				}
+			}
+			if(getSku().getTotalUnit() != null){
+				setting.setScale(getSku().getPrice().multiply(getSku().getTotalUnit()));
 			}
 			return setting.setScale(getSku().getPrice());
 		} else {

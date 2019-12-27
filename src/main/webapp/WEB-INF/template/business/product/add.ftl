@@ -202,6 +202,8 @@
 							<th>${message("Sku.exchangePoint")}</th>
 						<%}%>
 						<th>${message("Sku.stock")}</th>
+						<th>${message("Product.unit")}</th>
+						<th>${message("Product.defaultUnit")}</th>
 						<th>${message("Sku.isDefault")}</th>
 						<th>${message("business.product.isEnabled")}</th>
 					</tr>
@@ -224,6 +226,8 @@
 								var rewardPoint = skuValue != null && skuValue.rewardPoint != null ? skuValue.rewardPoint : "";
 								var exchangePoint = skuValue != null && skuValue.exchangePoint != null ? skuValue.exchangePoint : "";
 								var stock = skuValue != null && skuValue.stock != null ? skuValue.stock : "";
+								var unit = skuValue != null && skuValue.unit != null ? skuValue.unit : "";
+								var totalUnit = skuValue != null && skuValue.totalUnit != null ? skuValue.totalUnit : 0;
 								var isDefault = skuValue != null && skuValue.isDefault != null ? skuValue.isDefault : false;
 								var isEnabled = skuValue != null && skuValue.isEnabled != null ? skuValue.isEnabled : false;
 							%>
@@ -261,6 +265,12 @@
 							<%}%>
 							<td>
 								<input name="skuList[<%-i%>].stock" class="stock form-control" type="text" value="<%-stock%>" maxlength="9"<%-!isEnabled ? " disabled" : ""%>>
+							</td>
+							<td>
+								<input name="skuList[<%-i%>].unit" class="unit form-control" type="text"  value="<%-unit%>" maxlength="9"<%-!isEnabled ? " disabled" : ""%>>
+							</td>
+							<td>
+								<input name="skuList[<%-i%>].totalUnit" class="totalUnit form-control" type="text" value="<%-totalUnit%>" maxlength="9"<%-!isEnabled ? " disabled" : ""%>>
 							</td>
 							<td>
 								<div class="checkbox">
@@ -672,6 +682,8 @@
 							rewardPoint: $element.find("input.reward-point").val(),
 							exchangePoint: $element.find("input.exchange-point").val(),
 							stock: $element.find("input.stock").val(),
+							unit:$element.find("input.unit").val(),
+							totalUnit:$element.find("input.totalUnit").val(),
 							isDefault: $element.find("input.is-default").prop("checked"),
 							isEnabled: $element.find("input.is-enabled").prop("checked")
 						};
@@ -781,6 +793,10 @@
 						digits: true
 					},
 					stock: {
+						required: true,
+						digits: true
+					},
+					totalUnit: {
 						required: true,
 						digits: true
 					}

@@ -12,6 +12,7 @@
 	<link href="${base}/resources/common/css/bootstrap.css" rel="stylesheet">
 	<link href="${base}/resources/common/css/iconfont.css" rel="stylesheet">
 	<link href="${base}/resources/common/css/font-awesome.css" rel="stylesheet">
+	<link href="${base}/resources/common/css/bootstrap-fileinput.css" rel="stylesheet">
 	<link href="${base}/resources/common/css/bootstrap-select.css" rel="stylesheet">
 	<link href="${base}/resources/common/css/base.css" rel="stylesheet">
 	<link href="${base}/resources/business/css/base.css" rel="stylesheet">
@@ -24,6 +25,7 @@
 	<script src="${base}/resources/common/js/bootstrap-growl.js"></script>
 	<script src="${base}/resources/common/js/bootbox.js"></script>
 	<script src="${base}/resources/common/js/bootstrap-select.js"></script>
+	<script src="${base}/resources/common/js/bootstrap-fileinput.js"></script>
 	<script src="${base}/resources/common/js/jquery.lSelect.js"></script>
 	<script src="${base}/resources/common/js/jquery.nicescroll.js"></script>
 	<script src="${base}/resources/common/js/jquery.validate.js"></script>
@@ -61,8 +63,8 @@
 		[#escape x as x?js_string]
 			<script>
 			$().ready(function() {
-			
 				var $review = $("button.review");
+				var $confirmPaymentButton = $("#confirmPaymentButton");
 				var $paymentForm = $("#paymentForm");
 				var $amount = $("#paymentForm input[name='amount']");
 				var $refundsForm = $("#refundsForm");
@@ -79,7 +81,7 @@
 				var $transitStepModal = $("#transitStepModal");
 				var $transitStepModalBody = $("#transitStepModal div.modal-body");
 				var isLocked = false;
-				
+				var $certificatePayment = $("#certificatePayment");
 				// 地区选择
 				$areaId.lSelect({
 					url: "${base}/common/area"
@@ -107,6 +109,48 @@
 					});
 				}
 				
+				
+				// 支付凭证
+				$certificatePayment.fileinput({
+						uploadUrl: "${base}/common/file/upload",
+						uploadExtraData: {
+							fileType: "FILE"
+						},
+						allowedFileExtensions: "${setting.uploadFileExtension}".split(","),
+						[#if setting.uploadMaxSize != 0]
+							maxFileSize: ${setting.uploadMaxSize} * 1024,
+						[/#if]
+						maxFileCount: 0,
+						autoReplace: false,
+						showRemove: false,
+						showClose: false,
+						dropZoneEnabled: false,
+						overwriteInitial: false,
+						showBrowse:false,
+						showUpload:false,
+						initialPreviewAsData: true,
+						initialPreviewFileType:"pdf",
+						previewClass: "multiple-file-preview",
+						[#if order.certificatePath?has_content]
+							initialPreview: "${order.certificatePath}",
+						[/#if]
+						layoutTemplates: {
+							actionDelete:'',
+							footer: '<div class="file-thumbnail-footer">{actions}</div>'
+						},
+						fileActionSettings: {
+							showUpload: false,
+							showRemove: false,
+							showDrag: false
+						},
+						removeFromPreviewOnError:false,
+						showAjaxErrorDetails: false
+					}).on("fileloaded", function(event, file, previewId, index, reader) {
+					}).on("fileuploaded", function(event, data, previewId, index) {
+						
+					}).on("filecleared fileerror fileuploaderror", function() {
+					});
+				
 				// 获取订单锁
 				acquireLock();
 				setInterval(function() {
@@ -114,7 +158,44 @@
 						acquireLock();
 					}
 				}, 50000);
-				
+				// 确认付款
+				$confirmPaymentButton.click(function() {
+					var $element = $(this);
+					
+					bootbox.prompt({
+						title: "${message("common.bootbox.title")}",
+						inputType: "select",
+						value: "APPROVED",
+						inputOptions: [
+							{
+								text: "${message("business.order.confirmPaymentApproved")}",
+								value: "APPROVED"
+							},
+							{
+								text: "${message("business.order.confirmPaymentFailed")}",
+								value: "FAILED"
+							}
+						],
+						callback: function(result) {
+							if (result == null) {
+								return;
+							}
+							$.ajax({
+								url: "${base}/business/order/confirmPayment",
+								type: "POST",
+								data: {
+									orderId: $element.data("id"),
+									passed: result == "APPROVED" ? "true" : "false"
+								},
+								dataType: "json",
+								cache: false,
+								success: function() {
+									location.reload(true);
+								}
+							});
+						}
+					}).find("select").selectpicker();
+				});
 				// 审核
 				$review.click(function() {
 					var $element = $(this);
@@ -987,6 +1068,7 @@
 								<div class="row">
 									<div class="col-xs-10 col-sm-6 col-xs-offset-2 col-sm-offset-2">
 										<div class="form-group">
+											<button id="confirmPaymentButton" class=" btn btn-default" type="button" data-id="${order.id}"[#if order.hasExpired() || order.status != "PENDING_PAYMENT" || order.paymentMethod.method != "OFFLINE"] disabled[/#if]>${message("business.order.confirmPayment")}</button>
 											<button class="review btn btn-default" type="button" data-id="${order.id}"[#if order.hasExpired() || order.status != "PENDING_REVIEW"] disabled[/#if]>${message("business.order.review")}</button>
 											[#if currentStore.isSelf()]
 												<button id="paymentModalButton" class="btn btn-default" type="button" data-toggle="modal" data-target="#paymentModal"[#if order.hasExpired()] disabled[/#if]>${message("business.order.payment")}</button>
@@ -1158,8 +1240,11 @@
 									</table>
 								</div>
 							</div>
-							<div id="paymentInfo" class="tab-pane">
+							<div id="paymentInfo" class="tab-pane">								
 								<div class="table-responsive">
+								[#if order.paymentMethod.method == "OFFLINE"]
+									<input  class="btn btn-primary"  id="certificatePayment" name="file" type="file" value="${message("member.order.certificatePayment")}">
+								[#else]
 									<table class="table table-hover">
 										<thead>
 											<tr>
@@ -1189,6 +1274,7 @@
 									[#if !order.orderPayments?has_content]
 										<p class="no-result">${message("common.noResult")}</p>
 									[/#if]
+								[/#if]
 								</div>
 							</div>
 							<div id="orderRefundsInfo" class="tab-pane">

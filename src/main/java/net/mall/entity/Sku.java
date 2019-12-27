@@ -41,6 +41,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.NumericField;
 import org.hibernate.search.annotations.Store;
+import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
@@ -151,6 +152,27 @@ public class Sku extends BaseEntity<Long> {
 	@NumericField
 	@Column(nullable = false)
 	private Integer stock;
+	
+	
+	
+	/**
+	 * 单位
+	 */
+	@Field(store = Store.YES, index = Index.NO, analyze = Analyze.NO)
+	@Length(max = 200)
+	private String unit;
+	
+	
+	
+	/**
+	 * 单位
+	 */
+	@Field(store = Store.YES, index = Index.NO, analyze = Analyze.NO)
+	@NotNull(groups = General.class)
+	@Min(0)
+	@Digits(integer = 12, fraction = 3)
+	@Column(name="total_unit",nullable = false, precision = 21, scale = 6)
+	private BigDecimal totalUnit;
 
 	/**
 	 * 已分配库存
@@ -405,6 +427,30 @@ public class Sku extends BaseEntity<Long> {
 	public Boolean getIsDefault() {
 		return isDefault;
 	}
+	
+	
+	
+
+	/** 
+	 * @return totalUnit 
+	 */
+	public BigDecimal getTotalUnit() {
+		return totalUnit;
+	}
+
+	/** 
+	 * @param totalUnit 要设置的 totalUnit 
+	 */
+	public void setTotalUnit(BigDecimal totalUnit) {
+		this.totalUnit = totalUnit;
+	}
+
+	/** 
+	 * @param unit 要设置的 unit 
+	 */
+	public void setUnit(String unit) {
+		this.unit = unit;
+	}
 
 	/**
 	 * 设置是否默认
@@ -598,6 +644,20 @@ public class Sku extends BaseEntity<Long> {
 	@Transient
 	public String getUnit() {
 		return getProduct() != null ? getProduct().getUnit() : null;
+	}
+	
+	
+	/***
+	 * getSkuUnit方法慨述:获取库存单位
+	 * @return String
+	 * @创建人 huanghy
+	 * @创建时间 2019年12月27日 下午12:37:57
+	 * @修改人 (修改了该文件，请填上修改人的名字)
+	 * @修改日期 (请填上修改该文件时的日期)
+	 */
+	@Transient
+	public String getSkuUnit() {
+		return unit;
 	}
 
 	/**

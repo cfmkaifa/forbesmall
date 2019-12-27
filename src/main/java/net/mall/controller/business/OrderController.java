@@ -241,6 +241,37 @@ public class OrderController extends BaseController {
 
 		return Results.OK;
 	}
+	
+	
+	/***
+	 * confirmPayment方法慨述:确认付款
+	 * @param order
+	 * @param passed
+	 * @param currentUser
+	 * @return ResponseEntity<?>
+	 * @创建人 huanghy
+	 * @创建时间 2019年12月26日 下午4:23:05
+	 * @修改人 (修改了该文件，请填上修改人的名字)
+	 * @修改日期 (请填上修改该文件时的日期)
+	 */
+	@PostMapping("/confirmPayment")
+	public ResponseEntity<?> confirmPayment(@ModelAttribute(binding = false) Order order, Boolean passed, @CurrentUser Business currentUser) {
+		if (order == null 
+				|| order.hasExpired() 
+				|| !Order.Status.PENDING_PAYMENT.equals(order.getStatus()) 
+				|| passed == null) {
+			return Results.UNPROCESSABLE_ENTITY;
+		}
+		if (!orderService.acquireLock(order, currentUser)) {
+			return Results.UNPROCESSABLE_ENTITY;
+		}
+		order.setAmountPaid(order.getAmount());
+		order.setStatus(Order.Status.PENDING_REVIEW);
+		orderService.confirmPayment(order);
+		return Results.OK;
+	}
+	
+	
 
 	/**
 	 * 收款

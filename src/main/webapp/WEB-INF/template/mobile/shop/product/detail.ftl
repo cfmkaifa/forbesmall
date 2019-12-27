@@ -1,4 +1,10 @@
-[#assign defaultSku = product.defaultSku /]
+[#if mobileDefaultSku?has_content]
+	[#assign defaultSku = mobileDefaultSku /]
+[#else]
+	[#assign defaultSku = product.defaultSku /]
+[/#if]
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -262,15 +268,17 @@
 				var skuData = {};
 				[#if product.hasSpecification()]
 					[#list product.skus as sku]
-						skuData["${sku.specificationValueIds?join(",")}"] = {
-							id: ${sku.id},
-							price: ${sku.price},
-							marketPrice: ${sku.marketPrice},
-							rewardPoint: ${sku.rewardPoint},
-							exchangePoint: ${sku.exchangePoint},
-							sample:"${sku.sample}",
-							isOutOfStock: ${sku.isOutOfStock?string("true", "false")}
-						};
+						  [#if sku.sample="YES" ]
+							  		skuData["${sku.specificationValueIds?join(",")}"] = {
+									id: ${sku.id},
+									price: ${sku.price},
+									marketPrice: ${sku.marketPrice},
+									rewardPoint: ${sku.rewardPoint},
+									exchangePoint: ${sku.exchangePoint},
+									sample:"${sku.sample}",
+									isOutOfStock: ${sku.isOutOfStock?string("true", "false")}
+								};
+						  [/#if]
 					[/#list]
 					// 锁定规格值
 					lockSpecificationValue();

@@ -29,9 +29,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import net.sf.ehcache.CacheManager;
-import net.sf.ehcache.Ehcache;
-import net.sf.ehcache.Element;
 import net.mall.Filter;
 import net.mall.Page;
 import net.mall.Pageable;
@@ -91,6 +88,9 @@ import net.mall.service.SkuService;
 import net.mall.service.SmsService;
 import net.mall.service.UserService;
 import net.mall.util.SystemUtils;
+import net.sf.ehcache.CacheManager;
+import net.sf.ehcache.Ehcache;
+import net.sf.ehcache.Element;
 
 /**
  * Service - 订单
@@ -147,6 +147,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 	private MailService mailService;
 	@Inject
 	private SmsService smsService;
+
 
 	@Override
 	@Transactional(readOnly = true)
@@ -1187,6 +1188,22 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 	@Transactional(readOnly = true)
 	public BigDecimal grantedCommissionTotalAmount(Store store, CommissionType commissionType, Date beginDate, Date endDate, Status... statuses) {
 		return orderDao.grantedCommissionTotalAmount(store, commissionType, beginDate, endDate, statuses);
+	}
+	
+	/***
+	 * 
+	 */
+	@Override
+	@Transactional
+	public  void confirmPayment(Order order){
+		Setting setting = SystemUtils.getSetting();
+		Assert.notNull(order, "[Assertion failed] - entity is required; it must not be null");
+		Assert.isTrue(!order.isNew(), "[Assertion failed] - entity must not be new");
+		if (Setting.StockAllocationTime.ORDER.equals(setting.getStockAllocationTime())
+				|| (Setting.StockAllocationTime.PAYMENT.equals(setting.getStockAllocationTime()) && (order.getAmountPaid().compareTo(BigDecimal.ZERO) > 0 || order.getExchangePoint() > 0 || order.getAmountPayable().compareTo(BigDecimal.ZERO) <= 0))) {
+			allocateStock(order);
+		}
+		orderDao.merge(order);
 	}
 
 	@Override

@@ -39,6 +39,7 @@ public class FileController {
 	private FileService fileService;
 	/***文件存放目录
 	 * **/
+	@SuppressWarnings("unused")
 	private String fileDir;
 	
 	/***

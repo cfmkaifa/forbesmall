@@ -16,12 +16,15 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mobile.device.Device;
+import org.springframework.mobile.device.DeviceUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.Assert;
@@ -41,13 +44,15 @@ import net.mall.entity.CouponCode;
 import net.mall.entity.Invoice;
 import net.mall.entity.Member;
 import net.mall.entity.Order;
+import net.mall.entity.Order.Status;
 import net.mall.entity.PaymentMethod;
+import net.mall.entity.PaymentMethod.Method;
 import net.mall.entity.Product;
 import net.mall.entity.Receiver;
 import net.mall.entity.ShippingMethod;
 import net.mall.entity.Sku;
-import net.mall.entity.Store;
 import net.mall.entity.Specification.Sample;
+import net.mall.entity.Store;
 import net.mall.plugin.PaymentPlugin;
 import net.mall.security.CurrentCart;
 import net.mall.security.CurrentUser;
@@ -265,7 +270,10 @@ public class OrderController extends BaseController {
 	 * 结算
 	 */
 	@GetMapping("/checkout")
-	public String checkout(Long skuId, Integer quantity, @CurrentUser Member currentUser, @CurrentCart Cart currentCart, ModelMap model) {
+	public String checkout(Long skuId, Integer quantity, 
+			@CurrentUser Member currentUser, @CurrentCart Cart currentCart,
+			HttpServletRequest request,
+			ModelMap model) {
 		Cart cart;
 		Order.Type orderType;
 		if (skuId != null) {
@@ -358,18 +366,27 @@ public class OrderController extends BaseController {
 		model.addAttribute("rewardPoint", rewardPoint);
 		model.addAttribute("exchangePoint", exchangePoint);
 		model.addAttribute("isDelivery", isDelivery);
-		List<PaymentMethod> paymentMethods = new ArrayList<>();
-		if (cart.contains(Store.Type.GENERAL)) {
-			CollectionUtils.select(paymentMethodService.findAll(), new Predicate() {
-				@Override
-				public boolean evaluate(Object object) {
-					PaymentMethod paymentMethod = (PaymentMethod) object;
-					return paymentMethod != null && PaymentMethod.Method.ONLINE.equals(paymentMethod.getMethod());
+		List<PaymentMethod> paymentMethods = paymentMethodService.findAll();
+		/***判断是否手机端
+		 * **/
+		if(request.getAttribute(DeviceUtils.CURRENT_DEVICE_ATTRIBUTE) instanceof Device){
+			Device device =  (Device) request.getAttribute(DeviceUtils.CURRENT_DEVICE_ATTRIBUTE);
+			if(device.isMobile() 
+					|| device.isTablet()){
+				if (cart.contains(Store.Type.GENERAL)) {
+					CollectionUtils.select(paymentMethodService.findAll(), new Predicate() {
+						@Override
+						public boolean evaluate(Object object) {
+							PaymentMethod paymentMethod = (PaymentMethod) object;
+							return paymentMethod != null && PaymentMethod.Method.ONLINE.equals(paymentMethod.getMethod());
+						}
+					}, paymentMethods);
+				} else {
+					paymentMethods = paymentMethodService.findAll();
 				}
-			}, paymentMethods);
-		} else {
-			paymentMethods = paymentMethodService.findAll();
+			}
 		}
+		model.addAttribute("defaultPaymentMethod", paymentMethods.get(0));
 		model.addAttribute("paymentMethods", paymentMethods);
 		model.addAttribute("shippingMethods", shippingMethodService.findAll());
 		return "shop/order/checkout";
@@ -379,7 +396,12 @@ public class OrderController extends BaseController {
 	 * 计算
 	 */
 	@GetMapping("/calculate")
-	public ResponseEntity<?> calculate(Long skuId, Integer quantity, Long receiverId, Long paymentMethodId, Long shippingMethodId, String code, String invoiceTitle, String invoiceTaxNumber, BigDecimal balance, String memo, @CurrentUser Member currentUser, @CurrentCart Cart currentCart) {
+	public ResponseEntity<?> calculate(Long skuId, Integer quantity,
+			Long receiverId, Long paymentMethodId, 
+			Long shippingMethodId, String code, String invoiceTitle, 
+			String invoiceTaxNumber, BigDecimal balance, String memo,
+			@CurrentUser Member currentUser, @CurrentCart Cart currentCart,
+			HttpServletRequest request) {
 		Map<String, Object> data = new HashMap<>();
 		Cart cart;
 		Order.Type orderType;
@@ -442,7 +464,19 @@ public class OrderController extends BaseController {
 			return Results.unprocessableEntity("shop.order.insufficientBalance");
 		}
 		PaymentMethod paymentMethod = paymentMethodService.find(paymentMethodId);
-		if (cart.contains(Store.Type.GENERAL) && paymentMethod != null && PaymentMethod.Method.OFFLINE.equals(paymentMethod.getMethod())) {
+		/***判断是否手机端
+		 * **/
+		if(request.getAttribute(DeviceUtils.CURRENT_DEVICE_ATTRIBUTE) instanceof Device){
+			Device device =  (Device) request.getAttribute(DeviceUtils.CURRENT_DEVICE_ATTRIBUTE);
+			if(device.isMobile() 
+					|| device.isTablet()){
+				if (cart.contains(Store.Type.GENERAL) && paymentMethod != null && PaymentMethod.Method.OFFLINE.equals(paymentMethod.getMethod())) {
+					return Results.UNPROCESSABLE_ENTITY;
+				}
+			}
+		}
+		//cart.contains(Store.Type.GENERAL) && paymentMethod != null && PaymentMethod.Method.OFFLINE.equals(paymentMethod.getMethod())
+		if (null == paymentMethod) {
 			return Results.UNPROCESSABLE_ENTITY;
 		}
 		ShippingMethod shippingMethod = shippingMethodService.find(shippingMethodId);
@@ -568,7 +602,8 @@ public class OrderController extends BaseController {
 			return Results.unprocessableEntity("shop.order.lowPoint");
 		}
 		PaymentMethod paymentMethod = paymentMethodService.find(paymentMethodId);
-		if (cart.contains(Store.Type.GENERAL) && paymentMethod != null && PaymentMethod.Method.OFFLINE.equals(paymentMethod.getMethod())) {
+		//cart.contains(Store.Type.GENERAL) && paymentMethod != null && PaymentMethod.Method.OFFLINE.equals(paymentMethod.getMethod())
+		if (null == paymentMethod ) {
 			return Results.UNPROCESSABLE_ENTITY;
 		}
 		ShippingMethod shippingMethod = shippingMethodService.find(shippingMethodId);
@@ -599,7 +634,6 @@ public class OrderController extends BaseController {
 		if (ArrayUtils.isEmpty(orderSns)) {
 			return UNPROCESSABLE_ENTITY_VIEW;
 		}
-
 		List<PaymentPlugin> paymentPlugins = pluginService.getActivePaymentPlugins(WebUtils.getRequest());
 		PaymentPlugin defaultPaymentPlugin = null;
 		PaymentMethod orderPaymentMethod = null;
@@ -707,6 +741,40 @@ public class OrderController extends BaseController {
 		cart.setMember(member);
 		cart.setCartItems(cartItems);
 		return cart;
+	}
+	
+	
+	/****
+	 * certificatePayment方法慨述:支付订单
+	 * @param paymentPluginId
+	 * @param orderSns
+	 * @param currentUser
+	 * @return ResponseEntity<?>
+	 * @创建人 huanghy
+	 * @创建时间 2019年12月26日 下午3:18:01
+	 * @修改人 (修改了该文件，请填上修改人的名字)
+	 * @修改日期 (请填上修改该文件时的日期)
+	 */
+	@PostMapping("/certificatePayment")
+	public ResponseEntity<?> certificatePayment(String orderSn, String certificatePath) {
+		if (null == orderSn 
+				|| orderSn.trim().length() ==0  
+				|| null == certificatePath 
+				|| certificatePath.trim().length() ==0) {
+			return Results.UNPROCESSABLE_ENTITY;
+		}
+		Order order = orderService.findBySn(orderSn);
+		if(order.getPaymentMethod().getMethod().equals(Method.OFFLINE)){
+			if(order.getStatus().equals(Status.PENDING_PAYMENT)){
+				order.setCertificatePath(certificatePath);
+				orderService.update(order);
+			} else {
+				return Results.UNPROCESSABLE_ENTITY;
+			}
+		} else {
+			return Results.UNPROCESSABLE_ENTITY;
+		}
+		return Results.OK;
 	}
 
 }

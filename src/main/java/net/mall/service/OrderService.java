@@ -470,4 +470,14 @@ public interface OrderService extends BaseService<Order, Long> {
 	 */
 	BigDecimal grantedCommissionTotalAmount(Store store, CommissionType commissionType, Date beginDate, Date endDate, Order.Status... statuses);
 
+	
+	/***
+	 * confirmPayment方法慨述:商家确认收款
+	 * @param order void
+	 * @创建人 huanghy
+	 * @创建时间 2019年12月26日 下午4:46:01
+	 * @修改人 (修改了该文件，请填上修改人的名字)
+	 * @修改日期 (请填上修改该文件时的日期)
+	 */
+	void confirmPayment(Order order);
 }

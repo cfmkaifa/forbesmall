@@ -201,6 +201,8 @@
 							<th>${message("Sku.exchangePoint")}</th>
 						[/#if]
 						<th>${message("Sku.stock")}</th>
+						<th>${message("Product.unit")}</th>
+						<th>[#if product.unit??]${product.unit}[#else]${message("Product.defaultUnit")}[/#if]</th>
 						<th>${message("Sku.isDefault")}</th>
 						<th>${message("business.product.isEnabled")}</th>
 					</tr>
@@ -224,6 +226,8 @@
 								var rewardPoint = skuValue != null && skuValue.rewardPoint != null ? skuValue.rewardPoint : "";
 								var exchangePoint = skuValue != null && skuValue.exchangePoint != null ? skuValue.exchangePoint : "";
 								var stock = skuValue != null && skuValue.stock != null ? skuValue.stock : "";
+								var unit = skuValue != null && skuValue.unit != null ? skuValue.unit : "";
+								var totalUnit = skuValue != null && skuValue.totalUnit != null ? skuValue.totalUnit : "";
 								var isDefault = skuValue != null && skuValue.isDefault != null ? skuValue.isDefault : false;
 								var isEnabled = skuValue != null && skuValue.isEnabled != null ? skuValue.isEnabled : false;
 								var sample = (skuValue != null && skuValue.sample != null) ? skuValue.sample : true;
@@ -272,6 +276,12 @@
 								<%} else {%>
 									<input name="skuList[<%-i%>].stock" class="stock form-control" type="text" value="<%-stock%>" <%-!sample ? " disabled" : ""%>  maxlength="9"<%-!isEnabled ? " disabled" : ""%>>
 								<%}%>
+							</td>
+							<td>
+								<input name="skuList[<%-i%>].unit" class="unit form-control" type="text" <%-!sample ? " disabled" : ""%> value="<%-unit%>" maxlength="9"<%-!isEnabled ? " disabled" : ""%>>
+							</td>
+							<td>
+								<input name="skuList[<%-i%>].totalUnit" class="totalUnit form-control" type="text" <%-!sample ? " disabled" : ""%> value="<%-totalUnit%>" maxlength="9"<%-!isEnabled ? " disabled" : ""%>>
 							</td>
 							<td>
 								<div class="checkbox">
@@ -359,6 +369,8 @@
 							rewardPoint: ${sku.rewardPoint},
 							exchangePoint: ${sku.exchangePoint},
 							stock: ${sku.stock},
+							unit:"${sku.skuUnit}",
+							totalUnit:${sku.totalUnit},
 							allocatedStock: ${sku.allocatedStock},
 							isDefault: ${sku.isDefault?string("true", "false")},
 							sample:[#if sku.sample=="NO" ]true[#else]false[/#if],
@@ -692,6 +704,8 @@
 								rewardPoint: $element.find("input.reward-point").val(),
 								exchangePoint: $element.find("input.exchange-point").val(),
 								stock: $element.find("input.stock").val(),
+								unit:$element.find("input.unit").val(),
+								totalUnit:$element.find("input.totalUnit").val(),
 								isDefault: $element.find("input.is-default").prop("checked"),
 								isEnabled: $element.find("input.is-enabled").prop("checked"),
 								sample:($($cost).attr("sample")=="false"?false:true)
@@ -802,6 +816,10 @@
 						digits: true
 					},
 					stock: {
+						required: true,
+						digits: true
+					},
+					totalUnit: {
 						required: true,
 						digits: true
 					}

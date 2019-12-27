@@ -12,6 +12,7 @@
 	<link href="${base}/resources/common/css/bootstrap.css" rel="stylesheet">
 	<link href="${base}/resources/common/css/font-awesome.css" rel="stylesheet">
 	<link href="${base}/resources/common/css/iconfont.css" rel="stylesheet">
+	<link href="${base}/resources/common/css/bootstrap-fileinput.css" rel="stylesheet">
 	<link href="${base}/resources/common/css/base.css" rel="stylesheet">
 	<link href="${base}/resources/shop/css/base.css" rel="stylesheet">
 	<link href="${base}/resources/member/css/base.css" rel="stylesheet">
@@ -23,6 +24,7 @@
 	<script src="${base}/resources/common/js/bootstrap.js"></script>
 	<script src="${base}/resources/common/js/bootstrap-growl.js"></script>
 	<script src="${base}/resources/common/js/bootbox.js"></script>
+	<script src="${base}/resources/common/js/bootstrap-fileinput.js"></script>
 	<script src="${base}/resources/common/js/jquery.cookie.js"></script>
 	<script src="${base}/resources/common/js/underscore.js"></script>
 	<script src="${base}/resources/common/js/url.js"></script>
@@ -53,6 +55,12 @@
 			line-height: 30px;
 			float: left;
 		}
+		.file-preview{
+			width: 25% !important;
+		}
+		.file-caption-main{
+			width: 25% !important;
+		}
 	</style>
 	<script id="transitStepTemplate" type="text/template">
 		<%if (_.isEmpty(data.transitSteps)) {%>
@@ -78,7 +86,7 @@
 				var $transitStepModal = $("#transitStepModal");
 				var $transitStepModalBody = $("#transitStepModal div.modal-body");
 				var transitStepTemplate = _.template($("#transitStepTemplate").html());
-				
+				var $certificatePayment = $("#certificatePayment");
 				// 订单支付
 				$payment.click(function() {
 					$.ajax({
@@ -95,7 +103,6 @@
 					});
 					return false;
 				});
-				
 				// 订单取消
 				$cancel.click(function() {
 					bootbox.confirm("${message("member.order.cancelConfirm")}", function(result) {
@@ -115,7 +122,6 @@
 					});
 					return false;
 				});
-				
 				// 订单收货
 				$receive.click(function() {
 					bootbox.confirm("${message("member.order.receiveConfirm")}", function(result) {
@@ -159,7 +165,60 @@
 					});
 					return false;
 				});
-				
+				// 支付凭证
+				$certificatePayment.fileinput({
+						uploadUrl: "${base}/common/file/upload",
+						uploadExtraData: {
+							fileType: "FILE"
+						},
+						allowedFileExtensions: "${setting.uploadFileExtension}".split(","),
+						[#if setting.uploadMaxSize != 0]
+							maxFileSize: ${setting.uploadMaxSize} * 1024,
+						[/#if]
+						maxFileCount: 1,
+						autoReplace: true,
+						showRemove: false,
+						showClose: false,
+						showPreview:true,
+						dropZoneEnabled: false,
+						overwriteInitial: false,
+						initialPreviewAsData: true,
+						previewClass: "multiple-file-preview",
+						initialPreviewFileType:"pdf",
+						[#if order.certificatePath?has_content]
+							initialPreview:"${order.certificatePath}",
+						[/#if]
+						layoutTemplates: {
+							footer: '<div class="file-thumbnail-footer">{actions}</div>',
+							actions: '<div class="file-actions"><div class="file-footer-buttons">{upload} {download} {delete} {zoom} {other}</div>{drag}<div class="clearfix"></div></div>'
+						},
+						fileActionSettings: {
+							showUpload: false,
+							showRemove: false,
+							showDrag: false
+						},
+						removeFromPreviewOnError: true,
+						showAjaxErrorDetails: false
+					}).on("fileloaded", function(event, file, previewId, index, reader) {
+					}).on("fileuploaded", function(event, data, previewId, index) {
+						$.ajax({
+							url: "${base}/order/certificatePayment",
+							type: "POST",
+							data: {
+								orderSn: "${order.sn}",
+								certificatePath:data.response.url
+							},
+							dataType: "json",
+							cache: false,
+							success: function(data) {
+								
+							},
+							error: function (xhr, textStatus, errorThrown){
+								
+							}
+						});
+					}).on("filecleared fileerror fileuploaderror", function() {
+					});
 			});
 			</script>
 		[/#escape]
@@ -195,23 +254,26 @@
 								<div class="list-group">
 									<div class="list-group-item clearfix">
 										<span class="pull-left">${message("Order.sn")}: ${order.sn}</span>
-										<span class="action pull-right">
+										<div class="action pull-right">
 											[#if setting.isReviewEnabled && !order.isReviewed && (order.status == "RECEIVED" || order.status == "COMPLETED")]
 												<a class="btn btn-default" href="${base}/member/review/add?orderId=${order.id}">${message("member.order.review")}</a>
 											[/#if]
 											[#if order.type == "GENERAL" && (order.status == "RECEIVED" || order.status == "COMPLETED")]
 												<a class="btn btn-default" href="${base}/member/aftersales/apply?orderId=${order.id}">${message("member.order.aftersalesApply")}</a>
 											[/#if]
-											[#if order.paymentMethod?? && order.amountPayable > 0]
+											[#if order.paymentMethod?? && order.amountPayable > 0 && order.paymentMethod.method == "ONLINE"]
 												<a id="payment" class="btn btn-primary" href="javascript:;">${message("member.order.payment")}</a>
 											[/#if]
+											[#if order.paymentMethod?? && order.amountPayable > 0 && order.paymentMethod.method == "OFFLINE"]
+												<input  class="btn btn-primary"  id="certificatePayment" name="file" type="file" value="${message("member.order.certificatePayment")}">
+											[/#if]
 											[#if !order.hasExpired() && (order.status == "PENDING_PAYMENT" || order.status == "PENDING_REVIEW")]
-												<a id="cancel" class="btn btn-default" href="javascript:;">${message("member.order.cancel")}</a>
+												<a id="cancel" class="btn btn-default" style="float: left;margin: -31px 0px 0px 287px;" href="javascript:;">${message("member.order.cancel")}</a>
 											[/#if]
 											[#if !order.hasExpired() && order.status == "SHIPPED"]
-												<a id="receive" class="btn btn-default" href="javascript:;">${message("member.order.receive")}</a>
+												<a id="receive" class="btn btn-default" style="float: left;margin: -31px 0px 0px 287px;" href="javascript:;">${message("member.order.receive")}</a>
 											[/#if]
-										</span>
+										</div>
 									</div>
 									<div class="list-group-item">
 										[#if order.hasExpired()]

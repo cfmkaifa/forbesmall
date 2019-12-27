@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -23,6 +24,8 @@ import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mobile.device.Device;
+import org.springframework.mobile.device.DeviceUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,8 +44,10 @@ import net.mall.entity.Product;
 import net.mall.entity.ProductCategory;
 import net.mall.entity.ProductTag;
 import net.mall.entity.Promotion;
+import net.mall.entity.Sku;
 import net.mall.entity.Store;
 import net.mall.entity.StoreProductCategory;
+import net.mall.entity.Specification.Sample;
 import net.mall.exception.ResourceNotFoundException;
 import net.mall.service.AttributeService;
 import net.mall.service.BrandService;
@@ -94,10 +99,24 @@ public class ProductController extends BaseController {
 	 * 详情
 	 */
 	@GetMapping("/detail/{productId}")
-	public String detail(@PathVariable Long productId, ModelMap model) {
+	public String detail(@PathVariable Long productId,HttpServletRequest request,
+			ModelMap model) {
 		Product product = productService.find(productId);
 		if (product == null || BooleanUtils.isNotTrue(product.getIsActive()) || BooleanUtils.isNotTrue(product.getIsMarketable())) {
 			throw new ResourceNotFoundException();
+		}
+		/***判断是否手机端
+		 * **/
+		if(request.getAttribute(DeviceUtils.CURRENT_DEVICE_ATTRIBUTE) instanceof Device){
+			Device device =  (Device) request.getAttribute(DeviceUtils.CURRENT_DEVICE_ATTRIBUTE);
+			if(device.isMobile() 
+					|| device.isTablet()){
+				Set<Sku>   sks =  product.getSkus();
+				 Optional<Sku>  optSku = sks.stream().filter(sku -> Sample.YES.equals(sku.getSample())).findAny();
+				 if(optSku.isPresent()){
+					 model.addAttribute("mobileDefaultSku", optSku.get());
+				 }
+			}
 		}
 		model.addAttribute("product", product);
 		return "shop/product/detail";

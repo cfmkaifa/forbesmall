@@ -489,6 +489,14 @@ public class Setting implements Serializable {
 	@Length(max = 200)
 	private String uploadDir;
 	
+	
+	/***模板地址
+	 */
+	@NotEmpty
+	@Length(max = 200)
+	private String templeatePath;
+	
+	
 	/**
 	 * 媒体上传路径
 	 */
@@ -2334,5 +2342,19 @@ public class Setting implements Serializable {
 	 */
 	public void setFileUrl(String fileUrl) {
 		this.fileUrl = fileUrl;
+	}
+
+	/** 
+	 * @return templeatePath 
+	 */
+	public String getTempleatePath() {
+		return templeatePath;
+	}
+
+	/** 
+	 * @param templeatePath 要设置的 templeatePath 
+	 */
+	public void setTempleatePath(String templeatePath) {
+		this.templeatePath = templeatePath;
 	}
 }
