@@ -153,6 +153,12 @@ public class OrderShipping extends BaseEntity<Long> {
 	@Pattern(regexp = "^\\d{3,4}-?\\d{7,9}$")
 	@Column(updatable = false)
 	private String phone;
+	
+	
+	/****
+	 */
+	@Column(name="weight_memo")
+	private String weightMemo;
 
 	/**
 	 * 备注
@@ -414,6 +420,20 @@ public class OrderShipping extends BaseEntity<Long> {
 	 */
 	public String getMemo() {
 		return memo;
+	}
+
+	/** 
+	 * @return weightMemo 
+	 */
+	public String getWeightMemo() {
+		return weightMemo;
+	}
+
+	/** 
+	 * @param weightMemo 要设置的 weightMemo 
+	 */
+	public void setWeightMemo(String weightMemo) {
+		this.weightMemo = weightMemo;
 	}
 
 	/**

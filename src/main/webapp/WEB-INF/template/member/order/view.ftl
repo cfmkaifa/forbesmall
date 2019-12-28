@@ -78,7 +78,6 @@
 		[#escape x as x?js_string]
 			<script>
 			$().ready(function() {
-				
 				var $payment = $("#payment");
 				var $cancel = $("#cancel");
 				var $receive = $("#receive");
@@ -87,6 +86,7 @@
 				var $transitStepModalBody = $("#transitStepModal div.modal-body");
 				var transitStepTemplate = _.template($("#transitStepTemplate").html());
 				var $certificatePayment = $("#certificatePayment");
+				var $sealContractFile = $("#sealContractFile");
 				// 订单支付
 				$payment.click(function() {
 					$.ajax({
@@ -141,11 +141,9 @@
 					});
 					return false;
 				});
-				
 				// 物流动态
 				$transitStep.click(function() {
 					var $element = $(this);
-					
 					$.ajax({
 						url: "${base}/member/order/transit_step",
 						type: "GET",
@@ -165,6 +163,49 @@
 					});
 					return false;
 				});
+				/***码单预览
+				**/
+				[#list order.orderShippings as orderShipping]
+					$("#shippingWeightMemoPreview${orderShipping.id}").fileinput({
+							uploadUrl: "${base}/common/file/upload",
+							uploadExtraData: {
+								fileType: "FILE"
+							},
+							allowedFileExtensions: "${setting.uploadFileExtension}".split(","),
+							[#if setting.uploadMaxSize != 0]
+								maxFileSize: ${setting.uploadMaxSize} * 1024,
+							[/#if]
+							maxFileCount: 0,
+							autoReplace: false,
+							showRemove: false,
+							showClose: false,
+							dropZoneEnabled: false,
+							overwriteInitial: false,
+							showBrowse:false,
+							showUpload:false,
+							initialPreviewAsData: true,
+							initialPreviewFileType:"pdf",
+							previewClass: "multiple-file-preview",
+							[#if orderShipping.weightMemo?has_content]
+								initialPreview: "${orderShipping.weightMemo}",
+							[/#if]
+							layoutTemplates: {
+								actionDelete:'',
+								footer: '<div class="file-thumbnail-footer">{actions}</div>'
+							},
+							fileActionSettings: {
+								showUpload: false,
+								showRemove: false,
+								showDrag: false
+							},
+							removeFromPreviewOnError:false,
+							showAjaxErrorDetails: false
+						}).on("fileloaded", function(event, file, previewId, index, reader) {
+						}).on("fileuploaded", function(event, data, previewId, index) {
+							
+						}).on("filecleared fileerror fileuploaderror", function() {
+						});
+				[/#list]
 				// 支付凭证
 				$certificatePayment.fileinput({
 						uploadUrl: "${base}/common/file/upload",
@@ -219,6 +260,65 @@
 						});
 					}).on("filecleared fileerror fileuploaderror", function() {
 					});
+					// 电子合同
+					$sealContractFile.fileinput({
+						uploadUrl: "${base}/common/file/upload",
+						uploadExtraData: {
+							fileType: "FILE"
+						},
+						allowedFileExtensions: "${setting.uploadFileExtension}".split(","),
+						[#if setting.uploadMaxSize != 0]
+							maxFileSize: ${setting.uploadMaxSize} * 1024,
+						[/#if]
+						maxFileCount: 1,
+						autoReplace: true,
+						showRemove: false,
+						showClose: false,
+						[# order.hasExpired() || order.status != "PENDING_PAYMENT" || order.status != "PENDING_REVIEW" ]
+							showBrowse:false,
+							showUpload:false,
+						[/#if]
+						showPreview:true,
+						dropZoneEnabled: false,
+						overwriteInitial: false,
+						initialPreviewAsData: true,
+						previewClass: "multiple-file-preview",
+						initialPreviewFileType:"pdf",
+						[#if order.sealContract?has_content]
+							initialPreview:"${order.sealContract}",
+						[/#if]
+						layoutTemplates: {
+							footer: '<div class="file-thumbnail-footer">{actions}</div>',
+							actions: '<div class="file-actions"><div class="file-footer-buttons">{upload} {download} {delete} {zoom} {other}</div>{drag}<div class="clearfix"></div></div>'
+						},
+						fileActionSettings: {
+							showUpload: false,
+							showRemove: false,
+							showDrag: false
+						},
+						removeFromPreviewOnError: true,
+						showAjaxErrorDetails: false
+					}).on("fileloaded", function(event, file, previewId, index, reader) {
+					}).on("fileuploaded", function(event, data, previewId, index) {
+						$.ajax({
+							url: "${base}/order/sealContract",
+							type: "POST",
+							data: {
+								orderId: "${order.id}",
+								sealContractPath:data.response.url
+							},
+							dataType: "json",
+							cache: false,
+							success: function(data) {
+								
+							},
+							error: function (xhr, textStatus, errorThrown){
+								
+							}
+						});
+					}).on("filecleared fileerror fileuploaderror", function() {
+					});
+					
 			});
 			</script>
 		[/#escape]
@@ -314,6 +414,12 @@
 											<dd>
 												${message("common.createdDate")}:
 												<span class="text-gray-darker">${order.createdDate?string("yyyy-MM-dd HH:mm:ss")}</span>
+											</dd>
+											<dd>
+												${message("member.order.sealContract")}:
+												<span class="text-gray-darker">
+													<input  class="btn btn-primary"  id="sealContractFile" name="file" type="file" >
+												</span>
 											</dd>
 											[#if order.paymentMethodName??]
 												<dd>
@@ -469,6 +575,10 @@
 														[#else]
 															${orderShipping.deliveryCorp!"-"}
 														[/#if]
+													</dd>
+													<dd>
+														${message("OrderShipping.weightMemo")}:
+														<input id="shippingWeightMemoPreview${orderShipping.id}" name="file" class="form-control" type="file" maxlength="200">
 													</dd>
 													<dd>
 														${message("OrderShipping.trackingNo")}:

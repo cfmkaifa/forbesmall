@@ -144,7 +144,7 @@
 			<map>
 			   <!-- http://www.chinafibermarketing.net -->
 				<!--<entry key="base" value="http://www.chinafibermarketing.net" />-->
-				<entry key="base" value="http://localhost:8080" />
+				<entry key="base" value="http://www.chinafibermarketing.net" />
 				<entry key="showPowered" value="#{${show_powered}}" />
 				<entry key="message" value-ref="messageMethod" />
 				<entry key="abbreviate" value-ref="abbreviateMethod" />

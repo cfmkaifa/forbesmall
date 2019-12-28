@@ -319,6 +319,17 @@ public class Order extends BaseEntity<Long> {
 	
 	@Column(name="certificate_path")
 	private String certificatePath;
+	
+	/***合同生成地址
+	 */
+	@Column(name="contract_path")
+	private String contractPath;
+	
+	
+	/***盖章合同
+	 */
+	@Column(name="seal_contract")
+	private String sealContract;
 
 	/**
 	 * 附言
@@ -1436,6 +1447,34 @@ public class Order extends BaseEntity<Long> {
 	 */
 	public void setOrderReturns(Set<OrderReturns> orderReturns) {
 		this.orderReturns = orderReturns;
+	}
+	
+	/** 
+	 * @return sealContract 
+	 */
+	public String getSealContract() {
+		return sealContract;
+	}
+
+	/** 
+	 * @param sealContract 要设置的 sealContract 
+	 */
+	public void setSealContract(String sealContract) {
+		this.sealContract = sealContract;
+	}
+
+	/** 
+	 * @return contractPath 
+	 */
+	public String getContractPath() {
+		return contractPath;
+	}
+
+	/** 
+	 * @param contractPath 要设置的 contractPath 
+	 */
+	public void setContractPath(String contractPath) {
+		this.contractPath = contractPath;
 	}
 
 	/**

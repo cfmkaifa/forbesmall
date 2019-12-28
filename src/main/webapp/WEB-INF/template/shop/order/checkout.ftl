@@ -47,7 +47,6 @@
 		[#escape x as x?js_string]
 			<script>
 			$().ready(function() {
-				
 				var $addReceiverForm = $("#addReceiverForm");
 				var $addReceiverModal = $("#addReceiverModal");
 				var $areaId = $("#areaId");
