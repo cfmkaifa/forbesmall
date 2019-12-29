@@ -274,7 +274,7 @@
 						autoReplace: true,
 						showRemove: false,
 						showClose: false,
-						[# order.hasExpired() || order.status != "PENDING_PAYMENT" || order.status != "PENDING_REVIEW" ]
+						[#if order.hasExpired() || (order.status != "PENDING_PAYMENT" && order.status != "PENDING_REVIEW") ]
 							showBrowse:false,
 							showUpload:false,
 						[/#if]
