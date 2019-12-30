@@ -53,6 +53,7 @@ import net.mall.service.OrderService;
 import net.mall.service.OrderShippingService;
 import net.mall.service.PaymentMethodService;
 import net.mall.service.ShippingMethodService;
+import net.mall.util.ConvertUtils;
 import net.mall.util.SystemUtils;
 
 /**
@@ -259,9 +260,7 @@ public class OrderController extends BaseController {
 		if (order == null 
 				|| order.hasExpired() 
 				|| !Order.Status.PENDING_PAYMENT.equals(order.getStatus()) 
-				|| null == order.getCertificatePath()
-				|| (null != order.getCertificatePath() 
-					&& order.getCertificatePath().trim().length() ==0 )
+				|| ConvertUtils.isEmpty(order.getCertificatePath())
 				|| passed == null) {
 			return Results.UNPROCESSABLE_ENTITY;
 		}
@@ -335,9 +334,7 @@ public class OrderController extends BaseController {
 	@PostMapping("/shipping")
 	public ResponseEntity<?> shipping(OrderShipping orderShippingForm, @ModelAttribute(binding = false) Order order, Long shippingMethodId, Long deliveryCorpId, Long areaId, @CurrentUser Business currentUser) {
 		if (order == null 
-				|| null == orderShippingForm.getWeightMemo()
-				|| (null != orderShippingForm.getWeightMemo()
-				&& orderShippingForm.getWeightMemo().trim().length() == 0)
+				|| ConvertUtils.isEmpty(orderShippingForm.getWeightMemo())
 				|| order.getShippableQuantity() <= 0) {
 			return Results.UNPROCESSABLE_ENTITY;
 		}
