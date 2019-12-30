@@ -259,6 +259,9 @@ public class OrderController extends BaseController {
 		if (order == null 
 				|| order.hasExpired() 
 				|| !Order.Status.PENDING_PAYMENT.equals(order.getStatus()) 
+				|| null == order.getCertificatePath()
+				|| (null != order.getCertificatePath() 
+					&& order.getCertificatePath().trim().length() ==0 )
 				|| passed == null) {
 			return Results.UNPROCESSABLE_ENTITY;
 		}
