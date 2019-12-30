@@ -4,7 +4,7 @@
 	<!-- http://www.chinafibermarketing.net -->
 	<setting name="siteUrl" value="http://www.chinafibermarketing.net" />
 	<setting name="fileUrl" value="http://fds.chinafibermarketing.net" />
-	<setting name="logo" value="" />
+	<setting name="logo" value="/resources/shop/images/logo.png" />
 	<setting name="hotSearch" value="" />
 	<setting name="address" value="" />
 	<setting name="phone" value="" />
