@@ -573,7 +573,7 @@
 														[#elseif product.type == "EXCHANGE"]
 														${message("Sku.exchangePoint")}: ${defaultSku.exchangePoint}
 														[/#if]
-                                                        <span class="unit">/${product.unit!message("product.defaultUnit")}</span>
+                                                        <span class="unit">/${product.unit!message("shop.product.defaultUnit")}</span>
                                                     </b>
 												</p>
 
