@@ -137,6 +137,8 @@
 						initialPreviewFileType:"pdf",
 						[#if order.sealContract?has_content]
 							initialPreview:"${order.sealContract}",
+						[#elseif order.contractPath?has_content]
+							initialPreview:"${order.contractPath}",
 						[/#if]
 						layoutTemplates: {
 							footer: '<div class="file-thumbnail-footer">{actions}</div>',

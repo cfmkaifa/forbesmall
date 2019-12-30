@@ -503,6 +503,11 @@ public class Order extends BaseEntity<Long> {
 	@OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	@OrderBy("createdDate asc")
 	private Set<OrderLog> orderLogs = new HashSet<>();
+	
+	/***下标
+	 */
+	@Transient
+	private Integer arrayIndex=0;
 
 	/**
 	 * 获取编号
@@ -1513,6 +1518,23 @@ public class Order extends BaseEntity<Long> {
 	 */
 	public void setOrderLogs(Set<OrderLog> orderLogs) {
 		this.orderLogs = orderLogs;
+	}
+	
+	
+	
+
+	/** 
+	 * @return arrayIndex 
+	 */
+	public Integer getArrayIndex() {
+		return arrayIndex;
+	}
+
+	/** 
+	 * @param arrayIndex 要设置的 arrayIndex 
+	 */
+	public void setArrayIndex(Integer arrayIndex) {
+		this.arrayIndex = arrayIndex;
 	}
 
 	/**

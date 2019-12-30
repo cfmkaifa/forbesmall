@@ -6,6 +6,7 @@
  */
 package net.mall.service.impl;
 
+import java.io.FileNotFoundException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,6 +29,8 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+
+import com.itextpdf.text.DocumentException;
 
 import net.mall.Filter;
 import net.mall.Page;
@@ -87,6 +90,7 @@ import net.mall.service.ShippingMethodService;
 import net.mall.service.SkuService;
 import net.mall.service.SmsService;
 import net.mall.service.UserService;
+import net.mall.util.PdfUtil;
 import net.mall.util.SystemUtils;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Ehcache;
@@ -674,9 +678,15 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 				orderItem.setSpecifications(gift.getSpecifications());
 				orderItems.add(orderItem);
 			}
-
+			try {
+				String contractPath = PdfUtil.generateContract(order);
+				order.setContractPath(contractPath);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (DocumentException e) {
+				e.printStackTrace();
+			}
 			orderDao.persist(order);
-
 			OrderLog orderLog = new OrderLog();
 			orderLog.setType(OrderLog.Type.CREATE);
 			orderLog.setOrder(order);

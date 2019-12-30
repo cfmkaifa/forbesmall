@@ -472,6 +472,19 @@ public class OrderItem extends BaseEntity<Long> {
 			return BigDecimal.ZERO;
 		}
 	}
+	
+	/***
+	 * getProduct方法慨述:获取商品
+	 * @return Product
+	 * @创建人 huanghy
+	 * @创建时间 2019年12月30日 下午1:35:08
+	 * @修改人 (修改了该文件，请填上修改人的名字)
+	 * @修改日期 (请填上修改该文件时的日期)
+	 */
+	@Transient
+	public Product getProduct(){
+	  return  this.getSku().getProduct();
+	}
 
 	/**
 	 * 获取可发货数
