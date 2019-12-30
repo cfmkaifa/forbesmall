@@ -699,12 +699,12 @@ public class PdfUtil {
                 cellSubBaseInfo.setHorizontalAlignment(Element.ALIGN_CENTER);
                 cellSubBaseInfo.setVerticalAlignment(Element.ALIGN_MIDDLE);
                 tableBaseInfo.addCell(cellSubBaseInfo);
-                cellSubBaseInfo = new PdfPCell(new Phrase(calculateAmount(orderItem.getPrice(),true),TABLE_HEAD_FONT));
+                cellSubBaseInfo = new PdfPCell(new Phrase(calculateAmount(orderItem.getSku().getPrice(),true),TABLE_HEAD_FONT));
                 createAscDesc(cellSubBaseInfo,false);
                 cellSubBaseInfo.setHorizontalAlignment(Element.ALIGN_CENTER);
                 cellSubBaseInfo.setVerticalAlignment(Element.ALIGN_MIDDLE);
                 tableBaseInfo.addCell(cellSubBaseInfo);
-                cellSubBaseInfo = new PdfPCell(new Phrase(calculateAmount(orderItem.getPrice(),true),TABLE_HEAD_FONT));
+                cellSubBaseInfo = new PdfPCell(new Phrase(calculateAmount(orderItem.getSku().getPrice(),true),TABLE_HEAD_FONT));
                 createAscDesc(cellSubBaseInfo,false);
                 cellSubBaseInfo.setHorizontalAlignment(Element.ALIGN_CENTER);
                 cellSubBaseInfo.setVerticalAlignment(Element.ALIGN_MIDDLE);

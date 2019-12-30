@@ -2,7 +2,7 @@
 <mall>
 	<setting name="siteName" value="商城" />
 	<!-- http://www.chinafibermarketing.net -->
-	<setting name="siteUrl" value="http://localhost:8080" />
+	<setting name="siteUrl" value="http://www.chinafibermarketing.net" />
 	<setting name="fileUrl" value="http://fds.chinafibermarketing.net" />
 	<setting name="logo" value="" />
 	<setting name="hotSearch" value="" />
@@ -43,10 +43,10 @@
 	<setting name="imageUploadPath" value="/upload/image/${.now?string('yyyyMM')}/" />
 	<setting name="mediaUploadPath" value="/upload/media/${.now?string('yyyyMM')}/" />
 	<setting name="fileUploadPath" value="/upload/file/${.now?string('yyyyMM')}/" />
-	<setting name="smtpHost" value="" />
+	<setting name="smtpHost" value="smtp.shdbr.com" />
 	<setting name="smtpPort" value="25" />
-	<setting name="smtpUsername" value="test" />
-	<setting name="smtpPassword" value="test" />
+	<setting name="smtpUsername" value="info@shdbr.com" />
+	<setting name="smtpPassword" value="Shdbr123456" />
 	<setting name="smtpSSLEnabled" value="false" />
 	<setting name="smtpFromMail" value="" />
 	<setting name="currencySign" value="￥" />

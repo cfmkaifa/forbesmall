@@ -331,7 +331,11 @@ public class OrderController extends BaseController {
 	 */
 	@PostMapping("/shipping")
 	public ResponseEntity<?> shipping(OrderShipping orderShippingForm, @ModelAttribute(binding = false) Order order, Long shippingMethodId, Long deliveryCorpId, Long areaId, @CurrentUser Business currentUser) {
-		if (order == null || order.getShippableQuantity() <= 0) {
+		if (order == null 
+				|| null == orderShippingForm.getWeightMemo()
+				|| (null != orderShippingForm.getWeightMemo()
+				&& orderShippingForm.getWeightMemo().trim().length() == 0)
+				|| order.getShippableQuantity() <= 0) {
 			return Results.UNPROCESSABLE_ENTITY;
 		}
 		boolean isDelivery = false;
