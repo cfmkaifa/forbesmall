@@ -6,6 +6,7 @@
  */
 package net.mall.entity;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -18,6 +19,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.validator.constraints.Length;
@@ -43,6 +45,83 @@ public class ArticleCategory extends OrderedEntity<Long> {
 	 * 路径
 	 */
 	private static final String PATH = "/article/list/%d";
+	
+	
+	
+	/**
+	 * 类型
+	 */
+	public enum Type {
+
+		/**
+		 *新闻资讯
+		 */
+		NEWS,
+
+		/**平台说明
+		 */
+		INST
+	}
+	
+	
+	/****
+	 * Subscribe概要说明：是否需要订阅
+	 * @author Huanghy
+	 */
+	public enum Subscribe {
+		/**否**/
+		NO,
+		/**是**/
+		YES
+	}
+	
+	/**
+	 *是否需要订阅
+	 */
+	@NotNull
+	@Column(nullable = false)
+	private ArticleCategory.Subscribe subscribe;
+	
+	
+	
+	/**
+	 * 文章类型
+	 */
+	@NotNull
+	@Column(nullable = false)
+	private ArticleCategory.Type type;
+	
+	
+	
+	
+	/**
+	 * 超时时间
+	 */
+	private Integer timeout;
+	
+	
+	/***周
+	 */
+	@Column(name="week_sub_fee")
+	private BigDecimal weekSubFee;
+	
+	
+	/***月
+	 */
+	@Column(name="month_sub_fee")
+	private BigDecimal monthSubFee;
+	
+	
+	/***季
+	 */
+	@Column(name="quarter_sub_fee")
+	private BigDecimal quarterSubFee;
+	
+	
+	/***年
+	 */
+	@Column(name="year_sub_fee")
+	private BigDecimal yearSubFee;
 
 	/**
 	 * 名称
@@ -270,6 +349,111 @@ public class ArticleCategory extends OrderedEntity<Long> {
 	 */
 	public void setArticles(Set<Article> articles) {
 		this.articles = articles;
+	}
+	
+	
+	
+	
+
+	/** 
+	 * @return subscribe 
+	 */
+	public ArticleCategory.Subscribe getSubscribe() {
+		return subscribe;
+	}
+
+	/** 
+	 * @param subscribe 要设置的 subscribe 
+	 */
+	public void setSubscribe(ArticleCategory.Subscribe subscribe) {
+		this.subscribe = subscribe;
+	}
+
+	/** 
+	 * @return type 
+	 */
+	public ArticleCategory.Type getType() {
+		return type;
+	}
+
+	/** 
+	 * @param type 要设置的 type 
+	 */
+	public void setType(ArticleCategory.Type type) {
+		this.type = type;
+	}
+
+	
+	
+	
+	/** 
+	 * @return weekSubFee 
+	 */
+	public BigDecimal getWeekSubFee() {
+		return weekSubFee;
+	}
+
+	/** 
+	 * @param weekSubFee 要设置的 weekSubFee 
+	 */
+	public void setWeekSubFee(BigDecimal weekSubFee) {
+		this.weekSubFee = weekSubFee;
+	}
+
+	/** 
+	 * @return monthSubFee 
+	 */
+	public BigDecimal getMonthSubFee() {
+		return monthSubFee;
+	}
+
+	/** 
+	 * @param monthSubFee 要设置的 monthSubFee 
+	 */
+	public void setMonthSubFee(BigDecimal monthSubFee) {
+		this.monthSubFee = monthSubFee;
+	}
+
+	/** 
+	 * @return quarterSubFee 
+	 */
+	public BigDecimal getQuarterSubFee() {
+		return quarterSubFee;
+	}
+
+	/** 
+	 * @param quarterSubFee 要设置的 quarterSubFee 
+	 */
+	public void setQuarterSubFee(BigDecimal quarterSubFee) {
+		this.quarterSubFee = quarterSubFee;
+	}
+
+	/** 
+	 * @return yearSubFee 
+	 */
+	public BigDecimal getYearSubFee() {
+		return yearSubFee;
+	}
+
+	/** 
+	 * @param yearSubFee 要设置的 yearSubFee 
+	 */
+	public void setYearSubFee(BigDecimal yearSubFee) {
+		this.yearSubFee = yearSubFee;
+	}
+
+	/** 
+	 * @return timeout 
+	 */
+	public Integer getTimeout() {
+		return timeout;
+	}
+
+	/** 
+	 * @param timeout 要设置的 timeout 
+	 */
+	public void setTimeout(Integer timeout) {
+		this.timeout = timeout;
 	}
 
 	/**

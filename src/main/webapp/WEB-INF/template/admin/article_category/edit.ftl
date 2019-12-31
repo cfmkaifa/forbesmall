@@ -43,7 +43,39 @@
 				$articleCategoryForm.validate({
 					rules: {
 						name: "required",
-						order: "digits"
+						order: "digits",
+						"timeout": {
+							digits: true
+						},
+						"weekSubFee": {
+							number: true,
+							min: 0,
+							decimal: {
+								integer: 12,
+								fraction: ${setting.priceScale}
+							}
+						},"monthSubFee": {
+							number: true,
+							min: 0,
+							decimal: {
+								integer: 12,
+								fraction: ${setting.priceScale}
+							}
+						},"quarterSubFee": {
+							number: true,
+							min: 0,
+							decimal: {
+								integer: 12,
+								fraction: ${setting.priceScale}
+							}
+						},"yearSubFee": {
+							number: true,
+							min: 0,
+							decimal: {
+								integer: 12,
+								fraction: ${setting.priceScale}
+							}
+						}
 					}
 				});
 			
@@ -84,7 +116,7 @@
 									<option value="">${message("admin.articleCategory.root")}</option>
 									[#list articleCategoryTree as category]
 										[#if category != articleCategory && !children?seq_contains(category)]
-											<option value="${category.id}" title="${category.name}"[#if category == articleCategory.parent] selected[/#if]>
+											<option value="${category.id}" title="${category.name}" [#if category == articleCategory.parent] selected[/#if]>
 												[#if category.grade != 0]
 													[#list 1..category.grade as i] &nbsp;&nbsp; [/#list]
 												[/#if]
@@ -93,6 +125,65 @@
 										[/#if]
 									[/#list]
 								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-3 col-sm-2 control-label">${message("ArticleCategory.subscribe")}:</label>
+							<div class="col-xs-9 col-sm-4">
+								<select name="subscribe" class="selectpicker form-control" data-live-search="true" data-size="10">
+									<option value="NO" title="NO" [#if articleCategory.subscribe == "NO" ] selected[/#if] >NO</option>
+									<option value="YES" title="YES" [#if articleCategory.subscribe == "YES" ] selected[/#if]>YES</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-3 col-sm-2 control-label">${message("ArticleCategory.type")}:</label>
+							<div class="col-xs-9 col-sm-4">
+								<select name="type" class="selectpicker form-control" data-live-search="true" data-size="10">
+									<option value="NEWS" title="${message("ArticleCategory.news")}" [#if articleCategory.type == "NEWS" ] selected[/#if] >${message("ArticleCategory.news")}</option>
+									<option value="INST" title="${message("ArticleCategory.inst")}" [#if articleCategory.type == "INST" ] selected[/#if] >${message("ArticleCategory.inst")}</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-3 col-sm-2 control-label" for="timeout">${message("ArticleCategory.timeout")}:</label>
+							<div class="col-xs-9 col-sm-4"  data-toggle="tooltip">
+								<div class="input-group">
+									<input id="timeout" name="timeout" class="form-control" type="text" maxlength="9" value="${articleCategory.timeout}" >
+									<span class="input-group-addon">${message("common.unit.day")}</span>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-3 col-sm-2 control-label" for="timeout">${message("ArticleCategory.weekSubFee")}:</label>
+							<div class="col-xs-9 col-sm-4"  data-toggle="tooltip">
+								<div class="input-group">
+									<input id="weekSubFee" name="weekSubFee" class="form-control" type="text" maxlength="9" value="${articleCategory.weekSubFee}" >
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-3 col-sm-2 control-label" for="timeout">${message("ArticleCategory.monthSubFee")}:</label>
+							<div class="col-xs-9 col-sm-4"  data-toggle="tooltip">
+								<div class="input-group">
+									<input id="monthSubFee" name="monthSubFee" class="form-control" type="text" maxlength="9" value="${articleCategory.monthSubFee}">
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-3 col-sm-2 control-label" for="timeout">${message("ArticleCategory.quarterSubFee")}:</label>
+							<div class="col-xs-9 col-sm-4"  data-toggle="tooltip">
+								<div class="input-group">
+									<input id="quarterSubFee" name="quarterSubFee" class="form-control" type="text" maxlength="9" value="${articleCategory.quarterSubFee}" >
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-3 col-sm-2 control-label" for="timeout">${message("ArticleCategory.yearSubFee")}:</label>
+							<div class="col-xs-9 col-sm-4"  data-toggle="tooltip">
+								<div class="input-group">
+									<input id="yearSubFee" name="yearSubFee" class="form-control" type="text" maxlength="9" value="${articleCategory.yearSubFee}" >
+								</div>
 							</div>
 						</div>
 						<div class="form-group">

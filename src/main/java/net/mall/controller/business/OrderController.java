@@ -43,6 +43,7 @@ import net.mall.entity.PaymentMethod;
 import net.mall.entity.ShippingMethod;
 import net.mall.entity.Sku;
 import net.mall.entity.Store;
+import net.mall.entity.Order.Status;
 import net.mall.exception.UnauthorizedException;
 import net.mall.security.CurrentStore;
 import net.mall.security.CurrentUser;
@@ -270,6 +271,34 @@ public class OrderController extends BaseController {
 		order.setAmountPaid(order.getAmount());
 		order.setStatus(Order.Status.PENDING_REVIEW);
 		orderService.confirmPayment(order);
+		return Results.OK;
+	}
+	
+	
+	/***
+	 * sealContract方法慨述:
+	 * @param orderSn
+	 * @param sealContractPath
+	 * @return ResponseEntity<?>
+	 * @创建人 huanghy
+	 * @创建时间 2019年12月28日 下午4:36:27
+	 * @修改人 (修改了该文件，请填上修改人的名字)
+	 * @修改日期 (请填上修改该文件时的日期)
+	 */
+	@PostMapping("/sealContract")
+	public ResponseEntity<?> sealContract(Long orderId, String sealContractPath) {
+		if (null == orderId 
+				|| null == sealContractPath 
+				|| sealContractPath.trim().length() ==0) {
+			return Results.UNPROCESSABLE_ENTITY;
+		}
+		Order order = orderService.find(orderId);
+		if(order.getStatus().equals(Status.PENDING_PAYMENT)){
+			order.setSealContract(sealContractPath);
+			orderService.update(order);
+		} else {
+			return Results.UNPROCESSABLE_ENTITY;
+		}
 		return Results.OK;
 	}
 	

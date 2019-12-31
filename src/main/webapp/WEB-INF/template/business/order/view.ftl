@@ -85,6 +85,7 @@
 				var $shippingWeightMemoFile = $("#shippingWeightMemoFile");
 				var $shippingWeightMemo = $("#shippingWeightMemo");
 				var $sealContractFile = $("#sealContractFile");
+				var $sealContractConfirm = $("#sealContractConfirm");
 				// 地区选择
 				$areaId.lSelect({
 					url: "${base}/common/area"
@@ -129,11 +130,12 @@
 						[#if order.hasExpired() || (order.status != "PENDING_PAYMENT" && order.status != "PENDING_REVIEW") ]
 							showBrowse:false,
 							showUpload:false,
+							showCaption:false,
 						[/#if]
 						dropZoneEnabled: false,
 						overwriteInitial: false,
 						initialPreviewAsData: true,
-						previewClass: "multiple-file-preview",
+						previewClass: "file-preview",
 						initialPreviewFileType:"pdf",
 						[#if order.sealContract?has_content]
 							initialPreview:"${order.sealContract}",
@@ -153,24 +155,27 @@
 						showAjaxErrorDetails: false
 					}).on("fileloaded", function(event, file, previewId, index, reader) {
 					}).on("fileuploaded", function(event, data, previewId, index) {
+						$("#sealContractPath").val(data.response.url);
+					}).on("filecleared fileerror fileuploaderror", function() {
+					});
+				  $sealContractConfirm.click(function() {
 						$.ajax({
-							url: "${base}/order/sealContract",
+							url: "${base}/business/order/sealContract",
 							type: "POST",
 							data: {
 								orderId: "${order.id}",
-								sealContractPath:data.response.url
+								sealContractPath:$("#sealContractPath").val()
 							},
 							dataType: "json",
 							cache: false,
 							success: function(data) {
-								
+								$('#sealContractModal').modal('hide');
 							},
 							error: function (xhr, textStatus, errorThrown){
 								
 							}
 						});
-					}).on("filecleared fileerror fileuploaderror", function() {
-					});
+				});
 				// 码单
 				$shippingWeightMemoFile.fileinput({
 						uploadUrl: "${base}/common/file/upload",
@@ -227,6 +232,7 @@
 							overwriteInitial: false,
 							showBrowse:false,
 							showUpload:false,
+							showCaption:false,
 							initialPreviewAsData: true,
 							initialPreviewFileType:"pdf",
 							previewClass: "multiple-file-preview",
@@ -235,7 +241,7 @@
 							[/#if]
 							layoutTemplates: {
 								actionDelete:'',
-								footer: '<div class="file-thumbnail-footer">{actions}</div>'
+								footer: ''
 							},
 							fileActionSettings: {
 								showUpload: false,
@@ -268,6 +274,7 @@
 						overwriteInitial: false,
 						showBrowse:false,
 						showUpload:false,
+						showCaption:false,
 						initialPreviewAsData: true,
 						initialPreviewFileType:"pdf",
 						previewClass: "multiple-file-preview",
@@ -276,7 +283,7 @@
 						[/#if]
 						layoutTemplates: {
 							actionDelete:'',
-							footer: '<div class="file-thumbnail-footer">{actions}</div>'
+							footer: ''
 						},
 						fileActionSettings: {
 							showUpload: false,
@@ -601,6 +608,52 @@
 	[#include "/business/include/main_sidebar.ftl" /]
 	<main>
 		<div class="container-fluid">
+			<!--订单合同start-->
+			<div id="sealContractModal" class="modal fade" tabindex="-1">
+						<div class="modal-dialog modal-lg">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button class="close" type="button" data-dismiss="modal">&times;</button>
+									<h5 class="modal-title">${message("member.order.sealContract")}</h5>
+								</div>
+								<div class="modal-body">
+									<div class="row">
+										<div class="col-xs-12 col-sm-12">
+											<input    id="sealContractPath"  type="hidden" value="" >
+											<input  class="btn btn-primary"  id="sealContractFile" name="file" type="file" >
+										</div>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<button class="btn btn-primary" type="button" id="sealContractConfirm" >${message("common.ok")}</button>
+									<button class="btn btn-default" type="button" data-dismiss="modal">${message("common.cancel")}</button>
+								</div>
+							</div>
+						</div>
+					</div>
+			<!--订单合同end-->
+			<!--支付凭证start-->
+			<div id="certificatePaymentModal" class="modal fade" tabindex="-1">
+						<div class="modal-dialog modal-lg">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button class="close" type="button" data-dismiss="modal">&times;</button>
+									<h5 class="modal-title">${message("member.order.certPayment")}</h5>
+								</div>
+								<div class="modal-body">
+									<div class="row">
+										<div class="col-xs-12 col-sm-12">
+											<input  class="btn btn-primary"  id="certificatePayment" name="file" type="file" value="${message("member.order.certificatePayment")}">
+										</div>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<button class="btn btn-default" type="button" data-dismiss="modal">${message("common.cancel")}</button>
+								</div>
+							</div>
+						</div>
+					</div>
+			<!--支付凭证end-->
 			[#if currentStore.isSelf()]
 				<form id="paymentForm" class="form-horizontal" action="${base}/business/order/payment" method="post">
 					<input name="orderId" type="hidden" value="${order.id}">
@@ -1217,6 +1270,8 @@
 								<div class="row">
 									<div class="col-xs-10 col-sm-6 col-xs-offset-2 col-sm-offset-2">
 										<div class="form-group">
+										    <button id="sealContractModalButton" class="btn btn-default" type="button" data-toggle="modal" data-target="#sealContractModal">${message("member.order.sealContract")}</button>
+										    <button id="certificatePaymentModalButton" class="btn btn-default" type="button" data-toggle="modal" [#if order.hasExpired() || order.paymentMethod.method != "OFFLINE"] disabled[/#if] data-target="#certificatePaymentModal">${message("member.order.certPayment")}</button>
 											<button id="confirmPaymentButton" class=" btn btn-default" type="button" data-id="${order.id}"[#if order.hasExpired() || order.status != "PENDING_PAYMENT" || order.paymentMethod.method != "OFFLINE"] disabled[/#if]>${message("business.order.confirmPayment")}</button>
 											<button class="review btn btn-default" type="button" data-id="${order.id}"[#if order.hasExpired() || order.status != "PENDING_REVIEW"] disabled[/#if]>${message("business.order.review")}</button>
 											[#if currentStore.isSelf()]
@@ -1231,8 +1286,6 @@
 									</div>
 									<div class="col-xs-12 col-sm-6">
 										<dl class="items dl-horizontal">
-											<dt>${message("member.order.sealContract")}:</dt>
-											<dd><input  class="btn btn-primary"  id="sealContractFile" name="file" type="file" ></dd>
 											<dt>${message("Order.sn")}:</dt>
 											<dd>${order.sn}</dd>
 											<dt>${message("Order.type")}:</dt>
@@ -1393,9 +1446,7 @@
 							</div>
 							<div id="paymentInfo" class="tab-pane">								
 								<div class="table-responsive">
-								[#if order.paymentMethod.method == "OFFLINE"]
-									<input  class="btn btn-primary"  id="certificatePayment" name="file" type="file" value="${message("member.order.certificatePayment")}">
-								[#else]
+								[#if order.paymentMethod.method == "ONLINE"]
 									<table class="table table-hover">
 										<thead>
 											<tr>

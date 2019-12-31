@@ -43,7 +43,39 @@
 				$articleCategoryForm.validate({
 					rules: {
 						name: "required",
-						order: "digits"
+						order: "digits",
+						"timeout": {
+							digits: true
+						},
+						"weekSubFee": {
+							number: true,
+							min: 0,
+							decimal: {
+								integer: 12,
+								fraction: ${setting.priceScale}
+							}
+						},"monthSubFee": {
+							number: true,
+							min: 0,
+							decimal: {
+								integer: 12,
+								fraction: ${setting.priceScale}
+							}
+						},"quarterSubFee": {
+							number: true,
+							min: 0,
+							decimal: {
+								integer: 12,
+								fraction: ${setting.priceScale}
+							}
+						},"yearSubFee": {
+							number: true,
+							min: 0,
+							decimal: {
+								integer: 12,
+								fraction: ${setting.priceScale}
+							}
+						}
 					}
 				});
 			
@@ -92,6 +124,65 @@
 										</option>
 									[/#list]
 								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-3 col-sm-2 control-label">${message("ArticleCategory.subscribe")}:</label>
+							<div class="col-xs-9 col-sm-4">
+								<select name="subscribe" class="selectpicker form-control" data-live-search="true" data-size="10">
+									<option value="NO" title="NO">NO</option>
+									<option value="YES" title="YES">YES</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-3 col-sm-2 control-label">${message("ArticleCategory.type")}:</label>
+							<div class="col-xs-9 col-sm-4">
+								<select name="type" class="selectpicker form-control" data-live-search="true" data-size="10">
+									<option value="NEWS" title="${message("ArticleCategory.news")}">${message("ArticleCategory.news")}</option>
+									<option value="INST" title="${message("ArticleCategory.inst")}">${message("ArticleCategory.inst")}</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-3 col-sm-2 control-label" for="timeout">${message("ArticleCategory.timeout")}:</label>
+							<div class="col-xs-9 col-sm-4"  data-toggle="tooltip">
+								<div class="input-group">
+									<input id="timeout" name="timeout" class="form-control" type="text" maxlength="9">
+									<span class="input-group-addon">${message("common.unit.day")}</span>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-3 col-sm-2 control-label" for="timeout">${message("ArticleCategory.weekSubFee")}:</label>
+							<div class="col-xs-9 col-sm-4"  data-toggle="tooltip">
+								<div class="input-group">
+									<input id="weekSubFee" name="weekSubFee" class="form-control" type="text" maxlength="9">
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-3 col-sm-2 control-label" for="timeout">${message("ArticleCategory.monthSubFee")}:</label>
+							<div class="col-xs-9 col-sm-4"  data-toggle="tooltip">
+								<div class="input-group">
+									<input id="monthSubFee" name="monthSubFee" class="form-control" type="text" maxlength="9">
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-3 col-sm-2 control-label" for="timeout">${message("ArticleCategory.quarterSubFee")}:</label>
+							<div class="col-xs-9 col-sm-4"  data-toggle="tooltip">
+								<div class="input-group">
+									<input id="quarterSubFee" name="quarterSubFee" class="form-control" type="text" maxlength="9">
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-3 col-sm-2 control-label" for="timeout">${message("ArticleCategory.yearSubFee")}:</label>
+							<div class="col-xs-9 col-sm-4"  data-toggle="tooltip">
+								<div class="input-group">
+									<input id="yearSubFee" name="yearSubFee" class="form-control" type="text" maxlength="9">
+								</div>
 							</div>
 						</div>
 						<div class="form-group">

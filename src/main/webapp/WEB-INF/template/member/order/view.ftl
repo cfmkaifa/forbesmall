@@ -49,17 +49,10 @@
 		.order-detail dt {
 			line-height: 30px;
 		}
-		
 		.order-detail dd {
 			width: 50%;
 			line-height: 30px;
 			float: left;
-		}
-		.file-preview{
-			width: 25% !important;
-		}
-		.file-caption-main{
-			width: 25% !important;
 		}
 	</style>
 	<script id="transitStepTemplate" type="text/template">
@@ -86,7 +79,9 @@
 				var $transitStepModalBody = $("#transitStepModal div.modal-body");
 				var transitStepTemplate = _.template($("#transitStepTemplate").html());
 				var $certificatePayment = $("#certificatePayment");
+				var $certificatePaymentConfirm = $("#certificatePaymentConfirm");
 				var $sealContractFile = $("#sealContractFile");
+				var $sealContractConfirm = $("#sealContractConfirm");
 				// 订单支付
 				$payment.click(function() {
 					$.ajax({
@@ -109,7 +104,6 @@
 						if (result == null || !result) {
 							return;
 						}
-						
 						$.ajax({
 							url: "${base}/member/order/cancel?orderSn=${order.sn}",
 							type: "POST",
@@ -183,6 +177,7 @@
 							overwriteInitial: false,
 							showBrowse:false,
 							showUpload:false,
+							showCaption:false,
 							initialPreviewAsData: true,
 							initialPreviewFileType:"pdf",
 							previewClass: "multiple-file-preview",
@@ -191,7 +186,7 @@
 							[/#if]
 							layoutTemplates: {
 								actionDelete:'',
-								footer: '<div class="file-thumbnail-footer">{actions}</div>'
+								footer: ''
 							},
 							fileActionSettings: {
 								showUpload: false,
@@ -242,23 +237,26 @@
 						showAjaxErrorDetails: false
 					}).on("fileloaded", function(event, file, previewId, index, reader) {
 					}).on("fileuploaded", function(event, data, previewId, index) {
-						$.ajax({
-							url: "${base}/order/certificatePayment",
-							type: "POST",
-							data: {
-								orderSn: "${order.sn}",
-								certificatePath:data.response.url
-							},
-							dataType: "json",
-							cache: false,
-							success: function(data) {
-								
-							},
-							error: function (xhr, textStatus, errorThrown){
-								
-							}
-						});
+						$("#certificatePath").val(data.response.url);
 					}).on("filecleared fileerror fileuploaderror", function() {
+					});
+					$certificatePaymentConfirm.click(function() {
+						$.ajax({
+								url: "${base}/order/certificatePayment",
+								type: "POST",
+								data: {
+									orderSn: "${order.sn}",
+									certificatePath:$("#certificatePath").val()
+								},
+								dataType: "json",
+								cache: false,
+								success: function(data) {
+									$('#certificatePaymentModal').modal('hide');
+								},
+								error: function (xhr, textStatus, errorThrown){
+									
+								}
+							});
 					});
 					// 电子合同
 					$sealContractFile.fileinput({
@@ -277,6 +275,7 @@
 						[#if order.hasExpired() || (order.status != "PENDING_PAYMENT" && order.status != "PENDING_REVIEW") ]
 							showBrowse:false,
 							showUpload:false,
+							showCaption:false,
 						[/#if]
 						showPreview:true,
 						dropZoneEnabled: false,
@@ -302,25 +301,27 @@
 						showAjaxErrorDetails: false
 					}).on("fileloaded", function(event, file, previewId, index, reader) {
 					}).on("fileuploaded", function(event, data, previewId, index) {
+						$("#sealContractPath").val(data.response.url);
+					}).on("filecleared fileerror fileuploaderror", function() {
+					});
+					$sealContractConfirm.click(function() {
 						$.ajax({
 							url: "${base}/order/sealContract",
 							type: "POST",
 							data: {
 								orderId: "${order.id}",
-								sealContractPath:data.response.url
+								sealContractPath:$("#sealContractPath").val()
 							},
 							dataType: "json",
 							cache: false,
 							success: function(data) {
-								
+								$('#sealContractModal').modal('hide');
 							},
 							error: function (xhr, textStatus, errorThrown){
 								
 							}
 						});
-					}).on("filecleared fileerror fileuploaderror", function() {
-					});
-					
+				});
 			});
 			</script>
 		[/#escape]
@@ -330,6 +331,54 @@
 	[#include "/shop/include/main_header.ftl" /]
 	<main>
 		<div class="container">
+			<!--订单合同start-->
+			<div id="sealContractModal" class="modal fade" tabindex="-1">
+						<div class="modal-dialog modal-lg">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button class="close" type="button" data-dismiss="modal">&times;</button>
+									<h5 class="modal-title">${message("member.order.sealContract")}</h5>
+								</div>
+								<div class="modal-body">
+									<div class="row">
+										<div class="col-xs-12 col-sm-12">
+											<input    id="sealContractPath"  type="hidden" value="" >
+											<input  class="btn btn-primary"  id="sealContractFile" name="file" type="file" >
+										</div>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<button class="btn btn-primary" type="button" id="sealContractConfirm" >${message("common.ok")}</button>
+									<button class="btn btn-default" type="button" data-dismiss="modal">${message("common.cancel")}</button>
+								</div>
+							</div>
+						</div>
+					</div>
+			<!--订单合同end-->
+			<!--支付凭证start-->
+			<div id="certificatePaymentModal" class="modal fade" tabindex="-1">
+						<div class="modal-dialog modal-lg">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button class="close" type="button" data-dismiss="modal">&times;</button>
+									<h5 class="modal-title">${message("member.order.certPayment")}</h5>
+								</div>
+								<div class="modal-body">
+									<div class="row">
+										<div class="col-xs-12 col-sm-12">
+											<input    id="certificatePath"  type="hidden" value="" >
+											<input  class="btn btn-primary"  id="certificatePayment" name="file" type="file" value="${message("member.order.certificatePayment")}">
+										</div>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<button class="btn btn-primary" type="button"  id="certificatePaymentConfirm" >${message("common.ok")}</button>
+									<button class="btn btn-default" type="button" data-dismiss="modal">${message("common.cancel")}</button>
+								</div>
+							</div>
+						</div>
+					</div>
+			<!--支付凭证end-->
 			<div id="transitStepModal" class="modal fade" tabindex="-1">
 				<div class="modal-dialog">
 					<div class="modal-content">
@@ -357,6 +406,7 @@
 									<div class="list-group-item clearfix">
 										<span class="pull-left">${message("Order.sn")}: ${order.sn}</span>
 										<div class="action pull-right">
+											<a id="sealContractModalButton" class="btn btn-primary" href="javascript:;" data-toggle="modal" data-target="#sealContractModal">${message("member.order.sealContract")}</a>
 											[#if setting.isReviewEnabled && !order.isReviewed && (order.status == "RECEIVED" || order.status == "COMPLETED")]
 												<a class="btn btn-default" href="${base}/member/review/add?orderId=${order.id}">${message("member.order.review")}</a>
 											[/#if]
@@ -367,10 +417,10 @@
 												<a id="payment" class="btn btn-primary" href="javascript:;">${message("member.order.payment")}</a>
 											[/#if]
 											[#if order.paymentMethod?? && order.amountPayable > 0 && order.paymentMethod.method == "OFFLINE"]
-												<input  class="btn btn-primary"  id="certificatePayment" name="file" type="file" value="${message("member.order.certificatePayment")}">
+												<a id="certificatePaymentModalButton" class="btn btn-primary" href="javascript:;" data-toggle="modal" data-target="#certificatePaymentModal">${message("member.order.certificatePayment")}</a>
 											[/#if]
 											[#if !order.hasExpired() && (order.status == "PENDING_PAYMENT" || order.status == "PENDING_REVIEW")]
-												<a id="cancel" class="btn btn-default" style="float: left;margin: -31px 0px 0px 287px;" href="javascript:;">${message("member.order.cancel")}</a>
+												<a id="cancel" class="btn btn-default"  href="javascript:;">${message("member.order.cancel")}</a>
 											[/#if]
 											[#if !order.hasExpired() && order.status == "SHIPPED"]
 												<a id="receive" class="btn btn-default" style="float: left;margin: -31px 0px 0px 287px;" href="javascript:;">${message("member.order.receive")}</a>
@@ -416,12 +466,6 @@
 											<dd>
 												${message("common.createdDate")}:
 												<span class="text-gray-darker">${order.createdDate?string("yyyy-MM-dd HH:mm:ss")}</span>
-											</dd>
-											<dd>
-												${message("member.order.sealContract")}:
-												<span class="text-gray-darker">
-													<input  class="btn btn-primary"  id="sealContractFile" name="file" type="file" >
-												</span>
 											</dd>
 											[#if order.paymentMethodName??]
 												<dd>
