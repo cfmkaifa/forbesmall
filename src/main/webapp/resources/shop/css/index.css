@@ -475,6 +475,7 @@
 	right: 10px;
 	bottom: 10px;
 	left: 10px;
+	display: flex;
 }
 
 .index .featured-product .featured-product-body .brand li {
