@@ -159,12 +159,21 @@
 					}).on("filecleared fileerror fileuploaderror", function() {
 					});
 				  $sealContractConfirm.click(function() {
+				  		var sealContractPath = $("#sealContractPath").val();
+						if(null == sealContractPath 
+							|| sealContractPath == ''
+							|| sealContractPath == 'undefined'){
+							$.bootstrapGrowl("${message("business.order.uploadFile")}", {
+								type: "warning"
+							});
+							return false;
+						}
 						$.ajax({
 							url: "${base}/business/order/sealContract",
 							type: "POST",
 							data: {
 								orderId: "${order.id}",
-								sealContractPath:$("#sealContractPath").val()
+								sealContractPath:sealContractPath
 							},
 							dataType: "json",
 							cache: false,
@@ -241,7 +250,8 @@
 							[/#if]
 							layoutTemplates: {
 								actionDelete:'',
-								footer: ''
+								footer: '<div class="file-thumbnail-footer">{actions}</div>',
+								actions: '<div class="file-actions"><div class="file-footer-buttons">{upload} {download} {delete} {zoom} {other}</div>{drag}<div class="clearfix"></div></div>'
 							},
 							fileActionSettings: {
 								showUpload: false,
@@ -283,7 +293,8 @@
 						[/#if]
 						layoutTemplates: {
 							actionDelete:'',
-							footer: ''
+							footer: '<div class="file-thumbnail-footer">{actions}</div>',
+							actions: '<div class="file-actions"><div class="file-footer-buttons">{upload} {download} {delete} {zoom} {other}</div>{drag}<div class="clearfix"></div></div>'
 						},
 						fileActionSettings: {
 							showUpload: false,
@@ -308,7 +319,6 @@
 				// 确认付款
 				$confirmPaymentButton.click(function() {
 					var $element = $(this);
-					
 					bootbox.prompt({
 						title: "${message("common.bootbox.title")}",
 						inputType: "select",
@@ -486,11 +496,18 @@
 						}
 					},
 					submitHandler: function(form) {
+						var weightMemo = $("#shippingWeightMemo").val();
+						if(null == weightMemo 
+							|| weightMemo == ''
+							|| weightMemo == 'undefined'){
+							$.bootstrapGrowl("${message("business.order.weightMemo")}", {
+								type: "warning"
+							});
+							return false;
+						}
 						var total = 0;
-					
 						$shippingItemsQuantity.each(function() {
 							var quantity = $(this).val();
-							
 							if ($.isNumeric(quantity)) {
 								total += parseInt(quantity);
 							}
@@ -625,7 +642,9 @@
 									</div>
 								</div>
 								<div class="modal-footer">
-									<button class="btn btn-primary" type="button" id="sealContractConfirm" >${message("common.ok")}</button>
+									[#if !order.hasExpired() && (order.status == "PENDING_PAYMENT" || order.status == "PENDING_REVIEW") ]
+										<button class="btn btn-primary" type="button" id="sealContractConfirm" >${message("common.ok")}</button>
+									[/#if]
 									<button class="btn btn-default" type="button" data-dismiss="modal">${message("common.cancel")}</button>
 								</div>
 							</div>
@@ -1271,7 +1290,7 @@
 									<div class="col-xs-10 col-sm-6 col-xs-offset-2 col-sm-offset-2">
 										<div class="form-group">
 										    <button id="sealContractModalButton" class="btn btn-default" type="button" data-toggle="modal" data-target="#sealContractModal">${message("member.order.sealContract")}</button>
-										    <button id="certificatePaymentModalButton" class="btn btn-default" type="button" data-toggle="modal" [#if order.hasExpired() || order.paymentMethod.method != "OFFLINE"] disabled[/#if] data-target="#certificatePaymentModal">${message("member.order.certPayment")}</button>
+										    <button id="certificatePaymentModalButton" class="btn btn-default" type="button" data-toggle="modal" [#if  order.paymentMethod.method != "OFFLINE"] disabled[/#if] data-target="#certificatePaymentModal">${message("member.order.certPayment")}</button>
 											<button id="confirmPaymentButton" class=" btn btn-default" type="button" data-id="${order.id}"[#if order.hasExpired() || order.status != "PENDING_PAYMENT" || order.paymentMethod.method != "OFFLINE"] disabled[/#if]>${message("business.order.confirmPayment")}</button>
 											<button class="review btn btn-default" type="button" data-id="${order.id}"[#if order.hasExpired() || order.status != "PENDING_REVIEW"] disabled[/#if]>${message("business.order.review")}</button>
 											[#if currentStore.isSelf()]

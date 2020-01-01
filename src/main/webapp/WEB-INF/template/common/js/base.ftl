@@ -1712,13 +1712,13 @@
 					msgImageHeightLarge: "${message("common.fileinput.msgImageHeightLarge")}",
 					msgImageResizeError: "${message("common.fileinput.msgImageResizeError")}",
 					msgImageResizeException: "${message("common.fileinput.msgImageResizeException")}",
-					msgAjaxError: "${message("common.fileinput.msgAjaxError")}",
-					msgAjaxProgressError: "${message("common.fileinput.msgAjaxProgressError")}",
+					msgAjaxError: "${message("common.fileinput.amsgAjaxError")}",
+					msgAjaxProgressError: "${message("common.fileinput.amsgAjaxProgressError")}",
 					ajaxOperations: {
-						deleteThumb: "${message("common.fileinput.ajaxOperationsDeleteThumb")}",
-						uploadThumb: "${message("common.fileinput.ajaxOperationsUploadThumb")}",
-						uploadBatch: "${message("common.fileinput.ajaxOperationsUploadBatch")}",
-						uploadExtra: "${message("common.fileinput.ajaxOperationsUploadExtra")}"
+						deleteThumb: "${message("common.fileinput.aajaxOperationsDeleteThumb")}",
+						uploadThumb: "${message("common.fileinput.aajaxOperationsUploadThumb")}",
+						uploadBatch: "${message("common.fileinput.aajaxOperationsUploadBatch")}",
+						uploadExtra: "${message("common.fileinput.aajaxOperationsUploadExtra")}"
 					},
 					dropZoneTitle: "${message("common.fileinput.dropZoneTitle")}",
 					dropZoneClickTitle: "${message("common.fileinput.dropZoneClickTitle")}",

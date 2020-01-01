@@ -63,7 +63,7 @@ public class FileController {
 	public ResponseEntity<?> upload(FileType fileType, MultipartFile file) {
 		Map<String, Object> data = new HashMap<>();
 		if (fileType == null || file == null || file.isEmpty()) {
-			return Results.UNPROCESSABLE_ENTITY;
+			return Results.unprocessableEntity("business.order.uploadFile");
 		}
 		if (!fileService.isValid(fileType, file)) {
 			return Results.unprocessableEntity("common.upload.invalid");

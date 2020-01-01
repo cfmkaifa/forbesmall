@@ -186,7 +186,8 @@
 							[/#if]
 							layoutTemplates: {
 								actionDelete:'',
-								footer: ''
+								footer: '<div class="file-thumbnail-footer">{actions}</div>',
+								actions: '<div class="file-actions"><div class="file-footer-buttons">{upload} {download} {delete} {zoom} {other}</div>{drag}<div class="clearfix"></div></div>'
 							},
 							fileActionSettings: {
 								showUpload: false,
@@ -219,6 +220,11 @@
 						dropZoneEnabled: false,
 						overwriteInitial: false,
 						initialPreviewAsData: true,
+						[#if order.hasExpired() || order.status != "PENDING_PAYMENT" ]
+							showBrowse:false,
+							showUpload:false,
+							showCaption:false,
+						[/#if]
 						previewClass: "multiple-file-preview",
 						initialPreviewFileType:"pdf",
 						[#if order.certificatePath?has_content]
@@ -241,12 +247,21 @@
 					}).on("filecleared fileerror fileuploaderror", function() {
 					});
 					$certificatePaymentConfirm.click(function() {
+						var certificatePath = $("#certificatePath").val();
+						if(null == certificatePath 
+							|| certificatePath == ''
+							|| certificatePath == 'undefined'){
+							$.bootstrapGrowl("${message("business.order.uploadFile")}", {
+								type: "warning"
+							});
+							return false;
+						}
 						$.ajax({
 								url: "${base}/order/certificatePayment",
 								type: "POST",
 								data: {
 									orderSn: "${order.sn}",
-									certificatePath:$("#certificatePath").val()
+									certificatePath:certificatePath
 								},
 								dataType: "json",
 								cache: false,
@@ -305,12 +320,21 @@
 					}).on("filecleared fileerror fileuploaderror", function() {
 					});
 					$sealContractConfirm.click(function() {
+						var sealContractPath = $("#sealContractPath").val();
+						if(null == sealContractPath 
+							|| sealContractPath == ''
+							|| sealContractPath == 'undefined'){
+							$.bootstrapGrowl("${message("business.order.uploadFile")}", {
+								type: "warning"
+							});
+							return false;
+						}
 						$.ajax({
 							url: "${base}/order/sealContract",
 							type: "POST",
 							data: {
 								orderId: "${order.id}",
-								sealContractPath:$("#sealContractPath").val()
+								sealContractPath:sealContractPath
 							},
 							dataType: "json",
 							cache: false,
@@ -348,7 +372,9 @@
 									</div>
 								</div>
 								<div class="modal-footer">
-									<button class="btn btn-primary" type="button" id="sealContractConfirm" >${message("common.ok")}</button>
+									[#if !order.hasExpired() && (order.status == "PENDING_PAYMENT" || order.status == "PENDING_REVIEW") ]
+										<button class="btn btn-primary" type="button" id="sealContractConfirm" >${message("common.ok")}</button>
+									[/#if]
 									<button class="btn btn-default" type="button" data-dismiss="modal">${message("common.cancel")}</button>
 								</div>
 							</div>
@@ -372,7 +398,9 @@
 									</div>
 								</div>
 								<div class="modal-footer">
-									<button class="btn btn-primary" type="button"  id="certificatePaymentConfirm" >${message("common.ok")}</button>
+									[#if order.hasExpired() || order.status != "PENDING_PAYMENT" ]
+										<button class="btn btn-primary" type="button"  id="certificatePaymentConfirm" >${message("common.ok")}</button>
+									[/#if]
 									<button class="btn btn-default" type="button" data-dismiss="modal">${message("common.cancel")}</button>
 								</div>
 							</div>
@@ -416,7 +444,7 @@
 											[#if order.paymentMethod?? && order.amountPayable > 0 && order.paymentMethod.method == "ONLINE"]
 												<a id="payment" class="btn btn-primary" href="javascript:;">${message("member.order.payment")}</a>
 											[/#if]
-											[#if order.paymentMethod?? && order.amountPayable > 0 && order.paymentMethod.method == "OFFLINE"]
+											[#if order.paymentMethod.method == "OFFLINE"]
 												<a id="certificatePaymentModalButton" class="btn btn-primary" href="javascript:;" data-toggle="modal" data-target="#certificatePaymentModal">${message("member.order.certificatePayment")}</a>
 											[/#if]
 											[#if !order.hasExpired() && (order.status == "PENDING_PAYMENT" || order.status == "PENDING_REVIEW")]
