@@ -27,7 +27,7 @@
 	<script src="${base}/resources/common/js/underscore.js"></script>
 	<script src="${base}/resources/common/js/url.js"></script>
 	<script src="${base}/resources/common/js/clipboard.js"></script>
-	<script src="${base}/resources/common/js/base.js"></script>
+	<script src="${base}/resources/common/js/base.js?version=0.1"></script>
 	<script src="${base}/resources/member/js/base.js"></script>
 	[#noautoesc]
 		[#escape x as x?js_string]

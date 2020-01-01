@@ -19,7 +19,7 @@
 	<script src="${base}/resources/common/js/jquery.js"></script>
 	<script src="${base}/resources/common/js/bootstrap.js"></script>
 	<script src="${base}/resources/common/js/jquery.animateNumber.js"></script>
-	<script src="${base}/resources/common/js/base.js"></script>
+	<script src="${base}/resources/common/js/base.js?version=0.1"></script>
 </head>
 <body class="mobile error">
 	<main>

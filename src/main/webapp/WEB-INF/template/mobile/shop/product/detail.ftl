@@ -51,7 +51,7 @@
 	<script src="${base}/resources/common/js/iscroll-probe.js"></script>
 	<script src="${base}/resources/common/js/velocity.js"></script>
 	<script src="${base}/resources/common/js/velocity.ui.js"></script>
-	<script src="${base}/resources/common/js/base.js"></script>
+	<script src="${base}/resources/common/js/base.js?version=0.1"></script>
 	<script src="${base}/resources/mobile/shop/js/base.js"></script>
 	<script id="reviewTemplate" type="text/template">
 		<ul>

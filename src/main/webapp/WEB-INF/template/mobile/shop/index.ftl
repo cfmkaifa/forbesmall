@@ -39,7 +39,7 @@
 	<script src="${base}/resources/common/js/url.js"></script>
 	<script src="${base}/resources/common/js/velocity.js"></script>
 	<script src="${base}/resources/common/js/velocity.ui.js"></script>
-	<script src="${base}/resources/common/js/base.js"></script>
+	<script src="${base}/resources/common/js/base.js?version=0.1"></script>
 	<script id="memberInfoTemplate" type="text/template">
 		<%if (currentUser != null && currentUser.type == "member") {%>
 			<a href="${base}/member/index">

@@ -296,7 +296,7 @@
   </filter-mapping>
   <filter-mapping>
     <filter-name>baseJsPageCachingFilter</filter-name>
-    <url-pattern>/resources/common/js/base.js</url-pattern>
+    <url-pattern>/resources/common/js/base.js?version=0.1</url-pattern>
   </filter-mapping>
   <filter-mapping>
     <filter-name>sitemapPageCachingFilter</filter-name>

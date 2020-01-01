@@ -10,7 +10,7 @@
 	<title>${message("shop.socialUserLogin.signInResult")}[#if showPowered] - Powered By [/#if]</title>
 	<link href="${base}/favicon.ico" rel="icon">
 	<script src="${base}/resources/common/js/jquery.js"></script>
-	<script src="${base}/resources/common/js/base.js"></script>
+	<script src="${base}/resources/common/js/base.js?version=0.1"></script>
 	[#noautoesc]
 		[#escape x as x?js_string]
 			<script>

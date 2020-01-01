@@ -30,7 +30,7 @@
 	<script src="${base}/resources/common/js/url.js"></script>
 	<script src="${base}/resources/common/js/velocity.js"></script>
 	<script src="${base}/resources/common/js/velocity.ui.js"></script>
-	<script src="${base}/resources/common/js/base.js"></script>
+	<script src="${base}/resources/common/js/base.js?version=0.1"></script>
 	<script src="${base}/resources/mobile/member/js/base.js"></script>
 	<style>
 		.list-group .icon-roundcheck {
