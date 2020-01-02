@@ -333,9 +333,12 @@
 .index .article .tab-content {
 	line-height: 28px;
 	padding: 5px 10px;
-
+	height: 140px;
 }
-
+.clearfix {
+	display: flex;
+	justify-content: space-between;
+}
 .index .side-slider {
 	height: 205px;
 	position: relative;

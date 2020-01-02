@@ -507,7 +507,7 @@
 										[#assign defaultSku = product.defaultSku /]
 										<li class="list-item">
 											<div class="list-item-body" style="display: flex;justify-content: space-around;">
-												<a href="${base}${product.path}" target="_blank">
+												<a href="${base}${product.path}" target="_blank" class="aaaa">
 													<img id="productImage${product.id}" class="listimg lazy-load img-responsive" src="${base}/resources/common/images/transparent.png" alt="${product.name}" data-original="${product.thumbnail!setting.defaultThumbnailProductImage}">
 												</a>
 												[#--规格--]

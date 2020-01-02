@@ -81,7 +81,9 @@
 .product-list .filter .filter-body {
 	border: 1px solid #eeeeee;
 }
-
+.aaaa {
+	width: 90px;
+}
 .product-list .filter .filter-body dl dt {
 	line-height: 40px;
 }
@@ -1355,9 +1357,9 @@
 	background: #EBF2FC;
 }
 .product-left-2 {
+	width: 400px;
 	font-size: 14px;
-	margin: 0px 0px 0px 5px;
-	/* border: 1px solid red; */
+	margin: 7px 0px 0px 5px;
 }
 .product-left-2 li {
 	display: flex;
@@ -1421,7 +1423,8 @@
 	margin: 10px 5px 20px 15px;
 }
 .price-2 {
-	margin: 7px 0px 0px 45px;
+	width: 130px;
+	margin: 21px 0px 0px 0px;
 	text-align: center;
 }
 .kg-2 {
@@ -1596,7 +1599,7 @@
 }
 /* 图标 */
 .icon-2 {
-	margin: 7px 0px 0px 55px;
+	margin: 7px 0px 0px 0px;
 	width: 182px;
 	/* border: 1px solid green; */
 	color: #666;
@@ -1609,7 +1612,7 @@
 	flex-direction: row;
 	-ms-flex-wrap: wrap;
 	flex-wrap: wrap;
-	/*-ms-flex-pack: distribute;*/
+	/* -ms-flex-pack: distribute; */
 	justify-content: space-around;
 	text-align: center;
 }
@@ -1628,7 +1631,7 @@
 }
 /* 按钮 */
 .detailsbutton-2 {
-	margin: 0px 20px 0px 0px;;
+	margin: 0px 20px 0px 0px;
 }
 .data-2 {
 	font-size: 12px;
