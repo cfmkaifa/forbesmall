@@ -86,5 +86,4 @@ public class StoreController extends BaseController {
 		Pageable pageable = new Pageable(pageNumber, PAGE_SIZE);
 		return ResponseEntity.ok(storeService.search(keyword, pageable).getContent());
 	}
-
 }

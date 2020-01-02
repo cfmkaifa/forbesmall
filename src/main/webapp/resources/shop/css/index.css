@@ -309,7 +309,7 @@
 }
 
 .index .article {
-	margin-top: -450px;
+	margin-top: -500px;
 	margin-bottom: 5px;
 	position: relative;
 	z-index: 200;
@@ -333,6 +333,7 @@
 .index .article .tab-content {
 	line-height: 28px;
 	padding: 5px 10px;
+
 }
 
 .index .side-slider {
@@ -707,4 +708,69 @@
 	width: -webkit-calc(10% + 1px);
 	width: calc(10% + 1px);
 	margin-left: -1px;
+}
+.box-2 {
+	width: 1350px;
+	height: 400px;
+	margin: 0 auto;
+}
+.active {
+	width: 100%;
+	/*height: 400px;*/
+	/* background: #F4F4F4; */
+}
+.factory-2 {
+	width: 1350px;
+	height: 400px;
+	min-width: 1350px;
+}
+.swiper-2 {
+	width: 200px;
+	height: 180px;
+	float: left;
+	/* background-color: #ffffff; */
+	margin: 10px 12px;
+}
+.logo-2 {
+	width: 35px;
+	height: 35px;
+	margin-left: 30px;
+}
+.swiper_title-2 {
+	display: flex;
+}
+.swiper_title-2 p {
+	font-size: 24px;
+	margin-left: 5px;
+	overflow: hidden;
+	display: -webkit-box; /* //将对象作为弹性伸缩盒子模型显示; */
+	text-overflow: ellipsis;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+}
+.tonsof-2 {
+	width: 100%;
+	text-align: center;
+	color: #ED1B23;
+	font-size: 26px;
+}
+.themain-2 {
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	font-size: 14px;
+	border-top: 1px dashed #E5E5E5;
+}
+.varieties-2 {
+	width: 100%;
+	font-size: 14px;
+	text-align: center;
+	padding-left: 18px;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	white-space:nowrap;
+}
+.carousel-control {
+	display: none;
 }

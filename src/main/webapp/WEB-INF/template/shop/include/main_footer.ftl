@@ -101,9 +101,9 @@
 			</div>
 			<div class="col-xs-2">
 				<dl class="help">
-					<dt>商家服务</dt>
+					<dt>会员服务</dt>
 					<dd>
-						<a href="${base}/article/detail/36_1">商家入驻</a>
+						<a href="${base}/resources/shop/html/members.html">会员入驻</a>
 					</dd>
 					<dd>
 						<a href="${base}/article/detail/37_1">商家帮助</a>

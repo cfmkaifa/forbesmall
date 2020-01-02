@@ -102,6 +102,11 @@
 				});
 			
 			});
+			$(".factory-2").hover(function(){
+				$('.carousel-control').stop().fadeIn("slow");
+			},function(){
+				$('.carousel-control').stop().fadeOut("slow");
+			})
 			</script>
 		[/#escape]
 	[/#noautoesc]
@@ -305,113 +310,53 @@
 				[/#if]
 			[/@ad_position]
 			[@product_category_root_list count = 5]
-				[#list productCategories as productCategory]
-					[@product_list productCategoryId = productCategory.id productTagId = 1 count = 6]
+
 						<div class="featured-product">
 							<div class="featured-product-heading">
-								<h4>
+								[#--<h4>
 									${productCategory_index + 1}F
 									<strong>${productCategory.name}</strong>
-								</h4>
+								</h4>--]
 							</div>
 							<div class="featured-product-body">
 								<div class="row">
-									<div class="col-xs-2">
-										<div class="ad-product-category-wrapper">
-											[#switch productCategory_index]
-												[#case 0]
-													[#assign featuredProductAdPositionId = 6 /]
-													[#break /]
-												[#case 1]
-													[#assign featuredProductAdPositionId = 8 /]
-													[#break /]
-												[#case 2]
-													[#assign featuredProductAdPositionId = 10 /]
-													[#break /]
-												[#case 3]
-													[#assign featuredProductAdPositionId = 12 /]
-													[#break /]
-												[#case 4]
-													[#assign featuredProductAdPositionId = 14 /]
-											[/#switch]
-											[@ad_position id = featuredProductAdPositionId]
-												[#if adPosition??]
-													[#noautoesc]${adPosition.resolveTemplate()}[/#noautoesc]
-												[/#if]
-											[/@ad_position]
-											[@product_category_children_list productCategoryId = productCategory.id recursive = false count = 6]
-												[#if productCategories?has_content]
-													<ul class="product-category clearfix">
-														[#list productCategories as productCategory]
-															<li>
-																<a href="${base}${productCategory.path}">${productCategory.name}</a>
-															</li>
-														[/#list]
-													</ul>
-												[/#if]
-											[/@product_category_children_list]
-										</div>
-									</div>
-									<div class="col-xs-4">
-										<div class="slider-brand-wrapper">
-											[#switch productCategory_index]
-												[#case 0]
-													[#assign featuredProductSliderAdPositionId = 7 /]
-													[#break /]
-												[#case 1]
-													[#assign featuredProductSliderAdPositionId = 9 /]
-													[#break /]
-												[#case 2]
-													[#assign featuredProductSliderAdPositionId = 11 /]
-													[#break /]
-												[#case 3]
-													[#assign featuredProductSliderAdPositionId = 13 /]
-													[#break /]
-												[#case 4]
-													[#assign featuredProductSliderAdPositionId = 15 /]
-											[/#switch]
-											[@ad_position id = featuredProductSliderAdPositionId]
-												[#if adPosition??]
-													[#noautoesc]${adPosition.resolveTemplate()}[/#noautoesc]
-												[/#if]
-											[/@ad_position]
-											[@brand_list productCategoryId = productCategory.id type = "IMAGE" count = 8]
-												[#if brands?has_content]
-													<ul class="brand clearfix">
-														[#list brands as brand]
-															<li>
-																<a href="${base}${brand.path}" title="${brand.name}">
-																	<img class="img-responsive center-block" src="${brand.logo}" alt="${brand.name}">
-																</a>
-															</li>
-														[/#list]
-													</ul>
-												[/#if]
-											[/@brand_list]
-										</div>
-									</div>
-									[#if products?has_content]
-										<div class="col-xs-6">
-											<ul class="product clearfix">
-												[#list products as product]
-													<li>
-														<a href="${base}${product.path}" target="_blank">
-															<img class="lazy-load img-responsive center-block" src="${base}/resources/common/images/transparent.png" alt="${product.name}" data-original="${product.thumbnail!setting.defaultThumbnailProductImage}">
-															<h5 class="text-overflow" title="${product.name}">${product.name}</h5>
-															[#if product.caption?has_content]
-																<h6 class="text-overflow" title="${product.caption}">${product.caption}</h6>
-															[/#if]
-														</a>
-													</li>
-												[/#list]
-											</ul>
-										</div>
-									[/#if]
+                                    <div class="box-2">
+                                        <div id="myCarousel" class="carousel slide">
+                                            <!-- 轮播（Carousel）项目 -->
+                                            <div class="carousel-inner">
+                                                <div class="item active">
+                                                    <div class="factory-2">
+														[@ad_factory]
+															[#list adFactory.content as stores]
+                                                                <div class="swiper-2">
+																<span class="swiper_title-2">
+																	<img src="${stores.logo}" class="logo-2">
+																	<p>${stores.name}</p>
+																</span>
+                                                                    <p class="tonsof-2">${stores.capacity}吨/年</p>
+                                                                    <p class="themain-2">主营品种</p>
+                                                                    <p class="varieties-2">${stores.keyword}</p>
+                                                                </div>
+															[/#list]
+														[/@ad_factory]
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- 轮播（Carousel）导航 -->
+                                            <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                                                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                                                <span class="sr-only">Previous</span>
+                                            </a>
+                                            <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                                                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                                <span class="sr-only">Next</span>
+                                            </a>
+                                        </div>
+                                    </div>
 								</div>
 							</div>
 						</div>
-					[/@product_list]
-				[/#list]
+
 			[/@product_category_root_list]
 			<div class="row">
 				[@product_category_root_list count = 3]

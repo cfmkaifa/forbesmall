@@ -240,6 +240,12 @@ public class Store extends BaseEntity<Long> {
 	private StoreCategory storeCategory;
 
 	/**
+	 * 产能
+	 */
+	@NotNull
+	private Integer capacity;
+
+	/**
 	 * 售后设置
 	 */
 	@OneToOne(mappedBy = "store", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
@@ -1294,4 +1300,11 @@ public class Store extends BaseEntity<Long> {
 		this.sample = sample;
 	}
 
+	public Integer getCapacity() {
+		return capacity;
+	}
+
+	public void setCapacity(Integer capacity) {
+		this.capacity = capacity;
+	}
 }

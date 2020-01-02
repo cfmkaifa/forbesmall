@@ -180,6 +180,7 @@ public class StoreController extends BaseController {
 		}
 		Store pStore = storeService.find(id);
 		pStore.setName(store.getName());
+		pStore.setCapacity(store.getCapacity());
 		pStore.setLogo(store.getLogo());
 		pStore.setEmail(store.getEmail());
 		pStore.setMobile(store.getMobile());

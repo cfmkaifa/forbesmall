@@ -143,6 +143,12 @@
 								<input id="address" name="address" class="form-control" type="text" value="${store.address}" maxlength="200">
 							</div>
 						</div>
+                        <div class="form-group">
+                            <label class="col-xs-3 col-sm-2 control-label" for="capacity">${message("Store.capacity")}:</label>
+                            <div class="col-xs-9 col-sm-4">
+                                <input id="capacity" name="capacity" class="form-control" type="text" value="${store.capacity}" maxlength="200">
+                            </div>
+                        </div>
 						<div class="form-group">
 							<label class="col-xs-3 col-sm-2 control-label" for="zipCode">${message("Store.zipCode")}:</label>
 							<div class="col-xs-9 col-sm-4">

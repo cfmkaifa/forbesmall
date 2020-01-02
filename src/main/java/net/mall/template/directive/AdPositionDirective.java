@@ -58,5 +58,4 @@ public class AdPositionDirective extends BaseDirective {
 		AdPosition adPosition = adPositionService.find(id, useCache);
 		setLocalVariable(VARIABLE_NAME, adPosition, env, body);
 	}
-
 }
