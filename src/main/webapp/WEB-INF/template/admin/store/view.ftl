@@ -139,6 +139,8 @@
 										<dd>${store.phone}</dd>
 										<dt>${message("Store.address")}:</dt>
 										<dd>${store.address}</dd>
+                                        <dt>${message("Store.capacity")}吨/年:</dt>
+                                        <dd>${store.capacity}</dd>
 										<dt>${message("Store.zipCode")}:</dt>
 										<dd>${store.zipCode}</dd>
 										<dt>${message("Store.introduction")}:</dt>
