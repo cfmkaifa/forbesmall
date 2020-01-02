@@ -7,7 +7,6 @@
 package net.mall.template.directive;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;

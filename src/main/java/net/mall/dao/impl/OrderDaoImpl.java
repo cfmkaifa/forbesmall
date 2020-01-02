@@ -205,7 +205,7 @@ public class OrderDaoImpl extends BaseDaoImpl<Order, Long> implements OrderDao {
 		}
 		if (status != null) {
 			if(status.length > 1){
-				restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.in(root.get("status").in(status)));
+				restrictions = criteriaBuilder.and(restrictions, root.get("status").in(status));
 			} else {
 				restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("status"), status[0]));
 			}

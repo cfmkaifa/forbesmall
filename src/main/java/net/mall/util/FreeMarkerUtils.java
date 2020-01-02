@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -166,7 +165,6 @@ public final class FreeMarkerUtils<T> {
 		TemplateModel templateModel = params.get(name);
 		if (templateModel != null) {
 			Object value = DeepUnwrap.unwrap(templateModel);
-			List<T> paramList = new ArrayList<T>();
 			if (value != null) {
 				String strVal = value.toString();
 				if(strVal.contains(",")){
