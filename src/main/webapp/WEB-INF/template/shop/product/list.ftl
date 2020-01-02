@@ -39,7 +39,7 @@
 	<link href="${base}/resources/common/css/base.css" rel="stylesheet">
 	<link href="${base}/resources/shop/css/base.css" rel="stylesheet">
 	<link href="${base}/resources/shop/css/store.css" rel="stylesheet">
-	<link href="${base}/resources/shop/css/product.css" rel="stylesheet">
+	<link href="${base}/resources/shop/css/product.css?version=0.1" rel="stylesheet">
 	<!--[if lt IE 9]>
 		<script src="${base}/resources/common/js/html5shiv.js"></script>
 		<script src="${base}/resources/common/js/respond.js"></script>
