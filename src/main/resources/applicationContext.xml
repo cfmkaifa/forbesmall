@@ -143,12 +143,13 @@
 		<property name="freemarkerVariables">
 			<map>
 			   <!-- http://www.chinafibermarketing.net -->
-				<entry key="base" value="http://www.chinafibermarketing.net" />
+				<entry key="base" value="http://localhost:8080" />
 				<entry key="showPowered" value="#{${show_powered}}" />
 				<entry key="message" value-ref="messageMethod" />
 				<entry key="abbreviate" value-ref="abbreviateMethod" />
 				<entry key="currency" value-ref="currencyMethod" />
 				<entry key="ad_position" value-ref="adPositionDirective" />
+				<entry key="ad_factory" value-ref="adFactoryDirective" />
 				<entry key="article_category_children_list" value-ref="articleCategoryChildrenListDirective" />
 				<entry key="article_category_parent_list" value-ref="articleCategoryParentListDirective" />
 				<entry key="article_category_root_list" value-ref="articleCategoryRootListDirective" />
