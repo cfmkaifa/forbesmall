@@ -7,6 +7,7 @@
 package net.mall.template.directive;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -109,7 +110,7 @@ public class OrderCountDirective extends BaseDirective {
 	@Override
 	public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException, IOException {
 		Order.Type type = FreeMarkerUtils.getParameter(TYPE_PARAMETER_NAME, Order.Type.class, params);
-		Order.Status status = FreeMarkerUtils.getParameter(STATUS_PARAMETER_NAME, Order.Status.class, params);
+		Order.Status[] status = FreeMarkerUtils.getParameters(STATUS_PARAMETER_NAME, Order.Status.class, params);
 		Long storeId = FreeMarkerUtils.getParameter(STORE_ID_PARAMETER_NAME, Long.class, params);
 		Long memberId = FreeMarkerUtils.getParameter(MEMBER_ID_PARAMETER_NAME, Long.class, params);
 		Long productId = FreeMarkerUtils.getParameter(PRODUCT_ID_PARAMETER_NAME, Long.class, params);
@@ -119,8 +120,7 @@ public class OrderCountDirective extends BaseDirective {
 		Boolean isExchangePoint = FreeMarkerUtils.getParameter(IS_EXCHANGE_POINT_PARAMETER_NAME, Boolean.class, params);
 		Boolean isAllocatedStock = FreeMarkerUtils.getParameter(IS_ALLOCATED_STOCK_PARAMETER_NAME, Boolean.class, params);
 		Boolean hasExpired = FreeMarkerUtils.getParameter(HAS_EXPIRED_PARAMETER_NAME, Boolean.class, params);
-
-		Long count = orderService.count(type, status, storeId, memberId, productId, isPendingReceive, isPendingRefunds, isUseCouponCode, isExchangePoint, isAllocatedStock, hasExpired);
+		Long count = orderService.count(type, storeId, memberId, productId, isPendingReceive, isPendingRefunds, isUseCouponCode, isExchangePoint, isAllocatedStock, hasExpired, status);
 		setLocalVariable(VARIABLE_NAME, count, env, body);
 	}
 

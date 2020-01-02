@@ -194,7 +194,7 @@ public class OrderDaoImpl extends BaseDaoImpl<Order, Long> implements OrderDao {
 	}
 
 	@Override
-	public Long count(Order.Type type, Order.Status status, Store store, Member member, Product product, Boolean isPendingReceive, Boolean isPendingRefunds, Boolean isUseCouponCode, Boolean isExchangePoint, Boolean isAllocatedStock, Boolean hasExpired) {
+	public Long count(Order.Type type, Store store, Member member, Product product, Boolean isPendingReceive, Boolean isPendingRefunds, Boolean isUseCouponCode, Boolean isExchangePoint, Boolean isAllocatedStock, Boolean hasExpired, Order.Status... status) {
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 		CriteriaQuery<Order> criteriaQuery = criteriaBuilder.createQuery(Order.class);
 		Root<Order> root = criteriaQuery.from(Order.class);
@@ -204,7 +204,11 @@ public class OrderDaoImpl extends BaseDaoImpl<Order, Long> implements OrderDao {
 			restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("type"), type));
 		}
 		if (status != null) {
-			restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("status"), status));
+			if(status.length > 1){
+				restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.in(root.get("status").in(status)));
+			} else {
+				restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("status"), status[0]));
+			}
 		}
 		if (store != null) {
 			restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("store"), store));

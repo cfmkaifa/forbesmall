@@ -175,12 +175,12 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 	@Override
 	@Transactional(readOnly = true)
 	public Long count(Type type, Status status, Store store, Member member, Product product, Boolean isPendingReceive, Boolean isPendingRefunds, Boolean isUseCouponCode, Boolean isExchangePoint, Boolean isAllocatedStock, Boolean hasExpired) {
-		return orderDao.count(type, status, store, member, product, isPendingReceive, isPendingRefunds, isUseCouponCode, isExchangePoint, isAllocatedStock, hasExpired);
+		return orderDao.count(type, store, member, product, isPendingReceive, isPendingRefunds, isUseCouponCode, isExchangePoint, isAllocatedStock, hasExpired, status);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Long count(Order.Type type, Order.Status status, Long storeId, Long memberId, Long productId, Boolean isPendingReceive, Boolean isPendingRefunds, Boolean isUseCouponCode, Boolean isExchangePoint, Boolean isAllocatedStock, Boolean hasExpired) {
+	public Long count(Order.Type type, Long storeId, Long memberId, Long productId, Boolean isPendingReceive, Boolean isPendingRefunds, Boolean isUseCouponCode, Boolean isExchangePoint, Boolean isAllocatedStock, Boolean hasExpired, Order.Status... status) {
 		Store store = storeDao.find(storeId);
 		if (storeId != null && store == null) {
 			return 0L;
@@ -194,7 +194,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 			return 0L;
 		}
 
-		return orderDao.count(type, status, store, member, product, isPendingReceive, isPendingRefunds, isUseCouponCode, isExchangePoint, isAllocatedStock, hasExpired);
+		return orderDao.count(type, store, member, product, isPendingReceive, isPendingRefunds, isUseCouponCode, isExchangePoint, isAllocatedStock, hasExpired, status);
 	}
 
 	@Override

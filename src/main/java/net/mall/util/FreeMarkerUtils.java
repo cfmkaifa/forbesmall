@@ -9,6 +9,8 @@ package net.mall.util;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -33,8 +35,9 @@ import freemarker.template.utility.DeepUnwrap;
  * 
  * @author huanghy
  * @version 6.1
+ * @param <T>
  */
-public final class FreeMarkerUtils {
+public final class FreeMarkerUtils<T> {
 
 	/**
 	 * FreeMarker默认配置
@@ -139,6 +142,46 @@ public final class FreeMarkerUtils {
 			Object value = DeepUnwrap.unwrap(templateModel);
 			if (value != null) {
 				return (T) CONVERSION_SERVICE.convert(value, type);
+			}
+		}
+		return null;
+	}
+	
+	/***
+	 * getParameters方法慨述:
+	 * @param name
+	 * @param type
+	 * @param params
+	 * @return
+	 * @throws TemplateModelException List<T>
+	 * @创建人 huanghy
+	 * @创建时间 2020年1月2日 下午4:32:58
+	 * @修改人 (修改了该文件，请填上修改人的名字)
+	 * @修改日期 (请填上修改该文件时的日期)
+	 */
+	public static <T> T[] getParameters(String name, Class<T> type, Map<String, TemplateModel> params) throws TemplateModelException {
+		Assert.hasText(name, "[Assertion failed] - name must have text; it must not be null, empty, or blank");
+		Assert.notNull(type, "[Assertion failed] - type is required; it must not be null");
+		Assert.notNull(params, "[Assertion failed] - params is required; it must not be null");
+		TemplateModel templateModel = params.get(name);
+		if (templateModel != null) {
+			Object value = DeepUnwrap.unwrap(templateModel);
+			List<T> paramList = new ArrayList<T>();
+			if (value != null) {
+				String strVal = value.toString();
+				if(strVal.contains(",")){
+					String[] strs = strVal.split(",");
+					int arrayLnegth = strs.length;
+					T[] ts = (T[]) Array.newInstance(type, arrayLnegth);
+					for(int arrayIndex =0;arrayIndex<arrayLnegth;arrayIndex++){
+						ts[arrayIndex] = (T) CONVERSION_SERVICE.convert(strs[arrayIndex], type);
+					}
+					return ts;
+				} else {
+					T[] ts = (T[]) Array.newInstance(type, 1);
+					ts[0] = (T) CONVERSION_SERVICE.convert(value, type);
+					return ts;
+				}
 			}
 		}
 		return null;

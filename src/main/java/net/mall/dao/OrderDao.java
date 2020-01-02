@@ -159,7 +159,7 @@ public interface OrderDao extends BaseDao<Order, Long> {
 	 *            是否已过期
 	 * @return 订单数量
 	 */
-	Long count(Order.Type type, Order.Status status, Store store, Member member, Product product, Boolean isPendingReceive, Boolean isPendingRefunds, Boolean isUseCouponCode, Boolean isExchangePoint, Boolean isAllocatedStock, Boolean hasExpired);
+	Long count(Order.Type type, Store store, Member member, Product product, Boolean isPendingReceive, Boolean isPendingRefunds, Boolean isUseCouponCode, Boolean isExchangePoint, Boolean isAllocatedStock, Boolean hasExpired, Order.Status... status);
 
 	/**
 	 * 查询订单创建数

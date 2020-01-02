@@ -170,7 +170,7 @@ public interface OrderService extends BaseService<Order, Long> {
 	 *            是否已过期
 	 * @return 订单数量
 	 */
-	Long count(Order.Type type, Order.Status status, Long storeId, Long memberId, Long productId, Boolean isPendingReceive, Boolean isPendingRefunds, Boolean isUseCouponCode, Boolean isExchangePoint, Boolean isAllocatedStock, Boolean hasExpired);
+	Long count(Order.Type type, Long storeId, Long memberId, Long productId, Boolean isPendingReceive, Boolean isPendingRefunds, Boolean isUseCouponCode, Boolean isExchangePoint, Boolean isAllocatedStock, Boolean hasExpired,Order.Status... status);
 
 	/**
 	 * 计算税金
