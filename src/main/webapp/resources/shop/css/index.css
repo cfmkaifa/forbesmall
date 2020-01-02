@@ -329,7 +329,9 @@
 	color: #666666;
 	background-color: #ffffff;
 }
-
+.bx-viewport {
+	height: 133px;
+}
 .index .article .tab-content {
 	line-height: 28px;
 	padding: 5px 10px;
