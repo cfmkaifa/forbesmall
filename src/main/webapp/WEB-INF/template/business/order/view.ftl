@@ -25,7 +25,7 @@
 	<script src="${base}/resources/common/js/bootstrap-growl.js"></script>
 	<script src="${base}/resources/common/js/bootbox.js"></script>
 	<script src="${base}/resources/common/js/bootstrap-select.js"></script>
-	<script src="${base}/resources/common/js/bootstrap-fileinput.js"></script>
+	<script src="${base}/resources/common/js/bootstrap-fileinput.js?version=0.5"></script>
 	<script src="${base}/resources/common/js/jquery.lSelect.js"></script>
 	<script src="${base}/resources/common/js/jquery.nicescroll.js"></script>
 	<script src="${base}/resources/common/js/jquery.validate.js"></script>

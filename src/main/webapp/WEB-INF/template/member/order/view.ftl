@@ -24,7 +24,7 @@
 	<script src="${base}/resources/common/js/bootstrap.js"></script>
 	<script src="${base}/resources/common/js/bootstrap-growl.js"></script>
 	<script src="${base}/resources/common/js/bootbox.js"></script>
-	<script src="${base}/resources/common/js/bootstrap-fileinput.js"></script>
+	<script src="${base}/resources/common/js/bootstrap-fileinput.js?version=0.5"></script>
 	<script src="${base}/resources/common/js/jquery.cookie.js"></script>
 	<script src="${base}/resources/common/js/underscore.js"></script>
 	<script src="${base}/resources/common/js/url.js"></script>
@@ -398,7 +398,7 @@
 									</div>
 								</div>
 								<div class="modal-footer">
-									[#if order.hasExpired() || order.status != "PENDING_PAYMENT" ]
+									[#if !order.hasExpired() && order.status == "PENDING_PAYMENT" ]
 										<button class="btn btn-primary" type="button"  id="certificatePaymentConfirm" >${message("common.ok")}</button>
 									[/#if]
 									<button class="btn btn-default" type="button" data-dismiss="modal">${message("common.cancel")}</button>
