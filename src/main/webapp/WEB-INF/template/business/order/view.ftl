@@ -124,10 +124,10 @@
 						[/#if]
 						maxFileCount: 1,
 						autoReplace: true,
-						showRemove: false,
 						showClose: false,
 						showPreview:true,
 						[#if order.hasExpired() || (order.status != "PENDING_PAYMENT" && order.status != "PENDING_REVIEW") ]
+							showRemove: false,
 							showBrowse:false,
 							showUpload:false,
 							showCaption:false,
