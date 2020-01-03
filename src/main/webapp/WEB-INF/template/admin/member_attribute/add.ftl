@@ -197,6 +197,10 @@
 									<option value="CHECKBOX">${message("MemberAttribute.Type.CHECKBOX")}</option>
 									<option value="IMAGE">${message("MemberAttribute.Type.IMAGE")}</option>
 									<option value="DATE">${message("MemberAttribute.Type.DATE")}</option>
+									<option value="ADDRESS">${message("MemberAttribute.Type.ADDRESS")}</option>
+									<option value="ZIP_CODE">${message("MemberAttribute.Type.ZIP_CODE")}</option>
+									<option value="PHONE">${message("MemberAttribute.Type.PHONE")}</option>
+									<option value="NAME">${message("MemberAttribute.Type.NAME")}</option>
 								</select>
 							</div>
 						</div>
