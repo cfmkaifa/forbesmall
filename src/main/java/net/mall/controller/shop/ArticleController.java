@@ -187,4 +187,15 @@ public class ArticleController extends BaseController {
 		return ResponseEntity.ok(data);
 	}
 
+
+	/**
+	 * @Author xfx
+	 * @Date 9:49 2020/1/3
+	 * 会员介绍
+	 **/
+	@GetMapping("/member")
+	public String member(ModelMap model){
+		return "shop/article/members";
+	}
+
 }

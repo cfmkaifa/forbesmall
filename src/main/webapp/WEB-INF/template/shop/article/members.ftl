@@ -4,6 +4,28 @@
 		<meta charset="utf-8">
 		<title>会员中心</title>
         <link rel="stylesheet" href="/resources/shop/css/members.css">
+        <link href="${base}/favicon.ico" rel="icon">
+        <link href="${base}/resources/common/css/bootstrap.css" rel="stylesheet">
+        <link href="${base}/resources/common/css/iconfont.css" rel="stylesheet">
+        <link href="${base}/resources/common/css/jquery.bxslider.css" rel="stylesheet">
+        <link href="${base}/resources/common/css/base.css" rel="stylesheet">
+        <link href="${base}/resources/shop/css/base.css" rel="stylesheet">
+        <link href="${base}/resources/shop/css/index.css?version=0.1" rel="stylesheet">
+        <!--[if lt IE 9]>
+		<script src="${base}/resources/common/js/html5shiv.js"></script>
+		<script src="${base}/resources/common/js/respond.js"></script>
+        <![endif]-->
+        <script src="${base}/resources/common/js/jquery.js"></script>
+        <script src="${base}/resources/common/js/bootstrap.js"></script>
+        <script src="${base}/resources/common/js/jquery.lazyload.js"></script>
+        <script src="${base}/resources/common/js/jquery.bxslider.js"></script>
+        <script src="${base}/resources/common/js/jquery.qrcode.js"></script>
+        <script src="${base}/resources/common/js/underscore.js"></script>
+        <script src="${base}/resources/common/js/url.js"></script>
+        <script src="${base}/resources/common/js/velocity.js"></script>
+        <script src="${base}/resources/common/js/velocity.ui.js"></script>
+        <script src="${base}/resources/common/js/base.js?version=0.1"></script>
+        <script src="${base}/resources/shop/js/base.js"></script>
 	</head>
 	<body>
 		<div class="header">
@@ -49,7 +71,7 @@
 								<li><p></p>移动端APP</li>
 								<li><p></p>站内消息接收</li>
 							</ul>
-							<button class="super_button">注册</button>
+							<button class="super_button">联系我们</button>
 						</div>
 					</div>
 					<!-- 俱乐部会员 -->
@@ -73,7 +95,7 @@
 								<li><p></p>发起团售，设定保证金</li>
 								<li><p></p>站内资讯接收</li>
 							</ul>
-							<button class="super_button">注册</button>
+							<button class="super_button">联系我们</button>
 						</div>
 					</div>
 					<!-- 白银会员 -->
@@ -97,7 +119,7 @@
 								<li><p></p>发起团售，设定保证金</li>
 								<li><p></p>推送行业月报</li>
 							</ul>
-							<button class="super_button">注册</button>
+							<button class="super_button">联系我们</button>
 						</div>
 					</div>
 					<!-- 铂金会员 -->
@@ -121,7 +143,7 @@
 								<li><p></p>数据推送</li>
 								<li><p></p>行业月报</li>
 							</ul>
-							<button class="super_button">注册</button>
+							<button class="super_button">联系我们</button>
 						</div>
 					</div>
 					<!-- 黄金会员 -->
@@ -145,7 +167,7 @@
 								<li><p></p>团购/采购信息推送</li>
 								<li><p></p>数据推送</li>
 							</ul>
-							<button class="super_button">注册</button>
+							<button class="super_button">联系我们</button>
 						</div>
 					</div>
 					<!-- 臻享会员 -->
@@ -169,7 +191,7 @@
 								<li><p></p>出口流向月报</li>
 								<li><p></p>智慧金融</li>
 							</ul>
-							<button class="super_button">注册</button>
+							<button class="super_button">联系我们</button>
 						</div>
 					</div>
 				</div>
@@ -229,50 +251,8 @@
 			</div>
 		</div>
 		<div class="fonter">
-          <div class="fonter-main">
-                <ul class="mian-1">
-                    <li>客服热线
-                        <ul class="fonter-twoul">
-                            <li><img src="/resources/shop/images/kfdh.gif"></li>
-                        </ul>
-                    </li>
-                    <li>平台规则
-                        <ul class="fonter-twoul">
-                            <li>平台服务协议</li>
-                            <li>平台交易规则</li>
-                        </ul>
-                    </li>
-                    <li>合同模板
-                        <ul class="fonter-twoul">
-                            <li>产品采购合同</li>
-                        </ul>
-                    </li>
-                    <li>会员服务
-                        <ul class="fonter-twoul">
-                            <li>服务热线</li>
-                            <li>发票说明</li>
-                            <li>下载专区</li>
-                        </ul>
-                    </li>
-                    <li>支付方式
-                        <ul class="fonter-twoul">
-                            <li>线下打款</li>
-                            <li>银行承兑汇票</li>
-                        </ul>
-                    </li>
-                </ul>
-          </div>
-          <div class="fonter-bottom">
-                <ul class="mian-2">
-                    <li @click="about">关于我们</li>
-                    <li>福布招聘</li>
-                    <li>联系我们</li>
-                    <li>客服中心</li>
-                </ul>
-                <p>地址：上海市青浦区虹桥世界中心L2-B幢503室 邮编：200120</p>
-                <p>版权所有2019 上海让雷智能科技有限公司 沪ICP备17024305号</p>
-          </div>
-      </div>
+			[#include "/shop/include/main_footer.ftl" /]
+        </div>
 	</body>
 	<script type="text/javascript">
 		

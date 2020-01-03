@@ -40,7 +40,7 @@
 	outline: none;
 	-webkit-transition: box-shadow 0.3s;
 	transition: box-shadow 0.3s;
-	border: 2px solid #ff6900;
+	border: 2px solid #ee3834;
 }
 
 .index .topbar .product-search button {
@@ -51,7 +51,7 @@
 	color: #ffffff;
 	font-size: 16px;
 	border: none;
-	background-color: #ff6900;
+	background-color: #ED1B23;
 }
 
 .index .topbar .product-search input:hover {
@@ -76,7 +76,7 @@
 	color: #ffffff;
 	font-size: 16px;
 	text-align: center;
-	background-color: #ff6900;
+	background-color: #ED1B23;
 }
 
 .index .topbar .cart a {
@@ -94,7 +94,7 @@
 	top: -5px;
 	right: -5px;
 	border-radius: 50%;
-	background-color: #ff6900;
+	background-color: #ED1B23;
 }
 
 .index .main-slider {
@@ -409,22 +409,18 @@
 .index .featured-product .featured-product-heading {
 	height: 30px;
 	font-size: 16px;
-}
+	width: 100%;
+	margin: 25px auto 10px auto;
 
-.index .featured-product:nth-child(odd) .featured-product-heading h4 strong {
-	color: #ff8b00;
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
-	background-image: -webkit-linear-gradient(left, #ff4a7d, #ff8b00);
 }
-
-.index .featured-product:nth-child(even) .featured-product-heading h4 strong {
-	color: #0066ff;
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
-	background-image: -webkit-linear-gradient(left, #952dff, #0066ff);
+.index .featured-product .featured-product-heading>img {
+	width: 565px;
+	min-width: 565px;
+	height: 55px;
+	vertical-align: middle;
+	border: 0;
+	margin-left: 29%;
 }
-
 .index .featured-product .featured-product-body [class*='col-']:not(:first-child):not(:last-child) {
 	padding: 0px;
 }
@@ -593,6 +589,7 @@
 	background-color: #ff8f5d;
 }
 
+
 .index .hot-product.even .hot-product-heading {
 	background: -webkit-linear-gradient(left, #fe9a3b, #fca553);
 	background: -moz-linear-gradient(left, #fe9a3b, #fca553);
@@ -676,7 +673,7 @@
 .index .friend-link .friend-link-heading {
 	line-height: 30px;
 	margin-bottom: 20px;
-	font-size: 14px;
+	font-size: 18px;
 	border-image: -webkit-linear-gradient(left, #e8e8e8, #f8f8f8) 1;
 	border-image: -moz-linear-gradient(left, #e8e8e8, #f8f8f8) 1;
 	border-image: linear-gradient(left, #e8e8e8, #f8f8f8) 1;
@@ -718,6 +715,7 @@
 	width: 1350px;
 	height: 400px;
 	margin: 0 auto;
+	margin-top: 36px;
 }
 .active {
 	width: 100%;
@@ -733,7 +731,7 @@
 	width: 200px;
 	height: 180px;
 	float: left;
-	/* background-color: #ffffff; */
+	 background-color: #ffffff;
 	margin: 10px 12px;
 }
 .logo-2 {
@@ -743,6 +741,7 @@
 }
 .swiper_title-2 {
 	display: flex;
+	margin-top: 24px;
 }
 .swiper_title-2 p {
 	font-size: 24px;

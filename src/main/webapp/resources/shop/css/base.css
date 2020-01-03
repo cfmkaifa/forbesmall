@@ -818,7 +818,9 @@
 	border-width: 0px 1px 0px 0px;
 	border-right: 1px solid #f0f0f0;
 }
-
+.contact li {
+	text-align: center;
+}
 .main-footer .contact .iconfont {
 	margin-right: 5px;
 	color: #ee3834;

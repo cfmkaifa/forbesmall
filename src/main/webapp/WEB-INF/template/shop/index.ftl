@@ -28,6 +28,7 @@
 		<script src="${base}/resources/common/js/respond.js"></script>
 	<![endif]-->
 	<script src="${base}/resources/common/js/jquery.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/2.2.1/jquery.js"></script>
 	<script src="${base}/resources/common/js/bootstrap.js"></script>
 	<script src="${base}/resources/common/js/jquery.lazyload.js"></script>
 	<script src="${base}/resources/common/js/jquery.bxslider.js"></script>
@@ -102,11 +103,7 @@
 				});
 			
 			});
-			$(".factory-2").hover(function(){
-				$('.carousel-control').stop().fadeIn("slow");
-			},function(){
-				$('.carousel-control').stop().fadeOut("slow");
-			})
+
 			</script>
 		[/#escape]
 	[/#noautoesc]
@@ -114,7 +111,7 @@
 <body class="shop index">
 	[#include "/shop/include/main_header.ftl" /]
 	[#include "/shop/include/main_sidebar.ftl" /]
-	<main>
+	<main style="background:#f4f4f4;">
 		<div id="topbar" class="topbar">
 			<div class="container">
 				<div class="row">
@@ -313,10 +310,7 @@
 
 						<div class="featured-product">
 							<div class="featured-product-heading">
-								[#--<h4>
-									${productCategory_index + 1}F
-									<strong>${productCategory.name}</strong>
-								</h4>--]
+								<img src="/resources/shop/images/gangchangzhixiao.png">
 							</div>
 							<div class="featured-product-body">
 								<div class="row">
@@ -419,4 +413,13 @@
 	</main>
 	[#include "/shop/include/main_footer.ftl" /]
 </body>
+<script type="text/javascript">
+    $(function(){
+        $(".factory-2").hover(function(){
+            $('.carousel-control').stop().fadeIn("slow");
+        },function(){
+            $('.carousel-control').stop().fadeOut("slow");
+        })
+    })
+</script>
 </html>

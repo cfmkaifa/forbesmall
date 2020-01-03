@@ -41,7 +41,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-4">
+			<div class="col-xs-2">
 				<ul class="contact">
 					<li>
 						<i class="iconfont icon-phone"></i>
@@ -55,6 +55,12 @@
 						<i class="iconfont icon-location"></i>
 						${setting.address}
 					</li>
+				</ul>
+			</div>
+			<div class="col-xs-2">
+				<ul  style="margin: 0 auto">
+					<li style="text-align: center;font-size: 14px;height: 30px;line-height: 30px;font-weight: 600;">客服热线</li>
+					<li><img src="/resources/shop/images/kfdh.gif" class="imggif1" style="width: 75px;  height: 75px;  margin: 13px 0px 0px 66px;" ></li>
 				</ul>
 			</div>
 			<div class="col-xs-2">
@@ -103,7 +109,7 @@
 				<dl class="help">
 					<dt>会员服务</dt>
 					<dd>
-						<a href="${base}/resources/shop/html/members.html">会员入驻</a>
+						<a href="${base}/article/member">会员入驻</a>
 					</dd>
 					<dd>
 						<a href="${base}/article/detail/37_1">商家帮助</a>
@@ -118,7 +124,7 @@
 	<div class="bottom-nav">
 		[@navigation_list navigationGroupId = 3]
 			[#if navigations?has_content]
-				<ul class="clearfix">
+				<ul class="clearfix1" style="justify-content: space-between;">
 					[#list navigations as navigation]
 						<li>
 							<a href="${navigation.url}"[#if navigation.isBlankTarget] target="_blank"[/#if]>${navigation.name}</a>
