@@ -193,7 +193,7 @@
 										[@product_category_children_list productCategoryId = productCategory.id recursive = false count = 8]
 											<div class="product-category-menu-content">
 												<div class="row">
-													<div class="col-xs-9">
+													<div class="col-xs-9" style=" display: flex;">
 														[@promotion_list productCategoryId = productCategory.id hasEnded = false count = 6]
 															[#if promotions?has_content]
 																<ul class="promotion clearfix">
