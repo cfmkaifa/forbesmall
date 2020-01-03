@@ -202,7 +202,7 @@
 								<div class="row">
 									<div class="col-xs-6 text-left">
 										[#if socialUserId?has_content && uniqueId?has_content]
-											<a class="text-orange" href="${base}/member/register?socialUserId=${socialUserId}&uniqueId=${uniqueId}">${message("member.login.registerBind")}</a>
+											<a  href="${base}/member/register?socialUserId=${socialUserId}&uniqueId=${uniqueId}">${message("member.login.registerBind")}</a>
 										[#else]
 											<a class="text-orange" href="${base}/member/register">${message("member.login.register")}</a>
 										[/#if]

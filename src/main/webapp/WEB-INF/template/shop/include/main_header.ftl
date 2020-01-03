@@ -213,12 +213,8 @@
 							</a>
 							<ul class="qrcode">
 								<li>
-									<img src="${base}/resources/shop/images/main_header_qrcode.gif" alt="${message("shop.mainHeader.weixinQrcode")}">
-									<p>${message("shop.mainHeader.weixinQrcode")}</p>
 								</li>
 								<li>
-									<img src="${base}/resources/shop/images/main_header_qrcode.gif" alt="${message("shop.mainHeader.appQrcode")}">
-									<p>${message("shop.mainHeader.appQrcode")}</p>
 								</li>
 							</ul>
 						</li>

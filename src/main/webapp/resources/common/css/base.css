@@ -99,7 +99,7 @@ ol, ul {
 }
 
 .text-blue-light {
-	color: #49a9ee;
+	color: #2c9ef8;
 }
 
 .text-blue-lighter {
@@ -287,7 +287,7 @@ ol, ul {
 }
 
 .bg-blue-light {
-	background-color: #49a9ee;
+	background-color: #2c9ef8;
 }
 
 .bg-blue-lighter {
@@ -431,32 +431,32 @@ ol, ul {
 }
 
 .btn-default:hover {
-	color: #49a9ee;
+	color: #2c9ef8;
 	box-shadow: 0px 0px 8px rgba(102, 175, 233, 0.3);
-	border-color: #49a9ee;
+	border-color: #2c9ef8;
 	background-color: #ffffff;
 }
 
 .btn-default:focus, .btn-default.focus {
-	color: #49a9ee;
+	color: #2c9ef8;
 	outline: none;
 	box-shadow: 0px 0px 0px 2px rgba(16, 142, 233, 0.1);
-	border-color: #49a9ee;
+	border-color: #2c9ef8;
 	background-color: #ffffff;
 }
 
 .btn-default:active, .btn-default.active, .open > .dropdown-toggle.btn-default {
-	color: #49a9ee;
+	color: #2c9ef8;
 	box-shadow: 0px 0px 0px 2px rgba(16, 142, 233, 0.1);
-	border-color: #49a9ee;
+	border-color: #2c9ef8;
 	background-color: #ffffff;
 }
 
 .btn-default:active:hover, .btn-default.active:hover, .open > .dropdown-toggle.btn-default:hover, .btn-default:active:focus, .btn-default.active:focus, .open > .dropdown-toggle.btn-default:focus, .btn-default:active.focus, .btn-default.active.focus, .open > .dropdown-toggle.btn-default.focus {
-	color: #49a9ee;
+	color: #2c9ef8;
 	outline: none;
 	box-shadow: 0px 0px 0px 2px rgba(16, 142, 233, 0.1);
-	border-color: #49a9ee;
+	border-color: #2c9ef8;
 	background-color: #fefefe;
 }
 
@@ -474,35 +474,35 @@ ol, ul {
 .btn-primary {
 	-webkit-transition: border-color 0.3s, background-color 0.3s;
 	transition: border-color 0.3s, background-color 0.3s;
-	border-color: #108ee9;
-	background-color: #108ee9;
+	border-color: #2c9ef8;
+	background-color: #2c9ef8;
 }
 
 .btn-primary:hover {
-	border-color: #49a9ee;
-	background-color: #49a9ee;
+	border-color: #2c9ef8;
+	background-color: #2c9ef8;
 }
 
 .btn-primary:focus, .btn-primary.focus {
 	outline: none;
-	border-color: #49a9ee;
-	background-color: #49a9ee;
+	border-color: #2c9ef8;
+	background-color: #2c9ef8;
 }
 
 .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
-	border-color: #49a9ee;
-	background-color: #49a9ee;
+	border-color: #2c9ef8;
+	background-color: #2c9ef8;
 }
 
 .btn-primary:active:hover, .btn-primary.active:hover, .open > .dropdown-toggle.btn-primary:hover, .btn-primary:active:focus, .btn-primary.active:focus, .open > .dropdown-toggle.btn-primary:focus, .btn-primary:active.focus, .btn-primary.active.focus, .open > .dropdown-toggle.btn-primary.focus {
 	outline: none;
-	border-color: #49a9ee;
-	background-color: #49a9ee;
+	border-color: #2c9ef8;
+	background-color: #2c9ef8;
 }
 
 .btn-primary.disabled:hover, .btn-primary[disabled]:hover, fieldset[disabled] .btn-primary:hover, .btn-primary.disabled:focus, .btn-primary[disabled]:focus, fieldset[disabled] .btn-primary:focus, .btn-primary.disabled.focus, .btn-primary[disabled].focus, fieldset[disabled] .btn-primary.focus {
-	border-color: #49a9ee;
-	background-color: #49a9ee;
+	border-color: #2c9ef8;
+	background-color: #2c9ef8;
 }
 
 .btn-icon {
@@ -599,7 +599,7 @@ input.form-control, textarea.form-control {
 
 input.form-control:hover, textarea.form-control:hover {
 	box-shadow: 0px 0px 8px rgba(102, 175, 233, 0.3);
-	border-color: #49a9ee;
+	border-color: #2c9ef8;
 }
 
 input.form-control:active, textarea.form-control:active {
@@ -608,7 +608,7 @@ input.form-control:active, textarea.form-control:active {
 
 input.form-control:focus, textarea.form-control:focus {
 	box-shadow: 0px 0px 0px 2px rgba(16, 142, 233, 0.1);
-	border-color: #49a9ee;
+	border-color: #2c9ef8;
 }
 
 input.form-control:disabled, textarea.form-control:disabled {
@@ -867,8 +867,8 @@ a.thumbnail:hover, a.thumbnail:focus, a.thumbnail.active {
 }
 
 .pagination > li > a:hover, .pagination > li > span:hover, .pagination > li > a:focus, .pagination > li > span:focus {
-	color: #49a9ee;
-	border-color: #49a9ee;
+	color: #2c9ef8;
+	border-color: #2c9ef8;
 	background-color: transparent;
 }
 
@@ -1229,13 +1229,13 @@ th .checkbox, td .checkbox {
 
 .file-input .multiple-file-preview .file-preview-frame.sortable-chosen {
 	cursor: move;
-	border: 1px solid #49a9ee;
+	border: 1px solid #2c9ef8;
 	background-color: #ffffff;
 }
 
 .file-input .multiple-file-preview .file-preview-frame.sortable-ghost {
 	opacity: 0.5;
-	border: 1px dashed #49a9ee;
+	border: 1px dashed #2c9ef8;
 }
 
 .file-input .multiple-file-preview .file-preview-frame .kv-file-content {
