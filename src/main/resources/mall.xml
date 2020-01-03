@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mall>
-	<setting name="siteName" value="福步云商" />
+	<setting name="siteName" value="让雷智能" />
 	<!-- http://www.chinafibermarketing.net -->
 	<setting name="siteUrl" value="http://www.chinafibermarketing.net" />
 	<setting name="fileUrl" value="http://fds.chinafibermarketing.net" />

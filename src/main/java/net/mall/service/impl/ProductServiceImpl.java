@@ -446,6 +446,7 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
 			long maxRewardPoint = calculateMaxRewardPoint(sku.getPrice());
 			sku.setRewardPoint(sku.getRewardPoint() > maxRewardPoint ? maxRewardPoint : sku.getRewardPoint());
 		}
+		sku.setSample(Sample.NO);
 		sku.setAllocatedStock(0);
 		sku.setIsDefault(true);
 		sku.setProduct(product);
@@ -519,6 +520,7 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
 		if (defaultSku == null) {
 			defaultSku = skus.get(0);
 			defaultSku.setIsDefault(true);
+			defaultSku.setSample(Sample.NO);
 		}
 
 		for (Sku sku : skus) {
@@ -552,6 +554,7 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
 			if (sku != defaultSku) {
 				sku.setIsDefault(false);
 			}
+			sku.setSample(Sample.NO);
 			sku.setAllocatedStock(0);
 			sku.setProduct(product);
 			sku.setCartItems(null);
@@ -585,13 +588,12 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
 		product.setSkus(null);
 		setValue(product);
 		productDao.persist(product);
-
 		for (Sku sku : skus) {
 			setValue(sku);
+			sku.setSample(Sample.NO);
 			skuDao.persist(sku);
 			stockIn(sku);
 		}
-
 		return product;
 	}
 
@@ -848,6 +850,8 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
 					pSku.setRewardPoint(sku.getRewardPoint());
 					pSku.setExchangePoint(sku.getExchangePoint());
 					pSku.setIsDefault(sku.getIsDefault());
+					pSku.setTotalUnit(sku.getTotalUnit());
+					pSku.setUnit(sku.getUnit());
 					pSku.setSpecificationValues(sku.getSpecificationValues());
 					pSku.setSample(Sample.YES);
 				} else {
@@ -973,6 +977,8 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
 					pSku.setExchangePoint(sku.getExchangePoint());
 					pSku.setIsDefault(sku.getIsDefault());
 					pSku.setSample(Sample.NO);
+					pSku.setTotalUnit(sku.getTotalUnit());
+					pSku.setUnit(sku.getUnit());
 					pSku.setSpecificationValues(sku.getSpecificationValues());
 				} else {
 					if (sku.getStock() == null) {
