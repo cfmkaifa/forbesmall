@@ -260,7 +260,7 @@ public class OrderController extends BaseController {
 	public ResponseEntity<?> confirmPayment(@ModelAttribute(binding = false) Order order, Boolean passed, @CurrentUser Business currentUser) {
 		if (order == null 
 				|| order.hasExpired() 
-				|| !Order.Status.PENDING_PAYMENT.equals(order.getStatus()) 
+				|| !Order.Status.MERCHANT_CONFIRM.equals(order.getStatus()) 
 				|| ConvertUtils.isEmpty(order.getCertificatePath())
 				|| passed == null) {
 			return Results.UNPROCESSABLE_ENTITY;
@@ -268,8 +268,6 @@ public class OrderController extends BaseController {
 		if (!orderService.acquireLock(order, currentUser)) {
 			return Results.UNPROCESSABLE_ENTITY;
 		}
-		order.setAmountPaid(order.getAmount());
-		order.setStatus(Order.Status.PENDING_REVIEW);
 		orderService.confirmPayment(order);
 		return Results.OK;
 	}

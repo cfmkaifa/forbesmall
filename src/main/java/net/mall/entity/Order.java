@@ -97,6 +97,11 @@ public class Order extends BaseEntity<Long> {
 		 * 等待付款
 		 */
 		PENDING_PAYMENT,
+		
+		
+		/**商家确认
+		 */
+		MERCHANT_CONFIRM,
 
 		/**
 		 * 等待审核
