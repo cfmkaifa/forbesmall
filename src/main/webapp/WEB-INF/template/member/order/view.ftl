@@ -285,9 +285,9 @@
 						[/#if]
 						maxFileCount: 1,
 						autoReplace: true,
-						showRemove: false,
 						showClose: false,
 						[#if order.hasExpired() || (order.status != "PENDING_PAYMENT" && order.status != "PENDING_REVIEW") ]
+							showRemove: false,
 							showBrowse:false,
 							showUpload:false,
 							showCaption:false,
@@ -459,13 +459,15 @@
 										[#if order.hasExpired()]
 											<h5 class="text-gray-dark">${message("member.order.hasExpired")}</h5>
 										[#else]
-											<h5 class="[#if order.status == "PENDING_SHIPMENT" || order.status == "PENDING_REVIEW" || order.status == "PENDING_PAYMENT"]text-orange[#elseif order.status == "FAILED" || order.status == "DENIED"]text-red[#elseif order.status == "CANCELED"]text-gray-dark[#else]text-green[/#if]">${message("Order.Status." + order.status)}</h5>
+											<h5 class="[#if order.status == "PENDING_SHIPMENT" ||order.status == "MERCHANT_CONFIRM" || order.status == "PENDING_REVIEW" || order.status == "PENDING_PAYMENT"]text-orange[#elseif order.status == "FAILED" || order.status == "DENIED"]text-red[#elseif order.status == "CANCELED"]text-gray-dark[#else]text-green[/#if]">${message("Order.Status." + order.status)}</h5>
 										[/#if]
 										<p>
 											[#if order.hasExpired()]
 												${message("member.order.hasExpiredTips")}
 											[#elseif order.status == "PENDING_PAYMENT"]
 												${message("member.order.pendingPaymentTips")}
+											[#elseif order.status == "MERCHANT_CONFIRM"]
+												${message("member.order.merchantConfirmTips")}
 											[#elseif order.status == "PENDING_REVIEW"]
 												${message("member.order.pendingReviewTips")}
 											[#elseif order.status == "PENDING_SHIPMENT"]

@@ -767,6 +767,7 @@ public class OrderController extends BaseController {
 		if(order.getPaymentMethod().getMethod().equals(Method.OFFLINE)){
 			if(order.getStatus().equals(Status.PENDING_PAYMENT)){
 				order.setCertificatePath(certificatePath);
+				order.setStatus(Status.MERCHANT_CONFIRM);
 				orderService.update(order);
 			} else {
 				return Results.UNPROCESSABLE_ENTITY;

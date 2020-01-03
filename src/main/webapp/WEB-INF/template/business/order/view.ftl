@@ -124,10 +124,10 @@
 						[/#if]
 						maxFileCount: 1,
 						autoReplace: true,
-						showRemove: false,
 						showClose: false,
 						showPreview:true,
 						[#if order.hasExpired() || (order.status != "PENDING_PAYMENT" && order.status != "PENDING_REVIEW") ]
+							showRemove: false,
 							showBrowse:false,
 							showUpload:false,
 							showCaption:false,
@@ -1291,7 +1291,7 @@
 										<div class="form-group">
 										    <button id="sealContractModalButton" class="btn btn-default" type="button" data-toggle="modal" data-target="#sealContractModal">${message("member.order.sealContract")}</button>
 										    <button id="certificatePaymentModalButton" class="btn btn-default" type="button" data-toggle="modal" [#if  order.paymentMethod.method != "OFFLINE"] disabled[/#if] data-target="#certificatePaymentModal">${message("member.order.certPayment")}</button>
-											<button id="confirmPaymentButton" class=" btn btn-default" type="button" data-id="${order.id}"[#if order.hasExpired() || order.status != "PENDING_PAYMENT" || order.paymentMethod.method != "OFFLINE"] disabled[/#if]>${message("business.order.confirmPayment")}</button>
+											<button id="confirmPaymentButton" class=" btn btn-default" type="button" data-id="${order.id}"[#if order.hasExpired() || order.status != "MERCHANT_CONFIRM" || order.paymentMethod.method != "OFFLINE"] disabled[/#if]>${message("business.order.confirmPayment")}</button>
 											<button class="review btn btn-default" type="button" data-id="${order.id}"[#if order.hasExpired() || order.status != "PENDING_REVIEW"] disabled[/#if]>${message("business.order.review")}</button>
 											[#if currentStore.isSelf()]
 												<button id="paymentModalButton" class="btn btn-default" type="button" data-toggle="modal" data-target="#paymentModal"[#if order.hasExpired()] disabled[/#if]>${message("business.order.payment")}</button>

@@ -197,6 +197,10 @@
 									<option value="CHECKBOX">${message("BusinessAttribute.Type.CHECKBOX")}</option>
 									<option value="IMAGE">${message("BusinessAttribute.Type.IMAGE")}</option>
 									<option value="DATE">${message("BusinessAttribute.Type.DATE")}</option>
+									<option value="ADDRESS">${message("BusinessAttribute.Type.ADDRESS")}</option>
+									<option value="ZIP_CODE">${message("BusinessAttribute.Type.ZIP_CODE")}</option>
+									<option value="PHONE">${message("BusinessAttribute.Type.PHONE")}</option>
+									<option value="NAME">${message("BusinessAttribute.Type.NAME")}</option>
 								</select>
 							</div>
 						</div>

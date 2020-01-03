@@ -103,7 +103,11 @@ public class MemberAttributeController extends BaseController {
 				|| MemberAttribute.Type.ID_CARD_IMAGE.equals(memberAttribute.getType())
 				|| MemberAttribute.Type.LEGAL_PERSON.equals(memberAttribute.getType())
 				|| MemberAttribute.Type.LICENSE_IMAGE.equals(memberAttribute.getType())
-				|| MemberAttribute.Type.LICENSE_NUMBER.equals(memberAttribute.getType())) {
+				|| MemberAttribute.Type.LICENSE_NUMBER.equals(memberAttribute.getType())
+				|| MemberAttribute.Type.PHONE.equals(memberAttribute.getType())
+				|| MemberAttribute.Type.ZIP_CODE.equals(memberAttribute.getType())
+				|| MemberAttribute.Type.NAME.equals(memberAttribute.getType())
+				|| MemberAttribute.Type.ADDRESS.equals(memberAttribute.getType())) {
 			memberAttribute.setOptions(null);
 		} else {
 			return Results.UNPROCESSABLE_ENTITY;

@@ -3,7 +3,7 @@
 	<setting name="siteName" value="商城" />
 	<!-- http://www.chinafibermarketing.net -->
 	<setting name="siteUrl" value="http://localhost:8080" />
-	<setting name="fileUrl" value="http://localhost:8080" />
+	<setting name="fileUrl" value="http://fds.chinafibermarketing.net" />
 	<setting name="logo" value="/resources/shop/images/logo.png" />
 	<setting name="hotSearch" value="" />
 	<setting name="address" value="" />

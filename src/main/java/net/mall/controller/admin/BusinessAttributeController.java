@@ -101,7 +101,10 @@ public class BusinessAttributeController extends BaseController {
 				|| BusinessAttribute.Type.ID_CARD_IMAGE.equals(businessAttribute.getType())
 				|| BusinessAttribute.Type.LEGAL_PERSON.equals(businessAttribute.getType())
 				|| BusinessAttribute.Type.LICENSE_IMAGE.equals(businessAttribute.getType())
-				|| BusinessAttribute.Type.LICENSE_NUMBER.equals(businessAttribute.getType())) {
+				|| BusinessAttribute.Type.PHONE.equals(businessAttribute.getType())
+				|| BusinessAttribute.Type.ZIP_CODE.equals(businessAttribute.getType())
+				|| BusinessAttribute.Type.NAME.equals(businessAttribute.getType())
+				|| BusinessAttribute.Type.ADDRESS.equals(businessAttribute.getType())) {
 			businessAttribute.setOptions(null);
 		} else {
 			return Results.UNPROCESSABLE_ENTITY;

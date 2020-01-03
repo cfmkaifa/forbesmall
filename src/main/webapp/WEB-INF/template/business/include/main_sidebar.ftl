@@ -147,7 +147,7 @@
 							<a href="${base}/business/order/list">
 								<i class="iconfont icon-weixuanzhong"></i>
 								${message("business.mainSidebar.orderList")}
-								[@order_count status = "PENDING_REVIEW,PENDING_PAYMENT" storeId = currentStore.id hasExpired = false]
+								[@order_count status = "PENDING_REVIEW,MERCHANT_CONFIRM" storeId = currentStore.id hasExpired = false]
 									<span class="label label-warning" title="${message("business.mainSidebar.pendingOrder")}" data-toggle="tooltip">${count}</span>
 								[/@order_count]
 							</a>

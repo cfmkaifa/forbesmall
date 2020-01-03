@@ -1213,6 +1213,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 				|| (Setting.StockAllocationTime.PAYMENT.equals(setting.getStockAllocationTime()) && (order.getAmountPaid().compareTo(BigDecimal.ZERO) > 0 || order.getExchangePoint() > 0 || order.getAmountPayable().compareTo(BigDecimal.ZERO) <= 0))) {
 			allocateStock(order);
 		}
+		order.setAmountPaid(order.getAmount());
 		order.setStatus(Order.Status.PENDING_SHIPMENT);
 		OrderLog orderLog = new OrderLog();
 		orderLog.setType(OrderLog.Type.REVIEW);
