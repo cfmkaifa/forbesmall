@@ -110,8 +110,8 @@ public class PdfUtil {
     	Store store = order.getStore();
     	Business business = store.getBusiness();
     	String storeName = (null != store.getName()?store.getName():business.getName());
-    	String storeZipCode = (null !=store.getZipCode()?store.getZipCode():"");
-    	String storeAddress = (null != store.getAddress()?store.getAddress():"");
+    	String storeZipCode = (null !=store.getZipCode()?store.getZipCode():business.getZipCode());
+    	String storeAddress = (null != store.getAddress()?store.getAddress():business.getAddress());
     	String storePhone = (null != store.getPhone()?store.getPhone():business.getPhone());
     	String storeBankName = (null != business.getBankName()?business.getBankName():"");
     	String storeBankAccount = (null != business.getBankAccount()?business.getBankAccount():"");

@@ -357,25 +357,28 @@
 					loadParameter();
 				[/#if]
 				
+				
 				[#if product.hasSpecification()]
 					[#list product.skus as sku]
-						initSkuValues["${sku.specificationValueIds?join(",")}"] = {
-							id: ${sku.id},
-							sn: "${sku.sn}",
-							price: ${sku.price},
-							cost: ${sku.cost!"null"},
-							marketPrice: ${sku.marketPrice},
-							maxCommission: ${sku.maxCommission},
-							rewardPoint: ${sku.rewardPoint},
-							exchangePoint: ${sku.exchangePoint},
-							stock: ${sku.stock},
-							unit:"${sku.skuUnit}",
-							totalUnit:${sku.totalUnit},
-							allocatedStock: ${sku.allocatedStock},
-							isDefault: ${sku.isDefault?string("true", "false")},
-							sample:[#if sku.sample=="NO" ]true[#else]false[/#if],
-							isEnabled: true
-						};
+						[#if sku.sample=="NO"]
+							initSkuValues["${sku.specificationValueIds?join(",")}"] = {
+								id: ${sku.id},
+								sn: "${sku.sn}",
+								price: ${sku.price},
+								cost: ${sku.cost!"null"},
+								marketPrice: ${sku.marketPrice},
+								maxCommission: ${sku.maxCommission},
+								rewardPoint: ${sku.rewardPoint},
+								exchangePoint: ${sku.exchangePoint},
+								stock: ${sku.stock},
+								unit:"${sku.skuUnit}",
+								totalUnit:${sku.totalUnit},
+								allocatedStock: ${sku.allocatedStock},
+								isDefault: ${sku.isDefault?string("true", "false")},
+								sample:[#if sku.sample=="NO" ]true[#else]false[/#if],
+								isEnabled: true
+							};
+						[/#if]
 					[/#list]
 					buildSkuTable(initSkuValues);
 				[#else]

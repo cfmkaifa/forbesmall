@@ -358,7 +358,8 @@
 				
 				[#if product.hasSpecification()]
 					[#list product.skus as sku]
-						initSkuValues["${sku.specificationValueIds?join(",")}"] = {
+						[#if sku.sample=="YES"]
+							initSkuValues["${sku.specificationValueIds?join(",")}"] = {
 								id: ${sku.id},
 								sn: "${sku.sn}",
 								price: ${sku.price},
@@ -375,6 +376,7 @@
 								isDefault: ${sku.isDefault?string("true", "false")},
 								isEnabled: true
 							};
+						[/#if]
 					[/#list]
 					buildSkuTable(initSkuValues);
 				[#else]

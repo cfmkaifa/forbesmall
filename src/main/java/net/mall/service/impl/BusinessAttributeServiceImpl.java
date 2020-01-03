@@ -143,6 +143,8 @@ public class BusinessAttributeServiceImpl extends BaseServiceImpl<BusinessAttrib
 		case BANK_NAME:
 		case BANK_ACCOUNT:
 		case TEXT:
+		case ADDRESS:
+		case ZIP_CODE:
 		case IMAGE:
 		case DATE:
 			return StringUtils.isNotEmpty(value) ? value : null;

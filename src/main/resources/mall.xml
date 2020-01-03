@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mall>
-	<setting name="siteName" value="商城" />
+	<setting name="siteName" value="福步云商" />
 	<!-- http://www.chinafibermarketing.net -->
-	<setting name="siteUrl" value="http://localhost:8080" />
+	<setting name="siteUrl" value="http://www.chinafibermarketing.net" />
 	<setting name="fileUrl" value="http://fds.chinafibermarketing.net" />
 	<setting name="logo" value="/resources/shop/images/logo.png" />
 	<setting name="hotSearch" value="" />
@@ -48,7 +48,7 @@
 	<setting name="smtpUsername" value="info@shdbr.com" />
 	<setting name="smtpPassword" value="Shdbr123456" />
 	<setting name="smtpSSLEnabled" value="false" />
-	<setting name="smtpFromMail" value="" />
+	<setting name="smtpFromMail" value="info@shdbr.com" />
 	<setting name="currencySign" value="￥" />
 	<setting name="currencyUnit" value="元" />
 	<setting name="stockAlertCount" value="5" />
@@ -74,8 +74,8 @@
 	<setting name="isCnzzEnabled" value="false" />
 	<setting name="cnzzSiteId" value="" />
 	<setting name="cnzzPassword" value="" />
-	<setting name="smsAppId" value="" />
-	<setting name="smsSecretKey" value="" />
+	<setting name="smsAppId" value="EUCP-EMY-SMS0-0ET3J" />
+	<setting name="smsSecretKey" value="DBFB2E4B5EF73B43" />
 	<setting name="locale" value="zh_CN" />
 
 	<templateConfig id="header" type="PAGE" name="头部" templatePath="shop/include/main_header.ftl" />

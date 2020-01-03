@@ -641,6 +641,7 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
 			long maxRewardPoint = calculateMaxRewardPoint(sku.getPrice());
 			sku.setRewardPoint(sku.getRewardPoint() > maxRewardPoint ? maxRewardPoint : sku.getRewardPoint());
 		}
+		sku.setSample(Sample.YES);
 		if (pProduct.hasSpecification()) {
 			for (Sku pSku : pProduct.getSkus()) {
 				if(Sample.YES.equals(pSku.getSample())){
@@ -711,7 +712,7 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
 		sku.setOrderShippingItems(null);
 		sku.setProductNotifies(null);
 		sku.setStockLogs(null);
-
+		sku.setSample(Sample.NO);
 		if (pProduct.hasSpecification()) {
 			for (Sku pSku : pProduct.getSkus()) {
 				if(Sample.NO.equals(pSku.getSample())){
@@ -733,8 +734,8 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
 			defaultSku.setMaxCommission(sku.getMaxCommission().compareTo(sku.getPrice()) > 0 ? BigDecimal.ZERO : sku.getMaxCommission());
 			defaultSku.setRewardPoint(sku.getRewardPoint());
 			defaultSku.setExchangePoint(sku.getExchangePoint());
+			defaultSku.setSample(Sample.NO);
 		}
-
 		product.setPrice(sku.getPrice());
 		product.setCost(sku.getCost());
 		product.setMarketPrice(sku.getMarketPrice());
@@ -786,6 +787,7 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
 		if (defaultSku == null) {
 			defaultSku = skus.get(0);
 			defaultSku.setIsDefault(true);
+			defaultSku.setSample(Sample.YES);
 		}
 		Product pProduct = productDao.find(product.getId());
 		for (Sku sku : skus) {
@@ -827,6 +829,7 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
 			sku.setOrderShippingItems(null);
 			sku.setProductNotifies(null);
 			sku.setStockLogs(null);
+			sku.setSample(Sample.YES);
 		}
 		if (pProduct.hasSpecification()) {
 			for (Sku pSku : pProduct.getSkus()) {
@@ -846,6 +849,7 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
 					pSku.setExchangePoint(sku.getExchangePoint());
 					pSku.setIsDefault(sku.getIsDefault());
 					pSku.setSpecificationValues(sku.getSpecificationValues());
+					pSku.setSample(Sample.YES);
 				} else {
 					if (sku.getStock() == null) {
 						throw new IllegalArgumentException();
@@ -907,7 +911,7 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
 			defaultSku = skus.get(0);
 			defaultSku.setIsDefault(true);
 		}
-
+		defaultSku.setSample(Sample.NO);
 		Product pProduct = productDao.find(product.getId());
 		for (Sku sku : skus) {
 			switch (pProduct.getType()) {
@@ -948,6 +952,7 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
 			sku.setOrderShippingItems(null);
 			sku.setProductNotifies(null);
 			sku.setStockLogs(null);
+			sku.setSample(Sample.NO);
 		}
 
 		if (pProduct.hasSpecification()) {
@@ -967,6 +972,7 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
 					pSku.setRewardPoint(sku.getRewardPoint());
 					pSku.setExchangePoint(sku.getExchangePoint());
 					pSku.setIsDefault(sku.getIsDefault());
+					pSku.setSample(Sample.NO);
 					pSku.setSpecificationValues(sku.getSpecificationValues());
 				} else {
 					if (sku.getStock() == null) {
