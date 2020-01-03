@@ -21,7 +21,7 @@
 		<title>[#if articleCategory.seoTitle?has_content]${articleCategory.seoTitle}[#else]${seo.resolveTitle()}[/#if][#if showPowered] - Powered By [/#if]</title>
 	[/@seo]
 	<link href="${base}/favicon.ico" rel="icon">
-	<link href="${base}/resources/common/css/bootstrap.css" rel="stylesheet">
+	<link href="${base}/resources/common/css/bootstrap.css?version=0.1" rel="stylesheet">
 	<link href="${base}/resources/common/css/font-awesome.css" rel="stylesheet">
 	<link href="${base}/resources/common/css/iconfont.css" rel="stylesheet">
 	<link href="${base}/resources/common/css/base.css" rel="stylesheet">
@@ -32,8 +32,8 @@
 		<script src="${base}/resources/common/js/respond.js"></script>
 	<![endif]-->
 	<script src="${base}/resources/common/js/jquery.js"></script>
-	<script src="${base}/resources/common/js/bootstrap.js"></script>
-	<script src="${base}/resources/common/js/bootstrap-growl.js"></script>
+	<script src="${base}/resources/common/js/bootstrap.js?version=0.1"></script>
+	<script src="${base}/resources/common/js/bootstrap-growl.js?version=0.1"></script>
 	<script src="${base}/resources/common/js/jquery.cookie.js"></script>
 	<script src="${base}/resources/common/js/jquery.qrcode.js"></script>
 	<script src="${base}/resources/common/js/underscore.js"></script>
@@ -52,9 +52,8 @@
 				<div class="col-xs-2">
 					[#include "/shop/include/hot_article_category.ftl" /]
 					[#include "/shop/include/hot_article.ftl" /]
-					[#include "/shop/include/article_search.ftl" /]
 				</div>
-				<div class="col-xs-10">
+				<div class="col-xs-8">
 					<ol class="breadcrumb">
 						<li>
 							<a href="${base}/">
@@ -109,6 +108,9 @@
 							[/#if]
 						[/@pagination]
 					</div>
+				</div>
+				<div class="col-xs-2">
+					[#include "/shop/include/article_search.ftl" /]
 				</div>
 			</div>
 		</div>

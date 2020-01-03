@@ -4,11 +4,14 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Table;
+
 /***
  * SubsNewsHuman概要说明：订阅记录
  * @author Huanghy
  */
 @Entity
+@Table(name = "subs_news_human")
 public class SubsNewsHuman extends BaseEntity<Long>{
 
 	/** 
