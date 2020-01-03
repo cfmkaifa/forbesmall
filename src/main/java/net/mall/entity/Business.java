@@ -357,6 +357,20 @@ public class Business extends User {
 	 */
 	@Length(max = 200)
 	private String attributeValue19;
+	
+	
+	/**
+	 * 邮编
+	 */
+	@Length(max = 200)
+	private String zipCode;
+	
+	
+	/**
+	 * 地址
+	 */
+	@Length(max = 200)
+	private String address;
 
 	/**
 	 * 安全密匙
@@ -1220,6 +1234,41 @@ public class Business extends User {
 	public void setBusinessDepositLogs(Set<BusinessDepositLog> businessDepositLogs) {
 		this.businessDepositLogs = businessDepositLogs;
 	}
+	
+	
+	
+
+	/** 
+	 * @return zipCode 
+	 */
+	public String getZipCode() {
+		return zipCode;
+	}
+
+	/** 
+	 * @param zipCode 要设置的 zipCode 
+	 */
+	public void setZipCode(String zipCode) {
+		this.zipCode = zipCode;
+	}
+
+	/** 
+	 * @return address 
+	 */
+	public String getAddress() {
+		return address;
+	}
+
+	/** 
+	 * @param address 要设置的 address 
+	 */
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	
+	
+	
+	
 
 	/**
 	 * 获取商家注册项值
@@ -1246,6 +1295,10 @@ public class Business extends User {
 			return getIdCard();
 		case ID_CARD_IMAGE:
 			return getIdCardImage();
+		case ADDRESS:
+			return getAddress();
+		case ZIP_CODE:
+			return getZipCode();
 		case PHONE:
 			return getPhone();
 		case ORGANIZATION_CODE:
@@ -1340,6 +1393,16 @@ public class Business extends User {
 		case ID_CARD_IMAGE:
 			if (businessAttributeValue instanceof String || businessAttributeValue == null) {
 				setIdCardImage((String) businessAttributeValue);
+			}
+			break;
+		case ADDRESS:
+			if (businessAttributeValue instanceof String || businessAttributeValue == null) {
+				setAddress((String) businessAttributeValue);
+			}
+			break;
+		case ZIP_CODE:
+			if (businessAttributeValue instanceof String || businessAttributeValue == null) {
+				setZipCode((String) businessAttributeValue);
 			}
 			break;
 		case PHONE:

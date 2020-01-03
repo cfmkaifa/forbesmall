@@ -130,7 +130,16 @@ public class BusinessAttribute extends OrderedEntity<Long> {
 		/**
 		 * 日期
 		 */
-		DATE
+		DATE,
+		/**
+		 * 地址
+		 */
+		ADDRESS,
+
+		/**
+		 * 邮编
+		 */
+		ZIP_CODE,
 	}
 
 	/**
