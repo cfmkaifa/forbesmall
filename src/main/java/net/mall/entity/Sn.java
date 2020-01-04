@@ -63,7 +63,10 @@ public class Sn extends BaseEntity<Long> {
 		/**
 		 * 平台服务
 		 */
-		PLATFORM_SERVICE
+		PLATFORM_SERVICE,
+		/**新闻资讯支付
+		 * **/
+		NEWS_SUBSCRIBE_PAYMENT
 	}
 
 	/**

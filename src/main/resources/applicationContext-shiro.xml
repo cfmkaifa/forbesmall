@@ -10,6 +10,7 @@
 				<entry key="/member/register" value="anon" />
 				<entry key="/member/register/**" value="anon" />
 				<entry key="/member/login" value="memberAuthc" />
+				<entry key="/article/subscribe-purchaser/**" value="memberAuthc" />
 				<entry key="/member/logout" value="logout" />
 				<entry key="/order/**" value="memberAuthc,perms[member]" />
 				<entry key="/consultation/add/*" value="memberAuthc,perms[member]" />
@@ -19,6 +20,7 @@
 				<entry key="/member/**" value="memberAuthc,perms[member]" />
 				<entry key="/business/register/**" value="anon" />
 				<entry key="/business/login" value="businessAuthc" />
+				<entry key="/article/subscribe-supplier/**" value="businessAuthc" />
 				<entry key="/business/logout" value="logout" />
 				<entry key="/business/index" value="businessAuthc,perms[business:index]" />
 				<entry key="/business/index/**" value="businessAuthc,perms[business:index]" />

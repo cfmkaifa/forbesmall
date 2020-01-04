@@ -66,9 +66,9 @@
 }
 
 .article-list .list ul li p {
-	line-height: 25px;
+	/*line-height: 25px;
 	color: #999999;
-	text-align: justify;
+	text-align: justify; */
 }
 
 .article-list .list ul li p span {

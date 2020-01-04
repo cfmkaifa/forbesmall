@@ -42,7 +42,11 @@ public class PaymentItem implements Serializable {
 		/**
 		 * 保证金支付
 		 */
-		BAIL_PAYMENT
+		BAIL_PAYMENT,
+		/**
+		 *新闻咨询订阅
+		 */
+		NEWS_SUBSCRIBE_PAYMENT
 	}
 
 	/**

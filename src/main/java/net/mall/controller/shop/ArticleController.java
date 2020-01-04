@@ -8,6 +8,7 @@ package net.mall.controller.shop;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -31,12 +32,20 @@ import net.mall.entity.ArticleCategory;
 import net.mall.entity.BaseEntity;
 import net.mall.entity.Business;
 import net.mall.entity.Member;
+import net.mall.entity.MemberRank;
+import net.mall.entity.Sn;
+import net.mall.entity.SubsNewsHuman;
 import net.mall.exception.ResourceNotFoundException;
+import net.mall.plugin.PaymentPlugin;
 import net.mall.security.CurrentUser;
 import net.mall.service.ArticleCategoryService;
 import net.mall.service.ArticleService;
+import net.mall.service.MemberRankService;
+import net.mall.service.PluginService;
+import net.mall.service.SnService;
 import net.mall.service.SubsNewsHumanService;
 import net.mall.util.ConvertUtils;
+import net.mall.util.WebUtils;
 
 /**
  * Controller - 文章
@@ -59,6 +68,12 @@ public class ArticleController extends BaseController {
 	private SubsNewsHumanService  subsNewsHumanService;
 	@Inject
 	private ArticleCategoryService articleCategoryService;
+	@Inject
+	MemberRankService memberRankService;
+	@Inject
+	private PluginService pluginService;
+	@Inject
+	SnService snService;
 
 	/**
 	 * 详情
@@ -75,7 +90,6 @@ public class ArticleController extends BaseController {
 			throw new ResourceNotFoundException();
 		}
 		if(ArticleCategory.Subscribe.YES.equals(article.getArticleCategory().getSubscribe())){
-		    model.addAttribute("isSubs",true);
 		    Long humanId = null;
 			if(ConvertUtils.isNotEmpty(currentBusiness)){
 				humanId = currentBusiness.getId();
@@ -87,9 +101,15 @@ public class ArticleController extends BaseController {
 			Filter articleCategoryIdFilter = new Filter("dataId",Filter.Operator.EQ,article.getArticleCategory().getId());
 			Filter expdFilter = new Filter("expd",Filter.Operator.LE,new Date());
 		    long subsCount = subsNewsHumanService.count(humanIdFilter,articleCategoryIdFilter,expdFilter);
-		    model.addAttribute("subsCount", subsCount);
+		    if(subsCount > 0){
+		    	model.addAttribute("isPerm",true);
+		    } else {
+		    	model.addAttribute("isPerm",false);
+		    	List<MemberRank>  memberRanks =  memberRankService.findAll();
+		    	model.addAttribute("memberRanks",memberRanks);
+		    }
 		} else {
-			 model.addAttribute("isSubs",false);
+			 model.addAttribute("isPerm",true);
 		}
 		model.addAttribute("article", article);
 		model.addAttribute("pageNumber", pageNumber);
@@ -109,7 +129,6 @@ public class ArticleController extends BaseController {
 			throw new ResourceNotFoundException();
 		}
 		if(ArticleCategory.Subscribe.YES.equals(articleCategory.getSubscribe())){
-		    model.addAttribute("isSubs",true);
 		    Long humanId = null;
 			if(ConvertUtils.isNotEmpty(currentBusiness)){
 				humanId = currentBusiness.getId();
@@ -121,9 +140,15 @@ public class ArticleController extends BaseController {
 			Filter articleCategoryIdFilter = new Filter("dataId",Filter.Operator.EQ,articleCategoryId);
 			Filter expdFilter = new Filter("expd",Filter.Operator.LE,new Date());
 		    long subsCount = subsNewsHumanService.count(humanIdFilter,articleCategoryIdFilter,expdFilter);
-		    model.addAttribute("subsCount", subsCount);
+		    if(subsCount > 0){
+		    	model.addAttribute("isPerm",true);
+		    } else {
+		    	model.addAttribute("isPerm",false);
+		    	List<MemberRank>  memberRanks =  memberRankService.findAll();
+		    	model.addAttribute("memberRanks",memberRanks);
+		    }
 		} else {
-			 model.addAttribute("isSubs",false);
+			 model.addAttribute("isPerm",true);
 		}
 		Pageable pageable = new Pageable(pageNumber, PAGE_SIZE);
 		model.addAttribute("articleCategory", articleCategory);
@@ -196,6 +221,63 @@ public class ArticleController extends BaseController {
 	@GetMapping("/member")
 	public String member(ModelMap model){
 		return "shop/article/members";
+	}
+	
+	
+	/***
+	 * subscribe方法慨述:订阅方法
+	 * @param articleCategoryId
+	 * @param model
+	 * @return String
+	 * @创建人 huanghy
+	 * @创建时间 2020年1月4日 下午12:02:05
+	 * @修改人 (修改了该文件，请填上修改人的名字)
+	 * @修改日期 (请填上修改该文件时的日期)
+	 */
+	@GetMapping(value={"/subscribe-supplier/{articleCategoryId}/{subType}","/subscribe-purchaser/{articleCategoryId}/{subType}"})
+	public String subscribe(@PathVariable Long articleCategoryId,
+			@PathVariable String subType,
+			@CurrentUser Business currentBusiness,
+			@CurrentUser Member currentMember,
+			ModelMap model) {
+		ArticleCategory articleCategory = articleCategoryService.find(articleCategoryId);
+		if (articleCategory == null) {
+			throw new ResourceNotFoundException();
+		}
+		List<PaymentPlugin> paymentPlugins = pluginService.getActivePaymentPlugins(WebUtils.getRequest());
+		if (!paymentPlugins.isEmpty()) {
+			model.addAttribute("defaultPaymentPlugin", paymentPlugins.get(0));
+			model.addAttribute("paymentPlugins", paymentPlugins);
+		}
+		model.addAttribute("articleCategory", articleCategory);
+		if(subType.equals("weekSubFee")){
+			model.addAttribute("subFee", articleCategory.getWeekSubFee());
+		}
+		if(subType.equals("monthSubFee")){
+			model.addAttribute("subFee", articleCategory.getMonthSubFee());
+		}
+		if(subType.equals("quarterSubFee")){
+			model.addAttribute("subFee", articleCategory.getQuarterSubFee());
+		}
+		if(subType.equals("yearSubFee")){
+			model.addAttribute("subFee", articleCategory.getYearSubFee());
+		}
+		model.addAttribute("articleCategory", articleCategory);
+		SubsNewsHuman subsNewsHuman = new SubsNewsHuman();
+		if(ConvertUtils.isNotEmpty(currentMember)){
+			subsNewsHuman.setHumanId(currentMember.getId());
+		}
+		if(ConvertUtils.isNotEmpty(currentBusiness)){
+			subsNewsHuman.setHumanId(currentBusiness.getId());
+		}
+		// 订单项
+		String orderSn = snService.generate(Sn.Type.NEWS_SUBSCRIBE_PAYMENT);
+		subsNewsHuman.setDataType(subType);
+		subsNewsHuman.setDataId(articleCategoryId);
+		subsNewsHuman.setSn(orderSn);
+		subsNewsHumanService.save(subsNewsHuman);
+		model.addAttribute("orderSn", orderSn);
+		return "shop/article/subscribe";
 	}
 
 }

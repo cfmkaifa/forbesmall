@@ -139,6 +139,8 @@ public class SnDaoImpl implements SnDao, InitializingBean {
 			return productHiloOptimizer.generate();
 		case ORDER:
 			return orderHiloOptimizer.generate();
+		case NEWS_SUBSCRIBE_PAYMENT:
+			return orderHiloOptimizer.generate();
 		case ORDER_PAYMENT:
 			return orderPaymentHiloOptimizer.generate();
 		case ORDER_REFUNDS:

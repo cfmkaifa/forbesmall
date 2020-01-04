@@ -187,6 +187,8 @@ public class PaymentController extends BaseController {
 			return SpringUtils.getMessage("shop.payment.depositRechargeDescription", paymentTransaction.getSn());
 		case BAIL_PAYMENT:
 			return SpringUtils.getMessage("shop.payment.bailPaymentDescription", paymentTransaction.getSn());
+		case NEWS_SUBSCRIBE_PAYMENT:
+			return SpringUtils.getMessage("shop.payment.newsSubscribePaymentDescription", paymentTransaction.getSn());
 		default:
 			return SpringUtils.getMessage("shop.payment.paymentDescription", paymentTransaction.getSn());
 		}

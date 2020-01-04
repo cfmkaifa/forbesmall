@@ -7,9 +7,11 @@
 package net.mall.service.impl;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -23,6 +25,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import net.mall.Filter;
 import net.mall.Setting;
 import net.mall.dao.PaymentTransactionDao;
 import net.mall.dao.SnDao;
@@ -36,11 +39,13 @@ import net.mall.entity.PaymentItem;
 import net.mall.entity.PaymentMethod;
 import net.mall.entity.PaymentTransaction;
 import net.mall.entity.PaymentTransaction.LineItem;
+import net.mall.entity.PaymentTransaction.NewsSubscribePaymentLineItem;
 import net.mall.entity.PlatformSvc;
 import net.mall.entity.PromotionPluginSvc;
 import net.mall.entity.Sn;
 import net.mall.entity.Store;
 import net.mall.entity.StorePluginStatus;
+import net.mall.entity.SubsNewsHuman;
 import net.mall.entity.Svc;
 import net.mall.entity.User;
 import net.mall.plugin.PaymentPlugin;
@@ -51,8 +56,10 @@ import net.mall.service.PaymentTransactionService;
 import net.mall.service.ProductService;
 import net.mall.service.StorePluginStatusService;
 import net.mall.service.StoreService;
+import net.mall.service.SubsNewsHumanService;
 import net.mall.service.SvcService;
 import net.mall.service.UserService;
+import net.mall.util.ConvertUtils;
 import net.mall.util.SystemUtils;
 
 /**
@@ -84,6 +91,8 @@ public class PaymentTransactionServiceImpl extends BaseServiceImpl<PaymentTransa
 	private SvcService svcService;
 	@Inject
 	private StorePluginStatusService storePluginStatusService;
+	@Inject
+	SubsNewsHumanService subsNewsHumanService;
 
 	@Override
 	@Transactional(readOnly = true)
@@ -114,6 +123,10 @@ public class PaymentTransactionServiceImpl extends BaseServiceImpl<PaymentTransa
 			paymentTransaction.setTarget(lineItem.getTarget());
 			paymentTransaction.setPaymentPlugin(paymentPlugin);
 			paymentTransaction.setRePayUrl(rePayUrl);
+			if(lineItem instanceof NewsSubscribePaymentLineItem){
+				NewsSubscribePaymentLineItem newsSubscribePaymentLineItem = (net.mall.entity.PaymentTransaction.NewsSubscribePaymentLineItem) lineItem;
+				paymentTransaction.setSubSn(newsSubscribePaymentLineItem.getOrderSn());
+			}
 			paymentTransactionDao.persist(paymentTransaction);
 		}
 		return paymentTransaction;
@@ -247,6 +260,31 @@ public class PaymentTransactionServiceImpl extends BaseServiceImpl<PaymentTransa
 					businessService.addBalance((Business) user, effectiveAmount, BusinessDepositLog.Type.RECHARGE, null);
 				}
 				break;
+			case NEWS_SUBSCRIBE_PAYMENT:
+				List<Filter> filters = new ArrayList<Filter>();
+				Filter filter = new Filter("sn",Filter.Operator.EQ,transaction.getSubSn());
+				filters.add(filter);
+				List<SubsNewsHuman> subsNewsHumans = subsNewsHumanService.findList(1, filters, null);
+				if(ConvertUtils.isNotEmpty(subsNewsHumans)){
+					subsNewsHumans.forEach(subsNewsHuman -> {
+						subsNewsHuman.setPaySn(transaction.getSn());
+						String subType = subsNewsHuman.getDataType();
+						if(subType.equals("weekSubFee")){
+							subsNewsHuman.setExpd(DateUtils.addDays(new Date(), 7));
+						}
+						if(subType.equals("monthSubFee")){
+							subsNewsHuman.setExpd(DateUtils.addMonths(new Date(), 1));
+						}
+						if(subType.equals("quarterSubFee")){
+							subsNewsHuman.setExpd(DateUtils.addMonths(new Date(), 3));
+						}
+						if(subType.equals("yearSubFee")){
+							subsNewsHuman.setExpd(DateUtils.addYears(new Date(), 1));
+						}
+						subsNewsHumanService.update(subsNewsHuman);
+					});
+				}
+				break;
 			case BAIL_PAYMENT:
 				if (store == null) {
 					break;
@@ -306,6 +344,18 @@ public class PaymentTransactionServiceImpl extends BaseServiceImpl<PaymentTransa
 			}
 			if (user instanceof Member || user instanceof Business) {
 				return new PaymentTransaction.DepositRechargerLineItem(user, paymentItem.getAmount());
+			} else {
+				return null;
+			}
+		case NEWS_SUBSCRIBE_PAYMENT:
+			if (user == null) {
+				return null;
+			}
+			if (paymentItem.getAmount() == null || paymentItem.getAmount().compareTo(BigDecimal.ZERO) <= 0 || paymentItem.getAmount().precision() > 15 || paymentItem.getAmount().scale() > setting.getPriceScale()) {
+				return null;
+			}
+			if (user instanceof Member || user instanceof Business) {
+				return new PaymentTransaction.NewsSubscribePaymentLineItem(user, paymentItem.getAmount(),paymentItem.getOrderSn());
 			} else {
 				return null;
 			}

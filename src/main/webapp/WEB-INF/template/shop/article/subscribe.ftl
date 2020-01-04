@@ -35,6 +35,9 @@
 	<script src="${base}/resources/common/js/jquery.js"></script>
 	<script src="${base}/resources/common/js/bootstrap.js?version=0.1"></script>
 	<script src="${base}/resources/common/js/bootstrap-growl.js?version=0.1"></script>
+	<script src="${base}/resources/common/js/jquery.validate.js"></script>
+	<script src="${base}/resources/common/js/jquery.validate.additional.js"></script>
+	<script src="${base}/resources/common/js/jquery.form.js"></script>
 	<script src="${base}/resources/common/js/jquery.cookie.js"></script>
 	<script src="${base}/resources/common/js/jquery.qrcode.js"></script>
 	<script src="${base}/resources/common/js/underscore.js"></script>
@@ -43,6 +46,63 @@
 	<script src="${base}/resources/common/js/velocity.ui.js"></script>
 	<script src="${base}/resources/common/js/base.js?version=0.1"></script>
 	<script src="${base}/resources/shop/js/base.js"></script>
+		<style>
+		.list-group .icon-roundcheck {
+			font-size: 18px;
+			-webkit-transition: color 0.5s;
+			transition: color 0.5s;
+		}
+		
+		.list-group-item {
+			padding: 10px;
+		}
+		
+		.list-group-item .media-object {
+			width: 100px;
+			overflow: hidden;
+		}
+		
+		.list-group-item .media-object img {
+			max-width: 100%;
+			border: solid 1px #e8e8e8;
+		}
+		
+		.list-group-item.active .icon-roundcheck {
+			color: #dd0000;
+		}
+	</style>
+	[#noautoesc]
+		[#escape x as x?js_string]
+			<script>
+			$().ready(function() {
+				var $subscribeForm = $("#subscribeForm");
+				var $paymentPluginId = $("#paymentPluginId");
+				var $paymentPluginItem = $("#paymentPlugin div.list-group-item");
+				// 支付插件
+				$paymentPluginItem.click(function() {
+					var $element = $(this);
+					var paymentPluginId = $element.data("payment-plugin-id");
+					$element.addClass("active").siblings().removeClass("active");
+					$paymentPluginId.val(paymentPluginId);
+				});
+				// 表单验证
+				$subscribeForm.validate({
+					rules: {
+						"paymentItemList[0].amount": {
+							required: true,
+							positive: true,
+							decimal: {
+								integer: 12,
+								fraction: ${setting.priceScale}
+							}
+						}
+					}
+				});
+			
+			});
+			</script>
+		[/#escape]
+	[/#noautoesc]
 </head>
 <body class="shop article-list">
 	[#include "/shop/include/main_header.ftl" /]
@@ -73,44 +133,44 @@
 					</ol>
 					<div class="list panel panel-default">
 						<div class="panel-body">
-						   [#if isPerm == false]
-						  		 [#include "/shop/include/noperm.ftl" /]
-						   [#else]
-						   		[#if page.content?has_content]
-									<ul>
-										[#list page.content as article]
-											<li>
-												<h4>
-													<a href="${base}${article.path}" title="${article.title}">${abbreviate(article.title, 80, "...")}</a>
-													[#list article.articleTags as articleTag]
-														<strong>${articleTag.name}</strong>
-													[/#list]
-												</h4>
-												<p class="text-overflow">${article.text}</p>
-												<p>
-													[#if article.author?has_content]
-														<span class="small text-gray">${article.author}</span>
-													[/#if]
-													<span class="small text-gray" title="${article.createdDate?string("yyyy-MM-dd HH:mm:ss")}">${article.createdDate}</span>
-												</p>
-											</li>
-										[/#list]
-									</ul>
-								[#else]
-									<div class="no-result">
-										[#noautoesc]
-											${message("shop.article.noResult")}
-										[/#noautoesc]
-									</div>
-								[/#if]
-								[@pagination pageNumber = page.pageNumber totalPages = page.totalPages pattern = "${base}${articleCategory.path}[#if {pageNumber} > 1]?pageNumber={pageNumber}[/#if]"]
-									[#if totalPages > 1]
-										<div class="panel-footer text-right">
-											[#include "/shop/include/pagination.ftl" /]
+						    <form id="subscribeForm" action="${base}/payment" method="post">
+									<input name="paymentItemList[0].type" type="hidden" value="NEWS_SUBSCRIBE_PAYMENT">
+									<input id="paymentPluginId" name="paymentPluginId" type="hidden" value="${defaultPaymentPlugin.id}">
+									<input name="rePayUrl" type="hidden" value="${base}/article/list/${articleCategory.id}">
+									<input id="subscribeAmount" name="paymentItemList[0].amount" class="form-control" type="hidden" maxlength="16" onpaste="return false;" value="${subFee}">
+									<input name="paymentItemList[0].orderSn" class="form-control" type="hidden" maxlength="16" onpaste="return false;" value="${orderSn}">
+									<div class="subscribe">
+											<div class="subscribeTitle">
+												<p>${message("shop.article.subscribeInfo")}</p>
+											</div>
+											<div class="subscribeContent">
+												<p>${message("shop.article.subscribeOrder")}${articleCategory.name}，${message("shop.article.needToPay")}${currency(subFee, true, true)}</p>
+											</div>
 										</div>
-									[/#if]
-								[/@pagination]
-						   [/#if]
+										<div class="paying">
+											<div class="subscribeTitle payingTitle">
+												<p>${message("common.paymentPlugin")}</p>
+												<span class="pricea">
+													<p>${message("shop.article.stayPay")}：</p>
+													<h4>${currency(subFee, true, true)}</h4>
+												</span>
+											</div>
+											[#if paymentPlugins??]
+												<div class="payingContent" id="paymentPlugin" >
+													[#list paymentPlugins as paymentPlugin]
+														<div class="payTreasure method [#if paymentPlugin == defaultPaymentPlugin]active [/#if]list-group-item" data-payment-plugin-id="${paymentPlugin.id}" >
+														[#if paymentPlugin.logo?has_content]
+															<img src="${paymentPlugin.logo}" alt="${paymentPlugin.displayName}" class="img1">
+														[#else]
+															<p>${paymentPlugin.displayName}</p>
+														[/#if]
+														</div>
+													[/#list]
+												</div>
+											[/#if>
+											<button class="btn btn-primary" type="submit">${message("common.submit")}</button>
+									</div>
+								</form>
 						</div>
 					</div>
 				</div>
@@ -122,4 +182,4 @@
 	</main>
 	[#include "/shop/include/main_footer.ftl" /]
 </body>
-</html>
+</html>	

@@ -56,7 +56,10 @@ public class PaymentTransaction extends BaseEntity<Long> {
 		/**
 		 * 保证金支付
 		 */
-		BAIL_PAYMENT
+		BAIL_PAYMENT,
+		/**新闻资讯支付
+		 * **/
+		NEWS_SUBSCRIBE_PAYMENT
 	}
 
 	/**
@@ -64,6 +67,14 @@ public class PaymentTransaction extends BaseEntity<Long> {
 	 */
 	@Column(nullable = false, updatable = false, unique = true)
 	private String sn;
+	
+	
+	
+	/**
+	 * 订阅编号
+	 */
+	@Column(nullable = false, updatable = false, unique = true,name="sub_sn")
+	private String subSn;
 
 	/**
 	 * 类型
@@ -700,6 +711,102 @@ public class PaymentTransaction extends BaseEntity<Long> {
 		public Object getTarget() {
 			return this.user;
 		}
+	}
+	
+	
+	
+	
+	
+	/** 
+	 * @return subSn 
+	 */
+	public String getSubSn() {
+		return subSn;
+	}
+
+	/** 
+	 * @param subSn 要设置的 subSn 
+	 */
+	public void setSubSn(String subSn) {
+		this.subSn = subSn;
+	}
+
+	/**
+	 * 资讯订阅明细
+	 * 
+	 * @author huanghy
+	 * @version 6.1
+	 */
+	public static class NewsSubscribePaymentLineItem extends LineItem {
+
+		/**
+		 * 用户
+		 */
+		private User user;
+		
+		/***订单号
+		 */
+		private String orderSn;
+
+		/**
+		 * 构造方法
+		 * 
+		 * @param user
+		 *            用户
+		 * @param amount
+		 *            金额
+		 */
+		public NewsSubscribePaymentLineItem(User user, BigDecimal amount,String orderSn) {
+			this.user = user;
+			super.amount = amount;
+			this.orderSn = orderSn;
+		}
+
+		/**
+		 * 获取用户
+		 * 
+		 * @return 用户
+		 */
+		public User getUser() {
+			return user;
+		}
+
+		/**
+		 * 设置用户
+		 * 
+		 * @param user
+		 *            用户
+		 */
+		public void setUser(User user) {
+			this.user = user;
+		}
+
+		@Override
+		public Type getType() {
+			return PaymentTransaction.Type.NEWS_SUBSCRIBE_PAYMENT;
+		}
+
+		@Override
+		public Object getTarget() {
+			return this.user;
+		}
+
+		/** 
+		 * @return orderSn 
+		 */
+		public String getOrderSn() {
+			return orderSn;
+		}
+
+		/** 
+		 * @param orderSn 要设置的 orderSn 
+		 */
+		public void setOrderSn(String orderSn) {
+			this.orderSn = orderSn;
+		}
+		
+		
+		
 	}
 
 	/**
