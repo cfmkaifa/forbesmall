@@ -323,13 +323,16 @@
 														[@ad_factory]
 															[#list adFactory.content as stores]
                                                                 <div class="swiper-2">
+                                                                 <a href="${base}/store/${stores.id}">
 																<span class="swiper_title-2">
-																	<img src="${stores.logo}" class="logo-2">
+
+																	  <img src="${stores.logo}" class="logo-2">
 																	<p>${stores.name}</p>
 																</span>
                                                                     <p class="tonsof-2">${stores.capacity}吨/年</p>
                                                                     <p class="themain-2">主营品种</p>
                                                                     <p class="varieties-2">${stores.keyword}</p>
+                                                                 </a>
                                                                 </div>
 															[/#list]
 														[/@ad_factory]

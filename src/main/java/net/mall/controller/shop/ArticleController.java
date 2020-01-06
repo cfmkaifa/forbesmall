@@ -13,7 +13,11 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import net.mall.Page;
+import net.mall.entity.*;
+import net.mall.service.*;
 import org.apache.commons.lang.StringUtils;
+import org.apache.poi.ss.formula.functions.T;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -27,23 +31,9 @@ import com.fasterxml.jackson.annotation.JsonView;
 import net.mall.Filter;
 import net.mall.Pageable;
 import net.mall.Results;
-import net.mall.entity.Article;
-import net.mall.entity.ArticleCategory;
-import net.mall.entity.BaseEntity;
-import net.mall.entity.Business;
-import net.mall.entity.Member;
-import net.mall.entity.MemberRank;
-import net.mall.entity.Sn;
-import net.mall.entity.SubsNewsHuman;
 import net.mall.exception.ResourceNotFoundException;
 import net.mall.plugin.PaymentPlugin;
 import net.mall.security.CurrentUser;
-import net.mall.service.ArticleCategoryService;
-import net.mall.service.ArticleService;
-import net.mall.service.MemberRankService;
-import net.mall.service.PluginService;
-import net.mall.service.SnService;
-import net.mall.service.SubsNewsHumanService;
 import net.mall.util.ConvertUtils;
 import net.mall.util.WebUtils;
 
@@ -74,6 +64,8 @@ public class ArticleController extends BaseController {
 	private PluginService pluginService;
 	@Inject
 	SnService snService;
+	@Inject
+	private StoreRankService storeRankService;
 
 	/**
 	 * 详情
@@ -125,6 +117,7 @@ public class ArticleController extends BaseController {
 			@CurrentUser Member currentMember,
 			ModelMap model) {
 		ArticleCategory articleCategory = articleCategoryService.find(articleCategoryId);
+		articleCategory.setType(ArticleCategory.Type.NEWS);
 		if (articleCategory == null) {
 			throw new ResourceNotFoundException();
 		}
@@ -219,7 +212,9 @@ public class ArticleController extends BaseController {
 	 * 会员介绍
 	 **/
 	@GetMapping("/member")
-	public String member(ModelMap model){
+	public String member(Pageable pageable, ModelMap model){
+		Page<StoreRank> page=storeRankService.findPage(pageable);
+		model.addAttribute("page",page.getContent());
 		return "shop/article/members";
 	}
 	

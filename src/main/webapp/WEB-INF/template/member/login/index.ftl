@@ -9,7 +9,7 @@
 	<meta name="copyright" content="">
 	<title>${message("member.login.title")} - Powered By </title>
 	<link href="${base}/favicon.ico" rel="icon">
-	<link href="${base}/resources/common/css/bootstrap.css" rel="stylesheet">
+	<link href="${base}/resources/common/css/bootstrap.css?version=0.1" rel="stylesheet">
 	<link href="${base}/resources/common/css/font-awesome.css" rel="stylesheet">
 	<link href="${base}/resources/common/css/iconfont.css" rel="stylesheet">
 	<link href="${base}/resources/common/css/awesome-bootstrap-checkbox.css" rel="stylesheet">

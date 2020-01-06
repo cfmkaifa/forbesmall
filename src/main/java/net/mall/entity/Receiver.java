@@ -78,7 +78,7 @@ public class Receiver extends BaseEntity<Long> {
 	@JsonView(BaseView.class)
 	@NotEmpty
 	@Length(max = 200)
-	@Pattern(regexp = "^\\d{3,4}-?\\d{7,9}$")
+	@Pattern(regexp ="^[1][3,4,5,7,8][0-9]{9}$")
 	@Column(nullable = false)
 	private String phone;
 
