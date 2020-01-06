@@ -88,7 +88,7 @@
 														<li>
 															<strong class="[#if order.status == "PENDING_SHIPMENT" || order.status == "PENDING_REVIEW" || order.status == "PENDING_PAYMENT"]text-orange[#elseif order.status == "FAILED" || order.status == "DENIED"]text-red[#elseif order.status == "CANCELED"]text-gray-dark[#else]text-green[/#if]">${message("Order.Status." + order.status)}</strong>
 															[#if order.hasExpired()]
-																<span class="text-gray-dark">(${message("member.order.hasExpired")})</span>
+																[#--<span class="text-gray-dark">(${message("member.order.hasExpired")})</span>--]
 															[/#if]
 														</li>
 														<li>

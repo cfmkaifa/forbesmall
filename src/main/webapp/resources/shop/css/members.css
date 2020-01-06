@@ -166,6 +166,12 @@ ol, ul li{
 	margin:47px 0px 0px 115px;
 	cursor: pointer;
 }
+.super_button a {
+	color: #FFFFFF;
+}
+.super_button a:hover {
+	color: #FFFFFF;
+}
 /* 平台介绍 */
 .introduce {
 	background: #FFFFFF;

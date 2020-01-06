@@ -86,7 +86,7 @@
 						<div class="panel-title">
 							<h1 class="text-red">
 								${message("shop.password.forgot")}
-								<small>FORGOT PASSWORD</small>
+								<small>FORGET PASSWORD</small>
 							</h1>
 						</div>
 					</div>

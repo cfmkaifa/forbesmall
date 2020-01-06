@@ -54,144 +54,144 @@
 					<div class="supermembers">
 						<div class="supermembers-top">
 							<p class="details"><span>详情</span></p>
-							<p class="supermembers-title">普通会员</p>
+							<p class="supermembers-title">${page[0].name}</p>
 						</div>
 						<div class="supermembers-center">
-							<p class="money-2">￥1688元<span>/年</span></p>
+							<p class="money-2">￥${page[0].serviceFee}元<span>/年</span></p>
 							<ul class="apst">
 								<li>标样销售</li>
 								<li>产品展示</li>
 								<li>交易数据</li>
 							</ul>
 							<ul class="posr">
-								<li><p></p>产品位展示(50个)</li>
+								<li><p></p>产品位展示(${page[0].quantity}个)</li>
 								<li><p></p>求购信息接收(50条)</li>
 								<li><p></p>客户按星级优先展示</li>
 								<li><p></p>专业的客服服务</li>
 								<li><p></p>移动端APP</li>
 								<li><p></p>站内消息接收</li>
 							</ul>
-							<button class="super_button">联系我们</button>
+							<button class="super_button"><a href="${base}/business/store/payment">升级会员</a></button>
 						</div>
 					</div>
 					<!-- 俱乐部会员 -->
 					<div class="supermembers">
 						<div class="supermembers-top">
 							<p class="details"><span>详情</span></p>
-							<p class="supermembers-title">俱乐部会员</p>
+							<p class="supermembers-title">${page[1].name}</p>
 						</div>
 						<div class="supermembers-center">
-							<p class="money-2">￥3688元<span>/年</span></p>
+							<p class="money-2">￥${page[1].serviceFee}元<span>/年</span></p>
 							<ul class="apst">
 								<li>标样销售</li>
 								<li>产品展示</li>
 								<li>交易数据</li>
 							</ul>
 							<ul class="posr">
-								<li><p></p>产品位展示(100个)</li>
+								<li><p></p>产品位展示(${page[1].quantity}个)</li>
 								<li><p></p>求购信息接收(100条)</li>
 								<li><p></p>客户按星级优先展示</li>
 								<li><p></p>专业的客服服务</li>
 								<li><p></p>发起团售，设定保证金</li>
 								<li><p></p>站内资讯接收</li>
 							</ul>
-							<button class="super_button">联系我们</button>
+                            <button class="super_button"><a href="${base}/business/store/payment">升级会员</a></button>
 						</div>
 					</div>
 					<!-- 白银会员 -->
 					<div class="supermembers">
 						<div class="supermembers-top">
 							<p class="details"><span>详情</span></p>
-							<p class="supermembers-title">白银会员</p>
+							<p class="supermembers-title">${page[2].name}</p>
 						</div>
 						<div class="supermembers-center">
-							<p class="money-2">￥9688元<span>/年</span></p>
+							<p class="money-2">￥${page[2].serviceFee}元<span>/年</span></p>
 							<ul class="apst">
 								<li>标样销售</li>
 								<li>产品展示</li>
 								<li>交易数据</li>
 							</ul>
 							<ul class="posr">
-								<li><p></p>产品位展示(150个)</li>
+								<li><p></p>产品位展示(${page[2].quantity}个)</li>
 								<li><p></p>求购信息接收(150条)</li>
 								<li><p></p>客户按星级优先展示</li>
 								<li><p></p>专业的客服服务</li>
 								<li><p></p>发起团售，设定保证金</li>
 								<li><p></p>推送行业月报</li>
 							</ul>
-							<button class="super_button">联系我们</button>
+                            <button class="super_button"><a href="${base}/business/store/payment">升级会员</a></button>
 						</div>
 					</div>
 					<!-- 铂金会员 -->
 					<div class="supermembers">
 						<div class="supermembers-top">
 							<p class="details"><span>详情</span></p>
-							<p class="supermembers-title">铂金会员</p>
+							<p class="supermembers-title">${page[3].name}</p>
 						</div>
 						<div class="supermembers-center">
-							<p class="money-2">￥16688元<span>/年</span></p>
+							<p class="money-2">￥${page[3].serviceFee}元<span>/年</span></p>
 							<ul class="apst">
 								<li>标样销售</li>
 								<li>产品展示</li>
 								<li>交易数据</li>
 							</ul>
 							<ul class="posr">
-								<li><p></p>产品位展示(200个)</li>
+								<li><p></p>产品位展示(${page[3].quantity}个)</li>
 								<li><p></p>求购信息接收(200条)</li>
 								<li><p></p>客户按星级优先展示</li>
 								<li><p></p>团购/采购信息推送</li>
 								<li><p></p>数据推送</li>
 								<li><p></p>行业月报</li>
 							</ul>
-							<button class="super_button">联系我们</button>
+                            <button class="super_button"><a href="${base}/business/store/payment">升级会员</a></button>
 						</div>
 					</div>
 					<!-- 黄金会员 -->
 					<div class="supermembers">
 						<div class="supermembers-top">
 							<p class="details"><span>详情</span></p>
-							<p class="supermembers-title">黄金会员</p>
+							<p class="supermembers-title">${page[4].name}</p>
 						</div>
 						<div class="supermembers-center">
-							<p class="money-2">￥28688元<span>/年</span></p>
+							<p class="money-2">￥${page[4].serviceFee}元<span>/年</span></p>
 							<ul class="apst">
 								<li>标样销售</li>
 								<li>产品展示</li>
 								<li>交易数据</li>
 							</ul>
 							<ul class="posr">
-								<li><p></p>产品位展示(250个)</li>
+								<li><p></p>产品位展示(${page[4].quantity}个)</li>
 								<li><p></p>求购信息接收(250条)</li>
 								<li><p></p>客户按星级优先展示</li>
 								<li><p></p>行业月报、季报、年报</li>
 								<li><p></p>团购/采购信息推送</li>
 								<li><p></p>数据推送</li>
 							</ul>
-							<button class="super_button">联系我们</button>
+                            <button class="super_button"><a href="${base}/business/store/payment">升级会员</a></button>
 						</div>
 					</div>
 					<!-- 臻享会员 -->
 					<div class="supermembers">
 						<div class="supermembers-top">
 							<p class="details"><span>详情</span></p>
-							<p class="supermembers-title">臻享会员</p>
+							<p class="supermembers-title">${page[5].name}</p>
 						</div>
 						<div class="supermembers-center">
-							<p class="money-2">￥36688元<span>/年</span></p>
+							<p class="money-2">￥${page[5].serviceFee}元<span>/年</span></p>
 							<ul class="apst">
 								<li>标样销售</li>
 								<li>产品展示</li>
 								<li>交易数据</li>
 							</ul>
 							<ul class="posr">
-								<li><p></p>产品位展示(300个)</li>
+								<li><p></p>产品位展示(${page[5].quantity}个)</li>
 								<li><p></p>求购信息接收(300条)</li>
 								<li><p></p>客户按星级优先展示</li>
 								<li><p></p>行业月报、季报、年报</li>
 								<li><p></p>出口流向月报</li>
 								<li><p></p>智慧金融</li>
 							</ul>
-							<button class="super_button">联系我们</button>
+                            <button class="super_button"><a href="${base}/business/store/payment">升级会员</a></button>
 						</div>
 					</div>
 				</div>
