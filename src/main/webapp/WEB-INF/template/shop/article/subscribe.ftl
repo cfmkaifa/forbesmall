@@ -77,7 +77,7 @@
 			$().ready(function() {
 				var $subscribeForm = $("#subscribeForm");
 				var $paymentPluginId = $("#paymentPluginId");
-				var $paymentPluginItem = $("#paymentPlugin div.list-group-item");
+				var $paymentPluginItem = $("#paymentPlugin .media");
 				// 支付插件
 				$paymentPluginItem.click(function() {
 					var $element = $(this);
@@ -155,19 +155,29 @@
 													<h4>${currency(subFee, true, true)}</h4>
 												</span>
 											</div>
-											[#if paymentPlugins??]
-												<div class="payingContent" id="paymentPlugin" >
-													[#list paymentPlugins as paymentPlugin]
-														<div class="payTreasure method [#if paymentPlugin == defaultPaymentPlugin]active [/#if]list-group-item" data-payment-plugin-id="${paymentPlugin.id}" >
-														[#if paymentPlugin.logo?has_content]
-															<img src="${paymentPlugin.logo}" alt="${paymentPlugin.displayName}" class="img1">
-														[#else]
-															<p>${paymentPlugin.displayName}</p>
-														[/#if]
+											[#if paymentPlugins?has_content]
+													<div id="paymentPlugin" class="payment-plugin">
+														<div class="payment-plugin-heading">${message("common.paymentPlugin")}</div>
+														<div class="payment-plugin-body clearfix">
+															[#list paymentPlugins as paymentPlugin]
+																<div class="media[#if paymentPlugin == defaultPaymentPlugin] active[/#if]" data-payment-plugin-id="${paymentPlugin.id}">
+																	<div class="media-left media-middle">
+																		<i class="iconfont icon-roundcheck"></i>
+																	</div>
+																	<div class="media-body media-middle">
+																		<div class="media-object">
+																			[#if paymentPlugin.logo?has_content]
+																				<img src="${paymentPlugin.logo}" alt="${paymentPlugin.displayName}">
+																			[#else]
+																				${paymentPlugin.displayName}
+																			[/#if]
+																		</div>
+																	</div>
+																</div>
+															[/#list]
 														</div>
-													[/#list]
-												</div>
-											[/#if>
+													</div>
+												[/#if]
 											<button class="btn btn-primary" type="submit">${message("common.submit")}</button>
 									</div>
 								</form>
