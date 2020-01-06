@@ -174,6 +174,16 @@ public abstract class PaymentPlugin implements Comparable<PaymentPlugin> {
 	public PluginConfig getPluginConfig() {
 		return pluginConfigService.findByPluginId(getId());
 	}
+	
+	
+	/**
+	 * 获取插件配置
+	 * 
+	 * @return 插件配置
+	 */
+	public PluginConfig getNoCachePluginConfig() {
+		return pluginConfigService.getNoCachePluginConfig(getId());
+	}
 
 	/**
 	 * 获取是否启用

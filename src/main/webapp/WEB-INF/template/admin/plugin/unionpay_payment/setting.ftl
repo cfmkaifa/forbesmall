@@ -94,7 +94,7 @@
 				</li>
 				<li class="active">${message("admin.plugin.unionpayPayment.setting")}</li>
 			</ol>
-			<form id="unionpayPaymentForm" class="ajax-form form-horizontal" action="${base}/admin/plugin/unionpay_payment/update" method="post" enctype="multipart/form-data">
+			<form id="unionpayPaymentForm" class="ajax-form form-horizontal" action="${base}/admin/plugin/unionpay_payment/update/${supplierId}" method="post" enctype="multipart/form-data">
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<div class="form-group">

@@ -80,7 +80,7 @@
 				</li>
 				<li class="active">${message("admin.plugin.yeepayPayment.setting")}</li>
 			</ol>
-			<form id="yeepayPaymentForm" class="ajax-form form-horizontal" action="${base}/admin/plugin/yeepay_payment/update" method="post">
+			<form id="yeepayPaymentForm" class="ajax-form form-horizontal" action="${base}/admin/plugin/yeepay_payment/update/${supplierId}" method="post">
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<div class="form-group">

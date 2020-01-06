@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,9 +24,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import net.mall.Results;
 import net.mall.controller.admin.BaseController;
 import net.mall.entity.PluginConfig;
+import net.mall.entity.SupplierPluginConfig;
 import net.mall.plugin.PaymentPlugin;
 import net.mall.plugin.WeixinNativePaymentPlugin;
 import net.mall.service.PluginConfigService;
+import net.mall.util.ConvertUtils;
 
 /**
  * Controller - 微信支付(扫码支付)
@@ -41,6 +44,7 @@ public class WeixinNativePaymentController extends BaseController {
 	private WeixinNativePaymentPlugin weixinNativePaymentPlugin;
 	@Inject
 	private PluginConfigService pluginConfigService;
+	
 
 	/**
 	 * 安装
@@ -71,20 +75,26 @@ public class WeixinNativePaymentController extends BaseController {
 	/**
 	 * 设置
 	 */
-	@GetMapping("/setting")
-	public String setting(ModelMap model) {
-		PluginConfig pluginConfig = weixinNativePaymentPlugin.getPluginConfig();
+	@GetMapping("/setting/{supplierId}")
+	public String setting(@PathVariable String supplierId,ModelMap model) {
+		PluginConfig pluginConfig = weixinNativePaymentPlugin.getNoCachePluginConfig();
 		model.addAttribute("feeTypes", PaymentPlugin.FeeType.values());
-		model.addAttribute("pluginConfig", pluginConfig);
+		SupplierPluginConfig  supplierPluginConfig = receSupplierPluginConfig(pluginConfig.getPluginId(), supplierId);
+		if(ConvertUtils.isNotEmpty(supplierPluginConfig)){
+			model.addAttribute("pluginConfig", supplierPluginConfig);
+		} else {
+			model.addAttribute("pluginConfig", pluginConfig);
+		}
+		model.addAttribute("supplierId", supplierId);
 		return "/admin/plugin/weixin_native_payment/setting";
 	}
 
 	/**
 	 * 更新
 	 */
-	@PostMapping("/update")
-	public ResponseEntity<?> update(String displayName, String appId, String mchId, String apiKey, PaymentPlugin.FeeType feeType, BigDecimal fee, String logo, String description, @RequestParam(defaultValue = "false") Boolean isEnabled, Integer order) {
-		PluginConfig pluginConfig = weixinNativePaymentPlugin.getPluginConfig();
+	@PostMapping("/update/{supplierId}")
+	public ResponseEntity<?> update(@PathVariable String supplierId,String displayName, String appId, String mchId, String apiKey, PaymentPlugin.FeeType feeType, BigDecimal fee, String logo, String description, @RequestParam(defaultValue = "false") Boolean isEnabled, Integer order) {
+		PluginConfig pluginConfig = weixinNativePaymentPlugin.getNoCachePluginConfig();
 		Map<String, String> attributes = new HashMap<>();
 		attributes.put(PaymentPlugin.DISPLAY_NAME_ATTRIBUTE_NAME, displayName);
 		attributes.put("appId", appId);
@@ -98,6 +108,13 @@ public class WeixinNativePaymentController extends BaseController {
 		pluginConfig.setIsEnabled(isEnabled);
 		pluginConfig.setOrder(order);
 		pluginConfigService.update(pluginConfig);
+		/***保存商家支付插件**/
+		/***保存商家支付插件**/
+		if(!"-1".equalsIgnoreCase(supplierId)){
+			oprSupplierPluginConfig(pluginConfig,supplierId);
+		} else {
+			pluginConfigService.update(pluginConfig);
+		}
 		return Results.OK;
 	}
 

@@ -81,7 +81,7 @@
 				</li>
 				<li class="active">${message("admin.plugin.weixinNativePayment.setting")}</li>
 			</ol>
-			<form id="weixinNativePaymentForm" class="ajax-form form-horizontal" action="${base}/admin/plugin/weixin_native_payment/update" method="post">
+			<form id="weixinNativePaymentForm" class="ajax-form form-horizontal" action="${base}/admin/plugin/weixin_native_payment/update/${supplierId}" method="post">
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<div class="form-group">

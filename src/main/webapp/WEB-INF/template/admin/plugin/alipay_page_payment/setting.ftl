@@ -81,7 +81,7 @@
 				</li>
 				<li class="active">${message("admin.plugin.alipayPagePayment.setting")}</li>
 			</ol>
-			<form id="alipayPagePaymentForm" class="ajax-form form-horizontal" action="${base}/admin/plugin/alipay_page_payment/update" method="post">
+			<form id="alipayPagePaymentForm" class="ajax-form form-horizontal" action="${base}/admin/plugin/alipay_page_payment/update/${supplierId}" method="post">
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<div class="form-group">

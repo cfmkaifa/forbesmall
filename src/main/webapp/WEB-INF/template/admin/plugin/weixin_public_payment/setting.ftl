@@ -82,7 +82,7 @@
 				</li>
 				<li class="active">${message("admin.plugin.weixinPublicPayment.setting")}</li>
 			</ol>
-			<form id="weixinPublicPaymentForm" class="ajax-form form-horizontal" action="${base}/admin/plugin/weixin_public_payment/update" method="post">
+			<form id="weixinPublicPaymentForm" class="ajax-form form-horizontal" action="${base}/admin/plugin/weixin_public_payment/update/${supplierId}" method="post">
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<div class="form-group">

@@ -7,6 +7,8 @@
 package net.mall.service.impl;
 
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -28,6 +30,9 @@ public class PluginConfigServiceImpl extends BaseServiceImpl<PluginConfig, Long>
 
 	@Inject
 	private PluginConfigDao pluginConfigDao;
+	@PersistenceContext
+	protected EntityManager entityManager;
+	
 
 	@Override
 	@Transactional(readOnly = true)
@@ -40,6 +45,26 @@ public class PluginConfigServiceImpl extends BaseServiceImpl<PluginConfig, Long>
 	@Cacheable("pluginConfig")
 	public PluginConfig findByPluginId(String pluginId) {
 		return pluginConfigDao.find("pluginId", pluginId);
+	}
+	
+	
+	/***
+	 * getNoCachePluginConfig方法慨述:直接取数据库数据
+	 * @param pluginId
+	 * @return PluginConfig
+	 * @创建人 huanghy
+	 * @创建时间 2020年1月6日 下午4:13:50
+	 * @修改人 (修改了该文件，请填上修改人的名字)
+	 * @修改日期 (请填上修改该文件时的日期)
+	 */
+	@Override
+	@Transactional(readOnly = true)
+	public PluginConfig  getNoCachePluginConfig(String pluginId){
+		PluginConfig pluginConfig = pluginConfigDao.find("pluginId", pluginId);
+		if(entityManager.contains(pluginConfig)){
+			entityManager.clear();
+		}
+		return pluginConfig;
 	}
 
 	@Override

@@ -80,7 +80,7 @@
 				</li>
 				<li class="active">${message("admin.plugin.pay99billBankPayment.setting")}</li>
 			</ol>
-			<form id="pay99billBankPaymentForm" class="ajax-form form-horizontal" action="${base}/admin/plugin/pay_99bill_bank_payment/update" method="post">
+			<form id="pay99billBankPaymentForm" class="ajax-form form-horizontal" action="${base}/admin/plugin/pay_99bill_bank_payment/update/${supplierId}" method="post">
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<div class="form-group">

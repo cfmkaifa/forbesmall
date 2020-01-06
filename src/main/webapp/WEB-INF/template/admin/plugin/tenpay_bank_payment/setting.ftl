@@ -80,7 +80,7 @@
 				</li>
 				<li class="active">${message("admin.plugin.tenpayBankPayment.setting")}</li>
 			</ol>
-			<form id="tenpayBankPaymentForm" class="ajax-form form-horizontal" action="${base}/admin/plugin/tenpay_bank_payment/update" method="post">
+			<form id="tenpayBankPaymentForm" class="ajax-form form-horizontal" action="${base}/admin/plugin/tenpay_bank_payment/update/${supplierId}" method="post">
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<div class="form-group">

@@ -193,6 +193,9 @@
 													<a class="btn btn-default btn-xs btn-icon" href="${base}/admin/business/edit?id=${business.id}" title="${message("common.edit")}" data-toggle="tooltip" data-redirect-url>
 														<i class="iconfont icon-write"></i>
 													</a>
+													<a class="btn btn-default btn-xs btn-icon" href="${base}/admin/business_payment_plugin/list/${business.id}" title="${message("admin.mainSidebar.business_payment_plugin")}" data-toggle="tooltip" data-redirect-url>
+														<i class="iconfont icon-write"></i>
+													</a>
 												</td>
 											</tr>
 										[/#list]

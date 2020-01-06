@@ -81,7 +81,7 @@
 				</li>
 				<li class="active">${message("admin.plugin.alipayWapPayment.setting")}</li>
 			</ol>
-			<form id="alipayWapPaymentForm" class="ajax-form form-horizontal" action="${base}/admin/plugin/alipay_wap_payment/update" method="post">
+			<form id="alipayWapPaymentForm" class="ajax-form form-horizontal" action="${base}/admin/plugin/alipay_wap_payment/update/${supplierId}" method="post">
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<div class="form-group">

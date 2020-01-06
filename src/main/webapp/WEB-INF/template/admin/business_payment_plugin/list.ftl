@@ -128,19 +128,8 @@
 											<td>
 												[#if paymentPlugin.isInstalled]
 													[#if paymentPlugin.settingUrl??]
-														<a class="btn btn-default btn-xs btn-icon" href="${base}${paymentPlugin.settingUrl}/-1" title="${message("admin.paymentPlugin.setting")}" data-toggle="tooltip" data-redirect-url>
+														<a class="btn btn-default btn-xs btn-icon" href="${base}${paymentPlugin.settingUrl}/${supplierId}" title="${message("admin.paymentPlugin.setting")}" data-toggle="tooltip" data-redirect-url>
 															<i class="iconfont icon-settings"></i>
-														</a>
-													[/#if]
-													[#if paymentPlugin.uninstallUrl??]
-														<a class="uninstall btn btn-default btn-xs btn-icon" href="javascript:;" title="${message("admin.paymentPlugin.uninstall")}" data-toggle="tooltip" data-url="${base}${paymentPlugin.uninstallUrl}">
-															<i class="iconfont icon-delete"></i>
-														</a>
-													[/#if]
-												[#else]
-													[#if paymentPlugin.installUrl??]
-														<a class="install btn btn-default btn-xs btn-icon" href="javascript:;" title="${message("admin.paymentPlugin.install")}" data-toggle="tooltip" data-url="${base}${paymentPlugin.installUrl}">
-															<i class="iconfont icon-repair"></i>
 														</a>
 													[/#if]
 												[/#if]

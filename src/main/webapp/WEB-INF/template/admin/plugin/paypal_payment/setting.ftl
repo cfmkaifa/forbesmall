@@ -79,7 +79,7 @@
 				</li>
 				<li class="active">${message("admin.plugin.paypalPayment.setting")}</li>
 			</ol>
-			<form id="paypalPaymentForm" class="ajax-form form-horizontal" action="${base}/admin/plugin/paypal_payment/update" method="post">
+			<form id="paypalPaymentForm" class="ajax-form form-horizontal" action="${base}/admin/plugin/paypal_payment/update/${supplierId}" method="post">
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<div class="form-group">

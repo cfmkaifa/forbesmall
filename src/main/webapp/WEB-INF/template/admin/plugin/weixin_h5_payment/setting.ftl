@@ -81,7 +81,7 @@
 				</li>
 				<li class="active">${message("admin.plugin.weixinH5Payment.setting")}</li>
 			</ol>
-			<form id="weixinH5PaymentForm" class="ajax-form form-horizontal" action="${base}/admin/plugin/weixin_h5_payment/update" method="post">
+			<form id="weixinH5PaymentForm" class="ajax-form form-horizontal" action="${base}/admin/plugin/weixin_h5_payment/update/${supplierId}" method="post">
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<div class="form-group">
