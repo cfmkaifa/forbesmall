@@ -73,7 +73,7 @@ public class PaymentTransaction extends BaseEntity<Long> {
 	/**
 	 * 订阅编号
 	 */
-	@Column(nullable = false, updatable = false, unique = true,name="sub_sn")
+	@Column(unique = true,name="sub_sn")
 	private String subSn;
 
 	/**
