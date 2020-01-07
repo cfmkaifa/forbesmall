@@ -73,13 +73,19 @@
 					var currentOptions = getCurrentOptions().length > 0 ? getCurrentOptions() : [""];
 					
 					buildOption(currentOptions);
-					if (value == "SELECT" || value == "CHECKBOX") {
+					if (value == "CHECKBOX") {
 						if ($pattern.is(":visible")) {
 							$pattern.prop("disabled", true).closest(".form-group").velocity("slideUp");
 							$option.velocity("slideDown");
 							$addOption.closest(".form-group").velocity("slideDown");
 						}
-					} else {
+					}else if(value == "SELECT"){
+                        if ($pattern.is(":visible")) {
+                            $pattern.prop("disabled", true).closest(".form-group").velocity("slideUp");
+                            $option.velocity("slideDown");
+                        }
+                            $addOption.prop("disabled",true)
+					}else {
 						if ($pattern.is(":hidden")) {
 							$pattern.prop("disabled", false).closest(".form-group").velocity("slideDown");
 							$option.velocity("slideUp");
