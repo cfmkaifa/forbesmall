@@ -6,5 +6,4 @@ import net.mall.entity.SupplierPluginConfig;
  * @author Huanghy
  */
 public interface SupplierPluginConfigService  extends BaseService<SupplierPluginConfig, Long> {
-
 }

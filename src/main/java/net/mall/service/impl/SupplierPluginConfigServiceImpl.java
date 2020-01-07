@@ -6,5 +6,4 @@ import net.mall.entity.SupplierPluginConfig;
 import net.mall.service.SupplierPluginConfigService;
 @Service
 public class SupplierPluginConfigServiceImpl  extends BaseServiceImpl<SupplierPluginConfig, Long>  implements SupplierPluginConfigService {
-
 }

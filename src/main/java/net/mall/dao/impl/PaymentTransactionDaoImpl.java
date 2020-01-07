@@ -21,6 +21,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 
 import net.mall.dao.PaymentTransactionDao;
+import net.mall.entity.Order;
 import net.mall.entity.PaymentTransaction;
 import net.mall.entity.PaymentTransaction.LineItem;
 import net.mall.plugin.PaymentPlugin;
@@ -97,7 +98,6 @@ public class PaymentTransactionDaoImpl extends BaseDaoImpl<PaymentTransaction, L
 			Predicate subqueryRestrictions = criteriaBuilder.conjunction();
 			BigDecimal amount = paymentPlugin.calculateAmount(lineItem.getAmount());
 			BigDecimal fee = paymentPlugin.calculateFee(lineItem.getAmount());
-
 			subqueryRestrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(subqueryRoot.get("type"), lineItem.getType()), criteriaBuilder.equal(subqueryRoot.get("amount"), amount), criteriaBuilder.equal(subqueryRoot.get("fee"), fee),
 					criteriaBuilder.equal(subqueryRoot.get("parent"), root));
 			switch (lineItem.getType()) {

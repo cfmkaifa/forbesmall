@@ -47,6 +47,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import net.mall.BaseAttributeConverter;
+import net.mall.plugin.PaymentPlugin;
 
 /**
  * Entity - 订单
@@ -508,6 +509,12 @@ public class Order extends BaseEntity<Long> {
 	@OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	@OrderBy("createdDate asc")
 	private Set<OrderLog> orderLogs = new HashSet<>();
+	
+	
+	/**支付方式
+	 * **/
+	@Transient
+	private List<PaymentPlugin> paymentPlugins;
 	
 	/***下标
 	 */
@@ -1540,6 +1547,22 @@ public class Order extends BaseEntity<Long> {
 	 */
 	public void setArrayIndex(Integer arrayIndex) {
 		this.arrayIndex = arrayIndex;
+	}
+
+	
+	
+	/** 
+	 * @return paymentPlugins 
+	 */
+	public List<PaymentPlugin> getPaymentPlugins() {
+		return paymentPlugins;
+	}
+
+	/** 
+	 * @param paymentPlugins 要设置的 paymentPlugins 
+	 */
+	public void setPaymentPlugins(List<PaymentPlugin> paymentPlugins) {
+		this.paymentPlugins = paymentPlugins;
 	}
 
 	/**

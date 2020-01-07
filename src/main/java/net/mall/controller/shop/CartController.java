@@ -29,6 +29,7 @@ import net.mall.entity.Store;
 import net.mall.security.CurrentCart;
 import net.mall.service.CartService;
 import net.mall.service.SkuService;
+import net.mall.util.ConvertUtils;
 import net.mall.util.SystemUtils;
 
 /**
@@ -101,10 +102,15 @@ public class CartController extends BaseController {
 		if (sku.getProduct().getStore().hasExpired()) {
 			return Results.unprocessableEntity("shop.cart.skuNotBuyExpired");
 		}
-
 		int cartItemSize = 1;
 		int skuQuantity = quantity;
 		if (currentCart != null) {
+			if(ConvertUtils.isNotEmpty(currentCart.getStores())){
+				long storeCount = currentCart.getStores().stream().filter(store -> store.getId().equals(sku.getProduct().getStore().getId())).count();
+				if(storeCount == 0){
+					return Results.unprocessableEntity("shop.cart.notExistsStore");
+				}
+			}
 			if (currentCart.contains(sku)) {
 				CartItem cartItem = currentCart.getCartItem(sku);
 				cartItemSize = currentCart.size();

@@ -701,6 +701,7 @@ public class OrderController extends BaseController {
 		}
 		PaymentPlugin paymentPlugin = pluginService.getPaymentPlugin(paymentPluginId);
 		BigDecimal amount = BigDecimal.ZERO;
+		BigDecimal fee = BigDecimal.ZERO;
 		for (String orderSn : orderSns) {
 			Order order = orderService.findBySn(orderSn);
 			if (order == null || !currentUser.equals(order.getMember()) || paymentPlugin == null || !paymentPlugin.getIsEnabled()) {
@@ -708,7 +709,7 @@ public class OrderController extends BaseController {
 			}
 			amount = amount.add(order.getAmountPayable());
 		}
-		BigDecimal fee = paymentPlugin.calculateFee(amount);
+		paymentPlugin.calculateFee(amount);
 		data.put("fee", fee);
 		data.put("amount", amount.add(fee));
 		return ResponseEntity.ok(data);

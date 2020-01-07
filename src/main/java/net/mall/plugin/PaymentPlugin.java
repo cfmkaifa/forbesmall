@@ -29,6 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
 import net.mall.Setting;
 import net.mall.entity.PaymentTransaction;
 import net.mall.entity.PluginConfig;
+import net.mall.entity.SupplierPluginConfig;
 import net.mall.service.PluginConfigService;
 import net.mall.util.SystemUtils;
 
@@ -98,6 +99,10 @@ public abstract class PaymentPlugin implements Comparable<PaymentPlugin> {
 
 	@Inject
 	private PluginConfigService pluginConfigService;
+	
+	/****商家配置文件
+	 */
+	private Map<String,SupplierPluginConfig>  SUPPLIER_PLUGIN_CONFIG_MAP = new java.util.concurrent.ConcurrentHashMap<String, SupplierPluginConfig>();
 
 	/**
 	 * 获取ID
@@ -512,7 +517,6 @@ public abstract class PaymentPlugin implements Comparable<PaymentPlugin> {
 	public BigDecimal calculateAmount(BigDecimal amount) {
 		Assert.notNull(amount, "[Assertion failed] - amount is required; it must not be null");
 		Assert.state(amount.compareTo(BigDecimal.ZERO) >= 0, "[Assertion failed] - amount must be equal or greater than 0");
-
 		return amount.add(calculateFee(amount)).setScale(2, RoundingMode.UP);
 	}
 
@@ -625,4 +629,28 @@ public abstract class PaymentPlugin implements Comparable<PaymentPlugin> {
 		return new HashCodeBuilder(17, 37).append(getId()).toHashCode();
 	}
 
+	
+	/***
+	 * setSupplierPluginConfigMap方法慨述:
+	 * @param key
+	 * @param supplierPluginConfig void
+	 * @创建人 huanghy
+	 * @创建时间 2020年1月7日 下午12:05:52
+	 * @修改人 (修改了该文件，请填上修改人的名字)
+	 * @修改日期 (请填上修改该文件时的日期)
+	 */
+	public void setSupplierPluginConfigMap(String key,SupplierPluginConfig supplierPluginConfig){
+		if(!SUPPLIER_PLUGIN_CONFIG_MAP.containsKey(key)){
+			SUPPLIER_PLUGIN_CONFIG_MAP.put(key, supplierPluginConfig);
+		}
+	}
+	
+	/** 
+	 * @return sUPPLIER_PLUGIN_CONFIG_MAP 
+	 */
+	public Map<String, SupplierPluginConfig> getSupplierPluginConfigMap() {
+		return SUPPLIER_PLUGIN_CONFIG_MAP;
+	}
+
+	
 }
