@@ -535,9 +535,9 @@
                                                         </li>
                                                         <li>
                                                             <span class="specific-2">
-															说明:
+															说明:${product.keyword}
 															</span>
-															[#noautoesc]${product.introduction}[/#noautoesc]
+															[#--[#noautoesc]${product.introduction}[/#noautoesc]--]
                                                         </li>
                                                         <li>
                                                         </li>

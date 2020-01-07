@@ -9,9 +9,10 @@
 	<meta name="copyright" content="">
 	<title>${message("member.login.title")}  </title>
 	<link href="${base}/favicon.ico" rel="icon">
-	<link href="${base}/resources/common/css/bootstrap.css?version=0.1" rel="stylesheet">
+	<link href="${base}/resources/common/css/bootstrap.css" rel="stylesheet">
 	<link href="${base}/resources/common/css/font-awesome.css" rel="stylesheet">
 	<link href="${base}/resources/common/css/iconfont.css" rel="stylesheet">
+    <link href="${base}/resources/common/css/jquery.bxslider.css" rel="stylesheet">
 	<link href="${base}/resources/common/css/awesome-bootstrap-checkbox.css" rel="stylesheet">
 	<link href="${base}/resources/common/css/base.css" rel="stylesheet">
 	<link href="${base}/resources/shop/css/base.css" rel="stylesheet">
@@ -23,6 +24,7 @@
 	<script src="${base}/resources/common/js/jquery.js"></script>
 	<script src="${base}/resources/common/js/bootstrap.js"></script>
 	<script src="${base}/resources/common/js/bootstrap-growl.js"></script>
+    <script src="${base}/resources/common/js/jquery.bxslider.js"></script>
 	<script src="${base}/resources/common/js/jquery.validate.js"></script>
 	<script src="${base}/resources/common/js/jquery.validate.additional.js"></script>
 	<script src="${base}/resources/common/js/jquery.form.js"></script>
@@ -42,6 +44,7 @@
 				var $loginForm = $("#loginForm");
 				var $username = $("#username");
 				var $password = $("#password");
+                var $sideSlider = $("#sideSlider");
 				var $captcha = $("#captcha");
 				var $captchaImage = $("[data-toggle='captchaImage']");
 				var $rememberUsername = $("#rememberUsername");
@@ -57,7 +60,15 @@
 					$username.focus();
 					$rememberUsername.prop("checked", false);
 				}
-				
+
+                // 登录左侧边轮播广告
+                $sideSlider.bxSlider({
+                    pager: false,
+                    auto: true,
+                    nextText: "&#xe6a3;",
+                    prevText: "&#xe679;"
+                });
+
 				// 表单验证
 				$loginForm.validate({
 					rules: {
@@ -133,7 +144,7 @@
 	<main>
 		<div class="container">
 			<div class="row">
-				<div class="col-xs-8">
+				<div class="col-xs-8 bannera">
 					[@ad_position id = 17]
 						[#if adPosition??]
 							[#noautoesc]${adPosition.resolveTemplate()}[/#noautoesc]
