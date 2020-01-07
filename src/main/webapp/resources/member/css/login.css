@@ -16,7 +16,8 @@
 
 .login main {
 	margin: 2px 0px;
-	background-color: #2c9ef8;
+	/*background-color: #2c9ef8;*/
+	background: url("/resources/member/images/x.png");
 }
 
 .login main .left-ad {

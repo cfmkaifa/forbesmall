@@ -72,5 +72,4 @@ public class IndexController extends BaseController {
 		model.addAttribute("newOrders", orderService.findList(null, null, null, currentUser, null, null, null, null, null, null, null, NEW_ORDER_SIZE, null, null));
 		return "member/index";
 	}
-
 }
