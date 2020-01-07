@@ -7,7 +7,7 @@
 	<meta name="format-detection" content="telephone=no">
 	<meta name="author" content="huanghy">
 	<meta name="copyright" content="">
-	<title>${message("member.login.title")} - Powered By </title>
+	<title>${message("member.login.title")}  </title>
 	<link href="${base}/favicon.ico" rel="icon">
 	<link href="${base}/resources/common/css/bootstrap.css?version=0.1" rel="stylesheet">
 	<link href="${base}/resources/common/css/font-awesome.css" rel="stylesheet">

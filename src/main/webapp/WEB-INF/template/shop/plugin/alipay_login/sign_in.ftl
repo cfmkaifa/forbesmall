@@ -7,7 +7,7 @@
 	<meta name="format-detection" content="telephone=no">
 	<meta name="author" content="huanghy">
 	<meta name="copyright" content="">
-	<title>${message("shop.login.signIn")} - Powered By </title>
+	<title>${message("shop.login.signIn")}  </title>
 	<link href="${base}/favicon.ico" rel="icon">
 </head>
 <body>

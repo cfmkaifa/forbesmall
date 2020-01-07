@@ -7,7 +7,7 @@
 	<meta name="format-detection" content="telephone=no">
 	<meta name="author" content="huanghy">
 	<meta name="copyright" content="">
-	<title>${message("shop.socialUserLogin.signInResult")}[#if showPowered] - Powered By [/#if]</title>
+	<title>${message("shop.socialUserLogin.signInResult")}[#if showPowered]  [/#if]</title>
 	<link href="${base}/favicon.ico" rel="icon">
 	<script src="${base}/resources/common/js/jquery.js"></script>
 	<script src="${base}/resources/common/js/base.js?version=0.1"></script>

@@ -7,7 +7,7 @@
 	<meta name="format-detection" content="telephone=no">
 	<meta name="author" content="huanghy">
 	<meta name="copyright" content="">
-	<title>${message("shop.payment.pay")}[#if showPowered] - Powered By [/#if]</title>
+	<title>${message("shop.payment.pay")}[#if showPowered]  [/#if]</title>
 	<link href="${base}/favicon.ico" rel="icon">
 	<script src="${base}/resources/common/js/jquery.js"></script>
 	[#noautoesc]

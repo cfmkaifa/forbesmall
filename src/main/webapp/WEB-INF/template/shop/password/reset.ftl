@@ -7,7 +7,7 @@
 	<meta name="format-detection" content="telephone=no">
 	<meta name="author" content="huanghy">
 	<meta name="copyright" content="">
-	<title>${message("shop.password.reset")} - Powered By </title>
+	<title>${message("shop.password.reset")}  </title>
 	<link href="${base}/favicon.ico" rel="icon">
 	<link href="${base}/resources/common/css/bootstrap.css" rel="stylesheet">
 	<link href="${base}/resources/common/css/font-awesome.css" rel="stylesheet">

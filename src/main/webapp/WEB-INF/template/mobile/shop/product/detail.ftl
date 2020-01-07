@@ -21,7 +21,7 @@
 		[#if seo.resolveDescription()?has_content]
 			<meta name="description" content="${seo.resolveDescription()}">
 		[/#if]
-		<title>${seo.resolveTitle()}[#if showPowered] - Powered By [/#if]</title>
+		<title>${seo.resolveTitle()}[#if showPowered]  [/#if]</title>
 	[/@seo]
 	<link href="${base}/favicon.ico" rel="icon">
 	<link href="${base}/resources/common/css/bootstrap.css" rel="stylesheet">

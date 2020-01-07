@@ -7,7 +7,7 @@
 	<meta name="format-detection" content="telephone=no">
 	<meta name="author" content="huanghy">
 	<meta name="copyright" content="">
-	<title>${message("business.order.view")} - Powered By </title>
+	<title>${message("business.order.view")}  </title>
 	<link href="${base}/favicon.ico" rel="icon">
 	<link href="${base}/resources/common/css/bootstrap.css" rel="stylesheet">
 	<link href="${base}/resources/common/css/iconfont.css" rel="stylesheet">
@@ -118,7 +118,7 @@
 						uploadExtraData: {
 							fileType: "FILE"
 						},
-						allowedFileExtensions: "${setting.uploadFileExtension}".split(","),
+						allowedFileExtensions: "${setting.uploadImageExtension}".split(","),
 						[#if setting.uploadMaxSize != 0]
 							maxFileSize: ${setting.uploadMaxSize} * 1024,
 						[/#if]
@@ -136,10 +136,19 @@
 						overwriteInitial: false,
 						initialPreviewAsData: true,
 						previewClass: "file-preview",
-						initialPreviewFileType:"pdf",
 						[#if order.sealContract?has_content]
+								[#if order.sealContract?contains("pdf")]
+									initialPreviewFileType:"pdf",
+								[#else]
+									initialPreviewFileType:"image",
+								[/#if]
 							initialPreview:"${order.sealContract}",
 						[#elseif order.contractPath?has_content]
+								[#if order.contractPath?contains("pdf")]
+									initialPreviewFileType:"pdf",
+								[#else]
+									initialPreviewFileType:"image",
+								[/#if]
 							initialPreview:"${order.contractPath}",
 						[/#if]
 						layoutTemplates: {
@@ -243,9 +252,13 @@
 							showUpload:false,
 							showCaption:false,
 							initialPreviewAsData: true,
-							initialPreviewFileType:"pdf",
 							previewClass: "multiple-file-preview",
 							[#if orderShipping.weightMemo?has_content]
+									[#if order.weightMemo?contains("pdf")]
+										initialPreviewFileType:"pdf",
+									[#else]
+										initialPreviewFileType:"image",
+									[/#if]
 								initialPreview: "${orderShipping.weightMemo}",
 							[/#if]
 							layoutTemplates: {
@@ -272,7 +285,7 @@
 						uploadExtraData: {
 							fileType: "FILE"
 						},
-						allowedFileExtensions: "${setting.uploadFileExtension}".split(","),
+						allowedFileExtensions: "${setting.uploadImageExtension}".split(","),
 						[#if setting.uploadMaxSize != 0]
 							maxFileSize: ${setting.uploadMaxSize} * 1024,
 						[/#if]
@@ -286,9 +299,14 @@
 						showUpload:false,
 						showCaption:false,
 						initialPreviewAsData: true,
-						initialPreviewFileType:"pdf",
+						initialPreviewFileType:["pdf","image"],
 						previewClass: "multiple-file-preview",
 						[#if order.certificatePath?has_content]
+							[#if order.certificatePath?contains("pdf")]
+								initialPreviewFileType:"pdf",
+							[#else]
+								initialPreviewFileType:"image",
+							[/#if]
 							initialPreview: "${order.certificatePath}",
 						[/#if]
 						layoutTemplates: {

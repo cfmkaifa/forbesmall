@@ -2,7 +2,7 @@
 <mall>
 	<setting name="siteName" value="让雷智能" />
 	<!-- http://www.chinafibermarketing.net -->
-	<setting name="siteUrl" value="http://localhost:8080" />
+	<setting name="siteUrl" value="http://www.chinafibermarketing.net" />
 	<setting name="fileUrl" value="http://fds.chinafibermarketing.net" />
 	<setting name="logo" value="/resources/shop/images/logo.png" />
 	<setting name="hotSearch" value="" />
@@ -35,7 +35,7 @@
 	<setting name="passwordLockTime" value="10" />
 	<setting name="safeKeyExpiryTime" value="1440" />
 	<setting name="uploadMaxSize" value="10" />
-	<setting name="uploadImageExtension" value="jpg,jpeg,bmp,gif,png" />
+	<setting name="uploadImageExtension" value="jpg,jpeg,bmp,gif,png,pdf" />
 	<setting name="uploadMediaExtension" value="swf,flv,mp3,wav,avi,rm,rmvb" />
 	<setting name="uploadFileExtension" value="zip,rar,7z,doc,docx,xls,xlsx,ppt,pptx,pdf" />
 	<setting name="uploadDir" value="/opt/forbesupload" />

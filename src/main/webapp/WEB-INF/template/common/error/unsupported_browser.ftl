@@ -5,7 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="author" content="huanghy" />
 	<meta name="copyright" content="" />
-	<title>${message("common.error.unsupportedBrowser")}[#if showPowered] - Powered By [/#if]</title>
+	<title>${message("common.error.unsupportedBrowser")}[#if showPowered]  [/#if]</title>
 	<link href="${base}/resources/common/css/base.css" rel="stylesheet" type="text/css" />
 	<link href="${base}/resources/common/css/error.css" rel="stylesheet" type="text/css" />
 	<script type="text/javascript" src="${base}/resources/common/js/jquery.js"></script>
