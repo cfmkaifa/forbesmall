@@ -37,7 +37,7 @@
 	<setting name="uploadMaxSize" value="10" />
 	<setting name="uploadImageExtension" value="jpg,jpeg,bmp,gif,png,pdf" />
 	<setting name="uploadMediaExtension" value="swf,flv,mp3,wav,avi,rm,rmvb" />
-	<setting name="uploadFileExtension" value="zip,rar,7z,doc,docx,xls,xlsx,ppt,pptx,pdf" />
+	<setting name="uploadFileExtension" value="zip,rar,7z,doc,docx,xls,xlsx,ppt,pptx,pdf,jpg,jpeg,bmp,gif,png," />
 	<setting name="uploadDir" value="/opt/forbesupload" />
 	<setting name="templeatePath" value="/pdfPath" />
 	<setting name="imageUploadPath" value="/upload/image/${.now?string('yyyyMM')}/" />
