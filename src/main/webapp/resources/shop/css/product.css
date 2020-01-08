@@ -457,7 +457,13 @@
 	margin-bottom: 15px;
 }
 .product-li-12 span{
-	display: block;
+	/*display: block;*/
+	line-height: 20px;
+	overflow: hidden;
+	display: -webkit-box;
+	text-overflow: ellipsis;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
 }
 .product-list .no-result dl dt {
 	line-height: 50px;

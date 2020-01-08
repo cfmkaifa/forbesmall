@@ -19,9 +19,11 @@
 	<link href="${base}/favicon.ico" rel="icon">
 	<link href="${base}/resources/common/css/bootstrap.css" rel="stylesheet">
 	<link href="${base}/resources/common/css/iconfont.css" rel="stylesheet">
+    <link href="${base}/resources/common/css/demo.css" rel="stylesheet">
 	<link href="${base}/resources/common/css/jquery.bxslider.css" rel="stylesheet">
 	<link href="${base}/resources/common/css/base.css" rel="stylesheet">
 	<link href="${base}/resources/shop/css/base.css" rel="stylesheet">
+    <link href="${base}/resources/shop/css/iconfont.css" rel="stylesheet">
 	<link href="${base}/resources/shop/css/index.css?version=0.1" rel="stylesheet">
 	<!--[if lt IE 9]>
 		<script src="${base}/resources/common/js/html5shiv.js"></script>
@@ -39,6 +41,8 @@
 	<script src="${base}/resources/common/js/velocity.ui.js"></script>
 	<script src="${base}/resources/common/js/base.js?version=0.1"></script>
 	<script src="${base}/resources/shop/js/base.js"></script>
+    <script src="${base}/resources/shop/js/iconfont.js"></script>
+
 	[#noautoesc]
 		[#escape x as x?js_string]
 			<script>
@@ -156,22 +160,22 @@
 									<li>
 										[#switch productCategory_index]
 											[#case 0]
-												<i class="iconfont icon-mobile"></i>
+                                                <span class="iconfont">&#xe651;</span>
 												[#break /]
 											[#case 1]
-												<i class="iconfont icon-camera"></i>
+                                            <span class="iconfont">&#xe642;</span>
 												[#break /]
 											[#case 2]
-												<i class="iconfont icon-dress"></i>
+                                            <span class="iconfont">&#xe681;</span>
 												[#break /]
 											[#case 3]
-												<i class="iconfont icon-choiceness"></i>
+                                            <span class="iconfont">&#xe650;</span>
 												[#break /]
 											[#case 4]
-												<i class="iconfont icon-present"></i>
+                                            <span class="iconfont">&#xe697;</span>
 												[#break /]
 											[#case 5]
-												<i class="iconfont icon-evaluate"></i>
+                                            <span class="iconfont">&#xe61a;</span>
 												[#break /]
 											[#case 6]
 												<i class="iconfont icon-favor"></i>
