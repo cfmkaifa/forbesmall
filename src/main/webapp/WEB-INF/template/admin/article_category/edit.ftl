@@ -12,6 +12,7 @@
 	<link href="${base}/resources/common/css/bootstrap.css" rel="stylesheet">
 	<link href="${base}/resources/common/css/iconfont.css" rel="stylesheet">
 	<link href="${base}/resources/common/css/font-awesome.css" rel="stylesheet">
+	<link href="${base}/resources/common/css/bootstrap-fileinput.css" rel="stylesheet">
 	<link href="${base}/resources/common/css/bootstrap-select.css" rel="stylesheet">
 	<link href="${base}/resources/common/css/base.css" rel="stylesheet">
 	<link href="${base}/resources/admin/css/base.css" rel="stylesheet">
@@ -23,6 +24,7 @@
 	<script src="${base}/resources/common/js/bootstrap.js"></script>
 	<script src="${base}/resources/common/js/bootstrap-growl.js"></script>
 	<script src="${base}/resources/common/js/bootstrap-select.js"></script>
+	<script src="${base}/resources/common/js/bootstrap-fileinput.js?version=0.5"></script>
 	<script src="${base}/resources/common/js/jquery.nicescroll.js"></script>
 	<script src="${base}/resources/common/js/jquery.validate.js"></script>
 	<script src="${base}/resources/common/js/jquery.validate.additional.js"></script>
@@ -36,9 +38,40 @@
 		[#escape x as x?js_string]
 			<script>
 			$().ready(function() {
-			
 				var $articleCategoryForm = $("#articleCategoryForm");
-				
+				var $thumbnailFile = $("#thumbnailFile");
+				// 缩略图
+				$thumbnailFile.fileinput({
+						uploadUrl: "${base}/common/file/upload",
+						uploadExtraData: {
+							fileType: "FILE"
+						},
+						allowedFileExtensions: "${setting.uploadImageExtension}".split(","),
+						[#if setting.uploadMaxSize != 0]
+							maxFileSize: ${setting.uploadMaxSize} * 1024,
+						[/#if]
+						maxFileCount: 1,
+						autoReplace: true,
+						showPreview:true,
+						dropZoneEnabled: false,
+						overwriteInitial: false,
+						initialPreviewAsData: true,
+						previewClass: "multiple-file-preview",
+						initialPreviewFileType:"image",
+						[#if articleCategory.thumbnail?has_content]
+							initialPreview:"${articleCategory.thumbnail}",
+						[/#if]
+						layoutTemplates: {
+							footer: '<div class="file-thumbnail-footer">{actions}</div>',
+							actions: '<div class="file-actions"><div class="file-footer-buttons">{upload} {download} {delete} {zoom} {other}</div>{drag}<div class="clearfix"></div></div>'
+						},
+						removeFromPreviewOnError: true,
+						showAjaxErrorDetails: false
+					}).on("fileloaded", function(event, file, previewId, index, reader) {
+					}).on("fileuploaded", function(event, data, previewId, index) {
+					     $("#thumbnailPath").val(data.response.url);
+					}).on("filecleared fileerror fileuploaderror", function() {
+				});
 				// 表单验证
 				$articleCategoryForm.validate({
 					rules: {
@@ -152,6 +185,13 @@
 									<input id="timeout" name="timeout" class="form-control" type="text" maxlength="9" value="${articleCategory.timeout}" >
 									<span class="input-group-addon">${message("common.unit.day")}</span>
 								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-3 col-sm-2 control-label" for="timeout">${message("ArticleCategory.thumbnail")}:</label>
+							<div class="col-xs-9 col-sm-4" >
+								<input id="thumbnailFile" name="file" type="file"  class="form-control" maxlength="200">
+								<input id = "thumbnailPath" name="thumbnail" class="form-control" type="hidden" maxlength="200" value="${articleCategory.thumbnail}" >
 							</div>
 						</div>
 						<div class="form-group">

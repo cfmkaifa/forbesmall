@@ -179,6 +179,11 @@ public class ArticleCategory extends OrderedEntity<Long> {
 	 */
 	@OneToMany(mappedBy = "articleCategory", fetch = FetchType.LAZY)
 	private Set<Article> articles = new HashSet<>();
+	
+	/***分类展示图
+	 */
+	@Column(name="thumbnail")
+	private String thumbnail;
 
 	/**
 	 * 获取名称
@@ -440,6 +445,22 @@ public class ArticleCategory extends OrderedEntity<Long> {
 	 */
 	public void setYearSubFee(BigDecimal yearSubFee) {
 		this.yearSubFee = yearSubFee;
+	}
+	
+	
+
+	/** 
+	 * @return thumbnail 
+	 */
+	public String getThumbnail() {
+		return thumbnail;
+	}
+
+	/** 
+	 * @param thumbnail 要设置的 thumbnail 
+	 */
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
 	}
 
 	/** 

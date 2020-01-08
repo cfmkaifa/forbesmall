@@ -13,11 +13,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-import net.mall.Page;
-import net.mall.entity.*;
-import net.mall.service.*;
 import org.apache.commons.lang.StringUtils;
-import org.apache.poi.ss.formula.functions.T;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -29,11 +25,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import net.mall.Filter;
+import net.mall.Page;
 import net.mall.Pageable;
 import net.mall.Results;
+import net.mall.entity.Article;
+import net.mall.entity.ArticleCategory;
+import net.mall.entity.BaseEntity;
+import net.mall.entity.Business;
+import net.mall.entity.Member;
+import net.mall.entity.MemberRank;
+import net.mall.entity.Sn;
+import net.mall.entity.StoreRank;
+import net.mall.entity.SubsNewsHuman;
 import net.mall.exception.ResourceNotFoundException;
 import net.mall.plugin.PaymentPlugin;
 import net.mall.security.CurrentUser;
+import net.mall.service.ArticleCategoryService;
+import net.mall.service.ArticleService;
+import net.mall.service.MemberRankService;
+import net.mall.service.PluginService;
+import net.mall.service.SnService;
+import net.mall.service.StoreRankService;
+import net.mall.service.SubsNewsHumanService;
 import net.mall.util.ConvertUtils;
 import net.mall.util.WebUtils;
 
@@ -107,6 +120,24 @@ public class ArticleController extends BaseController {
 		model.addAttribute("pageNumber", pageNumber);
 		return "shop/article/detail";
 	}
+	
+	/****
+	 * newsList方法慨述:新闻列表
+	 * @param model
+	 * @return String
+	 * @创建人 huanghy
+	 * @创建时间 2020年1月8日 上午11:12:26
+	 * @修改人 (修改了该文件，请填上修改人的名字)
+	 * @修改日期 (请填上修改该文件时的日期)
+	 */
+	@GetMapping("/news")
+	public String newsList(ModelMap model) {
+		List<ArticleCategory> articleCategorys = articleCategoryService.findRoots(ArticleCategory.Type.NEWS);
+		model.addAttribute("articleCategorys", articleCategorys);
+		return "shop/article/news/list";
+	}
+	
+	
 
 	/**
 	 * 列表
@@ -117,7 +148,6 @@ public class ArticleController extends BaseController {
 			@CurrentUser Member currentMember,
 			ModelMap model) {
 		ArticleCategory articleCategory = articleCategoryService.find(articleCategoryId);
-		articleCategory.setType(ArticleCategory.Type.NEWS);
 		if (articleCategory == null) {
 			throw new ResourceNotFoundException();
 		}
