@@ -35,21 +35,21 @@ public class ArticleCategoryServiceImpl extends BaseServiceImpl<ArticleCategory,
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<ArticleCategory> findRoots() {
-		return articleCategoryDao.findRoots(null);
+	public List<ArticleCategory> findRoots(ArticleCategory.Type type) {
+		return articleCategoryDao.findRoots(null,type);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<ArticleCategory> findRoots(Integer count) {
-		return articleCategoryDao.findRoots(count);
+	public List<ArticleCategory> findRoots(Integer count,ArticleCategory.Type type) {
+		return articleCategoryDao.findRoots(count,type);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	@Cacheable(value = "articleCategory", condition = "#useCache")
-	public List<ArticleCategory> findRoots(Integer count, boolean useCache) {
-		return articleCategoryDao.findRoots(count);
+	public List<ArticleCategory> findRoots(Integer count, boolean useCache,ArticleCategory.Type type) {
+		return articleCategoryDao.findRoots(count,type);
 	}
 
 	@Override

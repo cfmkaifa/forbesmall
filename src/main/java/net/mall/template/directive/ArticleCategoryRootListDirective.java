@@ -55,8 +55,7 @@ public class ArticleCategoryRootListDirective extends BaseDirective {
 	public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException, IOException {
 		Integer count = getCount(params);
 		boolean useCache = useCache(params);
-
-		List<ArticleCategory> articleCategories = articleCategoryService.findRoots(count, useCache);
+		List<ArticleCategory> articleCategories = articleCategoryService.findRoots(count, useCache,ArticleCategory.Type.INST);
 		setLocalVariable(VARIABLE_NAME, articleCategories, env, body);
 	}
 

@@ -23,7 +23,7 @@ public interface ArticleCategoryService extends BaseService<ArticleCategory, Lon
 	 * 
 	 * @return 顶级文章分类
 	 */
-	List<ArticleCategory> findRoots();
+	List<ArticleCategory> findRoots(ArticleCategory.Type type);
 
 	/**
 	 * 查找顶级文章分类
@@ -32,7 +32,7 @@ public interface ArticleCategoryService extends BaseService<ArticleCategory, Lon
 	 *            数量
 	 * @return 顶级文章分类
 	 */
-	List<ArticleCategory> findRoots(Integer count);
+	List<ArticleCategory> findRoots(Integer count,ArticleCategory.Type type);
 
 	/**
 	 * 查找顶级文章分类
@@ -43,7 +43,7 @@ public interface ArticleCategoryService extends BaseService<ArticleCategory, Lon
 	 *            是否使用缓存
 	 * @return 顶级文章分类
 	 */
-	List<ArticleCategory> findRoots(Integer count, boolean useCache);
+	List<ArticleCategory> findRoots(Integer count, boolean useCache,ArticleCategory.Type type);
 
 	/**
 	 * 查找上级文章分类

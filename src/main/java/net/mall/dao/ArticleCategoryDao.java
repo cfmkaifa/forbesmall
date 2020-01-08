@@ -25,7 +25,7 @@ public interface ArticleCategoryDao extends BaseDao<ArticleCategory, Long> {
 	 *            数量
 	 * @return 顶级文章分类
 	 */
-	List<ArticleCategory> findRoots(Integer count);
+	List<ArticleCategory> findRoots(Integer count,ArticleCategory.Type type);
 
 	/**
 	 * 查找上级文章分类

@@ -23,6 +23,7 @@ import org.springframework.stereotype.Repository;
 
 import net.mall.dao.ArticleCategoryDao;
 import net.mall.entity.ArticleCategory;
+import net.mall.util.ConvertUtils;
 
 /**
  * Dao - 文章分类
@@ -34,9 +35,16 @@ import net.mall.entity.ArticleCategory;
 public class ArticleCategoryDaoImpl extends BaseDaoImpl<ArticleCategory, Long> implements ArticleCategoryDao {
 
 	@Override
-	public List<ArticleCategory> findRoots(Integer count) {
-		String jpql = "select articleCategory from ArticleCategory articleCategory where articleCategory.parent is null order by articleCategory.order asc";
-		TypedQuery<ArticleCategory> query = entityManager.createQuery(jpql, ArticleCategory.class);
+	public List<ArticleCategory> findRoots(Integer count,ArticleCategory.Type type) {
+		StringBuilder strBuil = new StringBuilder("select articleCategory from ArticleCategory articleCategory where articleCategory.parent is null");
+		if(ConvertUtils.isNotEmpty(type)){
+			strBuil.append("  and articleCategory.type = :type");
+		}
+		strBuil.append(" order by articleCategory.order asc");
+		TypedQuery<ArticleCategory> query = entityManager.createQuery(strBuil.toString(), ArticleCategory.class);
+		if(ConvertUtils.isNotEmpty(type)){
+			query.setParameter("type", type);
+		}
 		if (count != null) {
 			query.setMaxResults(count);
 		}
