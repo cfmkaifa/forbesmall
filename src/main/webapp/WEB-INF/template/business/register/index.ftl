@@ -65,7 +65,7 @@
 							required: true,
 							minlength: 4,
 							username: true,
-							notAllNumber: true,
+							notAllNumber: false,
 							remote: {
 								url: "${base}/business/register/check_username",
 								cache: false
