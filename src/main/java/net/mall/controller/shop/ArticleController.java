@@ -6,10 +6,7 @@
  */
 package net.mall.controller.shop;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javax.inject.Inject;
 
@@ -118,9 +115,12 @@ public class ArticleController extends BaseController {
 		}
 		model.addAttribute("article", article);
 		model.addAttribute("pageNumber", pageNumber);
-		return "shop/article/detail";
+		Pageable pageable = new Pageable(pageNumber, 5);
+		ArticleCategory articleCategory=articleCategoryService.find(article.getArticleCategory().getId());
+		model.addAttribute("page", articleService.findPage(articleCategory, null, true, pageable));
+		return "shop/article/details";
 	}
-	
+
 	/****
 	 * newsList方法慨述:新闻列表
 	 * @param model
@@ -180,6 +180,52 @@ public class ArticleController extends BaseController {
 	}
 
 	/**
+	 * @Author xfx
+	 * @Date 15:02 2020/1/9
+	 * @Param [articleCategoryId, pageNumber, currentBusiness, currentMember, model]
+	 * @return java.lang.String
+	 * 文章列表
+	 **/
+	@GetMapping("/articlelist/{articleCategoryId}")
+	public String articlelist(@PathVariable Long articleCategoryId, Integer pageNumber,
+					   @CurrentUser Business currentBusiness,
+					   @CurrentUser Member currentMember,
+					   ModelMap model) {
+		ArticleCategory articleCategory = articleCategoryService.find(articleCategoryId);
+		if (articleCategory == null) {
+			throw new ResourceNotFoundException();
+		}
+		if(ArticleCategory.Subscribe.YES.equals(articleCategory.getSubscribe())){
+			Long humanId = null;
+			if(ConvertUtils.isNotEmpty(currentBusiness)){
+				humanId = currentBusiness.getId();
+			}
+			if(ConvertUtils.isNotEmpty(currentMember)){
+				humanId = currentMember.getId();
+			}
+			Filter humanIdFilter = new Filter("humanId",Filter.Operator.EQ,humanId);
+			Filter articleCategoryIdFilter = new Filter("dataId",Filter.Operator.EQ,articleCategoryId);
+			Filter expdFilter = new Filter("expd",Filter.Operator.LE,new Date());
+			long subsCount = subsNewsHumanService.count(humanIdFilter,articleCategoryIdFilter,expdFilter);
+			if(subsCount > 0){
+				model.addAttribute("isPerm",true);
+			} else {
+				model.addAttribute("isPerm",false);
+				List<MemberRank>  memberRanks =  memberRankService.findAll();
+				model.addAttribute("memberRanks",memberRanks);
+			}
+		} else {
+			model.addAttribute("isPerm",true);
+		}
+		List<ArticleCategory> articleCategories=articleCategoryService.findRoots(6,ArticleCategory.Type.NEWS);
+		Pageable pageable = new Pageable(pageNumber, PAGE_SIZE);
+		model.addAttribute("articleCategory", articleCategory);
+		model.addAttribute("page", articleService.findPage(articleCategory, null, true, pageable));
+		model.addAttribute("articleCategories",articleCategories);
+		return "shop/article/attention";
+	}
+
+	/**
 	 * 列表
 	 */
 	@GetMapping(path = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -189,7 +235,6 @@ public class ArticleController extends BaseController {
 		if (articleCategory == null) {
 			return Results.NOT_FOUND;
 		}
-
 		Pageable pageable = new Pageable(pageNumber, PAGE_SIZE);
 		return ResponseEntity.ok(articleService.findPage(articleCategory, null, true, pageable).getContent());
 	}
@@ -246,6 +291,25 @@ public class ArticleController extends BaseController {
 		Page<StoreRank> page=storeRankService.findPage(pageable);
 		model.addAttribute("page",page.getContent());
 		return "shop/article/members";
+	}
+
+	/**
+	 * @Author xfx
+	 * @Date 9:36 2020/1/9
+	 * 新闻资讯跳转
+	 **/
+	@GetMapping("/articleindex")
+	public String article(ModelMap model){
+		List<ArticleCategory> articleCategories=articleCategoryService.findRoots(6,ArticleCategory.Type.NEWS);
+		Map<String,Page<Article>> map=new HashMap<>();
+		Pageable pageable=new Pageable();
+		pageable.setPageSize(5);
+		model.addAttribute("instantnews",articleService.findPage(articleCategoryService.find(articleCategories.get(1).getId()), null, true, pageable));
+		model.addAttribute("fubuinsights",articleService.findPage(articleCategoryService.find(articleCategories.get(2).getId()), null, true, pageable));
+		model.addAttribute("factorystatus",articleService.findPage(articleCategoryService.find(articleCategories.get(3).getId()), null, true, pageable));
+		model.addAttribute("commonality",articleService.findPage(articleCategoryService.find(articleCategories.get(5).getId()), null, true, pageable));
+		model.addAttribute("articleCategories",articleCategories);
+		 return "shop/article/news";
 	}
 	
 	

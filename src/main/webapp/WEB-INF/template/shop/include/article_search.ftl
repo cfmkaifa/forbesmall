@@ -12,7 +12,6 @@
 					return false;
 				}
 			});
-		
 		});
 		</script>
 	[/#escape]
