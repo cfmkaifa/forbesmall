@@ -1,5 +1,5 @@
 <script id="mainHeaderMemberInfoTemplate" type="text/template">
-	[#--<%if (currentUser != null && currentUser.type == "member") {%>
+	<%if (currentUser != null && currentUser.type == "member") {%>
 		<ul class="list-inline">
 			<li>
 				<a href="${base}/member/index"><%-currentUser.username%></a>
@@ -8,7 +8,7 @@
 				<a class="logout" href="${base}/member/logout">${message("shop.mainHeader.memberLogout")}</a>
 			</li>
 		</ul>
-	<%} else {%>--]
+	<%} else {%>
 		<ul class="list-inline">
 			<li>
 				<a href="${base}/member/login">${message("shop.mainHeader.memberLogin")}</a>

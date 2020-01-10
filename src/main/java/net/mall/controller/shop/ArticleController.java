@@ -368,5 +368,4 @@ public class ArticleController extends BaseController {
 		model.addAttribute("orderSn", orderSn);
 		return "shop/article/subscribe";
 	}
-
 }

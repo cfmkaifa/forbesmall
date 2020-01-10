@@ -8,7 +8,7 @@
         <link href="${base}/resources/common/css/iconfont.css" rel="stylesheet">
         <link href="${base}/resources/common/css/demo.css" rel="stylesheet">
 		<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-		<link rel="stylesheet" href="/resources/shop/css/details.css">
+		<link rel="stylesheet" href="${base}/resources/shop/css/details.css">
 
         <!--[if lt IE 9]>
 		<script src="${base}/resources/common/js/html5shiv.js"></script>

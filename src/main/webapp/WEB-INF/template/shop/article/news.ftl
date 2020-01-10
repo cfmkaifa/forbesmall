@@ -15,6 +15,7 @@
         <![endif]-->
         <script src="${base}/resources/common/js/jquery.js"></script>
         <script src="${base}/resources/common/js/bootstrap.js?version=0.1"></script>
+        <script src="${base}/resources/common/js/underscore.js"></script>
 		<title>新闻首页</title>
 		<style>
 			
@@ -45,7 +46,7 @@
 				                <h3>${articleCategories[1].name}</h3>
 				                <p>${message("shop.article.instantnews")}</p>
 				            </span>
-				            <span class="more"><a href="http://localhost:8080/article/articlelist/${articleCategories[1].id}">更多>></a></span>
+				            <span class="more"><a href="${base}/article/articlelist/${articleCategories[1].id}">更多>></a></span>
 				        </div>
 				         <div class="hotAttention_content1 hotAttention_content" >
 				            [#list instantnews.content as instantnews]

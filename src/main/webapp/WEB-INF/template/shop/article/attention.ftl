@@ -10,6 +10,7 @@
         <link href="${base}/resources/common/css/jquery.bxslider.css" rel="stylesheet">
         <link href="${base}/resources/common/css/base.css" rel="stylesheet">
         <link href="${base}/resources/shop/css/base.css" rel="stylesheet">
+        <link href="${base}/resources/shop/css/charge.css"  rel="stylesheet">
         <link href="${base}/resources/shop/css/iconfont.css" rel="stylesheet">
         <link href="${base}/resources/shop/css/index.css?version=0.1" rel="stylesheet">
         <!--[if lt IE 9]>
@@ -32,7 +33,7 @@
 		<title>福布云商</title>
 	</head>
 	<body>
-	   [#include "/shop/include/main_newheader.ftl" /]
+	  [#-- [#include "/shop/include/main_newheader.ftl" /]--]
 	   <main>
 		<div>
 			<div class="newsNav">
@@ -45,26 +46,45 @@
 				</ul>
 			</div>
 			<div style="width:1200px;padding:40px;background: #ffffff;margin: 0 auto;">
-				[#list  page.content as article]
-					<div class="insights_content">
-						<div class="insights_title">
-							<span class="time">
-								<p style="font-size:24px;">${article.createdDate}</p>
-							</span>
-							<span class="news_border"></span>
+			[#if isPerm == false]
+				[#include "/shop/include/noperm.ftl" /]
+			[#else]
+				[#if page.content?has_content]
+					[#list  page.content as article]
+						<div class="insights_content">
+							<div class="insights_title">
+								<span class="time">
+									<p style="font-size:24px;">${article.createdDate}</p>
+								</span>
+								<span class="news_border"></span>
 
+							</div>
+							<div class="newsTitle">
+								<span class="newsTitle_text">
+									<h3>${article.title}</h3>
+								</span>
+								[#--<a href="${base}${article.path}">--]
+								<a href="${base}${article.path}">
+									<img src="/resources/shop/images/khcfdc.png" alt="" style="width:18px;">
+								</a>
+							</div>
 						</div>
-						<div class="newsTitle">
-							<span class="newsTitle_text">
-								<h3>${article.title}</h3>
-							</span>
-							[#--<a href="${base}${article.path}">--]
-                            <a href="http://localhost:8080${article.path}">
-								<img src="/resources/shop/images/khcfdc.png" alt="" style="width:18px;">
-							</a>
-						</div>
-					</div>
-				[/#list]
+					[/#list]
+			[#else]
+                <div class="no-result">
+					[#noautoesc]
+					   ${message("shop.article.noResult")}
+					[/#noautoesc]
+                </div>
+			[/#if]
+				[@pagination pageNumber = page.pageNumber totalPages = page.totalPages pattern = "${base}${articleCategory.path}[#if {pageNumber} > 1]?pageNumber={pageNumber}[/#if]"]
+					[#if totalPages > 1]
+                        <div class="panel-footer text-right">
+							[#include "/shop/include/pagination.ftl" /]
+                        </div>
+					[/#if]
+				[/@pagination]
+			[/#if]
 			</div>
 		</div>
        </main>
