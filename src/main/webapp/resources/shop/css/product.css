@@ -83,6 +83,7 @@
 }
 .aaaa {
 	width: 90px;
+	position: relative;
 }
 .product-list .filter .filter-body dl dt {
 	line-height: 40px;
@@ -1410,7 +1411,7 @@
 }
 .company-2 {
 	color: #007dbe;
-	margin: -4px 0px 0px 5px;
+	margin: -2px 0px 0px 5px;
 }
 .product-brand {
 	margin-left: 5px;
@@ -1481,6 +1482,7 @@
 /* 按钮 */
 .detailsbutton-2 {
 	margin: 0px 20px 0px 0px;
+	width: 120px;
 }
 .data-2 {
 	font-size: 12px;
@@ -1627,12 +1629,12 @@
 	font-size: 12px;
 }
 .icon-2 li {
-	/* width: 77px; */
+	 width: 77px;
 	font-size: 12px;
 	float: left;
 	margin-left: 10px;
 	margin-top: 5px;
-	text-align: center;
+	text-align: left;
 	cursor: pointer;
 }
 /* 按钮 */
@@ -1644,13 +1646,32 @@
 	color: #999999;
 	text-align: center;
 }
+/*原样式*/
 .button-2 {
 	width: 120px;
 	height: 36px;
 	background-color: #ff6600;
 	border: 1px solid #ff6600;
 	color: #fff;
-	margin-top: 10px;
+	margin-top: 0px;
+}
+/*有样品 上按钮*/
+.button-3 {
+	width: 120px;
+	height: 27px;
+	background-color: #ff6600;
+	border: 1px solid #ff6600;
+	color: #fff;
+	margin-top: 6px;
+}
+/*有样品 下按钮*/
+.button-4 {
+	width: 120px;
+	height: 27px;
+	background-color: #fff;
+	border: 1px solid #ff6600;
+	color: #ff6600;
+	margin-top: 6px;
 }
 .money-2 {
 	margin: 0 auto;
@@ -1668,4 +1689,11 @@
 }
 .table-2 tr:nth-of-type(even) {
 	background: #f9f9f9;
+}
+.active-2 {
+	position: absolute;
+	top: 2px;
+	right: 3px;
+	width: 46%;
+	height: 52%;
 }

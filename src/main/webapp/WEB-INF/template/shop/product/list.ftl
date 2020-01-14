@@ -39,7 +39,7 @@
 	<link href="${base}/resources/common/css/base.css" rel="stylesheet">
 	<link href="${base}/resources/shop/css/base.css" rel="stylesheet">
 	<link href="${base}/resources/shop/css/store.css" rel="stylesheet">
-	<link href="${base}/resources/shop/css/product.css?version=0.1" rel="stylesheet">
+	<link href="/resources/shop/css/product.css?version=0.1" rel="stylesheet">
 	<!--[if lt IE 9]>
 		<script src="${base}/resources/common/js/html5shiv.js"></script>
 		<script src="${base}/resources/common/js/respond.js"></script>
@@ -509,6 +509,7 @@
 											<div class="list-item-body" style="display: flex;justify-content: space-around;">
 												<a href="${base}${product.path}" target="_blank" class="aaaa">
 													<img id="productImage${product.id}" class="listimg lazy-load img-responsive" src="${base}/resources/common/images/transparent.png" alt="${product.name}" data-original="${product.thumbnail!setting.defaultThumbnailProductImage}">
+													<img [#if product.isSample] src="/resources/shop/images/biao.png" class="active-2" [/#if]>
 												</a>
 												[#--规格--]
                                                 <div class="product-left-2">
@@ -535,19 +536,18 @@
                                                         </li>
                                                         <li>
                                                             <span class="specific-2">
-															说明:${product.keyword}
+															${message("shop.product.state")}${product.keyword}
 															</span>
-															[#--[#noautoesc]${product.introduction}[/#noautoesc]--]
                                                         </li>
                                                         <li>
                                                         </li>
                                                         <li>
                                                             <div class="star-level">
                                                                 <div class="xing-2">
-                                                                    <span class="iconfont">&#xe70b;</span>5星
+                                                                    <span class="iconfont">&#xe70b;</span>${message("shop.product.star")}
                                                                 </div>
                                                                 <div class="points-2">
-                                                                    1000分
+																${message("shop.product.grade")}
                                                                 </div>
                                                             </div>
                                                             <div class="company-2">
@@ -577,76 +577,43 @@
                                                     </b>
 												</p>
 
-                                                    <p class="guarantee">质量保障书</p>
+                                                    <p class="guarantee">${message("shop.product.report")}</p>
                                                 </div>
                                                 <div class="icon-2">
                                                     <ul>
                                                         <li>
-                                                            <span class="iconfont">&#xe633;</span>定额违约金
+                                                            <span class="iconfont">&#xe633;</span>${message("shop.product.penalsum")}
                                                         </li>
                                                         <li>
-                                                            <span class="iconfont">&#xe634;</span>仓库快结
+                                                            <span class="iconfont">&#xe634;</span>${message("shop.product.entrepot")}
                                                         </li>
                                                         <li>
-                                                            <span class="iconfont">&#xe615;</span>融资支付
+                                                            <span class="iconfont">&#xe615;</span>${message("shop.product.pay")}
                                                         </li>
                                                         <li>
-                                                            <span class="iconfont">&#xe602;</span>闪电开票
+                                                            <span class="iconfont">&#xe602;</span>${message("shop.product.flash")}
                                                         </li>
                                                         <li>
-                                                            <span class="iconfont">&#xe78e;</span>视频验货
+                                                            <span class="iconfont">&#xe78e;</span>${message("shop.product.video")}
                                                         </li>
                                                     </ul>
                                                 </div>
                                                 <div class="detailsbutton-2">
                                                     [#--<p class="data-2">2019-12-12  13:52:10</p>--]
                                                         <p class="data-2">${product.createdDate}</p>
-													<a href="${base}${product.path}" target="_blank">
-                                                        <button type="button" class="button-2">查看详情</button>
-													</a>
+													[#if product.isSample]
+														<a href="${base}${product.path}" target="_blank">
+															<button type="button" class="button-3">${message("shop.product.detail")}</button>
+														</a>
+                                                        <a href="${base}/sample-detail/${product.id}" target="_blank">
+                                                            <button type="button" class="button-4">${message("shop.product.sample")}</button>
+                                                        </a>
+													[#else]
+                                                        <a href="${base}${product.path}" target="_blank">
+                                                            <button type="button" class="button-2 ">${message("shop.product.detail")}</button>
+                                                        </a>
+													[/#if]
                                                 </div>
-												[#--<strong>--]
-													[#--[#if product.type == "GENERAL"]--]
-														[#--${currency(defaultSku.price, true)}--]
-														[#--[#if setting.isShowMarketPrice]--]
-															[#--<del>${currency(defaultSku.marketPrice, true)}</del>--]
-														[#--[/#if]--]
-													[#--[#elseif product.type == "EXCHANGE"]--]
-														[#--${message("Sku.exchangePoint")}: ${defaultSku.exchangePoint}--]
-													[#--[/#if]--]
-												[#--</strong>--]
-												[#--<a href="${base}${product.path}" target="_blank">--]
-													[#--<h5 class="text-overflow" title="${product.name}">${product.name}</h5>--]
-													[#--[#if product.caption?has_content]--]
-														[#--<h6 class="text-overflow" title="${product.caption}">${product.caption}</h6>--]
-													[#--[/#if]--]
-												[#--</a>--]
-												[#--<p class="text-center">--]
-													[#--<a href="${base}${product.store.path}" title="${product.store.name}" target="_blank">${abbreviate(product.store.name, 15)}</a>--]
-													[#--[#if product.store.type == "SELF"]--]
-														[#--<span class="label label-primary">${message("Store.Type.SELF")}</span>--]
-													[#--[/#if]--]
-												[#--</p>--]
-											[#--</div>--]
-											[#--<div class="list-item-footer clearfix">--]
-												[#--[#if product.type == "GENERAL"]--]
-													[#--<a href="javascript:;" data-action="addCart" data-sku-id="${defaultSku.id}" data-cart-target="#mainSidebarCart" data-product-image-target="#productImage${product.id}">--]
-														[#--<i class="iconfont icon-cart"></i>--]
-														[#--${message("shop.product.addCart")}--]
-													[#--</a>--]
-												[#--[#elseif product.type == "EXCHANGE"]--]
-													[#--<a href="javascript:;" data-action="checkout" data-sku-id="${defaultSku.id}">--]
-														[#--<i class="iconfont icon-present"></i>--]
-														[#--${message("shop.product.exchange")}--]
-													[#--</a>--]
-												[#--[/#if]--]
-												[#--<a class="add-product-favorite" href="javascript:;" title="${message("shop.product.addProductFavorite")}" data-action="addProductFavorite" data-product-id="${product.id}">--]
-													[#--<i class="iconfont icon-like"></i>--]
-												[#--</a>--]
-												[#--<a class="add-compare" href="javascript:;" title="${message("shop.product.addCompare")}" data-product-id="${product.id}">--]
-													[#--<i class="iconfont icon-list"></i>--]
-												[#--</a>--]
-											[#--</div>--]
 										</li>
 									[/#list]
 								</ul>

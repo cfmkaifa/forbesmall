@@ -65,7 +65,7 @@
 								</span>
 								[#--<a href="${base}${article.path}">--]
 								<a href="${base}${article.path}">
-									<img src="/resources/shop/images/khcfdc.png" alt="" style="width:18px;">
+									<img src="${base}/resources/shop/images/khcfdc.png" alt="" style="width:18px;">
 								</a>
 							</div>
 						</div>
