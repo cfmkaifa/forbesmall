@@ -7,15 +7,16 @@
         <link href="${base}/resources/shop/css/base.css" rel="stylesheet">
         <link href="${base}/resources/common/css/iconfont.css" rel="stylesheet">
         <link href="${base}/resources/common/css/demo.css" rel="stylesheet">
-		<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-		<link rel="stylesheet" href="${base}/resources/shop/css/details.css">
-
+		<link href="${base}/resources/shop/css/articledetails.css" rel="stylesheet">
         <!--[if lt IE 9]>
 		<script src="${base}/resources/common/js/html5shiv.js"></script>
 		<script src="${base}/resources/common/js/respond.js"></script>
         <![endif]-->
-
         <script src="${base}/resources/common/js/jquery.js"></script>
+        <script src="${base}/resources/common/js/bootstrap.js?version=0.1"></script>
+        <script src="${base}/resources/common/js/underscore.js"></script>
+        <script src="${base}/resources/common/js/base.js?version=0.1"></script>
+        <script src="${base}/resources/shop/js/base.js"></script>
 		<title>福布云商</title>
 	</head>
 	<body>

@@ -3,10 +3,9 @@
 	<head>
 		<meta charset="utf-8">
         <link href="${base}/resources/common/css/bootstrap.css" rel="stylesheet">
-		<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
         <link href="${base}/resources/common/css/base.css" rel="stylesheet">
         <link href="${base}/resources/shop/css/base.css" rel="stylesheet">
-		<link rel="stylesheet" href="${base}/resources/shop/css/news.css">
+		<link href="${base}/resources/shop/css/articlenews.css" rel="stylesheet" >
         <link href="${base}/resources/common/css/iconfont.css" rel="stylesheet">
         <link href="${base}/resources/common/css/demo.css" rel="stylesheet">
         <!--[if lt IE 9]>
@@ -16,6 +15,8 @@
         <script src="${base}/resources/common/js/jquery.js"></script>
         <script src="${base}/resources/common/js/bootstrap.js?version=0.1"></script>
         <script src="${base}/resources/common/js/underscore.js"></script>
+        <script src="${base}/resources/common/js/base.js?version=0.1"></script>
+        <script src="${base}/resources/shop/js/base.js"></script>
 		<title>新闻首页</title>
 		<style>
 			

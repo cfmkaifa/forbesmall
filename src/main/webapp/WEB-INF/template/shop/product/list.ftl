@@ -509,9 +509,8 @@
 											<div class="list-item-body" style="display: flex;justify-content: space-around;">
 												<a href="${base}${product.path}" target="_blank" class="aaaa">
 													<img id="productImage${product.id}" class="listimg lazy-load img-responsive" src="${base}/resources/common/images/transparent.png" alt="${product.name}" data-original="${product.thumbnail!setting.defaultThumbnailProductImage}">
-													<img [#if product.isSample] src="/resources/shop/images/biao.png" class="active-2" [/#if]>
+													<img [#if product.sample ] src="/resources/shop/images/biao.png" class="active-2" [/#if]>
 												</a>
-												[#--规格--]
                                                 <div class="product-left-2">
                                                     <ul>
                                                         <li class="product-li-12">

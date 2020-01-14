@@ -691,7 +691,7 @@ public class Product extends BaseEntity<Long> {
 	/***是否样品
 	 */
 	@Transient
-	private boolean isSample = false;
+	private boolean sample = false;
 
 	/**
 	 * 获取编号
@@ -1671,7 +1671,7 @@ public class Product extends BaseEntity<Long> {
 	 * @return 店铺
 	 */
 	public net.mall.entity.Store getStore() {
-		if(this.isSample){
+		if(this.sample){
 			return getSampleStore();
 		} else {
 			return store;
@@ -1938,7 +1938,7 @@ public class Product extends BaseEntity<Long> {
 	 * @return SKU
 	 */
 	public Set<Sku> getSkus() {
-		if(this.isSample){
+		if(this.sample){
 			return skus.stream().filter(sku -> Sample.YES.equals(sku.getSample())).collect(Collectors.toSet());
 		} else {
 			return skus;
@@ -2041,7 +2041,7 @@ public class Product extends BaseEntity<Long> {
 	@JsonView(BaseView.class)
 	@Transient
 	public Sku getDefaultSku() {
-		if(this.isSample){
+		if(this.sample){
 			 Optional<Sku>  optSku = skus.stream().filter(sku -> Sample.YES.equals(sku.getSample())).findAny();
 			 return optSku.get();
 		} else {
@@ -2244,11 +2244,13 @@ public class Product extends BaseEntity<Long> {
 	public static class SpecificationItemConverter extends BaseAttributeConverter<List<SpecificationItem>> {
 	}
 
+	
+
 	/** 
-	 * @return isSample 
+	 * @return sample 
 	 */
-	public boolean isSample() {
-		return isSample;
+	public boolean getSample() {
+		return sample;
 	}
 
 	/** 
@@ -2258,10 +2260,10 @@ public class Product extends BaseEntity<Long> {
 		if(!isSample){
 			long sampleCount  = skus.stream().filter(sku -> Sample.YES.equals(sku.getSample())).count();
 			if(sampleCount >0 ){
-				this.isSample = true;
+				this.sample = true;
 			}
 		}
-		this.isSample = isSample;
+		this.sample = isSample;
 	}
 	
 	
