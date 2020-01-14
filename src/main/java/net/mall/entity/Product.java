@@ -13,7 +13,9 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -58,6 +60,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 
 import net.mall.BaseAttributeConverter;
 import net.mall.BigDecimalNumericFieldBridge;
+import net.mall.entity.Specification.Sample;
 
 /**
  * Entity - 商品
@@ -682,6 +685,13 @@ public class Product extends BaseEntity<Long> {
 	@IndexedEmbedded(depth = 1)
 	@OneToMany(mappedBy = "product", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private Set<Sku> skus = new HashSet<>();
+	
+	
+	
+	/***是否样品
+	 */
+	@Transient
+	private boolean isSample = false;
 
 	/**
 	 * 获取编号
@@ -1661,7 +1671,12 @@ public class Product extends BaseEntity<Long> {
 	 * @return 店铺
 	 */
 	public net.mall.entity.Store getStore() {
-		return store;
+		if(this.isSample){
+			return getSampleStore();
+		} else {
+			return store;
+		}
+		
 	}
 
 	/**
@@ -1923,7 +1938,11 @@ public class Product extends BaseEntity<Long> {
 	 * @return SKU
 	 */
 	public Set<Sku> getSkus() {
-		return skus;
+		if(this.isSample){
+			return skus.stream().filter(sku -> Sample.YES.equals(sku.getSample())).collect(Collectors.toSet());
+		} else {
+			return skus;
+		}
 	}
 
 	/**
@@ -2022,13 +2041,17 @@ public class Product extends BaseEntity<Long> {
 	@JsonView(BaseView.class)
 	@Transient
 	public Sku getDefaultSku() {
-		return (Sku) CollectionUtils.find(getSkus(), new Predicate() {
-
-			public boolean evaluate(Object object) {
-				Sku sku = (Sku) object;
-				return sku != null && sku.getIsDefault();
-			}
-		});
+		if(this.isSample){
+			 Optional<Sku>  optSku = skus.stream().filter(sku -> Sample.YES.equals(sku.getSample())).findAny();
+			 return optSku.get();
+		} else {
+			return (Sku) CollectionUtils.find(getSkus(), new Predicate() {
+				public boolean evaluate(Object object) {
+					Sku sku = (Sku) object;
+					return sku != null && sku.getIsDefault();
+				}
+			});
+		}
 	}
 
 	/**
@@ -2220,5 +2243,28 @@ public class Product extends BaseEntity<Long> {
 	@Converter
 	public static class SpecificationItemConverter extends BaseAttributeConverter<List<SpecificationItem>> {
 	}
+
+	/** 
+	 * @return isSample 
+	 */
+	public boolean isSample() {
+		return isSample;
+	}
+
+	/** 
+	 * @param isSample 要设置的 isSample 
+	 */
+	public void setSample(boolean isSample) {
+		if(!isSample){
+			long sampleCount  = skus.stream().filter(sku -> Sample.YES.equals(sku.getSample())).count();
+			if(sampleCount >0 ){
+				this.isSample = true;
+			}
+		}
+		this.isSample = isSample;
+	}
+	
+	
+	
 
 }

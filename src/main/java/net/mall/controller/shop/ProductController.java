@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -44,10 +43,8 @@ import net.mall.entity.Product;
 import net.mall.entity.ProductCategory;
 import net.mall.entity.ProductTag;
 import net.mall.entity.Promotion;
-import net.mall.entity.Sku;
 import net.mall.entity.Store;
 import net.mall.entity.StoreProductCategory;
-import net.mall.entity.Specification.Sample;
 import net.mall.exception.ResourceNotFoundException;
 import net.mall.service.AttributeService;
 import net.mall.service.BrandService;
@@ -111,13 +108,27 @@ public class ProductController extends BaseController {
 			Device device =  (Device) request.getAttribute(DeviceUtils.CURRENT_DEVICE_ATTRIBUTE);
 			if(device.isMobile() 
 					|| device.isTablet()){
-				Set<Sku>   sks =  product.getSkus();
-				 Optional<Sku>  optSku = sks.stream().filter(sku -> Sample.YES.equals(sku.getSample())).findAny();
-				 if(optSku.isPresent()){
-					 model.addAttribute("mobileDefaultSku", optSku.get());
-				 }
+				product.setSample(true);
 			}
 		}
+		model.addAttribute("product", product);
+		return "shop/product/detail";
+	}
+	
+	
+	
+	
+	/**
+	 * 详情
+	 */
+	@GetMapping("/sample-detail/{productId}")
+	public String sampleDetail(@PathVariable Long productId,HttpServletRequest request,
+			ModelMap model) {
+		Product product = productService.find(productId);
+		if (product == null || BooleanUtils.isNotTrue(product.getIsActive()) || BooleanUtils.isNotTrue(product.getIsMarketable())) {
+			throw new ResourceNotFoundException();
+		}
+		product.setSample(true);
 		model.addAttribute("product", product);
 		return "shop/product/detail";
 	}
