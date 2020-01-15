@@ -17,10 +17,7 @@
         <script src="${base}/resources/common/js/underscore.js"></script>
         <script src="${base}/resources/common/js/base.js?version=0.1"></script>
         <script src="${base}/resources/shop/js/base.js"></script>
-		<title>新闻首页</title>
-		<style>
-			
-		</style>
+		<title>${message("shop.product.news")}</title>
 	</head>
 	<body>
 	      [#include "/shop/include/main_newheader.ftl" /]

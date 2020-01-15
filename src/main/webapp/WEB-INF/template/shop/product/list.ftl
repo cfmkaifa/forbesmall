@@ -600,11 +600,11 @@
                                                 <div class="detailsbutton-2">
                                                     [#--<p class="data-2">2019-12-12  13:52:10</p>--]
                                                         <p class="data-2">${product.createdDate}</p>
-													[#if product.isSample]
+													[#if product.sample]
 														<a href="${base}${product.path}" target="_blank">
 															<button type="button" class="button-3">${message("shop.product.detail")}</button>
 														</a>
-                                                        <a href="${base}/sample-detail/${product.id}" target="_blank">
+                                                        <a href="${base}/product/sample-detail/${product.id}" target="_blank">
                                                             <button type="button" class="button-4">${message("shop.product.sample")}</button>
                                                         </a>
 													[#else]

@@ -17,7 +17,7 @@
         <script src="${base}/resources/common/js/underscore.js"></script>
         <script src="${base}/resources/common/js/base.js?version=0.1"></script>
         <script src="${base}/resources/shop/js/base.js"></script>
-		<title>福布云商</title>
+		<title>${message("shop.product.logo")}</title>
 	</head>
 	<body>
 	     [#include "/shop/include/main_newheader.ftl" /]
@@ -42,7 +42,7 @@
 					<div class="content_title">
 					    <h2 label="label">${article.title}</h2>
 					    <span class="content_time">
-					        <p>作者：${article.author}</p>
+					        <p>${message("shop.article.author")}${article.author}</p>
 					        <p>${article.createdDate}</p>
 					    </span>
 					    <div class="content_img">

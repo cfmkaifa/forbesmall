@@ -30,7 +30,7 @@
         <script src="${base}/resources/common/js/base.js?version=0.1"></script>
         <script src="${base}/resources/shop/js/base.js"></script>
         <script src="${base}/resources/shop/js/iconfont.js"></script>
-		<title>福布云商</title>
+		<title>${message("shop.product.logo")}</title>
 	</head>
 	<body>
 	  [#-- [#include "/shop/include/main_newheader.ftl" /]--]
@@ -90,14 +90,4 @@
        </main>
 	     [#include "/shop/include/main_footer.ftl" /]
 	</body>
-	<script type="text/javascript">
-		/*$(function(){
-			let li = $(".item");
-			li.click(function() {
-			    $(this).siblings().removeClass('active');
-			    $(this).addClass('active');
-			})
-			
-		})*/
-	</script>
 </html>

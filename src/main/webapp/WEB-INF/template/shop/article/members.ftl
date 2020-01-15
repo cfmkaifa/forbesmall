@@ -189,7 +189,7 @@
 								<li><p></p>客户按星级优先展示</li>
 								<li><p></p>行业月报、季报、年报</li>
 								<li><p></p>出口流向月报</li>
-								<li><p></p>智慧金融</li>
+								<li><p></p>智慧经济</li>
 							</ul>
                             <button class="super_button"><a href="${base}/business/store/payment">升级会员</a></button>
 						</div>
