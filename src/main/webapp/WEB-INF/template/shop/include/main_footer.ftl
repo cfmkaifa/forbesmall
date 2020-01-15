@@ -107,10 +107,10 @@
 			</div>
 			<div class="col-xs-2">
 				<dl class="help">
-					<dt>会员服务</dt>
+					<dt>供应商服务</dt>
 					<dd>
 						[#--<a href="${base}/article/member">会员入驻</a>--]
-                            <a href="http://localhost:8080/article/member">会员入驻</a>
+                            <a href="${base}/article/member">会员入驻</a>
 					</dd>
 					<dd>
 						<a href="${base}/article/detail/37_1">商家帮助</a>

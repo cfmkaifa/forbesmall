@@ -1032,7 +1032,9 @@
 	padding: 0px 10px;
 	border: 1px solid #eeeeee;
 }
-
+.product-detail .parameter .parameter-body table td:first-of-type{
+	text-align: right;
+}
 .product-detail .review {
 	margin-bottom: 15px;
 }
