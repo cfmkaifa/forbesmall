@@ -74,6 +74,29 @@ public class ArticleCategory extends OrderedEntity<Long> {
 		/**是**/
 		YES
 	}
+
+	/****
+	 * 收费类型概要说明：月报，周报，季报，年报
+	 * @author Huanghy
+	 *//*
+	public enum FeeType {
+		*//**
+		 *周报
+		 **//*
+		WEEK,
+		*//**
+		 *月报
+		 **//*
+		MONTH,
+		*//**
+		 *季报
+		 **//*
+		QUARTER,
+		*//**
+		 *年报
+		 **//*
+		YEAR
+	}*/
 	
 	/**
 	 *是否需要订阅
@@ -90,6 +113,14 @@ public class ArticleCategory extends OrderedEntity<Long> {
 	@NotNull
 	@Column(nullable = false)
 	private ArticleCategory.Type type;
+
+
+	/**
+	 * 文章收费类型
+	 *//*
+	@NotNull
+	@Column(name = "fee_type",nullable = false)
+	private ArticleCategory.FeeType feetype;*/
 	
 	
 	
@@ -161,9 +192,11 @@ public class ArticleCategory extends OrderedEntity<Long> {
 	@Column(nullable = false)
 	private Integer grade;
 
+
 	/**
 	 * 上级分类
 	 */
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	private ArticleCategory parent;
 
@@ -374,6 +407,14 @@ public class ArticleCategory extends OrderedEntity<Long> {
 		this.subscribe = subscribe;
 	}
 
+
+	/*public ArticleCategory.FeeType getFeeType(){
+		return feetype;
+	}
+	public void setFeeType(ArticleCategory.FeeType feetype){
+		this.feetype=feetype;
+	}*/
+
 	/** 
 	 * @return type 
 	 */
@@ -387,7 +428,6 @@ public class ArticleCategory extends OrderedEntity<Long> {
 	public void setType(ArticleCategory.Type type) {
 		this.type = type;
 	}
-
 	
 	
 	

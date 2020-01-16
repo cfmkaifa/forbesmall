@@ -281,9 +281,15 @@
 											[@article_list articleCategoryId = articleCategory.id count = 5]
 												<ul>
 													[#list articles as article]
-														<li class="text-overflow">
-															<a href="${base}${article.path}" title="${article.title}" target="_blank">${abbreviate(article.title, 40)}</a>
-														</li>
+														[#if articleCategory.name =="行业报告"]
+                                                            <li class="text-overflow">
+                                                                <a href="${base}/article/articlelist/10051" title="${article.title}" target="_blank">${abbreviate(article.title, 40)}</a>
+                                                            </li>
+														[#else]
+                                                            <li class="text-overflow">
+                                                                <a href="${base}${article.path}" title="${article.title}" target="_blank">${abbreviate(article.title, 40)}</a>
+                                                            </li>
+														[/#if]
 													[/#list]
 												</ul>
 											[/@article_list]

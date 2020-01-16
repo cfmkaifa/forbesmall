@@ -179,6 +179,18 @@
 								</select>
 							</div>
 						</div>
+						<!--文章收费类型-->
+                       [#-- <div class="form-group">
+                            <label class="col-xs-3 col-sm-2 control-label">${message("ArticleCategory.type")}:</label>
+                            <div class="col-xs-9 col-sm-4">
+                                <select name="feetype" class="selectpicker form-control" data-live-search="true" data-size="10">
+                                    <option value="WEEK" title="${message("ArticleCategory.weekfee")}">${message("ArticleCategory.weekfee")}</option>
+                                    <option value="MONTH" title="${message("ArticleCategory.monthfee")}">${message("ArticleCategory.monthfee")}</option>
+                                    <option value="QUARTER" title="${message("ArticleCategory.quarteree")}">${message("ArticleCategory.quarteree")}</option>
+                                    <option value="YEAR" title="${message("ArticleCategory.yearfee")}">${message("ArticleCategory.yearfee")}</option>
+                                </select>
+                            </div>
+                        </div>--]
 						<div class="form-group">
 							<label class="col-xs-3 col-sm-2 control-label" for="timeout">${message("ArticleCategory.timeout")}:</label>
 							<div class="col-xs-9 col-sm-4"  data-toggle="tooltip">
