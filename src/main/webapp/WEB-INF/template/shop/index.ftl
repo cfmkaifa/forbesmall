@@ -265,7 +265,7 @@
 					[/@product_category_root_list]
 				</div>
 				<div class="col-xs-2 col-xs-offset-8">
-					[@article_category_root_list count = 2]
+					[@article_category_root_list]
 						[#if articleCategories?has_content]
 							<div class="article">
 								<ul class="nav nav-pills nav-justified">

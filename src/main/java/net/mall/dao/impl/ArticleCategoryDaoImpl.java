@@ -32,7 +32,7 @@ import net.mall.util.ConvertUtils;
  * @version 6.1
  */
 @Repository
-public class ArticleCategoryDaoImpl extends BaseDaoImpl<ArticleCategory, Long> implements ArticleCategoryDao {
+public class ArticleCategoryDaoImpl  extends BaseDaoImpl<ArticleCategory, Long> implements ArticleCategoryDao {
 
 	@Override
 	public List<ArticleCategory> findRoots(Integer count,ArticleCategory.Type type) {
@@ -95,6 +95,25 @@ public class ArticleCategoryDaoImpl extends BaseDaoImpl<ArticleCategory, Long> i
 			}
 			return query.getResultList();
 		}
+	}
+
+	@Override
+	public ArticleCategory findArticleCategory(Long articleCategoryId, ArticleCategory.Type type) {
+		StringBuilder strBuil = new StringBuilder("select articleCategory from ArticleCategory articleCategory where articleCategory.parent is null ");
+		if(ConvertUtils.isNotEmpty(type)){
+			strBuil.append("  and articleCategory.type = :type");
+		}
+		if(ConvertUtils.isNotEmpty(articleCategoryId)){
+			strBuil.append("  and articleCategory.id = :articleCategoryId");
+		}
+		TypedQuery<ArticleCategory> query = entityManager.createQuery(strBuil.toString(), ArticleCategory.class);
+		if(ConvertUtils.isNotEmpty(type)){
+			query.setParameter("type", type);
+		}
+		if(ConvertUtils.isNotEmpty(type)){
+			query.setParameter("articleCategoryId", articleCategoryId);
+		}
+		return query.getSingleResult();
 	}
 
 	/**

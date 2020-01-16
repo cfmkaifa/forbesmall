@@ -45,6 +45,15 @@ public interface ArticleCategoryService extends BaseService<ArticleCategory, Lon
 	 */
 	List<ArticleCategory> findRoots(Integer count, boolean useCache,ArticleCategory.Type type);
 
+
+	/**
+	 * @Author xfx
+	 * @Date 18:30 2020/1/15
+	 * @Param [articleCategoryId, type]
+	 * @return net.mall.entity.ArticleCategory
+	 **/
+	ArticleCategory  findArticleCategory(Long articleCategoryId,ArticleCategory.Type type);
+
 	/**
 	 * 查找上级文章分类
 	 * 

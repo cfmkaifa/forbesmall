@@ -54,6 +54,12 @@ public class ArticleCategoryServiceImpl extends BaseServiceImpl<ArticleCategory,
 
 	@Override
 	@Transactional(readOnly = true)
+	public ArticleCategory findArticleCategory(Long articleCategoryId, ArticleCategory.Type type) {
+		return articleCategoryDao.findArticleCategory(articleCategoryId,type);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
 	public List<ArticleCategory> findParents(ArticleCategory articleCategory, boolean recursive, Integer count) {
 		return articleCategoryDao.findParents(articleCategory, recursive, count);
 	}

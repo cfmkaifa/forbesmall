@@ -53,4 +53,12 @@ public interface ArticleCategoryDao extends BaseDao<ArticleCategory, Long> {
 	 */
 	List<ArticleCategory> findChildren(ArticleCategory articleCategory, boolean recursive, Integer count);
 
+	/**
+	 * @Author xfx
+	 * @Date 18:28 2020/1/15
+	 * @Param [articleCategoryId, type]
+	 * @return net.mall.entity.ArticleCategory
+	 **/
+	ArticleCategory  findArticleCategory(Long articleCategoryId,ArticleCategory.Type type);
+
 }

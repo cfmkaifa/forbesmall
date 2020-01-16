@@ -241,7 +241,7 @@ public class ProductController extends BaseController {
 		model.addAttribute("productCategory", productCategory);
 		model.addAttribute("type", type);
 		model.addAttribute("storeType", storeType);
-		model.addAttribute("brand", brand);
+		model.addAttribute(  "brand", brand);
 		model.addAttribute("promotion", promotion);
 		model.addAttribute("productTag", productTag);
 		model.addAttribute("attributeValueMap", attributeValueMap);
