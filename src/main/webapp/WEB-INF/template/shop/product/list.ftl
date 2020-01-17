@@ -332,7 +332,7 @@
 						[#include "/shop/include/store_product_search.ftl" /]
 						[#include "/shop/include/store_product_category.ftl" /]
 					[#else]
-						[#include "/shop/include/featured_product.ftl" /]
+						[#--[#include "/shop/include/featured_product.ftl" /]--]
 					[/#if]
 				</div>
 				<div class="col-xs-10">

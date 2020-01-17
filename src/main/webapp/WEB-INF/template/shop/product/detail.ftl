@@ -564,7 +564,7 @@
 			</div>
 			<div class="row">
 				<div class="col-xs-2">
-					[#include "/shop/include/featured_product.ftl" /]
+					[#--[#include "/shop/include/featured_product.ftl" /]--]
 				</div>
 				<div class="col-xs-10">
 					[#if product.introduction?has_content || product.parameterValues?has_content || setting.isReviewEnabled || setting.isConsultationEnabled]

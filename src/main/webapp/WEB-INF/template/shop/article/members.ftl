@@ -31,15 +31,15 @@
 		<div class="header">
 			<img src="/resources/shop/images/logos.png" class="logo">
 			<ul class="nav">
-				<li>交易商城</li>
-				<li>分析中心</li>
-				<li>新闻资讯</li>
-				<li>化纤团购</li>
-				<li>化纤求购</li>
-				<li>运输服务</li>
-				<li>数据中心</li>
-				<li>智能工厂</li>
-				<li>关于我们</li>
+				<li><a href="${base}/product/list/10301">交易商城</a></li>
+				<li><a href="#">分析中心</a></li>
+				<li><a href="${base}/article/articleindex">行情资讯</a></li>
+				<li><a href="#">化纤团购</a></li>
+				<li><a href="#">化纤求购</a></li>
+				<li><a href="#">运输服务</a></li>
+				<li><a href="#">数据中心</a></li>
+				<li><a href="${base}/resources/shop/html/smartFactory.html">智能工厂</a></li>
+				<li><a href="${base}/resources/shop/html/companyIntroduction.html?v=1.0">联系我们</a></li>
 			</ul>
 		</div>
 		<div class="banner">
