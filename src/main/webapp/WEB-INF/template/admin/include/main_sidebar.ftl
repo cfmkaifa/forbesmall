@@ -155,14 +155,23 @@
 						[@has_permission_tag permission="admin:categoryApplication"]
 							[#if hasPermission]
 								<li class="list-group-item[#if .main_template_name?matches("admin/category_application/.*")] active[/#if]">
-									<a href="${base}/admin/category_application/list">
-										<i class="iconfont icon-weixuanzhong"></i>
-										${message("admin.mainSidebar.categoryApplication")}
-										[@category_application_count status = "PENDING"]
-											<span class="label label-success" title="${message("admin.mainSidebar.pendingReviewCategoryApplicationCount")}" data-toggle="tooltip">${count}</span>
-										[/@category_application_count]
-									</a>
-								</li>
+								<a href="${base}/admin/category_application/list">
+									<i class="iconfont icon-weixuanzhong"></i>
+									${message("admin.mainSidebar.categoryApplication")}
+									[@category_application_count status = "PENDING"]
+										<span class="label label-success" title="${message("admin.mainSidebar.pendingReviewCategoryApplicationCount")}" data-toggle="tooltip">${count}</span>
+									[/@category_application_count]
+								</a>
+							</li>
+							<li class="list-group-item[#if .main_template_name?matches("admin/group_purch_apply/.*")] active[/#if]">
+								<a href="${base}/admin/group_purch_apply/list">
+									<i class="iconfont icon-weixuanzhong"></i>
+									${message("admin.mainSidebar.groupPurchApply")}
+									[@group_purch_apply_count status = "PENDING"]
+										<span class="label label-success" title="${message("admin.mainSidebar.groupPurchApplyCount")}" data-toggle="tooltip">${count}</span>
+									[/@group_purch_apply_count]
+								</a>
+							</li>
 							[/#if]
 						[/@has_permission_tag]
 						[@has_permission_tag permission="admin:businessDeposit"]

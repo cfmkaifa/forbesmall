@@ -105,6 +105,8 @@
 .index .main-slider li {
 	height: 500px;
 	background: no-repeat top center;
+	width: 880px !important;
+	background-size:880px 500px;
 }
 
 .index .main-slider li a {

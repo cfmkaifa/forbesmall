@@ -436,6 +436,9 @@
 													<a class="btn btn-default btn-xs btn-icon" href="${base}/business/product/edit?productId=${product.id}" title="${message("common.edit")}" data-toggle="tooltip" data-redirect-url>
 														<i class="iconfont icon-write"></i>
 													</a>
+													<a class="btn btn-default btn-xs btn-icon" href="${base}/business/group_purch_apply/index/${product.id}" title="${message("business.groupPurchApply.add")}" data-toggle="tooltip" data-redirect-url>
+														<i class="iconfont icon-write"></i>
+													</a>
 													[#if product.isMarketable && product.isActive]
 														<a class="btn btn-default btn-xs btn-icon" href="${base}${product.path}" title="${message("common.view")}" data-toggle="tooltip" target="_blank">
 															<i class="iconfont icon-search"></i>

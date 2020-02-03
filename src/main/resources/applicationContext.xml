@@ -142,7 +142,7 @@
 		</property>
 		<property name="freemarkerVariables">
 			<map>
-			   <!-- http://www.chinafibermarketing.net -->
+			   <!-- http://www.interstrangers.net -->
 				<entry key="base" value="http://www.interstrangers.net" />
 				<entry key="showPowered" value="#{${show_powered}}" />
 				<entry key="message" value-ref="messageMethod" />
@@ -160,6 +160,7 @@
 				<entry key="business_attribute_list" value-ref="businessAttributeListDirective" />
 				<entry key="business_cash_count" value-ref="businessCashCountDirective" />
 				<entry key="category_application_count" value-ref="categoryApplicationCountDirective" />
+				<entry key="group_purch_apply_count" value-ref="groupPurchApplyCountDirective" />
 				<entry key="consultation_list" value-ref="consultationListDirective" />
 				<entry key="distribution_cash_count" value-ref="distributionCashCountDirective" />
 				<entry key="friend_link_list" value-ref="friendLinkListDirective" />
