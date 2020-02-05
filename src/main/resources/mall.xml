@@ -24,7 +24,7 @@
 	<setting name="watermarkAlpha" value="50" />
 	<setting name="watermarkImage" value="/upload/image/watermark.png" />
 	<setting name="watermarkPosition" value="NO" />
-	<setting name="priceScale" value="3" />
+	<setting name="priceScale" value="2" />
 	<setting name="priceRoundType" value="ROUND_HALF_UP" />
 	<setting name="isShowMarketPrice" value="true" />
 	<setting name="defaultMarketPriceScale" value="1.2" />

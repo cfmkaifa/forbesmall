@@ -317,6 +317,20 @@ public class Product extends BaseEntity<Long> {
 	@Column(nullable = false)
 	private Boolean isList;
 
+
+	public Boolean getGroup() {
+		return isGroup;
+	}
+
+	public void setGroup(Boolean group) {
+		isGroup = group;
+	}
+
+	@JsonView(BaseView.class)
+	@NotNull
+	@Column(nullable = false,name = "is_group")
+	private Boolean isGroup;
+
 	/**
 	 * 是否置顶
 	 */
@@ -2035,15 +2049,15 @@ public class Product extends BaseEntity<Long> {
 
 	/**
 	 * 获取默认SKU
-	 * 
+	 *
 	 * @return 默认SKU
 	 */
 	@JsonView(BaseView.class)
 	@Transient
 	public Sku getDefaultSku() {
 		if(this.sample){
-			 Optional<Sku>  optSku = skus.stream().filter(sku -> Sample.YES.equals(sku.getSample())).findAny();
-			 return optSku.get();
+			Optional<Sku>  optSku = skus.stream().filter(sku -> Sample.YES.equals(sku.getSample())).findAny();
+			return optSku.get();
 		} else {
 			return (Sku) CollectionUtils.find(getSkus(), new Predicate() {
 				public boolean evaluate(Object object) {
@@ -2052,6 +2066,23 @@ public class Product extends BaseEntity<Long> {
 				}
 			});
 		}
+	}
+
+
+	/**
+	 * 获取默认SKU
+	 *
+	 * @return 默认SKU
+	 */
+	@JsonView(BaseView.class)
+	@Transient
+	public Sku getGroupPurchSku() {
+		return (Sku) CollectionUtils.find(getSkus(), new Predicate() {
+			public boolean evaluate(Object object) {
+				Sku sku = (Sku) object;
+				return sku != null && sku.getGroup();
+			}
+		});
 	}
 
 	/**

@@ -35,6 +35,9 @@ public class GroupPurchApplyController extends BaseController {
             return Results.UNPROCESSABLE_ENTITY;
         }
         groupPurchApply.setStatus(status);
+        if (GroupPurchApply.ApplyStatus.APPROVED.equals(status)){
+            groupPurchApply.setJobStatus(GroupPurchApply.JobStatus.PENDING);
+        }
         groupPurchApplyService.update(groupPurchApply);
         return Results.OK;
     }
@@ -43,10 +46,13 @@ public class GroupPurchApplyController extends BaseController {
      * 列表
      */
     @GetMapping("/list")
-    public String list(GroupPurchApply.ApplyStatus status, Pageable pageable, ModelMap model) {
+    public String list(GroupPurchApply.ApplyStatus status,String searchValue, Pageable pageable, ModelMap model) {
         model.addAttribute("status", status);
         if(ConvertUtils.isNotEmpty(status)){
             pageable.getFilters().add(new Filter("status",Filter.Operator.EQ,status));
+        }
+        if(ConvertUtils.isNotEmpty(searchValue)){
+            pageable.setSearchProperty("proName");
         }
         model.addAttribute("page", groupPurchApplyService.findPage(pageable));
         return "admin/group_purch_apply/list";

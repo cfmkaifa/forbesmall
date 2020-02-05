@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:cache="http://www.springframework.org/schema/cache"
-	xmlns:task="http://www.springframework.org/schema/task" xmlns:aop="http://www.springframework.org/schema/aop"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:tx="http://www.springframework.org/schema/tx" xmlns:cache="http://www.springframework.org/schema/cache"
+	   xmlns:task="http://www.springframework.org/schema/task" xmlns:aop="http://www.springframework.org/schema/aop"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
 	http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-4.3.xsd
 	http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.3.xsd
 	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd"
-	default-lazy-init="true">
+	   default-lazy-init="true">
 
 	<context:property-placeholder location="classpath*:/mall.properties"
-		ignore-resource-not-found="true" ignore-unresolvable="true" />
+								  ignore-resource-not-found="true" ignore-unresolvable="true" />
 
 	<context:component-scan base-package="net.mall">
 		<context:exclude-filter type="annotation"
-			expression="org.springframework.stereotype.Controller" />
+								expression="org.springframework.stereotype.Controller" />
 		<context:exclude-filter type="annotation"
-			expression="org.springframework.web.bind.annotation.ControllerAdvice" />
+								expression="org.springframework.web.bind.annotation.ControllerAdvice" />
 	</context:component-scan>
 
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
-		destroy-method="close">
+		  destroy-method="close">
 		<property name="driverClass" value="${jdbc.driver}" />
 		<property name="jdbcUrl" value="${jdbc.url}" />
 		<property name="user" value="${jdbc.username}" />
@@ -36,7 +36,7 @@
 	</bean>
 
 	<bean id="entityManagerFactory"
-		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		  class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="packagesToScan">
 			<list>
@@ -74,12 +74,12 @@
 	</bean>
 
 	<bean id="transactionTemplate"
-		class="org.springframework.transaction.support.TransactionTemplate">
+		  class="org.springframework.transaction.support.TransactionTemplate">
 		<property name="transactionManager" ref="transactionManager" />
 	</bean>
 
 	<bean id="readOnlyTransactionTemplate"
-		class="org.springframework.transaction.support.TransactionTemplate">
+		  class="org.springframework.transaction.support.TransactionTemplate">
 		<property name="transactionManager" ref="transactionManager" />
 		<property name="readOnly" value="true" />
 	</bean>
@@ -87,7 +87,7 @@
 	<tx:annotation-driven transaction-manager="transactionManager" />
 
 	<bean id="ehCacheManager"
-		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+		  class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
 		<property name="configLocation" value="classpath:/ehcache.xml" />
 		<property name="shared" value="true" />
 	</bean>
@@ -99,7 +99,7 @@
 	<cache:annotation-driven cache-manager="cacheManager" />
 
 	<bean class="org.springframework.cache.ehcache.EhCacheFactoryBean"
-		lazy-init="false">
+		  lazy-init="false">
 		<property name="cacheManager" ref="ehCacheManager" />
 		<property name="cacheName" value="articleHits" />
 		<property name="cacheEventListeners">
@@ -108,7 +108,7 @@
 	</bean>
 
 	<bean class="org.springframework.cache.ehcache.EhCacheFactoryBean"
-		lazy-init="false">
+		  lazy-init="false">
 		<property name="cacheManager" ref="ehCacheManager" />
 		<property name="cacheName" value="productHits" />
 		<property name="cacheEventListeners">
@@ -117,7 +117,7 @@
 	</bean>
 
 	<bean id="freeMarkerConfigurer"
-		class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+		  class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
 		<property name="templateLoaderPaths">
 			<array>
 				<value>classpath:/</value>
@@ -142,7 +142,7 @@
 		</property>
 		<property name="freemarkerVariables">
 			<map>
-			   <!-- http://www.interstrangers.net -->
+				<!-- http://www.interstrangers.net -->
 				<entry key="base" value="http://www.interstrangers.net" />
 				<entry key="showPowered" value="#{${show_powered}}" />
 				<entry key="message" value-ref="messageMethod" />
@@ -196,14 +196,14 @@
 	</bean>
 
 	<bean id="messageSource"
-		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		  class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
 		<property name="cacheSeconds" value="${message.cache_seconds}" />
 		<property name="useCodeAsDefaultMessage" value="true" />
 		<property name="basenames" value="${message.basenames}" />
 	</bean>
 
 	<bean id="localeResolver"
-		class="org.springframework.web.servlet.i18n.FixedLocaleResolver" />
+		  class="org.springframework.web.servlet.i18n.FixedLocaleResolver" />
 
 	<bean id="captchaProducer" class="com.google.code.kaptcha.impl.DefaultKaptcha">
 		<property name="config">
@@ -230,10 +230,10 @@
 	</bean>
 
 	<bean id="captchaFilter" class="net.mall.captcha.CaptchaFilter"
-		scope="prototype" />
+		  scope="prototype" />
 
 	<task:executor id="taskExecutor" pool-size="${task.pool_size}"
-		queue-capacity="${task.queue_capacity}" />
+				   queue-capacity="${task.queue_capacity}" />
 
 	<task:annotation-driven executor="taskExecutor" />
 

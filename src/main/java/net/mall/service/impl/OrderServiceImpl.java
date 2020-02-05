@@ -18,6 +18,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import net.mall.util.ConvertUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.BooleanUtils;
@@ -583,6 +584,13 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 			order.setExchangePoint(cart.getExchangePoint(store));
 			order.setWeight(cart.getWeight(store, true, false));
 			order.setQuantity(cart.getQuantity(store, true));
+			if(ConvertUtils.isNotEmpty(cart.getMethodCode())
+					&& "group_purch".equalsIgnoreCase(cart.getMethodCode())){
+				System.out.println("1111111111111111111111111111");
+				order.setGroup(true);
+			} else {
+				order.setGroup(false);
+			}
 			order.setShippedQuantity(0);
 			order.setReturnedQuantity(0);
 			if (cart.getIsDelivery(store)) {

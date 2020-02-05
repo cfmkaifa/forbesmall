@@ -5,6 +5,7 @@ import net.mall.security.CurrentStore;
 import net.mall.security.CurrentUser;
 import net.mall.service.GroupPurchApplyService;
 import net.mall.service.ProductService;
+import net.mall.util.ConvertUtils;
 import net.mall.util.SystemUtils;
 import org.apache.commons.lang.StringUtils;
 import org.codehaus.groovy.runtime.dgmimpl.arrays.LongArrayGetAtMetaMethod;
@@ -76,9 +77,11 @@ public class GroupPurchApplyController extends BaseController {
      * 列表
      */
     @GetMapping("/list")
-    public String list(Pageable pageable, @CurrentStore Store currentStore, ModelMap model) {
-
+    public String list(Pageable pageable,String searchValue,  @CurrentStore Store currentStore, ModelMap model) {
         pageable.getFilters().add(new Filter("storeId",Filter.Operator.EQ,currentStore.getId()));
+        if(ConvertUtils.isNotEmpty(searchValue)){
+            pageable.setSearchProperty("proName");
+        }
         Page<GroupPurchApply> page = groupPurchApplyService.findPage(pageable);
         model.addAttribute("page",page);
         return "business/group_purch_apply/list";

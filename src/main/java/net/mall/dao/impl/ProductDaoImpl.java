@@ -517,4 +517,15 @@ public class ProductDaoImpl extends BaseDaoImpl<Product, Long> implements Produc
 		entityManager.createQuery(jpql).setParameter("store", store).setParameter("status", Store.Status.SUCCESS).setParameter("now", new Date()).executeUpdate();
 	}
 
+
+
+	/***
+	 * 修改产品
+	 * @param isGroup
+	 * @param proSn
+	 */
+	public void modifyProductGroupPurch(Boolean isGroup,String proSn){
+		String jpql = "UPDATE Product SET isGroup = :group WHERE sn = :sn";
+		entityManager.createQuery(jpql).setParameter("group",isGroup).setParameter("sn",proSn).executeUpdate();
+	}
 }

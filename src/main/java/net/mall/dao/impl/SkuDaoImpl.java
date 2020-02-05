@@ -6,6 +6,7 @@
  */
 package net.mall.dao.impl;
 
+import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -79,4 +80,12 @@ public class SkuDaoImpl extends BaseDaoImpl<Sku, Long> implements SkuDao {
 		return super.findList(criteriaQuery, null, count, null, null);
 	}
 
+
+
+	public void modifySkuGroupPrice(BigDecimal groupPrice,Boolean group, String skuSn){
+		String jpql = "UPDATE Sku SET groupPrice = :groupPrice,isGroup = :group WHERE sn = :sn";
+		entityManager.createQuery(jpql).setParameter("groupPrice",groupPrice)
+				.setParameter("group",group)
+				.setParameter("sn",skuSn).executeUpdate();
+	}
 }

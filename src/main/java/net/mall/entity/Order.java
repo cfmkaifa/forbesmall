@@ -212,6 +212,19 @@ public class Order extends BaseEntity<Long> {
 	@Column(nullable = false, precision = 21, scale = 6)
 	private BigDecimal tax;
 
+	public Boolean getGroup() {
+		return isGroup;
+	}
+
+	public void setGroup(Boolean group) {
+		isGroup = group;
+	}
+
+	@JsonView(BaseView.class)
+	@NotNull
+	@Column(nullable = false,name = "is_group")
+	private Boolean isGroup;
+
 	/**
 	 * 促销折扣
 	 */

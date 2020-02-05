@@ -457,6 +457,7 @@
 				[#if skuId??]
 					<input name="skuId" type="hidden" value="${skuId}">
 					<input name="quantity" type="hidden" value="${quantity}">
+					<input name="methodCode" type="hidden" value="${methodCode}">
 				[#else]
 					<input name="cartTag" type="hidden" value="${cart.tag}">
 				[/#if]

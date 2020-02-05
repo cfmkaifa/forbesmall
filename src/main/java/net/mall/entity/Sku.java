@@ -108,6 +108,19 @@ public class Sku extends BaseEntity<Long> {
 	@Column(precision = 21, scale = 6)
 	private BigDecimal cost;
 
+	public BigDecimal getGroupPrice() {
+		return groupPrice;
+	}
+
+	public void setGroupPrice(BigDecimal groupPrice) {
+		this.groupPrice = groupPrice;
+	}
+
+	@Min(0)
+	@Digits(integer = 12, fraction = 3)
+	@Column(precision = 21, scale = 6,name = "group_price")
+	private BigDecimal groupPrice;
+
 	/**
 	 * 市场价
 	 */
@@ -188,6 +201,19 @@ public class Sku extends BaseEntity<Long> {
 	@NotNull
 	@Column(nullable = false)
 	private Boolean isDefault;
+
+	public Boolean getGroup() {
+		return isGroup;
+	}
+
+	public void setGroup(Boolean group) {
+		isGroup = group;
+	}
+
+	@JsonView(BaseView.class)
+	@NotNull
+	@Column(nullable = false,name = "is_group")
+	private Boolean isGroup;
 
 	/**
 	 * 商品

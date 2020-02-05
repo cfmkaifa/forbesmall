@@ -231,4 +231,11 @@ public interface ProductDao extends BaseDao<Product, Long> {
 	 */
 	void shelf(Long[] ids);
 
+
+	/***
+	 * 修改产品
+	 * @param isGroup
+	 * @param proSn
+	 */
+	void modifyProductGroupPurch(Boolean isGroup,String proSn);
 }

@@ -7,6 +7,7 @@
 package net.mall.job;
 
 import java.util.Calendar;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import javax.inject.Inject;
 
@@ -22,24 +23,27 @@ import net.mall.service.StatisticService;
  * @author huanghy
  * @version 6.1
  */
-//@Lazy(false)
-//@Component
+@Lazy(false)
+@Component
 public class StatisticJob {
 
 	@Inject
 	private StatisticService statisticService;
+	private ReentrantReadWriteLock STATISTIC_LOCK = new ReentrantReadWriteLock();
 
 	/**
 	 * 收集
 	 */
 	@Scheduled(cron = "${job.statistic_collect.cron}")
 	public void collect() {
-		Calendar calendar = Calendar.getInstance();
-		calendar.add(Calendar.DAY_OF_MONTH, -1);
-		int year = calendar.get(Calendar.YEAR);
-		int month = calendar.get(Calendar.MONTH);
-		int day = calendar.get(Calendar.DAY_OF_MONTH);
-
-		statisticService.collect(year, month, day);
+		if(STATISTIC_LOCK.writeLock().tryLock()){
+			Calendar calendar = Calendar.getInstance();
+			calendar.add(Calendar.DAY_OF_MONTH, -1);
+			int year = calendar.get(Calendar.YEAR);
+			int month = calendar.get(Calendar.MONTH);
+			int day = calendar.get(Calendar.DAY_OF_MONTH);
+			statisticService.collect(year, month, day);
+			STATISTIC_LOCK.writeLock().unlock();
+		}
 	}
 }

@@ -18,6 +18,7 @@ import java.util.Set;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
+import net.mall.util.ConvertUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.ArrayUtils;
@@ -270,7 +271,8 @@ public class OrderController extends BaseController {
 	 * 结算
 	 */
 	@GetMapping("/checkout")
-	public String checkout(Long skuId, Integer quantity, 
+	public String checkout(Long skuId, Integer quantity,
+			String methodCode,
 			@CurrentUser Member currentUser, @CurrentCart Cart currentCart,
 			HttpServletRequest request,
 			ModelMap model) {
@@ -359,6 +361,7 @@ public class OrderController extends BaseController {
 		model.addAttribute("fee", fee);
 		model.addAttribute("freight", freight);
 		model.addAttribute("tax", tax);
+		model.addAttribute("methodCode", methodCode);
 		model.addAttribute("promotionDiscount", promotionDiscount);
 		model.addAttribute("couponDiscount", couponDiscount);
 		model.addAttribute("amount", amount);
@@ -533,7 +536,8 @@ public class OrderController extends BaseController {
 	 * 创建
 	 */
 	@PostMapping("/create")
-	public ResponseEntity<?> create(Long skuId, Integer quantity, String cartTag, Long receiverId, Long paymentMethodId, Long shippingMethodId, String code, String invoiceTitle, String invoiceTaxNumber, BigDecimal balance, String memo, @CurrentUser Member currentUser,
+	public ResponseEntity<?> create(Long skuId, Integer quantity,String methodCode,
+									String cartTag, Long receiverId, Long paymentMethodId, Long shippingMethodId, String code, String invoiceTitle, String invoiceTaxNumber, BigDecimal balance, String memo, @CurrentUser Member currentUser,
 			@CurrentCart Cart currentCart) {
 		Map<String, Object> data = new HashMap<>();
 		Cart cart;
@@ -615,6 +619,9 @@ public class OrderController extends BaseController {
 			return Results.UNPROCESSABLE_ENTITY;
 		}
 		Invoice invoice = StringUtils.isNotEmpty(invoiceTitle) ? new Invoice(invoiceTitle, invoiceTaxNumber, null) : null;
+		if(ConvertUtils.isNotEmpty(methodCode)){
+			cart.setMethodCode(methodCode);
+		}
 		List<Order> orders = orderService.create(orderType, cart, receiver, paymentMethod, shippingMethod, couponCode, invoice, balance, memo);
 		List<String> orderSns = new ArrayList<>();
 		for (Order order : orders) {

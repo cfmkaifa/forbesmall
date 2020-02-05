@@ -420,14 +420,14 @@
 					<div class="summary">
                         <div class="money-2">
                             <p>
-							   单价：<strong id="price" class="unit-2">${product.price}</strong>
+								${message("Product.unitPrice")}：<strong id="price" class="unit-2">${product.price}</strong>
 								<span class="unit-2">/${product.unit}</span>
 							</p>
                             <div style="display: flex">
                               [#--  <p><span>[#noautoesc]介绍：${product.introduction}[/#noautoesc]</span></p>--]
 							</div>
-                            <p>上架时间：<span>${product.createdDate}</span></p>
-                            <p>服务电话：<span>${product.store.phone}</span></p>
+                            <p>${message("Product.shelfTime")}：<span>${product.createdDate}</span></p>
+                            <p>${message("Product.serviceCall")}：<span>${product.store.phone}</span></p>
                         </div>
 						<ul class="clearfix">
 							<li>

@@ -41,12 +41,39 @@ public class GroupPurchApply extends BaseEntity<Long>{
 		FAILED
 	}
 
+	/***
+	 *
+	 */
+	public enum JobStatus {
+
+		/**等待上架**/
+		PENDING,
+		/***已上架**/
+		HASBEENON,
+		/**
+		 * 已执行
+		 */
+		ALREADY,
+
+	}
+
 	/**
 	 * 状态
 	 */
 	@Column(nullable = false,name="apply_status")
 	private GroupPurchApply.ApplyStatus status;
-	
+
+	public JobStatus getJobStatus() {
+		return jobStatus;
+	}
+
+	public void setJobStatus(JobStatus jobStatus) {
+		this.jobStatus = jobStatus;
+	}
+
+	@Column(nullable = false,name="job_status")
+	private GroupPurchApply.JobStatus jobStatus;
+
 	@Column(nullable = false,name="store_id")
 	private Long storeId;
 	

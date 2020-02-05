@@ -14,15 +14,20 @@ import org.springframework.stereotype.Component;
 
 import net.mall.service.CartService;
 
+import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
+
 /**
  * Job - 购物车
  * 
  * @author huanghy
  * @version 6.1
  */
-//@Lazy(false)
-//@Component
+@Component
+@Lazy(false)
 public class CartJob {
+
+	private ReentrantReadWriteLock  CART_LOCK = new ReentrantReadWriteLock();
 
 	@Inject
 	private CartService cartService;
@@ -32,7 +37,10 @@ public class CartJob {
 	 */
 	@Scheduled(cron = "${job.cart_delete_expired.cron}")
 	public void deleteExpired() {
-		cartService.deleteExpired();
+		if(CART_LOCK.writeLock().tryLock()){
+			cartService.deleteExpired();
+			CART_LOCK.writeLock().unlock();
+		}
 	}
 
 }

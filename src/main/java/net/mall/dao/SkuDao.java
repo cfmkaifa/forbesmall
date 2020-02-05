@@ -6,6 +6,7 @@
  */
 package net.mall.dao;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
 
@@ -53,4 +54,11 @@ public interface SkuDao extends BaseDao<Sku, Long> {
 	 */
 	List<Sku> findList(Store store, Product.Type type, Set<Sku> matchs, Integer count);
 
+
+	/***
+	 * 更新SKU费用
+	 * @param groupPrice
+	 * @param skuSn
+	 */
+	void modifySkuGroupPrice(BigDecimal groupPrice,Boolean group,String skuSn);
 }

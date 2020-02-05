@@ -1369,7 +1369,8 @@
 					}).done(function() {
 						location.href = checkoutUrl + "?" + $.param({
 							skuId: skuId,
-							quantity: quantity
+							quantity: quantity,
+							methodCode:methodCode
 						});
 					});
 				} else {

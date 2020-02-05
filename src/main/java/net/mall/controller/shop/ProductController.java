@@ -16,6 +16,7 @@ import java.util.Set;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
+import net.mall.Filter;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.ArrayUtils;
@@ -123,7 +124,7 @@ public class ProductController extends BaseController {
 	 */
 	@GetMapping("/sample-detail/{productId}")
 	public String sampleDetail(@PathVariable Long productId,HttpServletRequest request,
-			ModelMap model) {
+							   ModelMap model) {
 		Product product = productService.find(productId);
 		if (product == null || BooleanUtils.isNotTrue(product.getIsActive()) || BooleanUtils.isNotTrue(product.getIsMarketable())) {
 			throw new ResourceNotFoundException();
@@ -131,6 +132,21 @@ public class ProductController extends BaseController {
 		product.setSample(true);
 		model.addAttribute("product", product);
 		return "shop/product/detail";
+	}
+
+
+	/**
+	 * 详情
+	 */
+	@GetMapping("/group-purch-detail/{productId}")
+	public String groupPurchDetail(@PathVariable Long productId,HttpServletRequest request,
+							   ModelMap model) {
+		Product product = productService.find(productId);
+		if (product == null || BooleanUtils.isNotTrue(product.getIsActive()) || BooleanUtils.isNotTrue(product.getIsMarketable())) {
+			throw new ResourceNotFoundException();
+		}
+		model.addAttribute("product", product);
+		return "shop/product/group_purch/detail";
 	}
 
 	/**
@@ -411,6 +427,76 @@ public class ProductController extends BaseController {
 		}
 
 		return productService.viewHits(productId);
+	}
+
+
+	/**
+	 * 团购列表
+	 */
+	@GetMapping("/group_purch/list")
+	public String groupPurchlist(Product.Type type, Store.Type storeType, Long storeProductCategoryId, Long brandId, Long promotionId, Long productTagId, BigDecimal startPrice, BigDecimal endPrice, Boolean isOutOfStock, Product.OrderType orderType, Integer pageNumber, Integer pageSize, ModelMap model) {
+		StoreProductCategory storeProductCategory = storeProductCategoryService.find(storeProductCategoryId);
+		Brand brand = brandService.find(brandId);
+		Promotion promotion = promotionService.find(promotionId);
+		ProductTag productTag = productTagService.find(productTagId);
+
+		if (startPrice != null && endPrice != null && startPrice.compareTo(endPrice) > 0) {
+			BigDecimal tempPrice = startPrice;
+			startPrice = endPrice;
+			endPrice = tempPrice;
+		}
+		Pageable pageable = new Pageable(pageNumber, pageSize);
+		model.addAttribute("orderTypes", Product.OrderType.values());
+		model.addAttribute("type", type);
+		model.addAttribute("storeType", storeType);
+		model.addAttribute("storeProductCategory", storeProductCategory);
+		model.addAttribute("brand", brand);
+		model.addAttribute("promotion", promotion);
+		model.addAttribute("productTag", productTag);
+		model.addAttribute("startPrice", startPrice);
+		model.addAttribute("endPrice", endPrice);
+		model.addAttribute("isOutOfStock", isOutOfStock);
+		model.addAttribute("orderType", orderType);
+		model.addAttribute("pageNumber", pageNumber);
+		model.addAttribute("pageSize", pageSize);
+		pageable.getFilters().add(new Filter("isGroup", Filter.Operator.EQ,true));
+		model.addAttribute("page", productService.findPage(type,0, storeType, null, null, storeProductCategory, brand, promotion, productTag, null, null, startPrice, endPrice, true, true, null, true, isOutOfStock, null, null, orderType, pageable));
+		return "shop/product/group_purch/list";
+	}
+
+	/**
+	 * 团购列表
+	 */
+	@GetMapping(path = "/group_purch/list", produces = MediaType.APPLICATION_JSON_VALUE)
+	@JsonView(BaseEntity.BaseView.class)
+	public ResponseEntity<?> groupPurchlist(Long productCategoryId, Product.Type type, Long storeProductCategoryId, Long brandId, Long promotionId, Long productTagId, BigDecimal startPrice, BigDecimal endPrice, Product.OrderType orderType, Integer pageNumber, Integer pageSize, HttpServletRequest request) {
+		ProductCategory productCategory = productCategoryService.find(productCategoryId);
+		StoreProductCategory storeProductCategory = storeProductCategoryService.find(storeProductCategoryId);
+		Brand brand = brandService.find(brandId);
+		Promotion promotion = promotionService.find(promotionId);
+		ProductTag productTag = productTagService.find(productTagId);
+		Map<Attribute, String> attributeValueMap = new HashMap<>();
+		if (productCategory != null) {
+			Set<Attribute> attributes = productCategory.getAttributes();
+			if (CollectionUtils.isNotEmpty(attributes)) {
+				for (Attribute attribute : attributes) {
+					String value = request.getParameter("attribute_" + attribute.getId());
+					String attributeValue = attributeService.toAttributeValue(attribute, value);
+					if (attributeValue != null) {
+						attributeValueMap.put(attribute, attributeValue);
+					}
+				}
+			}
+		}
+
+		if (startPrice != null && endPrice != null && startPrice.compareTo(endPrice) > 0) {
+			BigDecimal tempPrice = startPrice;
+			startPrice = endPrice;
+			endPrice = tempPrice;
+		}
+		Pageable pageable = new Pageable(pageNumber, pageSize);
+		pageable.getFilters().add(new Filter("isGroup", Filter.Operator.EQ,true));
+		return ResponseEntity.ok(productService.findPage(type,0, null, null, productCategory, storeProductCategory, brand, promotion, productTag, null, attributeValueMap, startPrice, endPrice, true, true, null, true, null, null, null, orderType, pageable).getContent());
 	}
 
 }

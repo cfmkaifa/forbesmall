@@ -82,6 +82,17 @@ public class Cart extends BaseEntity<Long> implements Iterable<CartItem> {
 	@Column(name = "cartKey", nullable = false, updatable = false, unique = true)
 	private String key;
 
+	public String getMethodCode() {
+		return methodCode;
+	}
+
+	public void setMethodCode(String methodCode) {
+		this.methodCode = methodCode;
+	}
+
+	@Transient
+	private String methodCode;
+
 	/**
 	 * 过期时间
 	 */

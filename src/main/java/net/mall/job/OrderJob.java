@@ -14,16 +14,20 @@ import org.springframework.stereotype.Component;
 
 import net.mall.service.OrderService;
 
+import java.util.concurrent.locks.ReentrantReadWriteLock;
+
 /**
  * Job - 订单
  * 
  * @author huanghy
  * @version 6.1
  */
-//@Lazy(false)
-//@Component
+@Lazy(false)
+@Component
 public class OrderJob {
 
+	private ReentrantReadWriteLock ORDER_LOCK = new ReentrantReadWriteLock();
+	private ReentrantReadWriteLock RECEIVE_LOCK = new ReentrantReadWriteLock();
 	@Inject
 	private OrderService orderService;
 
@@ -32,10 +36,13 @@ public class OrderJob {
 	 */
 	@Scheduled(cron = "${job.order_expired_processing.cron}")
 	public void expiredProcessing() {
-		orderService.expiredRefundHandle();
-		orderService.undoExpiredUseCouponCode();
-		orderService.undoExpiredExchangePoint();
-		orderService.releaseExpiredAllocatedStock();
+		if(ORDER_LOCK.writeLock().tryLock()){
+			orderService.expiredRefundHandle();
+			orderService.undoExpiredUseCouponCode();
+			orderService.undoExpiredExchangePoint();
+			orderService.releaseExpiredAllocatedStock();
+			ORDER_LOCK.writeLock().unlock();
+		}
 	}
 
 	/**
@@ -43,7 +50,11 @@ public class OrderJob {
 	 */
 	@Scheduled(cron = "${job.order_automatic_receive.cron}")
 	public void automaticReceive() {
-		orderService.automaticReceive();
+		if(RECEIVE_LOCK.writeLock().tryLock()){
+			orderService.automaticReceive();
+			RECEIVE_LOCK.writeLock().unlock();
+		}
+
 	}
 
 }
