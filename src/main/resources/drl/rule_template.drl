@@ -1,0 +1,40 @@
+template header
+RULE_KEY1
+RULE_KEY2
+RULE_KEY3
+package net.mall.rools
+import net.mall.rools.GroupPurchRools;
+template "RULE"
+rule "RUL_WEIGHT"
+// 当总重量
+salience 100
+lock-on-active true
+when
+$groupPurchRools : GroupPurchRools(totalWeight < @{RULE_KEY1})
+then
+$groupPurchRools.incoreMessage(0,"@{RULE_KEY1}");
+$groupPurchRools.insertGroupPurchApplyLog();
+end
+
+rule "RUL_LIMIT_WEIGHT"
+// 当总重量
+salience 101
+lock-on-active true
+when
+$groupPurchRools : GroupPurchRools(totalWeight > @{RULE_KEY2})
+then
+$groupPurchRools.incoreMessage(1,"@{RULE_KEY2}");
+$groupPurchRools.insertGroupPurchApplyLog();
+end
+
+rule "RULE_COUNT"
+// 当总人数
+salience 102
+lock-on-active true
+when
+$groupPurchRools : GroupPurchRools(totalCount > @{RULE_KEY3})
+then
+$groupPurchRools.incoreMessage(2," @{RULE_KEY3}");
+$groupPurchRools.insertGroupPurchApplyLog();
+end
+end template

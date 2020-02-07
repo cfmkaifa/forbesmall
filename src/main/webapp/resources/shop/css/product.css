@@ -1009,7 +1009,7 @@
 }
 
 .product-detail .parameter .parameter-body table {
-	width: 70%;
+	width: 100%;
 	line-height: 30px;
 	margin: 0 auto;
 }
@@ -1031,6 +1031,7 @@
 .product-detail .parameter .parameter-body table td {
 	padding: 0px 10px;
 	border: 1px solid #eeeeee;
+	text-align: center !important
 }
 .product-detail .parameter .parameter-body table td:first-of-type{
 	text-align: right;

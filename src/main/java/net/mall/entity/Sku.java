@@ -211,8 +211,7 @@ public class Sku extends BaseEntity<Long> {
 	}
 
 	@JsonView(BaseView.class)
-	@NotNull
-	@Column(nullable = false,name = "is_group")
+	@Column(name = "is_group")
 	private Boolean isGroup;
 
 	/**

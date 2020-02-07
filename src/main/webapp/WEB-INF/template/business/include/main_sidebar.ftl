@@ -217,6 +217,12 @@
 								${message("business.mainSidebar.groupPurchApplyList")}
 							</a>
 						</li>
+						<li class="list-group-item[#if .main_template_name?matches("business/group_purch_apply_log/.*")] active[/#if]">
+							<a href="${base}/business/group_purch_apply_log/list">
+								<i class="iconfont icon-weixuanzhong"></i>
+								${message("business.mainSidebar.groupPurchApplyLogList")}
+							</a>
+						</li>
 						<li class="list-group-item[#if .main_template_name?matches("business/store/payment.*")] active[/#if]">
 							<a href="${base}/business/store/payment">
 								<i class="iconfont icon-weixuanzhong"></i>

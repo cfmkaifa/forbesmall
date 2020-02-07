@@ -40,6 +40,26 @@ public class GroupPurchApplyDaoImpl  extends BaseDaoImpl<GroupPurchApply, Long> 
     /***
      *
      * @param applyStatus
+     * @param currentDate
+     * @param proSn
+     * @param skuSn
+     * @return
+     */
+    public GroupPurchApply  putawayGroupPurchApply(GroupPurchApply.ApplyStatus applyStatus, Date currentDate,String proSn,String skuSn){
+        String jpql = " SELECT pal FROM GroupPurchApply  pal WHERE pal.status = :status  AND pal.proSn = :proSn AND pal.skuSn = :skuSn AND pal.startTime <= :startTime AND pal.endTime >= :endTime";
+        return entityManager.createQuery(jpql,GroupPurchApply.class)
+                .setParameter("status",applyStatus)
+                .setParameter("proSn",proSn)
+                .setParameter("skuSn",skuSn)
+                .setParameter("startTime",currentDate)
+                .setParameter("endTime",currentDate)
+                .getSingleResult();
+    }
+
+
+    /***
+     *
+     * @param applyStatus
      * @param jobStatus
      * @param currentDate
      * @return

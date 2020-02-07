@@ -27,6 +27,17 @@ public interface GroupPurchApplyDao extends BaseDao<GroupPurchApply, Long>  {
     List<GroupPurchApply> putawayGroupPurchApply(GroupPurchApply.ApplyStatus applyStatus, GroupPurchApply.JobStatus jobStatus, Date currentDate);
 
 
+
+    /***
+     *
+     * @param applyStatus
+     * @param currentDate
+     * @param proSn
+     * @param skuSn
+     * @return
+     */
+    GroupPurchApply  putawayGroupPurchApply(GroupPurchApply.ApplyStatus applyStatus, Date currentDate,String proSn,String skuSn);
+
     /***
      *
      * @param applyStatus

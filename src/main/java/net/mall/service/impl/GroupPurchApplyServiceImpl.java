@@ -57,6 +57,18 @@ public class GroupPurchApplyServiceImpl extends BaseServiceImpl<GroupPurchApply,
     /***
      *
      * @param applyStatus
+     * @param currentDate
+     * @param proSn
+     * @param skuSn
+     * @return
+     */
+    public GroupPurchApply  putawayGroupPurchApply(GroupPurchApply.ApplyStatus applyStatus, Date currentDate,String proSn,String skuSn){
+        return  groupPurchApplyDao.putawayGroupPurchApply(applyStatus,currentDate,proSn,skuSn);
+    }
+
+    /***
+     *
+     * @param applyStatus
      * @param jobStatus
      * @param currentDate
      * @return

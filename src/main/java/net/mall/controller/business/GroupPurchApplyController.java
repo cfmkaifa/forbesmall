@@ -1,14 +1,15 @@
 package net.mall.controller.business;
-import net.mall.*;
-import net.mall.entity.*;
+import net.mall.Filter;
+import net.mall.Page;
+import net.mall.Pageable;
+import net.mall.Results;
+import net.mall.entity.GroupPurchApply;
+import net.mall.entity.Product;
+import net.mall.entity.Store;
 import net.mall.security.CurrentStore;
-import net.mall.security.CurrentUser;
 import net.mall.service.GroupPurchApplyService;
 import net.mall.service.ProductService;
 import net.mall.util.ConvertUtils;
-import net.mall.util.SystemUtils;
-import org.apache.commons.lang.StringUtils;
-import org.codehaus.groovy.runtime.dgmimpl.arrays.LongArrayGetAtMetaMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import javax.inject.Inject;
 @Controller("businessGroupPurchApplyController")
 @RequestMapping("/business/group_purch_apply")
@@ -68,6 +70,7 @@ public class GroupPurchApplyController extends BaseController {
         groupPurchApply.setStoreId(currentStore.getId());
         groupPurchApply.setStoreName(currentStore.getName());
         groupPurchApply.setStatus(GroupPurchApply.ApplyStatus.PENDING);
+        groupPurchApply.setJobStatus(GroupPurchApply.JobStatus.PENDING);
         groupPurchApplyService.save(groupPurchApply);
         return Results.OK;
     }

@@ -6,19 +6,20 @@
  */
 package net.mall.controller.shop;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-
+import com.fasterxml.jackson.annotation.JsonView;
+import net.mall.Results;
+import net.mall.entity.*;
+import net.mall.entity.Order.Status;
+import net.mall.entity.PaymentMethod.Method;
+import net.mall.entity.Specification.Sample;
+import net.mall.plugin.PaymentPlugin;
+import net.mall.rools.ExtDataProviderCompiler;
+import net.mall.rools.GroupPurchRools;
+import net.mall.security.CurrentCart;
+import net.mall.security.CurrentUser;
+import net.mall.service.*;
 import net.mall.util.ConvertUtils;
+import net.mall.util.WebUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.ArrayUtils;
@@ -34,38 +35,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.annotation.JsonView;
-
-import net.mall.Results;
-import net.mall.entity.BaseEntity;
-import net.mall.entity.Cart;
-import net.mall.entity.CartItem;
-import net.mall.entity.Coupon;
-import net.mall.entity.CouponCode;
-import net.mall.entity.Invoice;
-import net.mall.entity.Member;
-import net.mall.entity.Order;
-import net.mall.entity.Order.Status;
-import net.mall.entity.PaymentMethod;
-import net.mall.entity.PaymentMethod.Method;
-import net.mall.entity.Product;
-import net.mall.entity.Receiver;
-import net.mall.entity.ShippingMethod;
-import net.mall.entity.Sku;
-import net.mall.entity.Specification.Sample;
-import net.mall.entity.Store;
-import net.mall.plugin.PaymentPlugin;
-import net.mall.security.CurrentCart;
-import net.mall.security.CurrentUser;
-import net.mall.service.AreaService;
-import net.mall.service.CouponCodeService;
-import net.mall.service.OrderService;
-import net.mall.service.PaymentMethodService;
-import net.mall.service.PluginService;
-import net.mall.service.ReceiverService;
-import net.mall.service.ShippingMethodService;
-import net.mall.service.SkuService;
-import net.mall.util.WebUtils;
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
+import java.util.*;
 
 /**
  * Controller - 订单
@@ -92,7 +66,11 @@ public class OrderController extends BaseController {
 	@Inject
 	private OrderService orderService;
 	@Inject
+	GroupPurchApplyService groupPurchApplyService;
+	@Inject
 	private PluginService pluginService;
+	@Inject
+	ExtDataProviderCompiler extDataProviderCompiler;
 
 	/**
 	 * 检查SKU
@@ -275,7 +253,7 @@ public class OrderController extends BaseController {
 			String methodCode,
 			@CurrentUser Member currentUser, @CurrentCart Cart currentCart,
 			HttpServletRequest request,
-			ModelMap model) {
+			ModelMap model) throws UnsupportedEncodingException {
 		Cart cart;
 		Order.Type orderType;
 		if (skuId != null) {
@@ -304,6 +282,13 @@ public class OrderController extends BaseController {
 		} else {
 			cart = currentCart;
 			orderType = Order.Type.GENERAL;
+		}
+		/***团购申请
+		 * **/
+		if("group_purch".equalsIgnoreCase(methodCode)){
+			if(!this.checkGroupPurch(skuId,quantity,currentUser)){
+				return UNPROCESSABLE_ENTITY_VIEW;
+			}
 		}
 		if (cart == null || cart.isEmpty()) {
 			return UNPROCESSABLE_ENTITY_VIEW;
@@ -393,6 +378,31 @@ public class OrderController extends BaseController {
 		model.addAttribute("paymentMethods", paymentMethods);
 		model.addAttribute("shippingMethods", shippingMethodService.findAll());
 		return "shop/order/checkout";
+	}
+
+	/***监测团购
+	 * @param skuId
+	 * @return
+	 */
+	private boolean checkGroupPurch(Long skuId,Integer quantity,Member currentUser) throws UnsupportedEncodingException {
+		Sku sku = skuService.find(skuId);
+		Product product = sku.getProduct();
+		GroupPurchRools groupPurchRools = new GroupPurchRools();
+		groupPurchRools.setTotalWeight(sku.getTotalUnit().multiply(new BigDecimal(quantity)).longValue());
+		groupPurchRools.setTotalCount(1);
+		groupPurchRools.setMember(currentUser);
+		groupPurchRools.setProduct(product);
+		groupPurchRools.setSku(sku);
+		groupPurchRools.setStore(product.getStore());
+		Date currentDate = new Date();
+		GroupPurchApply groupPurchApply = groupPurchApplyService.putawayGroupPurchApply(GroupPurchApply.ApplyStatus.APPROVED,currentDate,product.getSn(),sku.getSn());
+		if (ConvertUtils.isNotEmpty(groupPurchApply)){
+			String[] params = {String.valueOf(groupPurchApply.getMqqWeight()),String.valueOf(groupPurchApply.getLimitWeight()),String.valueOf(groupPurchApply.getLimitPeople())};
+			extDataProviderCompiler.executeRules(params,groupPurchRools);
+			return  groupPurchRools.isCreate();
+		} else {
+			return false;
+		}
 	}
 
 	/**
