@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mall>
-	<setting name="siteName" value="无纺平台" />
-	<!--http://www.interstrangers.net-->
-	<setting name="siteUrl" value="http://www.interstrangers.net" />
-	<setting name="fileUrl" value="http://fds.interstrangers.net" />
+	<setting name="siteName" value="让雷智能" />
+	<!-- http://www.chinafibermarketing.net -->
+	<setting name="siteUrl" value="http://loccalhost:8080" />
+	<setting name="fileUrl" value="http://fds.chinafibermarketing.net" />
 	<setting name="logo" value="/resources/shop/images/logo.png" />
 	<setting name="hotSearch" value="" />
 	<setting name="address" value="" />
