@@ -6,37 +6,9 @@
  */
 package net.mall.entity;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Convert;
-import javax.persistence.Converter;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.OrderBy;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-import javax.validation.Valid;
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.groups.Default;
-
+import com.fasterxml.jackson.annotation.JsonView;
+import net.mall.BaseAttributeConverter;
+import net.mall.plugin.PaymentPlugin;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.BooleanUtils;
@@ -44,10 +16,15 @@ import org.apache.commons.lang.StringUtils;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.fasterxml.jackson.annotation.JsonView;
-
-import net.mall.BaseAttributeConverter;
-import net.mall.plugin.PaymentPlugin;
+import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.groups.Default;
+import java.math.BigDecimal;
+import java.util.*;
 
 /**
  * Entity - 订单
@@ -221,8 +198,7 @@ public class Order extends BaseEntity<Long> {
 	}
 
 	@JsonView(BaseView.class)
-	@NotNull
-	@Column(nullable = false,name = "is_group")
+	@Column(name = "is_group")
 	private Boolean isGroup;
 
 	/**
