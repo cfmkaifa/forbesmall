@@ -6,27 +6,6 @@
  */
 package net.mall.plugin;
 
-import java.io.UnsupportedEncodingException;
-import java.math.BigDecimal;
-import java.security.PrivateKey;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
-
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.time.DateFormatUtils;
-import org.springframework.stereotype.Component;
-import org.springframework.web.servlet.ModelAndView;
-
 import net.mall.Filter;
 import net.mall.entity.Order;
 import net.mall.entity.PaymentTransaction;
@@ -35,6 +14,20 @@ import net.mall.service.SupplierPluginConfigService;
 import net.mall.util.ConvertUtils;
 import net.mall.util.SecurityUtils;
 import net.mall.util.WebUtils;
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.time.DateFormatUtils;
+import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
+import java.security.PrivateKey;
+import java.util.*;
 
 /**
  * Plugin - 银联在线支付
@@ -102,7 +95,9 @@ public class UnionpayPaymentPlugin extends PaymentPlugin {
 		String certId = getCertId();
 		String merchantId = getMerchantId();
 		PrivateKey privateKey = null;
-		if(ConvertUtils.isNotEmpty(order)){
+		if(ConvertUtils.isNotEmpty(order)
+				&& ConvertUtils.isNotEmpty(order.getGroup())
+				&& !order.getGroup()){
 			List<Filter> filters = new ArrayList<Filter>();
 			filters.add(new Filter("supplierId", Filter.Operator.EQ, order.getStore().getBusiness().getId()));
 			filters.add(new Filter("pluginId", Filter.Operator.EQ, paymentPlugin.getPluginConfig().getPluginId()));

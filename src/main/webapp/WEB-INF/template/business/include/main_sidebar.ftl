@@ -184,7 +184,7 @@
 					</a>
 				</h4>
 			</div>
-			<div id="storePanelCollapse" class="panel-collapse collapse[#if .main_template_name?matches("business/store/setting.*|business/store_product_category/.*|business/store_product_tag/.*|business/category_application/.*|business/store/payment.*|business/shipping_method/.*|business/area_freight_config/.*|business/store_ad_image/.*|business/aftersales_setting/.*")] in[/#if]">
+			<div id="storePanelCollapse" class="panel-collapse collapse[#if .main_template_name?matches("business/store/setting.*|business/store_product_category/.*|business/store_product_tag/.*|business/category_application/.*|business/store/payment.*|business/shipping_method/.*|business/area_freight_config/.*|business/store_ad_image/.*|business/aftersales_setting/.*|business/group_purch_apply_log/.*|business/group_purch_apply/.*")] in[/#if]">
 				<div class="panel-body">
 					<ul class="list-group">
 						<li class="list-group-item[#if .main_template_name?matches("business/store/setting.*")] active[/#if]">

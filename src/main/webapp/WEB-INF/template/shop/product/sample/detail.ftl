@@ -1,4 +1,4 @@
-[#assign defaultSku = product.groupPurchSku /]
+[#assign defaultSku = product.defaultSku /]
 [#assign productCategory = product.productCategory /]
 <!DOCTYPE html>
 <html>
@@ -50,7 +50,7 @@
 	<script src="${base}/resources/common/js/velocity.js"></script>
 	<script src="${base}/resources/common/js/velocity.ui.js"></script>
 	<script src="${base}/resources/common/js/base.js?version=0.1"></script>
-	<script src="${base}/resources/shop/js/base.js?v=1.0"></script>
+	<script src="${base}/resources/shop/js/base.js"></script>
     <script src="${base}/resources/common/js/iconfont1.js"></script>
 	[#noautoesc]
 		[#escape x as x?js_string]
@@ -79,17 +79,17 @@
 				var historyProductIdsLocalStorageKey = "historyProductIds";
 				[#if product.hasSpecification()]
 					[#list product.skus as sku]
-						[#if sku.group]
+				        [#if sku.sample == "YES" ]
 							skuData["${sku.specificationValueIds?join(",")}"] = {
 								id: ${sku.id},
-								price: ${sku.groupPrice},
+								price: ${sku.price},
 								marketPrice: ${sku.marketPrice},
 								rewardPoint: ${sku.rewardPoint},
 								exchangePoint: ${sku.exchangePoint},
 								sample:"${sku.sample}",
 								isOutOfStock: ${sku.isOutOfStock?string("true", "false")}
 							};
-				        [/#if]
+					    [/#if]
 					[/#list]
 					// 锁定规格值
 					lockSpecificationValue();
@@ -214,9 +214,6 @@
 					},
 					quantity: function() {
 						return $quantity.val();
-					},
-					methodCode:function(){
-						return "group_purch";
 					}
 				});
 				
@@ -387,7 +384,7 @@
 					<div class="summary">
                         <div class="money-2">
                             <p>
-								${message("Product.unitPrice")}：<strong id="price" class="unit-2">${currency(defaultSku.groupPrice, true)}</strong>
+								${message("Product.unitPrice")}：<strong id="price" class="unit-2">${product.price}</strong>
 								<span class="unit-2">/${product.unit}</span>
 							</p>
                             <div style="display: flex">
@@ -452,7 +449,7 @@
 						</div>
 						<div class="action">
 							[#if product.type == "GENERAL"]
-								<button id="buy" class="btn btn-default btn-lg" type="button"[#if defaultSku.isOutOfStock] disabled[/#if]>${message("shop.product.buy")}</button>
+								<button id="buy" class="btn btn-default btn-lg" type="button"[#if defaultSku.isOutOfStock] disabled[/#if]>${message("shop.product.sampleBuy")}</button>
 							[#elseif product.type == "EXCHANGE"]
 								<button id="exchange" class="btn btn-primary btn-lg" type="button"[#if defaultSku.isOutOfStock] disabled[/#if]>
 									<i class="iconfont icon-present"></i>

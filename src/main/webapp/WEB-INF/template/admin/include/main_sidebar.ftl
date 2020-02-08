@@ -83,12 +83,12 @@
 					</div>
 				[/#if]
 			[/@has_any_permissions_tag]
-			<div id="storeGroupPanelCollapse" class="panel-collapse collapse[#if .main_template_name?matches("admin/index.*|admin/business/.*|admin/store/.*|admin/store_category/.*|admin/store_rank/.*|admin/business_attribute/.*|admin/business_cash/.*|admin/category_application/.*|admin/business_deposit/.*")] in[/#if]">
+			<div id="storeGroupPanelCollapse" class="panel-collapse collapse[#if .main_template_name?matches("admin/index.*|admin/business/.*|admin/business_payment_plugin/.*|admin/store/.*|admin/store_category/.*|admin/store_rank/.*|admin/business_attribute/.*|admin/business_cash/.*|admin/category_application/.*|admin/business_deposit/.*")|| (RequestParameters['redirectUrl']?? && RequestParameters['redirectUrl']?matches("/admin/business_payment_plugin/.*"))] in[/#if]">
 				<div class="panel-body">
 					<ul class="list-group">
 						[@has_permission_tag permission="admin:business"]
 							[#if hasPermission]
-								<li class="list-group-item[#if .main_template_name?matches("admin/business/.*")] active[/#if]">
+								<li class="list-group-item[#if .main_template_name?matches("admin/business/.*")|| (RequestParameters['redirectUrl']?? && RequestParameters['redirectUrl']?matches("/admin/business_payment_plugin/.*"))] active[/#if]">
 									<a href="${base}/admin/business/list">
 										<i class="iconfont icon-weixuanzhong"></i>
 										${message("admin.mainSidebar.business")}

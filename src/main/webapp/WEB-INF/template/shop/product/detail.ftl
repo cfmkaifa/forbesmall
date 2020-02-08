@@ -70,7 +70,6 @@
 				var $specificationValue = $("#specification dd a");
 				var $quantity = $("#quantity");
 				var $buy = $("#buy");
-				var $sampleBuy = $("#sampleBuy");
 				var $addCart = $("#addCart");
 				var $exchange = $("#exchange");
 				var $addProductNotify = $("#addProductNotify");
@@ -81,15 +80,17 @@
 				var historyProductIdsLocalStorageKey = "historyProductIds";
 				[#if product.hasSpecification()]
 					[#list product.skus as sku]
-						skuData["${sku.specificationValueIds?join(",")}"] = {
-							id: ${sku.id},
-							price: ${sku.price},
-							marketPrice: ${sku.marketPrice},
-							rewardPoint: ${sku.rewardPoint},
-							exchangePoint: ${sku.exchangePoint},
-							sample:"${sku.sample}",
-							isOutOfStock: ${sku.isOutOfStock?string("true", "false")}
-						};
+						[#if sku.sample == "NO" ]
+							skuData["${sku.specificationValueIds?join(",")}"] = {
+								id: ${sku.id},
+								price: ${sku.price},
+								marketPrice: ${sku.marketPrice},
+								rewardPoint: ${sku.rewardPoint},
+								exchangePoint: ${sku.exchangePoint},
+								sample:"${sku.sample}",
+								isOutOfStock: ${sku.isOutOfStock?string("true", "false")}
+							};
+						[/#if]
 					[/#list]
 					// 锁定规格值
 					lockSpecificationValue();
@@ -169,16 +170,13 @@
 						$exchangePoint.text(sku.exchangePoint);
 						if (sku.isOutOfStock) {
 							$buy.add($addCart).add($exchange).prop("disabled", true);
-							$sampleBuy.prop("disabled", true);
 							$addProductNotify.show();
 							$actionTips.text("${message("shop.product.skuLowStock")}").fadeIn();
 						} else {
 							$buy.add($addCart).add($exchange).prop("disabled", false);
 							if("YES"==sku.sample){
-								$sampleBuy.prop("disabled", false);
 								$buy.prop("disabled", true);
 							} else {
-								$sampleBuy.prop("disabled", true);
 								$buy.prop("disabled", false);
 							}
 							$addProductNotify.hide();
@@ -188,7 +186,6 @@
 						skuId = null;
 						$specification.addClass("warning");
 						$buy.add($addCart).add($exchange).prop("disabled", true);
-						$sampleBuy.prop("disabled", true);
 						$addProductNotify.hide();
 						$actionTips.text("${message("shop.product.specificationRequired")}").fadeIn();
 					}
@@ -227,20 +224,6 @@
 						return $quantity.val();
 					}
 				});
-				// 样品购买
-				$sampleBuy.checkout({
-					skuId: function() {
-						return skuId;
-					},
-					quantity: function() {
-						return $quantity.val();
-					},
-					methodCode:function(){
-						return "sample";
-					}
-				});
-				
-				
 				// 加入购物车
 				$addCart.addCart({
 					skuId: function() {
@@ -486,7 +469,6 @@
 						<div class="action">
 							[#if product.type == "GENERAL"]
 								<button id="buy" class="btn btn-default btn-lg" type="button"[#if defaultSku.isOutOfStock] disabled[/#if]>${message("shop.product.buy")}</button>
-								<button id="sampleBuy" class="btn btn-default btn-lg" type="button"[#if defaultSku.isOutOfStock] disabled[/#if]>${message("shop.product.sampleBuy")}</button>
 								<button id="addCart" class="btn btn-primary btn-lg" type="button"[#if defaultSku.isOutOfStock] disabled[/#if]>
 									<i class="iconfont icon-cart"></i>
 									${message("shop.product.addCart")}

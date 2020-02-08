@@ -46,10 +46,16 @@
                     $groupPurchApplyForm.validate({
                         rules: {
                             skuSn: "required",
-                            mqqWeight: "digits",
+                            mqqWeight: {
+                                required:true,
+                                digits:true
+                            },
                             limitWeight:"digits",
                             mqqPeople:"digits",
-                            groupPrice:"digits",
+                            groupPrice:{
+                                required:true,
+                                digits:true
+                            },
                             limitPeople:"digits"
                         }
                     });

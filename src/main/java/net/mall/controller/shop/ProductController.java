@@ -6,17 +6,13 @@
  */
 package net.mall.controller.shop;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-
+import com.fasterxml.jackson.annotation.JsonView;
 import net.mall.Filter;
+import net.mall.Pageable;
+import net.mall.Results;
+import net.mall.entity.*;
+import net.mall.exception.ResourceNotFoundException;
+import net.mall.service.*;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.ArrayUtils;
@@ -33,28 +29,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.annotation.JsonView;
-
-import net.mall.Pageable;
-import net.mall.Results;
-import net.mall.entity.Attribute;
-import net.mall.entity.BaseEntity;
-import net.mall.entity.Brand;
-import net.mall.entity.Product;
-import net.mall.entity.ProductCategory;
-import net.mall.entity.ProductTag;
-import net.mall.entity.Promotion;
-import net.mall.entity.Store;
-import net.mall.entity.StoreProductCategory;
-import net.mall.exception.ResourceNotFoundException;
-import net.mall.service.AttributeService;
-import net.mall.service.BrandService;
-import net.mall.service.ProductCategoryService;
-import net.mall.service.ProductService;
-import net.mall.service.ProductTagService;
-import net.mall.service.PromotionService;
-import net.mall.service.StoreProductCategoryService;
-import net.mall.service.StoreService;
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import java.math.BigDecimal;
+import java.util.*;
 
 /**
  * Controller - 商品
@@ -131,7 +109,7 @@ public class ProductController extends BaseController {
 		}
 		product.setSample(true);
 		model.addAttribute("product", product);
-		return "shop/product/detail";
+		return "shop/product/sample/detail";
 	}
 
 
