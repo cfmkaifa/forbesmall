@@ -2,7 +2,7 @@
 <mall>
 	<setting name="siteName" value="让雷智能" />
 	<!-- http://www.chinafibermarketing.net -->
-	<setting name="siteUrl" value="http://loccalhost:8080" />
+	<setting name="siteUrl" value="http://www.chinafibermarketing.net" />
 	<setting name="fileUrl" value="http://fds.chinafibermarketing.net" />
 	<setting name="logo" value="/resources/shop/images/logo.png" />
 	<setting name="hotSearch" value="" />
