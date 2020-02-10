@@ -2,6 +2,7 @@ template header
 RULE_KEY1
 RULE_KEY2
 RULE_KEY3
+RULE_KEY4
 package net.mall.rools
 import net.mall.rools.GroupPurchRools;
 template "RULE"
@@ -12,7 +13,7 @@ lock-on-active true
 when
 $groupPurchRools : GroupPurchRools(totalWeight < @{RULE_KEY1})
 then
-$groupPurchRools.incoreMessage(0,"@{RULE_KEY1}");
+$groupPurchRools.incoreMessage(0,"@{RULE_KEY1}","@{RULE_KEY4}");
 $groupPurchRools.insertGroupPurchApplyLog();
 end
 
@@ -23,7 +24,7 @@ lock-on-active true
 when
 $groupPurchRools : GroupPurchRools(totalWeight > @{RULE_KEY2})
 then
-$groupPurchRools.incoreMessage(1,"@{RULE_KEY2}");
+$groupPurchRools.incoreMessage(1,"@{RULE_KEY2}","@{RULE_KEY4}");
 $groupPurchRools.insertGroupPurchApplyLog();
 end
 
@@ -34,7 +35,7 @@ lock-on-active true
 when
 $groupPurchRools : GroupPurchRools(totalCount > @{RULE_KEY3})
 then
-$groupPurchRools.incoreMessage(2," @{RULE_KEY3}");
+$groupPurchRools.incoreMessage(2," @{RULE_KEY3}","@{RULE_KEY4}");
 $groupPurchRools.insertGroupPurchApplyLog();
 end
 end template

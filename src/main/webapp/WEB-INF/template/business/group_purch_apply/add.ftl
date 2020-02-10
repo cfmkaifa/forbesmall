@@ -132,7 +132,9 @@
                                 });
                                 return false;
                             }
-
+                            $(form).ajaxSubmit({
+                                successRedirectUrl: "${base}/business/group_purch_apply/list"
+                            });
                         }
                     });
 
