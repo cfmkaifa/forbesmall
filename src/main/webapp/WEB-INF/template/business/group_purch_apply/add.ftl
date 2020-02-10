@@ -50,13 +50,89 @@
                                 required:true,
                                 digits:true
                             },
-                            limitWeight:"digits",
-                            mqqPeople:"digits",
-                            groupPrice:{
+                            limitWeight:{
                                 required:true,
                                 digits:true
                             },
-                            limitPeople:"digits"
+                            mqqPeople:{
+                                required:true,
+                                digits:true
+                            },
+                            groupPrice:{
+                                required:true,
+                                number: true,
+                                min: 0,
+                                decimal: {
+                                    integer: 12,
+                                    fraction: ${setting.priceScale}
+                                }
+                            },
+                            limitPeople:{
+                                required:true,
+                                digits:true
+                            },
+                            startTime: "required",
+                            endTime: "required"
+                        },
+                        submitHandler: function(form) {
+                            var groupPrice = $("#groupPrice").val();
+                            var mqqWeight = $("#mqqWeight").val();
+                            var limitWeight = $("#limitWeight").val();
+                            var mqqPeople = $("#mqqPeople").val();
+                            var limitPeople = $("#limitPeople").val();
+                            var startTime = $("#startTime").val();
+                            var endTime = $("#endTime").val();
+                            if(parseFloat(groupPrice) == 0){
+                                $.bootstrapGrowl("${message("business.groupPurch.groupPriceRequired")}", {
+                                    type: "warning"
+                                });
+                                return false;
+                            }
+                            if(parseInt(mqqWeight) == 0){
+                                $.bootstrapGrowl("${message("business.groupPurch.mqqWeightRequired")}", {
+                                    type: "warning"
+                                });
+                                return false;
+                            }
+                            if(parseInt(limitWeight) == 0){
+                                $.bootstrapGrowl("${message("business.groupPurch.limitWeightRequired")}", {
+                                    type: "warning"
+                                });
+                                return false;
+                            }
+                            if(parseFloat(limitWeight) <= parseFloat(mqqWeight)){
+                                $.bootstrapGrowl("${message("business.groupPurch.weightRequired")}", {
+                                    type: "warning"
+                                });
+                                return false;
+                            }
+                            if(parseInt(mqqPeople) == 0){
+                                $.bootstrapGrowl("${message("business.groupPurch.mqqPeopleRequired")}", {
+                                    type: "warning"
+                                });
+                                return false;
+                            }
+                            if(parseInt(limitPeople) == 0){
+                                $.bootstrapGrowl("${message("business.groupPurch.limitPeopleRequired")}", {
+                                    type: "warning"
+                                });
+                                return false;
+                            }
+                            if(parseFloat(limitPeople) <= parseFloat(mqqPeople)){
+                                $.bootstrapGrowl("${message("business.groupPurch.peopleRequired")}", {
+                                    type: "warning"
+                                });
+                                return false;
+                            }
+                            var endDate = new Date(endTime);
+                            var startDate = new Date(startTime);
+                            if(endDate <= startDate){
+                                $.bootstrapGrowl("${message("business.groupPurch.timeRequired")}", {
+                                    type: "warning"
+                                });
+                                return false;
+                            }
+
                         }
                     });
 
@@ -89,11 +165,13 @@
                         <div class="col-xs-9 col-sm-4">
                             <select id="skuSn" name="skuSn" class="selectpicker form-control" data-live-search="true" data-size="10">
                                 [#list product.skus as sku]
-                                    <option value="${sku.sn}" >
-                                        [#if sku.specifications?has_content]
-                                            <span class="text-gray">[${sku.specifications?join(", ")}]</span>
-                                        [/#if]
-                                    </option>
+                                    [#if  !sku.group]
+                                        <option value="${sku.sn}" >
+                                            [#if sku.specifications?has_content]
+                                                <span class="text-gray">[${sku.specifications?join(", ")}]</span>
+                                            [/#if]
+                                        </option>
+                                    [/#if]
                                 [/#list]
                             </select>
                         </div>
@@ -146,7 +224,7 @@
                             <div class="input-group" data-provide="datetimerangepicker" data-date-format="YYYY-MM-DD HH:mm:ss">
                                 <input id="startTime" name="startTime" class="form-control" type="text">
                                 <span class="input-group-addon">-</span>
-                                <input name="endTime" class="form-control" type="text">
+                                <input id="endTime" name="endTime" class="form-control" type="text">
                             </div>
                         </div>
                     </div>
