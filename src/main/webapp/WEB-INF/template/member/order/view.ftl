@@ -181,7 +181,7 @@
 							initialPreviewAsData: true,
 							previewClass: "multiple-file-preview",
 							[#if orderShipping.weightMemo?has_content]
-								[#if order.weightMemo?contains("pdf")]
+								[#if orderShipping.weightMemo?contains("pdf")]
 									initialPreviewFileType:"pdf",
 								[#else]
 									initialPreviewFileType:"image",

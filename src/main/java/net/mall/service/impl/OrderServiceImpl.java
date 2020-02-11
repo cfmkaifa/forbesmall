@@ -6,19 +6,23 @@
  */
 package net.mall.service.impl;
 
-import java.io.FileNotFoundException;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
+import com.itextpdf.text.DocumentException;
+import net.mall.Filter;
+import net.mall.Page;
+import net.mall.Pageable;
+import net.mall.Setting;
+import net.mall.dao.*;
+import net.mall.entity.*;
+import net.mall.entity.Order.CommissionType;
+import net.mall.entity.Order.Status;
+import net.mall.entity.Order.Type;
+import net.mall.service.*;
 import net.mall.util.ConvertUtils;
+import net.mall.util.PdfUtil;
+import net.mall.util.SystemUtils;
+import net.sf.ehcache.CacheManager;
+import net.sf.ehcache.Ehcache;
+import net.sf.ehcache.Element;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.BooleanUtils;
@@ -31,71 +35,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import com.itextpdf.text.DocumentException;
-
-import net.mall.Filter;
-import net.mall.Page;
-import net.mall.Pageable;
-import net.mall.Setting;
-import net.mall.dao.CartDao;
-import net.mall.dao.DistributionCommissionDao;
-import net.mall.dao.MemberDao;
-import net.mall.dao.OrderDao;
-import net.mall.dao.OrderLogDao;
-import net.mall.dao.OrderPaymentDao;
-import net.mall.dao.OrderRefundsDao;
-import net.mall.dao.OrderReturnsDao;
-import net.mall.dao.OrderShippingDao;
-import net.mall.dao.ProductDao;
-import net.mall.dao.SnDao;
-import net.mall.dao.StoreDao;
-import net.mall.entity.BusinessDepositLog;
-import net.mall.entity.Cart;
-import net.mall.entity.CartItem;
-import net.mall.entity.Coupon;
-import net.mall.entity.CouponCode;
-import net.mall.entity.DistributionCommission;
-import net.mall.entity.Distributor;
-import net.mall.entity.Invoice;
-import net.mall.entity.Member;
-import net.mall.entity.MemberDepositLog;
-import net.mall.entity.Order;
-import net.mall.entity.Order.CommissionType;
-import net.mall.entity.Order.Status;
-import net.mall.entity.Order.Type;
-import net.mall.entity.OrderItem;
-import net.mall.entity.OrderLog;
-import net.mall.entity.OrderPayment;
-import net.mall.entity.OrderRefunds;
-import net.mall.entity.OrderReturns;
-import net.mall.entity.OrderReturnsItem;
-import net.mall.entity.OrderShipping;
-import net.mall.entity.OrderShippingItem;
-import net.mall.entity.PaymentMethod;
-import net.mall.entity.PointLog;
-import net.mall.entity.Product;
-import net.mall.entity.Receiver;
-import net.mall.entity.ShippingMethod;
-import net.mall.entity.Sku;
-import net.mall.entity.Sn;
-import net.mall.entity.StockLog;
-import net.mall.entity.Store;
-import net.mall.entity.User;
-import net.mall.service.BusinessService;
-import net.mall.service.CouponCodeService;
-import net.mall.service.MailService;
-import net.mall.service.MemberService;
-import net.mall.service.OrderService;
-import net.mall.service.ProductService;
-import net.mall.service.ShippingMethodService;
-import net.mall.service.SkuService;
-import net.mall.service.SmsService;
-import net.mall.service.UserService;
-import net.mall.util.PdfUtil;
-import net.mall.util.SystemUtils;
-import net.sf.ehcache.CacheManager;
-import net.sf.ehcache.Ehcache;
-import net.sf.ehcache.Element;
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.io.FileNotFoundException;
+import java.math.BigDecimal;
+import java.util.*;
 
 /**
  * Service - 订单
@@ -586,7 +531,6 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 			order.setQuantity(cart.getQuantity(store, true));
 			if(ConvertUtils.isNotEmpty(cart.getMethodCode())
 					&& "group_purch".equalsIgnoreCase(cart.getMethodCode())){
-				System.out.println("1111111111111111111111111111");
 				order.setGroup(true);
 			} else {
 				order.setGroup(false);
