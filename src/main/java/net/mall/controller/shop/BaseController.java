@@ -6,17 +6,16 @@
  */
 package net.mall.controller.shop;
 
-import java.util.Collection;
-import java.util.Map;
-import java.util.Set;
+import org.springframework.util.Assert;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
 
 import javax.inject.Inject;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
-
-import org.springframework.util.Assert;
-import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.RequestContextHolder;
+import java.util.Collection;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Controller - 基类
@@ -30,6 +29,11 @@ public class BaseController {
 	 * 请求无法处理视图
 	 */
 	protected static final String UNPROCESSABLE_ENTITY_VIEW = "common/error/unprocessable_entity";
+
+	/***
+	 *
+	 */
+	protected static final  String ERROR_MSG_CODE = "errorMessage";
 
 	/**
 	 * "验证结果"属性名称

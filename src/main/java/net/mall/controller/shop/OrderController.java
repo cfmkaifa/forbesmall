@@ -286,7 +286,7 @@ public class OrderController extends BaseController {
 		/***团购申请
 		 * **/
 		if("group_purch".equalsIgnoreCase(methodCode)){
-			if(!this.checkGroupPurch(skuId,quantity,currentUser)){
+			if(!this.checkGroupPurch(skuId,quantity,currentUser,model)){
 				return UNPROCESSABLE_ENTITY_VIEW;
 			}
 		}
@@ -384,7 +384,7 @@ public class OrderController extends BaseController {
 	 * @param skuId
 	 * @return
 	 */
-	private boolean checkGroupPurch(Long skuId,Integer quantity,Member currentUser) throws UnsupportedEncodingException {
+	private boolean checkGroupPurch(Long skuId,Integer quantity,Member currentUser,ModelMap model) throws UnsupportedEncodingException {
 		Sku sku = skuService.find(skuId);
 		Product product = sku.getProduct();
 		GroupPurchRools groupPurchRools = new GroupPurchRools();
@@ -397,8 +397,9 @@ public class OrderController extends BaseController {
 		Date currentDate = new Date();
 		GroupPurchApply groupPurchApply = groupPurchApplyService.putawayGroupPurchApply(GroupPurchApply.ApplyStatus.APPROVED,currentDate,product.getSn(),sku.getSn());
 		if (ConvertUtils.isNotEmpty(groupPurchApply)){
-			String[] params = {String.valueOf(groupPurchApply.getMqqWeight()),String.valueOf(groupPurchApply.getLimitWeight()),String.valueOf(groupPurchApply.getLimitPeople())};
+			String[] params = {String.valueOf(groupPurchApply.getMqqWeight()),String.valueOf(groupPurchApply.getLimitWeight()),String.valueOf(groupPurchApply.getLimitPeople()),product.getUnit()};
 			extDataProviderCompiler.executeRules(params,groupPurchRools);
+			model.addAttribute(ERROR_MSG_CODE,groupPurchRools.getMessage());
 			return  groupPurchRools.isCreate();
 		} else {
 			return false;

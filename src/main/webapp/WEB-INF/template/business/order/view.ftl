@@ -254,7 +254,7 @@
 							initialPreviewAsData: true,
 							previewClass: "multiple-file-preview",
 							[#if orderShipping.weightMemo?has_content]
-									[#if order.weightMemo?contains("pdf")]
+									[#if orderShipping.weightMemo?contains("pdf")]
 										initialPreviewFileType:"pdf",
 									[#else]
 										initialPreviewFileType:"image",
@@ -291,7 +291,7 @@
 						[/#if]
 						maxFileCount: 0,
 						autoReplace: false,
-						showRemove: false,
+						showRemove: true,
 						showClose: false,
 						dropZoneEnabled: false,
 						overwriteInitial: false,
@@ -310,13 +310,12 @@
 							initialPreview: "${order.certificatePath}",
 						[/#if]
 						layoutTemplates: {
-							actionDelete:'',
 							footer: '<div class="file-thumbnail-footer">{actions}</div>',
 							actions: '<div class="file-actions"><div class="file-footer-buttons">{upload} {download} {delete} {zoom} {other}</div>{drag}<div class="clearfix"></div></div>'
 						},
 						fileActionSettings: {
 							showUpload: false,
-							showRemove: false,
+							showRemove:true,
 							showDrag: false
 						},
 						removeFromPreviewOnError:false,

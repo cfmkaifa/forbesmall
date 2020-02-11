@@ -42,13 +42,13 @@ public class GroupPurchRools implements Serializable {
      *
      * @param state
      */
-    public void incoreMessage(int state,String current){
+    public void incoreMessage(int state,String current,String unit){
         switch (state){
             case 0:
-                message = "起订重量:"+current+"用户下单总重量为:" + this.totalWeight;
+                message = "起订重量:"+current+unit+"用户下单总重量为:" + this.totalWeight+unit;
                 break;
             case 1:
-                message = "限制重量:"+current+"用户下单总重量为:" + this.totalWeight;
+                message = "限制重量:"+current+unit+"用户下单总重量为:" + this.totalWeight+unit;
                 break;
             case 2:
                 message = "此团购当前下单总人数:"+this.totalCount;

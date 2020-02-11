@@ -6,18 +6,13 @@
  */
 package net.mall.entity;
 
-import java.math.BigDecimal;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Transient;
-
 import net.mall.Setting;
 import net.mall.entity.Specification.Sample;
+import net.mall.util.ConvertUtils;
 import net.mall.util.SystemUtils;
+
+import javax.persistence.*;
+import java.math.BigDecimal;
 
 /**
  * Entity - 购物车项
@@ -173,7 +168,8 @@ public class CartItem extends BaseEntity<Long> {
 	public BigDecimal getPrice() {
 		Sku sku = getSku();
 		BigDecimal price = sku.getPrice();
-		if(sku.getGroup()){
+		if(ConvertUtils.isNotEmpty(sku.getGroup())
+				&& sku.getGroup()){
 			price = sku.getGroupPrice();
 		}
 		if (sku != null && price != null) {
