@@ -36,7 +36,7 @@ public class GroupPurchApplyLog extends BaseEntity<Long> {
     @Column(nullable = false,name="member_id")
     private Long memberId;
 
-    @Column(nullable = false,name="member_name")
+    @Column(name="member_name")
     private String memberName;
 
     @Column(name="remarks")
