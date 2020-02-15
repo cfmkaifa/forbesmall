@@ -6,8 +6,9 @@
  */
 package net.mall.entity;
 
-import java.util.ArrayList;
-import java.util.List;
+import net.mall.BaseAttributeConverter;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.Column;
 import javax.persistence.Convert;
@@ -15,11 +16,8 @@ import javax.persistence.Converter;
 import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
-
-import net.mall.BaseAttributeConverter;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Entity - 商家注册项
@@ -139,7 +137,7 @@ public class BusinessAttribute extends OrderedEntity<Long> {
 		/**
 		 * 邮编
 		 */
-		ZIP_CODE,
+		ZIP_CODE
 	}
 
 	/**
