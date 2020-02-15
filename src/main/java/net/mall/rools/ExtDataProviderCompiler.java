@@ -21,13 +21,7 @@ import java.util.ArrayList;
 @Component
 public class ExtDataProviderCompiler {
 
-    private static KnowledgeBuilder KB;
 
-    /***
-     */
-    static {
-         KB = KnowledgeBuilderFactory.newKnowledgeBuilder();
-    }
 
     /***
      * 设置参数
@@ -44,7 +38,7 @@ public class ExtDataProviderCompiler {
      * @param rows
      * @return
      */
-    private InternalKnowledgeBase compileTemplate(ArrayList<String[]> rows)
+    private InternalKnowledgeBase compileTemplate(KnowledgeBuilder KB,ArrayList<String[]> rows)
             throws UnsupportedEncodingException{
         ExtDataProvider tdp = new ExtDataProvider(rows);
         DataProviderCompiler converter = new DataProviderCompiler();
@@ -86,9 +80,10 @@ public class ExtDataProviderCompiler {
      */
     public void executeRules(String[] params,GroupPurchRools groupPurchRools)
             throws UnsupportedEncodingException {
+        KnowledgeBuilder KB = KnowledgeBuilderFactory.newKnowledgeBuilder();
         ArrayList<String[]> rows = new ArrayList<String[]>();
         this.upParams(params,rows);
-        InternalKnowledgeBase internalKnowledgeBase = this.compileTemplate(rows);
+        InternalKnowledgeBase internalKnowledgeBase = this.compileTemplate(KB,rows);
         this.executeRule(groupPurchRools,internalKnowledgeBase);
     }
 }

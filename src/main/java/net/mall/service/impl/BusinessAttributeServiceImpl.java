@@ -6,12 +6,11 @@
  */
 package net.mall.service.impl;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.regex.Pattern;
-
-import javax.inject.Inject;
-
+import net.mall.Filter;
+import net.mall.Order;
+import net.mall.dao.BusinessAttributeDao;
+import net.mall.entity.BusinessAttribute;
+import net.mall.service.BusinessAttributeService;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
@@ -21,11 +20,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import net.mall.Filter;
-import net.mall.Order;
-import net.mall.dao.BusinessAttributeDao;
-import net.mall.entity.BusinessAttribute;
-import net.mall.service.BusinessAttributeService;
+import javax.inject.Inject;
+import java.util.Arrays;
+import java.util.List;
+import java.util.regex.Pattern;
 
 /**
  * Service - 商家注册项
@@ -60,37 +58,57 @@ public class BusinessAttributeServiceImpl extends BaseServiceImpl<BusinessAttrib
 		return businessAttributeDao.findList(isEnabled, null, null, null);
 	}
 
+
+
 	@Override
 	@Transactional(readOnly = true)
 	public boolean isValid(BusinessAttribute businessAttribute, String[] values) {
 		Assert.notNull(businessAttribute, "[Assertion failed] - businessAttribute is required; it must not be null");
 		Assert.notNull(businessAttribute.getType(), "[Assertion failed] - businessAttribute type is required; it must not be null");
-
 		String value = ArrayUtils.isNotEmpty(values) ? values[0].trim() : null;
 		switch (businessAttribute.getType()) {
-		case NAME:
-		case LICENSE_NUMBER:
-		case LICENSE_IMAGE:
-		case LEGAL_PERSON:
-		case ID_CARD:
-		case ID_CARD_IMAGE:
-		case PHONE:
-		case ORGANIZATION_CODE:
-		case ORGANIZATION_IMAGE:
-		case IDENTIFICATION_NUMBER:
-		case TAX_IMAGE:
-		case BANK_NAME:
-		case BANK_ACCOUNT:
-		case TEXT:
-		case IMAGE:
-		case DATE:
-			if (businessAttribute.getIsRequired() && StringUtils.isEmpty(value)) {
-				return false;
-			}
-			if (StringUtils.isNotEmpty(businessAttribute.getPattern()) && StringUtils.isNotEmpty(value) && !Pattern.compile(businessAttribute.getPattern()).matcher(value).matches()) {
-				return false;
-			}
+		case NAME:{
 			break;
+		}
+		case LICENSE_NUMBER:{
+			break;
+		}
+		case LICENSE_IMAGE:{
+			break;
+		}
+		case LEGAL_PERSON:{
+			break;
+		}
+		case ID_CARD:{
+			break;
+		}
+		case ID_CARD_IMAGE:{
+			break;
+		}
+		case PHONE:{
+			break;
+		}
+		case ORGANIZATION_CODE:{
+			break;
+		}
+		case ORGANIZATION_IMAGE:{
+			break;
+		}
+		case IDENTIFICATION_NUMBER:{
+			break;
+		}
+		case TAX_IMAGE:{
+			break;
+		}
+		case BANK_NAME:{
+			break;
+		}
+		case BANK_ACCOUNT:{
+			break;
+		}
+		case TEXT:{
+			break;
+		}
 		case SELECT:
 			if (businessAttribute.getIsRequired() && StringUtils.isEmpty(value)) {
 				return false;
@@ -113,6 +131,23 @@ public class BusinessAttributeServiceImpl extends BaseServiceImpl<BusinessAttrib
 				return false;
 			}
 			break;
+		case DATE:
+			if (businessAttribute.getIsRequired() && StringUtils.isEmpty(value)) {
+				return false;
+			}
+			if (StringUtils.isNotEmpty(businessAttribute.getPattern()) && StringUtils.isNotEmpty(value) && !Pattern.compile(businessAttribute.getPattern()).matcher(value).matches()) {
+				return false;
+			}
+			break;
+		case IMAGE:{
+			break;
+		}
+		case ADDRESS:{
+			break;
+		}
+		case ZIP_CODE:{
+			break;
+		}
 		}
 		return true;
 	}
@@ -129,23 +164,57 @@ public class BusinessAttributeServiceImpl extends BaseServiceImpl<BusinessAttrib
 
 		String value = values[0].trim();
 		switch (businessAttribute.getType()) {
-		case NAME:
-		case LICENSE_NUMBER:
-		case LICENSE_IMAGE:
-		case LEGAL_PERSON:
-		case ID_CARD:
-		case ID_CARD_IMAGE:
-		case PHONE:
-		case ORGANIZATION_CODE:
-		case ORGANIZATION_IMAGE:
-		case IDENTIFICATION_NUMBER:
-		case TAX_IMAGE:
-		case BANK_NAME:
-		case BANK_ACCOUNT:
-		case TEXT:
-		case ADDRESS:
-		case ZIP_CODE:
-		case IMAGE:
+		case NAME:{
+			break;
+		}
+		case LICENSE_NUMBER:{
+			break;
+		}
+		case LICENSE_IMAGE:{
+			break;
+		}
+		case LEGAL_PERSON:{
+			break;
+		}
+		case ID_CARD:{
+			break;
+		}
+		case ID_CARD_IMAGE:{
+			break;
+		}
+		case PHONE:{
+			break;
+		}
+		case ORGANIZATION_CODE:{
+			break;
+		}
+		case ORGANIZATION_IMAGE:{
+			break;
+		}
+		case IDENTIFICATION_NUMBER:{
+			break;
+		}
+		case TAX_IMAGE:{
+			break;
+		}
+		case BANK_NAME:{
+			break;
+		}
+		case BANK_ACCOUNT:{
+			break;
+		}
+		case TEXT:{
+			break;
+		}
+		case ADDRESS:{
+			break;
+		}
+		case ZIP_CODE:{
+			break;
+		}
+		case IMAGE:{
+			break;
+		}
 		case DATE:
 			return StringUtils.isNotEmpty(value) ? value : null;
 		case SELECT:

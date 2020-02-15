@@ -68,7 +68,11 @@ public class GroupPurchRools implements Serializable {
             groupPurchApplyLog.setProName(this.product.getName());
             groupPurchApplyLog.setSkuSn(this.sku.getSn());
             groupPurchApplyLog.setMemberId(this.member.getId());
-            groupPurchApplyLog.setMemberName(this.member.getName());
+            if(ConvertUtils.isNotEmpty(this.member.getName())){
+                groupPurchApplyLog.setMemberName(this.member.getName());
+            } else {
+                groupPurchApplyLog.setMemberName(this.member.getUsername());
+            }
             groupPurchApplyLog.setRemarks(this.message);
             groupPurchApplyLogService.save(groupPurchApplyLog);
         }
