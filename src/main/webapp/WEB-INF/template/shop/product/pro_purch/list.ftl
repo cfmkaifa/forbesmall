@@ -504,7 +504,7 @@
 							<div class="list">
 								<ul class="clearfix">
 									[#list page.content as product]
-										[#assign defaultSku = product.groupPurchSku /]
+										[#assign defaultSku = product.defaultSku /]
 										<li class="list-item">
 											<div class="list-item-body" style="display: flex;justify-content: space-around;">
 												<a href="${base}${product.path}" target="_blank" class="aaaa">
@@ -564,7 +564,7 @@
 												<p class="kg-2">
 													<b>
 														[#if product.type == "GENERAL"]
-														${currency(defaultSku.groupPrice, true)}
+														${currency(defaultSku.price, true)}
 														[#if setting.isShowMarketPrice]
 														[/#if]
 														[#elseif product.type == "EXCHANGE"]
@@ -598,9 +598,6 @@
                                                 <div class="detailsbutton-2">
                                                     [#--<p class="data-2">2019-12-12  13:52:10</p>--]
                                                         <p class="data-2">${product.createdDate}</p>
-														<a href="${base}/product/group-purch-detail/${product.id}" target="_blank">
-														<button type="button" class="button-4">${message("shop.product.detail")}</button>
-													</a>
                                                 </div>
 										</li>
 									[/#list]

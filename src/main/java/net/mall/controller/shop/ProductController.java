@@ -445,7 +445,7 @@ public class ProductController extends BaseController {
 		List<ProPurchApply>  proPurchApplys = proPurchApplyService.proPurchApplys(currentDate,ProPurchApply.ProApplyStatus.APPROVED);
 		if(ConvertUtils.isNotEmpty(proPurchApplys)){
 			List<String> proSns = proPurchApplys.stream().map(proPurchApply -> proPurchApply.getProSn()).collect(Collectors.toList());
-			pageable.getFilters().add(new Filter("sn", Filter.Operator.IN,proSns.toArray()));
+			pageable.getFilters().add(new Filter("sn", Filter.Operator.IN,proSns));
 			model.addAttribute("page", productService.findPage(type,0, storeType, null, null, storeProductCategory, brand, promotion, productTag, null, null, startPrice, endPrice, true, true, null, true, isOutOfStock, null, null, orderType, pageable));
 		} else {
 			model.addAttribute("page",new Page());
