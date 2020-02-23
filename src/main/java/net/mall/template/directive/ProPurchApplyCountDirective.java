@@ -11,8 +11,8 @@ import freemarker.template.TemplateDirectiveBody;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
 import net.mall.Filter;
-import net.mall.entity.GroupPurchApply;
-import net.mall.service.GroupPurchApplyService;
+import net.mall.entity.ProPurchApply;
+import net.mall.service.ProPurchApplyService;
 import net.mall.util.FreeMarkerUtils;
 import org.springframework.stereotype.Component;
 
@@ -27,7 +27,7 @@ import java.util.Map;
  * @version 6.1
  */
 @Component
-public class GroupPurchApplyCountDirective extends BaseDirective {
+public class ProPurchApplyCountDirective extends BaseDirective {
 
 	/**
 	 * "状态"参数名称
@@ -41,7 +41,7 @@ public class GroupPurchApplyCountDirective extends BaseDirective {
 	private static final String VARIABLE_NAME = "count";
 
 	@Inject
-	GroupPurchApplyService groupPurchApplyService;
+	ProPurchApplyService proPurchApplyService;
 
 	/**
 	 * 执行
@@ -58,8 +58,8 @@ public class GroupPurchApplyCountDirective extends BaseDirective {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException, IOException {
-		GroupPurchApply.ApplyStatus status = FreeMarkerUtils.getParameter(STATUS_PARAMETER_NAME, GroupPurchApply.ApplyStatus.class, params);
-		Long count = groupPurchApplyService.count(new Filter(STATUS_PARAMETER_NAME,Filter.Operator.EQ,status));
+		ProPurchApply.ProApplyStatus status = FreeMarkerUtils.getParameter(STATUS_PARAMETER_NAME, ProPurchApply.ProApplyStatus.class, params);
+		Long count = proPurchApplyService.count(new Filter(STATUS_PARAMETER_NAME,Filter.Operator.EQ,status));
 		setLocalVariable(VARIABLE_NAME, count, env, body);
 	}
 
