@@ -8,11 +8,13 @@ package net.mall.controller.shop;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import net.mall.Filter;
+import net.mall.Page;
 import net.mall.Pageable;
 import net.mall.Results;
 import net.mall.entity.*;
 import net.mall.exception.ResourceNotFoundException;
 import net.mall.service.*;
+import net.mall.util.ConvertUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.ArrayUtils;
@@ -33,6 +35,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Controller - 商品
@@ -56,6 +59,8 @@ public class ProductController extends BaseController {
 
 	@Inject
 	private ProductService productService;
+	@Inject
+	private ProPurchApplyService  proPurchApplyService;
 	@Inject
 	private StoreService storeService;
 	@Inject
@@ -436,8 +441,15 @@ public class ProductController extends BaseController {
 		model.addAttribute("orderType", orderType);
 		model.addAttribute("pageNumber", pageNumber);
 		model.addAttribute("pageSize", pageSize);
-		pageable.getFilters().add(new Filter("isGroup", Filter.Operator.EQ,true));
-		model.addAttribute("page", productService.findPage(type,0, storeType, null, null, storeProductCategory, brand, promotion, productTag, null, null, startPrice, endPrice, true, true, null, true, isOutOfStock, null, null, orderType, pageable));
+		Date currentDate = new Date();
+		List<ProPurchApply>  proPurchApplys = proPurchApplyService.proPurchApplys(currentDate,ProPurchApply.ProApplyStatus.APPROVED);
+		if(ConvertUtils.isNotEmpty(proPurchApplys)){
+			List<String> proSns = proPurchApplys.stream().map(proPurchApply -> proPurchApply.getProSn()).collect(Collectors.toList());
+			pageable.getFilters().add(new Filter("sn", Filter.Operator.IN,proSns.toArray()));
+			model.addAttribute("page", productService.findPage(type,0, storeType, null, null, storeProductCategory, brand, promotion, productTag, null, null, startPrice, endPrice, true, true, null, true, isOutOfStock, null, null, orderType, pageable));
+		} else {
+			model.addAttribute("page",new Page());
+		}
 		return "shop/product/pro_purch/list";
 	}
 
@@ -472,8 +484,15 @@ public class ProductController extends BaseController {
 			endPrice = tempPrice;
 		}
 		Pageable pageable = new Pageable(pageNumber, pageSize);
-		pageable.getFilters().add(new Filter("isGroup", Filter.Operator.EQ,true));
-		return ResponseEntity.ok(productService.findPage(type,0, null, null, productCategory, storeProductCategory, brand, promotion, productTag, null, attributeValueMap, startPrice, endPrice, true, true, null, true, null, null, null, orderType, pageable).getContent());
+		Date currentDate = new Date();
+		List<ProPurchApply>  proPurchApplys = proPurchApplyService.proPurchApplys(currentDate,ProPurchApply.ProApplyStatus.APPROVED);
+		if(ConvertUtils.isNotEmpty(proPurchApplys)){
+			List<String> proSns = proPurchApplys.stream().map(proPurchApply -> proPurchApply.getProSn()).collect(Collectors.toList());
+			pageable.getFilters().add(new Filter("sn", Filter.Operator.IN,proSns.toArray()));
+			return ResponseEntity.ok(productService.findPage(type,0, null, null, productCategory, storeProductCategory, brand, promotion, productTag, null, attributeValueMap, startPrice, endPrice, true, true, null, true, null, null, null, orderType, pageable).getContent());
+		} else {
+			return ResponseEntity.ok(new Page());
+		}
 	}
 
 

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class ProPurchApplyServiceImpl extends BaseServiceImpl<ProPurchApply, Long> implements ProPurchApplyService {
@@ -24,5 +25,17 @@ public class ProPurchApplyServiceImpl extends BaseServiceImpl<ProPurchApply, Lon
      */
     public ProPurchApply  proPurchApply(String proSn, String skuSn, Date currentDate, ProPurchApply.ProApplyStatus applyStatus){
         return  proPurchApplyDao.proPurchApply(proSn,skuSn,currentDate,applyStatus);
+    }
+
+
+
+    /****
+     *
+     * @param currentDate
+     * @param applyStatus
+     * @return
+     */
+    public List<ProPurchApply> proPurchApplys(Date currentDate, ProPurchApply.ProApplyStatus applyStatus){
+            return proPurchApplyDao.proPurchApplys(currentDate,applyStatus);
     }
 }
