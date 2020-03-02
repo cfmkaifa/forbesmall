@@ -2012,7 +2012,7 @@
 				}, "The zip code is invalid");
 				
 				$.validator.addMethod("mobile", function(value, element) {
-					return this.optional(element) || /^1[3|4|5|7|8]\d{9}$/.test(value);
+					return this.optional(element) || /^1[3|4|5|7|8|9]\d{9}$/.test(value);
 				}, "Please enter a valid mobile number");
 				
 				$.validator.addMethod("phone", function(value, element) {
