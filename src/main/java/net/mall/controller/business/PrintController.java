@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.controller.business;
 
@@ -26,7 +26,7 @@ import net.mall.service.OrderService;
 
 /**
  * Controller - 打印
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
@@ -34,100 +34,100 @@ import net.mall.service.OrderService;
 @RequestMapping("/business/print")
 public class PrintController extends BaseController {
 
-	@Inject
-	private OrderService orderService;
-	@Inject
-	private DeliveryTemplateService deliveryTemplateService;
-	@Inject
-	private DeliveryCenterService deliveryCenterService;
+    @Inject
+    private OrderService orderService;
+    @Inject
+    private DeliveryTemplateService deliveryTemplateService;
+    @Inject
+    private DeliveryCenterService deliveryCenterService;
 
-	/**
-	 * 添加属性
-	 */
-	@ModelAttribute
-	public void populateModel(Long orderId, Long deliveryTemplateId, Long deliveryCenterId, @CurrentStore Store currentStore, ModelMap model) {
-		Order order = orderService.find(orderId);
-		if (order != null && !currentStore.equals(order.getStore())) {
-			throw new UnauthorizedException();
-		}
-		model.addAttribute("order", order);
+    /**
+     * 添加属性
+     */
+    @ModelAttribute
+    public void populateModel(Long orderId, Long deliveryTemplateId, Long deliveryCenterId, @CurrentStore Store currentStore, ModelMap model) {
+        Order order = orderService.find(orderId);
+        if (order != null && !currentStore.equals(order.getStore())) {
+            throw new UnauthorizedException();
+        }
+        model.addAttribute("order", order);
 
-		DeliveryTemplate deliveryTemplate = deliveryTemplateService.find(deliveryTemplateId);
-		if (deliveryTemplate != null && !currentStore.equals(deliveryTemplate.getStore())) {
-			throw new UnauthorizedException();
-		}
-		model.addAttribute("deliveryTemplate", deliveryTemplate);
+        DeliveryTemplate deliveryTemplate = deliveryTemplateService.find(deliveryTemplateId);
+        if (deliveryTemplate != null && !currentStore.equals(deliveryTemplate.getStore())) {
+            throw new UnauthorizedException();
+        }
+        model.addAttribute("deliveryTemplate", deliveryTemplate);
 
-		DeliveryCenter deliveryCenter = deliveryCenterService.find(deliveryCenterId);
-		if (deliveryCenter != null && !currentStore.equals(deliveryCenter.getStore())) {
-			throw new UnauthorizedException();
-		}
-		model.addAttribute("deliveryCenter", deliveryCenter);
-	}
+        DeliveryCenter deliveryCenter = deliveryCenterService.find(deliveryCenterId);
+        if (deliveryCenter != null && !currentStore.equals(deliveryCenter.getStore())) {
+            throw new UnauthorizedException();
+        }
+        model.addAttribute("deliveryCenter", deliveryCenter);
+    }
 
-	/**
-	 * 订单打印
-	 */
-	@GetMapping("/order")
-	public String order(@ModelAttribute(binding = false) Order order, ModelMap model) {
-		if (order == null) {
-			return UNPROCESSABLE_ENTITY_VIEW;
-		}
+    /**
+     * 订单打印
+     */
+    @GetMapping("/order")
+    public String order(@ModelAttribute(binding = false) Order order, ModelMap model) {
+        if (order == null) {
+            return UNPROCESSABLE_ENTITY_VIEW;
+        }
 
-		model.addAttribute("order", order);
-		return "business/print/order";
-	}
+        model.addAttribute("order", order);
+        return "business/print/order";
+    }
 
-	/**
-	 * 购物单打印
-	 */
-	@GetMapping("/product")
-	public String product(@ModelAttribute(binding = false) Order order, ModelMap model) {
-		if (order == null) {
-			return UNPROCESSABLE_ENTITY_VIEW;
-		}
+    /**
+     * 购物单打印
+     */
+    @GetMapping("/product")
+    public String product(@ModelAttribute(binding = false) Order order, ModelMap model) {
+        if (order == null) {
+            return UNPROCESSABLE_ENTITY_VIEW;
+        }
 
-		model.addAttribute("order", order);
-		return "business/print/product";
-	}
+        model.addAttribute("order", order);
+        return "business/print/product";
+    }
 
-	/**
-	 * 发货单打印
-	 */
-	@GetMapping("/shipping")
-	public String shipping(@ModelAttribute(binding = false) Order order, ModelMap model) {
-		if (order == null) {
-			return UNPROCESSABLE_ENTITY_VIEW;
-		}
+    /**
+     * 发货单打印
+     */
+    @GetMapping("/shipping")
+    public String shipping(@ModelAttribute(binding = false) Order order, ModelMap model) {
+        if (order == null) {
+            return UNPROCESSABLE_ENTITY_VIEW;
+        }
 
-		model.addAttribute("order", order);
-		return "business/print/shipping";
-	}
+        model.addAttribute("order", order);
+        return "business/print/shipping";
+    }
 
-	/**
-	 * 快递单打印
-	 */
-	@GetMapping("/delivery")
-	public String delivery(@ModelAttribute(binding = false) Order order, @ModelAttribute(binding = false) DeliveryTemplate deliveryTemplate, @ModelAttribute(binding = false) DeliveryCenter deliveryCenter, @CurrentStore Store currentStore, ModelMap model) {
-		if (order == null) {
-			return UNPROCESSABLE_ENTITY_VIEW;
-		}
-		if (deliveryTemplate == null) {
-			deliveryTemplate = deliveryTemplateService.findDefault(currentStore);
-		}
-		if (deliveryCenter == null) {
-			deliveryCenter = deliveryCenterService.findDefault(currentStore);
-		}
+    /**
+     * 快递单打印
+     */
+    @GetMapping("/delivery")
+    public String delivery(@ModelAttribute(binding = false) Order order, @ModelAttribute(binding = false) DeliveryTemplate deliveryTemplate, @ModelAttribute(binding = false) DeliveryCenter deliveryCenter, @CurrentStore Store currentStore, ModelMap model) {
+        if (order == null) {
+            return UNPROCESSABLE_ENTITY_VIEW;
+        }
+        if (deliveryTemplate == null) {
+            deliveryTemplate = deliveryTemplateService.findDefault(currentStore);
+        }
+        if (deliveryCenter == null) {
+            deliveryCenter = deliveryCenterService.findDefault(currentStore);
+        }
 
-		model.addAttribute("deliveryTemplates", deliveryTemplateService.findList(currentStore));
-		model.addAttribute("deliveryCenters", deliveryCenterService.findAll(currentStore));
-		model.addAttribute("order", order);
-		model.addAttribute("deliveryTemplate", deliveryTemplate);
-		model.addAttribute("deliveryCenter", deliveryCenter);
-		if (deliveryTemplate != null) {
-			model.addAttribute("content", deliveryTemplateService.resolveContent(deliveryTemplate, currentStore, deliveryCenter, order));
-		}
-		return "business/print/delivery";
-	}
+        model.addAttribute("deliveryTemplates", deliveryTemplateService.findList(currentStore));
+        model.addAttribute("deliveryCenters", deliveryCenterService.findAll(currentStore));
+        model.addAttribute("order", order);
+        model.addAttribute("deliveryTemplate", deliveryTemplate);
+        model.addAttribute("deliveryCenter", deliveryCenter);
+        if (deliveryTemplate != null) {
+            model.addAttribute("content", deliveryTemplateService.resolveContent(deliveryTemplate, currentStore, deliveryCenter, order));
+        }
+        return "business/print/delivery";
+    }
 
 }

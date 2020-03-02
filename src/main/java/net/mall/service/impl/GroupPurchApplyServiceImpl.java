@@ -1,4 +1,5 @@
 package net.mall.service.impl;
+
 import net.mall.dao.GroupPurchApplyDao;
 import net.mall.dao.ProductDao;
 import net.mall.dao.SkuDao;
@@ -23,21 +24,20 @@ public class GroupPurchApplyServiceImpl extends BaseServiceImpl<GroupPurchApply,
     private SkuDao skuDao;
 
 
-
     @Override
     @Transactional
-    public void putawayGroupPurchApply(String proSn, String skuSn, BigDecimal groupPrice,Long id){
-        productDao.modifyProductGroupPurch(true,proSn);
-        skuDao.modifySkuGroupPrice(groupPrice,true,skuSn);
-        groupPurchApplyDao.modyGroupPurchJobStatus(GroupPurchApply.JobStatus.HASBEENON,id);
+    public void putawayGroupPurchApply(String proSn, String skuSn, BigDecimal groupPrice, Long id) {
+        productDao.modifyProductGroupPurch(true, proSn);
+        skuDao.modifySkuGroupPrice(groupPrice, true, skuSn);
+        groupPurchApplyDao.modyGroupPurchJobStatus(GroupPurchApply.JobStatus.HASBEENON, id);
     }
 
     @Override
     @Transactional
-    public void soldOutGroupPurchApply(String proSn, String skuSn, Long id){
-        productDao.modifyProductGroupPurch(false,proSn);
-        skuDao.modifySkuGroupPrice(null,false,skuSn);
-        groupPurchApplyDao.modyGroupPurchJobStatus(GroupPurchApply.JobStatus.ALREADY,id);
+    public void soldOutGroupPurchApply(String proSn, String skuSn, Long id) {
+        productDao.modifyProductGroupPurch(false, proSn);
+        skuDao.modifySkuGroupPrice(null, false, skuSn);
+        groupPurchApplyDao.modyGroupPurchJobStatus(GroupPurchApply.JobStatus.ALREADY, id);
     }
 
 
@@ -49,8 +49,8 @@ public class GroupPurchApplyServiceImpl extends BaseServiceImpl<GroupPurchApply,
      * @return
      */
     @Override
-    public List<GroupPurchApply> putawayGroupPurchApply(GroupPurchApply.ApplyStatus applyStatus, GroupPurchApply.JobStatus jobStatus, Date currentDate){
-        return groupPurchApplyDao.putawayGroupPurchApply(applyStatus,jobStatus,currentDate);
+    public List<GroupPurchApply> putawayGroupPurchApply(GroupPurchApply.ApplyStatus applyStatus, GroupPurchApply.JobStatus jobStatus, Date currentDate) {
+        return groupPurchApplyDao.putawayGroupPurchApply(applyStatus, jobStatus, currentDate);
     }
 
 
@@ -62,8 +62,8 @@ public class GroupPurchApplyServiceImpl extends BaseServiceImpl<GroupPurchApply,
      * @param skuSn
      * @return
      */
-    public GroupPurchApply  putawayGroupPurchApply(GroupPurchApply.ApplyStatus applyStatus, Date currentDate,String proSn,String skuSn){
-        return  groupPurchApplyDao.putawayGroupPurchApply(applyStatus,currentDate,proSn,skuSn);
+    public GroupPurchApply putawayGroupPurchApply(GroupPurchApply.ApplyStatus applyStatus, Date currentDate, String proSn, String skuSn) {
+        return groupPurchApplyDao.putawayGroupPurchApply(applyStatus, currentDate, proSn, skuSn);
     }
 
     /***
@@ -74,7 +74,7 @@ public class GroupPurchApplyServiceImpl extends BaseServiceImpl<GroupPurchApply,
      * @return
      */
     @Override
-    public List<GroupPurchApply>  soldOutGroupPurchApply(GroupPurchApply.ApplyStatus applyStatus, GroupPurchApply.JobStatus jobStatus, Date currentDate){
-        return groupPurchApplyDao.soldOutGroupPurchApply(applyStatus,jobStatus,currentDate);
+    public List<GroupPurchApply> soldOutGroupPurchApply(GroupPurchApply.ApplyStatus applyStatus, GroupPurchApply.JobStatus jobStatus, Date currentDate) {
+        return groupPurchApplyDao.soldOutGroupPurchApply(applyStatus, jobStatus, currentDate);
     }
 }

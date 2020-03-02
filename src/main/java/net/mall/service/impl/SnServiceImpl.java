@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.service.impl;
 
@@ -17,20 +17,20 @@ import net.mall.service.SnService;
 
 /**
  * Service - 序列号
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
 @Service
 public class SnServiceImpl implements SnService {
 
-	@Inject
-	private SnDao snDao;
+    @Inject
+    private SnDao snDao;
 
-	@Override
-	@Transactional
-	public String generate(Sn.Type type) {
-		return snDao.generate(type);
-	}
+    @Override
+    @Transactional
+    public String generate(Sn.Type type) {
+        return snDao.generate(type);
+    }
 
 }

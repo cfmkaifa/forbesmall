@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.service.impl;
 
@@ -24,55 +24,55 @@ import net.mall.service.DeliveryCenterService;
 
 /**
  * Service - 发货点
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
 @Service
 public class DeliveryCenterServiceImpl extends BaseServiceImpl<DeliveryCenter, Long> implements DeliveryCenterService {
 
-	@Inject
-	private DeliveryCenterDao deliveryCenterDao;
+    @Inject
+    private DeliveryCenterDao deliveryCenterDao;
 
-	@Override
-	@Transactional(readOnly = true)
-	public DeliveryCenter findDefault(Store store) {
-		return deliveryCenterDao.findDefault(store);
-	}
+    @Override
+    @Transactional(readOnly = true)
+    public DeliveryCenter findDefault(Store store) {
+        return deliveryCenterDao.findDefault(store);
+    }
 
-	@Override
-	@Transactional
-	public DeliveryCenter save(DeliveryCenter deliveryCenter) {
-		Assert.notNull(deliveryCenter, "[Assertion failed] - deliveryCenter is required; it must not be null");
+    @Override
+    @Transactional
+    public DeliveryCenter save(DeliveryCenter deliveryCenter) {
+        Assert.notNull(deliveryCenter, "[Assertion failed] - deliveryCenter is required; it must not be null");
 
-		if (BooleanUtils.isTrue(deliveryCenter.getIsDefault())) {
-			deliveryCenterDao.clearDefault(deliveryCenter.getStore());
-		}
-		return super.save(deliveryCenter);
-	}
+        if (BooleanUtils.isTrue(deliveryCenter.getIsDefault())) {
+            deliveryCenterDao.clearDefault(deliveryCenter.getStore());
+        }
+        return super.save(deliveryCenter);
+    }
 
-	@Override
-	@Transactional
-	public DeliveryCenter update(DeliveryCenter deliveryCenter) {
-		Assert.notNull(deliveryCenter, "[Assertion failed] - deliveryCenter is required; it must not be null");
+    @Override
+    @Transactional
+    public DeliveryCenter update(DeliveryCenter deliveryCenter) {
+        Assert.notNull(deliveryCenter, "[Assertion failed] - deliveryCenter is required; it must not be null");
 
-		DeliveryCenter pDeliveryCenter = super.update(deliveryCenter);
-		if (BooleanUtils.isTrue(pDeliveryCenter.getIsDefault())) {
-			deliveryCenterDao.clearDefault(pDeliveryCenter);
-		}
-		return pDeliveryCenter;
-	}
+        DeliveryCenter pDeliveryCenter = super.update(deliveryCenter);
+        if (BooleanUtils.isTrue(pDeliveryCenter.getIsDefault())) {
+            deliveryCenterDao.clearDefault(pDeliveryCenter);
+        }
+        return pDeliveryCenter;
+    }
 
-	@Override
-	@Transactional(readOnly = true)
-	public Page<DeliveryCenter> findPage(Store store, Pageable pageable) {
-		return deliveryCenterDao.findPage(store, pageable);
-	}
+    @Override
+    @Transactional(readOnly = true)
+    public Page<DeliveryCenter> findPage(Store store, Pageable pageable) {
+        return deliveryCenterDao.findPage(store, pageable);
+    }
 
-	@Override
-	@Transactional(readOnly = true)
-	public List<DeliveryCenter> findAll(Store store) {
-		return deliveryCenterDao.findAll(store);
-	}
+    @Override
+    @Transactional(readOnly = true)
+    public List<DeliveryCenter> findAll(Store store) {
+        return deliveryCenterDao.findAll(store);
+    }
 
 }

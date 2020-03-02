@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.controller.shop;
 
@@ -20,7 +20,7 @@ import net.mall.service.PromotionService;
 
 /**
  * Controller - 促销
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
@@ -28,20 +28,20 @@ import net.mall.service.PromotionService;
 @RequestMapping("/promotion")
 public class PromotionController extends BaseController {
 
-	@Inject
-	private PromotionService promotionService;
+    @Inject
+    private PromotionService promotionService;
 
-	/**
-	 * 详情
-	 */
-	@GetMapping("/detail/{promotionId}")
-	public String detail(@PathVariable Long promotionId, ModelMap model) {
-		Promotion promotion = promotionService.find(promotionId);
-		if (promotion == null) {
-			throw new ResourceNotFoundException();
-		}
-		model.addAttribute("promotion", promotion);
-		return "shop/promotion/detail";
-	}
+    /**
+     * 详情
+     */
+    @GetMapping("/detail/{promotionId}")
+    public String detail(@PathVariable Long promotionId, ModelMap model) {
+        Promotion promotion = promotionService.find(promotionId);
+        if (promotion == null) {
+            throw new ResourceNotFoundException();
+        }
+        model.addAttribute("promotion", promotion);
+        return "shop/promotion/detail";
+    }
 
 }

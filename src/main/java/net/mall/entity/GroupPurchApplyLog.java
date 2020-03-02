@@ -18,28 +18,28 @@ public class GroupPurchApplyLog extends BaseEntity<Long> {
     private static final long serialVersionUID = 296118160291884402L;
 
 
-    @Column(nullable = false,name="store_id")
+    @Column(nullable = false, name = "store_id")
     private Long storeId;
 
-    @Column(nullable = false,name="store_name")
+    @Column(nullable = false, name = "store_name")
     private String storeName;
 
-    @Column(nullable = false,name="pro_sn")
+    @Column(nullable = false, name = "pro_sn")
     private String proSn;
 
-    @Column(name="pro_name")
+    @Column(name = "pro_name")
     private String proName;
 
-    @Column(name="sku_sn")
+    @Column(name = "sku_sn")
     private String skuSn;
 
-    @Column(nullable = false,name="member_id")
+    @Column(nullable = false, name = "member_id")
     private Long memberId;
 
-    @Column(name="member_name")
+    @Column(name = "member_name")
     private String memberName;
 
-    @Column(name="remarks")
+    @Column(name = "remarks")
     private String remarks;
 
     public Long getStoreId() {

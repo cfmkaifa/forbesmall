@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.controller.admin;
 
@@ -20,7 +20,7 @@ import net.mall.service.CacheService;
 
 /**
  * Controller - 缓存
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
@@ -28,32 +28,32 @@ import net.mall.service.CacheService;
 @RequestMapping("/admin/cache")
 public class CacheController extends BaseController {
 
-	@Inject
-	private CacheService cacheService;
+    @Inject
+    private CacheService cacheService;
 
-	/**
-	 * 清除缓存
-	 */
-	@GetMapping("/clear")
-	public String clear(ModelMap model) {
-		Long totalMemory = Runtime.getRuntime().totalMemory() / 1024 / 1024;
-		Long maxMemory = Runtime.getRuntime().maxMemory() / 1024 / 1024;
-		Long freeMemory = Runtime.getRuntime().freeMemory() / 1024 / 1024;
-		model.addAttribute("totalMemory", totalMemory);
-		model.addAttribute("maxMemory", maxMemory);
-		model.addAttribute("freeMemory", freeMemory);
-		model.addAttribute("cacheSize", cacheService.getCacheSize());
-		model.addAttribute("diskStorePath", cacheService.getDiskStorePath());
-		return "admin/cache/clear";
-	}
+    /**
+     * 清除缓存
+     */
+    @GetMapping("/clear")
+    public String clear(ModelMap model) {
+        Long totalMemory = Runtime.getRuntime().totalMemory() / 1024 / 1024;
+        Long maxMemory = Runtime.getRuntime().maxMemory() / 1024 / 1024;
+        Long freeMemory = Runtime.getRuntime().freeMemory() / 1024 / 1024;
+        model.addAttribute("totalMemory", totalMemory);
+        model.addAttribute("maxMemory", maxMemory);
+        model.addAttribute("freeMemory", freeMemory);
+        model.addAttribute("cacheSize", cacheService.getCacheSize());
+        model.addAttribute("diskStorePath", cacheService.getDiskStorePath());
+        return "admin/cache/clear";
+    }
 
-	/**
-	 * 清除缓存
-	 */
-	@PostMapping("/clear")
-	public ResponseEntity<?> clear() {
-		cacheService.clear();
-		return Results.OK;
-	}
+    /**
+     * 清除缓存
+     */
+    @PostMapping("/clear")
+    public ResponseEntity<?> clear() {
+        cacheService.clear();
+        return Results.OK;
+    }
 
 }

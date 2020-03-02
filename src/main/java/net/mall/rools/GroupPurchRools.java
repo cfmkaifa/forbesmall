@@ -14,22 +14,23 @@ public class GroupPurchRools implements Serializable {
 
     private static final long serialVersionUID = -8742466068527685553L;
 
-    /**总量
+    /**
+     * 总量
      */
-    private Long  totalWeight;
+    private Long totalWeight;
 
     /***总人数
      */
-    private Integer  totalCount;
+    private Integer totalCount;
 
     /****消息
      */
     private String message;
 
 
-    private  boolean isCreate = true;
+    private boolean isCreate = true;
 
-    private Store   store;
+    private Store store;
 
     private Product product;
 
@@ -42,33 +43,33 @@ public class GroupPurchRools implements Serializable {
      *
      * @param state
      */
-    public void incoreMessage(int state,String current,String unit){
-        switch (state){
+    public void incoreMessage(int state, String current, String unit) {
+        switch (state) {
             case 0:
-                message = "起订重量:"+current+unit+"用户下单总重量为:" + this.totalWeight+unit;
+                message = "起订重量:" + current + unit + "用户下单总重量为:" + this.totalWeight + unit;
                 break;
             case 1:
-                message = "限制重量:"+current+unit+"用户下单总重量为:" + this.totalWeight+unit;
+                message = "限制重量:" + current + unit + "用户下单总重量为:" + this.totalWeight + unit;
                 break;
             case 2:
-                message = "此团购当前下单总人数:"+this.totalCount;
+                message = "此团购当前下单总人数:" + this.totalCount;
                 break;
         }
     }
 
     /***增加日志
      */
-    public void insertGroupPurchApplyLog(){
+    public void insertGroupPurchApplyLog() {
         GroupPurchApplyLogService groupPurchApplyLogService = SpringUtils.getBean(GroupPurchApplyLogService.class);
-        if(ConvertUtils.isNotEmpty(groupPurchApplyLogService)){
-            GroupPurchApplyLog  groupPurchApplyLog = new GroupPurchApplyLog();
+        if (ConvertUtils.isNotEmpty(groupPurchApplyLogService)) {
+            GroupPurchApplyLog groupPurchApplyLog = new GroupPurchApplyLog();
             groupPurchApplyLog.setStoreId(this.store.getId());
             groupPurchApplyLog.setStoreName(this.store.getName());
             groupPurchApplyLog.setProSn(this.product.getSn());
             groupPurchApplyLog.setProName(this.product.getName());
             groupPurchApplyLog.setSkuSn(this.sku.getSn());
             groupPurchApplyLog.setMemberId(this.member.getId());
-            if(ConvertUtils.isNotEmpty(this.member.getName())){
+            if (ConvertUtils.isNotEmpty(this.member.getName())) {
                 groupPurchApplyLog.setMemberName(this.member.getName());
             } else {
                 groupPurchApplyLog.setMemberName(this.member.getUsername());

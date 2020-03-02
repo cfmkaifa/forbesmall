@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.dao.impl;
 
@@ -13,7 +13,7 @@ import net.mall.entity.Role;
 
 /**
  * Dao - 角色
- * 
+ *
  * @author huanghy
  * @version 6.1
  */

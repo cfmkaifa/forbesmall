@@ -23,10 +23,9 @@ public class ProPurchApplyServiceImpl extends BaseServiceImpl<ProPurchApply, Lon
      * @param applyStatus
      * @return
      */
-    public ProPurchApply  proPurchApply(String proSn, String skuSn, Date currentDate, ProPurchApply.ProApplyStatus applyStatus){
-        return  proPurchApplyDao.proPurchApply(proSn,skuSn,currentDate,applyStatus);
+    public ProPurchApply proPurchApply(String proSn, String skuSn, Date currentDate, ProPurchApply.ProApplyStatus applyStatus) {
+        return proPurchApplyDao.proPurchApply(proSn, skuSn, currentDate, applyStatus);
     }
-
 
 
     /****
@@ -35,7 +34,7 @@ public class ProPurchApplyServiceImpl extends BaseServiceImpl<ProPurchApply, Lon
      * @param applyStatus
      * @return
      */
-    public List<ProPurchApply> proPurchApplys(Date currentDate, ProPurchApply.ProApplyStatus applyStatus){
-            return proPurchApplyDao.proPurchApplys(currentDate,applyStatus);
+    public List<ProPurchApply> proPurchApplys(Date currentDate, ProPurchApply.ProApplyStatus applyStatus) {
+        return proPurchApplyDao.proPurchApplys(currentDate, applyStatus);
     }
 }

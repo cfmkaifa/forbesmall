@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.service.impl;
 
@@ -29,62 +29,62 @@ import net.mall.util.SystemUtils;
 
 /**
  * Service - 配置
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
 @Service
 public class ConfigServiceImpl implements ConfigService {
 
-	@Value("${template.update_delay}")
-	private String templateUpdateDelay;
-	@Value("${message.cache_seconds}")
-	private Integer messageCacheSeconds;
+    @Value("${template.update_delay}")
+    private String templateUpdateDelay;
+    @Value("${message.cache_seconds}")
+    private Integer messageCacheSeconds;
 
-	@Inject
-	private FreeMarkerConfigurer freeMarkerConfigurer;
-	@Inject
-	private ReloadableResourceBundleMessageSource reloadableResourceBundleMessageSource;
-	@Inject
-	private FixedLocaleResolver fixedLocaleResolver;
+    @Inject
+    private FreeMarkerConfigurer freeMarkerConfigurer;
+    @Inject
+    private ReloadableResourceBundleMessageSource reloadableResourceBundleMessageSource;
+    @Inject
+    private FixedLocaleResolver fixedLocaleResolver;
 
-	@Override
-	public void init() {
-		try {
-			Setting setting = SystemUtils.getSetting();
-			setting.setSmtpPassword(null);
-			setting.setKuaidi100Customer(null);
-			setting.setKuaidi100Key(null);
-			setting.setCnzzPassword(null);
-			setting.setSmsAppId(null);
-			setting.setSmsSecretKey(null);
-			ProxyFactory proxyFactory = new ProxyFactory(setting);
-			proxyFactory.setProxyTargetClass(true);
-			proxyFactory.addAdvice(new MethodBeforeAdvice() {
+    @Override
+    public void init() {
+        try {
+            Setting setting = SystemUtils.getSetting();
+            setting.setSmtpPassword(null);
+            setting.setKuaidi100Customer(null);
+            setting.setKuaidi100Key(null);
+            setting.setCnzzPassword(null);
+            setting.setSmsAppId(null);
+            setting.setSmsSecretKey(null);
+            ProxyFactory proxyFactory = new ProxyFactory(setting);
+            proxyFactory.setProxyTargetClass(true);
+            proxyFactory.addAdvice(new MethodBeforeAdvice() {
 
-				public void before(Method method, Object[] args, Object target) throws Throwable {
-					if (StringUtils.startsWith(method.getName(), "set")) {
-						throw new UnsupportedOperationException("Operation not supported");
-					}
-				}
+                public void before(Method method, Object[] args, Object target) throws Throwable {
+                    if (StringUtils.startsWith(method.getName(), "set")) {
+                        throw new UnsupportedOperationException("Operation not supported");
+                    }
+                }
 
-			});
-			Configuration configuration = freeMarkerConfigurer.getConfiguration();
-			configuration.setSharedVariable("setting", proxyFactory.getProxy());
-			configuration.setSharedVariable("locale", setting.getLocale());
-			if (setting.getIsDevelopmentEnabled()) {
-				configuration.setSetting("template_update_delay", "0");
-				reloadableResourceBundleMessageSource.setCacheSeconds(0);
-			} else {
-				configuration.setSetting("template_update_delay", templateUpdateDelay);
-				reloadableResourceBundleMessageSource.setCacheSeconds(messageCacheSeconds);
-			}
-			fixedLocaleResolver.setDefaultLocale(LocaleUtils.toLocale(String.valueOf(setting.getLocale())));
-		} catch (TemplateModelException e) {
-			throw new RuntimeException(e.getMessage(), e);
-		} catch (TemplateException e) {
-			throw new RuntimeException(e.getMessage(), e);
-		}
-	}
+            });
+            Configuration configuration = freeMarkerConfigurer.getConfiguration();
+            configuration.setSharedVariable("setting", proxyFactory.getProxy());
+            configuration.setSharedVariable("locale", setting.getLocale());
+            if (setting.getIsDevelopmentEnabled()) {
+                configuration.setSetting("template_update_delay", "0");
+                reloadableResourceBundleMessageSource.setCacheSeconds(0);
+            } else {
+                configuration.setSetting("template_update_delay", templateUpdateDelay);
+                reloadableResourceBundleMessageSource.setCacheSeconds(messageCacheSeconds);
+            }
+            fixedLocaleResolver.setDefaultLocale(LocaleUtils.toLocale(String.valueOf(setting.getLocale())));
+        } catch (TemplateModelException e) {
+            throw new RuntimeException(e.getMessage(), e);
+        } catch (TemplateException e) {
+            throw new RuntimeException(e.getMessage(), e);
+        }
+    }
 
 }

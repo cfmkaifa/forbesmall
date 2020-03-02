@@ -1,6 +1,6 @@
 /*
  *
- * 
+ *
  *
  *
  */
@@ -13,7 +13,7 @@ import java.lang.annotation.Target;
 
 /**
  * Audit - 审计注解
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
@@ -21,9 +21,9 @@ import java.lang.annotation.Target;
 @Target(value = ElementType.METHOD)
 public @interface Audit {
 
-	/**
-	 * 动作
-	 */
-	String action();
+    /**
+     * 动作
+     */
+    String action();
 
 }

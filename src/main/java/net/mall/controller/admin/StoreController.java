@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.controller.admin;
 
@@ -41,7 +41,7 @@ import net.mall.service.StoreService;
 
 /**
  * Controller - 店铺
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
@@ -49,230 +49,230 @@ import net.mall.service.StoreService;
 @RequestMapping("/admin/store")
 public class StoreController extends BaseController {
 
-	@Inject
-	private StoreService storeService;
-	@Inject
-	private BusinessService businessService;
-	@Inject
-	private StoreRankService storeRankService;
-	@Inject
-	private StoreCategoryService storeCategoryService;
-	@Inject
-	private ProductCategoryService productCategoryService;
+    @Inject
+    private StoreService storeService;
+    @Inject
+    private BusinessService businessService;
+    @Inject
+    private StoreRankService storeRankService;
+    @Inject
+    private StoreCategoryService storeCategoryService;
+    @Inject
+    private ProductCategoryService productCategoryService;
 
-	/**
-	 * 检查名称是否唯一
-	 */
-	@GetMapping("/check_name")
-	public @ResponseBody boolean checkName(Long id, String name) {
-		return StringUtils.isNotEmpty(name) && storeService.nameUnique(id, name);
-	}
+    /**
+     * 检查名称是否唯一
+     */
+    @GetMapping("/check_name")
+    public @ResponseBody
+    boolean checkName(Long id, String name) {
+        return StringUtils.isNotEmpty(name) && storeService.nameUnique(id, name);
+    }
 
-	/**
-	 * 商家选择
-	 */
-	@GetMapping("/business_select")
-	public ResponseEntity<?> businessSelect(String keyword, Integer count) {
-		List<Map<String, Object>> data = new ArrayList<>();
-		if (StringUtils.isEmpty(keyword)) {
-			return ResponseEntity.ok(data);
-		}
-		List<Business> businesses = businessService.search(keyword, count);
-		for (Business businesse : businesses) {
-			if (businesse.getStore() == null) {
-				Map<String, Object> item = new HashMap<String, Object>();
-				item.put("id", businesse.getId());
-				item.put("username", businesse.getUsername());
-				data.add(item);
-			}
-		}
-		return ResponseEntity.ok(data);
-	}
+    /**
+     * 商家选择
+     */
+    @GetMapping("/business_select")
+    public ResponseEntity<?> businessSelect(String keyword, Integer count) {
+        List<Map<String, Object>> data = new ArrayList<>();
+        if (StringUtils.isEmpty(keyword)) {
+            return ResponseEntity.ok(data);
+        }
+        List<Business> businesses = businessService.search(keyword, count);
+        for (Business businesse : businesses) {
+            if (businesse.getStore() == null) {
+                Map<String, Object> item = new HashMap<String, Object>();
+                item.put("id", businesse.getId());
+                item.put("username", businesse.getUsername());
+                data.add(item);
+            }
+        }
+        return ResponseEntity.ok(data);
+    }
 
-	/**
-	 * 查看
-	 */
-	@GetMapping("/view")
-	public String view(Long id, ModelMap model) {
-		Store store = storeService.find(id);
-		model.addAttribute("store", store);
-		model.addAttribute("productCategoryRoots", productCategoryService.findRoots());
-		model.addAttribute("allowedProductCategories", productCategoryService.findList(store, null, null, null));
-		model.addAttribute("allowedProductCategoryParents", getAllowedProductCategoryParents(store));
-		return "admin/store/view";
-	}
+    /**
+     * 查看
+     */
+    @GetMapping("/view")
+    public String view(Long id, ModelMap model) {
+        Store store = storeService.find(id);
+        model.addAttribute("store", store);
+        model.addAttribute("productCategoryRoots", productCategoryService.findRoots());
+        model.addAttribute("allowedProductCategories", productCategoryService.findList(store, null, null, null));
+        model.addAttribute("allowedProductCategoryParents", getAllowedProductCategoryParents(store));
+        return "admin/store/view";
+    }
 
-	/**
-	 * 添加
-	 */
-	@GetMapping("/add")
-	public String add(ModelMap model) {
-		model.addAttribute("types", Store.Type.values());
-		model.addAttribute("storeRanks", storeRankService.findAll());
-		model.addAttribute("storeCategories", storeCategoryService.findAll());
-		model.addAttribute("productCategoryTree", productCategoryService.findTree());
-		return "admin/store/add";
-	}
+    /**
+     * 添加
+     */
+    @GetMapping("/add")
+    public String add(ModelMap model) {
+        model.addAttribute("types", Store.Type.values());
+        model.addAttribute("storeRanks", storeRankService.findAll());
+        model.addAttribute("storeCategories", storeCategoryService.findAll());
+        model.addAttribute("productCategoryTree", productCategoryService.findTree());
+        return "admin/store/add";
+    }
 
-	/**
-	 * 保存
-	 */
-	@PostMapping("/save")
-	public ResponseEntity<?> save(Store store, Long businessId, Long storeRankId, Long storeCategoryId, Long[] productCategoryIds) {
-		store.setBusiness(businessService.find(businessId));
-		store.setStoreRank(storeRankService.find(storeRankId));
-		store.setStoreCategory(storeCategoryService.find(storeCategoryId));
-		store.setProductCategories(new HashSet<>(productCategoryService.findList(productCategoryIds)));
-		store.setStatus(Store.Status.PENDING);
-		store.setEndDate(new Date());
-		store.setBailPaid(BigDecimal.ZERO);
-		store.setStoreAdImages(null);
-		store.setInstantMessages(null);
-		store.setStoreProductCategories(null);
-		store.setCategoryApplications(null);
-		store.setStoreProductTags(null);
-		store.setProducts(null);
-		store.setPromotions(null);
-		store.setCoupons(null);
-		store.setStorePluginStatus(null);
-		store.setOrders(null);
-		store.setStoreFavorites(null);
-		store.setDeliveryTemplates(null);
-		store.setDeliveryCenters(null);
-		store.setDefaultFreightConfigs(null);
-		store.setAreaFreightConfigs(null);
-		store.setSvcs(null);
-		store.setPaymentTransactions(null);
-		store.setConsultations(null);
-		store.setReviews(null);
-		store.setStatistics(null);
-		if (storeService.nameExists(store.getName())) {
-			return Results.UNPROCESSABLE_ENTITY;
-		}
-		if (!isValid(store, BaseEntity.Save.class)) {
-			return Results.UNPROCESSABLE_ENTITY;
-		}
-		storeService.save(store);
-		storeService.review(store, true, null);
-		return Results.OK;
-	}
+    /**
+     * 保存
+     */
+    @PostMapping("/save")
+    public ResponseEntity<?> save(Store store, Long businessId, Long storeRankId, Long storeCategoryId, Long[] productCategoryIds) {
+        store.setBusiness(businessService.find(businessId));
+        store.setStoreRank(storeRankService.find(storeRankId));
+        store.setStoreCategory(storeCategoryService.find(storeCategoryId));
+        store.setProductCategories(new HashSet<>(productCategoryService.findList(productCategoryIds)));
+        store.setStatus(Store.Status.PENDING);
+        store.setEndDate(new Date());
+        store.setBailPaid(BigDecimal.ZERO);
+        store.setStoreAdImages(null);
+        store.setInstantMessages(null);
+        store.setStoreProductCategories(null);
+        store.setCategoryApplications(null);
+        store.setStoreProductTags(null);
+        store.setProducts(null);
+        store.setPromotions(null);
+        store.setCoupons(null);
+        store.setStorePluginStatus(null);
+        store.setOrders(null);
+        store.setStoreFavorites(null);
+        store.setDeliveryTemplates(null);
+        store.setDeliveryCenters(null);
+        store.setDefaultFreightConfigs(null);
+        store.setAreaFreightConfigs(null);
+        store.setSvcs(null);
+        store.setPaymentTransactions(null);
+        store.setConsultations(null);
+        store.setReviews(null);
+        store.setStatistics(null);
+        if (storeService.nameExists(store.getName())) {
+            return Results.UNPROCESSABLE_ENTITY;
+        }
+        if (!isValid(store, BaseEntity.Save.class)) {
+            return Results.UNPROCESSABLE_ENTITY;
+        }
+        storeService.save(store);
+        storeService.review(store, true, null);
+        return Results.OK;
+    }
 
-	/**
-	 * 编辑
-	 */
-	@GetMapping("/edit")
-	public String edit(Long id, ModelMap model) {
-		model.addAttribute("store", storeService.find(id));
-		model.addAttribute("types", Store.Type.values());
-		model.addAttribute("storeRanks", storeRankService.findAll());
-		model.addAttribute("storeCategories", storeCategoryService.findAll());
-		model.addAttribute("productCategoryTree", productCategoryService.findTree());
-		return "admin/store/edit";
-	}
+    /**
+     * 编辑
+     */
+    @GetMapping("/edit")
+    public String edit(Long id, ModelMap model) {
+        model.addAttribute("store", storeService.find(id));
+        model.addAttribute("types", Store.Type.values());
+        model.addAttribute("storeRanks", storeRankService.findAll());
+        model.addAttribute("storeCategories", storeCategoryService.findAll());
+        model.addAttribute("productCategoryTree", productCategoryService.findTree());
+        return "admin/store/edit";
+    }
 
-	/**
-	 * 更新
-	 */
-	@PostMapping("/update")
-	public ResponseEntity<?> update(Store store, Long id, Long storeRankId, Long storeCategoryId, Long[] productCategoryIds) {
-		if (!storeService.nameUnique(id, store.getName())) {
-			return Results.UNPROCESSABLE_ENTITY;
-		}
-		Store pStore = storeService.find(id);
-		pStore.setName(store.getName());
-		pStore.setCapacity(store.getCapacity());
-		pStore.setLogo(store.getLogo());
-		pStore.setEmail(store.getEmail());
-		pStore.setMobile(store.getMobile());
-		pStore.setPhone(store.getPhone());
-		pStore.setAddress(store.getAddress());
-		pStore.setZipCode(store.getZipCode());
-		pStore.setIntroduction(store.getIntroduction());
-		pStore.setKeyword(store.getKeyword());
-		pStore.setEndDate(store.getEndDate());
-		pStore.setIsEnabled(store.getIsEnabled());
-		pStore.setStoreRank(storeRankService.find(storeRankId));
-		pStore.setStoreCategory(storeCategoryService.find(storeCategoryId));
-		pStore.setProductCategories(new HashSet<>(productCategoryService.findList(productCategoryIds)));
-		if (!isValid(pStore, BaseEntity.Update.class)) {
-			return Results.UNPROCESSABLE_ENTITY;
-		}
-		storeService.update(pStore);
-		return Results.OK;
-	}
+    /**
+     * 更新
+     */
+    @PostMapping("/update")
+    public ResponseEntity<?> update(Store store, Long id, Long storeRankId, Long storeCategoryId, Long[] productCategoryIds) {
+        if (!storeService.nameUnique(id, store.getName())) {
+            return Results.UNPROCESSABLE_ENTITY;
+        }
+        Store pStore = storeService.find(id);
+        pStore.setName(store.getName());
+        pStore.setCapacity(store.getCapacity());
+        pStore.setLogo(store.getLogo());
+        pStore.setEmail(store.getEmail());
+        pStore.setMobile(store.getMobile());
+        pStore.setPhone(store.getPhone());
+        pStore.setAddress(store.getAddress());
+        pStore.setZipCode(store.getZipCode());
+        pStore.setIntroduction(store.getIntroduction());
+        pStore.setKeyword(store.getKeyword());
+        pStore.setEndDate(store.getEndDate());
+        pStore.setIsEnabled(store.getIsEnabled());
+        pStore.setStoreRank(storeRankService.find(storeRankId));
+        pStore.setStoreCategory(storeCategoryService.find(storeCategoryId));
+        pStore.setProductCategories(new HashSet<>(productCategoryService.findList(productCategoryIds)));
+        if (!isValid(pStore, BaseEntity.Update.class)) {
+            return Results.UNPROCESSABLE_ENTITY;
+        }
+        storeService.update(pStore);
+        return Results.OK;
+    }
 
-	/**
-	 * 列表
-	 */
-	@GetMapping("/list")
-	public String list(Store.Type type, Store.Status status, Boolean isEnabled, Boolean hasExpired, Pageable pageable, ModelMap model) {
-		model.addAttribute("type", type);
-		model.addAttribute("status", status);
-		model.addAttribute("isEnabled", isEnabled);
-		model.addAttribute("hasExpired", hasExpired);
-		model.addAttribute("page", storeService.findPage(type, status, isEnabled, hasExpired, pageable));
-		return "admin/store/list";
-	}
+    /**
+     * 列表
+     */
+    @GetMapping("/list")
+    public String list(Store.Type type, Store.Status status, Boolean isEnabled, Boolean hasExpired, Pageable pageable, ModelMap model) {
+        model.addAttribute("type", type);
+        model.addAttribute("status", status);
+        model.addAttribute("isEnabled", isEnabled);
+        model.addAttribute("hasExpired", hasExpired);
+        model.addAttribute("page", storeService.findPage(type, status, isEnabled, hasExpired, pageable));
+        return "admin/store/list";
+    }
 
-	/**
-	 * 删除
-	 */
-	@PostMapping("/delete")
-	public ResponseEntity<?> delete(Long[] ids) {
-		if (ids != null) {
-			for (Long id : ids) {
-				Store store = storeService.find(id);
-				if (store != null && Store.Status.SUCCESS.equals(store.getStatus())) {
-					return Results.unprocessableEntity("admin.store.deleteSuccessNotAllowed", store.getName());
-				}
-			}
-			storeService.delete(ids);
-		}
-		return Results.OK;
-	}
+    /**
+     * 删除
+     */
+    @PostMapping("/delete")
+    public ResponseEntity<?> delete(Long[] ids) {
+        if (ids != null) {
+            for (Long id : ids) {
+                Store store = storeService.find(id);
+                if (store != null && Store.Status.SUCCESS.equals(store.getStatus())) {
+                    return Results.unprocessableEntity("admin.store.deleteSuccessNotAllowed", store.getName());
+                }
+            }
+            storeService.delete(ids);
+        }
+        return Results.OK;
+    }
 
-	/**
-	 * 审核
-	 */
-	@GetMapping("/review")
-	public String review(Long id, ModelMap model) {
-		Store store = storeService.find(id);
-		model.addAttribute("store", store);
-		model.addAttribute("productCategoryRoots", productCategoryService.findRoots());
-		model.addAttribute("allowedProductCategories", productCategoryService.findList(store, null, null, null));
-		model.addAttribute("allowedProductCategoryParents", getAllowedProductCategoryParents(store));
-		return "admin/store/review";
-	}
+    /**
+     * 审核
+     */
+    @GetMapping("/review")
+    public String review(Long id, ModelMap model) {
+        Store store = storeService.find(id);
+        model.addAttribute("store", store);
+        model.addAttribute("productCategoryRoots", productCategoryService.findRoots());
+        model.addAttribute("allowedProductCategories", productCategoryService.findList(store, null, null, null));
+        model.addAttribute("allowedProductCategoryParents", getAllowedProductCategoryParents(store));
+        return "admin/store/review";
+    }
 
-	/**
-	 * 审核
-	 */
-	@PostMapping("/review")
-	public ResponseEntity<?> review(Long id, Boolean passed, String content) {
-		Store store = storeService.find(id);
-		if (store == null || !Store.Status.PENDING.equals(store.getStatus()) || passed == null || (!passed && StringUtils.isEmpty(content))) {
-			return Results.UNPROCESSABLE_ENTITY;
-		}
-		storeService.review(store, passed, content);
-		return Results.OK;
-	}
+    /**
+     * 审核
+     */
+    @PostMapping("/review")
+    public ResponseEntity<?> review(Long id, Boolean passed, String content) {
+        Store store = storeService.find(id);
+        if (store == null || !Store.Status.PENDING.equals(store.getStatus()) || passed == null || (!passed && StringUtils.isEmpty(content))) {
+            return Results.UNPROCESSABLE_ENTITY;
+        }
+        storeService.review(store, passed, content);
+        return Results.OK;
+    }
 
-	/**
-	 * 获取允许发布商品分类上级分类
-	 * 
-	 * @param store
-	 *            店铺
-	 * @return 允许发布商品分类上级分类
-	 */
-	private Set<ProductCategory> getAllowedProductCategoryParents(Store store) {
-		Assert.notNull(store, "[Assertion failed] - store is required; it must not be null");
+    /**
+     * 获取允许发布商品分类上级分类
+     *
+     * @param store 店铺
+     * @return 允许发布商品分类上级分类
+     */
+    private Set<ProductCategory> getAllowedProductCategoryParents(Store store) {
+        Assert.notNull(store, "[Assertion failed] - store is required; it must not be null");
 
-		Set<ProductCategory> result = new HashSet<>();
-		List<ProductCategory> allowedProductCategories = productCategoryService.findList(store, null, null, null);
-		for (ProductCategory allowedProductCategory : allowedProductCategories) {
-			result.addAll(allowedProductCategory.getParents());
-		}
-		return result;
-	}
+        Set<ProductCategory> result = new HashSet<>();
+        List<ProductCategory> allowedProductCategories = productCategoryService.findList(store, null, null, null);
+        for (ProductCategory allowedProductCategory : allowedProductCategories) {
+            result.addAll(allowedProductCategory.getParents());
+        }
+        return result;
+    }
 
 }

@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import net.mall.entity.SupplierPluginConfig;
 import net.mall.service.SupplierPluginConfigService;
+
 @Service
-public class SupplierPluginConfigServiceImpl  extends BaseServiceImpl<SupplierPluginConfig, Long>  implements SupplierPluginConfigService {
+public class SupplierPluginConfigServiceImpl extends BaseServiceImpl<SupplierPluginConfig, Long> implements SupplierPluginConfigService {
 }

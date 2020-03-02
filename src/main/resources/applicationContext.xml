@@ -142,8 +142,8 @@
 		</property>
 		<property name="freemarkerVariables">
 			<map>
-				<!-- http://www.interstrangers.net -->
-				<entry key="base" value="http://www.interstrangers.net" />
+				<!-- http://www.chinafibermarketing.com -->
+				<entry key="base" value="http://www.chinafibermarketing.com" />
 				<entry key="showPowered" value="#{${show_powered}}" />
 				<entry key="message" value-ref="messageMethod" />
 				<entry key="abbreviate" value-ref="abbreviateMethod" />

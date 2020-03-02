@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.controller.admin;
 
@@ -18,7 +18,7 @@ import net.mall.service.DistributionCommissionService;
 
 /**
  * Controller - 分销佣金
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
@@ -26,16 +26,16 @@ import net.mall.service.DistributionCommissionService;
 @RequestMapping("/admin/distribution_commission")
 public class DistributionCommissionController extends BaseController {
 
-	@Inject
-	private DistributionCommissionService distributionCommissionService;
+    @Inject
+    private DistributionCommissionService distributionCommissionService;
 
-	/**
-	 * 列表
-	 */
-	@GetMapping("/list")
-	public String list(Pageable pageable, ModelMap model) {
-		model.addAttribute("page", distributionCommissionService.findPage(pageable));
-		return "admin/distribution_commission/list";
-	}
+    /**
+     * 列表
+     */
+    @GetMapping("/list")
+    public String list(Pageable pageable, ModelMap model) {
+        model.addAttribute("page", distributionCommissionService.findPage(pageable));
+        return "admin/distribution_commission/list";
+    }
 
 }

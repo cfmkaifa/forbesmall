@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.security;
 
@@ -19,43 +19,38 @@ import net.mall.service.CartService;
 
 /**
  * Security - 当前购物车MethodArgumentResolver
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
 public class CurrentCartMethodArgumentResolver implements HandlerMethodArgumentResolver {
 
-	@Inject
-	private CartService cartService;
+    @Inject
+    private CartService cartService;
 
-	/**
-	 * 支持参数
-	 * 
-	 * @param methodParameter
-	 *            MethodParameter
-	 * @return 是否支持参数
-	 */
-	@Override
-	public boolean supportsParameter(MethodParameter methodParameter) {
-		return methodParameter.hasParameterAnnotation(CurrentCart.class) && Cart.class.isAssignableFrom(methodParameter.getParameterType());
-	}
+    /**
+     * 支持参数
+     *
+     * @param methodParameter MethodParameter
+     * @return 是否支持参数
+     */
+    @Override
+    public boolean supportsParameter(MethodParameter methodParameter) {
+        return methodParameter.hasParameterAnnotation(CurrentCart.class) && Cart.class.isAssignableFrom(methodParameter.getParameterType());
+    }
 
-	/**
-	 * 解析变量
-	 * 
-	 * @param methodParameter
-	 *            MethodParameter
-	 * @param modelAndViewContainer
-	 *            ModelAndViewContainer
-	 * @param nativeWebRequest
-	 *            NativeWebRequest
-	 * @param webDataBinderFactory
-	 *            WebDataBinderFactory
-	 * @return 变量
-	 */
-	@Override
-	public Object resolveArgument(MethodParameter methodParameter, ModelAndViewContainer modelAndViewContainer, NativeWebRequest nativeWebRequest, WebDataBinderFactory webDataBinderFactory) throws Exception {
-		return cartService.getCurrent();
-	}
+    /**
+     * 解析变量
+     *
+     * @param methodParameter       MethodParameter
+     * @param modelAndViewContainer ModelAndViewContainer
+     * @param nativeWebRequest      NativeWebRequest
+     * @param webDataBinderFactory  WebDataBinderFactory
+     * @return 变量
+     */
+    @Override
+    public Object resolveArgument(MethodParameter methodParameter, ModelAndViewContainer modelAndViewContainer, NativeWebRequest nativeWebRequest, WebDataBinderFactory webDataBinderFactory) throws Exception {
+        return cartService.getCurrent();
+    }
 
 }

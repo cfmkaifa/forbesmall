@@ -31,7 +31,7 @@ public class ProPurchApplyController extends BaseController {
         if (proPurchApply == null
                 || !ProPurchApply.ProApplyStatus.PENDING.equals(proPurchApply.getStatus())
                 || (!ProPurchApply.ProApplyStatus.APPROVED.equals(status)
-                        && !ProPurchApply.ProApplyStatus.FAILED.equals(status))) {
+                && !ProPurchApply.ProApplyStatus.FAILED.equals(status))) {
             return Results.UNPROCESSABLE_ENTITY;
         }
         proPurchApply.setStatus(status);
@@ -43,12 +43,12 @@ public class ProPurchApplyController extends BaseController {
      * 列表
      */
     @GetMapping("/list")
-    public String list(ProPurchApply.ProApplyStatus status,String searchValue, Pageable pageable, ModelMap model) {
+    public String list(ProPurchApply.ProApplyStatus status, String searchValue, Pageable pageable, ModelMap model) {
         model.addAttribute("status", status);
-        if(ConvertUtils.isNotEmpty(status)){
-            pageable.getFilters().add(new Filter("status",Filter.Operator.EQ,status));
+        if (ConvertUtils.isNotEmpty(status)) {
+            pageable.getFilters().add(new Filter("status", Filter.Operator.EQ, status));
         }
-        if(ConvertUtils.isNotEmpty(searchValue)){
+        if (ConvertUtils.isNotEmpty(searchValue)) {
             pageable.setSearchProperty("proName");
         }
         model.addAttribute("page", proPurchApplyService.findPage(pageable));

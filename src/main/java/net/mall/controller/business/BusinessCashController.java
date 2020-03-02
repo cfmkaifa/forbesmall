@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.controller.business;
 
@@ -29,7 +29,7 @@ import net.mall.util.SystemUtils;
 
 /**
  * Controller - 商家提现
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
@@ -37,49 +37,50 @@ import net.mall.util.SystemUtils;
 @RequestMapping("/business/business_cash")
 public class BusinessCashController extends BaseController {
 
-	@Inject
-	private BusinessCashService businessCashService;
+    @Inject
+    private BusinessCashService businessCashService;
 
-	/**
-	 * 检查余额
-	 */
-	@GetMapping("/check_balance")
-	public @ResponseBody boolean checkBalance(BigDecimal amount, @CurrentUser Business currentUser) {
-		return amount.compareTo(BigDecimal.ZERO) > 0 && currentUser.getAvailableBalance().compareTo(amount) >= 0;
-	}
+    /**
+     * 检查余额
+     */
+    @GetMapping("/check_balance")
+    public @ResponseBody
+    boolean checkBalance(BigDecimal amount, @CurrentUser Business currentUser) {
+        return amount.compareTo(BigDecimal.ZERO) > 0 && currentUser.getAvailableBalance().compareTo(amount) >= 0;
+    }
 
-	/**
-	 * 申请提现
-	 */
-	@GetMapping("/application")
-	public String cash() {
-		return "business/business_cash/application";
-	}
+    /**
+     * 申请提现
+     */
+    @GetMapping("/application")
+    public String cash() {
+        return "business/business_cash/application";
+    }
 
-	/**
-	 * 申请提现
-	 */
-	@PostMapping("/save")
-	public ResponseEntity<?> applyCash(BusinessCash businessCash, @CurrentUser Business currentUser) {
-		if (!isValid(businessCash)) {
-			return Results.UNPROCESSABLE_ENTITY;
-		}
-		Setting setting = SystemUtils.getSetting();
-		if (currentUser.getBalance().compareTo(businessCash.getAmount()) < 0 || businessCash.getAmount().compareTo(setting.getBusinessMinimumCashAmount()) < 0) {
-			return Results.UNPROCESSABLE_ENTITY;
-		}
-		businessCashService.applyCash(businessCash, currentUser);
+    /**
+     * 申请提现
+     */
+    @PostMapping("/save")
+    public ResponseEntity<?> applyCash(BusinessCash businessCash, @CurrentUser Business currentUser) {
+        if (!isValid(businessCash)) {
+            return Results.UNPROCESSABLE_ENTITY;
+        }
+        Setting setting = SystemUtils.getSetting();
+        if (currentUser.getBalance().compareTo(businessCash.getAmount()) < 0 || businessCash.getAmount().compareTo(setting.getBusinessMinimumCashAmount()) < 0) {
+            return Results.UNPROCESSABLE_ENTITY;
+        }
+        businessCashService.applyCash(businessCash, currentUser);
 
-		return Results.OK;
-	}
+        return Results.OK;
+    }
 
-	/**
-	 * 列表
-	 */
-	@GetMapping("/list")
-	public String list(Pageable pageable, @CurrentUser Business currentUser, ModelMap model) {
-		model.addAttribute("page", businessCashService.findPage(null, null, null, currentUser, pageable));
-		return "business/business_cash/list";
-	}
+    /**
+     * 列表
+     */
+    @GetMapping("/list")
+    public String list(Pageable pageable, @CurrentUser Business currentUser, ModelMap model) {
+        model.addAttribute("page", businessCashService.findPage(null, null, null, currentUser, pageable));
+        return "business/business_cash/list";
+    }
 
 }

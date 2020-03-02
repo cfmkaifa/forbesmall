@@ -22,13 +22,12 @@ import java.util.ArrayList;
 public class ExtDataProviderCompiler {
 
 
-
     /***
      * 设置参数
      * @param params
      * @param rows
      */
-    private void upParams(String[] params,ArrayList<String[]> rows){
+    private void upParams(String[] params, ArrayList<String[]> rows) {
         rows.add(params);
     }
 
@@ -38,8 +37,8 @@ public class ExtDataProviderCompiler {
      * @param rows
      * @return
      */
-    private InternalKnowledgeBase compileTemplate(KnowledgeBuilder KB,ArrayList<String[]> rows)
-            throws UnsupportedEncodingException{
+    private InternalKnowledgeBase compileTemplate(KnowledgeBuilder KB, ArrayList<String[]> rows)
+            throws UnsupportedEncodingException {
         ExtDataProvider tdp = new ExtDataProvider(rows);
         DataProviderCompiler converter = new DataProviderCompiler();
         String drl = converter.compile(tdp, "/drl/rule_template.drl");
@@ -57,7 +56,7 @@ public class ExtDataProviderCompiler {
      * @param groupPurchRools
      * @param internalKnowledgeBase
      */
-    private  void executeRule(GroupPurchRools groupPurchRools,InternalKnowledgeBase internalKnowledgeBase){
+    private void executeRule(GroupPurchRools groupPurchRools, InternalKnowledgeBase internalKnowledgeBase) {
         KieSession kSession = internalKnowledgeBase.newKieSession();
         kSession.insert(groupPurchRools);
         kSession.fireAllRules();
@@ -68,7 +67,7 @@ public class ExtDataProviderCompiler {
      *
      * @param kSession
      */
-    private void disposeRule(KieSession kSession){
+    private void disposeRule(KieSession kSession) {
         kSession.dispose();
     }
 
@@ -78,12 +77,12 @@ public class ExtDataProviderCompiler {
      * @param groupPurchRools
      * @throws UnsupportedEncodingException
      */
-    public void executeRules(String[] params,GroupPurchRools groupPurchRools)
+    public void executeRules(String[] params, GroupPurchRools groupPurchRools)
             throws UnsupportedEncodingException {
         KnowledgeBuilder KB = KnowledgeBuilderFactory.newKnowledgeBuilder();
         ArrayList<String[]> rows = new ArrayList<String[]>();
-        this.upParams(params,rows);
-        InternalKnowledgeBase internalKnowledgeBase = this.compileTemplate(KB,rows);
-        this.executeRule(groupPurchRools,internalKnowledgeBase);
+        this.upParams(params, rows);
+        InternalKnowledgeBase internalKnowledgeBase = this.compileTemplate(KB, rows);
+        this.executeRule(groupPurchRools, internalKnowledgeBase);
     }
 }

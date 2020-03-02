@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.service.impl;
 
@@ -13,7 +13,7 @@ import net.mall.service.PaymentMethodService;
 
 /**
  * Service - 支付方式
- * 
+ *
  * @author huanghy
  * @version 6.1
  */

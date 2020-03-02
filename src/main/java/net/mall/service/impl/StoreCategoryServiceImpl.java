@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.service.impl;
 
@@ -17,20 +17,20 @@ import net.mall.service.StoreCategoryService;
 
 /**
  * Service - 店铺分类
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
 @Service
 public class StoreCategoryServiceImpl extends BaseServiceImpl<StoreCategory, Long> implements StoreCategoryService {
 
-	@Inject
-	private StoreCategoryDao storeCategoryDao;
+    @Inject
+    private StoreCategoryDao storeCategoryDao;
 
-	@Override
-	@Transactional(readOnly = true)
-	public boolean nameExists(String name) {
-		return storeCategoryDao.exists("name", name, true);
-	}
+    @Override
+    @Transactional(readOnly = true)
+    public boolean nameExists(String name) {
+        return storeCategoryDao.exists("name", name, true);
+    }
 
 }

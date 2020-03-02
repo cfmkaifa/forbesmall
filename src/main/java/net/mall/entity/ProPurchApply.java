@@ -14,7 +14,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "pro_purch_apply")
-public class ProPurchApply  extends BaseEntity<Long>{
+public class ProPurchApply extends BaseEntity<Long> {
 
 
     private static final long serialVersionUID = 7393486158076413374L;
@@ -43,49 +43,48 @@ public class ProPurchApply  extends BaseEntity<Long>{
     /**
      * 状态
      */
-    @Column(nullable = false,name="apply_status")
+    @Column(nullable = false, name = "apply_status")
     private ProPurchApply.ProApplyStatus status;
 
 
-    @Column(nullable = false,name="member_id")
+    @Column(nullable = false, name = "member_id")
     private Long memberId;
 
-    @Column(nullable = false,name="member_name")
+    @Column(nullable = false, name = "member_name")
     private String membeName;
 
-    @Column(nullable = false,name="pro_sn")
+    @Column(nullable = false, name = "pro_sn")
     private String proSn;
 
-    @Column(name="pro_name")
+    @Column(name = "pro_name")
     private String proName;
 
-    @Column(name="sku_sn")
+    @Column(name = "sku_sn")
     private String skuSn;
 
     /***
      *
      */
-    @Column(name="start_time")
+    @Column(name = "start_time")
     private Date startTime;
 
 
-    @Column(name="end_time")
+    @Column(name = "end_time")
     private Date endTime;
 
-    @Column(name="remarks")
+    @Column(name = "remarks")
     private String remarks;
 
     @Min(0)
     @Digits(integer = 12, fraction = 3)
-    @Column(precision = 21, scale = 6,name = "start_price")
+    @Column(precision = 21, scale = 6, name = "start_price")
     private BigDecimal startPrice;
 
 
     @Min(0)
     @Digits(integer = 12, fraction = 3)
-    @Column(precision = 21, scale = 6,name = "end_price")
+    @Column(precision = 21, scale = 6, name = "end_price")
     private BigDecimal endPrice;
-
 
 
     @Transient

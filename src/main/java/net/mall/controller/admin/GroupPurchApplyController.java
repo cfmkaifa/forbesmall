@@ -31,11 +31,11 @@ public class GroupPurchApplyController extends BaseController {
         if (groupPurchApply == null
                 || !GroupPurchApply.ApplyStatus.PENDING.equals(groupPurchApply.getStatus())
                 || (!GroupPurchApply.ApplyStatus.APPROVED.equals(status)
-                        && !GroupPurchApply.ApplyStatus.FAILED.equals(status))) {
+                && !GroupPurchApply.ApplyStatus.FAILED.equals(status))) {
             return Results.UNPROCESSABLE_ENTITY;
         }
         groupPurchApply.setStatus(status);
-        if (GroupPurchApply.ApplyStatus.APPROVED.equals(status)){
+        if (GroupPurchApply.ApplyStatus.APPROVED.equals(status)) {
             groupPurchApply.setJobStatus(GroupPurchApply.JobStatus.PENDING);
         }
         groupPurchApplyService.update(groupPurchApply);
@@ -46,12 +46,12 @@ public class GroupPurchApplyController extends BaseController {
      * 列表
      */
     @GetMapping("/list")
-    public String list(GroupPurchApply.ApplyStatus status,String searchValue, Pageable pageable, ModelMap model) {
+    public String list(GroupPurchApply.ApplyStatus status, String searchValue, Pageable pageable, ModelMap model) {
         model.addAttribute("status", status);
-        if(ConvertUtils.isNotEmpty(status)){
-            pageable.getFilters().add(new Filter("status",Filter.Operator.EQ,status));
+        if (ConvertUtils.isNotEmpty(status)) {
+            pageable.getFilters().add(new Filter("status", Filter.Operator.EQ, status));
         }
-        if(ConvertUtils.isNotEmpty(searchValue)){
+        if (ConvertUtils.isNotEmpty(searchValue)) {
             pageable.setSearchProperty("proName");
         }
         model.addAttribute("page", groupPurchApplyService.findPage(pageable));

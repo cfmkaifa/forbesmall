@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.controller.admin.plugin;
 
@@ -28,7 +28,7 @@ import net.mall.service.PluginConfigService;
 
 /**
  * Controller - 阿里云存储
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
@@ -36,64 +36,64 @@ import net.mall.service.PluginConfigService;
 @RequestMapping("/admin/plugin/oss_storage")
 public class OssStorageController extends BaseController {
 
-	@Inject
-	private OssStoragePlugin ossStoragePlugin;
-	@Inject
-	private PluginConfigService pluginConfigService;
+    @Inject
+    private OssStoragePlugin ossStoragePlugin;
+    @Inject
+    private PluginConfigService pluginConfigService;
 
-	/**
-	 * 安装
-	 */
-	@PostMapping("/install")
-	public ResponseEntity<?> install() {
-		if (!ossStoragePlugin.getIsInstalled()) {
-			PluginConfig pluginConfig = new PluginConfig();
-			pluginConfig.setPluginId(ossStoragePlugin.getId());
-			pluginConfig.setIsEnabled(false);
-			pluginConfig.setAttributes(null);
-			pluginConfigService.save(pluginConfig);
-		}
-		return Results.OK;
-	}
+    /**
+     * 安装
+     */
+    @PostMapping("/install")
+    public ResponseEntity<?> install() {
+        if (!ossStoragePlugin.getIsInstalled()) {
+            PluginConfig pluginConfig = new PluginConfig();
+            pluginConfig.setPluginId(ossStoragePlugin.getId());
+            pluginConfig.setIsEnabled(false);
+            pluginConfig.setAttributes(null);
+            pluginConfigService.save(pluginConfig);
+        }
+        return Results.OK;
+    }
 
-	/**
-	 * 卸载
-	 */
-	@PostMapping("/uninstall")
-	public ResponseEntity<?> uninstall() {
-		if (ossStoragePlugin.getIsInstalled()) {
-			pluginConfigService.deleteByPluginId(ossStoragePlugin.getId());
-		}
-		return Results.OK;
-	}
+    /**
+     * 卸载
+     */
+    @PostMapping("/uninstall")
+    public ResponseEntity<?> uninstall() {
+        if (ossStoragePlugin.getIsInstalled()) {
+            pluginConfigService.deleteByPluginId(ossStoragePlugin.getId());
+        }
+        return Results.OK;
+    }
 
-	/**
-	 * 设置
-	 */
-	@GetMapping("/setting")
-	public String setting(ModelMap model) {
-		PluginConfig pluginConfig = ossStoragePlugin.getPluginConfig();
-		model.addAttribute("pluginConfig", pluginConfig);
-		return "/admin/plugin/oss_storage/setting";
-	}
+    /**
+     * 设置
+     */
+    @GetMapping("/setting")
+    public String setting(ModelMap model) {
+        PluginConfig pluginConfig = ossStoragePlugin.getPluginConfig();
+        model.addAttribute("pluginConfig", pluginConfig);
+        return "/admin/plugin/oss_storage/setting";
+    }
 
-	/**
-	 * 更新
-	 */
-	@PostMapping("/update")
-	public ResponseEntity<?> update(String endpoint, String accessId, String accessKey, String bucketName, String urlPrefix, @RequestParam(defaultValue = "false") Boolean isEnabled, Integer order) {
-		PluginConfig pluginConfig = ossStoragePlugin.getPluginConfig();
-		Map<String, String> attributes = new HashMap<>();
-		attributes.put("endpoint", endpoint);
-		attributes.put("accessId", accessId);
-		attributes.put("accessKey", accessKey);
-		attributes.put("bucketName", bucketName);
-		attributes.put("urlPrefix", StringUtils.removeEnd(urlPrefix, "/"));
-		pluginConfig.setAttributes(attributes);
-		pluginConfig.setIsEnabled(isEnabled);
-		pluginConfig.setOrder(order);
-		pluginConfigService.update(pluginConfig);
-		return Results.OK;
-	}
+    /**
+     * 更新
+     */
+    @PostMapping("/update")
+    public ResponseEntity<?> update(String endpoint, String accessId, String accessKey, String bucketName, String urlPrefix, @RequestParam(defaultValue = "false") Boolean isEnabled, Integer order) {
+        PluginConfig pluginConfig = ossStoragePlugin.getPluginConfig();
+        Map<String, String> attributes = new HashMap<>();
+        attributes.put("endpoint", endpoint);
+        attributes.put("accessId", accessId);
+        attributes.put("accessKey", accessKey);
+        attributes.put("bucketName", bucketName);
+        attributes.put("urlPrefix", StringUtils.removeEnd(urlPrefix, "/"));
+        pluginConfig.setAttributes(attributes);
+        pluginConfig.setIsEnabled(isEnabled);
+        pluginConfig.setOrder(order);
+        pluginConfigService.update(pluginConfig);
+        return Results.OK;
+    }
 
 }

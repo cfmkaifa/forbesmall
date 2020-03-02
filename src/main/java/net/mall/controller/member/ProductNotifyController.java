@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.controller.member;
 
@@ -31,7 +31,7 @@ import net.mall.service.ProductNotifyService;
 
 /**
  * Controller - 到货通知
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
@@ -39,57 +39,57 @@ import net.mall.service.ProductNotifyService;
 @RequestMapping("/member/product_notify")
 public class ProductNotifyController extends BaseController {
 
-	/**
-	 * 每页记录数
-	 */
-	private static final int PAGE_SIZE = 10;
+    /**
+     * 每页记录数
+     */
+    private static final int PAGE_SIZE = 10;
 
-	@Inject
-	private ProductNotifyService productNotifyService;
+    @Inject
+    private ProductNotifyService productNotifyService;
 
-	/**
-	 * 添加属性
-	 */
-	@ModelAttribute
-	public void populateModel(Long productNotifyId, @CurrentUser Member currentUser, ModelMap model) {
-		ProductNotify productNotify = productNotifyService.find(productNotifyId);
-		if (productNotify != null && !currentUser.equals(productNotify.getMember())) {
-			throw new UnauthorizedException();
-		}
-		model.addAttribute("productNotify", productNotify);
-	}
+    /**
+     * 添加属性
+     */
+    @ModelAttribute
+    public void populateModel(Long productNotifyId, @CurrentUser Member currentUser, ModelMap model) {
+        ProductNotify productNotify = productNotifyService.find(productNotifyId);
+        if (productNotify != null && !currentUser.equals(productNotify.getMember())) {
+            throw new UnauthorizedException();
+        }
+        model.addAttribute("productNotify", productNotify);
+    }
 
-	/**
-	 * 列表
-	 */
-	@GetMapping("/list")
-	public String list(Integer pageNumber, @CurrentUser Member currentUser, Model model) {
-		Pageable pageable = new Pageable(pageNumber, PAGE_SIZE);
-		model.addAttribute("page", productNotifyService.findPage(null, currentUser, null, null, null, pageable));
-		return "member/product_notify/list";
-	}
+    /**
+     * 列表
+     */
+    @GetMapping("/list")
+    public String list(Integer pageNumber, @CurrentUser Member currentUser, Model model) {
+        Pageable pageable = new Pageable(pageNumber, PAGE_SIZE);
+        model.addAttribute("page", productNotifyService.findPage(null, currentUser, null, null, null, pageable));
+        return "member/product_notify/list";
+    }
 
-	/**
-	 * 列表
-	 */
-	@GetMapping(path = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
-	@JsonView(BaseEntity.BaseView.class)
-	public ResponseEntity<?> list(Integer pageNumber, @CurrentUser Member currentUser) {
-		Pageable pageable = new Pageable(pageNumber, PAGE_SIZE);
-		return ResponseEntity.ok(productNotifyService.findPage(null, currentUser, null, null, null, pageable).getContent());
-	}
+    /**
+     * 列表
+     */
+    @GetMapping(path = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
+    @JsonView(BaseEntity.BaseView.class)
+    public ResponseEntity<?> list(Integer pageNumber, @CurrentUser Member currentUser) {
+        Pageable pageable = new Pageable(pageNumber, PAGE_SIZE);
+        return ResponseEntity.ok(productNotifyService.findPage(null, currentUser, null, null, null, pageable).getContent());
+    }
 
-	/**
-	 * 删除
-	 */
-	@PostMapping("/delete")
-	public ResponseEntity<?> delete(@ModelAttribute(binding = false) ProductNotify productNotify) {
-		if (productNotify == null) {
-			return Results.NOT_FOUND;
-		}
+    /**
+     * 删除
+     */
+    @PostMapping("/delete")
+    public ResponseEntity<?> delete(@ModelAttribute(binding = false) ProductNotify productNotify) {
+        if (productNotify == null) {
+            return Results.NOT_FOUND;
+        }
 
-		productNotifyService.delete(productNotify);
-		return Results.OK;
-	}
+        productNotifyService.delete(productNotify);
+        return Results.OK;
+    }
 
 }

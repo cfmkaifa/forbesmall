@@ -73,12 +73,12 @@ public class ProPurchApplyController extends BaseController {
         String proSn = product.getSn();
         String skuSn = purchApply.getSkuSn();
         Date currentDate = new Date();
-        ProPurchApply oldProPurchApply = proPurchApplyService.proPurchApply(proSn,skuSn,currentDate,ProPurchApply.ProApplyStatus.PENDING);
-        if(ConvertUtils.isNotEmpty(oldProPurchApply)){
+        ProPurchApply oldProPurchApply = proPurchApplyService.proPurchApply(proSn, skuSn, currentDate, ProPurchApply.ProApplyStatus.PENDING);
+        if (ConvertUtils.isNotEmpty(oldProPurchApply)) {
             return Results.UNPROCESSABLE_ENTITY;
         }
-        ProPurchApply olProPurchApply = proPurchApplyService.proPurchApply(proSn,skuSn,currentDate,ProPurchApply.ProApplyStatus.APPROVED);
-        if(ConvertUtils.isNotEmpty(olProPurchApply)){
+        ProPurchApply olProPurchApply = proPurchApplyService.proPurchApply(proSn, skuSn, currentDate, ProPurchApply.ProApplyStatus.APPROVED);
+        if (ConvertUtils.isNotEmpty(olProPurchApply)) {
             return Results.UNPROCESSABLE_ENTITY;
         }
         purchApply.setProName(product.getName());
@@ -95,12 +95,12 @@ public class ProPurchApplyController extends BaseController {
      */
     @GetMapping("/list")
     public String list(Pageable pageable, String searchValue, @CurrentUser Member currentMember, ModelMap model) {
-        pageable.getFilters().add(new Filter("memberId",Filter.Operator.EQ,currentMember.getId()));
-        if(ConvertUtils.isNotEmpty(searchValue)){
+        pageable.getFilters().add(new Filter("memberId", Filter.Operator.EQ, currentMember.getId()));
+        if (ConvertUtils.isNotEmpty(searchValue)) {
             pageable.setSearchProperty("proName");
         }
         Page<ProPurchApply> page = proPurchApplyService.findPage(pageable);
-        model.addAttribute("page",page);
+        model.addAttribute("page", page);
         return "member/pro_purch_apply/list";
     }
 }

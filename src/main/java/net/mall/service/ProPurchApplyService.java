@@ -5,7 +5,7 @@ import net.mall.entity.ProPurchApply;
 import java.util.Date;
 import java.util.List;
 
-public interface ProPurchApplyService  extends BaseService<ProPurchApply, Long> {
+public interface ProPurchApplyService extends BaseService<ProPurchApply, Long> {
 
 
     /****
@@ -16,7 +16,7 @@ public interface ProPurchApplyService  extends BaseService<ProPurchApply, Long> 
      * @param applyStatus
      * @return
      */
-    ProPurchApply  proPurchApply(String proSn, String skuSn, Date currentDate, ProPurchApply.ProApplyStatus applyStatus);
+    ProPurchApply proPurchApply(String proSn, String skuSn, Date currentDate, ProPurchApply.ProApplyStatus applyStatus);
 
 
     /****
