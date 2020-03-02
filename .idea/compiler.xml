@@ -7,14 +7,21 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="forbesmall" />
+        <module name="msg-utils" />
         <module name="usercenter-config" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="forbes-gather" target="1.8" />
       <module name="forbesmall" target="1.8" />
+      <module name="msg-utils" target="1.8" />
       <module name="rl_zg_usercenter" target="1.8" />
       <module name="usercenter-config" target="1.8" />
     </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="msg-utils" options="-parameters" />
+    </option>
   </component>
 </project>

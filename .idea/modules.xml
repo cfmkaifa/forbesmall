@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/../smartwork/rl_zg_usercenter/config.iml" filepath="$PROJECT_DIR$/../smartwork/rl_zg_usercenter/config.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/forbesmall.iml" filepath="$PROJECT_DIR$/.idea/forbesmall.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../msg-utils.iml" filepath="$PROJECT_DIR$/../msg-utils.iml" />
       <module fileurl="file://$PROJECT_DIR$/../smartwork/rl_zg_usercenter/rl_zg_usercenter.iml" filepath="$PROJECT_DIR$/../smartwork/rl_zg_usercenter/rl_zg_usercenter.iml" />
       <module fileurl="file://$PROJECT_DIR$/../smartwork/rl_zg_usercenter/usercenter-config/usercenter-config.iml" filepath="$PROJECT_DIR$/../smartwork/rl_zg_usercenter/usercenter-config/usercenter-config.iml" />
     </modules>
