@@ -339,8 +339,8 @@
 																	  <img src="${stores.logo}" class="logo-2">
 																	<p>${stores.name}</p>
 																</span>
-                                                                    <p class="tonsof-2">${stores.capacity}吨/年</p>
-                                                                    <p class="themain-2">主营品种</p>
+                                                                    <p class="tonsof-2">${stores.capacity}${message("shop.index.mass")}</p>
+                                                                    <p class="themain-2">${message("shop.index.varieties")}</p>
                                                                     <p class="varieties-2">${stores.keyword}</p>
                                                                  </a>
                                                                 </div>
