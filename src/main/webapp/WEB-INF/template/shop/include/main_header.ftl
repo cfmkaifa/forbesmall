@@ -83,7 +83,11 @@
 			$mainHeaderMemberInfo.html(mainHeaderMemberInfoTemplate({
 				currentUser: $.getCurrentUser()
 			}));
-			
+
+				$('.wrong').click(function(){
+					$('.dialog').hide('300');
+				})
+
 			// 用户注销
 			$mainHeaderMemberInfo.on("click", "a.logout", function() {
 				$document.trigger("loggedOut.mall.user", $.getCurrentUser());
@@ -181,8 +185,9 @@
 	<div class="top-nav">
 		<div class="container">
 			<div class="row">
-				<div class="col-xs-12">
+				<div class="col-xs-12" style="position: relative">
 					<div id="mainHeaderMemberInfo" class="pull-left"></div>
+
 					<ul class="list-inline pull-right">
 						[@navigation_list navigationGroupId = 1]
 							[#if navigations?has_content]
@@ -198,6 +203,7 @@
 								${message("shop.mainHeader.business")}
 								<span class="caret"></span>
 							</a>
+
 							<ul class="business">
 								<li>
 									<a href="${base}/business/index" target="_blank">${message("shop.mainHeader.businessIndex")}</a>
@@ -220,6 +226,10 @@
 							</ul>
 						</li>
 					</ul>
+					<div class="dialog">
+						<p class="wrong">×</p>
+						<a href="http://www.chinafibermarketing.cn/business/login;jsessionid=606AB0AACC9C523017A139C8650F9B0C?redirectUrl=%2Fbusiness%2Findex">商家登录</a>
+					</div>
 				</div>
 			</div>
 		</div>

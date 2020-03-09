@@ -121,7 +121,8 @@
 				<div class="row">
 					<div class="col-xs-4">
 						<a href="${base}/">
-							<img class="logo" src="${setting.logo}" alt="${setting.siteName}">
+							[#--<img class="logo" src="${setting.logo}" alt="${setting.siteName}">--]
+							<img class="logo" src="${base}/resources/shop/images/logo.png">
 						</a>
 					</div>
 					<div class="col-xs-5">
@@ -320,7 +321,7 @@
 
 						<div class="featured-product">
 							<div class="featured-product-heading">
-								<img src="/resources/shop/images/gangchangzhixiao.png">
+								<img src="${base}/resources/shop/images/gangchangzhixiao.png">
 							</div>
 							<div class="featured-product-body">
 								<div class="row">

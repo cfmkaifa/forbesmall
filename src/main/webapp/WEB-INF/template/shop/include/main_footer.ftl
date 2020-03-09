@@ -60,7 +60,7 @@
 			<div class="col-xs-2">
 				<ul  style="margin: 0 auto">
 					<li style="text-align: center;font-size: 14px;height: 30px;line-height: 30px;font-weight: 600;">客服热线</li>
-					<li><img src="/resources/shop/images/kfdh.gif" class="imggif1" style="width: 75px;  height: 75px;  margin: 13px 0px 0px 66px;" ></li>
+					<li><img src="${base}/resources/shop/images/kfdh.gif" class="imggif1" style="width: 75px;  height: 75px;  margin: 13px 0px 0px 66px;" ></li>
 				</ul>
 			</div>
 			<div class="col-xs-2">
