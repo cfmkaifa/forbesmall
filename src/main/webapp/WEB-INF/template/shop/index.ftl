@@ -42,7 +42,6 @@
     <script src="${base}/resources/common/js/base.js?version=0.1"></script>
     <script src="${base}/resources/shop/js/base.js"></script>
     <script src="${base}/resources/shop/js/iconfont.js"></script>
-
     [#noautoesc]
         [#escape x as x?js_string]
             <script>

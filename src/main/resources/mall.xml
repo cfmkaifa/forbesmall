@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mall>
 	<setting name="siteName" value="无纺平台" />
-	<!--www.chinafibermarketing.com-->
-	<setting name="siteUrl" value="http://www.chinafibermarketing.com" />
+	<!--http://www.chinafibermarketing.com-->
+	<setting name="siteUrl" value="http://localhost:8080" />
 	<setting name="fileUrl" value="http://fds.chinafibermarketing.com" />
 	<setting name="logo" value="/resources/shop/images/logo.png" />
 	<setting name="hotSearch" value="" />

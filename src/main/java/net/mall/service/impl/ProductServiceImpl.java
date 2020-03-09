@@ -200,9 +200,9 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
 
     @Override
     @Transactional(readOnly = true)
-    public Page<Product> findPage(Product.Type type, Integer method, Store.Type storeType, Store store, ProductCategory productCategory, StoreProductCategory storeProductCategory, Brand brand, Promotion promotion, ProductTag productTag, StoreProductTag storeProductTag, Map<Attribute, String> attributeValueMap,
+    public Page<Product> findPage(Product.Type type, Integer method,boolean isSample, Store.Type storeType, Store store, ProductCategory productCategory, StoreProductCategory storeProductCategory, Brand brand, Promotion promotion, ProductTag productTag, StoreProductTag storeProductTag, Map<Attribute, String> attributeValueMap,
                                   BigDecimal startPrice, BigDecimal endPrice, Boolean isMarketable, Boolean isList, Boolean isTop, Boolean isActive, Boolean isOutOfStock, Boolean isStockAlert, Boolean hasPromotion, Product.OrderType orderType, Pageable pageable) {
-        return productDao.findPage(type, method, storeType, store, productCategory, storeProductCategory, brand, promotion, productTag, storeProductTag, attributeValueMap, startPrice, endPrice, isMarketable, isList, isTop, isActive, isOutOfStock, isStockAlert, hasPromotion, orderType, pageable);
+        return productDao.findPage(type, method,isSample, storeType, store, productCategory, storeProductCategory, brand, promotion, productTag, storeProductTag, attributeValueMap, startPrice, endPrice, isMarketable, isList, isTop, isActive, isOutOfStock, isStockAlert, hasPromotion, orderType, pageable);
     }
 
     @SuppressWarnings("unchecked")

@@ -39,6 +39,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import net.mall.util.ConvertUtils;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
@@ -1886,10 +1887,12 @@ public class Product extends BaseEntity<Long> {
      */
     public Set<Sku> getSkus() {
         if (this.sample) {
-            return skus.stream().filter(sku -> Sample.YES.equals(sku.getSample())).collect(Collectors.toSet());
-        } else {
-            return skus;
+            Set<Sku> tskus = skus.stream().filter(sku -> Sample.YES.equals(sku.getSample())).collect(Collectors.toSet());
+            if(ConvertUtils.isNotEmpty(tskus)){
+                return tskus;
+            }
         }
+        return skus;
     }
 
     /**
@@ -1989,15 +1992,17 @@ public class Product extends BaseEntity<Long> {
     public Sku getDefaultSku() {
         if (this.sample) {
             Optional<Sku> optSku = skus.stream().filter(sku -> Sample.YES.equals(sku.getSample())).findAny();
-            return optSku.get();
-        } else {
-            return (Sku) CollectionUtils.find(getSkus(), new Predicate() {
-                public boolean evaluate(Object object) {
-                    Sku sku = (Sku) object;
-                    return sku != null && sku.getIsDefault();
-                }
-            });
+            if(optSku.isPresent()){
+                return optSku.get();
+            }
         }
+        Sku sku =  (Sku) CollectionUtils.find(getSkus(), new Predicate() {
+            public boolean evaluate(Object object) {
+                Sku sku = (Sku) object;
+                return sku != null && sku.getIsDefault();
+            }
+        });
+        return  sku;
     }
 
 

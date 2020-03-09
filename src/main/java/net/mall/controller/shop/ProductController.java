@@ -26,6 +26,7 @@ import org.springframework.mobile.device.Device;
 import org.springframework.mobile.device.DeviceUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.concurrent.SuccessCallback;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -60,6 +61,8 @@ public class ProductController extends BaseController {
     @Inject
     private ProductService productService;
     @Inject
+    private SkuService skuService;
+    @Inject
     private ProPurchApplyService proPurchApplyService;
     @Inject
     private StoreService storeService;
@@ -76,6 +79,23 @@ public class ProductController extends BaseController {
     @Inject
     private AttributeService attributeService;
 
+    /***
+     * 判断手机
+     * @param request
+     * @param successCallback
+     */
+    private void isMobile(HttpServletRequest request, SuccessCallback successCallback){
+        /***判断是否手机端
+         * **/
+        if (request.getAttribute(DeviceUtils.CURRENT_DEVICE_ATTRIBUTE) instanceof Device) {
+            Device device = (Device) request.getAttribute(DeviceUtils.CURRENT_DEVICE_ATTRIBUTE);
+            if (device.isMobile()
+                    || device.isTablet()) {
+                successCallback.onSuccess(false);
+            }
+        }
+    }
+
     /**
      * 详情
      */
@@ -86,15 +106,9 @@ public class ProductController extends BaseController {
         if (product == null || BooleanUtils.isNotTrue(product.getIsActive()) || BooleanUtils.isNotTrue(product.getIsMarketable())) {
             throw new ResourceNotFoundException();
         }
-        /***判断是否手机端
-         * **/
-        if (request.getAttribute(DeviceUtils.CURRENT_DEVICE_ATTRIBUTE) instanceof Device) {
-            Device device = (Device) request.getAttribute(DeviceUtils.CURRENT_DEVICE_ATTRIBUTE);
-            if (device.isMobile()
-                    || device.isTablet()) {
-                product.setSample(true);
-            }
-        }
+        isMobile(request,o->{
+            product.setSample(true);
+        });
         model.addAttribute("product", product);
         return "shop/product/detail";
     }
@@ -211,7 +225,6 @@ public class ProductController extends BaseController {
         if (productCategory == null) {
             throw new ResourceNotFoundException();
         }
-
         Brand brand = brandService.find(brandId);
         Promotion promotion = promotionService.find(promotionId);
         ProductTag productTag = productTagService.find(productTagId);
@@ -226,14 +239,18 @@ public class ProductController extends BaseController {
                 }
             }
         }
-
         if (startPrice != null && endPrice != null && startPrice.compareTo(endPrice) > 0) {
             BigDecimal tempPrice = startPrice;
             startPrice = endPrice;
             endPrice = tempPrice;
         }
-
         Pageable pageable = new Pageable(pageNumber, pageSize);
+        final Boolean[] isSample = {false};
+        /**判断手机
+         * */
+        isMobile(request,o->{
+            isSample[0] = true;
+        });
         model.addAttribute("orderTypes", Product.OrderType.values());
         model.addAttribute("productCategory", productCategory);
         model.addAttribute("type", type);
@@ -249,7 +266,7 @@ public class ProductController extends BaseController {
         model.addAttribute("orderType", orderType);
         model.addAttribute("pageNumber", pageNumber);
         model.addAttribute("pageSize", pageSize);
-        model.addAttribute("page", productService.findPage(type, 0, storeType, null, productCategory, null, brand, promotion, productTag, null, attributeValueMap, startPrice, endPrice, true, true, null, true, isOutOfStock, null, null, orderType, pageable));
+        model.addAttribute("page", productService.findPage(type, 0, isSample[0], storeType, null, productCategory, null, brand, promotion, productTag, null, attributeValueMap, startPrice, endPrice, true, true, null, true, isOutOfStock, null, null, orderType, pageable));
         return "shop/product/list";
     }
 
@@ -257,7 +274,7 @@ public class ProductController extends BaseController {
      * 列表
      */
     @GetMapping("/list")
-    public String list(Product.Type type, Store.Type storeType, Long storeProductCategoryId, Long brandId, Long promotionId, Long productTagId, BigDecimal startPrice, BigDecimal endPrice, Boolean isOutOfStock, Product.OrderType orderType, Integer pageNumber, Integer pageSize, ModelMap model) {
+    public String list(HttpServletRequest request,Product.Type type, Store.Type storeType, Long storeProductCategoryId, Long brandId, Long promotionId, Long productTagId, BigDecimal startPrice, BigDecimal endPrice, Boolean isOutOfStock, Product.OrderType orderType, Integer pageNumber, Integer pageSize, ModelMap model) {
         StoreProductCategory storeProductCategory = storeProductCategoryService.find(storeProductCategoryId);
         Brand brand = brandService.find(brandId);
         Promotion promotion = promotionService.find(promotionId);
@@ -268,7 +285,12 @@ public class ProductController extends BaseController {
             startPrice = endPrice;
             endPrice = tempPrice;
         }
-
+        final Boolean[] isSample = {false};
+        /**判断手机
+         * */
+        isMobile(request,o->{
+            isSample[0] = true;
+        });
         Pageable pageable = new Pageable(pageNumber, pageSize);
         model.addAttribute("orderTypes", Product.OrderType.values());
         model.addAttribute("type", type);
@@ -283,7 +305,7 @@ public class ProductController extends BaseController {
         model.addAttribute("orderType", orderType);
         model.addAttribute("pageNumber", pageNumber);
         model.addAttribute("pageSize", pageSize);
-        model.addAttribute("page", productService.findPage(type, 0, storeType, null, null, storeProductCategory, brand, promotion, productTag, null, null, startPrice, endPrice, true, true, null, true, isOutOfStock, null, null, orderType, pageable));
+        model.addAttribute("page", productService.findPage(type, 0,isSample[0], storeType, null, null, storeProductCategory, brand, promotion, productTag, null, null, startPrice, endPrice, true, true, null, true, isOutOfStock, null, null, orderType, pageable));
         return "shop/product/list";
     }
 
@@ -311,7 +333,12 @@ public class ProductController extends BaseController {
                 }
             }
         }
-
+        /**判断手机
+         * */
+        final Boolean[] isSample = {false};
+        isMobile(request,o->{
+            isSample[0] = true;
+        });
         if (startPrice != null && endPrice != null && startPrice.compareTo(endPrice) > 0) {
             BigDecimal tempPrice = startPrice;
             startPrice = endPrice;
@@ -319,7 +346,7 @@ public class ProductController extends BaseController {
         }
 
         Pageable pageable = new Pageable(pageNumber, pageSize);
-        return ResponseEntity.ok(productService.findPage(type, 0, null, null, productCategory, storeProductCategory, brand, promotion, productTag, null, attributeValueMap, startPrice, endPrice, true, true, null, true, null, null, null, orderType, pageable).getContent());
+        return ResponseEntity.ok(productService.findPage(type, 0,isSample[0], null, null, productCategory, storeProductCategory, brand, promotion, productTag, null, attributeValueMap, startPrice, endPrice, true, true, null, true, null, null, null, orderType, pageable).getContent());
     }
 
     /**
@@ -445,7 +472,7 @@ public class ProductController extends BaseController {
         if (ConvertUtils.isNotEmpty(proPurchApplys)) {
             List<String> proSns = proPurchApplys.stream().map(proPurchApply -> proPurchApply.getProSn()).collect(Collectors.toList());
             pageable.getFilters().add(new Filter("sn", Filter.Operator.IN, proSns));
-            model.addAttribute("page", productService.findPage(type, 0, storeType, null, null, storeProductCategory, brand, promotion, productTag, null, null, startPrice, endPrice, true, true, null, true, isOutOfStock, null, null, orderType, pageable));
+            model.addAttribute("page", productService.findPage(type, 0,false, storeType, null, null, storeProductCategory, brand, promotion, productTag, null, null, startPrice, endPrice, true, true, null, true, isOutOfStock, null, null, orderType, pageable));
         } else {
             model.addAttribute("page", new Page());
         }
@@ -488,7 +515,7 @@ public class ProductController extends BaseController {
         if (ConvertUtils.isNotEmpty(proPurchApplys)) {
             List<String> proSns = proPurchApplys.stream().map(proPurchApply -> proPurchApply.getProSn()).collect(Collectors.toList());
             pageable.getFilters().add(new Filter("sn", Filter.Operator.IN, proSns.toArray()));
-            return ResponseEntity.ok(productService.findPage(type, 0, null, null, productCategory, storeProductCategory, brand, promotion, productTag, null, attributeValueMap, startPrice, endPrice, true, true, null, true, null, null, null, orderType, pageable).getContent());
+            return ResponseEntity.ok(productService.findPage(type, 0,false, null, null, productCategory, storeProductCategory, brand, promotion, productTag, null, attributeValueMap, startPrice, endPrice, true, true, null, true, null, null, null, orderType, pageable).getContent());
         } else {
             return ResponseEntity.ok(new Page());
         }
@@ -525,7 +552,7 @@ public class ProductController extends BaseController {
         model.addAttribute("pageNumber", pageNumber);
         model.addAttribute("pageSize", pageSize);
         pageable.getFilters().add(new Filter("isGroup", Filter.Operator.EQ, true));
-        model.addAttribute("page", productService.findPage(type, 0, storeType, null, null, storeProductCategory, brand, promotion, productTag, null, null, startPrice, endPrice, true, true, null, true, isOutOfStock, null, null, orderType, pageable));
+        model.addAttribute("page", productService.findPage(type, 0,false, storeType, null, null, storeProductCategory, brand, promotion, productTag, null, null, startPrice, endPrice, true, true, null, true, isOutOfStock, null, null, orderType, pageable));
         return "shop/product/group_purch/list";
     }
 
@@ -553,7 +580,6 @@ public class ProductController extends BaseController {
                 }
             }
         }
-
         if (startPrice != null && endPrice != null && startPrice.compareTo(endPrice) > 0) {
             BigDecimal tempPrice = startPrice;
             startPrice = endPrice;
@@ -561,6 +587,6 @@ public class ProductController extends BaseController {
         }
         Pageable pageable = new Pageable(pageNumber, pageSize);
         pageable.getFilters().add(new Filter("isGroup", Filter.Operator.EQ, true));
-        return ResponseEntity.ok(productService.findPage(type, 0, null, null, productCategory, storeProductCategory, brand, promotion, productTag, null, attributeValueMap, startPrice, endPrice, true, true, null, true, null, null, null, orderType, pageable).getContent());
+        return ResponseEntity.ok(productService.findPage(type, 0,false,null, null, productCategory, storeProductCategory, brand, promotion, productTag, null, attributeValueMap, startPrice, endPrice, true, true, null, true, null, null, null, orderType, pageable).getContent());
     }
 }
