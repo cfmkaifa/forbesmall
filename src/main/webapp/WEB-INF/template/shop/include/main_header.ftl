@@ -234,11 +234,20 @@
             </div>
         </div>
     </div>
+    <div class="advertis">
+      [#--  <img src="${base}/resources/shop/images/adver.png" class="advertising">--]
+        [@ad_position id = 9951]
+            [#if adPosition??]
+                [#noautoesc]${adPosition.resolveTemplate()}[/#noautoesc]
+            [/#if]
+        [/@ad_position]
+    </div>
     <div class="container">
         <div class="row">
             <div class="col-xs-3">
                 <a href="${base}/">
-                    <img class="logo" src="${setting.logo}" alt="${setting.siteName}">
+                    [#--<img class="logo" src="${setting.logo}" alt="${setting.siteName}">--]
+                    <img class="logo" src="${base}/resources/shop/images/logo.png" >
                 </a>
             </div>
             <div class="col-xs-6">
