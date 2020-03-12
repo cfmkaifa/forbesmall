@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.entity;
 
@@ -13,75 +13,73 @@ import net.mall.util.SystemUtils;
 
 /**
  * Entity - Sitemap索引
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
 public class SitemapIndex implements Serializable {
 
-	private static final long serialVersionUID = 4238589433765772175L;
+    private static final long serialVersionUID = 4238589433765772175L;
 
-	/**
-	 * 链接地址
-	 */
-	private static final String LOC = "%s/sitemap/%s/%d.xml";
+    /**
+     * 链接地址
+     */
+    private static final String LOC = "%s/sitemap/%s/%d.xml";
 
-	/**
-	 * 类型
-	 */
-	private SitemapUrl.Type type;
+    /**
+     * 类型
+     */
+    private SitemapUrl.Type type;
 
-	/**
-	 * 索引
-	 */
-	private Integer index;
+    /**
+     * 索引
+     */
+    private Integer index;
 
-	/**
-	 * 获取类型
-	 * 
-	 * @return 类型
-	 */
-	public SitemapUrl.Type getType() {
-		return type;
-	}
+    /**
+     * 获取类型
+     *
+     * @return 类型
+     */
+    public SitemapUrl.Type getType() {
+        return type;
+    }
 
-	/**
-	 * 设置类型
-	 * 
-	 * @param type
-	 *            类型
-	 */
-	public void setType(SitemapUrl.Type type) {
-		this.type = type;
-	}
+    /**
+     * 设置类型
+     *
+     * @param type 类型
+     */
+    public void setType(SitemapUrl.Type type) {
+        this.type = type;
+    }
 
-	/**
-	 * 获取索引
-	 * 
-	 * @return 索引
-	 */
-	public Integer getIndex() {
-		return index;
-	}
+    /**
+     * 获取索引
+     *
+     * @return 索引
+     */
+    public Integer getIndex() {
+        return index;
+    }
 
-	/**
-	 * 设置索引
-	 * 
-	 * @param index
-	 *            索引
-	 */
-	public void setIndex(Integer index) {
-		this.index = index;
-	}
+    /**
+     * 设置索引
+     *
+     * @param index 索引
+     */
+    public void setIndex(Integer index) {
+        this.index = index;
+    }
 
-	/**
-	 * 获取链接地址
-	 * 
-	 * @return 链接地址
-	 */
-	public String getLoc() {
-		Setting setting = SystemUtils.getSetting();
-		return String.format(SitemapIndex.LOC, setting.getSiteUrl(), getType(), getIndex());
-	}
+    /**
+     * 获取链接地址
+     *
+     * @return 链接地址
+     */
+    public String getLoc() {
+        Setting setting = SystemUtils.getSetting();
+        return String.format(SitemapIndex.LOC, setting.getSiteUrl(), getType(), getIndex());
+    }
 
 }

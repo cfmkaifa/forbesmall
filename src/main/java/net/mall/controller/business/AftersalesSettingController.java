@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.controller.business;
 
@@ -24,7 +24,7 @@ import net.mall.service.AftersalesSettingService;
 
 /**
  * Controller - 售后设置
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
@@ -32,36 +32,36 @@ import net.mall.service.AftersalesSettingService;
 @RequestMapping("business/aftersales_setting")
 public class AftersalesSettingController extends BaseController {
 
-	@Inject
-	private AftersalesSettingService aftersalesSettingService;
+    @Inject
+    private AftersalesSettingService aftersalesSettingService;
 
-	/**
-	 * 查看
-	 */
-	@GetMapping("/view")
-	public String view(@CurrentStore Store currentStore, ModelMap model) {
-		AftersalesSetting aftersalesSetting = aftersalesSettingService.findByStore(currentStore);
-		if (aftersalesSetting == null) {
-			return UNPROCESSABLE_ENTITY_VIEW;
-		}
+    /**
+     * 查看
+     */
+    @GetMapping("/view")
+    public String view(@CurrentStore Store currentStore, ModelMap model) {
+        AftersalesSetting aftersalesSetting = aftersalesSettingService.findByStore(currentStore);
+        if (aftersalesSetting == null) {
+            return UNPROCESSABLE_ENTITY_VIEW;
+        }
 
-		model.addAttribute("aftersalesSetting", aftersalesSetting);
-		return "business/aftersales_setting/view";
-	}
+        model.addAttribute("aftersalesSetting", aftersalesSetting);
+        return "business/aftersales_setting/view";
+    }
 
-	/**
-	 * 更新
-	 */
-	@PostMapping("/update")
-	public ResponseEntity<?> update(AftersalesSetting aftersalesSettingForm, @CurrentStore Store currentStore) {
-		AftersalesSetting aftersalesSetting = aftersalesSettingService.findByStore(currentStore);
-		if (aftersalesSetting == null) {
-			return Results.UNPROCESSABLE_ENTITY;
-		}
+    /**
+     * 更新
+     */
+    @PostMapping("/update")
+    public ResponseEntity<?> update(AftersalesSetting aftersalesSettingForm, @CurrentStore Store currentStore) {
+        AftersalesSetting aftersalesSetting = aftersalesSettingService.findByStore(currentStore);
+        if (aftersalesSetting == null) {
+            return Results.UNPROCESSABLE_ENTITY;
+        }
 
-		BeanUtils.copyProperties(aftersalesSettingForm, aftersalesSetting, "id", "store");
-		aftersalesSettingService.update(aftersalesSetting);
-		return Results.OK;
-	}
+        BeanUtils.copyProperties(aftersalesSettingForm, aftersalesSetting, "id", "store");
+        aftersalesSettingService.update(aftersalesSetting);
+        return Results.OK;
+    }
 
 }

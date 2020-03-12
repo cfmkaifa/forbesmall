@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.controller.admin;
 
@@ -26,7 +26,7 @@ import net.mall.service.ShippingMethodService;
 
 /**
  * Controller - 配送方式
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
@@ -34,83 +34,83 @@ import net.mall.service.ShippingMethodService;
 @RequestMapping("/admin/shipping_method")
 public class ShippingMethodController extends BaseController {
 
-	@Inject
-	private ShippingMethodService shippingMethodService;
-	@Inject
-	private PaymentMethodService paymentMethodService;
-	@Inject
-	private DeliveryCorpService deliveryCorpService;
+    @Inject
+    private ShippingMethodService shippingMethodService;
+    @Inject
+    private PaymentMethodService paymentMethodService;
+    @Inject
+    private DeliveryCorpService deliveryCorpService;
 
-	/**
-	 * 添加
-	 */
-	@GetMapping("/add")
-	public String add(ModelMap model) {
-		model.addAttribute("deliveryCorps", deliveryCorpService.findAll());
-		model.addAttribute("paymentMethods", paymentMethodService.findAll());
-		return "admin/shipping_method/add";
-	}
+    /**
+     * 添加
+     */
+    @GetMapping("/add")
+    public String add(ModelMap model) {
+        model.addAttribute("deliveryCorps", deliveryCorpService.findAll());
+        model.addAttribute("paymentMethods", paymentMethodService.findAll());
+        return "admin/shipping_method/add";
+    }
 
-	/**
-	 * 保存
-	 */
-	@PostMapping("/save")
-	public ResponseEntity<?> save(ShippingMethod shippingMethod, Long defaultDeliveryCorpId, Long[] paymentMethodIds) {
-		shippingMethod.setDefaultDeliveryCorp(deliveryCorpService.find(defaultDeliveryCorpId));
-		shippingMethod.setPaymentMethods(new HashSet<>(paymentMethodService.findList(paymentMethodIds)));
-		if (!isValid(shippingMethod)) {
-			return Results.UNPROCESSABLE_ENTITY;
-		}
-		shippingMethod.setAreaFreightConfigs(null);
-		shippingMethod.setOrders(null);
-		shippingMethodService.save(shippingMethod);
-		return Results.OK;
-	}
+    /**
+     * 保存
+     */
+    @PostMapping("/save")
+    public ResponseEntity<?> save(ShippingMethod shippingMethod, Long defaultDeliveryCorpId, Long[] paymentMethodIds) {
+        shippingMethod.setDefaultDeliveryCorp(deliveryCorpService.find(defaultDeliveryCorpId));
+        shippingMethod.setPaymentMethods(new HashSet<>(paymentMethodService.findList(paymentMethodIds)));
+        if (!isValid(shippingMethod)) {
+            return Results.UNPROCESSABLE_ENTITY;
+        }
+        shippingMethod.setAreaFreightConfigs(null);
+        shippingMethod.setOrders(null);
+        shippingMethodService.save(shippingMethod);
+        return Results.OK;
+    }
 
-	/**
-	 * 编辑
-	 */
-	@GetMapping("/edit")
-	public String edit(Long id, ModelMap model) {
-		model.addAttribute("deliveryCorps", deliveryCorpService.findAll());
-		model.addAttribute("paymentMethods", paymentMethodService.findAll());
-		model.addAttribute("shippingMethod", shippingMethodService.find(id));
-		return "admin/shipping_method/edit";
-	}
+    /**
+     * 编辑
+     */
+    @GetMapping("/edit")
+    public String edit(Long id, ModelMap model) {
+        model.addAttribute("deliveryCorps", deliveryCorpService.findAll());
+        model.addAttribute("paymentMethods", paymentMethodService.findAll());
+        model.addAttribute("shippingMethod", shippingMethodService.find(id));
+        return "admin/shipping_method/edit";
+    }
 
-	/**
-	 * 更新
-	 */
-	@PostMapping("/update")
-	public ResponseEntity<?> update(ShippingMethod shippingMethod, Long defaultDeliveryCorpId, Long[] paymentMethodIds) {
-		shippingMethod.setDefaultDeliveryCorp(deliveryCorpService.find(defaultDeliveryCorpId));
-		shippingMethod.setPaymentMethods(new HashSet<>(paymentMethodService.findList(paymentMethodIds)));
-		if (!isValid(shippingMethod)) {
-			return Results.UNPROCESSABLE_ENTITY;
-		}
-		shippingMethodService.update(shippingMethod, "areaFreightConfigs", "orders");
-		return Results.OK;
-	}
+    /**
+     * 更新
+     */
+    @PostMapping("/update")
+    public ResponseEntity<?> update(ShippingMethod shippingMethod, Long defaultDeliveryCorpId, Long[] paymentMethodIds) {
+        shippingMethod.setDefaultDeliveryCorp(deliveryCorpService.find(defaultDeliveryCorpId));
+        shippingMethod.setPaymentMethods(new HashSet<>(paymentMethodService.findList(paymentMethodIds)));
+        if (!isValid(shippingMethod)) {
+            return Results.UNPROCESSABLE_ENTITY;
+        }
+        shippingMethodService.update(shippingMethod, "areaFreightConfigs", "orders");
+        return Results.OK;
+    }
 
-	/**
-	 * 列表
-	 */
-	@GetMapping("/list")
-	public String list(Pageable pageable, ModelMap model) {
-		model.addAttribute("page", shippingMethodService.findPage(pageable));
-		return "admin/shipping_method/list";
-	}
+    /**
+     * 列表
+     */
+    @GetMapping("/list")
+    public String list(Pageable pageable, ModelMap model) {
+        model.addAttribute("page", shippingMethodService.findPage(pageable));
+        return "admin/shipping_method/list";
+    }
 
-	/**
-	 * 删除
-	 */
-	@PostMapping("/delete")
-	public ResponseEntity<?> delete(Long[] ids) {
-		if (ids.length >= shippingMethodService.count()) {
-			return Results.unprocessableEntity("common.deleteAllNotAllowed");
-		}
-		shippingMethodService.delete(ids);
-		return Results.OK;
-	}
+    /**
+     * 删除
+     */
+    @PostMapping("/delete")
+    public ResponseEntity<?> delete(Long[] ids) {
+        if (ids.length >= shippingMethodService.count()) {
+            return Results.unprocessableEntity("common.deleteAllNotAllowed");
+        }
+        shippingMethodService.delete(ids);
+        return Results.OK;
+    }
 
 }

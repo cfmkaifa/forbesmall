@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.entity;
 
@@ -17,73 +17,71 @@ import com.fasterxml.jackson.annotation.JsonView;
 
 /**
  * Entity - 商品收藏
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "member_id", "product_id" }))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"member_id", "product_id"}))
 public class ProductFavorite extends BaseEntity<Long> {
 
-	private static final long serialVersionUID = 2540556338075542780L;
+    private static final long serialVersionUID = 2540556338075542780L;
 
-	/**
-	 * 最大商品收藏数量
-	 */
-	public static final Integer MAX_PRODUCT_FAVORITE_SIZE = 10;
+    /**
+     * 最大商品收藏数量
+     */
+    public static final Integer MAX_PRODUCT_FAVORITE_SIZE = 10;
 
-	/**
-	 * 会员
-	 */
-	@JsonView(BaseView.class)
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(nullable = false, updatable = false)
-	private Member member;
+    /**
+     * 会员
+     */
+    @JsonView(BaseView.class)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false, updatable = false)
+    private Member member;
 
-	/**
-	 * 商品
-	 */
-	@JsonView(BaseView.class)
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(nullable = false, updatable = false)
-	private Product product;
+    /**
+     * 商品
+     */
+    @JsonView(BaseView.class)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false, updatable = false)
+    private Product product;
 
-	/**
-	 * 获取会员
-	 * 
-	 * @return 会员
-	 */
-	public Member getMember() {
-		return member;
-	}
+    /**
+     * 获取会员
+     *
+     * @return 会员
+     */
+    public Member getMember() {
+        return member;
+    }
 
-	/**
-	 * 设置会员
-	 * 
-	 * @param member
-	 *            会员
-	 */
-	public void setMember(Member member) {
-		this.member = member;
-	}
+    /**
+     * 设置会员
+     *
+     * @param member 会员
+     */
+    public void setMember(Member member) {
+        this.member = member;
+    }
 
-	/**
-	 * 获取商品
-	 * 
-	 * @return 商品
-	 */
-	public Product getProduct() {
-		return product;
-	}
+    /**
+     * 获取商品
+     *
+     * @return 商品
+     */
+    public Product getProduct() {
+        return product;
+    }
 
-	/**
-	 * 设置商品
-	 * 
-	 * @param product
-	 *            商品
-	 */
-	public void setProduct(Product product) {
-		this.product = product;
-	}
+    /**
+     * 设置商品
+     *
+     * @param product 商品
+     */
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 
 }

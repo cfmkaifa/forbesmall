@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.security;
 
@@ -19,44 +19,39 @@ import net.mall.service.UserService;
 
 /**
  * Security - 当前用户MethodArgumentResolver
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
 public class CurrentUserMethodArgumentResolver implements HandlerMethodArgumentResolver {
 
-	@Inject
-	private UserService userService;
+    @Inject
+    private UserService userService;
 
-	/**
-	 * 支持参数
-	 * 
-	 * @param methodParameter
-	 *            MethodParameter
-	 * @return 是否支持参数
-	 */
-	@Override
-	public boolean supportsParameter(MethodParameter methodParameter) {
-		return methodParameter.hasParameterAnnotation(CurrentUser.class) && User.class.isAssignableFrom(methodParameter.getParameterType());
-	}
+    /**
+     * 支持参数
+     *
+     * @param methodParameter MethodParameter
+     * @return 是否支持参数
+     */
+    @Override
+    public boolean supportsParameter(MethodParameter methodParameter) {
+        return methodParameter.hasParameterAnnotation(CurrentUser.class) && User.class.isAssignableFrom(methodParameter.getParameterType());
+    }
 
-	/**
-	 * 解析变量
-	 * 
-	 * @param methodParameter
-	 *            MethodParameter
-	 * @param modelAndViewContainer
-	 *            ModelAndViewContainer
-	 * @param nativeWebRequest
-	 *            NativeWebRequest
-	 * @param webDataBinderFactory
-	 *            WebDataBinderFactory
-	 * @return 变量
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public Object resolveArgument(MethodParameter methodParameter, ModelAndViewContainer modelAndViewContainer, NativeWebRequest nativeWebRequest, WebDataBinderFactory webDataBinderFactory) throws Exception {
-		return userService.getCurrent((Class<User>) methodParameter.getParameterType());
-	}
+    /**
+     * 解析变量
+     *
+     * @param methodParameter       MethodParameter
+     * @param modelAndViewContainer ModelAndViewContainer
+     * @param nativeWebRequest      NativeWebRequest
+     * @param webDataBinderFactory  WebDataBinderFactory
+     * @return 变量
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    public Object resolveArgument(MethodParameter methodParameter, ModelAndViewContainer modelAndViewContainer, NativeWebRequest nativeWebRequest, WebDataBinderFactory webDataBinderFactory) throws Exception {
+        return userService.getCurrent((Class<User>) methodParameter.getParameterType());
+    }
 
 }

@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
-public interface GroupPurchApplyService extends BaseService<GroupPurchApply, Long>  {
+public interface GroupPurchApplyService extends BaseService<GroupPurchApply, Long> {
 
 
     /***
@@ -34,7 +34,7 @@ public interface GroupPurchApplyService extends BaseService<GroupPurchApply, Lon
      * @param currentDate
      * @return
      */
-    List<GroupPurchApply>  putawayGroupPurchApply(GroupPurchApply.ApplyStatus applyStatus, GroupPurchApply.JobStatus jobStatus, Date currentDate);
+    List<GroupPurchApply> putawayGroupPurchApply(GroupPurchApply.ApplyStatus applyStatus, GroupPurchApply.JobStatus jobStatus, Date currentDate);
 
     /***
      *
@@ -44,7 +44,7 @@ public interface GroupPurchApplyService extends BaseService<GroupPurchApply, Lon
      * @param skuSn
      * @return
      */
-    GroupPurchApply  putawayGroupPurchApply(GroupPurchApply.ApplyStatus applyStatus, Date currentDate,String proSn,String skuSn);
+    GroupPurchApply putawayGroupPurchApply(GroupPurchApply.ApplyStatus applyStatus, Date currentDate, String proSn, String skuSn);
 
     /***
      *
@@ -53,6 +53,6 @@ public interface GroupPurchApplyService extends BaseService<GroupPurchApply, Lon
      * @param currentDate
      * @return
      */
-    List<GroupPurchApply>  soldOutGroupPurchApply(GroupPurchApply.ApplyStatus applyStatus, GroupPurchApply.JobStatus jobStatus, Date currentDate);
+    List<GroupPurchApply> soldOutGroupPurchApply(GroupPurchApply.ApplyStatus applyStatus, GroupPurchApply.JobStatus jobStatus, Date currentDate);
 
 }

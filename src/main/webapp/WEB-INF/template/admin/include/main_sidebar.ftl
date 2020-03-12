@@ -415,8 +415,18 @@
 										${message("admin.mainSidebar.member")}
 									</a>
 								</li>
+								<li class="list-group-item[#if .main_template_name?matches("admin/pro_purch_apply/.*")] active[/#if]">
+									<a href="${base}/admin/pro_purch_apply/list">
+										<i class="iconfont icon-weixuanzhong"></i>
+										${message("admin.mainSidebar.proPurchApply")}
+										[@pro_purch_apply_count status = "PENDING"]
+											<span class="label label-success" title="${message("admin.mainSidebar.proPurchApplyCount")}" data-toggle="tooltip">${count}</span>
+										[/@pro_purch_apply_count]
+									</a>
+								</li>
 							[/#if]
 						[/@has_permission_tag]
+
 						[@has_permission_tag permission="admin:memberRank"]
 							[#if hasPermission]
 								<li class="list-group-item[#if .main_template_name?matches("admin/member_rank/.*")] active[/#if]">

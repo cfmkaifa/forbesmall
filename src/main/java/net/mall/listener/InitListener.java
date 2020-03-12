@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.listener;
 
@@ -21,36 +21,35 @@ import net.mall.service.SearchService;
 
 /**
  * Listener - 初始化
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
 @Component
 public class InitListener {
 
-	@Value("${system.version}")
-	private String systemVersion;
+    @Value("${system.version}")
+    private String systemVersion;
 
-	@Inject
-	private ConfigService configService;
-	@Inject
-	private SearchService searchService;
+    @Inject
+    private ConfigService configService;
+    @Inject
+    private SearchService searchService;
 
-	/**
-	 * 事件处理
-	 * 
-	 * @param contextRefreshedEvent
-	 *            ContextRefreshedEvent
-	 */
-	@EventListener
-	public void handle(ContextRefreshedEvent contextRefreshedEvent) {
-		if (contextRefreshedEvent.getApplicationContext() == null || contextRefreshedEvent.getApplicationContext().getParent() != null) {
-			return;
-		}
-		configService.init();
-		searchService.index(Article.class);
-		searchService.index(Product.class);
-		searchService.index(Store.class);
-	}
+    /**
+     * 事件处理
+     *
+     * @param contextRefreshedEvent ContextRefreshedEvent
+     */
+    @EventListener
+    public void handle(ContextRefreshedEvent contextRefreshedEvent) {
+        if (contextRefreshedEvent.getApplicationContext() == null || contextRefreshedEvent.getApplicationContext().getParent() != null) {
+            return;
+        }
+        configService.init();
+        searchService.index(Article.class);
+        searchService.index(Product.class);
+        searchService.index(Store.class);
+    }
 
 }

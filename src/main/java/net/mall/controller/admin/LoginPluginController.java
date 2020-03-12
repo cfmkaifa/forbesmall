@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.controller.admin;
 
@@ -17,7 +17,7 @@ import net.mall.service.PluginService;
 
 /**
  * Controller - 登录插件
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
@@ -25,16 +25,16 @@ import net.mall.service.PluginService;
 @RequestMapping("/admin/login_plugin")
 public class LoginPluginController extends BaseController {
 
-	@Inject
-	private PluginService pluginService;
+    @Inject
+    private PluginService pluginService;
 
-	/**
-	 * 列表
-	 */
-	@GetMapping("/list")
-	public String list(ModelMap model) {
-		model.addAttribute("loginPlugins", pluginService.getLoginPlugins());
-		return "admin/login_plugin/list";
-	}
+    /**
+     * 列表
+     */
+    @GetMapping("/list")
+    public String list(ModelMap model) {
+        model.addAttribute("loginPlugins", pluginService.getLoginPlugins());
+        return "admin/login_plugin/list";
+    }
 
 }

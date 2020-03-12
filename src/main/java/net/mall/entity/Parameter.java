@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.entity;
 
@@ -25,109 +25,106 @@ import net.mall.BaseAttributeConverter;
 
 /**
  * Entity - 参数
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
 @Entity
 public class Parameter extends OrderedEntity<Long> {
 
-	private static final long serialVersionUID = -6159626519016913987L;
+    private static final long serialVersionUID = -6159626519016913987L;
 
-	/**
-	 * 最大参数名称数量
-	 */
-	public static final int MAX_NAME_SIZE = 100;
+    /**
+     * 最大参数名称数量
+     */
+    public static final int MAX_NAME_SIZE = 100;
 
-	/**
-	 * 参数组
-	 */
-	@NotEmpty
-	@Length(max = 200)
-	@Column(name = "parameterGroup", nullable = false)
-	private String group;
+    /**
+     * 参数组
+     */
+    @NotEmpty
+    @Length(max = 200)
+    @Column(name = "parameterGroup", nullable = false)
+    private String group;
 
-	/**
-	 * 绑定分类
-	 */
-	@NotNull(groups = Save.class)
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(nullable = false, updatable = false)
-	private ProductCategory productCategory;
+    /**
+     * 绑定分类
+     */
+    @NotNull(groups = Save.class)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false, updatable = false)
+    private ProductCategory productCategory;
 
-	/**
-	 * 参数名称
-	 */
-	@NotEmpty
-	@Column(nullable = false, length = 4000)
-	@Convert(converter = NameConverter.class)
-	private List<String> names = new ArrayList<>();
+    /**
+     * 参数名称
+     */
+    @NotEmpty
+    @Column(nullable = false, length = 4000)
+    @Convert(converter = NameConverter.class)
+    private List<String> names = new ArrayList<>();
 
-	/**
-	 * 获取参数组
-	 * 
-	 * @return 参数组
-	 */
-	public String getGroup() {
-		return group;
-	}
+    /**
+     * 获取参数组
+     *
+     * @return 参数组
+     */
+    public String getGroup() {
+        return group;
+    }
 
-	/**
-	 * 设置参数组
-	 * 
-	 * @param group
-	 *            参数组
-	 */
-	public void setGroup(String group) {
-		this.group = group;
-	}
+    /**
+     * 设置参数组
+     *
+     * @param group 参数组
+     */
+    public void setGroup(String group) {
+        this.group = group;
+    }
 
-	/**
-	 * 获取绑定分类
-	 * 
-	 * @return 绑定分类
-	 */
-	public ProductCategory getProductCategory() {
-		return productCategory;
-	}
+    /**
+     * 获取绑定分类
+     *
+     * @return 绑定分类
+     */
+    public ProductCategory getProductCategory() {
+        return productCategory;
+    }
 
-	/**
-	 * 设置绑定分类
-	 * 
-	 * @param productCategory
-	 *            绑定分类
-	 */
-	public void setProductCategory(ProductCategory productCategory) {
-		this.productCategory = productCategory;
-	}
+    /**
+     * 设置绑定分类
+     *
+     * @param productCategory 绑定分类
+     */
+    public void setProductCategory(ProductCategory productCategory) {
+        this.productCategory = productCategory;
+    }
 
-	/**
-	 * 获取参数名称
-	 * 
-	 * @return 参数名称
-	 */
-	public List<String> getNames() {
-		return names;
-	}
+    /**
+     * 获取参数名称
+     *
+     * @return 参数名称
+     */
+    public List<String> getNames() {
+        return names;
+    }
 
-	/**
-	 * 设置参数名称
-	 * 
-	 * @param names
-	 *            参数名称
-	 */
-	public void setNames(List<String> names) {
-		this.names = names;
-	}
+    /**
+     * 设置参数名称
+     *
+     * @param names 参数名称
+     */
+    public void setNames(List<String> names) {
+        this.names = names;
+    }
 
-	/**
-	 * 类型转换 - 参数名称
-	 * 
-	 * @author huanghy
-	 * @version 6.1
-	 */
-	@Converter
-	public static class NameConverter extends BaseAttributeConverter<List<String>> {
-	}
+    /**
+     * 类型转换 - 参数名称
+     *
+     * @author huanghy
+     * @version 6.1
+     */
+    @Converter
+    public static class NameConverter extends BaseAttributeConverter<List<String>> {
+    }
 
 }

@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.controller.admin.plugin;
 
@@ -23,7 +23,7 @@ import net.mall.service.PluginConfigService;
 
 /**
  * Controller - 本地文件存储
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
@@ -31,31 +31,31 @@ import net.mall.service.PluginConfigService;
 @RequestMapping("/admin/plugin/local_storage")
 public class LocalStorageController extends BaseController {
 
-	@Inject
-	private LocalStoragePlugin localStoragePlugin;
-	@Inject
-	private PluginConfigService pluginConfigService;
+    @Inject
+    private LocalStoragePlugin localStoragePlugin;
+    @Inject
+    private PluginConfigService pluginConfigService;
 
-	/**
-	 * 设置
-	 */
-	@GetMapping("/setting")
-	public String setting(ModelMap model) {
-		PluginConfig pluginConfig = localStoragePlugin.getPluginConfig();
-		model.addAttribute("pluginConfig", pluginConfig);
-		return "/admin/plugin/local_storage/setting";
-	}
+    /**
+     * 设置
+     */
+    @GetMapping("/setting")
+    public String setting(ModelMap model) {
+        PluginConfig pluginConfig = localStoragePlugin.getPluginConfig();
+        model.addAttribute("pluginConfig", pluginConfig);
+        return "/admin/plugin/local_storage/setting";
+    }
 
-	/**
-	 * 更新
-	 */
-	@PostMapping("/update")
-	public ResponseEntity<?> update(Integer order) {
-		PluginConfig pluginConfig = localStoragePlugin.getPluginConfig();
-		pluginConfig.setIsEnabled(true);
-		pluginConfig.setOrder(order);
-		pluginConfigService.update(pluginConfig);
-		return Results.OK;
-	}
+    /**
+     * 更新
+     */
+    @PostMapping("/update")
+    public ResponseEntity<?> update(Integer order) {
+        PluginConfig pluginConfig = localStoragePlugin.getPluginConfig();
+        pluginConfig.setIsEnabled(true);
+        pluginConfig.setOrder(order);
+        pluginConfigService.update(pluginConfig);
+        return Results.OK;
+    }
 
 }

@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.controller.admin;
 
@@ -17,7 +17,7 @@ import net.mall.service.OrderService;
 
 /**
  * Controller - 打印
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
@@ -25,16 +25,16 @@ import net.mall.service.OrderService;
 @RequestMapping("/admin/print")
 public class PrintController extends BaseController {
 
-	@Inject
-	private OrderService orderService;
+    @Inject
+    private OrderService orderService;
 
-	/**
-	 * 订单打印
-	 */
-	@GetMapping("/order")
-	public String order(Long id, ModelMap model) {
-		model.addAttribute("order", orderService.find(id));
-		return "admin/print/order";
-	}
+    /**
+     * 订单打印
+     */
+    @GetMapping("/order")
+    public String order(Long id, ModelMap model) {
+        model.addAttribute("order", orderService.find(id));
+        return "admin/print/order";
+    }
 
 }

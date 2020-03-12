@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.controller.shop;
 
@@ -21,7 +21,7 @@ import net.mall.service.BrandService;
 
 /**
  * Controller - 品牌
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
@@ -29,35 +29,35 @@ import net.mall.service.BrandService;
 @RequestMapping("/brand")
 public class BrandController extends BaseController {
 
-	/**
-	 * 每页记录数
-	 */
-	private static final int PAGE_SIZE = 40;
+    /**
+     * 每页记录数
+     */
+    private static final int PAGE_SIZE = 40;
 
-	@Inject
-	private BrandService brandService;
+    @Inject
+    private BrandService brandService;
 
-	/**
-	 * 列表
-	 */
-	@GetMapping("/list/{pageNumber}")
-	public String list(@PathVariable Integer pageNumber, ModelMap model) {
-		Pageable pageable = new Pageable(pageNumber, PAGE_SIZE);
-		model.addAttribute("page", brandService.findPage(pageable));
-		return "shop/brand/list";
-	}
+    /**
+     * 列表
+     */
+    @GetMapping("/list/{pageNumber}")
+    public String list(@PathVariable Integer pageNumber, ModelMap model) {
+        Pageable pageable = new Pageable(pageNumber, PAGE_SIZE);
+        model.addAttribute("page", brandService.findPage(pageable));
+        return "shop/brand/list";
+    }
 
-	/**
-	 * 详情
-	 */
-	@GetMapping("/detail/{brandId}")
-	public String detail(@PathVariable Long brandId, ModelMap model) {
-		Brand brand = brandService.find(brandId);
-		if (brand == null) {
-			throw new ResourceNotFoundException();
-		}
-		model.addAttribute("brand", brand);
-		return "shop/brand/detail";
-	}
+    /**
+     * 详情
+     */
+    @GetMapping("/detail/{brandId}")
+    public String detail(@PathVariable Long brandId, ModelMap model) {
+        Brand brand = brandService.find(brandId);
+        if (brand == null) {
+            throw new ResourceNotFoundException();
+        }
+        model.addAttribute("brand", brand);
+        return "shop/brand/detail";
+    }
 
 }

@@ -16,12 +16,17 @@
       <module name="forbesmall" target="1.8" />
       <module name="msg-utils" target="1.8" />
       <module name="rl_zg_usercenter" target="1.8" />
+      <module name="smartwork_gateway" target="1.8" />
       <module name="usercenter-config" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="msg-utils" options="-parameters" />
+<<<<<<< HEAD
+=======
+      <module name="smartwork_gateway" options="-parameters" />
+>>>>>>> fabric_mall
     </option>
   </component>
 </project>

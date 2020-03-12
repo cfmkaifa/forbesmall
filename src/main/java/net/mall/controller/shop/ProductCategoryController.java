@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.controller.shop;
 
@@ -17,7 +17,7 @@ import net.mall.service.ProductCategoryService;
 
 /**
  * Controller - 商品分类
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
@@ -25,16 +25,16 @@ import net.mall.service.ProductCategoryService;
 @RequestMapping("/product_category")
 public class ProductCategoryController extends BaseController {
 
-	@Inject
-	private ProductCategoryService productCategoryService;
+    @Inject
+    private ProductCategoryService productCategoryService;
 
-	/**
-	 * 首页
-	 */
-	@GetMapping
-	public String index(ModelMap model) {
-		model.addAttribute("rootProductCategories", productCategoryService.findRoots());
-		return "shop/product_category/index";
-	}
+    /**
+     * 首页
+     */
+    @GetMapping
+    public String index(ModelMap model) {
+        model.addAttribute("rootProductCategories", productCategoryService.findRoots());
+        return "shop/product_category/index";
+    }
 
 }

@@ -9,253 +9,255 @@ import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import java.math.BigDecimal;
 import java.util.Date;
+
 /***
  * SubsNewsHuman概要说明：团购申请
  * @author Huanghy
  */
 @Entity
 @Table(name = "group_purch_apply")
-public class GroupPurchApply extends BaseEntity<Long>{
+public class GroupPurchApply extends BaseEntity<Long> {
 
 
-	private static final long serialVersionUID = 1066463291338794126L;
+    private static final long serialVersionUID = 1066463291338794126L;
 
-	/**
-	 * 状态
-	 */
-	public enum ApplyStatus {
+    /**
+     * 状态
+     */
+    public enum ApplyStatus {
 
-		/**
-		 * 等待审核
-		 */
-		PENDING,
+        /**
+         * 等待审核
+         */
+        PENDING,
 
-		/**
-		 * 审核通过
-		 */
-		APPROVED,
+        /**
+         * 审核通过
+         */
+        APPROVED,
 
-		/**
-		 * 审核失败
-		 */
-		FAILED
-	}
+        /**
+         * 审核失败
+         */
+        FAILED
+    }
 
-	/***
-	 *
-	 */
-	public enum JobStatus {
+    /***
+     *
+     */
+    public enum JobStatus {
 
-		/**等待上架**/
-		PENDING,
-		/***已上架**/
-		HASBEENON,
-		/**
-		 * 已执行
-		 */
-		ALREADY,
+        /**
+         * 等待上架
+         **/
+        PENDING,
+        /***已上架**/
+        HASBEENON,
+        /**
+         * 已执行
+         */
+        ALREADY,
 
-	}
+    }
 
-	/**
-	 * 状态
-	 */
-	@Column(nullable = false,name="apply_status")
-	private GroupPurchApply.ApplyStatus status;
+    /**
+     * 状态
+     */
+    @Column(nullable = false, name = "apply_status")
+    private GroupPurchApply.ApplyStatus status;
 
-	public JobStatus getJobStatus() {
-		return jobStatus;
-	}
+    public JobStatus getJobStatus() {
+        return jobStatus;
+    }
 
-	public void setJobStatus(JobStatus jobStatus) {
-		this.jobStatus = jobStatus;
-	}
+    public void setJobStatus(JobStatus jobStatus) {
+        this.jobStatus = jobStatus;
+    }
 
-	@Column(nullable = false,name="job_status")
-	private GroupPurchApply.JobStatus jobStatus;
+    @Column(nullable = false, name = "job_status")
+    private GroupPurchApply.JobStatus jobStatus;
 
-	@Column(nullable = false,name="store_id")
-	private Long storeId;
-	
-	@Column(nullable = false,name="store_name")
-	private String storeName;
-	
-	@Column(nullable = false,name="pro_sn")
-	private String proSn;
-	
-	@Column(name="pro_name")
-	private String proName;
+    @Column(nullable = false, name = "store_id")
+    private Long storeId;
 
+    @Column(nullable = false, name = "store_name")
+    private String storeName;
 
+    @Column(nullable = false, name = "pro_sn")
+    private String proSn;
 
-	@Transient
-	public Sku getSku() {
-		SkuService skuService = SpringUtils.getBean(SkuService.class);
-		Sku sku = skuService.findBySn(this.skuSn);
-		return sku;
-	}
-
-	@Column(name="sku_sn")
-	private String skuSn;
-
-	/***
-	 * 
-	 */
-	@Column(name="start_time")
-	private Date startTime;
+    @Column(name = "pro_name")
+    private String proName;
 
 
-	@Column(name="end_time")
-	private Date endTime;
+    @Transient
+    public Sku getSku() {
+        SkuService skuService = SpringUtils.getBean(SkuService.class);
+        Sku sku = skuService.findBySn(this.skuSn);
+        return sku;
+    }
 
-	@Column(name="remarks")
-	private String remarks;
+    @Column(name = "sku_sn")
+    private String skuSn;
 
-	/**
-	 * 重量
-	 */
-	@NumericField
-	@Min(0)
-	@Column(name="mqq_weight")
-	private Integer mqqWeight;
-
-	/**
-	 * 重量
-	 */
-	@NumericField
-	@Min(1)
-	@Column(name="mqq_people")
-	private Integer mqqPeople;
-
-	/**
-	 * 重量
-	 */
-	@NumericField
-	@Column(name="limit_weight")
-	private Integer limitWeight;
-
-	/**
-	 * 重量
-	 */
-	@NumericField
-	@Column(name="limit_people")
-	private Integer limitPeople;
-
-	public BigDecimal getGroupPrice() {
-		return groupPrice;
-	}
-
-	public void setGroupPrice(BigDecimal groupPrice) {
-		this.groupPrice = groupPrice;
-	}
-
-	@Min(0)
-	@Digits(integer = 12, fraction = 3)
-	@Column(precision = 21, scale = 6,name = "group_price")
-	private BigDecimal groupPrice;
+    /***
+     *
+     */
+    @Column(name = "start_time")
+    private Date startTime;
 
 
-	public ApplyStatus getStatus() {
-		return status;
-	}
+    @Column(name = "end_time")
+    private Date endTime;
 
-	public void setStatus(ApplyStatus status) {
-		this.status = status;
-	}
+    @Column(name = "remarks")
+    private String remarks;
 
-	public Long getStoreId() {
-		return storeId;
-	}
+    /**
+     * 重量
+     */
+    @NumericField
+    @Min(0)
+    @Column(name = "mqq_weight")
+    private Integer mqqWeight;
 
-	public void setStoreId(Long storeId) {
-		this.storeId = storeId;
-	}
+    /**
+     * 重量
+     */
+    @NumericField
+    @Min(1)
+    @Column(name = "mqq_people")
+    private Integer mqqPeople;
 
-	public String getStoreName() {
-		return storeName;
-	}
+    /**
+     * 重量
+     */
+    @NumericField
+    @Column(name = "limit_weight")
+    private Integer limitWeight;
 
-	public void setStoreName(String storeName) {
-		this.storeName = storeName;
-	}
+    /**
+     * 重量
+     */
+    @NumericField
+    @Column(name = "limit_people")
+    private Integer limitPeople;
 
-	public String getProSn() {
-		return proSn;
-	}
+    public BigDecimal getGroupPrice() {
+        return groupPrice;
+    }
 
-	public void setProSn(String proSn) {
-		this.proSn = proSn;
-	}
+    public void setGroupPrice(BigDecimal groupPrice) {
+        this.groupPrice = groupPrice;
+    }
 
-	public String getProName() {
-		return proName;
-	}
+    @Min(0)
+    @Digits(integer = 12, fraction = 3)
+    @Column(precision = 21, scale = 6, name = "group_price")
+    private BigDecimal groupPrice;
 
-	public void setProName(String proName) {
-		this.proName = proName;
-	}
 
-	public String getSkuSn() {
-		return skuSn;
-	}
+    public ApplyStatus getStatus() {
+        return status;
+    }
 
-	public void setSkuSn(String skuSn) {
-		this.skuSn = skuSn;
-	}
+    public void setStatus(ApplyStatus status) {
+        this.status = status;
+    }
 
-	public Date getStartTime() {
-		return startTime;
-	}
+    public Long getStoreId() {
+        return storeId;
+    }
 
-	public void setStartTime(Date startTime) {
-		this.startTime = startTime;
-	}
+    public void setStoreId(Long storeId) {
+        this.storeId = storeId;
+    }
 
-	public Date getEndTime() {
-		return endTime;
-	}
+    public String getStoreName() {
+        return storeName;
+    }
 
-	public void setEndTime(Date endTime) {
-		this.endTime = endTime;
-	}
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
+    }
 
-	public String getRemarks() {
-		return remarks;
-	}
+    public String getProSn() {
+        return proSn;
+    }
 
-	public void setRemarks(String remarks) {
-		this.remarks = remarks;
-	}
+    public void setProSn(String proSn) {
+        this.proSn = proSn;
+    }
 
-	public Integer getMqqWeight() {
-		return mqqWeight;
-	}
+    public String getProName() {
+        return proName;
+    }
 
-	public void setMqqWeight(Integer mqqWeight) {
-		this.mqqWeight = mqqWeight;
-	}
+    public void setProName(String proName) {
+        this.proName = proName;
+    }
 
-	public Integer getMqqPeople() {
-		return mqqPeople;
-	}
+    public String getSkuSn() {
+        return skuSn;
+    }
 
-	public void setMqqPeople(Integer mqqPeople) {
-		this.mqqPeople = mqqPeople;
-	}
+    public void setSkuSn(String skuSn) {
+        this.skuSn = skuSn;
+    }
 
-	public Integer getLimitWeight() {
-		return limitWeight;
-	}
+    public Date getStartTime() {
+        return startTime;
+    }
 
-	public void setLimitWeight(Integer limitWeight) {
-		this.limitWeight = limitWeight;
-	}
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
+    }
 
-	public Integer getLimitPeople() {
-		return limitPeople;
-	}
+    public Date getEndTime() {
+        return endTime;
+    }
 
-	public void setLimitPeople(Integer limitPeople) {
-		this.limitPeople = limitPeople;
-	}
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
+
+    public Integer getMqqWeight() {
+        return mqqWeight;
+    }
+
+    public void setMqqWeight(Integer mqqWeight) {
+        this.mqqWeight = mqqWeight;
+    }
+
+    public Integer getMqqPeople() {
+        return mqqPeople;
+    }
+
+    public void setMqqPeople(Integer mqqPeople) {
+        this.mqqPeople = mqqPeople;
+    }
+
+    public Integer getLimitWeight() {
+        return limitWeight;
+    }
+
+    public void setLimitWeight(Integer limitWeight) {
+        this.limitWeight = limitWeight;
+    }
+
+    public Integer getLimitPeople() {
+        return limitPeople;
+    }
+
+    public void setLimitPeople(Integer limitPeople) {
+        this.limitPeople = limitPeople;
+    }
 }

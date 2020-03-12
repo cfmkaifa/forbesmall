@@ -1,10 +1,4 @@
-[#if mobileDefaultSku?has_content]
-	[#assign defaultSku = mobileDefaultSku /]
-[#else]
-	[#assign defaultSku = product.defaultSku /]
-[/#if]
-
-
+[#assign defaultSku = product.defaultSku /]
 <!DOCTYPE html>
 <html>
 <head>
@@ -234,11 +228,8 @@
 			function preventDefault(event) {
 				event.preventDefault();
 			}
-			
 			document.addEventListener("touchmove", preventDefault, false);
-			
 			$().ready(function() {
-			
 				var $nav = $("#nav");
 				var $share = $("#share");
 				var $shareMore = $("#shareMore");

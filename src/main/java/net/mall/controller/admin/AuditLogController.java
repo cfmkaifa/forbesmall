@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.controller.admin;
 
@@ -21,7 +21,7 @@ import net.mall.service.AuditLogService;
 
 /**
  * Controller - 审计日志
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
@@ -29,43 +29,43 @@ import net.mall.service.AuditLogService;
 @RequestMapping("/admin/audit_log")
 public class AuditLogController extends BaseController {
 
-	@Inject
-	private AuditLogService auditLogService;
+    @Inject
+    private AuditLogService auditLogService;
 
-	/**
-	 * 列表
-	 */
-	@GetMapping("/list")
-	public String list(Pageable pageable, ModelMap model) {
-		model.addAttribute("page", auditLogService.findPage(pageable));
-		return "admin/audit_log/list";
-	}
+    /**
+     * 列表
+     */
+    @GetMapping("/list")
+    public String list(Pageable pageable, ModelMap model) {
+        model.addAttribute("page", auditLogService.findPage(pageable));
+        return "admin/audit_log/list";
+    }
 
-	/**
-	 * 查看
-	 */
-	@GetMapping("/view")
-	public String view(Long id, ModelMap model) {
-		model.addAttribute("auditLog", auditLogService.find(id));
-		return "admin/audit_log/view";
-	}
+    /**
+     * 查看
+     */
+    @GetMapping("/view")
+    public String view(Long id, ModelMap model) {
+        model.addAttribute("auditLog", auditLogService.find(id));
+        return "admin/audit_log/view";
+    }
 
-	/**
-	 * 删除
-	 */
-	@PostMapping("/delete")
-	public ResponseEntity<?> delete(Long[] ids) {
-		auditLogService.delete(ids);
-		return Results.OK;
-	}
+    /**
+     * 删除
+     */
+    @PostMapping("/delete")
+    public ResponseEntity<?> delete(Long[] ids) {
+        auditLogService.delete(ids);
+        return Results.OK;
+    }
 
-	/**
-	 * 清空
-	 */
-	@PostMapping("/clear")
-	public ResponseEntity<?> clear() {
-		auditLogService.clear();
-		return Results.OK;
-	}
+    /**
+     * 清空
+     */
+    @PostMapping("/clear")
+    public ResponseEntity<?> clear() {
+        auditLogService.clear();
+        return Results.OK;
+    }
 
 }

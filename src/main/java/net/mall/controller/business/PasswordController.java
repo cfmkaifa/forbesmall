@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.controller.business;
 
@@ -23,7 +23,7 @@ import net.mall.service.BusinessService;
 
 /**
  * Controller - 密码
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
@@ -31,43 +31,44 @@ import net.mall.service.BusinessService;
 @RequestMapping("/business/password")
 public class PasswordController extends BaseController {
 
-	@Inject
-	private BusinessService businessService;
+    @Inject
+    private BusinessService businessService;
 
-	/**
-	 * 验证当前密码
-	 */
-	@GetMapping("/check_current_password")
-	public @ResponseBody boolean checkCurrentPassword(String currentPassword, @CurrentUser Business currentUser) {
-		return StringUtils.isNotEmpty(currentPassword) && currentUser.isValidCredentials(currentPassword);
-	}
+    /**
+     * 验证当前密码
+     */
+    @GetMapping("/check_current_password")
+    public @ResponseBody
+    boolean checkCurrentPassword(String currentPassword, @CurrentUser Business currentUser) {
+        return StringUtils.isNotEmpty(currentPassword) && currentUser.isValidCredentials(currentPassword);
+    }
 
-	/**
-	 * 编辑
-	 */
-	@GetMapping("/edit")
-	public String edit() {
-		return "business/password/edit";
-	}
+    /**
+     * 编辑
+     */
+    @GetMapping("/edit")
+    public String edit() {
+        return "business/password/edit";
+    }
 
-	/**
-	 * 更新
-	 */
-	@PostMapping("/update")
-	public ResponseEntity<?> update(String currentPassword, String password, @CurrentUser Business currentUser) {
-		if (StringUtils.isEmpty(currentPassword) || StringUtils.isEmpty(password)) {
-			return Results.UNPROCESSABLE_ENTITY;
-		}
-		if (!currentUser.isValidCredentials(currentPassword)) {
-			return Results.UNPROCESSABLE_ENTITY;
-		}
-		if (!isValid(Business.class, "password", password)) {
-			return Results.UNPROCESSABLE_ENTITY;
-		}
-		currentUser.setPassword(password);
-		businessService.update(currentUser);
+    /**
+     * 更新
+     */
+    @PostMapping("/update")
+    public ResponseEntity<?> update(String currentPassword, String password, @CurrentUser Business currentUser) {
+        if (StringUtils.isEmpty(currentPassword) || StringUtils.isEmpty(password)) {
+            return Results.UNPROCESSABLE_ENTITY;
+        }
+        if (!currentUser.isValidCredentials(currentPassword)) {
+            return Results.UNPROCESSABLE_ENTITY;
+        }
+        if (!isValid(Business.class, "password", password)) {
+            return Results.UNPROCESSABLE_ENTITY;
+        }
+        currentUser.setPassword(password);
+        businessService.update(currentUser);
 
-		return Results.OK;
-	}
+        return Results.OK;
+    }
 
 }

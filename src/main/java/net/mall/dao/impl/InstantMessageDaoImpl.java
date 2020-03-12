@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.dao.impl;
 
@@ -26,42 +26,42 @@ import net.mall.entity.Store;
 
 /**
  * Dao - 即时通讯
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
 @Repository
 public class InstantMessageDaoImpl extends BaseDaoImpl<InstantMessage, Long> implements InstantMessageDao {
 
-	@Override
-	public List<InstantMessage> findList(Type type, Store store, Integer count, List<Filter> filters, List<Order> orders) {
-		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-		CriteriaQuery<InstantMessage> criteriaQuery = criteriaBuilder.createQuery(InstantMessage.class);
-		Root<InstantMessage> root = criteriaQuery.from(InstantMessage.class);
-		criteriaQuery.select(root);
-		Predicate restrictions = criteriaBuilder.conjunction();
-		if (type != null) {
-			restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("type"), type));
-		}
-		if (store != null) {
-			restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("store"), store));
-		}
-		criteriaQuery.where(restrictions);
-		return super.findList(criteriaQuery, null, count, filters, orders);
-	}
+    @Override
+    public List<InstantMessage> findList(Type type, Store store, Integer count, List<Filter> filters, List<Order> orders) {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<InstantMessage> criteriaQuery = criteriaBuilder.createQuery(InstantMessage.class);
+        Root<InstantMessage> root = criteriaQuery.from(InstantMessage.class);
+        criteriaQuery.select(root);
+        Predicate restrictions = criteriaBuilder.conjunction();
+        if (type != null) {
+            restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("type"), type));
+        }
+        if (store != null) {
+            restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("store"), store));
+        }
+        criteriaQuery.where(restrictions);
+        return super.findList(criteriaQuery, null, count, filters, orders);
+    }
 
-	@Override
-	public Page<InstantMessage> findPage(Store store, Pageable pageable) {
-		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-		CriteriaQuery<InstantMessage> criteriaQuery = criteriaBuilder.createQuery(InstantMessage.class);
-		Root<InstantMessage> root = criteriaQuery.from(InstantMessage.class);
-		criteriaQuery.select(root);
-		Predicate restrictions = criteriaBuilder.conjunction();
-		if (store != null) {
-			restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("store"), store));
-		}
-		criteriaQuery.where(restrictions);
-		return super.findPage(criteriaQuery, pageable);
-	}
+    @Override
+    public Page<InstantMessage> findPage(Store store, Pageable pageable) {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<InstantMessage> criteriaQuery = criteriaBuilder.createQuery(InstantMessage.class);
+        Root<InstantMessage> root = criteriaQuery.from(InstantMessage.class);
+        criteriaQuery.select(root);
+        Predicate restrictions = criteriaBuilder.conjunction();
+        if (store != null) {
+            restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("store"), store));
+        }
+        criteriaQuery.where(restrictions);
+        return super.findPage(criteriaQuery, pageable);
+    }
 
 }

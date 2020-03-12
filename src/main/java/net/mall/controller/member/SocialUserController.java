@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.controller.member;
 
@@ -26,7 +26,7 @@ import net.mall.service.SocialUserService;
 
 /**
  * Controller - 社会化用户
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
@@ -34,47 +34,47 @@ import net.mall.service.SocialUserService;
 @RequestMapping("/member/social_user")
 public class SocialUserController extends BaseController {
 
-	/**
-	 * 每页记录数
-	 */
-	private static final int PAGE_SIZE = 10;
+    /**
+     * 每页记录数
+     */
+    private static final int PAGE_SIZE = 10;
 
-	@Inject
-	private SocialUserService socialUserService;
+    @Inject
+    private SocialUserService socialUserService;
 
-	/**
-	 * 添加属性
-	 */
-	@ModelAttribute
-	public void populateModel(Long socialUserId, @CurrentUser Member currentUser, ModelMap model) {
-		SocialUser socialUser = socialUserService.find(socialUserId);
-		if (socialUser != null && !currentUser.equals(socialUser.getUser())) {
-			throw new UnauthorizedException();
-		}
-		model.addAttribute("socialUser", socialUser);
-	}
+    /**
+     * 添加属性
+     */
+    @ModelAttribute
+    public void populateModel(Long socialUserId, @CurrentUser Member currentUser, ModelMap model) {
+        SocialUser socialUser = socialUserService.find(socialUserId);
+        if (socialUser != null && !currentUser.equals(socialUser.getUser())) {
+            throw new UnauthorizedException();
+        }
+        model.addAttribute("socialUser", socialUser);
+    }
 
-	/**
-	 * 列表
-	 */
-	@GetMapping("/list")
-	public String list(Integer pageNumber, @CurrentUser Member currentUser, ModelMap model) {
-		Pageable pageable = new Pageable(pageNumber, PAGE_SIZE);
-		model.addAttribute("page", socialUserService.findPage(currentUser, pageable));
-		return "member/social_user/list";
-	}
+    /**
+     * 列表
+     */
+    @GetMapping("/list")
+    public String list(Integer pageNumber, @CurrentUser Member currentUser, ModelMap model) {
+        Pageable pageable = new Pageable(pageNumber, PAGE_SIZE);
+        model.addAttribute("page", socialUserService.findPage(currentUser, pageable));
+        return "member/social_user/list";
+    }
 
-	/**
-	 * 删除
-	 */
-	@PostMapping("/delete")
-	public ResponseEntity<?> delete(@ModelAttribute(binding = false) SocialUser socialUser) {
-		if (socialUser == null) {
-			return Results.NOT_FOUND;
-		}
+    /**
+     * 删除
+     */
+    @PostMapping("/delete")
+    public ResponseEntity<?> delete(@ModelAttribute(binding = false) SocialUser socialUser) {
+        if (socialUser == null) {
+            return Results.NOT_FOUND;
+        }
 
-		socialUserService.delete(socialUser);
-		return Results.OK;
-	}
+        socialUserService.delete(socialUser);
+        return Results.OK;
+    }
 
 }
