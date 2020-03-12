@@ -142,13 +142,8 @@
 		</property>
 		<property name="freemarkerVariables">
 			<map>
-<<<<<<< HEAD
 				<!-- http://www.chinafibermarketing.cn -->
-				<entry key="base" value="http://www.chinafibermarketing.cn" />
-=======
-				<!-- http://www.chinafibermarketing.com -->
-				<entry key="base" value="http://www.chinafibermarketing.com" />
->>>>>>> fabric_mall
+				<entry key="base" value="http://localhost:8080" />
 				<entry key="showPowered" value="#{${show_powered}}" />
 				<entry key="message" value-ref="messageMethod" />
 				<entry key="abbreviate" value-ref="abbreviateMethod" />

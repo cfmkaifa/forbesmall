@@ -112,7 +112,6 @@
     [/#noautoesc]
 </head>
 <body class="shop index">
-<<<<<<< HEAD
 [#include "/shop/include/main_header.ftl" /]
 [#include "/shop/include/main_sidebar.ftl" /]
 <main style="background:#f4f4f4;">
@@ -121,7 +120,7 @@
             <div class="row">
                 <div class="col-xs-4">
                     <a href="${base}/">
-                      [#--  <img class="logo" src="${setting.logo}" alt="${setting.siteName}">--]
+                        [#--  <img class="logo" src="${setting.logo}" alt="${setting.siteName}">--]
                         <img class="logo" src="${base}/resources/shop/images/logo.png" >
                     </a>
                 </div>
@@ -167,59 +166,6 @@
                                             <span class="iconfont">&#xe651;</span>
                                             [#break /]
                                         [#case 1]
-=======
-	[#include "/shop/include/main_header.ftl" /]
-	[#include "/shop/include/main_sidebar.ftl" /]
-	<main style="background:#f4f4f4;">
-		<div id="topbar" class="topbar">
-			<div class="container">
-				<div class="row">
-					<div class="col-xs-4">
-						<a href="${base}/">
-							[#--<img class="logo" src="${setting.logo}" alt="${setting.siteName}">--]
-							<img class="logo" src="${base}/resources/shop/images/logo.png">
-						</a>
-					</div>
-					<div class="col-xs-5">
-						<div class="product-search">
-							<form action="${base}/product/search" method="get">
-								<input name="keyword" type="text" placeholder="${message("shop.index.productSearchKeywordPlaceholder")}" autocomplete="off" x-webkit-speech="x-webkit-speech" x-webkit-grammar="builtin:search">
-								<button type="submit">
-									<i class="iconfont icon-search"></i>
-									${message("shop.index.productSearchSubmit")}
-								</button>
-							</form>
-						</div>
-					</div>
-					<div class="col-xs-3">
-						<div class="cart">
-							<i class="iconfont icon-cart"></i>
-							<a href="${base}/cart/list">${message("shop.index.cart")}</a>
-							<em>0</em>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		[@ad_position id = 2]
-			[#if adPosition??]
-				[#noautoesc]${adPosition.resolveTemplate()}[/#noautoesc]
-			[/#if]
-		[/@ad_position]
-		<div class="container">
-			<div class="row">
-				<div class="col-xs-2">
-					[@product_category_root_list count = 6]
-						<div class="product-category-menu">
-							<ul>
-								[#list productCategories as productCategory]
-									<li>
-										[#switch productCategory_index]
-											[#case 0]
-                                                <span class="iconfont">&#xe651;</span>
-												[#break /]
-											[#case 1]
->>>>>>> c99afd385bf9f2d0f0046944b4bfdf77dbd698e0
                                             <span class="iconfont">&#xe642;</span>
                                             [#break /]
                                         [#case 2]
@@ -388,7 +334,6 @@
         [/@ad_position]
         [@product_category_root_list count = 5]
 
-<<<<<<< HEAD
             <div class="featured-product">
                 <div class="featured-product-heading">
                     <img src="${base}/resources/shop/images/gangchangzhixiao.png">
@@ -405,43 +350,15 @@
                                                 [#list adFactory.content as stores]
                                                     <div class="swiper-2">
                                                         <a href="${base}/store/${stores.id}">
-=======
-						<div class="featured-product">
-							<div class="featured-product-heading">
-								<img src="${base}/resources/shop/images/gangchangzhixiao.png">
-							</div>
-							<div class="featured-product-body">
-								<div class="row">
-                                    <div class="box-2">
-                                        <div id="myCarousel" class="carousel slide">
-                                            <!-- 轮播（Carousel）项目 -->
-                                            <div class="carousel-inner">
-                                                <div class="item active">
-                                                    <div class="factory-2">
-														[@ad_factory]
-															[#list adFactory.content as stores]
-                                                                <div class="swiper-2">
-                                                                 <a href="${base}/store/${stores.id}">
->>>>>>> c99afd385bf9f2d0f0046944b4bfdf77dbd698e0
 																<span class="swiper_title-2">
 
 																	  <img src="${stores.logo}" class="logo-2">
 																	<p>${stores.name}</p>
 																</span>
-<<<<<<< HEAD
-                                                                    <p class="tonsof-2">${stores.capacity}${message("shop.index.mass")}</p>
-                                                                    <p class="themain-2">${message("shop.index.varieties")}</p>
-                                                                    <p class="varieties-2">${stores.keyword}</p>
-                                                                 </a>
-                                                                </div>
-															[/#list]
-														[/@ad_factory]
-=======
                                                             <p class="tonsof-2">${stores.capacity}吨/年</p>
                                                             <p class="themain-2">主营品种</p>
                                                             <p class="varieties-2">${stores.keyword}</p>
                                                         </a>
->>>>>>> fabric_mall
                                                     </div>
                                                 [/#list]
                                             [/@ad_factory]
