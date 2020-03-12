@@ -963,3 +963,16 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
+.record {
+	width: 288px;
+	margin: 0 auto;
+	display: flex;
+}
+.record p {
+	color: #63C6F2;
+	margin: 21px auto auto 10px;
+}
+.record p a {
+	color: #63C6F2 !important;
+	text-decoration: underline;
+}

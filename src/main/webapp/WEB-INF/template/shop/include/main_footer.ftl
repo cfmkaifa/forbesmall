@@ -123,6 +123,7 @@
 		</div>
 	</div>
 	<div class="bottom-nav">
+
 		[@navigation_list navigationGroupId = 3]
 			[#if navigations?has_content]
 				<ul class="clearfix1" style="justify-content: space-between;">
