@@ -47,13 +47,13 @@ public class UnionpayPaymentPlugin extends PaymentPlugin {
      * https://gateway.95516.com/gateway/api/frontTransReq.do
      * 交易请求URL
      */
-    private static final String TRANS_REQUEST_URL = "https://gateway.test.95516.com/gateway/api/frontTransReq.do";
+    private static final String TRANS_REQUEST_URL = "https://gateway.95516.com/gateway/api/frontTransReq.do";
 
     /**
      * https://gateway.95516.com/gateway/api/backTransReq.do
      * 查询请求URL
      */
-    private static final String QUERY_REQUEST_URL = "https://gateway.test.95516.com/gateway/api/backTransReq.do";
+    private static final String QUERY_REQUEST_URL = "https://gateway.95516.com/gateway/api/backTransReq.do";
 
     @Override
     public String getName() {
