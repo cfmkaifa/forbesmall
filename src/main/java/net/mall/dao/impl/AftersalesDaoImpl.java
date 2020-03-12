@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.dao.impl;
 
@@ -26,40 +26,40 @@ import net.mall.entity.Store;
 
 /**
  * Dao - 售后
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
 @Repository
 public class AftersalesDaoImpl extends BaseDaoImpl<Aftersales, Long> implements AftersalesDao {
 
-	@Override
-	public List<Aftersales> findList(List<OrderItem> orderItems) {
-		String jpql = "select aftersales from Aftersales aftersales where aftersales in(select aftersalesItem.aftersales from AftersalesItem aftersalesItem where aftersalesItem.orderItem in(:orderItems))";
-		TypedQuery<Aftersales> query = entityManager.createQuery(jpql, Aftersales.class);
-		return query.setParameter("orderItems", orderItems).getResultList();
-	}
+    @Override
+    public List<Aftersales> findList(List<OrderItem> orderItems) {
+        String jpql = "select aftersales from Aftersales aftersales where aftersales in(select aftersalesItem.aftersales from AftersalesItem aftersalesItem where aftersalesItem.orderItem in(:orderItems))";
+        TypedQuery<Aftersales> query = entityManager.createQuery(jpql, Aftersales.class);
+        return query.setParameter("orderItems", orderItems).getResultList();
+    }
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public Page<Aftersales> findPage(Aftersales.Type type, Aftersales.Status status, Member member, Store store, Pageable pageable) {
-		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-		CriteriaQuery<Aftersales> criteriaQuery = criteriaBuilder.createQuery(Aftersales.class);
-		Root<? extends Aftersales> root = criteriaQuery.from(type != null ? (Class<Aftersales>) type.getClazz() : Aftersales.class);
-		criteriaQuery.select(root);
-		Predicate restrictions = criteriaBuilder.conjunction();
-		if (status != null) {
-			restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("status"), status));
-		}
-		if (member != null) {
-			restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("member"), member));
-		}
-		if (store != null) {
-			restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("store"), store));
-		}
-		criteriaQuery.where(restrictions);
+    @SuppressWarnings("unchecked")
+    @Override
+    public Page<Aftersales> findPage(Aftersales.Type type, Aftersales.Status status, Member member, Store store, Pageable pageable) {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Aftersales> criteriaQuery = criteriaBuilder.createQuery(Aftersales.class);
+        Root<? extends Aftersales> root = criteriaQuery.from(type != null ? (Class<Aftersales>) type.getClazz() : Aftersales.class);
+        criteriaQuery.select(root);
+        Predicate restrictions = criteriaBuilder.conjunction();
+        if (status != null) {
+            restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("status"), status));
+        }
+        if (member != null) {
+            restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("member"), member));
+        }
+        if (store != null) {
+            restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("store"), store));
+        }
+        criteriaQuery.where(restrictions);
 
-		return super.findPage(criteriaQuery, pageable);
-	}
+        return super.findPage(criteriaQuery, pageable);
+    }
 
 }

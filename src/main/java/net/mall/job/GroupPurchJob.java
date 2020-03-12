@@ -27,10 +27,10 @@ public class GroupPurchJob {
 
 
     private ReentrantReadWriteLock PUTAWAY_LOCK = new ReentrantReadWriteLock();
-    private int  MAX_COUNT = 200;
+    private int MAX_COUNT = 200;
 
 
-    private ReentrantReadWriteLock  SOLD_OUT_LOCK = new ReentrantReadWriteLock();
+    private ReentrantReadWriteLock SOLD_OUT_LOCK = new ReentrantReadWriteLock();
 
     @Inject
     GroupPurchApplyService groupPurchApplyService;
@@ -40,14 +40,14 @@ public class GroupPurchJob {
      */
     @Scheduled(cron = "${job.putaway_group_purch_apply.cron}")
     public void putawayGroupPurchApply() {
-        if(PUTAWAY_LOCK.writeLock().tryLock()){
+        if (PUTAWAY_LOCK.writeLock().tryLock()) {
             Date currentDate = new Date();
-            List<GroupPurchApply>  groupPurchApplys = groupPurchApplyService.putawayGroupPurchApply(GroupPurchApply.ApplyStatus.APPROVED, GroupPurchApply.JobStatus.PENDING,currentDate);
-            if(ConvertUtils.isNotEmpty(groupPurchApplys)){
+            List<GroupPurchApply> groupPurchApplys = groupPurchApplyService.putawayGroupPurchApply(GroupPurchApply.ApplyStatus.APPROVED, GroupPurchApply.JobStatus.PENDING, currentDate);
+            if (ConvertUtils.isNotEmpty(groupPurchApplys)) {
                 groupPurchApplys.forEach(groupPurchApply -> {
                     String proSn = groupPurchApply.getProSn();
                     String skuSn = groupPurchApply.getSkuSn();
-                    groupPurchApplyService.putawayGroupPurchApply(proSn,skuSn,groupPurchApply.getGroupPrice(),groupPurchApply.getId());
+                    groupPurchApplyService.putawayGroupPurchApply(proSn, skuSn, groupPurchApply.getGroupPrice(), groupPurchApply.getId());
                 });
             }
             PUTAWAY_LOCK.writeLock().unlock();
@@ -59,14 +59,14 @@ public class GroupPurchJob {
      */
     @Scheduled(cron = "${job.sold_out_group_purch_apply.cron}")
     public void soldOutGroupPurchApply() {
-        if(SOLD_OUT_LOCK.writeLock().tryLock()){
+        if (SOLD_OUT_LOCK.writeLock().tryLock()) {
             Date currentDate = new Date();
-            List<GroupPurchApply>  groupPurchApplys = groupPurchApplyService.soldOutGroupPurchApply(GroupPurchApply.ApplyStatus.APPROVED, GroupPurchApply.JobStatus.HASBEENON,currentDate);
-            if(ConvertUtils.isNotEmpty(groupPurchApplys)){
+            List<GroupPurchApply> groupPurchApplys = groupPurchApplyService.soldOutGroupPurchApply(GroupPurchApply.ApplyStatus.APPROVED, GroupPurchApply.JobStatus.HASBEENON, currentDate);
+            if (ConvertUtils.isNotEmpty(groupPurchApplys)) {
                 groupPurchApplys.forEach(groupPurchApply -> {
                     String proSn = groupPurchApply.getProSn();
                     String skuSn = groupPurchApply.getSkuSn();
-                    groupPurchApplyService.soldOutGroupPurchApply(proSn,skuSn,groupPurchApply.getId());
+                    groupPurchApplyService.soldOutGroupPurchApply(proSn, skuSn, groupPurchApply.getId());
                 });
             }
             SOLD_OUT_LOCK.writeLock().unlock();

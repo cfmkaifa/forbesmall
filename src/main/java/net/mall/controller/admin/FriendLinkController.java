@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.controller.admin;
 
@@ -23,7 +23,7 @@ import net.mall.service.FriendLinkService;
 
 /**
  * Controller - 友情链接
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
@@ -31,78 +31,78 @@ import net.mall.service.FriendLinkService;
 @RequestMapping("/admin/friend_link")
 public class FriendLinkController extends BaseController {
 
-	@Inject
-	private FriendLinkService friendLinkService;
+    @Inject
+    private FriendLinkService friendLinkService;
 
-	/**
-	 * 添加
-	 */
-	@GetMapping("/add")
-	public String add(ModelMap model) {
-		model.addAttribute("types", FriendLink.Type.values());
-		return "admin/friend_link/add";
-	}
+    /**
+     * 添加
+     */
+    @GetMapping("/add")
+    public String add(ModelMap model) {
+        model.addAttribute("types", FriendLink.Type.values());
+        return "admin/friend_link/add";
+    }
 
-	/**
-	 * 保存
-	 */
-	@PostMapping("/save")
-	public ResponseEntity<?> save(FriendLink friendLink) {
-		if (!isValid(friendLink)) {
-			return Results.UNPROCESSABLE_ENTITY;
-		}
-		if (FriendLink.Type.TEXT.equals(friendLink.getType())) {
-			friendLink.setLogo(null);
-		} else if (StringUtils.isEmpty(friendLink.getLogo())) {
-			return Results.UNPROCESSABLE_ENTITY;
-		}
-		friendLinkService.save(friendLink);
-		return Results.OK;
-	}
+    /**
+     * 保存
+     */
+    @PostMapping("/save")
+    public ResponseEntity<?> save(FriendLink friendLink) {
+        if (!isValid(friendLink)) {
+            return Results.UNPROCESSABLE_ENTITY;
+        }
+        if (FriendLink.Type.TEXT.equals(friendLink.getType())) {
+            friendLink.setLogo(null);
+        } else if (StringUtils.isEmpty(friendLink.getLogo())) {
+            return Results.UNPROCESSABLE_ENTITY;
+        }
+        friendLinkService.save(friendLink);
+        return Results.OK;
+    }
 
-	/**
-	 * 编辑
-	 */
-	@GetMapping("/edit")
-	public String edit(Long id, ModelMap model) {
-		model.addAttribute("types", FriendLink.Type.values());
-		model.addAttribute("friendLink", friendLinkService.find(id));
-		return "admin/friend_link/edit";
-	}
+    /**
+     * 编辑
+     */
+    @GetMapping("/edit")
+    public String edit(Long id, ModelMap model) {
+        model.addAttribute("types", FriendLink.Type.values());
+        model.addAttribute("friendLink", friendLinkService.find(id));
+        return "admin/friend_link/edit";
+    }
 
-	/**
-	 * 更新
-	 */
-	@PostMapping("/update")
-	public ResponseEntity<?> update(FriendLink friendLink) {
-		if (!isValid(friendLink)) {
-			return Results.UNPROCESSABLE_ENTITY;
-		}
-		if (FriendLink.Type.TEXT.equals(friendLink.getType())) {
-			friendLink.setLogo(null);
-		} else if (StringUtils.isEmpty(friendLink.getLogo())) {
-			return Results.UNPROCESSABLE_ENTITY;
-		}
-		friendLinkService.update(friendLink);
-		return Results.OK;
-	}
+    /**
+     * 更新
+     */
+    @PostMapping("/update")
+    public ResponseEntity<?> update(FriendLink friendLink) {
+        if (!isValid(friendLink)) {
+            return Results.UNPROCESSABLE_ENTITY;
+        }
+        if (FriendLink.Type.TEXT.equals(friendLink.getType())) {
+            friendLink.setLogo(null);
+        } else if (StringUtils.isEmpty(friendLink.getLogo())) {
+            return Results.UNPROCESSABLE_ENTITY;
+        }
+        friendLinkService.update(friendLink);
+        return Results.OK;
+    }
 
-	/**
-	 * 列表
-	 */
-	@GetMapping("/list")
-	public String list(Pageable pageable, ModelMap model) {
-		model.addAttribute("page", friendLinkService.findPage(pageable));
-		return "admin/friend_link/list";
-	}
+    /**
+     * 列表
+     */
+    @GetMapping("/list")
+    public String list(Pageable pageable, ModelMap model) {
+        model.addAttribute("page", friendLinkService.findPage(pageable));
+        return "admin/friend_link/list";
+    }
 
-	/**
-	 * 删除
-	 */
-	@PostMapping("/delete")
-	public ResponseEntity<?> delete(Long[] ids) {
-		friendLinkService.delete(ids);
-		return Results.OK;
-	}
+    /**
+     * 删除
+     */
+    @PostMapping("/delete")
+    public ResponseEntity<?> delete(Long[] ids) {
+        friendLinkService.delete(ids);
+        return Results.OK;
+    }
 
 }

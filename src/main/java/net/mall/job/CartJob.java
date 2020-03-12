@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.job;
 
@@ -19,7 +19,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
  * Job - 购物车
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
@@ -27,20 +27,20 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 @Lazy(false)
 public class CartJob {
 
-	private ReentrantReadWriteLock  CART_LOCK = new ReentrantReadWriteLock();
+    private ReentrantReadWriteLock CART_LOCK = new ReentrantReadWriteLock();
 
-	@Inject
-	private CartService cartService;
+    @Inject
+    private CartService cartService;
 
-	/**
-	 * 删除过期购物车
-	 */
-	@Scheduled(cron = "${job.cart_delete_expired.cron}")
-	public void deleteExpired() {
-		if(CART_LOCK.writeLock().tryLock()){
-			cartService.deleteExpired();
-			CART_LOCK.writeLock().unlock();
-		}
-	}
+    /**
+     * 删除过期购物车
+     */
+    @Scheduled(cron = "${job.cart_delete_expired.cron}")
+    public void deleteExpired() {
+        if (CART_LOCK.writeLock().tryLock()) {
+            cartService.deleteExpired();
+            CART_LOCK.writeLock().unlock();
+        }
+    }
 
 }

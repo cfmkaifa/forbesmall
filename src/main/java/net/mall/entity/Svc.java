@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.entity;
 
@@ -22,7 +22,7 @@ import javax.persistence.OneToMany;
 
 /**
  * Entity - 服务
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
@@ -31,131 +31,126 @@ import javax.persistence.OneToMany;
 @Inheritance
 public abstract class Svc extends BaseEntity<Long> {
 
-	private static final long serialVersionUID = -7367901462418664073L;
+    private static final long serialVersionUID = -7367901462418664073L;
 
-	/**
-	 * 编号
-	 */
-	@Column(nullable = false, updatable = false, unique = true)
-	private String sn;
+    /**
+     * 编号
+     */
+    @Column(nullable = false, updatable = false, unique = true)
+    private String sn;
 
-	/**
-	 * 金额
-	 */
-	@Column(nullable = false, updatable = false, precision = 21, scale = 6)
-	private BigDecimal amount;
+    /**
+     * 金额
+     */
+    @Column(nullable = false, updatable = false, precision = 21, scale = 6)
+    private BigDecimal amount;
 
-	/**
-	 * 有效天数
-	 */
-	private Integer durationDays;
+    /**
+     * 有效天数
+     */
+    private Integer durationDays;
 
-	/**
-	 * 店铺
-	 */
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(updatable = false)
-	private Store store;
+    /**
+     * 店铺
+     */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(updatable = false)
+    private Store store;
 
-	/**
-	 * 支付事务
-	 */
-	@OneToMany(mappedBy = "svc", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-	private Set<PaymentTransaction> paymentTransactions = new HashSet<>();
+    /**
+     * 支付事务
+     */
+    @OneToMany(mappedBy = "svc", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private Set<PaymentTransaction> paymentTransactions = new HashSet<>();
 
-	/**
-	 * 获取编号
-	 * 
-	 * @return 编号
-	 */
-	public String getSn() {
-		return sn;
-	}
+    /**
+     * 获取编号
+     *
+     * @return 编号
+     */
+    public String getSn() {
+        return sn;
+    }
 
-	/**
-	 * 设置编号
-	 * 
-	 * @param sn
-	 *            编号
-	 */
-	public void setSn(String sn) {
-		this.sn = sn;
-	}
+    /**
+     * 设置编号
+     *
+     * @param sn 编号
+     */
+    public void setSn(String sn) {
+        this.sn = sn;
+    }
 
-	/**
-	 * 获取金额
-	 * 
-	 * @return 金额
-	 */
-	public BigDecimal getAmount() {
-		return amount;
-	}
+    /**
+     * 获取金额
+     *
+     * @return 金额
+     */
+    public BigDecimal getAmount() {
+        return amount;
+    }
 
-	/**
-	 * 设置金额
-	 * 
-	 * @param amount
-	 *            金额
-	 */
-	public void setAmount(BigDecimal amount) {
-		this.amount = amount;
-	}
+    /**
+     * 设置金额
+     *
+     * @param amount 金额
+     */
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
 
-	/**
-	 * 获取有效天数
-	 * 
-	 * @return 有效天数
-	 */
-	public Integer getDurationDays() {
-		return durationDays;
-	}
+    /**
+     * 获取有效天数
+     *
+     * @return 有效天数
+     */
+    public Integer getDurationDays() {
+        return durationDays;
+    }
 
-	/**
-	 * 设置有效天数
-	 * 
-	 * @param durationDays
-	 *            有效天数
-	 */
-	public void setDurationDays(Integer durationDays) {
-		this.durationDays = durationDays;
-	}
+    /**
+     * 设置有效天数
+     *
+     * @param durationDays 有效天数
+     */
+    public void setDurationDays(Integer durationDays) {
+        this.durationDays = durationDays;
+    }
 
-	/**
-	 * 获取店铺
-	 * 
-	 * @return 店铺
-	 */
-	public Store getStore() {
-		return store;
-	}
+    /**
+     * 获取店铺
+     *
+     * @return 店铺
+     */
+    public Store getStore() {
+        return store;
+    }
 
-	/**
-	 * 设置店铺
-	 * 
-	 * @param store
-	 *            店铺
-	 */
-	public void setStore(Store store) {
-		this.store = store;
-	}
+    /**
+     * 设置店铺
+     *
+     * @param store 店铺
+     */
+    public void setStore(Store store) {
+        this.store = store;
+    }
 
-	/**
-	 * 获取支付事务
-	 * 
-	 * @return 支付事务
-	 */
-	public Set<PaymentTransaction> getPaymentTransactions() {
-		return paymentTransactions;
-	}
+    /**
+     * 获取支付事务
+     *
+     * @return 支付事务
+     */
+    public Set<PaymentTransaction> getPaymentTransactions() {
+        return paymentTransactions;
+    }
 
-	/**
-	 * 设置支付事务
-	 * 
-	 * @param paymentTransactions
-	 *            支付事务
-	 */
-	public void setPaymentTransactions(Set<PaymentTransaction> paymentTransactions) {
-		this.paymentTransactions = paymentTransactions;
-	}
+    /**
+     * 设置支付事务
+     *
+     * @param paymentTransactions 支付事务
+     */
+    public void setPaymentTransactions(Set<PaymentTransaction> paymentTransactions) {
+        this.paymentTransactions = paymentTransactions;
+    }
 
 }

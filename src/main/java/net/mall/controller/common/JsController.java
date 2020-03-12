@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.controller.common;
 
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * Controller - Js
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
@@ -24,25 +24,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/resources/common/js")
 public class JsController {
 
-	@Value("${javascript_content_type}")
-	private String javascriptContentType;
-	@Value("${security.member_login_url}")
-	private String memberLoginUrl;
-	@Value("${security.business_login_url}")
-	private String businessLoginUrl;
-	@Value("${security.admin_login_url}")
-	private String adminLoginUrl;
+    @Value("${javascript_content_type}")
+    private String javascriptContentType;
+    @Value("${security.member_login_url}")
+    private String memberLoginUrl;
+    @Value("${security.business_login_url}")
+    private String businessLoginUrl;
+    @Value("${security.admin_login_url}")
+    private String adminLoginUrl;
 
-	/**
-	 * 基础
-	 */
-	@GetMapping("/base.js")
-	public String base(HttpServletResponse response, ModelMap model) {
-		response.setContentType(javascriptContentType);
-		model.addAttribute("memberLoginUrl", memberLoginUrl);
-		model.addAttribute("businessLoginUrl", businessLoginUrl);
-		model.addAttribute("adminLoginUrl", adminLoginUrl);
-		return "common/js/base";
-	}
+    /**
+     * 基础
+     */
+    @GetMapping("/base.js")
+    public String base(HttpServletResponse response, ModelMap model) {
+        response.setContentType(javascriptContentType);
+        model.addAttribute("memberLoginUrl", memberLoginUrl);
+        model.addAttribute("businessLoginUrl", businessLoginUrl);
+        model.addAttribute("adminLoginUrl", adminLoginUrl);
+        return "common/js/base";
+    }
 
 }

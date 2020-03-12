@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.controller.admin;
 
@@ -22,7 +22,7 @@ import net.mall.service.PluginService;
 
 /**
  * Controller - 支付插件
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
@@ -30,20 +30,20 @@ import net.mall.service.PluginService;
 @RequestMapping("/admin/business_payment_plugin")
 public class SupplierPaymentPluginController extends BaseController {
 
-	@Inject
-	private PluginService pluginService;
+    @Inject
+    private PluginService pluginService;
 
-	/**
-	 * 列表
-	 */
-	@GetMapping("/list/{supplierId}")
-	public String list(@PathVariable String supplierId,
-			ModelMap model) {
-		List<PaymentPlugin> paymentPlugins = pluginService.getPaymentPlugins();
-		List<PaymentPlugin> installPaymentPlugins = paymentPlugins.stream().filter(paymentPlugin->paymentPlugin.getIsInstalled()).collect(Collectors.toList());
-		model.addAttribute("paymentPlugins", installPaymentPlugins);
-		model.addAttribute("supplierId", supplierId);
-		return "admin/business_payment_plugin/list";
-	}
+    /**
+     * 列表
+     */
+    @GetMapping("/list/{supplierId}")
+    public String list(@PathVariable String supplierId,
+                       ModelMap model) {
+        List<PaymentPlugin> paymentPlugins = pluginService.getPaymentPlugins();
+        List<PaymentPlugin> installPaymentPlugins = paymentPlugins.stream().filter(paymentPlugin -> paymentPlugin.getIsInstalled()).collect(Collectors.toList());
+        model.addAttribute("paymentPlugins", installPaymentPlugins);
+        model.addAttribute("supplierId", supplierId);
+        return "admin/business_payment_plugin/list";
+    }
 
 }

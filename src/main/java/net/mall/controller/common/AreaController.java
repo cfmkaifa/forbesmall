@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.controller.common;
 
@@ -24,7 +24,7 @@ import net.mall.service.AreaService;
 
 /**
  * Controller - 地区
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
@@ -32,24 +32,25 @@ import net.mall.service.AreaService;
 @RequestMapping("/common/area")
 public class AreaController {
 
-	@Inject
-	private AreaService areaService;
+    @Inject
+    private AreaService areaService;
 
-	/**
-	 * 地区
-	 */
-	@GetMapping
-	public @ResponseBody List<Map<String, Object>> index(Long parentId) {
-		List<Map<String, Object>> data = new ArrayList<>();
-		Area parent = areaService.find(parentId);
-		Collection<Area> areas = parent != null ? parent.getChildren() : areaService.findRoots();
-		for (Area area : areas) {
-			Map<String, Object> item = new HashMap<>();
-			item.put("name", area.getName());
-			item.put("value", area.getId());
-			data.add(item);
-		}
-		return data;
-	}
+    /**
+     * 地区
+     */
+    @GetMapping
+    public @ResponseBody
+    List<Map<String, Object>> index(Long parentId) {
+        List<Map<String, Object>> data = new ArrayList<>();
+        Area parent = areaService.find(parentId);
+        Collection<Area> areas = parent != null ? parent.getChildren() : areaService.findRoots();
+        for (Area area : areas) {
+            Map<String, Object> item = new HashMap<>();
+            item.put("name", area.getName());
+            item.put("value", area.getId());
+            data.add(item);
+        }
+        return data;
+    }
 
 }

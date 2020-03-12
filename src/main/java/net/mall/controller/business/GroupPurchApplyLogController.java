@@ -20,12 +20,10 @@ import javax.inject.Inject;
  */
 @Controller("businessGroupPurchApplyLogController")
 @RequestMapping("/business/group_purch_apply_log")
-public class GroupPurchApplyLogController  extends BaseController {
+public class GroupPurchApplyLogController extends BaseController {
 
     @Inject
     GroupPurchApplyLogService groupPurchApplyLogService;
-
-
 
 
     /**
@@ -33,12 +31,12 @@ public class GroupPurchApplyLogController  extends BaseController {
      */
     @GetMapping("/list")
     public String list(Pageable pageable, String searchValue, @CurrentStore Store currentStore, ModelMap model) {
-        pageable.getFilters().add(new Filter("storeId",Filter.Operator.EQ,currentStore.getId()));
-        if(ConvertUtils.isNotEmpty(searchValue)){
+        pageable.getFilters().add(new Filter("storeId", Filter.Operator.EQ, currentStore.getId()));
+        if (ConvertUtils.isNotEmpty(searchValue)) {
             pageable.setSearchProperty("proName");
         }
         Page<GroupPurchApplyLog> page = groupPurchApplyLogService.findPage(pageable);
-        model.addAttribute("page",page);
+        model.addAttribute("page", page);
         return "business/group_purch_apply_log/list";
     }
 }

@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.service.impl;
 
@@ -20,20 +20,20 @@ import net.mall.service.PointLogService;
 
 /**
  * Service - 积分记录
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
 @Service
 public class PointLogServiceImpl extends BaseServiceImpl<PointLog, Long> implements PointLogService {
 
-	@Inject
-	private PointLogDao pointLogDao;
+    @Inject
+    private PointLogDao pointLogDao;
 
-	@Override
-	@Transactional(readOnly = true)
-	public Page<PointLog> findPage(Member member, Pageable pageable) {
-		return pointLogDao.findPage(member, pageable);
-	}
+    @Override
+    @Transactional(readOnly = true)
+    public Page<PointLog> findPage(Member member, Pageable pageable) {
+        return pointLogDao.findPage(member, pageable);
+    }
 
 }

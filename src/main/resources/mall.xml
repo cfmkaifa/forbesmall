@@ -2,7 +2,7 @@
 <mall>
 	<setting name="siteName" value="福布云商-服务于中国化纤市场" />
 	<!-- http://www.chinafibermarketing.cn -->
-	<setting name="siteUrl" value="http://www.chinafibermarketing.cn" />
+	<setting name="siteUrl" value="http://localhost:8080" />
 	<setting name="fileUrl" value="http://fds.chinafibermarketing.cn" />
 	<setting name="logo" value="/resources/shop/images/logo.png" />
 	<setting name="hotSearch" value="" />

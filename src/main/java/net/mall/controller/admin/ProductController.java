@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.controller.admin;
 
@@ -29,7 +29,7 @@ import net.mall.service.StoreService;
 
 /**
  * Controller - 商品
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
@@ -37,79 +37,79 @@ import net.mall.service.StoreService;
 @RequestMapping("/admin/product")
 public class ProductController extends BaseController {
 
-	@Inject
-	private ProductService productService;
-	@Inject
-	private ProductCategoryService productCategoryService;
-	@Inject
-	private BrandService brandService;
-	@Inject
-	private ProductTagService productTagService;
-	@Inject
-	private StoreService storeService;
+    @Inject
+    private ProductService productService;
+    @Inject
+    private ProductCategoryService productCategoryService;
+    @Inject
+    private BrandService brandService;
+    @Inject
+    private ProductTagService productTagService;
+    @Inject
+    private StoreService storeService;
 
-	/**
-	 * 列表
-	 */
-	@GetMapping("/list")
-	public String list(Product.Type type, Long productCategoryId, Long brandId, Long productTagId, Boolean isActive, Boolean isMarketable, Boolean isList, Boolean isTop, Boolean isOutOfStock, Boolean isStockAlert, Pageable pageable, ModelMap model) {
-		ProductCategory productCategory = productCategoryService.find(productCategoryId);
-		Brand brand = brandService.find(brandId);
-		ProductTag productTag = productTagService.find(productTagId);
+    /**
+     * 列表
+     */
+    @GetMapping("/list")
+    public String list(Product.Type type, Long productCategoryId, Long brandId, Long productTagId, Boolean isActive, Boolean isMarketable, Boolean isList, Boolean isTop, Boolean isOutOfStock, Boolean isStockAlert, Pageable pageable, ModelMap model) {
+        ProductCategory productCategory = productCategoryService.find(productCategoryId);
+        Brand brand = brandService.find(brandId);
+        ProductTag productTag = productTagService.find(productTagId);
 
-		model.addAttribute("types", Product.Type.values());
-		model.addAttribute("productCategoryTree", productCategoryService.findTree());
-		model.addAttribute("brands", brandService.findAll());
-		model.addAttribute("productTags", productTagService.findAll());
-		model.addAttribute("type", type);
-		model.addAttribute("productCategoryId", productCategoryId);
-		model.addAttribute("brandId", brandId);
-		model.addAttribute("productTagId", productTagId);
-		model.addAttribute("isMarketable", isMarketable);
-		model.addAttribute("isList", isList);
-		model.addAttribute("isTop", isTop);
-		model.addAttribute("isActive", isActive);
-		model.addAttribute("isOutOfStock", isOutOfStock);
-		model.addAttribute("isStockAlert", isStockAlert);
-		model.addAttribute("page", productService.findPage(type,0, null, null, productCategory, null, brand, null, productTag, null, null, null, null, isMarketable, isList, isTop, isActive, isOutOfStock, isStockAlert, null, null, pageable));
-		return "admin/product/list";
-	}
+        model.addAttribute("types", Product.Type.values());
+        model.addAttribute("productCategoryTree", productCategoryService.findTree());
+        model.addAttribute("brands", brandService.findAll());
+        model.addAttribute("productTags", productTagService.findAll());
+        model.addAttribute("type", type);
+        model.addAttribute("productCategoryId", productCategoryId);
+        model.addAttribute("brandId", brandId);
+        model.addAttribute("productTagId", productTagId);
+        model.addAttribute("isMarketable", isMarketable);
+        model.addAttribute("isList", isList);
+        model.addAttribute("isTop", isTop);
+        model.addAttribute("isActive", isActive);
+        model.addAttribute("isOutOfStock", isOutOfStock);
+        model.addAttribute("isStockAlert", isStockAlert);
+        model.addAttribute("page", productService.findPage(type, 0,false, null, null, productCategory, null, brand, null, productTag, null, null, null, null, isMarketable, isList, isTop, isActive, isOutOfStock, isStockAlert, null, null, pageable));
+        return "admin/product/list";
+    }
 
-	/**
-	 * 删除
-	 */
-	@PostMapping("/delete")
-	public ResponseEntity<?> delete(Long[] ids) {
-		productService.delete(ids);
-		return Results.OK;
-	}
+    /**
+     * 删除
+     */
+    @PostMapping("/delete")
+    public ResponseEntity<?> delete(Long[] ids) {
+        productService.delete(ids);
+        return Results.OK;
+    }
 
-	/**
-	 * 上架商品
-	 */
-	@PostMapping("/shelves")
-	public ResponseEntity<?> shelves(Long[] ids) {
-		if (ids != null) {
-			for (Long id : ids) {
-				Product product = productService.find(id);
-				if (product == null) {
-					return Results.UNPROCESSABLE_ENTITY;
-				}
-				if (!storeService.productCategoryExists(product.getStore(), product.getProductCategory())) {
-					return Results.unprocessableEntity("admin.product.marketableNotExistCategoryNotAllowed", product.getName());
-				}
-			}
-			productService.shelves(ids);
-		}
-		return Results.OK;
-	}
+    /**
+     * 上架商品
+     */
+    @PostMapping("/shelves")
+    public ResponseEntity<?> shelves(Long[] ids) {
+        if (ids != null) {
+            for (Long id : ids) {
+                Product product = productService.find(id);
+                if (product == null) {
+                    return Results.UNPROCESSABLE_ENTITY;
+                }
+                if (!storeService.productCategoryExists(product.getStore(), product.getProductCategory())) {
+                    return Results.unprocessableEntity("admin.product.marketableNotExistCategoryNotAllowed", product.getName());
+                }
+            }
+            productService.shelves(ids);
+        }
+        return Results.OK;
+    }
 
-	/**
-	 * 下架商品
-	 */
-	@PostMapping("/shelf")
-	public ResponseEntity<?> shelf(Long[] ids) {
-		productService.shelf(ids);
-		return Results.OK;
-	}
+    /**
+     * 下架商品
+     */
+    @PostMapping("/shelf")
+    public ResponseEntity<?> shelf(Long[] ids) {
+        productService.shelf(ids);
+        return Results.OK;
+    }
 }

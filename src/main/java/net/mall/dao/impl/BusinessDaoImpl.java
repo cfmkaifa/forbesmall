@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.dao.impl;
 
@@ -24,63 +24,63 @@ import net.mall.entity.Business;
 
 /**
  * Dao - 商家
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
 @Repository
 public class BusinessDaoImpl extends BaseDaoImpl<Business, Long> implements BusinessDao {
 
-	@Override
-	public List<Business> search(String keyword, Integer count) {
-		if (StringUtils.isEmpty(keyword)) {
-			return Collections.emptyList();
-		}
-		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-		CriteriaQuery<Business> criteriaQuery = criteriaBuilder.createQuery(Business.class);
-		Root<Business> root = criteriaQuery.from(Business.class);
-		criteriaQuery.select(root);
-		Predicate restrictions = criteriaBuilder.conjunction();
-		restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.or(criteriaBuilder.like(root.<String>get("username"), "%" + keyword + "%")));
-		criteriaQuery.where(restrictions);
-		return super.findList(criteriaQuery, null, count, null, null);
-	}
+    @Override
+    public List<Business> search(String keyword, Integer count) {
+        if (StringUtils.isEmpty(keyword)) {
+            return Collections.emptyList();
+        }
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Business> criteriaQuery = criteriaBuilder.createQuery(Business.class);
+        Root<Business> root = criteriaQuery.from(Business.class);
+        criteriaQuery.select(root);
+        Predicate restrictions = criteriaBuilder.conjunction();
+        restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.or(criteriaBuilder.like(root.<String>get("username"), "%" + keyword + "%")));
+        criteriaQuery.where(restrictions);
+        return super.findList(criteriaQuery, null, count, null, null);
+    }
 
-	@Override
-	public BigDecimal totalBalance() {
-		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-		CriteriaQuery<BigDecimal> criteriaQuery = criteriaBuilder.createQuery(BigDecimal.class);
-		Root<Business> root = criteriaQuery.from(Business.class);
-		criteriaQuery.select(criteriaBuilder.sum(root.<BigDecimal>get("balance")));
-		BigDecimal result = entityManager.createQuery(criteriaQuery).getSingleResult();
-		return result != null ? result : BigDecimal.ZERO;
-	}
+    @Override
+    public BigDecimal totalBalance() {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<BigDecimal> criteriaQuery = criteriaBuilder.createQuery(BigDecimal.class);
+        Root<Business> root = criteriaQuery.from(Business.class);
+        criteriaQuery.select(criteriaBuilder.sum(root.<BigDecimal>get("balance")));
+        BigDecimal result = entityManager.createQuery(criteriaQuery).getSingleResult();
+        return result != null ? result : BigDecimal.ZERO;
+    }
 
-	@Override
-	public BigDecimal frozenTotalAmount() {
-		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-		CriteriaQuery<BigDecimal> criteriaQuery = criteriaBuilder.createQuery(BigDecimal.class);
-		Root<Business> root = criteriaQuery.from(Business.class);
-		criteriaQuery.select(criteriaBuilder.sum(root.<BigDecimal>get("frozenAmount")));
-		BigDecimal result = entityManager.createQuery(criteriaQuery).getSingleResult();
-		return result != null ? result : BigDecimal.ZERO;
-	}
+    @Override
+    public BigDecimal frozenTotalAmount() {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<BigDecimal> criteriaQuery = criteriaBuilder.createQuery(BigDecimal.class);
+        Root<Business> root = criteriaQuery.from(Business.class);
+        criteriaQuery.select(criteriaBuilder.sum(root.<BigDecimal>get("frozenAmount")));
+        BigDecimal result = entityManager.createQuery(criteriaQuery).getSingleResult();
+        return result != null ? result : BigDecimal.ZERO;
+    }
 
-	@Override
-	public Long count(Date beginDate, Date endDate) {
-		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-		CriteriaQuery<Business> criteriaQuery = criteriaBuilder.createQuery(Business.class);
-		Root<Business> root = criteriaQuery.from(Business.class);
-		criteriaQuery.select(root);
-		Predicate restrictions = criteriaBuilder.conjunction();
-		if (beginDate != null) {
-			restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.greaterThanOrEqualTo(root.<Date>get("createdDate"), beginDate));
-		}
-		if (endDate != null) {
-			restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.lessThanOrEqualTo(root.<Date>get("createdDate"), endDate));
-		}
-		criteriaQuery.where(restrictions);
-		return super.count(criteriaQuery, null);
-	}
+    @Override
+    public Long count(Date beginDate, Date endDate) {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Business> criteriaQuery = criteriaBuilder.createQuery(Business.class);
+        Root<Business> root = criteriaQuery.from(Business.class);
+        criteriaQuery.select(root);
+        Predicate restrictions = criteriaBuilder.conjunction();
+        if (beginDate != null) {
+            restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.greaterThanOrEqualTo(root.<Date>get("createdDate"), beginDate));
+        }
+        if (endDate != null) {
+            restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.lessThanOrEqualTo(root.<Date>get("createdDate"), endDate));
+        }
+        criteriaQuery.where(restrictions);
+        return super.count(criteriaQuery, null);
+    }
 
 }

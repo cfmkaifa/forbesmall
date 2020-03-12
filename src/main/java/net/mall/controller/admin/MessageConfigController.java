@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.controller.admin;
 
@@ -21,7 +21,7 @@ import net.mall.service.MessageConfigService;
 
 /**
  * Controller - 消息配置
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
@@ -29,37 +29,37 @@ import net.mall.service.MessageConfigService;
 @RequestMapping("/admin/message_config")
 public class MessageConfigController extends BaseController {
 
-	@Inject
-	private MessageConfigService messageConfigService;
+    @Inject
+    private MessageConfigService messageConfigService;
 
-	/**
-	 * 编辑
-	 */
-	@GetMapping("/edit")
-	public String edit(Long id, ModelMap model) {
-		model.addAttribute("messageConfig", messageConfigService.find(id));
-		return "admin/message_config/edit";
-	}
+    /**
+     * 编辑
+     */
+    @GetMapping("/edit")
+    public String edit(Long id, ModelMap model) {
+        model.addAttribute("messageConfig", messageConfigService.find(id));
+        return "admin/message_config/edit";
+    }
 
-	/**
-	 * 更新
-	 */
-	@PostMapping("/update")
-	public ResponseEntity<?> update(MessageConfig messageConfig) {
-		if (!isValid(messageConfig)) {
-			return Results.UNPROCESSABLE_ENTITY;
-		}
-		messageConfigService.update(messageConfig, "type");
-		return Results.OK;
-	}
+    /**
+     * 更新
+     */
+    @PostMapping("/update")
+    public ResponseEntity<?> update(MessageConfig messageConfig) {
+        if (!isValid(messageConfig)) {
+            return Results.UNPROCESSABLE_ENTITY;
+        }
+        messageConfigService.update(messageConfig, "type");
+        return Results.OK;
+    }
 
-	/**
-	 * 列表
-	 */
-	@GetMapping("/list")
-	public String list(ModelMap model) {
-		model.addAttribute("messageConfigs", messageConfigService.findAll());
-		return "admin/message_config/list";
-	}
+    /**
+     * 列表
+     */
+    @GetMapping("/list")
+    public String list(ModelMap model) {
+        model.addAttribute("messageConfigs", messageConfigService.findAll());
+        return "admin/message_config/list";
+    }
 
 }

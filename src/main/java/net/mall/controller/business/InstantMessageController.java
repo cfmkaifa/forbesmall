@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.controller.business;
 
@@ -27,7 +27,7 @@ import net.mall.service.InstantMessageService;
 
 /**
  * Controller - 即时通讯
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
@@ -35,98 +35,98 @@ import net.mall.service.InstantMessageService;
 @RequestMapping("/business/instant_message")
 public class InstantMessageController extends BaseController {
 
-	@Inject
-	private InstantMessageService instantMessageService;
+    @Inject
+    private InstantMessageService instantMessageService;
 
-	/**
-	 * 添加属性
-	 */
-	@ModelAttribute
-	public void populateModel(Long instantMessageId, @CurrentStore Store currentStore, ModelMap model) {
-		InstantMessage instantMessage = instantMessageService.find(instantMessageId);
-		if (instantMessage != null && !currentStore.equals(instantMessage.getStore())) {
-			throw new UnauthorizedException();
-		}
-		model.addAttribute("instantMessage", instantMessage);
-	}
+    /**
+     * 添加属性
+     */
+    @ModelAttribute
+    public void populateModel(Long instantMessageId, @CurrentStore Store currentStore, ModelMap model) {
+        InstantMessage instantMessage = instantMessageService.find(instantMessageId);
+        if (instantMessage != null && !currentStore.equals(instantMessage.getStore())) {
+            throw new UnauthorizedException();
+        }
+        model.addAttribute("instantMessage", instantMessage);
+    }
 
-	/**
-	 * 添加
-	 */
-	@GetMapping("/add")
-	public String add(ModelMap model) {
-		model.addAttribute("types", InstantMessage.Type.values());
-		return "business/instant_message/add";
-	}
+    /**
+     * 添加
+     */
+    @GetMapping("/add")
+    public String add(ModelMap model) {
+        model.addAttribute("types", InstantMessage.Type.values());
+        return "business/instant_message/add";
+    }
 
-	/**
-	 * 保存
-	 */
-	@PostMapping("/save")
-	public ResponseEntity<?> save(@ModelAttribute("instantMessageForm") InstantMessage instantMessageForm, @CurrentStore Store currentStore) {
-		if (!isValid(instantMessageForm)) {
-			return Results.UNPROCESSABLE_ENTITY;
-		}
-		instantMessageForm.setStore(currentStore);
-		instantMessageService.save(instantMessageForm);
+    /**
+     * 保存
+     */
+    @PostMapping("/save")
+    public ResponseEntity<?> save(@ModelAttribute("instantMessageForm") InstantMessage instantMessageForm, @CurrentStore Store currentStore) {
+        if (!isValid(instantMessageForm)) {
+            return Results.UNPROCESSABLE_ENTITY;
+        }
+        instantMessageForm.setStore(currentStore);
+        instantMessageService.save(instantMessageForm);
 
-		return Results.OK;
-	}
+        return Results.OK;
+    }
 
-	/**
-	 * 编辑
-	 */
-	@GetMapping("/edit")
-	public String edit(@ModelAttribute(binding = false) InstantMessage instantMessage, ModelMap model) {
-		if (instantMessage == null) {
-			return UNPROCESSABLE_ENTITY_VIEW;
-		}
+    /**
+     * 编辑
+     */
+    @GetMapping("/edit")
+    public String edit(@ModelAttribute(binding = false) InstantMessage instantMessage, ModelMap model) {
+        if (instantMessage == null) {
+            return UNPROCESSABLE_ENTITY_VIEW;
+        }
 
-		model.addAttribute("types", InstantMessage.Type.values());
-		model.addAttribute("instantMessage", instantMessage);
-		return "business/instant_message/edit";
-	}
+        model.addAttribute("types", InstantMessage.Type.values());
+        model.addAttribute("instantMessage", instantMessage);
+        return "business/instant_message/edit";
+    }
 
-	/**
-	 * 更新
-	 */
-	@PostMapping("/update")
-	public ResponseEntity<?> update(@ModelAttribute("instantMessageForm") InstantMessage instantMessageForm, @ModelAttribute(binding = false) InstantMessage instantMessage) {
-		if (!isValid(instantMessageForm)) {
-			return Results.UNPROCESSABLE_ENTITY;
-		}
-		if (instantMessage == null) {
-			return Results.UNPROCESSABLE_ENTITY;
-		}
+    /**
+     * 更新
+     */
+    @PostMapping("/update")
+    public ResponseEntity<?> update(@ModelAttribute("instantMessageForm") InstantMessage instantMessageForm, @ModelAttribute(binding = false) InstantMessage instantMessage) {
+        if (!isValid(instantMessageForm)) {
+            return Results.UNPROCESSABLE_ENTITY;
+        }
+        if (instantMessage == null) {
+            return Results.UNPROCESSABLE_ENTITY;
+        }
 
-		BeanUtils.copyProperties(instantMessageForm, instantMessage, "id", "store");
-		instantMessageService.update(instantMessage);
+        BeanUtils.copyProperties(instantMessageForm, instantMessage, "id", "store");
+        instantMessageService.update(instantMessage);
 
-		return Results.OK;
-	}
+        return Results.OK;
+    }
 
-	/**
-	 * 列表
-	 */
-	@GetMapping("/list")
-	public String list(Pageable pageable, @CurrentStore Store currentStore, ModelMap model) {
-		model.addAttribute("page", instantMessageService.findPage(currentStore, pageable));
-		return "business/instant_message/list";
-	}
+    /**
+     * 列表
+     */
+    @GetMapping("/list")
+    public String list(Pageable pageable, @CurrentStore Store currentStore, ModelMap model) {
+        model.addAttribute("page", instantMessageService.findPage(currentStore, pageable));
+        return "business/instant_message/list";
+    }
 
-	/**
-	 * 删除
-	 */
-	@PostMapping("/delete")
-	public ResponseEntity<?> delete(Long[] ids, @CurrentStore Store currentStore) {
-		for (Long id : ids) {
-			InstantMessage instantMessage = instantMessageService.find(id);
-			if (instantMessage == null || !currentStore.equals(instantMessage.getStore())) {
-				return Results.UNPROCESSABLE_ENTITY;
-			}
-			instantMessageService.delete(id);
-		}
-		return Results.OK;
-	}
+    /**
+     * 删除
+     */
+    @PostMapping("/delete")
+    public ResponseEntity<?> delete(Long[] ids, @CurrentStore Store currentStore) {
+        for (Long id : ids) {
+            InstantMessage instantMessage = instantMessageService.find(id);
+            if (instantMessage == null || !currentStore.equals(instantMessage.getStore())) {
+                return Results.UNPROCESSABLE_ENTITY;
+            }
+            instantMessageService.delete(id);
+        }
+        return Results.OK;
+    }
 
 }

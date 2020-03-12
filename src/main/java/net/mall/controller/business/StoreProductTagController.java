@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.controller.business;
 
@@ -27,7 +27,7 @@ import net.mall.service.StoreProductTagService;
 
 /**
  * Controller - 店铺商品标签
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
@@ -35,97 +35,97 @@ import net.mall.service.StoreProductTagService;
 @RequestMapping("/business/store_product_tag")
 public class StoreProductTagController extends BaseController {
 
-	@Inject
-	private StoreProductTagService storeProductTagService;
+    @Inject
+    private StoreProductTagService storeProductTagService;
 
-	/**
-	 * 添加属性
-	 */
-	@ModelAttribute
-	public void populateModel(Long storeProductTagId, @CurrentStore Store currentStore, ModelMap model) {
-		StoreProductTag storeProductTag = storeProductTagService.find(storeProductTagId);
-		if (storeProductTag != null && !currentStore.equals(storeProductTag.getStore())) {
-			throw new UnauthorizedException();
-		}
-		model.addAttribute("storeProductTag", storeProductTag);
-	}
+    /**
+     * 添加属性
+     */
+    @ModelAttribute
+    public void populateModel(Long storeProductTagId, @CurrentStore Store currentStore, ModelMap model) {
+        StoreProductTag storeProductTag = storeProductTagService.find(storeProductTagId);
+        if (storeProductTag != null && !currentStore.equals(storeProductTag.getStore())) {
+            throw new UnauthorizedException();
+        }
+        model.addAttribute("storeProductTag", storeProductTag);
+    }
 
-	/**
-	 * 添加
-	 */
-	@GetMapping("/add")
-	public String add(ModelMap model) {
-		return "business/store_product_tag/add";
-	}
+    /**
+     * 添加
+     */
+    @GetMapping("/add")
+    public String add(ModelMap model) {
+        return "business/store_product_tag/add";
+    }
 
-	/**
-	 * 保存
-	 */
-	@PostMapping("/save")
-	public ResponseEntity<?> save(@ModelAttribute("storeProductTagForm") StoreProductTag storeProductTagForm, @CurrentStore Store currentStore) {
-		if (!isValid(storeProductTagForm)) {
-			return Results.UNPROCESSABLE_ENTITY;
-		}
-		storeProductTagForm.setStore(currentStore);
-		storeProductTagForm.setProducts(null);
-		storeProductTagService.save(storeProductTagForm);
+    /**
+     * 保存
+     */
+    @PostMapping("/save")
+    public ResponseEntity<?> save(@ModelAttribute("storeProductTagForm") StoreProductTag storeProductTagForm, @CurrentStore Store currentStore) {
+        if (!isValid(storeProductTagForm)) {
+            return Results.UNPROCESSABLE_ENTITY;
+        }
+        storeProductTagForm.setStore(currentStore);
+        storeProductTagForm.setProducts(null);
+        storeProductTagService.save(storeProductTagForm);
 
-		return Results.OK;
-	}
+        return Results.OK;
+    }
 
-	/**
-	 * 编辑
-	 */
-	@GetMapping("/edit")
-	public String edit(@ModelAttribute(binding = false) StoreProductTag storeProductTag, ModelMap model) {
-		if (storeProductTag == null) {
-			return UNPROCESSABLE_ENTITY_VIEW;
-		}
+    /**
+     * 编辑
+     */
+    @GetMapping("/edit")
+    public String edit(@ModelAttribute(binding = false) StoreProductTag storeProductTag, ModelMap model) {
+        if (storeProductTag == null) {
+            return UNPROCESSABLE_ENTITY_VIEW;
+        }
 
-		model.addAttribute("storeProductTag", storeProductTag);
-		return "business/store_product_tag/edit";
-	}
+        model.addAttribute("storeProductTag", storeProductTag);
+        return "business/store_product_tag/edit";
+    }
 
-	/**
-	 * 更新
-	 */
-	@PostMapping("/update")
-	public ResponseEntity<?> update(@ModelAttribute("storeProductTagForm") StoreProductTag storeProductTagForm, @ModelAttribute(binding = false) StoreProductTag storeProductTag, @CurrentStore Store currentStore) {
-		if (!isValid(storeProductTagForm)) {
-			return Results.UNPROCESSABLE_ENTITY;
-		}
-		if (storeProductTag == null) {
-			return Results.UNPROCESSABLE_ENTITY;
-		}
+    /**
+     * 更新
+     */
+    @PostMapping("/update")
+    public ResponseEntity<?> update(@ModelAttribute("storeProductTagForm") StoreProductTag storeProductTagForm, @ModelAttribute(binding = false) StoreProductTag storeProductTag, @CurrentStore Store currentStore) {
+        if (!isValid(storeProductTagForm)) {
+            return Results.UNPROCESSABLE_ENTITY;
+        }
+        if (storeProductTag == null) {
+            return Results.UNPROCESSABLE_ENTITY;
+        }
 
-		BeanUtils.copyProperties(storeProductTagForm, storeProductTag, "id", "store", "product");
-		storeProductTagService.update(storeProductTag);
+        BeanUtils.copyProperties(storeProductTagForm, storeProductTag, "id", "store", "product");
+        storeProductTagService.update(storeProductTag);
 
-		return Results.OK;
-	}
+        return Results.OK;
+    }
 
-	/**
-	 * 列表
-	 */
-	@GetMapping("/list")
-	public String list(Pageable pageable, @CurrentStore Store currentStore, ModelMap model) {
-		model.addAttribute("page", storeProductTagService.findPage(currentStore, pageable));
-		return "business/store_product_tag/list";
-	}
+    /**
+     * 列表
+     */
+    @GetMapping("/list")
+    public String list(Pageable pageable, @CurrentStore Store currentStore, ModelMap model) {
+        model.addAttribute("page", storeProductTagService.findPage(currentStore, pageable));
+        return "business/store_product_tag/list";
+    }
 
-	/**
-	 * 删除
-	 */
-	@PostMapping("/delete")
-	public ResponseEntity<?> delete(Long[] ids, @CurrentStore Store currentStore) {
-		for (Long id : ids) {
-			StoreProductTag storeProductTag = storeProductTagService.find(id);
-			if (storeProductTag == null || !currentStore.equals(storeProductTag.getStore())) {
-				return Results.UNPROCESSABLE_ENTITY;
-			}
-			storeProductTagService.delete(id);
-		}
-		return Results.OK;
-	}
+    /**
+     * 删除
+     */
+    @PostMapping("/delete")
+    public ResponseEntity<?> delete(Long[] ids, @CurrentStore Store currentStore) {
+        for (Long id : ids) {
+            StoreProductTag storeProductTag = storeProductTagService.find(id);
+            if (storeProductTag == null || !currentStore.equals(storeProductTag.getStore())) {
+                return Results.UNPROCESSABLE_ENTITY;
+            }
+            storeProductTagService.delete(id);
+        }
+        return Results.OK;
+    }
 
 }

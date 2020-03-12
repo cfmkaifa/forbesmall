@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.controller.admin;
 
@@ -21,7 +21,7 @@ import net.mall.service.CouponService;
 
 /**
  * Controller - 优惠券
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
@@ -29,25 +29,25 @@ import net.mall.service.CouponService;
 @RequestMapping("/admin/coupon")
 public class CouponController extends BaseController {
 
-	@Inject
-	private CouponService couponService;
+    @Inject
+    private CouponService couponService;
 
-	/**
-	 * 列表
-	 */
-	@GetMapping("/list")
-	public String list(Pageable pageable, ModelMap model) {
-		model.addAttribute("page", couponService.findPage(pageable));
-		return "admin/coupon/list";
-	}
+    /**
+     * 列表
+     */
+    @GetMapping("/list")
+    public String list(Pageable pageable, ModelMap model) {
+        model.addAttribute("page", couponService.findPage(pageable));
+        return "admin/coupon/list";
+    }
 
-	/**
-	 * 删除
-	 */
-	@PostMapping("/delete")
-	public ResponseEntity<?> delete(Long[] ids) {
-		couponService.delete(ids);
-		return Results.OK;
-	}
+    /**
+     * 删除
+     */
+    @PostMapping("/delete")
+    public ResponseEntity<?> delete(Long[] ids) {
+        couponService.delete(ids);
+        return Results.OK;
+    }
 
 }

@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.dao.impl;
 
@@ -21,25 +21,25 @@ import net.mall.entity.Distributor;
 
 /**
  * Dao - 分销佣金
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
 @Repository
 public class DistributionCommissionDaoImpl extends BaseDaoImpl<DistributionCommission, Long> implements DistributionCommissionDao {
 
-	@Override
-	public Page<DistributionCommission> findPage(Distributor distributor, Pageable pageable) {
-		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-		CriteriaQuery<DistributionCommission> criteriaQuery = criteriaBuilder.createQuery(DistributionCommission.class);
-		Root<DistributionCommission> root = criteriaQuery.from(DistributionCommission.class);
-		criteriaQuery.select(root);
-		Predicate restrictions = criteriaBuilder.conjunction();
-		if (distributor != null) {
-			restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("distributor"), distributor));
-		}
-		criteriaQuery.where(restrictions);
-		return super.findPage(criteriaQuery, pageable);
-	}
+    @Override
+    public Page<DistributionCommission> findPage(Distributor distributor, Pageable pageable) {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<DistributionCommission> criteriaQuery = criteriaBuilder.createQuery(DistributionCommission.class);
+        Root<DistributionCommission> root = criteriaQuery.from(DistributionCommission.class);
+        criteriaQuery.select(root);
+        Predicate restrictions = criteriaBuilder.conjunction();
+        if (distributor != null) {
+            restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("distributor"), distributor));
+        }
+        criteriaQuery.where(restrictions);
+        return super.findPage(criteriaQuery, pageable);
+    }
 
 }

@@ -45,19 +45,15 @@ public class AdFactoryDirective extends BaseDirective {
     /**
      * 执行
      *
-     * @param env
-     *            环境变量
-     * @param params
-     *            参数
-     * @param loopVars
-     *            循环变量
-     * @param body
-     *            模板内容
+     * @param env      环境变量
+     * @param params   参数
+     * @param loopVars 循环变量
+     * @param body     模板内容
      */
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @SuppressWarnings({"unchecked", "rawtypes"})
     @Override
     public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException, IOException {
-        Pageable pageable=new Pageable();
+        Pageable pageable = new Pageable();
         pageable.setPageSize(12);
         Page<Store> stores = storeService.findPage(pageable);
         setLocalVariable(VARIABLE_NAME, stores, env, body);

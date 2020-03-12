@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.controller.admin.plugin;
 
@@ -32,7 +32,7 @@ import net.mall.util.ConvertUtils;
 
 /**
  * Controller - 微信支付(公众号支付)
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
@@ -40,80 +40,80 @@ import net.mall.util.ConvertUtils;
 @RequestMapping("/admin/plugin/weixin_public_payment")
 public class WeixinPublicPaymentController extends BaseController {
 
-	@Inject
-	private WeixinPublicPaymentPlugin weixinPublicPaymentPlugin;
-	@Inject
-	private PluginConfigService pluginConfigService;
+    @Inject
+    private WeixinPublicPaymentPlugin weixinPublicPaymentPlugin;
+    @Inject
+    private PluginConfigService pluginConfigService;
 
-	/**
-	 * 安装
-	 */
-	@PostMapping("/install")
-	public ResponseEntity<?> install() {
-		if (!weixinPublicPaymentPlugin.getIsInstalled()) {
-			PluginConfig pluginConfig = new PluginConfig();
-			pluginConfig.setPluginId(weixinPublicPaymentPlugin.getId());
-			pluginConfig.setIsEnabled(false);
-			pluginConfig.setAttributes(null);
-			pluginConfigService.save(pluginConfig);
-		}
-		return Results.OK;
-	}
+    /**
+     * 安装
+     */
+    @PostMapping("/install")
+    public ResponseEntity<?> install() {
+        if (!weixinPublicPaymentPlugin.getIsInstalled()) {
+            PluginConfig pluginConfig = new PluginConfig();
+            pluginConfig.setPluginId(weixinPublicPaymentPlugin.getId());
+            pluginConfig.setIsEnabled(false);
+            pluginConfig.setAttributes(null);
+            pluginConfigService.save(pluginConfig);
+        }
+        return Results.OK;
+    }
 
-	/**
-	 * 卸载
-	 */
-	@PostMapping("/uninstall")
-	public ResponseEntity<?> uninstall() {
-		if (weixinPublicPaymentPlugin.getIsInstalled()) {
-			pluginConfigService.deleteByPluginId(weixinPublicPaymentPlugin.getId());
-		}
-		return Results.OK;
-	}
+    /**
+     * 卸载
+     */
+    @PostMapping("/uninstall")
+    public ResponseEntity<?> uninstall() {
+        if (weixinPublicPaymentPlugin.getIsInstalled()) {
+            pluginConfigService.deleteByPluginId(weixinPublicPaymentPlugin.getId());
+        }
+        return Results.OK;
+    }
 
-	/**
-	 * 设置
-	 */
-	@GetMapping("/setting/{supplierId}")
-	public String setting(@PathVariable String supplierId,ModelMap model) {
-		PluginConfig pluginConfig = weixinPublicPaymentPlugin.getNoCachePluginConfig();
-		model.addAttribute("feeTypes", PaymentPlugin.FeeType.values());
-		SupplierPluginConfig  supplierPluginConfig = receSupplierPluginConfig(pluginConfig.getPluginId(), supplierId);
-		if(ConvertUtils.isNotEmpty(supplierPluginConfig)){
-			model.addAttribute("pluginConfig", supplierPluginConfig);
-		} else {
-			model.addAttribute("pluginConfig", pluginConfig);
-		}
-		model.addAttribute("supplierId", supplierId);
-		return "/admin/plugin/weixin_public_payment/setting";
-	}
+    /**
+     * 设置
+     */
+    @GetMapping("/setting/{supplierId}")
+    public String setting(@PathVariable String supplierId, ModelMap model) {
+        PluginConfig pluginConfig = weixinPublicPaymentPlugin.getNoCachePluginConfig();
+        model.addAttribute("feeTypes", PaymentPlugin.FeeType.values());
+        SupplierPluginConfig supplierPluginConfig = receSupplierPluginConfig(pluginConfig.getPluginId(), supplierId);
+        if (ConvertUtils.isNotEmpty(supplierPluginConfig)) {
+            model.addAttribute("pluginConfig", supplierPluginConfig);
+        } else {
+            model.addAttribute("pluginConfig", pluginConfig);
+        }
+        model.addAttribute("supplierId", supplierId);
+        return "/admin/plugin/weixin_public_payment/setting";
+    }
 
-	/**
-	 * 更新
-	 */
-	@PostMapping("/update/{supplierId}")
-	public ResponseEntity<?> update(@PathVariable String supplierId,String displayName, String appId, String appSecret, String mchId, String apiKey, PaymentPlugin.FeeType feeType, BigDecimal fee, String logo, String description, @RequestParam(defaultValue = "false") Boolean isEnabled, Integer order) {
-		PluginConfig pluginConfig = weixinPublicPaymentPlugin.getNoCachePluginConfig();
-		Map<String, String> attributes = new HashMap<>();
-		attributes.put(PaymentPlugin.DISPLAY_NAME_ATTRIBUTE_NAME, displayName);
-		attributes.put("appId", appId);
-		attributes.put("appSecret", appSecret);
-		attributes.put("mchId", mchId);
-		attributes.put("apiKey", apiKey);
-		attributes.put(PaymentPlugin.FEE_TYPE_ATTRIBUTE_NAME, String.valueOf(feeType));
-		attributes.put(PaymentPlugin.FEE_ATTRIBUTE_NAME, String.valueOf(fee));
-		attributes.put(PaymentPlugin.LOGO_ATTRIBUTE_NAME, logo);
-		attributes.put(PaymentPlugin.DESCRIPTION_ATTRIBUTE_NAME, description);
-		pluginConfig.setAttributes(attributes);
-		pluginConfig.setIsEnabled(isEnabled);
-		pluginConfig.setOrder(order);
-		/***保存商家支付插件**/
-		if(!"-1".equalsIgnoreCase(supplierId)){
-			oprSupplierPluginConfig(pluginConfig,supplierId);
-		} else {
-			pluginConfigService.update(pluginConfig);
-		}
-		return Results.OK;
-	}
+    /**
+     * 更新
+     */
+    @PostMapping("/update/{supplierId}")
+    public ResponseEntity<?> update(@PathVariable String supplierId, String displayName, String appId, String appSecret, String mchId, String apiKey, PaymentPlugin.FeeType feeType, BigDecimal fee, String logo, String description, @RequestParam(defaultValue = "false") Boolean isEnabled, Integer order) {
+        PluginConfig pluginConfig = weixinPublicPaymentPlugin.getNoCachePluginConfig();
+        Map<String, String> attributes = new HashMap<>();
+        attributes.put(PaymentPlugin.DISPLAY_NAME_ATTRIBUTE_NAME, displayName);
+        attributes.put("appId", appId);
+        attributes.put("appSecret", appSecret);
+        attributes.put("mchId", mchId);
+        attributes.put("apiKey", apiKey);
+        attributes.put(PaymentPlugin.FEE_TYPE_ATTRIBUTE_NAME, String.valueOf(feeType));
+        attributes.put(PaymentPlugin.FEE_ATTRIBUTE_NAME, String.valueOf(fee));
+        attributes.put(PaymentPlugin.LOGO_ATTRIBUTE_NAME, logo);
+        attributes.put(PaymentPlugin.DESCRIPTION_ATTRIBUTE_NAME, description);
+        pluginConfig.setAttributes(attributes);
+        pluginConfig.setIsEnabled(isEnabled);
+        pluginConfig.setOrder(order);
+        /***保存商家支付插件**/
+        if (!"-1".equalsIgnoreCase(supplierId)) {
+            oprSupplierPluginConfig(pluginConfig, supplierId);
+        } else {
+            pluginConfigService.update(pluginConfig);
+        }
+        return Results.OK;
+    }
 
 }

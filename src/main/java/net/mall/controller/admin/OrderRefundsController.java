@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.controller.admin;
 
@@ -21,7 +21,7 @@ import net.mall.service.OrderRefundsService;
 
 /**
  * Controller - 订单退款
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
@@ -29,34 +29,34 @@ import net.mall.service.OrderRefundsService;
 @RequestMapping("/admin/order_refunds")
 public class OrderRefundsController extends BaseController {
 
-	@Inject
-	private OrderRefundsService orderRefundsService;
+    @Inject
+    private OrderRefundsService orderRefundsService;
 
-	/**
-	 * 查看
-	 */
-	@GetMapping("/view")
-	public String view(Long id, ModelMap model) {
-		model.addAttribute("refunds", orderRefundsService.find(id));
-		return "admin/order_refunds/view";
-	}
+    /**
+     * 查看
+     */
+    @GetMapping("/view")
+    public String view(Long id, ModelMap model) {
+        model.addAttribute("refunds", orderRefundsService.find(id));
+        return "admin/order_refunds/view";
+    }
 
-	/**
-	 * 列表
-	 */
-	@GetMapping("/list")
-	public String list(Pageable pageable, ModelMap model) {
-		model.addAttribute("page", orderRefundsService.findPage(pageable));
-		return "admin/order_refunds/list";
-	}
+    /**
+     * 列表
+     */
+    @GetMapping("/list")
+    public String list(Pageable pageable, ModelMap model) {
+        model.addAttribute("page", orderRefundsService.findPage(pageable));
+        return "admin/order_refunds/list";
+    }
 
-	/**
-	 * 删除
-	 */
-	@PostMapping("/delete")
-	public ResponseEntity<?> delete(Long[] ids) {
-		orderRefundsService.delete(ids);
-		return Results.OK;
-	}
+    /**
+     * 删除
+     */
+    @PostMapping("/delete")
+    public ResponseEntity<?> delete(Long[] ids) {
+        orderRefundsService.delete(ids);
+        return Results.OK;
+    }
 
 }

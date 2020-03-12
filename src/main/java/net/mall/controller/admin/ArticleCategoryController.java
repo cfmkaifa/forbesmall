@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.controller.admin;
 
@@ -25,7 +25,7 @@ import net.mall.service.ArticleCategoryService;
 
 /**
  * Controller - 文章分类
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
@@ -33,98 +33,98 @@ import net.mall.service.ArticleCategoryService;
 @RequestMapping("/admin/article_category")
 public class ArticleCategoryController extends BaseController {
 
-	@Inject
-	private ArticleCategoryService articleCategoryService;
+    @Inject
+    private ArticleCategoryService articleCategoryService;
 
-	/**
-	 * 添加
-	 */
-	@GetMapping("/add")
-	public String add(ModelMap model) {
-		model.addAttribute("articleCategoryTree", articleCategoryService.findTree());
-		return "admin/article_category/add";
-	}
+    /**
+     * 添加
+     */
+    @GetMapping("/add")
+    public String add(ModelMap model) {
+        model.addAttribute("articleCategoryTree", articleCategoryService.findTree());
+        return "admin/article_category/add";
+    }
 
-	/**
-	 * 保存
-	 */
-	@PostMapping("/save")
-	public ResponseEntity<?> save(ArticleCategory articleCategory, Long parentId) {
-		articleCategory.setParent(articleCategoryService.find(parentId));
-		if (!isValid(articleCategory)) {
-			return Results.UNPROCESSABLE_ENTITY;
-		}
-		articleCategory.setTreePath(null);
-		articleCategory.setGrade(null);
-		articleCategory.setChildren(null);
-		articleCategory.setArticles(null);
-		articleCategoryService.save(articleCategory);
-		return Results.OK;
-	}
+    /**
+     * 保存
+     */
+    @PostMapping("/save")
+    public ResponseEntity<?> save(ArticleCategory articleCategory, Long parentId) {
+        articleCategory.setParent(articleCategoryService.find(parentId));
+        if (!isValid(articleCategory)) {
+            return Results.UNPROCESSABLE_ENTITY;
+        }
+        articleCategory.setTreePath(null);
+        articleCategory.setGrade(null);
+        articleCategory.setChildren(null);
+        articleCategory.setArticles(null);
+        articleCategoryService.save(articleCategory);
+        return Results.OK;
+    }
 
-	/**
-	 * 编辑
-	 */
-	@GetMapping("/edit")
-	public String edit(Long id, ModelMap model) {
-		ArticleCategory articleCategory = articleCategoryService.find(id);
-		model.addAttribute("articleCategoryTree", articleCategoryService.findTree());
-		model.addAttribute("articleCategory", articleCategory);
-		model.addAttribute("children", articleCategoryService.findChildren(articleCategory, true, null));
-		return "admin/article_category/edit";
-	}
+    /**
+     * 编辑
+     */
+    @GetMapping("/edit")
+    public String edit(Long id, ModelMap model) {
+        ArticleCategory articleCategory = articleCategoryService.find(id);
+        model.addAttribute("articleCategoryTree", articleCategoryService.findTree());
+        model.addAttribute("articleCategory", articleCategory);
+        model.addAttribute("children", articleCategoryService.findChildren(articleCategory, true, null));
+        return "admin/article_category/edit";
+    }
 
-	/**
-	 * 更新
-	 */
-	@PostMapping("/update")
-	public ResponseEntity<?> update(ArticleCategory articleCategory, Long parentId) {
-		articleCategory.setParent(articleCategoryService.find(parentId));
-		if (!isValid(articleCategory)) {
-			return Results.UNPROCESSABLE_ENTITY;
-		}
-		if (articleCategory.getParent() != null) {
-			ArticleCategory parent = articleCategory.getParent();
-			if (parent.equals(articleCategory)) {
-				return Results.UNPROCESSABLE_ENTITY;
-			}
-			List<ArticleCategory> children = articleCategoryService.findChildren(parent, true, null);
-			if (children != null && children.contains(parent)) {
-				return Results.UNPROCESSABLE_ENTITY;
-			}
-		}
-		articleCategoryService.update(articleCategory, "treePath", "grade", "children", "articles");
-		return Results.OK;
-	}
+    /**
+     * 更新
+     */
+    @PostMapping("/update")
+    public ResponseEntity<?> update(ArticleCategory articleCategory, Long parentId) {
+        articleCategory.setParent(articleCategoryService.find(parentId));
+        if (!isValid(articleCategory)) {
+            return Results.UNPROCESSABLE_ENTITY;
+        }
+        if (articleCategory.getParent() != null) {
+            ArticleCategory parent = articleCategory.getParent();
+            if (parent.equals(articleCategory)) {
+                return Results.UNPROCESSABLE_ENTITY;
+            }
+            List<ArticleCategory> children = articleCategoryService.findChildren(parent, true, null);
+            if (children != null && children.contains(parent)) {
+                return Results.UNPROCESSABLE_ENTITY;
+            }
+        }
+        articleCategoryService.update(articleCategory, "treePath", "grade", "children", "articles");
+        return Results.OK;
+    }
 
-	/**
-	 * 列表
-	 */
-	@GetMapping("/list")
-	public String list(ModelMap model) {
-		model.addAttribute("articleCategoryTree", articleCategoryService.findTree());
-		return "admin/article_category/list";
-	}
+    /**
+     * 列表
+     */
+    @GetMapping("/list")
+    public String list(ModelMap model) {
+        model.addAttribute("articleCategoryTree", articleCategoryService.findTree());
+        return "admin/article_category/list";
+    }
 
-	/**
-	 * 删除
-	 */
-	@PostMapping("/delete")
-	public ResponseEntity<?> delete(Long id) {
-		ArticleCategory articleCategory = articleCategoryService.find(id);
-		if (articleCategory == null) {
-			return Results.UNPROCESSABLE_ENTITY;
-		}
-		Set<ArticleCategory> children = articleCategory.getChildren();
-		if (children != null && !children.isEmpty()) {
-			return Results.unprocessableEntity("admin.articleCategory.deleteExistChildrenNotAllowed");
-		}
-		Set<Article> articles = articleCategory.getArticles();
-		if (articles != null && !articles.isEmpty()) {
-			return Results.unprocessableEntity("admin.articleCategory.deleteExistArticleNotAllowed");
-		}
-		articleCategoryService.delete(id);
-		return Results.OK;
-	}
+    /**
+     * 删除
+     */
+    @PostMapping("/delete")
+    public ResponseEntity<?> delete(Long id) {
+        ArticleCategory articleCategory = articleCategoryService.find(id);
+        if (articleCategory == null) {
+            return Results.UNPROCESSABLE_ENTITY;
+        }
+        Set<ArticleCategory> children = articleCategory.getChildren();
+        if (children != null && !children.isEmpty()) {
+            return Results.unprocessableEntity("admin.articleCategory.deleteExistChildrenNotAllowed");
+        }
+        Set<Article> articles = articleCategory.getArticles();
+        if (articles != null && !articles.isEmpty()) {
+            return Results.unprocessableEntity("admin.articleCategory.deleteExistArticleNotAllowed");
+        }
+        articleCategoryService.delete(id);
+        return Results.OK;
+    }
 
 }

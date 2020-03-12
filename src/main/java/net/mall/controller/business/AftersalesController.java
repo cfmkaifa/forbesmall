@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.controller.business;
 
@@ -34,7 +34,7 @@ import net.mall.util.SystemUtils;
 
 /**
  * Controller - 售后
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
@@ -42,99 +42,99 @@ import net.mall.util.SystemUtils;
 @RequestMapping("business/aftersales")
 public class AftersalesController extends BaseController {
 
-	@Inject
-	private AftersalesService aftersalesService;
-	@Inject
-	private OrderShippingService orderShippingService;
+    @Inject
+    private AftersalesService aftersalesService;
+    @Inject
+    private OrderShippingService orderShippingService;
 
-	/**
-	 * 添加属性
-	 */
-	@ModelAttribute
-	public void populateModel(Long aftersalesId, @CurrentStore Store currentStore, ModelMap model) {
-		Aftersales aftersales = aftersalesService.find(aftersalesId);
-		if (aftersales != null && !currentStore.equals(aftersales.getStore())) {
-			throw new UnauthorizedException();
-		}
-		model.addAttribute("aftersales", aftersales);
-	}
+    /**
+     * 添加属性
+     */
+    @ModelAttribute
+    public void populateModel(Long aftersalesId, @CurrentStore Store currentStore, ModelMap model) {
+        Aftersales aftersales = aftersalesService.find(aftersalesId);
+        if (aftersales != null && !currentStore.equals(aftersales.getStore())) {
+            throw new UnauthorizedException();
+        }
+        model.addAttribute("aftersales", aftersales);
+    }
 
-	/**
-	 * 物流动态
-	 */
-	@GetMapping("/transit_step")
-	public ResponseEntity<?> transitStep(@ModelAttribute(binding = false) Aftersales aftersales, @CurrentStore Store currentStore) {
-		Map<String, Object> data = new HashMap<>();
+    /**
+     * 物流动态
+     */
+    @GetMapping("/transit_step")
+    public ResponseEntity<?> transitStep(@ModelAttribute(binding = false) Aftersales aftersales, @CurrentStore Store currentStore) {
+        Map<String, Object> data = new HashMap<>();
 
-		Setting setting = SystemUtils.getSetting();
-		if (StringUtils.isEmpty(setting.getKuaidi100Customer()) || StringUtils.isEmpty(setting.getKuaidi100Key()) || StringUtils.isEmpty(aftersales.getDeliveryCorpCode()) || StringUtils.isEmpty(aftersales.getTrackingNo())) {
-			return Results.UNPROCESSABLE_ENTITY;
-		}
-		data.put("transitSteps", orderShippingService.getTransitSteps(aftersales.getDeliveryCorpCode(), aftersales.getTrackingNo()));
-		return ResponseEntity.ok(data);
-	}
+        Setting setting = SystemUtils.getSetting();
+        if (StringUtils.isEmpty(setting.getKuaidi100Customer()) || StringUtils.isEmpty(setting.getKuaidi100Key()) || StringUtils.isEmpty(aftersales.getDeliveryCorpCode()) || StringUtils.isEmpty(aftersales.getTrackingNo())) {
+            return Results.UNPROCESSABLE_ENTITY;
+        }
+        data.put("transitSteps", orderShippingService.getTransitSteps(aftersales.getDeliveryCorpCode(), aftersales.getTrackingNo()));
+        return ResponseEntity.ok(data);
+    }
 
-	/**
-	 * 列表
-	 */
-	@GetMapping("/list")
-	public String list(Aftersales.Type type, Aftersales.Status status, @CurrentStore Store currentStore, Pageable pageable, ModelMap model) {
-		model.addAttribute("types", Aftersales.Type.values());
-		model.addAttribute("statuses", Aftersales.Status.values());
-		model.addAttribute("type", type);
-		model.addAttribute("status", status);
-		model.addAttribute("page", aftersalesService.findPage(type, status, null, currentStore, pageable));
-		return "business/aftersales/list";
-	}
+    /**
+     * 列表
+     */
+    @GetMapping("/list")
+    public String list(Aftersales.Type type, Aftersales.Status status, @CurrentStore Store currentStore, Pageable pageable, ModelMap model) {
+        model.addAttribute("types", Aftersales.Type.values());
+        model.addAttribute("statuses", Aftersales.Status.values());
+        model.addAttribute("type", type);
+        model.addAttribute("status", status);
+        model.addAttribute("page", aftersalesService.findPage(type, status, null, currentStore, pageable));
+        return "business/aftersales/list";
+    }
 
-	/**
-	 * 查看
-	 */
-	@GetMapping("/view")
-	public String view(@ModelAttribute(binding = false) Aftersales aftersales, ModelMap model) {
-		if (aftersales == null) {
-			return UNPROCESSABLE_ENTITY_VIEW;
-		}
-		if (CollectionUtils.isEmpty(aftersales.getOrderItems())) {
-			return UNPROCESSABLE_ENTITY_VIEW;
-		}
+    /**
+     * 查看
+     */
+    @GetMapping("/view")
+    public String view(@ModelAttribute(binding = false) Aftersales aftersales, ModelMap model) {
+        if (aftersales == null) {
+            return UNPROCESSABLE_ENTITY_VIEW;
+        }
+        if (CollectionUtils.isEmpty(aftersales.getOrderItems())) {
+            return UNPROCESSABLE_ENTITY_VIEW;
+        }
 
-		Setting setting = SystemUtils.getSetting();
-		model.addAttribute("isKuaidi100Enabled", StringUtils.isNotEmpty(setting.getKuaidi100Customer()) && StringUtils.isNotEmpty(setting.getKuaidi100Key()));
-		model.addAttribute("aftersales", aftersales);
-		return "business/aftersales/view";
-	}
+        Setting setting = SystemUtils.getSetting();
+        model.addAttribute("isKuaidi100Enabled", StringUtils.isNotEmpty(setting.getKuaidi100Customer()) && StringUtils.isNotEmpty(setting.getKuaidi100Key()));
+        model.addAttribute("aftersales", aftersales);
+        return "business/aftersales/view";
+    }
 
-	/**
-	 * 审核
-	 */
-	@PostMapping("/review")
-	public ResponseEntity<?> review(@ModelAttribute(binding = false) Aftersales aftersales, boolean passed) {
-		if (aftersales == null) {
-			return Results.UNPROCESSABLE_ENTITY;
-		}
-		if (!Aftersales.Status.PENDING.equals(aftersales.getStatus())) {
-			return Results.UNPROCESSABLE_ENTITY;
-		}
+    /**
+     * 审核
+     */
+    @PostMapping("/review")
+    public ResponseEntity<?> review(@ModelAttribute(binding = false) Aftersales aftersales, boolean passed) {
+        if (aftersales == null) {
+            return Results.UNPROCESSABLE_ENTITY;
+        }
+        if (!Aftersales.Status.PENDING.equals(aftersales.getStatus())) {
+            return Results.UNPROCESSABLE_ENTITY;
+        }
 
-		aftersalesService.review(aftersales, passed);
-		return Results.OK;
-	}
+        aftersalesService.review(aftersales, passed);
+        return Results.OK;
+    }
 
-	/**
-	 * 完成
-	 */
-	@PostMapping("/complete")
-	public ResponseEntity<?> complete(@ModelAttribute(binding = false) Aftersales aftersales) {
-		if (aftersales == null) {
-			return Results.UNPROCESSABLE_ENTITY;
-		}
-		if (!Aftersales.Status.APPROVED.equals(aftersales.getStatus())) {
-			return Results.UNPROCESSABLE_ENTITY;
-		}
+    /**
+     * 完成
+     */
+    @PostMapping("/complete")
+    public ResponseEntity<?> complete(@ModelAttribute(binding = false) Aftersales aftersales) {
+        if (aftersales == null) {
+            return Results.UNPROCESSABLE_ENTITY;
+        }
+        if (!Aftersales.Status.APPROVED.equals(aftersales.getStatus())) {
+            return Results.UNPROCESSABLE_ENTITY;
+        }
 
-		aftersalesService.complete(aftersales);
-		return Results.OK;
-	}
+        aftersalesService.complete(aftersales);
+        return Results.OK;
+    }
 
 }
