@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.controller.business;
 
@@ -16,7 +16,7 @@ import net.mall.security.CurrentStore;
 
 /**
  * Controller - 商家中心
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
@@ -24,13 +24,13 @@ import net.mall.security.CurrentStore;
 @RequestMapping("/business/index")
 public class IndexController extends BaseController {
 
-	/**
-	 * 首页
-	 */
-	@GetMapping
-	public String index(@CurrentStore Store currentStore,ModelMap model) {
-		model.addAttribute("currentStore", currentStore);
-		return "business/index";
-	}
+    /**
+     * 首页
+     */
+    @GetMapping
+    public String index(@CurrentStore Store currentStore, ModelMap model) {
+        model.addAttribute("currentStore", currentStore);
+        return "business/index";
+    }
 
 }

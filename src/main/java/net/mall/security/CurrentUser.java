@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.security;
 
@@ -13,7 +13,7 @@ import java.lang.annotation.Target;
 
 /**
  * Security - 当前用户注解
- * 
+ *
  * @author huanghy
  * @version 6.1
  */

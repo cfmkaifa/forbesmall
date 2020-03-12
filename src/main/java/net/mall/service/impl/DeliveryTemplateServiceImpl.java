@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.service.impl;
 
@@ -28,79 +28,79 @@ import net.mall.service.DeliveryTemplateService;
 
 /**
  * Service - 快递单模板
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
 @Service
 public class DeliveryTemplateServiceImpl extends BaseServiceImpl<DeliveryTemplate, Long> implements DeliveryTemplateService {
 
-	@Inject
-	private DeliveryTemplateDao deliveryTemplateDao;
+    @Inject
+    private DeliveryTemplateDao deliveryTemplateDao;
 
-	@Override
-	@Transactional(readOnly = true)
-	public DeliveryTemplate findDefault(Store store) {
-		return deliveryTemplateDao.findDefault(store);
-	}
+    @Override
+    @Transactional(readOnly = true)
+    public DeliveryTemplate findDefault(Store store) {
+        return deliveryTemplateDao.findDefault(store);
+    }
 
-	@Override
-	@Transactional(readOnly = true)
-	public List<DeliveryTemplate> findList(Store store) {
-		return deliveryTemplateDao.findList(store);
-	}
+    @Override
+    @Transactional(readOnly = true)
+    public List<DeliveryTemplate> findList(Store store) {
+        return deliveryTemplateDao.findList(store);
+    }
 
-	@Override
-	@Transactional(readOnly = true)
-	public Page<DeliveryTemplate> findPage(Store store, Pageable pageable) {
-		return deliveryTemplateDao.findPage(store, pageable);
-	}
+    @Override
+    @Transactional(readOnly = true)
+    public Page<DeliveryTemplate> findPage(Store store, Pageable pageable) {
+        return deliveryTemplateDao.findPage(store, pageable);
+    }
 
-	@Override
-	@Transactional(readOnly = true)
-	public String resolveContent(DeliveryTemplate deliveryTemplate, Store store, DeliveryCenter deliveryCenter, Order order) {
-		Assert.notNull(deliveryTemplate, "[Assertion failed] - deliveryTemplate is required; it must not be null");
+    @Override
+    @Transactional(readOnly = true)
+    public String resolveContent(DeliveryTemplate deliveryTemplate, Store store, DeliveryCenter deliveryCenter, Order order) {
+        Assert.notNull(deliveryTemplate, "[Assertion failed] - deliveryTemplate is required; it must not be null");
 
-		List<String> tagNames = new ArrayList<>();
-		List<String> values = new ArrayList<>();
+        List<String> tagNames = new ArrayList<>();
+        List<String> values = new ArrayList<>();
 
-		for (DeliveryTemplate.StoreAttribute storeAttribute : DeliveryTemplate.StoreAttribute.values()) {
-			tagNames.add(storeAttribute.getTagName());
-			values.add(storeAttribute.getValue(store));
-		}
-		for (DeliveryTemplate.DeliveryCenterAttribute deliveryCenterAttribute : DeliveryTemplate.DeliveryCenterAttribute.values()) {
-			tagNames.add(deliveryCenterAttribute.getTagName());
-			values.add(deliveryCenterAttribute.getValue(deliveryCenter));
-		}
-		for (DeliveryTemplate.OrderAttribute orderAttribute : DeliveryTemplate.OrderAttribute.values()) {
-			tagNames.add(orderAttribute.getTagName());
-			values.add(orderAttribute.getValue(order));
-		}
+        for (DeliveryTemplate.StoreAttribute storeAttribute : DeliveryTemplate.StoreAttribute.values()) {
+            tagNames.add(storeAttribute.getTagName());
+            values.add(storeAttribute.getValue(store));
+        }
+        for (DeliveryTemplate.DeliveryCenterAttribute deliveryCenterAttribute : DeliveryTemplate.DeliveryCenterAttribute.values()) {
+            tagNames.add(deliveryCenterAttribute.getTagName());
+            values.add(deliveryCenterAttribute.getValue(deliveryCenter));
+        }
+        for (DeliveryTemplate.OrderAttribute orderAttribute : DeliveryTemplate.OrderAttribute.values()) {
+            tagNames.add(orderAttribute.getTagName());
+            values.add(orderAttribute.getValue(order));
+        }
 
-		return StringUtils.replaceEachRepeatedly(deliveryTemplate.getContent(), tagNames.toArray(new String[tagNames.size()]), values.toArray(new String[values.size()]));
-	}
+        return StringUtils.replaceEachRepeatedly(deliveryTemplate.getContent(), tagNames.toArray(new String[tagNames.size()]), values.toArray(new String[values.size()]));
+    }
 
-	@Override
-	@Transactional
-	public DeliveryTemplate save(DeliveryTemplate deliveryTemplate) {
-		Assert.notNull(deliveryTemplate, "[Assertion failed] - deliveryTemplate is required; it must not be null");
+    @Override
+    @Transactional
+    public DeliveryTemplate save(DeliveryTemplate deliveryTemplate) {
+        Assert.notNull(deliveryTemplate, "[Assertion failed] - deliveryTemplate is required; it must not be null");
 
-		if (BooleanUtils.isTrue(deliveryTemplate.getIsDefault())) {
-			deliveryTemplateDao.clearDefault(deliveryTemplate.getStore());
-		}
-		return super.save(deliveryTemplate);
-	}
+        if (BooleanUtils.isTrue(deliveryTemplate.getIsDefault())) {
+            deliveryTemplateDao.clearDefault(deliveryTemplate.getStore());
+        }
+        return super.save(deliveryTemplate);
+    }
 
-	@Override
-	@Transactional
-	public DeliveryTemplate update(DeliveryTemplate deliveryTemplate) {
-		Assert.notNull(deliveryTemplate, "[Assertion failed] - deliveryTemplate is required; it must not be null");
+    @Override
+    @Transactional
+    public DeliveryTemplate update(DeliveryTemplate deliveryTemplate) {
+        Assert.notNull(deliveryTemplate, "[Assertion failed] - deliveryTemplate is required; it must not be null");
 
-		DeliveryTemplate pDeliveryTemplate = super.update(deliveryTemplate);
-		if (BooleanUtils.isTrue(pDeliveryTemplate.getIsDefault())) {
-			deliveryTemplateDao.clearDefault(pDeliveryTemplate);
-		}
-		return pDeliveryTemplate;
-	}
+        DeliveryTemplate pDeliveryTemplate = super.update(deliveryTemplate);
+        if (BooleanUtils.isTrue(pDeliveryTemplate.getIsDefault())) {
+            deliveryTemplateDao.clearDefault(pDeliveryTemplate);
+        }
+        return pDeliveryTemplate;
+    }
 
 }

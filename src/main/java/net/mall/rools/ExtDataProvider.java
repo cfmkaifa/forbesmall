@@ -1,4 +1,5 @@
 package net.mall.rools;
+
 import org.drools.template.DataProvider;
 
 import java.util.Iterator;

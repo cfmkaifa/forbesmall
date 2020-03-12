@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.service.impl;
 
@@ -26,60 +26,60 @@ import net.mall.util.SystemUtils;
 
 /**
  * Service - 模板
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
 @Service
 public class TemplateServiceImpl implements TemplateService {
 
-	@Value("${template.loader_path}")
-	private String templateLoaderPath;
+    @Value("${template.loader_path}")
+    private String templateLoaderPath;
 
-	@Inject
-	private ServletContext servletContext;
+    @Inject
+    private ServletContext servletContext;
 
-	@Override
-	public String read(String templateConfigId) {
-		Assert.hasText(templateConfigId, "[Assertion failed] - templateConfigId must have text; it must not be null, empty, or blank");
+    @Override
+    public String read(String templateConfigId) {
+        Assert.hasText(templateConfigId, "[Assertion failed] - templateConfigId must have text; it must not be null, empty, or blank");
 
-		TemplateConfig templateConfig = SystemUtils.getTemplateConfig(templateConfigId);
-		return read(templateConfig);
-	}
+        TemplateConfig templateConfig = SystemUtils.getTemplateConfig(templateConfigId);
+        return read(templateConfig);
+    }
 
-	@Override
-	public String read(TemplateConfig templateConfig) {
-		Assert.notNull(templateConfig, "[Assertion failed] - templateConfig is required; it must not be null");
+    @Override
+    public String read(TemplateConfig templateConfig) {
+        Assert.notNull(templateConfig, "[Assertion failed] - templateConfig is required; it must not be null");
 
-		InputStream inputStream = null;
-		try {
-			inputStream = new BufferedInputStream(servletContext.getResourceAsStream(templateLoaderPath + templateConfig.getTemplatePath()));
-			return IOUtils.toString(inputStream, "UTF-8");
-		} catch (IOException e) {
-			throw new RuntimeException(e.getMessage(), e);
-		} finally {
-			IOUtils.closeQuietly(inputStream);
-		}
-	}
+        InputStream inputStream = null;
+        try {
+            inputStream = new BufferedInputStream(servletContext.getResourceAsStream(templateLoaderPath + templateConfig.getTemplatePath()));
+            return IOUtils.toString(inputStream, "UTF-8");
+        } catch (IOException e) {
+            throw new RuntimeException(e.getMessage(), e);
+        } finally {
+            IOUtils.closeQuietly(inputStream);
+        }
+    }
 
-	@Override
-	public void write(String templateConfigId, String content) {
-		Assert.hasText(templateConfigId, "[Assertion failed] - templateConfigId must have text; it must not be null, empty, or blank");
+    @Override
+    public void write(String templateConfigId, String content) {
+        Assert.hasText(templateConfigId, "[Assertion failed] - templateConfigId must have text; it must not be null, empty, or blank");
 
-		TemplateConfig templateConfig = SystemUtils.getTemplateConfig(templateConfigId);
-		write(templateConfig, content);
-	}
+        TemplateConfig templateConfig = SystemUtils.getTemplateConfig(templateConfigId);
+        write(templateConfig, content);
+    }
 
-	@Override
-	public void write(TemplateConfig templateConfig, String content) {
-		Assert.notNull(templateConfig, "[Assertion failed] - templateConfig is required; it must not be null");
+    @Override
+    public void write(TemplateConfig templateConfig, String content) {
+        Assert.notNull(templateConfig, "[Assertion failed] - templateConfig is required; it must not be null");
 
-		try {
-			File templateFile = new File(servletContext.getRealPath("/"), templateLoaderPath + templateConfig.getTemplatePath());
-			FileUtils.writeStringToFile(templateFile, content, "UTF-8");
-		} catch (IOException e) {
-			throw new RuntimeException(e.getMessage(), e);
-		}
-	}
+        try {
+            File templateFile = new File(servletContext.getRealPath("/"), templateLoaderPath + templateConfig.getTemplatePath());
+            FileUtils.writeStringToFile(templateFile, content, "UTF-8");
+        } catch (IOException e) {
+            throw new RuntimeException(e.getMessage(), e);
+        }
+    }
 
 }

@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.controller.admin;
 
@@ -18,7 +18,7 @@ import net.mall.service.StockLogService;
 
 /**
  * Controller - 库存
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
@@ -26,16 +26,16 @@ import net.mall.service.StockLogService;
 @RequestMapping("/admin/stock")
 public class StockController extends BaseController {
 
-	@Inject
-	private StockLogService stockLogService;
+    @Inject
+    private StockLogService stockLogService;
 
-	/**
-	 * 记录
-	 */
-	@GetMapping("/log")
-	public String log(Pageable pageable, ModelMap model) {
-		model.addAttribute("page", stockLogService.findPage(pageable));
-		return "admin/stock/log";
-	}
+    /**
+     * 记录
+     */
+    @GetMapping("/log")
+    public String log(Pageable pageable, ModelMap model) {
+        model.addAttribute("page", stockLogService.findPage(pageable));
+        return "admin/stock/log";
+    }
 
 }

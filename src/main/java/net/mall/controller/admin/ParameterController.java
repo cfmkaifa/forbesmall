@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.controller.admin;
 
@@ -29,7 +29,7 @@ import net.mall.service.ProductCategoryService;
 
 /**
  * Controller - 参数
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
@@ -37,85 +37,85 @@ import net.mall.service.ProductCategoryService;
 @RequestMapping("/admin/parameter")
 public class ParameterController extends BaseController {
 
-	@Inject
-	private ParameterService parameterService;
-	@Inject
-	private ProductCategoryService productCategoryService;
+    @Inject
+    private ParameterService parameterService;
+    @Inject
+    private ProductCategoryService productCategoryService;
 
-	/**
-	 * 添加
-	 */
-	@GetMapping("/add")
-	public String add(Long sampleId, ModelMap model) {
-		model.addAttribute("maxNameSize", Parameter.MAX_NAME_SIZE);
-		model.addAttribute("sample", parameterService.find(sampleId));
-		model.addAttribute("productCategoryTree", productCategoryService.findTree());
-		return "admin/parameter/add";
-	}
+    /**
+     * 添加
+     */
+    @GetMapping("/add")
+    public String add(Long sampleId, ModelMap model) {
+        model.addAttribute("maxNameSize", Parameter.MAX_NAME_SIZE);
+        model.addAttribute("sample", parameterService.find(sampleId));
+        model.addAttribute("productCategoryTree", productCategoryService.findTree());
+        return "admin/parameter/add";
+    }
 
-	/**
-	 * 保存
-	 */
-	@PostMapping("/save")
-	public ResponseEntity<?> save(Parameter parameter, Long productCategoryId) {
-		CollectionUtils.filter(parameter.getNames(), new AndPredicate(new UniquePredicate(), new Predicate() {
-			public boolean evaluate(Object object) {
-				String name = (String) object;
-				return StringUtils.isNotEmpty(name);
-			}
-		}));
-		parameter.setProductCategory(productCategoryService.find(productCategoryId));
-		if (!isValid(parameter, BaseEntity.Save.class)) {
-			return Results.UNPROCESSABLE_ENTITY;
-		}
-		parameterService.save(parameter);
-		return Results.OK;
-	}
+    /**
+     * 保存
+     */
+    @PostMapping("/save")
+    public ResponseEntity<?> save(Parameter parameter, Long productCategoryId) {
+        CollectionUtils.filter(parameter.getNames(), new AndPredicate(new UniquePredicate(), new Predicate() {
+            public boolean evaluate(Object object) {
+                String name = (String) object;
+                return StringUtils.isNotEmpty(name);
+            }
+        }));
+        parameter.setProductCategory(productCategoryService.find(productCategoryId));
+        if (!isValid(parameter, BaseEntity.Save.class)) {
+            return Results.UNPROCESSABLE_ENTITY;
+        }
+        parameterService.save(parameter);
+        return Results.OK;
+    }
 
-	/**
-	 * 编辑
-	 */
-	@GetMapping("/edit")
-	public String edit(Long id, ModelMap model) {
-		model.addAttribute("maxNameSize", Parameter.MAX_NAME_SIZE);
-		model.addAttribute("parameter", parameterService.find(id));
-		return "admin/parameter/edit";
-	}
+    /**
+     * 编辑
+     */
+    @GetMapping("/edit")
+    public String edit(Long id, ModelMap model) {
+        model.addAttribute("maxNameSize", Parameter.MAX_NAME_SIZE);
+        model.addAttribute("parameter", parameterService.find(id));
+        return "admin/parameter/edit";
+    }
 
-	/**
-	 * 更新
-	 */
-	@PostMapping("/update")
-	public ResponseEntity<?> update(Parameter parameter) {
-		CollectionUtils.filter(parameter.getNames(), new AndPredicate(new UniquePredicate(), new Predicate() {
-			public boolean evaluate(Object object) {
-				String name = (String) object;
-				return StringUtils.isNotEmpty(name);
-			}
-		}));
-		if (!isValid(parameter, BaseEntity.Update.class)) {
-			return Results.UNPROCESSABLE_ENTITY;
-		}
-		parameterService.update(parameter, "productCategory");
-		return Results.OK;
-	}
+    /**
+     * 更新
+     */
+    @PostMapping("/update")
+    public ResponseEntity<?> update(Parameter parameter) {
+        CollectionUtils.filter(parameter.getNames(), new AndPredicate(new UniquePredicate(), new Predicate() {
+            public boolean evaluate(Object object) {
+                String name = (String) object;
+                return StringUtils.isNotEmpty(name);
+            }
+        }));
+        if (!isValid(parameter, BaseEntity.Update.class)) {
+            return Results.UNPROCESSABLE_ENTITY;
+        }
+        parameterService.update(parameter, "productCategory");
+        return Results.OK;
+    }
 
-	/**
-	 * 列表
-	 */
-	@GetMapping("/list")
-	public String list(Pageable pageable, ModelMap model) {
-		model.addAttribute("page", parameterService.findPage(pageable));
-		return "admin/parameter/list";
-	}
+    /**
+     * 列表
+     */
+    @GetMapping("/list")
+    public String list(Pageable pageable, ModelMap model) {
+        model.addAttribute("page", parameterService.findPage(pageable));
+        return "admin/parameter/list";
+    }
 
-	/**
-	 * 删除
-	 */
-	@PostMapping("/delete")
-	public ResponseEntity<?> delete(Long[] ids) {
-		parameterService.delete(ids);
-		return Results.OK;
-	}
+    /**
+     * 删除
+     */
+    @PostMapping("/delete")
+    public ResponseEntity<?> delete(Long[] ids) {
+        parameterService.delete(ids);
+        return Results.OK;
+    }
 
 }

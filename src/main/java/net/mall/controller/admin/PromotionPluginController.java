@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.controller.admin;
 
@@ -17,7 +17,7 @@ import net.mall.service.PluginService;
 
 /**
  * Controller - 促销插件
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
@@ -25,16 +25,16 @@ import net.mall.service.PluginService;
 @RequestMapping("/admin/promotion_plugin")
 public class PromotionPluginController extends BaseController {
 
-	@Inject
-	private PluginService pluginService;
+    @Inject
+    private PluginService pluginService;
 
-	/**
-	 * 列表
-	 */
-	@GetMapping("/list")
-	public String list(ModelMap model) {
-		model.addAttribute("promotionPlugins", pluginService.getPromotionPlugins());
-		return "admin/promotion_plugin/list";
-	}
+    /**
+     * 列表
+     */
+    @GetMapping("/list")
+    public String list(ModelMap model) {
+        model.addAttribute("promotionPlugins", pluginService.getPromotionPlugins());
+        return "admin/promotion_plugin/list";
+    }
 
 }

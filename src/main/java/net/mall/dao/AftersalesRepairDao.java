@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.dao;
 
@@ -10,7 +10,7 @@ import net.mall.entity.AftersalesRepair;
 
 /**
  * Dao - 维修
- * 
+ *
  * @author huanghy
  * @version 6.1
  */

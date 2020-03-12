@@ -24,6 +24,18 @@
 		</dl>
 		<dl>
 			<dt>
+				<i class="iconfont icon-form"></i>
+				${message("member.mainMenu.propurch")}
+			</dt>
+			<dd[#if .main_template_name?matches(".*/product/.*")] class="active"[/#if]>
+				<a href="${base}/member/product/list">${message("member.mainMenu.proApply")}</a>
+			</dd>
+			<dd[#if .main_template_name?matches(".*/pro_purch_apply/list.*")] class="active"[/#if]>
+				<a href="${base}/member/pro_purch_apply/list">${message("member.mainMenu.propurchList")}</a>
+			</dd>
+		</dl>
+		<dl>
+			<dt>
 				<i class="iconfont icon-favor"></i>
 				${message("member.mainMenu.favorite")}
 			</dt>

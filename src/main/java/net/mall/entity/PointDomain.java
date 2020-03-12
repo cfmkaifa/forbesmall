@@ -163,17 +163,14 @@ public class PointDomain {
 
 
     /**
-
      * 记录积分发送流水，防止重复发放
-
+     *
      * @param userName 用户名
-
-     * @param type 积分发放类型
-
+     * @param type     积分发放类型
      */
 
-    public void recordPointLog(String userName, String type){
-        System.out.println("增加对"+userName+"的类型为"+type+"的积分操作记录.");
+    public void recordPointLog(String userName, String type) {
+        System.out.println("增加对" + userName + "的类型为" + type + "的积分操作记录.");
     }
 
 }

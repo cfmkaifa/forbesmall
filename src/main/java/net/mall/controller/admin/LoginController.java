@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.controller.admin;
 
@@ -18,7 +18,7 @@ import net.mall.security.CurrentUser;
 
 /**
  * Controller - 管理员登录
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
@@ -26,27 +26,27 @@ import net.mall.security.CurrentUser;
 @RequestMapping("/admin")
 public class LoginController extends BaseController {
 
-	@Value("${security.admin_login_success_url}")
-	private String adminLoginSuccessUrl;
+    @Value("${security.admin_login_success_url}")
+    private String adminLoginSuccessUrl;
 
-	/**
-	 * 登录跳转
-	 */
-	@GetMapping({ "", "/" })
-	public String index() {
-		return "redirect:/admin/login";
-	}
+    /**
+     * 登录跳转
+     */
+    @GetMapping({"", "/"})
+    public String index() {
+        return "redirect:/admin/login";
+    }
 
-	/**
-	 * 登录页面
-	 */
-	@RequestMapping(value="/login",method={RequestMethod.GET,RequestMethod.POST})
-	public String login(@CurrentUser Admin currentUser, ModelMap model) {
-		if (currentUser != null) {
-			return "redirect:" + adminLoginSuccessUrl;
-		}
-		model.addAttribute("adminLoginSuccessUrl", adminLoginSuccessUrl);
-		return "admin/login/index";
-	}
+    /**
+     * 登录页面
+     */
+    @RequestMapping(value = "/login", method = {RequestMethod.GET, RequestMethod.POST})
+    public String login(@CurrentUser Admin currentUser, ModelMap model) {
+        if (currentUser != null) {
+            return "redirect:" + adminLoginSuccessUrl;
+        }
+        model.addAttribute("adminLoginSuccessUrl", adminLoginSuccessUrl);
+        return "admin/login/index";
+    }
 
 }

@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.audit;
 
@@ -17,40 +17,35 @@ import net.mall.entity.AuditLog;
 
 /**
  * Audit - 审计日志MethodArgumentResolver
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
 public class AuditLogMethodArgumentResolver implements HandlerMethodArgumentResolver {
 
-	/**
-	 * 支持参数
-	 * 
-	 * @param methodParameter
-	 *            MethodParameter
-	 * @return 是否支持参数
-	 */
-	@Override
-	public boolean supportsParameter(MethodParameter methodParameter) {
-		return AuditLog.class.isAssignableFrom(methodParameter.getParameterType());
-	}
+    /**
+     * 支持参数
+     *
+     * @param methodParameter MethodParameter
+     * @return 是否支持参数
+     */
+    @Override
+    public boolean supportsParameter(MethodParameter methodParameter) {
+        return AuditLog.class.isAssignableFrom(methodParameter.getParameterType());
+    }
 
-	/**
-	 * 解析变量
-	 * 
-	 * @param methodParameter
-	 *            MethodParameter
-	 * @param modelAndViewContainer
-	 *            ModelAndViewContainer
-	 * @param nativeWebRequest
-	 *            NativeWebRequest
-	 * @param webDataBinderFactory
-	 *            WebDataBinderFactory
-	 * @return 变量
-	 */
-	@Override
-	public Object resolveArgument(MethodParameter methodParameter, ModelAndViewContainer modelAndViewContainer, NativeWebRequest nativeWebRequest, WebDataBinderFactory webDataBinderFactory) throws Exception {
-		return nativeWebRequest.getAttribute(AuditLog.AUDIT_LOG_ATTRIBUTE_NAME, RequestAttributes.SCOPE_REQUEST);
-	}
+    /**
+     * 解析变量
+     *
+     * @param methodParameter       MethodParameter
+     * @param modelAndViewContainer ModelAndViewContainer
+     * @param nativeWebRequest      NativeWebRequest
+     * @param webDataBinderFactory  WebDataBinderFactory
+     * @return 变量
+     */
+    @Override
+    public Object resolveArgument(MethodParameter methodParameter, ModelAndViewContainer modelAndViewContainer, NativeWebRequest nativeWebRequest, WebDataBinderFactory webDataBinderFactory) throws Exception {
+        return nativeWebRequest.getAttribute(AuditLog.AUDIT_LOG_ATTRIBUTE_NAME, RequestAttributes.SCOPE_REQUEST);
+    }
 
 }

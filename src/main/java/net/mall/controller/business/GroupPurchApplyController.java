@@ -1,4 +1,5 @@
 package net.mall.controller.business;
+
 import net.mall.Filter;
 import net.mall.Page;
 import net.mall.Pageable;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.inject.Inject;
+
 @Controller("businessGroupPurchApplyController")
 @RequestMapping("/business/group_purch_apply")
 public class GroupPurchApplyController extends BaseController {
@@ -80,13 +82,13 @@ public class GroupPurchApplyController extends BaseController {
      * 列表
      */
     @GetMapping("/list")
-    public String list(Pageable pageable,String searchValue,  @CurrentStore Store currentStore, ModelMap model) {
-        pageable.getFilters().add(new Filter("storeId",Filter.Operator.EQ,currentStore.getId()));
-        if(ConvertUtils.isNotEmpty(searchValue)){
+    public String list(Pageable pageable, String searchValue, @CurrentStore Store currentStore, ModelMap model) {
+        pageable.getFilters().add(new Filter("storeId", Filter.Operator.EQ, currentStore.getId()));
+        if (ConvertUtils.isNotEmpty(searchValue)) {
             pageable.setSearchProperty("proName");
         }
         Page<GroupPurchApply> page = groupPurchApplyService.findPage(pageable);
-        model.addAttribute("page",page);
+        model.addAttribute("page", page);
         return "business/group_purch_apply/list";
     }
 }

@@ -142,8 +142,13 @@
 		</property>
 		<property name="freemarkerVariables">
 			<map>
+<<<<<<< HEAD
 				<!-- http://www.chinafibermarketing.cn -->
 				<entry key="base" value="http://www.chinafibermarketing.cn" />
+=======
+				<!-- http://www.chinafibermarketing.com -->
+				<entry key="base" value="http://www.chinafibermarketing.com" />
+>>>>>>> fabric_mall
 				<entry key="showPowered" value="#{${show_powered}}" />
 				<entry key="message" value-ref="messageMethod" />
 				<entry key="abbreviate" value-ref="abbreviateMethod" />
@@ -161,6 +166,7 @@
 				<entry key="business_cash_count" value-ref="businessCashCountDirective" />
 				<entry key="category_application_count" value-ref="categoryApplicationCountDirective" />
 				<entry key="group_purch_apply_count" value-ref="groupPurchApplyCountDirective" />
+				<entry key="pro_purch_apply_count" value-ref="proPurchApplyCountDirective" />
 				<entry key="consultation_list" value-ref="consultationListDirective" />
 				<entry key="distribution_cash_count" value-ref="distributionCashCountDirective" />
 				<entry key="friend_link_list" value-ref="friendLinkListDirective" />

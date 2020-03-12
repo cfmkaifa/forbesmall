@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.service.impl;
 
@@ -30,101 +30,101 @@ import net.mall.service.SkuService;
 
 /**
  * Service - SKU
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
 @Service
 public class SkuServiceImpl extends BaseServiceImpl<Sku, Long> implements SkuService {
 
-	@Inject
-	private SkuDao skuDao;
-	@Inject
-	private StockLogDao stockLogDao;
+    @Inject
+    private SkuDao skuDao;
+    @Inject
+    private StockLogDao stockLogDao;
 
-	@Override
-	@Transactional(readOnly = true)
-	public boolean snExists(String sn) {
-		return skuDao.exists("sn", StringUtils.lowerCase(sn));
-	}
+    @Override
+    @Transactional(readOnly = true)
+    public boolean snExists(String sn) {
+        return skuDao.exists("sn", StringUtils.lowerCase(sn));
+    }
 
-	@Override
-	@Transactional(readOnly = true)
-	public Sku findBySn(String sn) {
-		return skuDao.find("sn", StringUtils.lowerCase(sn));
-	}
+    @Override
+    @Transactional(readOnly = true)
+    public Sku findBySn(String sn) {
+        return skuDao.find("sn", StringUtils.lowerCase(sn));
+    }
 
-	@Override
-	@Transactional(readOnly = true)
-	public List<Sku> search(Store store, Product.Type type, String keyword, Set<Sku> excludes, Integer count) {
-		return skuDao.search(store, type, keyword, excludes, count);
-	}
+    @Override
+    @Transactional(readOnly = true)
+    public List<Sku> search(Store store, Product.Type type, String keyword, Set<Sku> excludes, Integer count) {
+        return skuDao.search(store, type, keyword, excludes, count);
+    }
 
-	@Override
-	@Transactional(readOnly = true)
-	public List<Sku> findList(Store store, Type type, Set<Sku> matchs, Integer count) {
-		return skuDao.findList(store, type, matchs, count);
-	}
+    @Override
+    @Transactional(readOnly = true)
+    public List<Sku> findList(Store store, Type type, Set<Sku> matchs, Integer count) {
+        return skuDao.findList(store, type, matchs, count);
+    }
 
-	@Override
-	public void addStock(Sku sku, int amount, StockLog.Type type, String memo) {
-		Assert.notNull(sku, "[Assertion failed] - sku is required; it must not be null");
-		Assert.notNull(type, "[Assertion failed] - type is required; it must not be null");
+    @Override
+    public void addStock(Sku sku, int amount, StockLog.Type type, String memo) {
+        Assert.notNull(sku, "[Assertion failed] - sku is required; it must not be null");
+        Assert.notNull(type, "[Assertion failed] - type is required; it must not be null");
 
-		if (amount == 0) {
-			return;
-		}
+        if (amount == 0) {
+            return;
+        }
 
-		if (!LockModeType.PESSIMISTIC_WRITE.equals(skuDao.getLockMode(sku))) {
-			skuDao.flush();
-			skuDao.refresh(sku, LockModeType.PESSIMISTIC_WRITE);
-		}
+        if (!LockModeType.PESSIMISTIC_WRITE.equals(skuDao.getLockMode(sku))) {
+            skuDao.flush();
+            skuDao.refresh(sku, LockModeType.PESSIMISTIC_WRITE);
+        }
 
-		Assert.notNull(sku.getStock(), "[Assertion failed] - sku stock is required; it must not be null");
-		Assert.state(sku.getStock() + amount >= 0, "[Assertion failed] - sku stock must be equal or greater than 0");
+        Assert.notNull(sku.getStock(), "[Assertion failed] - sku stock is required; it must not be null");
+        Assert.state(sku.getStock() + amount >= 0, "[Assertion failed] - sku stock must be equal or greater than 0");
 
-		sku.setStock(sku.getStock() + amount);
-		skuDao.flush();
+        sku.setStock(sku.getStock() + amount);
+        skuDao.flush();
 
-		StockLog stockLog = new StockLog();
-		stockLog.setType(type);
-		stockLog.setInQuantity(amount > 0 ? amount : 0);
-		stockLog.setOutQuantity(amount < 0 ? Math.abs(amount) : 0);
-		stockLog.setStock(sku.getStock());
-		stockLog.setMemo(memo);
-		stockLog.setSku(sku);
-		stockLogDao.persist(stockLog);
-	}
+        StockLog stockLog = new StockLog();
+        stockLog.setType(type);
+        stockLog.setInQuantity(amount > 0 ? amount : 0);
+        stockLog.setOutQuantity(amount < 0 ? Math.abs(amount) : 0);
+        stockLog.setStock(sku.getStock());
+        stockLog.setMemo(memo);
+        stockLog.setSku(sku);
+        stockLogDao.persist(stockLog);
+    }
 
-	@Override
-	public void addAllocatedStock(Sku sku, int amount) {
-		Assert.notNull(sku, "[Assertion failed] - sku is required; it must not be null");
+    @Override
+    public void addAllocatedStock(Sku sku, int amount) {
+        Assert.notNull(sku, "[Assertion failed] - sku is required; it must not be null");
 
-		if (amount == 0) {
-			return;
-		}
+        if (amount == 0) {
+            return;
+        }
 
-		if (!LockModeType.PESSIMISTIC_WRITE.equals(skuDao.getLockMode(sku))) {
-			skuDao.flush();
-			skuDao.refresh(sku, LockModeType.PESSIMISTIC_WRITE);
-		}
+        if (!LockModeType.PESSIMISTIC_WRITE.equals(skuDao.getLockMode(sku))) {
+            skuDao.flush();
+            skuDao.refresh(sku, LockModeType.PESSIMISTIC_WRITE);
+        }
 
-		Assert.notNull(sku.getAllocatedStock(), "[Assertion failed] - sku allocatedStock is required; it must not be null");
-		Assert.state(sku.getAllocatedStock() + amount >= 0, "[Assertion failed] - sku allocatedStock must be equal or greater than 0");
+        Assert.notNull(sku.getAllocatedStock(), "[Assertion failed] - sku allocatedStock is required; it must not be null");
+        Assert.state(sku.getAllocatedStock() + amount >= 0, "[Assertion failed] - sku allocatedStock must be equal or greater than 0");
 
-		sku.setAllocatedStock(sku.getAllocatedStock() + amount);
-		skuDao.flush();
-	}
+        sku.setAllocatedStock(sku.getAllocatedStock() + amount);
+        skuDao.flush();
+    }
 
-	@Override
-	@Transactional(readOnly = true)
-	public void filter(List<Sku> skus) {
-		CollectionUtils.filter(skus, new Predicate() {
-			public boolean evaluate(Object object) {
-				Sku sku = (Sku) object;
-				return sku != null && sku.getStock() != null;
-			}
-		});
-	}
+    @Override
+    @Transactional(readOnly = true)
+    public void filter(List<Sku> skus) {
+        CollectionUtils.filter(skus, new Predicate() {
+            public boolean evaluate(Object object) {
+                Sku sku = (Sku) object;
+                return sku != null && sku.getStock() != null;
+            }
+        });
+    }
 
 }

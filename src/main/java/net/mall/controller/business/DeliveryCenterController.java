@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.controller.business;
 
@@ -30,7 +30,7 @@ import net.mall.service.DeliveryCenterService;
 
 /**
  * Controller - 发货点
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
@@ -38,107 +38,107 @@ import net.mall.service.DeliveryCenterService;
 @RequestMapping("/business/delivery_center")
 public class DeliveryCenterController extends BaseController {
 
-	@Inject
-	private DeliveryCenterService deliveryCenterService;
-	@Inject
-	private AreaService areaService;
+    @Inject
+    private DeliveryCenterService deliveryCenterService;
+    @Inject
+    private AreaService areaService;
 
-	/**
-	 * 添加属性
-	 */
-	@ModelAttribute
-	public void populateModel(Long areaId, Long deliveryCenterId, @CurrentStore Store currentStore, ModelMap model) {
-		model.addAttribute("area", areaService.find(areaId));
+    /**
+     * 添加属性
+     */
+    @ModelAttribute
+    public void populateModel(Long areaId, Long deliveryCenterId, @CurrentStore Store currentStore, ModelMap model) {
+        model.addAttribute("area", areaService.find(areaId));
 
-		DeliveryCenter deliveryCenter = deliveryCenterService.find(deliveryCenterId);
-		if (deliveryCenter != null && !currentStore.equals(deliveryCenter.getStore())) {
-			throw new UnauthorizedException();
-		}
-		model.addAttribute("deliveryCenter", deliveryCenter);
-	}
+        DeliveryCenter deliveryCenter = deliveryCenterService.find(deliveryCenterId);
+        if (deliveryCenter != null && !currentStore.equals(deliveryCenter.getStore())) {
+            throw new UnauthorizedException();
+        }
+        model.addAttribute("deliveryCenter", deliveryCenter);
+    }
 
-	/**
-	 * 添加
-	 */
-	@GetMapping("/add")
-	public String add() {
-		return "business/delivery_center/add";
-	}
+    /**
+     * 添加
+     */
+    @GetMapping("/add")
+    public String add() {
+        return "business/delivery_center/add";
+    }
 
-	/**
-	 * 保存
-	 */
-	@PostMapping("/save")
-	public ResponseEntity<?> save(@ModelAttribute("deliveryCenterForm") DeliveryCenter deliveryCenterForm, @ModelAttribute(binding = false) Area area, @CurrentStore Store currentStore) {
-		if (area == null) {
-			return Results.UNPROCESSABLE_ENTITY;
-		}
+    /**
+     * 保存
+     */
+    @PostMapping("/save")
+    public ResponseEntity<?> save(@ModelAttribute("deliveryCenterForm") DeliveryCenter deliveryCenterForm, @ModelAttribute(binding = false) Area area, @CurrentStore Store currentStore) {
+        if (area == null) {
+            return Results.UNPROCESSABLE_ENTITY;
+        }
 
-		deliveryCenterForm.setArea(area);
-		if (!isValid(deliveryCenterForm)) {
-			return Results.UNPROCESSABLE_ENTITY;
-		}
-		deliveryCenterForm.setAreaName(null);
-		deliveryCenterForm.setStore(currentStore);
-		deliveryCenterService.save(deliveryCenterForm);
+        deliveryCenterForm.setArea(area);
+        if (!isValid(deliveryCenterForm)) {
+            return Results.UNPROCESSABLE_ENTITY;
+        }
+        deliveryCenterForm.setAreaName(null);
+        deliveryCenterForm.setStore(currentStore);
+        deliveryCenterService.save(deliveryCenterForm);
 
-		return Results.OK;
-	}
+        return Results.OK;
+    }
 
-	/**
-	 * 编辑
-	 */
-	@GetMapping("/edit")
-	public String edit(@ModelAttribute(binding = false) DeliveryCenter deliveryCenter, Model model) {
-		if (deliveryCenter == null) {
-			return UNPROCESSABLE_ENTITY_VIEW;
-		}
+    /**
+     * 编辑
+     */
+    @GetMapping("/edit")
+    public String edit(@ModelAttribute(binding = false) DeliveryCenter deliveryCenter, Model model) {
+        if (deliveryCenter == null) {
+            return UNPROCESSABLE_ENTITY_VIEW;
+        }
 
-		model.addAttribute("deliveryCenter", deliveryCenter);
-		return "business/delivery_center/edit";
-	}
+        model.addAttribute("deliveryCenter", deliveryCenter);
+        return "business/delivery_center/edit";
+    }
 
-	/**
-	 * 更新
-	 */
-	@PostMapping("/update")
-	public ResponseEntity<?> update(@ModelAttribute("deliveryCenterForm") DeliveryCenter deliveryCenterForm, @ModelAttribute(binding = false) Area area, @ModelAttribute(binding = false) DeliveryCenter deliveryCenter) {
-		deliveryCenterForm.setArea(area);
-		if (!isValid(deliveryCenterForm)) {
-			return Results.UNPROCESSABLE_ENTITY;
-		}
-		if (deliveryCenter == null) {
-			return Results.UNPROCESSABLE_ENTITY;
-		}
+    /**
+     * 更新
+     */
+    @PostMapping("/update")
+    public ResponseEntity<?> update(@ModelAttribute("deliveryCenterForm") DeliveryCenter deliveryCenterForm, @ModelAttribute(binding = false) Area area, @ModelAttribute(binding = false) DeliveryCenter deliveryCenter) {
+        deliveryCenterForm.setArea(area);
+        if (!isValid(deliveryCenterForm)) {
+            return Results.UNPROCESSABLE_ENTITY;
+        }
+        if (deliveryCenter == null) {
+            return Results.UNPROCESSABLE_ENTITY;
+        }
 
-		BeanUtils.copyProperties(deliveryCenterForm, deliveryCenter, "id", "store", "areaName");
-		deliveryCenterService.update(deliveryCenter);
+        BeanUtils.copyProperties(deliveryCenterForm, deliveryCenter, "id", "store", "areaName");
+        deliveryCenterService.update(deliveryCenter);
 
-		return Results.OK;
-	}
+        return Results.OK;
+    }
 
-	/**
-	 * 列表
-	 */
-	@GetMapping("/list")
-	public String list(Model model, @CurrentStore Store currentStore, Pageable pageable) {
-		model.addAttribute("page", deliveryCenterService.findPage(currentStore, pageable));
-		return "business/delivery_center/list";
-	}
+    /**
+     * 列表
+     */
+    @GetMapping("/list")
+    public String list(Model model, @CurrentStore Store currentStore, Pageable pageable) {
+        model.addAttribute("page", deliveryCenterService.findPage(currentStore, pageable));
+        return "business/delivery_center/list";
+    }
 
-	/**
-	 * 删除
-	 */
-	@PostMapping("/delete")
-	public ResponseEntity<?> delete(Long[] ids, @CurrentStore Store currentStore) {
-		for (Long id : ids) {
-			DeliveryCenter deliveryCenter = deliveryCenterService.find(id);
-			if (deliveryCenter == null || !currentStore.equals(deliveryCenter.getStore())) {
-				return Results.UNPROCESSABLE_ENTITY;
-			}
-		}
-		deliveryCenterService.delete(ids);
-		return Results.OK;
-	}
+    /**
+     * 删除
+     */
+    @PostMapping("/delete")
+    public ResponseEntity<?> delete(Long[] ids, @CurrentStore Store currentStore) {
+        for (Long id : ids) {
+            DeliveryCenter deliveryCenter = deliveryCenterService.find(id);
+            if (deliveryCenter == null || !currentStore.equals(deliveryCenter.getStore())) {
+                return Results.UNPROCESSABLE_ENTITY;
+            }
+        }
+        deliveryCenterService.delete(ids);
+        return Results.OK;
+    }
 
 }

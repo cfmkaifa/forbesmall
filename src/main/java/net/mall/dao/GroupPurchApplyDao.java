@@ -5,7 +5,7 @@ import net.mall.entity.GroupPurchApply;
 import java.util.Date;
 import java.util.List;
 
-public interface GroupPurchApplyDao extends BaseDao<GroupPurchApply, Long>  {
+public interface GroupPurchApplyDao extends BaseDao<GroupPurchApply, Long> {
 
 
     /***
@@ -13,8 +13,7 @@ public interface GroupPurchApplyDao extends BaseDao<GroupPurchApply, Long>  {
      * @param jobStatus
      * @param id
      */
-    void modyGroupPurchJobStatus(GroupPurchApply.JobStatus jobStatus,Long id);
-
+    void modyGroupPurchJobStatus(GroupPurchApply.JobStatus jobStatus, Long id);
 
 
     /***
@@ -27,7 +26,6 @@ public interface GroupPurchApplyDao extends BaseDao<GroupPurchApply, Long>  {
     List<GroupPurchApply> putawayGroupPurchApply(GroupPurchApply.ApplyStatus applyStatus, GroupPurchApply.JobStatus jobStatus, Date currentDate);
 
 
-
     /***
      *
      * @param applyStatus
@@ -36,7 +34,7 @@ public interface GroupPurchApplyDao extends BaseDao<GroupPurchApply, Long>  {
      * @param skuSn
      * @return
      */
-    GroupPurchApply  putawayGroupPurchApply(GroupPurchApply.ApplyStatus applyStatus, Date currentDate,String proSn,String skuSn);
+    GroupPurchApply putawayGroupPurchApply(GroupPurchApply.ApplyStatus applyStatus, Date currentDate, String proSn, String skuSn);
 
     /***
      *
@@ -45,5 +43,5 @@ public interface GroupPurchApplyDao extends BaseDao<GroupPurchApply, Long>  {
      * @param currentDate
      * @return
      */
-    List<GroupPurchApply>  soldOutGroupPurchApply(GroupPurchApply.ApplyStatus applyStatus, GroupPurchApply.JobStatus jobStatus, Date currentDate);
+    List<GroupPurchApply> soldOutGroupPurchApply(GroupPurchApply.ApplyStatus applyStatus, GroupPurchApply.JobStatus jobStatus, Date currentDate);
 }

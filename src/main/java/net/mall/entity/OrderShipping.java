@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.entity;
 
@@ -38,527 +38,509 @@ import com.fasterxml.jackson.annotation.JsonView;
 
 /**
  * Entity - 订单发货
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
 @Entity
 public class OrderShipping extends BaseEntity<Long> {
 
-	private static final long serialVersionUID = -261737051893669935L;
+    private static final long serialVersionUID = -261737051893669935L;
 
-	/**
-	 * 配送验证组
-	 */
-	public interface Delivery extends Default {
+    /**
+     * 配送验证组
+     */
+    public interface Delivery extends Default {
 
-	}
+    }
 
-	/**
-	 * 编号
-	 */
-	@JsonView(BaseView.class)
-	@Column(nullable = false, updatable = false, unique = true)
-	private String sn;
+    /**
+     * 编号
+     */
+    @JsonView(BaseView.class)
+    @Column(nullable = false, updatable = false, unique = true)
+    private String sn;
 
-	/**
-	 * 配送方式
-	 */
-	@JsonView(BaseView.class)
-	@Column(updatable = false)
-	private String shippingMethod;
+    /**
+     * 配送方式
+     */
+    @JsonView(BaseView.class)
+    @Column(updatable = false)
+    private String shippingMethod;
 
-	/**
-	 * 物流公司
-	 */
-	@JsonView(BaseView.class)
-	@NotEmpty(groups = Delivery.class)
-	@Column(updatable = false)
-	private String deliveryCorp;
+    /**
+     * 物流公司
+     */
+    @JsonView(BaseView.class)
+    @NotEmpty(groups = Delivery.class)
+    @Column(updatable = false)
+    private String deliveryCorp;
 
-	/**
-	 * 物流公司网址
-	 */
-	@JsonView(BaseView.class)
-	@Column(updatable = false)
-	@URL
-	private String deliveryCorpUrl;
+    /**
+     * 物流公司网址
+     */
+    @JsonView(BaseView.class)
+    @Column(updatable = false)
+    @URL
+    private String deliveryCorpUrl;
 
-	/**
-	 * 物流公司代码
-	 */
-	@JsonView(BaseView.class)
-	@Column(updatable = false)
-	private String deliveryCorpCode;
+    /**
+     * 物流公司代码
+     */
+    @JsonView(BaseView.class)
+    @Column(updatable = false)
+    private String deliveryCorpCode;
 
-	/**
-	 * 运单号
-	 */
-	@JsonView(BaseView.class)
-	@Length(max = 200)
-	@Column(updatable = false)
-	private String trackingNo;
+    /**
+     * 运单号
+     */
+    @JsonView(BaseView.class)
+    @Length(max = 200)
+    @Column(updatable = false)
+    private String trackingNo;
 
-	/**
-	 * 物流费用
-	 */
-	@JsonView(BaseView.class)
-	@Min(0)
-	@Digits(integer = 12, fraction = 3)
-	@Column(updatable = false, precision = 21, scale = 6)
-	private BigDecimal freight;
+    /**
+     * 物流费用
+     */
+    @JsonView(BaseView.class)
+    @Min(0)
+    @Digits(integer = 12, fraction = 3)
+    @Column(updatable = false, precision = 21, scale = 6)
+    private BigDecimal freight;
 
-	/**
-	 * 收货人
-	 */
-	@JsonView(BaseView.class)
-	@NotEmpty(groups = Delivery.class)
-	@Length(max = 200)
-	@Column(updatable = false)
-	private String consignee;
+    /**
+     * 收货人
+     */
+    @JsonView(BaseView.class)
+    @NotEmpty(groups = Delivery.class)
+    @Length(max = 200)
+    @Column(updatable = false)
+    private String consignee;
 
-	/**
-	 * 地区
-	 */
-	@JsonView(BaseView.class)
-	@NotEmpty(groups = Delivery.class)
-	@Column(updatable = false)
-	private String area;
+    /**
+     * 地区
+     */
+    @JsonView(BaseView.class)
+    @NotEmpty(groups = Delivery.class)
+    @Column(updatable = false)
+    private String area;
 
-	/**
-	 * 地址
-	 */
-	@JsonView(BaseView.class)
-	@NotEmpty(groups = Delivery.class)
-	@Length(max = 200)
-	@Column(updatable = false)
-	private String address;
+    /**
+     * 地址
+     */
+    @JsonView(BaseView.class)
+    @NotEmpty(groups = Delivery.class)
+    @Length(max = 200)
+    @Column(updatable = false)
+    private String address;
 
-	/**
-	 * 邮编
-	 */
-	@JsonView(BaseView.class)
-	@NotEmpty(groups = Delivery.class)
-	@Length(max = 200)
-	@Pattern(regexp = "^\\d{6}$")
-	@Column(updatable = false)
-	private String zipCode;
+    /**
+     * 邮编
+     */
+    @JsonView(BaseView.class)
+    @NotEmpty(groups = Delivery.class)
+    @Length(max = 200)
+    @Pattern(regexp = "^\\d{6}$")
+    @Column(updatable = false)
+    private String zipCode;
 
-	/**
-	 * 电话
-	 */
-	@JsonView(BaseView.class)
-	@NotEmpty(groups = Delivery.class)
-	@Length(max = 200)
-	@Pattern(regexp = "^\\d{3,4}-?\\d{7,9}$")
-	@Column(updatable = false)
-	private String phone;
-	
-	
-	/****
-	 */
-	@Column(name="weight_memo")
-	private String weightMemo;
+    /**
+     * 电话
+     */
+    @JsonView(BaseView.class)
+    @NotEmpty(groups = Delivery.class)
+    @Length(max = 200)
+    @Pattern(regexp = "^\\d{3,4}-?\\d{7,9}$")
+    @Column(updatable = false)
+    private String phone;
 
-	/**
-	 * 备注
-	 */
-	@JsonView(BaseView.class)
-	@Length(max = 200)
-	@Column(updatable = false)
-	private String memo;
 
-	/**
-	 * 订单
-	 */
-	@NotNull
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "orders", nullable = false, updatable = false)
-	private Order order;
+    /****
+     */
+    @Column(name = "weight_memo")
+    private String weightMemo;
 
-	/**
-	 * 订单发货项
-	 */
-	@JsonView(BaseView.class)
-	@Valid
-	@NotEmpty
-	@OneToMany(mappedBy = "orderShipping", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<OrderShippingItem> orderShippingItems = new ArrayList<>();
+    /**
+     * 备注
+     */
+    @JsonView(BaseView.class)
+    @Length(max = 200)
+    @Column(updatable = false)
+    private String memo;
 
-	/**
-	 * 获取编号
-	 * 
-	 * @return 编号
-	 */
-	public String getSn() {
-		return sn;
-	}
+    /**
+     * 订单
+     */
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "orders", nullable = false, updatable = false)
+    private Order order;
 
-	/**
-	 * 设置编号
-	 * 
-	 * @param sn
-	 *            编号
-	 */
-	public void setSn(String sn) {
-		this.sn = sn;
-	}
+    /**
+     * 订单发货项
+     */
+    @JsonView(BaseView.class)
+    @Valid
+    @NotEmpty
+    @OneToMany(mappedBy = "orderShipping", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<OrderShippingItem> orderShippingItems = new ArrayList<>();
 
-	/**
-	 * 获取配送方式
-	 * 
-	 * @return 配送方式
-	 */
-	public String getShippingMethod() {
-		return shippingMethod;
-	}
+    /**
+     * 获取编号
+     *
+     * @return 编号
+     */
+    public String getSn() {
+        return sn;
+    }
 
-	/**
-	 * 设置配送方式
-	 * 
-	 * @param shippingMethod
-	 *            配送方式
-	 */
-	public void setShippingMethod(String shippingMethod) {
-		this.shippingMethod = shippingMethod;
-	}
+    /**
+     * 设置编号
+     *
+     * @param sn 编号
+     */
+    public void setSn(String sn) {
+        this.sn = sn;
+    }
 
-	/**
-	 * 获取物流公司
-	 * 
-	 * @return 物流公司
-	 */
-	public String getDeliveryCorp() {
-		return deliveryCorp;
-	}
+    /**
+     * 获取配送方式
+     *
+     * @return 配送方式
+     */
+    public String getShippingMethod() {
+        return shippingMethod;
+    }
 
-	/**
-	 * 设置物流公司
-	 * 
-	 * @param deliveryCorp
-	 *            物流公司
-	 */
-	public void setDeliveryCorp(String deliveryCorp) {
-		this.deliveryCorp = deliveryCorp;
-	}
+    /**
+     * 设置配送方式
+     *
+     * @param shippingMethod 配送方式
+     */
+    public void setShippingMethod(String shippingMethod) {
+        this.shippingMethod = shippingMethod;
+    }
 
-	/**
-	 * 获取物流公司网址
-	 * 
-	 * @return 物流公司网址
-	 */
-	public String getDeliveryCorpUrl() {
-		return deliveryCorpUrl;
-	}
+    /**
+     * 获取物流公司
+     *
+     * @return 物流公司
+     */
+    public String getDeliveryCorp() {
+        return deliveryCorp;
+    }
 
-	/**
-	 * 设置物流公司网址
-	 * 
-	 * @param deliveryCorpUrl
-	 *            物流公司网址
-	 */
-	public void setDeliveryCorpUrl(String deliveryCorpUrl) {
-		this.deliveryCorpUrl = deliveryCorpUrl;
-	}
+    /**
+     * 设置物流公司
+     *
+     * @param deliveryCorp 物流公司
+     */
+    public void setDeliveryCorp(String deliveryCorp) {
+        this.deliveryCorp = deliveryCorp;
+    }
 
-	/**
-	 * 获取物流公司代码
-	 * 
-	 * @return 物流公司代码
-	 */
-	public String getDeliveryCorpCode() {
-		return deliveryCorpCode;
-	}
+    /**
+     * 获取物流公司网址
+     *
+     * @return 物流公司网址
+     */
+    public String getDeliveryCorpUrl() {
+        return deliveryCorpUrl;
+    }
 
-	/**
-	 * 设置物流公司代码
-	 * 
-	 * @param deliveryCorpCode
-	 *            物流公司代码
-	 */
-	public void setDeliveryCorpCode(String deliveryCorpCode) {
-		this.deliveryCorpCode = deliveryCorpCode;
-	}
+    /**
+     * 设置物流公司网址
+     *
+     * @param deliveryCorpUrl 物流公司网址
+     */
+    public void setDeliveryCorpUrl(String deliveryCorpUrl) {
+        this.deliveryCorpUrl = deliveryCorpUrl;
+    }
 
-	/**
-	 * 获取运单号
-	 * 
-	 * @return 运单号
-	 */
-	public String getTrackingNo() {
-		return trackingNo;
-	}
+    /**
+     * 获取物流公司代码
+     *
+     * @return 物流公司代码
+     */
+    public String getDeliveryCorpCode() {
+        return deliveryCorpCode;
+    }
 
-	/**
-	 * 设置运单号
-	 * 
-	 * @param trackingNo
-	 *            运单号
-	 */
-	public void setTrackingNo(String trackingNo) {
-		this.trackingNo = trackingNo;
-	}
+    /**
+     * 设置物流公司代码
+     *
+     * @param deliveryCorpCode 物流公司代码
+     */
+    public void setDeliveryCorpCode(String deliveryCorpCode) {
+        this.deliveryCorpCode = deliveryCorpCode;
+    }
 
-	/**
-	 * 获取物流费用
-	 * 
-	 * @return 物流费用
-	 */
-	public BigDecimal getFreight() {
-		return freight;
-	}
+    /**
+     * 获取运单号
+     *
+     * @return 运单号
+     */
+    public String getTrackingNo() {
+        return trackingNo;
+    }
 
-	/**
-	 * 设置物流费用
-	 * 
-	 * @param freight
-	 *            物流费用
-	 */
-	public void setFreight(BigDecimal freight) {
-		this.freight = freight;
-	}
+    /**
+     * 设置运单号
+     *
+     * @param trackingNo 运单号
+     */
+    public void setTrackingNo(String trackingNo) {
+        this.trackingNo = trackingNo;
+    }
 
-	/**
-	 * 获取收货人
-	 * 
-	 * @return 收货人
-	 */
-	public String getConsignee() {
-		return consignee;
-	}
+    /**
+     * 获取物流费用
+     *
+     * @return 物流费用
+     */
+    public BigDecimal getFreight() {
+        return freight;
+    }
 
-	/**
-	 * 设置收货人
-	 * 
-	 * @param consignee
-	 *            收货人
-	 */
-	public void setConsignee(String consignee) {
-		this.consignee = consignee;
-	}
+    /**
+     * 设置物流费用
+     *
+     * @param freight 物流费用
+     */
+    public void setFreight(BigDecimal freight) {
+        this.freight = freight;
+    }
 
-	/**
-	 * 获取地区
-	 * 
-	 * @return 地区
-	 */
-	public String getArea() {
-		return area;
-	}
+    /**
+     * 获取收货人
+     *
+     * @return 收货人
+     */
+    public String getConsignee() {
+        return consignee;
+    }
 
-	/**
-	 * 设置地区
-	 * 
-	 * @param area
-	 *            地区
-	 */
-	public void setArea(String area) {
-		this.area = area;
-	}
+    /**
+     * 设置收货人
+     *
+     * @param consignee 收货人
+     */
+    public void setConsignee(String consignee) {
+        this.consignee = consignee;
+    }
 
-	/**
-	 * 获取地址
-	 * 
-	 * @return 地址
-	 */
-	public String getAddress() {
-		return address;
-	}
+    /**
+     * 获取地区
+     *
+     * @return 地区
+     */
+    public String getArea() {
+        return area;
+    }
 
-	/**
-	 * 设置地址
-	 * 
-	 * @param address
-	 *            地址
-	 */
-	public void setAddress(String address) {
-		this.address = address;
-	}
+    /**
+     * 设置地区
+     *
+     * @param area 地区
+     */
+    public void setArea(String area) {
+        this.area = area;
+    }
 
-	/**
-	 * 获取邮编
-	 * 
-	 * @return 邮编
-	 */
-	public String getZipCode() {
-		return zipCode;
-	}
+    /**
+     * 获取地址
+     *
+     * @return 地址
+     */
+    public String getAddress() {
+        return address;
+    }
 
-	/**
-	 * 设置邮编
-	 * 
-	 * @param zipCode
-	 *            邮编
-	 */
-	public void setZipCode(String zipCode) {
-		this.zipCode = zipCode;
-	}
+    /**
+     * 设置地址
+     *
+     * @param address 地址
+     */
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
-	/**
-	 * 获取电话
-	 * 
-	 * @return 电话
-	 */
-	public String getPhone() {
-		return phone;
-	}
+    /**
+     * 获取邮编
+     *
+     * @return 邮编
+     */
+    public String getZipCode() {
+        return zipCode;
+    }
 
-	/**
-	 * 设置电话
-	 * 
-	 * @param phone
-	 *            电话
-	 */
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
+    /**
+     * 设置邮编
+     *
+     * @param zipCode 邮编
+     */
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
+    }
 
-	/**
-	 * 获取备注
-	 * 
-	 * @return 备注
-	 */
-	public String getMemo() {
-		return memo;
-	}
+    /**
+     * 获取电话
+     *
+     * @return 电话
+     */
+    public String getPhone() {
+        return phone;
+    }
 
-	/** 
-	 * @return weightMemo 
-	 */
-	public String getWeightMemo() {
-		return weightMemo;
-	}
+    /**
+     * 设置电话
+     *
+     * @param phone 电话
+     */
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
-	/** 
-	 * @param weightMemo 要设置的 weightMemo 
-	 */
-	public void setWeightMemo(String weightMemo) {
-		this.weightMemo = weightMemo;
-	}
+    /**
+     * 获取备注
+     *
+     * @return 备注
+     */
+    public String getMemo() {
+        return memo;
+    }
 
-	/**
-	 * 设置备注
-	 * 
-	 * @param memo
-	 *            备注
-	 */
-	public void setMemo(String memo) {
-		this.memo = memo;
-	}
+    /**
+     * @return weightMemo
+     */
+    public String getWeightMemo() {
+        return weightMemo;
+    }
 
-	/**
-	 * 获取订单
-	 * 
-	 * @return 订单
-	 */
-	public Order getOrder() {
-		return order;
-	}
+    /**
+     * @param weightMemo 要设置的 weightMemo
+     */
+    public void setWeightMemo(String weightMemo) {
+        this.weightMemo = weightMemo;
+    }
 
-	/**
-	 * 设置订单
-	 * 
-	 * @param order
-	 *            订单
-	 */
-	public void setOrder(Order order) {
-		this.order = order;
-	}
+    /**
+     * 设置备注
+     *
+     * @param memo 备注
+     */
+    public void setMemo(String memo) {
+        this.memo = memo;
+    }
 
-	/**
-	 * 获取订单发货项
-	 * 
-	 * @return 订单发货项
-	 */
-	public List<OrderShippingItem> getOrderShippingItems() {
-		return orderShippingItems;
-	}
+    /**
+     * 获取订单
+     *
+     * @return 订单
+     */
+    public Order getOrder() {
+        return order;
+    }
 
-	/**
-	 * 设置订单发货项
-	 * 
-	 * @param orderShippingItems
-	 *            订单发货项
-	 */
-	public void setOrderShippingItems(List<OrderShippingItem> orderShippingItems) {
-		this.orderShippingItems = orderShippingItems;
-	}
+    /**
+     * 设置订单
+     *
+     * @param order 订单
+     */
+    public void setOrder(Order order) {
+        this.order = order;
+    }
 
-	/**
-	 * 获取数量
-	 * 
-	 * @return 数量
-	 */
-	@Transient
-	public int getQuantity() {
-		int quantity = 0;
-		if (getOrderShippingItems() != null) {
-			for (OrderShippingItem orderShippingItem : getOrderShippingItems()) {
-				if (orderShippingItem != null && orderShippingItem.getQuantity() != null) {
-					quantity += orderShippingItem.getQuantity();
-				}
-			}
-		}
-		return quantity;
-	}
+    /**
+     * 获取订单发货项
+     *
+     * @return 订单发货项
+     */
+    public List<OrderShippingItem> getOrderShippingItems() {
+        return orderShippingItems;
+    }
 
-	/**
-	 * 获取是否需要物流
-	 * 
-	 * @return 是否需要物流
-	 */
-	@Transient
-	public boolean getIsDelivery() {
-		return CollectionUtils.exists(getOrderShippingItems(), new Predicate() {
-			@Override
-			public boolean evaluate(Object object) {
-				OrderShippingItem orderShippingItem = (OrderShippingItem) object;
-				return orderShippingItem != null && BooleanUtils.isTrue(orderShippingItem.getIsDelivery());
-			}
-		});
-	}
+    /**
+     * 设置订单发货项
+     *
+     * @param orderShippingItems 订单发货项
+     */
+    public void setOrderShippingItems(List<OrderShippingItem> orderShippingItems) {
+        this.orderShippingItems = orderShippingItems;
+    }
 
-	/**
-	 * 设置配送方式
-	 * 
-	 * @param shippingMethod
-	 *            配送方式
-	 */
-	@Transient
-	public void setShippingMethod(ShippingMethod shippingMethod) {
-		setShippingMethod(shippingMethod != null ? shippingMethod.getName() : null);
-	}
+    /**
+     * 获取数量
+     *
+     * @return 数量
+     */
+    @Transient
+    public int getQuantity() {
+        int quantity = 0;
+        if (getOrderShippingItems() != null) {
+            for (OrderShippingItem orderShippingItem : getOrderShippingItems()) {
+                if (orderShippingItem != null && orderShippingItem.getQuantity() != null) {
+                    quantity += orderShippingItem.getQuantity();
+                }
+            }
+        }
+        return quantity;
+    }
 
-	/**
-	 * 设置物流公司
-	 * 
-	 * @param deliveryCorp
-	 *            物流公司
-	 */
-	@Transient
-	public void setDeliveryCorp(DeliveryCorp deliveryCorp) {
-		setDeliveryCorp(deliveryCorp != null ? deliveryCorp.getName() : null);
-		setDeliveryCorpUrl(deliveryCorp != null ? deliveryCorp.getUrl() : null);
-		setDeliveryCorpCode(deliveryCorp != null ? deliveryCorp.getCode() : null);
-	}
+    /**
+     * 获取是否需要物流
+     *
+     * @return 是否需要物流
+     */
+    @Transient
+    public boolean getIsDelivery() {
+        return CollectionUtils.exists(getOrderShippingItems(), new Predicate() {
+            @Override
+            public boolean evaluate(Object object) {
+                OrderShippingItem orderShippingItem = (OrderShippingItem) object;
+                return orderShippingItem != null && BooleanUtils.isTrue(orderShippingItem.getIsDelivery());
+            }
+        });
+    }
 
-	/**
-	 * 设置地区
-	 * 
-	 * @param area
-	 *            地区
-	 */
-	@Transient
-	public void setArea(Area area) {
-		setArea(area != null ? area.getFullName() : null);
-	}
+    /**
+     * 设置配送方式
+     *
+     * @param shippingMethod 配送方式
+     */
+    @Transient
+    public void setShippingMethod(ShippingMethod shippingMethod) {
+        setShippingMethod(shippingMethod != null ? shippingMethod.getName() : null);
+    }
 
-	/**
-	 * 持久化前处理
-	 */
-	@PrePersist
-	public void prePersist() {
-		setSn(StringUtils.lowerCase(getSn()));
-	}
+    /**
+     * 设置物流公司
+     *
+     * @param deliveryCorp 物流公司
+     */
+    @Transient
+    public void setDeliveryCorp(DeliveryCorp deliveryCorp) {
+        setDeliveryCorp(deliveryCorp != null ? deliveryCorp.getName() : null);
+        setDeliveryCorpUrl(deliveryCorp != null ? deliveryCorp.getUrl() : null);
+        setDeliveryCorpCode(deliveryCorp != null ? deliveryCorp.getCode() : null);
+    }
+
+    /**
+     * 设置地区
+     *
+     * @param area 地区
+     */
+    @Transient
+    public void setArea(Area area) {
+        setArea(area != null ? area.getFullName() : null);
+    }
+
+    /**
+     * 持久化前处理
+     */
+    @PrePersist
+    public void prePersist() {
+        setSn(StringUtils.lowerCase(getSn()));
+    }
 
 }

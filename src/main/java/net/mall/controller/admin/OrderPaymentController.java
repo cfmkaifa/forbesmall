@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.controller.admin;
 
@@ -21,7 +21,7 @@ import net.mall.service.OrderPaymentService;
 
 /**
  * Controller - 订单支付
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
@@ -29,34 +29,34 @@ import net.mall.service.OrderPaymentService;
 @RequestMapping("/admin/order_payment")
 public class OrderPaymentController extends BaseController {
 
-	@Inject
-	private OrderPaymentService orderPaymentService;
+    @Inject
+    private OrderPaymentService orderPaymentService;
 
-	/**
-	 * 查看
-	 */
-	@GetMapping("/view")
-	public String view(Long id, ModelMap model) {
-		model.addAttribute("orderPayment", orderPaymentService.find(id));
-		return "admin/order_payment/view";
-	}
+    /**
+     * 查看
+     */
+    @GetMapping("/view")
+    public String view(Long id, ModelMap model) {
+        model.addAttribute("orderPayment", orderPaymentService.find(id));
+        return "admin/order_payment/view";
+    }
 
-	/**
-	 * 列表
-	 */
-	@GetMapping("/list")
-	public String list(Pageable pageable, ModelMap model) {
-		model.addAttribute("page", orderPaymentService.findPage(pageable));
-		return "admin/order_payment/list";
-	}
+    /**
+     * 列表
+     */
+    @GetMapping("/list")
+    public String list(Pageable pageable, ModelMap model) {
+        model.addAttribute("page", orderPaymentService.findPage(pageable));
+        return "admin/order_payment/list";
+    }
 
-	/**
-	 * 删除
-	 */
-	@PostMapping("/delete")
-	public ResponseEntity<?> delete(Long[] ids) {
-		orderPaymentService.delete(ids);
-		return Results.OK;
-	}
+    /**
+     * 删除
+     */
+    @PostMapping("/delete")
+    public ResponseEntity<?> delete(Long[] ids) {
+        orderPaymentService.delete(ids);
+        return Results.OK;
+    }
 
 }

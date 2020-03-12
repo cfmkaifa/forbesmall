@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.controller.admin.plugin;
 
@@ -31,7 +31,7 @@ import net.mall.service.PromotionService;
 
 /**
  * Controller - 免运费促销
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
@@ -39,71 +39,71 @@ import net.mall.service.PromotionService;
 @RequestMapping("/admin/plugin/free_shipping_promotion")
 public class FreeShippingPromotionController extends BaseController {
 
-	@Inject
-	private FreeShippingPromotionPlugin freeShippingPromotionPlugin;
-	@Inject
-	private PluginConfigService pluginConfigService;
-	@Inject
-	private PromotionService promotionService;
+    @Inject
+    private FreeShippingPromotionPlugin freeShippingPromotionPlugin;
+    @Inject
+    private PluginConfigService pluginConfigService;
+    @Inject
+    private PromotionService promotionService;
 
-	/**
-	 * 安装
-	 */
-	@PostMapping("/install")
-	public ResponseEntity<?> install() {
-		if (!freeShippingPromotionPlugin.getIsInstalled()) {
-			PluginConfig pluginConfig = new PluginConfig();
-			pluginConfig.setPluginId(freeShippingPromotionPlugin.getId());
-			pluginConfig.setIsEnabled(false);
-			pluginConfig.setAttributes(null);
-			pluginConfigService.save(pluginConfig);
-		}
-		return Results.OK;
-	}
+    /**
+     * 安装
+     */
+    @PostMapping("/install")
+    public ResponseEntity<?> install() {
+        if (!freeShippingPromotionPlugin.getIsInstalled()) {
+            PluginConfig pluginConfig = new PluginConfig();
+            pluginConfig.setPluginId(freeShippingPromotionPlugin.getId());
+            pluginConfig.setIsEnabled(false);
+            pluginConfig.setAttributes(null);
+            pluginConfigService.save(pluginConfig);
+        }
+        return Results.OK;
+    }
 
-	/**
-	 * 卸载
-	 */
-	@PostMapping("/uninstall")
-	public ResponseEntity<?> uninstall() {
-		if (freeShippingPromotionPlugin.getIsInstalled()) {
-			pluginConfigService.deleteByPluginId(freeShippingPromotionPlugin.getId());
-			promotionService.shutDownPromotion(freeShippingPromotionPlugin);
-		}
-		return Results.OK;
-	}
+    /**
+     * 卸载
+     */
+    @PostMapping("/uninstall")
+    public ResponseEntity<?> uninstall() {
+        if (freeShippingPromotionPlugin.getIsInstalled()) {
+            pluginConfigService.deleteByPluginId(freeShippingPromotionPlugin.getId());
+            promotionService.shutDownPromotion(freeShippingPromotionPlugin);
+        }
+        return Results.OK;
+    }
 
-	/**
-	 * 设置
-	 */
-	@GetMapping("/setting")
-	public String setting(ModelMap model) {
-		PluginConfig pluginConfig = freeShippingPromotionPlugin.getPluginConfig();
-		model.addAttribute("pluginConfig", pluginConfig);
-		return "/admin/plugin/free_shipping_promotion/setting";
-	}
+    /**
+     * 设置
+     */
+    @GetMapping("/setting")
+    public String setting(ModelMap model) {
+        PluginConfig pluginConfig = freeShippingPromotionPlugin.getPluginConfig();
+        model.addAttribute("pluginConfig", pluginConfig);
+        return "/admin/plugin/free_shipping_promotion/setting";
+    }
 
-	/**
-	 * 更新
-	 */
-	@PostMapping("/update")
-	public ResponseEntity<?> update(String displayName, BigDecimal serviceCharge, String description, @RequestParam(defaultValue = "false") Boolean isEnabled, Integer order) {
-		if (serviceCharge == null || serviceCharge.compareTo(BigDecimal.ZERO) < 0) {
-			return Results.UNPROCESSABLE_ENTITY;
-		}
-		PluginConfig pluginConfig = freeShippingPromotionPlugin.getPluginConfig();
-		Map<String, String> attributes = new HashMap<>();
-		attributes.put(PaymentPlugin.DISPLAY_NAME_ATTRIBUTE_NAME, displayName);
-		attributes.put(PromotionPlugin.SERVICE_CHARGE, String.valueOf(serviceCharge));
-		attributes.put(PaymentPlugin.DESCRIPTION_ATTRIBUTE_NAME, description);
-		pluginConfig.setAttributes(attributes);
-		pluginConfig.setIsEnabled(isEnabled);
-		pluginConfig.setOrder(order);
-		pluginConfigService.update(pluginConfig);
-		if (!pluginConfig.getIsEnabled()) {
-			promotionService.shutDownPromotion(freeShippingPromotionPlugin);
-		}
-		return Results.OK;
-	}
+    /**
+     * 更新
+     */
+    @PostMapping("/update")
+    public ResponseEntity<?> update(String displayName, BigDecimal serviceCharge, String description, @RequestParam(defaultValue = "false") Boolean isEnabled, Integer order) {
+        if (serviceCharge == null || serviceCharge.compareTo(BigDecimal.ZERO) < 0) {
+            return Results.UNPROCESSABLE_ENTITY;
+        }
+        PluginConfig pluginConfig = freeShippingPromotionPlugin.getPluginConfig();
+        Map<String, String> attributes = new HashMap<>();
+        attributes.put(PaymentPlugin.DISPLAY_NAME_ATTRIBUTE_NAME, displayName);
+        attributes.put(PromotionPlugin.SERVICE_CHARGE, String.valueOf(serviceCharge));
+        attributes.put(PaymentPlugin.DESCRIPTION_ATTRIBUTE_NAME, description);
+        pluginConfig.setAttributes(attributes);
+        pluginConfig.setIsEnabled(isEnabled);
+        pluginConfig.setOrder(order);
+        pluginConfigService.update(pluginConfig);
+        if (!pluginConfig.getIsEnabled()) {
+            promotionService.shutDownPromotion(freeShippingPromotionPlugin);
+        }
+        return Results.OK;
+    }
 
 }

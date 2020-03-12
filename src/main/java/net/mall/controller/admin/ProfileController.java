@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.controller.admin;
 
@@ -24,7 +24,7 @@ import net.mall.service.AdminService;
 
 /**
  * Controller - 个人资料
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
@@ -32,46 +32,47 @@ import net.mall.service.AdminService;
 @RequestMapping("/admin/profile")
 public class ProfileController extends BaseController {
 
-	@Inject
-	private AdminService adminService;
+    @Inject
+    private AdminService adminService;
 
-	/**
-	 * 验证当前密码
-	 */
-	@GetMapping("/check_current_password")
-	public @ResponseBody boolean checkCurrentPassword(String currentPassword, @CurrentUser Admin currentUser) {
-		return StringUtils.isNotEmpty(currentPassword) && currentUser.isValidCredentials(currentPassword);
-	}
+    /**
+     * 验证当前密码
+     */
+    @GetMapping("/check_current_password")
+    public @ResponseBody
+    boolean checkCurrentPassword(String currentPassword, @CurrentUser Admin currentUser) {
+        return StringUtils.isNotEmpty(currentPassword) && currentUser.isValidCredentials(currentPassword);
+    }
 
-	/**
-	 * 编辑
-	 */
-	@GetMapping("/edit")
-	public String edit(@CurrentUser Admin currentUser, ModelMap model) {
-		model.addAttribute("admin", currentUser);
-		return "admin/profile/edit";
-	}
+    /**
+     * 编辑
+     */
+    @GetMapping("/edit")
+    public String edit(@CurrentUser Admin currentUser, ModelMap model) {
+        model.addAttribute("admin", currentUser);
+        return "admin/profile/edit";
+    }
 
-	/**
-	 * 更新
-	 */
-	@PostMapping("/update")
-	public ResponseEntity<?> update(String currentPassword, String password, String email, @CurrentUser Admin currentUser) {
-		if (!isValid(Admin.class, "email", email)) {
-			return Results.UNPROCESSABLE_ENTITY;
-		}
-		if (StringUtils.isNotEmpty(currentPassword) && StringUtils.isNotEmpty(password)) {
-			if (!isValid(Admin.class, "password", password)) {
-				return Results.UNPROCESSABLE_ENTITY;
-			}
-			if (!currentUser.isValidCredentials(currentPassword)) {
-				return Results.UNPROCESSABLE_ENTITY;
-			}
-			currentUser.setPassword(password);
-		}
-		currentUser.setEmail(email);
-		adminService.update(currentUser);
-		return Results.OK;
-	}
+    /**
+     * 更新
+     */
+    @PostMapping("/update")
+    public ResponseEntity<?> update(String currentPassword, String password, String email, @CurrentUser Admin currentUser) {
+        if (!isValid(Admin.class, "email", email)) {
+            return Results.UNPROCESSABLE_ENTITY;
+        }
+        if (StringUtils.isNotEmpty(currentPassword) && StringUtils.isNotEmpty(password)) {
+            if (!isValid(Admin.class, "password", password)) {
+                return Results.UNPROCESSABLE_ENTITY;
+            }
+            if (!currentUser.isValidCredentials(currentPassword)) {
+                return Results.UNPROCESSABLE_ENTITY;
+            }
+            currentUser.setPassword(password);
+        }
+        currentUser.setEmail(email);
+        adminService.update(currentUser);
+        return Results.OK;
+    }
 
 }

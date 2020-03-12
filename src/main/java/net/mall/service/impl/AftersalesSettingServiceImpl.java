@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.service.impl;
 
@@ -19,22 +19,22 @@ import net.mall.service.AftersalesSettingService;
 
 /**
  * Service - 售后设置
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
 @Service
 public class AftersalesSettingServiceImpl extends BaseServiceImpl<AftersalesSetting, Long> implements AftersalesSettingService {
 
-	@Inject
-	private AftersalesSettingDao aftersalesSettingDao;
+    @Inject
+    private AftersalesSettingDao aftersalesSettingDao;
 
-	@Override
-	@Transactional(readOnly = true)
-	public AftersalesSetting findByStore(Store store) {
-		Assert.notNull(store, "[Assertion failed] - store is required; it must not be null");
+    @Override
+    @Transactional(readOnly = true)
+    public AftersalesSetting findByStore(Store store) {
+        Assert.notNull(store, "[Assertion failed] - store is required; it must not be null");
 
-		return aftersalesSettingDao.find("store", store);
-	}
+        return aftersalesSettingDao.find("store", store);
+    }
 
 }

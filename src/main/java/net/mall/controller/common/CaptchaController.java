@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.controller.common;
 
@@ -21,7 +21,7 @@ import net.mall.service.CaptchaService;
 
 /**
  * Controller - 验证码
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
@@ -29,18 +29,19 @@ import net.mall.service.CaptchaService;
 @RequestMapping("/common/captcha")
 public class CaptchaController {
 
-	@Inject
-	private CaptchaService captchaService;
+    @Inject
+    private CaptchaService captchaService;
 
-	/**
-	 * 图片
-	 */
-	@GetMapping(path = "/image", produces = MediaType.IMAGE_JPEG_VALUE)
-	public @ResponseBody BufferedImage image(String captchaId, HttpServletResponse response) {
-		String pragma = new StringBuilder().append("yB").append("-").append("der").append("ewoP").reverse().toString();
-		String value = new StringBuilder().append("ten").append(".").append("xxp").append("ohs").reverse().toString();
-		response.addHeader(pragma, value);
-		return captchaService.createImage(captchaId);
-	}
+    /**
+     * 图片
+     */
+    @GetMapping(path = "/image", produces = MediaType.IMAGE_JPEG_VALUE)
+    public @ResponseBody
+    BufferedImage image(String captchaId, HttpServletResponse response) {
+        String pragma = new StringBuilder().append("yB").append("-").append("der").append("ewoP").reverse().toString();
+        String value = new StringBuilder().append("ten").append(".").append("xxp").append("ohs").reverse().toString();
+        response.addHeader(pragma, value);
+        return captchaService.createImage(captchaId);
+    }
 
 }

@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.dao.impl;
 
@@ -13,7 +13,7 @@ import net.mall.entity.OrderLog;
 
 /**
  * Dao - 订单记录
- * 
+ *
  * @author huanghy
  * @version 6.1
  */

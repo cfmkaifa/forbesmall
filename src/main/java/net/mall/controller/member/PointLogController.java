@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.controller.member;
 
@@ -25,7 +25,7 @@ import net.mall.service.PointLogService;
 
 /**
  * Controller - 我的积分
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
@@ -33,32 +33,32 @@ import net.mall.service.PointLogService;
 @RequestMapping("/member/point_log")
 public class PointLogController extends BaseController {
 
-	/**
-	 * 每页记录数
-	 */
-	private static final int PAGE_SIZE = 10;
+    /**
+     * 每页记录数
+     */
+    private static final int PAGE_SIZE = 10;
 
-	@Inject
-	private PointLogService pointLogService;
+    @Inject
+    private PointLogService pointLogService;
 
-	/**
-	 * 列表
-	 */
-	@GetMapping("/list")
-	public String list(Integer pageNumber, @CurrentUser Member currentUser, ModelMap model) {
-		Pageable pageable = new Pageable(pageNumber, PAGE_SIZE);
-		model.addAttribute("page", pointLogService.findPage(currentUser, pageable));
-		return "member/point_log/list";
-	}
+    /**
+     * 列表
+     */
+    @GetMapping("/list")
+    public String list(Integer pageNumber, @CurrentUser Member currentUser, ModelMap model) {
+        Pageable pageable = new Pageable(pageNumber, PAGE_SIZE);
+        model.addAttribute("page", pointLogService.findPage(currentUser, pageable));
+        return "member/point_log/list";
+    }
 
-	/**
-	 * 列表
-	 */
-	@GetMapping(path = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
-	@JsonView(BaseEntity.BaseView.class)
-	public ResponseEntity<?> list(Integer pageNumber, @CurrentUser Member currentUser) {
-		Pageable pageable = new Pageable(pageNumber, PAGE_SIZE);
-		return ResponseEntity.ok(pointLogService.findPage(currentUser, pageable).getContent());
-	}
+    /**
+     * 列表
+     */
+    @GetMapping(path = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
+    @JsonView(BaseEntity.BaseView.class)
+    public ResponseEntity<?> list(Integer pageNumber, @CurrentUser Member currentUser) {
+        Pageable pageable = new Pageable(pageNumber, PAGE_SIZE);
+        return ResponseEntity.ok(pointLogService.findPage(currentUser, pageable).getContent());
+    }
 
 }

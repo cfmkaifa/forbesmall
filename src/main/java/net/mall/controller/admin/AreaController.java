@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.controller.admin;
 
@@ -23,7 +23,7 @@ import net.mall.service.AreaService;
 
 /**
  * Controller - 地区
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
@@ -31,83 +31,83 @@ import net.mall.service.AreaService;
 @RequestMapping("/admin/area")
 public class AreaController extends BaseController {
 
-	@Inject
-	private AreaService areaService;
+    @Inject
+    private AreaService areaService;
 
-	/**
-	 * 添加
-	 */
-	@GetMapping("/add")
-	public String add(Long parentId, ModelMap model) {
-		model.addAttribute("parent", areaService.find(parentId));
-		return "admin/area/add";
-	}
+    /**
+     * 添加
+     */
+    @GetMapping("/add")
+    public String add(Long parentId, ModelMap model) {
+        model.addAttribute("parent", areaService.find(parentId));
+        return "admin/area/add";
+    }
 
-	/**
-	 * 保存
-	 */
-	@PostMapping("/save")
-	public ResponseEntity<?> save(Area area, Long parentId) {
-		area.setParent(areaService.find(parentId));
-		if (!isValid(area)) {
-			return Results.UNPROCESSABLE_ENTITY;
-		}
-		area.setFullName(null);
-		area.setTreePath(null);
-		area.setGrade(null);
-		area.setChildren(null);
-		area.setMembers(null);
-		area.setReceivers(null);
-		area.setOrders(null);
-		area.setDeliveryCenters(null);
-		area.setAreaFreightConfigs(null);
-		areaService.save(area);
-		return Results.OK;
-	}
+    /**
+     * 保存
+     */
+    @PostMapping("/save")
+    public ResponseEntity<?> save(Area area, Long parentId) {
+        area.setParent(areaService.find(parentId));
+        if (!isValid(area)) {
+            return Results.UNPROCESSABLE_ENTITY;
+        }
+        area.setFullName(null);
+        area.setTreePath(null);
+        area.setGrade(null);
+        area.setChildren(null);
+        area.setMembers(null);
+        area.setReceivers(null);
+        area.setOrders(null);
+        area.setDeliveryCenters(null);
+        area.setAreaFreightConfigs(null);
+        areaService.save(area);
+        return Results.OK;
+    }
 
-	/**
-	 * 编辑
-	 */
-	@GetMapping("/edit")
-	public String edit(Long id, ModelMap model) {
-		model.addAttribute("area", areaService.find(id));
-		return "admin/area/edit";
-	}
+    /**
+     * 编辑
+     */
+    @GetMapping("/edit")
+    public String edit(Long id, ModelMap model) {
+        model.addAttribute("area", areaService.find(id));
+        return "admin/area/edit";
+    }
 
-	/**
-	 * 更新
-	 */
-	@PostMapping("/update")
-	public ResponseEntity<?> update(Area area) {
-		if (!isValid(area)) {
-			return Results.UNPROCESSABLE_ENTITY;
-		}
-		areaService.update(area, "fullName", "treePath", "grade", "parent", "children", "members", "receivers", "orders", "deliveryCenters", "areaFreightConfigs");
-		return Results.OK;
-	}
+    /**
+     * 更新
+     */
+    @PostMapping("/update")
+    public ResponseEntity<?> update(Area area) {
+        if (!isValid(area)) {
+            return Results.UNPROCESSABLE_ENTITY;
+        }
+        areaService.update(area, "fullName", "treePath", "grade", "parent", "children", "members", "receivers", "orders", "deliveryCenters", "areaFreightConfigs");
+        return Results.OK;
+    }
 
-	/**
-	 * 列表
-	 */
-	@GetMapping("/list")
-	public String list(Long parentId, ModelMap model) {
-		Area parent = areaService.find(parentId);
-		if (parent != null) {
-			model.addAttribute("parent", parent);
-			model.addAttribute("areas", new ArrayList<>(parent.getChildren()));
-		} else {
-			model.addAttribute("areas", areaService.findRoots());
-		}
-		return "admin/area/list";
-	}
+    /**
+     * 列表
+     */
+    @GetMapping("/list")
+    public String list(Long parentId, ModelMap model) {
+        Area parent = areaService.find(parentId);
+        if (parent != null) {
+            model.addAttribute("parent", parent);
+            model.addAttribute("areas", new ArrayList<>(parent.getChildren()));
+        } else {
+            model.addAttribute("areas", areaService.findRoots());
+        }
+        return "admin/area/list";
+    }
 
-	/**
-	 * 删除
-	 */
-	@PostMapping("/delete")
-	public ResponseEntity<?> delete(Long id) {
-		areaService.delete(id);
-		return Results.OK;
-	}
+    /**
+     * 删除
+     */
+    @PostMapping("/delete")
+    public ResponseEntity<?> delete(Long id) {
+        areaService.delete(id);
+        return Results.OK;
+    }
 
 }

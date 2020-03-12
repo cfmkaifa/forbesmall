@@ -1,8 +1,8 @@
 /*
  *
- * 
  *
- * 
+ *
+ *
  */
 package net.mall.controller.admin;
 
@@ -32,7 +32,7 @@ import net.mall.service.MemberService;
 
 /**
  * Controller - 分销员
- * 
+ *
  * @author huanghy
  * @version 6.1
  */
@@ -40,119 +40,119 @@ import net.mall.service.MemberService;
 @RequestMapping("/admin/distributor")
 public class DistributorController extends BaseController {
 
-	@Inject
-	private DistributorService distributorService;
-	@Inject
-	private MemberService memberService;
+    @Inject
+    private DistributorService distributorService;
+    @Inject
+    private MemberService memberService;
 
-	/**
-	 * 会员选择
-	 */
-	@GetMapping("/member_select")
-	public ResponseEntity<?> memberSelect(String keyword) {
-		List<Map<String, Object>> data = new ArrayList<>();
-		if (StringUtils.isEmpty(keyword)) {
-			return ResponseEntity.ok(data);
-		}
-		List<Member> members = memberService.search(keyword, null, null);
-		for (Member member : members) {
-			if (member.getDistributor() == null) {
-				Map<String, Object> item = new HashMap<String, Object>();
-				item.put("id", member.getId());
-				item.put("username", member.getUsername());
-				data.add(item);
-			}
-		}
-		return ResponseEntity.ok(data);
-	}
+    /**
+     * 会员选择
+     */
+    @GetMapping("/member_select")
+    public ResponseEntity<?> memberSelect(String keyword) {
+        List<Map<String, Object>> data = new ArrayList<>();
+        if (StringUtils.isEmpty(keyword)) {
+            return ResponseEntity.ok(data);
+        }
+        List<Member> members = memberService.search(keyword, null, null);
+        for (Member member : members) {
+            if (member.getDistributor() == null) {
+                Map<String, Object> item = new HashMap<String, Object>();
+                item.put("id", member.getId());
+                item.put("username", member.getUsername());
+                data.add(item);
+            }
+        }
+        return ResponseEntity.ok(data);
+    }
 
-	/**
-	 * 上级分销员选择
-	 */
-	@GetMapping("/parent_distributor_select")
-	public ResponseEntity<?> parentDistributorSelect(String keyword, Long excludeId) {
-		List<Map<String, Object>> data = new ArrayList<>();
-		if (StringUtils.isEmpty(keyword)) {
-			return ResponseEntity.ok(data);
-		}
-		Set<Member> excludes = new HashSet<>(memberService.findList(excludeId));
-		List<Member> members = memberService.search(keyword, excludes, null);
-		for (Member member : members) {
-			if (member.getDistributor() != null) {
-				Map<String, Object> item = new HashMap<String, Object>();
-				item.put("id", member.getDistributor().getId());
-				item.put("username", member.getUsername());
-				data.add(item);
-			}
-		}
-		return ResponseEntity.ok(data);
-	}
+    /**
+     * 上级分销员选择
+     */
+    @GetMapping("/parent_distributor_select")
+    public ResponseEntity<?> parentDistributorSelect(String keyword, Long excludeId) {
+        List<Map<String, Object>> data = new ArrayList<>();
+        if (StringUtils.isEmpty(keyword)) {
+            return ResponseEntity.ok(data);
+        }
+        Set<Member> excludes = new HashSet<>(memberService.findList(excludeId));
+        List<Member> members = memberService.search(keyword, excludes, null);
+        for (Member member : members) {
+            if (member.getDistributor() != null) {
+                Map<String, Object> item = new HashMap<String, Object>();
+                item.put("id", member.getDistributor().getId());
+                item.put("username", member.getUsername());
+                data.add(item);
+            }
+        }
+        return ResponseEntity.ok(data);
+    }
 
-	/**
-	 * 添加
-	 */
-	@GetMapping("/add")
-	public String add(ModelMap model) {
-		return "admin/distributor/add";
-	}
+    /**
+     * 添加
+     */
+    @GetMapping("/add")
+    public String add(ModelMap model) {
+        return "admin/distributor/add";
+    }
 
-	/**
-	 * 保存
-	 */
-	@PostMapping("/save")
-	public ResponseEntity<?> save(Long parentDistributorId, Long memberId) {
-		Member member = memberService.find(memberId);
-		Distributor distributor = distributorService.find(parentDistributorId);
-		if (distributor == null) {
-			distributorService.create(member);
-		} else {
-			distributorService.create(member, distributor.getMember());
-		}
-		return Results.OK;
-	}
+    /**
+     * 保存
+     */
+    @PostMapping("/save")
+    public ResponseEntity<?> save(Long parentDistributorId, Long memberId) {
+        Member member = memberService.find(memberId);
+        Distributor distributor = distributorService.find(parentDistributorId);
+        if (distributor == null) {
+            distributorService.create(member);
+        } else {
+            distributorService.create(member, distributor.getMember());
+        }
+        return Results.OK;
+    }
 
-	/**
-	 * 编辑
-	 */
-	@GetMapping("/edit")
-	public String edit(Long id, ModelMap model) {
-		model.addAttribute("distributor", distributorService.find(id));
-		return "admin/distributor/edit";
-	}
+    /**
+     * 编辑
+     */
+    @GetMapping("/edit")
+    public String edit(Long id, ModelMap model) {
+        model.addAttribute("distributor", distributorService.find(id));
+        return "admin/distributor/edit";
+    }
 
-	/**
-	 * 更新
-	 */
-	@PostMapping("/update")
-	public ResponseEntity<?> update(Long parentDistributorId, Long id) {
-		Distributor distributor = distributorService.find(id);
-		if (distributor == null) {
-			return Results.UNPROCESSABLE_ENTITY;
-		}
-		Distributor parentDistributor = distributorService.find(parentDistributorId);
-		if (distributor.equals(parentDistributor)) {
-			return Results.UNPROCESSABLE_ENTITY;
-		}
-		distributorService.modify(distributor, parentDistributor != null ? parentDistributor.getMember() : null);
-		return Results.OK;
-	}
+    /**
+     * 更新
+     */
+    @PostMapping("/update")
+    public ResponseEntity<?> update(Long parentDistributorId, Long id) {
+        Distributor distributor = distributorService.find(id);
+        if (distributor == null) {
+            return Results.UNPROCESSABLE_ENTITY;
+        }
+        Distributor parentDistributor = distributorService.find(parentDistributorId);
+        if (distributor.equals(parentDistributor)) {
+            return Results.UNPROCESSABLE_ENTITY;
+        }
+        distributorService.modify(distributor, parentDistributor != null ? parentDistributor.getMember() : null);
+        return Results.OK;
+    }
 
-	/**
-	 * 列表
-	 */
-	@GetMapping("/list")
-	public String list(Pageable pageable, ModelMap model) {
-		model.addAttribute("page", distributorService.findPage(pageable));
-		return "admin/distributor/list";
-	}
+    /**
+     * 列表
+     */
+    @GetMapping("/list")
+    public String list(Pageable pageable, ModelMap model) {
+        model.addAttribute("page", distributorService.findPage(pageable));
+        return "admin/distributor/list";
+    }
 
-	/**
-	 * 删除
-	 */
-	@PostMapping("/delete")
-	public ResponseEntity<?> delete(Long[] ids) {
-		distributorService.delete(ids);
-		return Results.OK;
-	}
+    /**
+     * 删除
+     */
+    @PostMapping("/delete")
+    public ResponseEntity<?> delete(Long[] ids) {
+        distributorService.delete(ids);
+        return Results.OK;
+    }
 
 }
