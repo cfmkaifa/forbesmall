@@ -228,7 +228,7 @@
                     </ul>
                     <div class="dialog">
                         <p class="wrong">×</p>
-                        <a href="http://www.chinafibermarketing.cn/business/login;jsessionid=606AB0AACC9C523017A139C8650F9B0C?redirectUrl=%2Fbusiness%2Findex">${message("shop.mainHeader.qrcode")}</a>
+                        <a href="/business/login">${message("shop.mainHeader.businessIndex")}</a>
                     </div>
                 </div>
             </div>
