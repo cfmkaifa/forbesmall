@@ -127,12 +127,12 @@
 }
 
 .order-checkout main .payment-method .payment-method-list li {
-	width: -webkit-calc((100% - 20px * 5) / 6);
-	width: calc((100% - 20px * 5) / 6);
+	width: -webkit-calc((100% - 19px * 5) / 6);
+	width: calc((100% - 19px * 5) / 6);
 	height: 50px;
 	line-height: 30px;
 	float: left;
-	padding: 10px;
+	/*padding: 10px;*/
 	margin-top: 20px;
 	margin-right: 20px;
 	cursor: pointer;
@@ -140,7 +140,11 @@
 	transition: border-color 0.3s;
 	border: 1px solid #eeeeee;
 }
-
+.order-checkout main .payment-method .payment-method-list li img {
+	width: 198px;
+	height: 46px;
+	margin: 1px;
+}
 .order-checkout main .payment-method .payment-method-list li:nth-child(-n+6) {
 	margin-top: 0px;
 }
