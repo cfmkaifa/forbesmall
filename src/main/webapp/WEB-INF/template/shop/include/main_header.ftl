@@ -208,14 +208,13 @@
                     </ul>
                     <div class="dialog">
                         <p class="wrong">×</p>
-                        <a href="/business/login">${message("shop.mainHeader.businessIndex")}</a>
+                        <a href="${base}/business/login">${message("shop.mainHeader.businessIndex")}</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="advertis">
-        [#--  <img src="${base}/resources/shop/images/adver.png" class="advertising">--]
         [@ad_position id = 9951]
             [#if adPosition??]
                 [#noautoesc]${adPosition.resolveTemplate()}[/#noautoesc]

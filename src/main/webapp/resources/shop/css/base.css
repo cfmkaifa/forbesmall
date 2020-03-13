@@ -193,6 +193,7 @@
 	cursor: pointer;
 	user-select: none;
 }
+
 .main-header .top-nav .list-inline>li>a {
 	height: 35px;
 	line-height: 35px;
@@ -896,9 +897,9 @@
 .main-footer .bottom-nav {
 	line-height: 25px;
 	padding: 10px 0px;
-	color: #dddddd;
+	color: #000000;
 	text-align: center;
-	background: url('../images/main_footer.png') 0px 0px;
+	border-top: 2px solid #9999;
 }
 
 .main-footer .bottom-nav li {
@@ -907,7 +908,7 @@
 
 .main-footer .bottom-nav li a {
 	margin: 0px 20px;
-	color: #eeeeee;
+	color: #000000;
 }
 
 .main-footer .bottom-nav li a:hover {
@@ -1020,6 +1021,17 @@
 	margin: 21px auto auto 10px;
 }
 .record p a {
-	color: #63C6F2 !important;
+	color: #000000 !important;
 	text-decoration: underline;
+}
+
+.advertis {
+	width: 1410px;
+	margin: 0 auto;
+}
+.advertising {
+	width: 1410px;
+	height: 76px;
+	margin: 0 auto;
+	margin-bottom: 20px;
 }
