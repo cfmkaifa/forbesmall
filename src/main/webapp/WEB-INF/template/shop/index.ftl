@@ -279,7 +279,7 @@
                 [@article_category_root_list]
                     [#if articleCategories?has_content]
                         <div class="article">
-                            <ul class="nav nav-pills nav-justified">
+                            <ul class="nav nav-pills nav-justified pay">
                                 [#list articleCategories as articleCategory]
                                     <li[#if articleCategory_index == 0] class="active"[/#if]>
                                         <a href="#articleCategory_${articleCategory.id}"
@@ -292,7 +292,7 @@
                                     <div id="articleCategory_${articleCategory.id}"
                                          class="tab-pane fade[#if articleCategory_index == 0] active in[/#if]">
                                         [@article_list articleCategoryId = articleCategory.id count = 5]
-                                            <ul>
+                                            <ul class="payli">
                                                 [#list articles as article]
                                                     [#if articleCategory.name =="行业报告"]
                                                         <li class="text-overflow">
@@ -320,6 +320,34 @@
                         [#noautoesc]${adPosition.resolveTemplate()}[/#noautoesc]
                     [/#if]
                 [/@ad_position]
+                <div class="listbar">
+                    <ul class="listbarul">
+                        <li>
+                            <img src="${base}/resources/shop/images/1.png">
+                            <p><a href="http://www.chinafibermarketing.cn/resources/shop/html/smartFactory.html">智能工厂</a></p>
+                        </li>
+                        <li>
+                            <img src="${base}/resources/shop/images/2.png">
+                            <p><a href="http://www.chinafibermarketing.cn/article/articleindex">行业资讯</a></p>
+                        </li>
+                        <li>
+                            <img src="${base}/resources/shop/images/5.png">
+                            <p><a href="#">分析中心</a></p>
+                        </li>
+                        <li>
+                            <img src="${base}/resources/shop/images/3.png">
+                            <p><a href="http://www.ymm56.com/">运输服务</a></p>
+                        </li>
+                        <li>
+                            <img src="${base}/resources/shop/images/7.png">
+                            <p><a href="#">数据中心</a></p>
+                        </li>
+                        <li>
+                            <img src="${base}/resources/shop/images/6.png">
+                            <p><a href="http://www.chinafibermarketing.cn/resources/shop/html/companyIntroduction.html?v=1.0">联系我们</a></p>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
         [@ad_position id = 4]

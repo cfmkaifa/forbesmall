@@ -12,7 +12,6 @@
     <ul class="list-inline">
         <li>
             <a href="${base}/member/login">${message("shop.mainHeader.memberLogin")}</a>
-            [#--<a href="http://localhost:8080/member/login">${message("shop.mainHeader.memberLogin")}</a>--]
         </li>
         <li>
             <a href="${base}/member/register">${message("shop.mainHeader.memberRegister")}</a>

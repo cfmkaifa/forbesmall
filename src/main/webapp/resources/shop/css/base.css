@@ -1024,7 +1024,10 @@
 	color: #000000 !important;
 	text-decoration: underline;
 }
-
+.pay>.active {
+	font-weight: 600;
+	border-top: 2px solid #ee3834;
+}
 .advertis {
 	width: 1410px;
 	margin: 0 auto;
