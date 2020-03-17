@@ -324,27 +324,27 @@
                     <ul class="listbarul">
                         <li>
                             <img src="${base}/resources/shop/images/1.png">
-                            <p><a href="http://www.chinafibermarketing.cn/resources/shop/html/smartFactory.html">智能工厂</a></p>
+                            <p><a href="http://www.chinafibermarketing.cn/resources/shop/html/smartFactory.html">${message("shop.index.smart")}</a></p>
                         </li>
                         <li>
                             <img src="${base}/resources/shop/images/2.png">
-                            <p><a href="http://www.chinafibermarketing.cn/article/articleindex">行业资讯</a></p>
+                            <p><a href="http://www.chinafibermarketing.cn/article/articleindex">${message("shop.index.industry")}</a></p>
                         </li>
                         <li>
                             <img src="${base}/resources/shop/images/5.png">
-                            <p><a href="#">分析中心</a></p>
+                            <p><a href="#">${message("shop.index.marketanalyze")}</a></p>
                         </li>
                         <li>
                             <img src="${base}/resources/shop/images/3.png">
-                            <p><a href="http://www.ymm56.com/">运输服务</a></p>
+                            <p><a href="http://www.ymm56.com/">${message("shop.index.transport")}</a></p>
                         </li>
                         <li>
                             <img src="${base}/resources/shop/images/7.png">
-                            <p><a href="#">数据中心</a></p>
+                            <p><a href="#">${message("shop.index.datacenter")}</a></p>
                         </li>
                         <li>
                             <img src="${base}/resources/shop/images/6.png">
-                            <p><a href="http://www.chinafibermarketing.cn/resources/shop/html/companyIntroduction.html?v=1.0">联系我们</a></p>
+                            <p><a href="http://www.chinafibermarketing.cn/resources/shop/html/companyIntroduction.html?v=1.0">${message("shop.index.aboutus")}</a></p>
                         </li>
                     </ul>
                 </div>
@@ -383,8 +383,8 @@
 																	  <img src="${stores.logo}" class="logo-2">
 																	<p>${stores.name}</p>
 																</span>
-                                                            <p class="tonsof-2">${stores.capacity}吨/年</p>
-                                                            <p class="themain-2">主营品种</p>
+                                                            <p class="tonsof-2">${stores.capacity}${message("shop.index.capacity")}</p>
+                                                            <p class="themain-2">${message("shop.index.main")}</p>
                                                             <p class="varieties-2">${stores.keyword}</p>
                                                         </a>
                                                     </div>
