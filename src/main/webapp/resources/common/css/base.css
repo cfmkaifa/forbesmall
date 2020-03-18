@@ -45,6 +45,13 @@ ol, ul {
 	white-space: nowrap;
 }
 
+.payli>.text-overflow {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	text-align: center;
+}
+
 /* ---------- color ---------- */
 .text-red-darker {
 	color: #bd2636;

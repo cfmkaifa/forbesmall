@@ -1011,3 +1011,7 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
+.pay>.active {
+	font-weight: 600;
+	border-top: 2px solid #ee3834;
+}

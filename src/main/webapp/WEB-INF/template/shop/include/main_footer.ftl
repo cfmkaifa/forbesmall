@@ -7,8 +7,8 @@
                         <i class="iconfont icon-roundcheck"></i>
                     </div>
                     <div class="pull-left">
-                        <strong>品质保障</strong>
-                        <p>品质护航 购物无忧</p>
+                        <strong>简化采购流程</strong>
+                        <p>标准规范 采购无忧</p>
                     </div>
                 </div>
                 <div class="col-xs-3">
@@ -16,8 +16,8 @@
                         <i class="iconfont icon-time"></i>
                     </div>
                     <div class="pull-left">
-                        <strong>极速物流</strong>
-                        <p>多仓直发 极速配送</p>
+                        <strong>节约采购成本</strong>
+                        <p>团购集采 帮您省钱</p>
                     </div>
                 </div>
                 <div class="col-xs-3">
@@ -25,8 +25,8 @@
                         <i class="iconfont icon-like"></i>
                     </div>
                     <div class="pull-left">
-                        <strong>售后无忧</strong>
-                        <p>退换无忧 维修无忧</p>
+                        <strong>加速新品开发</strong>
+                        <p>产学配合 高效服务</p>
                     </div>
                 </div>
                 <div class="col-xs-3">
@@ -34,8 +34,8 @@
                         <i class="iconfont icon-goodsfavor"></i>
                     </div>
                     <div class="pull-left">
-                        <strong>天天低价</strong>
-                        <p>天天低价 帮您省钱</p>
+                        <strong>促进合规化管理</strong>
+                        <p>规避采购风险 促进企业升级</p>
                     </div>
                 </div>
             </div>

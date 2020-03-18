@@ -12,7 +12,6 @@
     <ul class="list-inline">
         <li>
             <a href="${base}/member/login">${message("shop.mainHeader.memberLogin")}</a>
-            [#--<a href="http://localhost:8080/member/login">${message("shop.mainHeader.memberLogin")}</a>--]
         </li>
         <li>
             <a href="${base}/member/register">${message("shop.mainHeader.memberRegister")}</a>
@@ -228,7 +227,7 @@
                     </ul>
                     <div class="dialog">
                         <p class="wrong">×</p>
-                        <a href="/business/login">${message("shop.mainHeader.businessIndex")}</a>
+                        <a href="http://www.chinafibermarketing.cn/business/login;jsessionid=606AB0AACC9C523017A139C8650F9B0C?redirectUrl=%2Fbusiness%2Findex">${message("shop.mainHeader.login")}</a>
                     </div>
                 </div>
             </div>
