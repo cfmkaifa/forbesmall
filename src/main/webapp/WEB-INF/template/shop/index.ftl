@@ -324,11 +324,11 @@
                     <ul class="listbarul">
                         <li>
                             <img src="${base}/resources/shop/images/1.png">
-                            <p><a href="http://www.chinafibermarketing.cn/resources/shop/html/smartFactory.html">${message("shop.index.smart")}</a></p>
+                            <p><a href="http://www.chinafibermarketing.com/resources/shop/html/smartFactory.html">${message("shop.index.smart")}</a></p>
                         </li>
                         <li>
                             <img src="${base}/resources/shop/images/2.png">
-                            <p><a href="http://www.chinafibermarketing.cn/article/articleindex">${message("shop.index.industry")}</a></p>
+                            <p><a href="http://www.chinafibermarketing.com/article/articleindex">${message("shop.index.industry")}</a></p>
                         </li>
                         <li>
                             <img src="${base}/resources/shop/images/5.png">
@@ -344,7 +344,7 @@
                         </li>
                         <li>
                             <img src="${base}/resources/shop/images/6.png">
-                            <p><a href="http://www.chinafibermarketing.cn/resources/shop/html/companyIntroduction.html?v=1.0">${message("shop.index.aboutus")}</a></p>
+                            <p><a href="http://www.chinafibermarketing.com/resources/shop/html/companyIntroduction.html?v=1.0">${message("shop.index.aboutus")}</a></p>
                         </li>
                     </ul>
                 </div>
