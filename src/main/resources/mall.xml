@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mall>
-	<setting name="siteName" value="无纺平台" />
-	<!--http://www.chinafibermarketing.com-->
+	<setting name="siteName" value="福布云商-服务于中国化纤市场" />
+	<!-- http://www.chinafibermarketing.cn -->
+	<!--<setting name="siteUrl" value="http://localhost:8080/forbes_mall" />-->
 	<setting name="siteUrl" value="http://www.chinafibermarketing.com" />
 	<setting name="fileUrl" value="http://fds.chinafibermarketing.com" />
 	<setting name="logo" value="/resources/shop/images/logo.png" />
