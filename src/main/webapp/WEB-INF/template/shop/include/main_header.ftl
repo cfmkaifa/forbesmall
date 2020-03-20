@@ -16,6 +16,15 @@
         <li>
             <a href="${base}/member/register">${message("shop.mainHeader.memberRegister")}</a>
         </li>
+        [@navigation_list navigationGroupId = 1]
+            [#if navigations?has_content]
+                [#list navigations as navigation]
+                    <li>
+                        <a href="${navigation.url}"[#if navigation.isBlankTarget] target="_blank"[/#if]> ${message("shop.mainHeader.buyer")}</a>
+                    </li>
+                [/#list]
+            [/#if]
+        [/@navigation_list]
     </ul>
     <%}%>
 </script>
@@ -168,15 +177,6 @@
                 <div class="col-xs-12" style="position: relative">
                     <div id="mainHeaderMemberInfo" class="pull-left"></div>
                     <ul class="list-inline pull-right">
-                        [@navigation_list navigationGroupId = 1]
-                            [#if navigations?has_content]
-                                [#list navigations as navigation]
-                                    <li>
-                                        <a href="${navigation.url}"[#if navigation.isBlankTarget] target="_blank"[/#if]>${navigation.name}</a>
-                                    </li>
-                                [/#list]
-                            [/#if]
-                        [/@navigation_list]
                         <li class="top-nav-dropdown">
                             <a href="javascript:;">
                                 ${message("shop.mainHeader.business")}
@@ -191,7 +191,7 @@
                                     <a href="${base}/business/register">${message("shop.mainHeader.businessRegister")}</a>
                                 </li>
                             </ul>
-                        </li>
+
                         <li class="top-nav-dropdown">
                             <a href="javascript:;">
                                 ${message("shop.mainHeader.qrcode")}

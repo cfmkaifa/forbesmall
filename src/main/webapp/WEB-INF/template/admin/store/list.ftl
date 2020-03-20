@@ -241,7 +241,7 @@
 												</td>
 												<td>${store.name}</td>
 												<td>${message("Store.Type." + store.type)}</td>
-												<td>${store.business.username}</td>
+												<td>[#if tore.business.username?exists]${store.business.username}[/#if]</td>
 												<td>${store.storeRank.name}</td>
 												<td>${store.storeCategory.name}</td>
 												<td>

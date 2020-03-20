@@ -11,7 +11,7 @@ a,a:hover{
 	border-bottom: 2px solid #ed0000;
 }
 .navigation{
-	width:1200px;
+	width: 1083px;
 	height: 44px;
 	margin: 0 auto;
 	display: flex;
@@ -55,7 +55,6 @@ a,a:hover{
 	margin: 0 auto;
 	font-size: 16px;
 	color: #333;
-	padding: 10px;
 }
 .hotAttention{
 	display: flex;
@@ -117,8 +116,7 @@ a,a:hover{
 	line-height: 40px;
 }
 .view{
-	/* margin-top: 20px; */
-	padding-bottom: 50px;
+	margin-top: -14px;
 }
 .information_title{
 	display: flex;

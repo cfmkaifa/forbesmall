@@ -724,8 +724,9 @@
 }
 
 .product-detail .specification {
-	padding: 5px 15px;
-	margin-bottom: 15px;
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
 	-webkit-transition: background-color 0.3s;
 	transition: background-color 0.3s;
 }
@@ -1699,4 +1700,90 @@
 	right: 3px;
 	width: 46%;
 	height: 52%;
+}
+
+.star-level {
+	width: 100px;
+	height: 20px;
+	border: 1px solid #FF7500;
+	display: flex;
+	margin: 9px 10px 0px 0px;
+}
+.star-level1 {
+	width: 100px;
+	height: 20px;
+	border: 1px solid #FF7500;
+	display: flex;
+}
+.product-specifications {
+	margin-left: 5px;
+}
+.xing-22 {
+	display: flex;
+	height: 40px;
+	line-height: 40px;
+}
+.xing-2 {
+	width: 42px;
+	height: 18px;
+	background: #FF7500;
+	border-right: #FF7500;
+	color: #FFFFFF;
+	font-size: 10px;
+}
+.points-2 {
+	padding: 2px 0px 0px 5px;
+	color: #FF7500;
+	font-size: 12px;
+	text-align: center;
+	margin-right: 5px;
+}
+.thecompany-2 {
+	border-left: 1px solid #e5e5e5;
+	height: 23px;
+	margin-top: 7px;
+	padding-left: 10px;
+	line-height: 25px;
+}
+.drawer-2 {
+	display: flex;
+	height: 30px;
+	line-height: 30px;
+	font-size: 14px;
+}
+.drawer-2 p {
+	margin-left: 8px;
+}
+.box {
+	width: 1125px;
+	margin: 20px auto;
+}
+.information {
+	width: 1125px;
+	display: flex;
+	/* justify-content: space-between; */
+	flex-wrap: wrap;
+}
+.information li {
+	width: 33.3%;
+	height: 40px;
+	line-height: 40px;
+	display: flex;
+}
+.information-p {
+	width: 40%;
+	text-align: right;
+	padding-right: 10px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.information-p2 {
+	width: 60%;
+	height: 40px;
+	text-align: left;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	padding-left: 10px;
 }
