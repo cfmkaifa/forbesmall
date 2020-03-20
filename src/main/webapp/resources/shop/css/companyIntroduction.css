@@ -97,7 +97,7 @@ h2{
 .content_title .title_left{
     display: flex; 
     justify-content:space-evenly;
-    width: 65%;
+    width: 70%;
     align-items: center;
     
 }
@@ -161,6 +161,11 @@ h2{
     line-height: 50px;
     margin-top: 20px;
 }
+.text_right img {
+    width: 370px;
+    height: 344px;
+    margin-top: 110px;
+}
 .internet_title{
     display: flex;
     justify-content:space-between;
@@ -216,7 +221,7 @@ h2{
     background: #EEEEEE;
 }
 .cooperation{
-    background: url(../img/corner.png) no-repeat;
+    background: url(/resources/shop/images/corner.png) no-repeat;
     font-size: 18px;
     color: #333;
     padding: 20px;
@@ -276,7 +281,7 @@ h2{
     width: 555px;
     height: 420px;
     margin: 30px;
-    background: url(../img/contactLeft.png) no-repeat;
+    background: url(/resources/shop/images/contactLeft.png) no-repeat;
     text-align: center;
     padding-top: 160px;
     box-sizing:boder-box;
@@ -306,16 +311,16 @@ h2{
 
 }
 .right1{
-    background: url(../img/contactRight1.png) no-repeat;
+    background: url(/resources/shop/images/contactRight1.png) no-repeat;
 }
 .right2{
-    background: url(../img/contactRight2.png) no-repeat;
+    background: url(/resources/shop/images/contactRight2.png) no-repeat;
 }
 .right3{
-    background: url(../img/contactRight3.png) no-repeat;
+    background: url(/resources/shop/images/contactRight3.png) no-repeat;
 }
 .right4{
-    background: url(../img/contactRight4.png) no-repeat;
+    background: url(/resources/shop/images/contactRight4.png) no-repeat;
 }
 .contact_bottom{
     margin-left: 30px;

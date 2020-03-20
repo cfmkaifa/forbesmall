@@ -1,31 +1,35 @@
 ul li{
 	list-style: none;
 }
-a,a:hover{
+.pull-left a:hover{
+	text-decoration: none;
+	color: #FFFFFF !important;
+	background: red !important;
+}
+a {
 	text-decoration: none;
 	color: #2D2D2D;
 }
-
 .newsNav{
 	width: 100%;
 	border-bottom: 2px solid #ed0000;
 }
 .navigation{
-	width: 1083px;
-	height: 44px;
+	width: 1099px;
+	height: 34px;
 	margin: 0 auto;
 	display: flex;
-	justify-content: space-between;
+	/*justify-content: space-between;*/
 	/* align-items: center; */
 	
 }
 .navigation li{
-	width: 14%;
-	height: 46px;
-	font-size: 16px;
-	line-height: 46px;
+	width: 100px;
+	height: 34px;
+	font-size: 13px;
+	line-height: 37px;
 	text-align: center;
-	font-weight:600;
+	font-weight: 600;
 	cursor: pointer;
 	
 }
@@ -62,8 +66,11 @@ a,a:hover{
 	text-align: left;
 	margin-top: 20px;
 }
+/*.hotAttention_img {*/
+/*	width: 43%;*/
+/*}*/
 .hotAttention_img img{
-	width: 90%;
+	width: 96%;
 	height: 95%;
 }
 .hotAttention_news{
@@ -99,7 +106,8 @@ a,a:hover{
 .hotAttention_content{
 	margin-top: 20px;
 	color: #333;
-	width: 60%;
+	width: 100%;
+	text-align: left;
 }
 .hotAttention_content1{
 	margin-top: 20px;
@@ -114,6 +122,7 @@ a,a:hover{
 	height: 40px;
 	border-bottom: 1px dashed #999;
 	line-height: 40px;
+	font-size: 13px;
 }
 .view{
 	margin-top: -14px;

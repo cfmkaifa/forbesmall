@@ -2,7 +2,7 @@
 <html>
 <head>
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/resources/shop/css/attention.css">
+    <link rel="stylesheet" href="${base}/resources/shop/css/attention.css">
     <link href="${base}/favicon.ico" rel="icon">
     <link href="${base}/resources/common/css/bootstrap.css" rel="stylesheet">
     <link href="${base}/resources/common/css/iconfont.css" rel="stylesheet">
@@ -40,7 +40,7 @@
             <ul class="navigation">
                 [#list articleCategories as articleCategories]
                     <li class="item">
-                        <a href="${base}/article/list/${articleCategories.id}">${articleCategories.name}</a>
+                        <a href="${base}/article/articlelist/${articleCategories.id}">${articleCategories.name}</a>
                     </li>
                 [/#list]
             </ul>
@@ -63,7 +63,6 @@
 								<span class="newsTitle_text">
 									<h3>${article.title}</h3>
 								</span>
-                                [#--<a href="${base}${article.path}">--]
                                 <a href="${base}${article.path}">
                                     <img src="${base}/resources/shop/images/khcfdc.png" alt="" style="width:18px;">
                                 </a>

@@ -227,7 +227,7 @@
     </div>
     <div class="logo-3">
         <div class="login-main3">
-            <img href="http://www.chinafibermarketing.cn/" src="/resources/shop/images/logo.png">
+           <a href="http://www.chinafibermarketing.cn"><img  src="${base}/resources/shop/images/logo.png"></a>
         </div>
     </div>
 </header>

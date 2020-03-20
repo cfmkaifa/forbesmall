@@ -328,7 +328,6 @@ public class Product extends BaseEntity<Long> {
     }
 
     @JsonView(BaseView.class)
-
     @Column(name = "is_group")
     private Boolean isGroup;
 

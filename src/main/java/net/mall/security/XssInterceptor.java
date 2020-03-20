@@ -95,8 +95,10 @@ public class XssInterceptor extends HandlerInterceptorAdapter {
                             "details", "dir", "div", "dfn", "dialog", "dl", "dt", "em", "embed", "fieldset", "figcaption", "figure", "font", "footer", "form", "frame", "frameset", "h1", "h2", "h3", "h4", "h5", "h6", "head", "header", "hr", "html", "i", "iframe", "img", "input", "ins", "isindex",
                             "kbd", "keygen", "label", "legend", "li", "link", "map", "mark", "menu", "menuitem", "meta", "meter", "nav", "noframes", "noscript", "object", "ol", "optgroup", "option", "output", "p", "param", "pre", "progress", "q", "rp", "rt", "ruby", "s", "samp", "section", "select",
                             "small", "source", "span", "strike", "strong", "style", "sub", "summary", "sup", "table", "tbody", "td", "textarea", "tfoot", "th", "thead", "time", "title", "tr", "track", "tt", "u", "ul", "var", "video", "wbr", "xmp")
-                    .addAttributes("a", "charset", "coords", "download", "href", "hreflang", "media", "name", "rel", "rev", "shape", "target", "type").addAttributes("code", "object", "applet", "align", "alt", "archive", "codebase", "height", "hspace", "name", "vspace", "width")
-                    .addAttributes("area", "alt", "coords", "href", "nohref", "shape", "target").addAttributes("audio", "autoplay", "controls", "loop", "muted", "preload", "src").addAttributes("base", "href", "target").addAttributes("basefont", "color", "face", "size").addAttributes("bdi", "dir")
+                    .addAttributes("a", "charset", "coords", "download", "href", "hreflang", "media", "name", "rel", "rev", "shape", "target", "type")
+                    .addAttributes("code", "object", "applet", "align", "alt", "archive", "codebase", "height", "hspace", "name", "vspace", "width")
+                    .addAttributes("area", "alt", "coords", "href", "nohref", "shape", "target").addAttributes("audio", "autoplay", "controls", "loop", "muted", "preload", "src").addAttributes("base", "href", "target")
+                    .addAttributes("basefont", "color", "face", "size").addAttributes("bdi", "dir")
                     .addAttributes("bdo", "dir").addAttributes("blockquote", "cite").addAttributes("body", "alink", "background", "bgcolor", "link", "text", "vlink")
                     .addAttributes("button", "autofocus", "disabled", "form", "formaction", "formenctype", "formmethod", "formnovalidate", "formtarget", "name", "type", "value").addAttributes("canvas", "height", "width").addAttributes("caption", "align")
                     .addAttributes("col", "align", "char", "charoff", "span", "valign", "width").addAttributes("colgroup", "align", "char", "charoff", "span", "valign", "width").addAttributes("command", "checked", "disabled", "icon", "label", "radiogroup", "type")
@@ -138,7 +140,12 @@ public class XssInterceptor extends HandlerInterceptorAdapter {
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        if (!isValid(request)) {
+        String uri = request.getRequestURI();
+        if (!isValid(request)
+                && !uri.startsWith("/admin/article/save")
+                && !uri.startsWith("/admin/article/update")
+                && !uri.startsWith("/business/product/update")
+                && !uri.startsWith("/business/product/update")) {
             if (WebUtils.isAjaxRequest(request)) {
                 Results.forbidden(response, "common.message.invalidXss");
             } else {
