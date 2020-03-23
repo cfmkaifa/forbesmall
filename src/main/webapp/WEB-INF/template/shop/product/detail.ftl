@@ -402,7 +402,7 @@
             </div>
             <div class="col-xs-7">
                 <div class="name">
-                    <h4>${product.name}</h4>
+                    <h1 style="font-size: 18px">${product.name}</h1>
                     [#if product.caption?has_content]
                         <strong>${product.caption}</strong>
                     [/#if]
@@ -413,12 +413,13 @@
                             ${message("Product.unitPrice")}：<strong id="price" class="unit-2">${product.price}</strong>
                             <span class="unit-2">/${product.unit}</span>
                         </p>
-                        <div style="display: flex">
-                            [#--  <p><span>[#noautoesc]介绍：${product.introduction}[/#noautoesc]</span></p>--]
-                        </div>
                         <p>${message("Product.shelfTime")}：<span>${product.createdDate}</span></p>
-                        <p>${message("Product.serviceCall")}：<span>${product.store.phone}</span></p>
+                        <div style="display: flex">
+                            <p>${message("Product.serviceCall")}:[#noautoesc]${product.introduction}[/#noautoesc]</p>
+                        </div>
                     </div>
+                    <div>
+                 </div>
                     <ul class="clearfix">
                         <li>
                             ${message("Product.monthSales")}:
@@ -433,6 +434,24 @@
                             <strong>${product.score?string("0.0")}</strong>
                         </li>
                     </ul>
+                    <div class="xing-22">
+                        <p style="font-size: 16px;">卖家信息：</p>
+                        <div class="star-level">
+                            <div class="xing-2">
+                                <span class="iconfont">&#xe70b;</span>${message("shop.product.star")}
+                            </div>
+                            <div class="points-2">
+                                ${message("shop.product.grade")}
+                            </div>
+                        </div>
+                        <div class="thecompany-2">
+                            ${product.store.name}
+                        </div>
+                    </div>
+                    <div class="drawer-2">
+                        <span class="iconfont">&#xe70b;</span>
+                        <p>${product.store.name}</p>
+                    </div>
                 </div>
                 [#if product.type == "GENERAL" || product.type == "EXCHANGE"]
                     [#if product.hasSpecification()]
@@ -531,8 +550,6 @@
                                             <dd>${product.store.address}</dd>
                                         [/#if]
                                         [#if product.store.phone?has_content]
-                                            <dt>${message("Store.phone")}:</dt>
-                                            <dd>${product.store.phone}</dd>
                                         [/#if]
                                     </dl>
                                 [/#if]
@@ -620,27 +637,19 @@
                             <h4>${message("shop.product.parameter")}</h4>
                         </div>
                         <div class="parameter-body">
-                            <table class=" table-2">
-                                [#list product.parameterValues as parameterValue]
-                                    <tr>
-                                        <th class="group" colspan="2">${parameterValue.group}</th>
-                                    </tr>
+                            [#list product.parameterValues as parameterValue]
+                                <div>
+                                    <p class="group" colspan="2">${parameterValue.group}</p>
+                                </div>
+                                <ul class="information">
                                     [#list parameterValue.entries as entry]
-                                        <tr>
-                                            <td>${entry.name}</td>
-                                            <td>${entry.value}</td>
-                                        </tr>
+                                        <li>
+                                            <p class="information-p">${entry.name}</p>
+                                            <p class="information-p2">${entry.value}</p>
+                                        </li>
                                     [/#list]
-                                [/#list]
-                                [#--	[#list product.specificationItems as parameterSpec]
-                                        <tr>
-                                            <td>${parameterSpec.name}：</td>
-                                        [#list parameterSpec.entries as entry]
-                                            <td>${entry.value}</td>
-                                        [/#list]
-                                        </tr>
-                                    [/#list]--]
-                            </table>
+                                </ul>
+                            [/#list]
                         </div>
                     </div>
                 [/#if]

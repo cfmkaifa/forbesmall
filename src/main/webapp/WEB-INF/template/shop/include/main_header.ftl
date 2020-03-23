@@ -16,6 +16,15 @@
         <li>
             <a href="${base}/member/register">${message("shop.mainHeader.memberRegister")}</a>
         </li>
+        [@navigation_list navigationGroupId = 1]
+            [#if navigations?has_content]
+                [#list navigations as navigation]
+                    <li>
+                        <a href="${navigation.url}"[#if navigation.isBlankTarget] target="_blank"[/#if]> ${message("shop.mainHeader.buyer")}</a>
+                    </li>
+                [/#list]
+            [/#if]
+        [/@navigation_list]
     </ul>
     <%}%>
 </script>
@@ -188,15 +197,6 @@
                 <div class="col-xs-12" style="position: relative">
                     <div id="mainHeaderMemberInfo" class="pull-left"></div>
                     <ul class="list-inline pull-right">
-                        [@navigation_list navigationGroupId = 1]
-                            [#if navigations?has_content]
-                                [#list navigations as navigation]
-                                    <li>
-                                        <a href="${navigation.url}"[#if navigation.isBlankTarget] target="_blank"[/#if]>${navigation.name}</a>
-                                    </li>
-                                [/#list]
-                            [/#if]
-                        [/@navigation_list]
                         <li class="top-nav-dropdown">
                             <a href="javascript:;">
                                 ${message("shop.mainHeader.business")}
@@ -227,7 +227,7 @@
                     </ul>
                     <div class="dialog">
                         <p class="wrong">×</p>
-                        <a href="http://www.chinafibermarketing.cn/business/login;jsessionid=606AB0AACC9C523017A139C8650F9B0C?redirectUrl=%2Fbusiness%2Findex">${message("shop.mainHeader.login")}</a>
+                        <a href="http://www.chinafibermarketing.com/business/login;jsessionid=606AB0AACC9C523017A139C8650F9B0C?redirectUrl=%2Fbusiness%2Findex">${message("shop.mainHeader.login")}</a>
                     </div>
                 </div>
             </div>

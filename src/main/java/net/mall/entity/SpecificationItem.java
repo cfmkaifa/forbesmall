@@ -18,6 +18,8 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.hibernate.search.annotations.*;
+import org.hibernate.search.annotations.Store;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -29,6 +31,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @author huanghy
  * @version 6.1
  */
+@Indexed
 public class SpecificationItem implements Serializable {
 
     private static final long serialVersionUID = 7623999885848444842L;
@@ -42,6 +45,7 @@ public class SpecificationItem implements Serializable {
      * 名称
      */
     @NotEmpty
+    @Field(store = Store.YES, index = Index.YES, analyze = Analyze.NO)
     @Length(max = 200)
     private String name;
 

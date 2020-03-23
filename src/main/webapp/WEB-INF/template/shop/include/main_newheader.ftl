@@ -17,6 +17,15 @@
         <li>
             <a href="${base}/member/register">${message("shop.mainHeader.memberRegister")}</a>
         </li>
+        [@navigation_list navigationGroupId = 1]
+            [#if navigations?has_content]
+                [#list navigations as navigation]
+                    <li>
+                        <a href="${navigation.url}"[#if navigation.isBlankTarget] target="_blank"[/#if]> ${message("shop.mainHeader.buyer")}</a>
+                    </li>
+                [/#list]
+            [/#if]
+        [/@navigation_list]
     </ul>
     <%}%>
 </script>
@@ -227,7 +236,7 @@
     </div>
     <div class="logo-3">
         <div class="login-main3">
-            <img src="/resources/shop/images/logo.png">
+            <img href="http://www.chinafibermarketing.com/" src="/resources/shop/images/logo.png">
         </div>
     </div>
 </header>

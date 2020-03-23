@@ -35,9 +35,9 @@
         <div class="information_content">
             <div class="hotAttention content">
                 <div class="hotAttention_img">
-                    <img src="/resources/shop/images/bannerx.jpg" alt="">
+                    <img src="${base}/resources/shop/images/bannerx.jpg" alt="">
                 </div>
-                <div>
+                <div style="width: 45%;">
                     <div class="hotAttention_news">
 				            <span class="hotAttention_title">
 				                <div></div>
@@ -70,7 +70,7 @@
                         [/#list]
                     </div>
                     <div class="information_img">
-                        <img src="/resources/shop/images/11.png" alt="">
+                        <img src="${base}/resources/shop/images/11.png" alt="">
                     </div>
                 </div>
             </div>
@@ -90,7 +90,7 @@
                         [/#list]
                     </div>
                     <div class="information_img">
-                        <img src="/resources/shop/images/11.png" alt="">
+                        <img src="${base}/resources/shop/images/11.png" alt="">
                     </div>
                 </div>
             </div>
@@ -110,7 +110,7 @@
                         [/#list]
                     </div>
                     <div class="information_img">
-                        <img src="/resources/shop/images/11.png" alt="">
+                        <img src="${base}/resources/shop/images/11.png" alt="">
                     </div>
                 </div>
             </div>

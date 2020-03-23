@@ -102,7 +102,7 @@ public class Article extends BaseEntity<Long> {
      * 内容
      */
     @JsonView(BaseView.class)
-    @Field(store = Store.YES, index = Index.YES, analyze = Analyze.YES)
+    @Field(store = Store.YES, index = Index.YES, analyze = Analyze.NO)
     @Lob
     private String content;
 

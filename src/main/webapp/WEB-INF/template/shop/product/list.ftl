@@ -567,7 +567,7 @@
                                                     <li>
                                                     </li>
                                                     <li>
-                                                        <div class="star-level">
+                                                        <div class="star-level1">
                                                             <div class="xing-2">
                                                                 <span class="iconfont">&#xe70b;</span>${message("shop.product.star")}
                                                             </div>
@@ -579,7 +579,7 @@
                                                             <p class="text-center">
                                                                 <a href="${base}${product.store.path}"
                                                                    title="${product.store.name}"
-                                                                   target="_blank">${abbreviate(product.store.name, 15)}</a>
+                                                                   target="_blank">${abbreviate(product.store.name)}</a>
                                                                 [#if product.store.type == "SELF"]
                                                                     <span class="label label-primary">${message("Store.Type.SELF")}</span>
                                                                 [/#if]
@@ -613,9 +613,6 @@
                                                     </li>
                                                     <li>
                                                         <span class="iconfont">&#xe634;</span>${message("shop.product.entrepot")}
-                                                    </li>
-                                                    <li>
-                                                        <span class="iconfont">&#xe615;</span>${message("shop.product.pay")}
                                                     </li>
                                                     <li>
                                                         <span class="iconfont">&#xe602;</span>${message("shop.product.flash")}

@@ -68,15 +68,23 @@
             </div>
             <div class="col-xs-2">
                 <dl class="help">
-                    <dt>购物指南</dt>
+                    <dt>平台规则</dt>
                     <dd>
-                        <a href="${base}/article/detail/16_1">免费注册</a>
+                        <a href="${base}/article/detail/16_1">平台服务协议</a>
                     </dd>
                     <dd>
-                        <a href="${base}/article/detail/15_1">购物流程</a>
+                        <a href="${base}/article/detail/15_1">平台交易规则</a>
+                    </dd>
+                </dl>
+            </div>
+            <div class="col-xs-2">
+                <dl class="help">
+                    <dt>合同模板</dt>
+                    <dd>
+                        <a href="${base}/article/detail/19_1">产品采购合同</a>
                     </dd>
                     <dd>
-                        <a href="${base}/article/detail/17_1">会员等级</a>
+                        <a href="${base}/article/detail/19_1">下载合同</a>
                     </dd>
                 </dl>
             </div>
@@ -84,28 +92,12 @@
                 <dl class="help">
                     <dt>支付方式</dt>
                     <dd>
-                        <a href="${base}/article/detail/19_1">货到付款</a>
+                        <a href="${base}/article/detail/31_1">线下打款</a>
                     </dd>
                     <dd>
-                        <a href="${base}/article/detail/20_1">网银支付</a>
+                        <a href="${base}/article/detail/33_1">银行承兑汇票</a>
                     </dd>
-                    <dd>
-                        <a href="${base}/article/detail/21_1">银行转帐</a>
-                    </dd>
-                </dl>
-            </div>
-            <div class="col-xs-2">
-                <dl class="help">
-                    <dt>售后服务</dt>
-                    <dd>
-                        <a href="${base}/article/detail/31_1">退换货政策</a>
-                    </dd>
-                    <dd>
-                        <a href="${base}/article/detail/33_1">退换货申请</a>
-                    </dd>
-                    <dd>
-                        <a href="${base}/article/detail/34_1">退款说明</a>
-                    </dd>
+
                 </dl>
             </div>
             <div class="col-xs-2">
@@ -116,10 +108,13 @@
                         <a href="${base}/article/member">会员入驻</a>
                     </dd>
                     <dd>
-                        <a href="${base}/article/detail/37_1">商家帮助</a>
+                        <a href="${base}/article/detail/31_1">上传合同</a>
                     </dd>
                     <dd>
-                        <a href="${base}/article/detail/38_1">运营服务</a>
+                        <a href="${base}/article/detail/33_1">审核查询</a>
+                    </dd>
+                    <dd>
+                        <a href="${base}/article/detail/34_1">服务热线</a>
                     </dd>
                 </dl>
             </div>

@@ -242,7 +242,6 @@ public class Store extends BaseEntity<Long> {
     /**
      * 产能
      */
-    @NotNull
     private Integer capacity;
 
     /**
