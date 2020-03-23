@@ -1,0 +1,625 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="forbes_mall" />
+    </artifacts-to-build>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="11b64c26-e744-4364-b8b2-94ea2dfc2eac" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/lib/chinapaysecure1_5.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/common/js/underscore.js" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CoverageViewManager">
+    <option name="myElementSize" value="241" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="forbes_mall" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="MERGE" />
+  </component>
+  <component name="LogFilters">
+    <option name="FILTER_ERRORS" value="false" />
+    <option name="FILTER_WARNINGS" value="false" />
+    <option name="FILTER_INFO" value="true" />
+    <option name="FILTER_DEBUG" value="true" />
+    <option name="CUSTOM_FILTER" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="D:/maven/apache-maven-3.6.3" />
+        <option name="userSettingsFile" value="D:\maven\apache-maven-3.6.3\conf\settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1YbHMMafT9FRbjp2Au3qFuMBo3r" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/webapp/resources/shop/images" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\work\forbesmall\src\main\webapp\resources\shop\images" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="mall" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="apache-tomcat-8.5.50" ALTERNATIVE_JRE_ENABLED="false">
+      <option name="UPDATING_POLICY" value="restart-server" />
+      <deployment>
+        <artifact name="forbes_mall">
+          <settings>
+            <option name="CONTEXT_PATH" value="/" />
+          </settings>
+        </artifact>
+      </deployment>
+      <server-settings>
+        <option name="BASE_DIRECTORY_NAME" value="Unnamed_forbesmall" />
+      </server-settings>
+      <predefined_log_file enabled="true" id="Tomcat" />
+      <predefined_log_file enabled="true" id="Tomcat Catalina" />
+      <predefined_log_file id="Tomcat Manager" />
+      <predefined_log_file id="Tomcat Host Manager" />
+      <predefined_log_file id="Tomcat Localhost Access" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="54974" />
+      </RunnerSettings>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="forbes_mall" />
+        </option>
+      </method>
+    </configuration>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <option name="contentProportion" value="0.08982684" />
+          <treeState>
+            <expand>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="Tomcat Server" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              </path>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="Tomcat Server" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+                <item name="Finished" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              </path>
+            </expand>
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SpringGeneralSettings">
+    <option name="allowAutoConfigurationMode" value="true" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="11b64c26-e744-4364-b8b2-94ea2dfc2eac" name="Default Changelist" comment="" />
+      <created>1583204324368</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1583204324368</updated>
+      <workItem from="1583204326476" duration="9032000" />
+      <workItem from="1583216239565" duration="1703000" />
+      <workItem from="1583225864389" duration="1609000" />
+      <workItem from="1583387210076" duration="3242000" />
+      <workItem from="1583472144141" duration="907000" />
+      <workItem from="1583482747258" duration="1006000" />
+      <workItem from="1583484340720" duration="1438000" />
+      <workItem from="1583716849318" duration="32853000" />
+      <workItem from="1583802028593" duration="11185000" />
+      <workItem from="1583830965055" duration="1081000" />
+      <workItem from="1583914370136" duration="2895000" />
+      <workItem from="1583919563984" duration="3743000" />
+      <workItem from="1583976748387" duration="8339000" />
+      <workItem from="1584006164313" duration="5619000" />
+      <workItem from="1584063645417" duration="12220000" />
+      <workItem from="1584321230844" duration="1068000" />
+      <workItem from="1584424744765" duration="2224000" />
+      <workItem from="1584427431895" duration="10494000" />
+      <workItem from="1584493395385" duration="32990000" />
+      <workItem from="1584582565938" duration="2482000" />
+      <workItem from="1584586185332" duration="8919000" />
+      <workItem from="1584619652913" duration="688000" />
+      <workItem from="1584666040128" duration="28410000" />
+      <workItem from="1584696453232" duration="6857000" />
+      <workItem from="1584924429668" duration="19864000" />
+      <workItem from="1584950703145" duration="4628000" />
+    </task>
+    <task id="LOCAL-00001" summary="中文替换">
+      <created>1583208192749</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1583208192749</updated>
+    </task>
+    <task id="LOCAL-00002" summary="颜色调整">
+      <created>1583393404463</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1583393404463</updated>
+    </task>
+    <task id="LOCAL-00003" summary="样式调整和商家登录入口添加提示框">
+      <created>1583735140228</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1583735140228</updated>
+    </task>
+    <task id="LOCAL-00004" summary="福布无纺添加提示框">
+      <created>1583736779641</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1583736779641</updated>
+    </task>
+    <task id="LOCAL-00005" summary="商城顶部添加广告框，商家登录提示样式完善">
+      <created>1583804188821</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1583804188821</updated>
+    </task>
+    <task id="LOCAL-00006" summary="商城顶部添加广告框，商家登录提示样式完善">
+      <created>1583804404069</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1583804404069</updated>
+    </task>
+    <task id="LOCAL-00007" summary="中文替换">
+      <created>1583805855550</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1583805855550</updated>
+    </task>
+    <task id="LOCAL-00008" summary="底部备案号替换">
+      <created>1583991147989</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1583991147989</updated>
+    </task>
+    <task id="LOCAL-00009" summary="底部备案号替换">
+      <created>1583991244414</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1583991244414</updated>
+    </task>
+    <task id="LOCAL-00010" summary="福布云商顶部广告位，logo替换">
+      <created>1584067927460</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1584067927461</updated>
+    </task>
+    <task id="LOCAL-00011" summary="样式调整">
+      <created>1584076159662</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1584076159662</updated>
+    </task>
+    <task id="LOCAL-00012" summary="化纤商城运维调整">
+      <created>1584441510985</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1584441510985</updated>
+    </task>
+    <task id="LOCAL-00013" summary="中文替换">
+      <created>1584442624423</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1584442624423</updated>
+    </task>
+    <task id="LOCAL-00014" summary="中文替换">
+      <created>1584443075988</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1584443075988</updated>
+    </task>
+    <task id="LOCAL-00015" summary="商品分类样式调整">
+      <created>1584495772341</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1584495772341</updated>
+    </task>
+    <task id="LOCAL-00016" summary="福布无纺样式调整">
+      <created>1584517842965</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1584517842965</updated>
+    </task>
+    <task id="LOCAL-00017" summary="商品分类样式调整">
+      <created>1584518155486</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1584518155486</updated>
+    </task>
+    <task id="LOCAL-00018" summary="路径调整">
+      <created>1584518600365</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1584518600365</updated>
+    </task>
+    <task id="LOCAL-00019" summary="路径调整">
+      <created>1584518839211</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1584518839211</updated>
+    </task>
+    <task id="LOCAL-00020" summary="商品详情页样式调整">
+      <created>1584683905432</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1584683905432</updated>
+    </task>
+    <task id="LOCAL-00021" summary="行业资讯调整，联系我们调整，商品详情调整">
+      <created>1584703303119</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1584703303119</updated>
+    </task>
+    <task id="LOCAL-00022" summary="福布无纺行业资讯调整，联系我们调整，商品详情调整">
+      <created>1584939589090</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1584939589090</updated>
+    </task>
+    <task id="LOCAL-00023" summary="首页产能显示调整">
+      <created>1584940158374</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1584940158374</updated>
+    </task>
+    <task id="LOCAL-00024" summary="供应显示，样式调整">
+      <created>1584946190232</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1584946190232</updated>
+    </task>
+    <task id="LOCAL-00025" summary="图标调整">
+      <created>1584949284375</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1584949284375</updated>
+    </task>
+    <task id="LOCAL-00026" summary="图标调整">
+      <created>1584953154837</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1584953154837</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="1">
+          <value>
+            <State />
+          </value>
+        </entry>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="OPEN_TABS">
+      <set>
+        <option value="1" />
+      </set>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="颜色调整" />
+    <MESSAGE value="样式调整和商家登录入口添加提示框" />
+    <MESSAGE value="福布无纺添加提示框" />
+    <MESSAGE value="商城顶部添加广告框，商家登录提示样式完善" />
+    <MESSAGE value="底部备案号替换" />
+    <MESSAGE value="福布云商顶部广告位，logo替换" />
+    <MESSAGE value="样式调整" />
+    <MESSAGE value="化纤商城运维调整" />
+    <MESSAGE value="中文替换" />
+    <MESSAGE value="福布无纺样式调整" />
+    <MESSAGE value="商品分类样式调整" />
+    <MESSAGE value="路径调整" />
+    <MESSAGE value="商品详情页样式调整" />
+    <MESSAGE value="行业资讯调整，联系我们调整，商品详情调整" />
+    <MESSAGE value="福布无纺行业资讯调整，联系我们调整，商品详情调整" />
+    <MESSAGE value="首页产能显示调整" />
+    <MESSAGE value="供应显示，样式调整" />
+    <MESSAGE value="图标调整" />
+    <option name="LAST_COMMIT_MESSAGE" value="图标调整" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="552" y="179" key="#Notifications" timestamp="1584955345886">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="179" key="#Notifications/0.0.1920.1040@0.0.1920.1040" timestamp="1584955345886" />
+    <state x="552" y="179" key="#Project_Structure" timestamp="1583725678514">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="179" key="#Project_Structure/0.0.1920.1040@0.0.1920.1040" timestamp="1583725678514" />
+    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1584946284055">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1584946284055" />
+    <state x="552" y="178" key="#com.intellij.j2ee.appServerIntegrations.ApplicationServersConfigurable" timestamp="1583204994615">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="178" key="#com.intellij.j2ee.appServerIntegrations.ApplicationServersConfigurable/0.0.1920.1040@0.0.1920.1040" timestamp="1583204994615" />
+    <state x="735" y="444" key="#com.intellij.javaee.module.view.common.J2EE.J2EEDeploymentDescriptorLocationPanel.changeDDPath" timestamp="1583722688407">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="735" y="444" key="#com.intellij.javaee.module.view.common.J2EE.J2EEDeploymentDescriptorLocationPanel.changeDDPath/0.0.1920.1040@0.0.1920.1040" timestamp="1583722688407" />
+    <state x="749" y="427" key="#com.intellij.javaee.module.view.web.EditWebRootDialog" timestamp="1583204863461">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="749" y="427" key="#com.intellij.javaee.module.view.web.EditWebRootDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1583204863461" />
+    <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1583723394085">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1583723394085" />
+    <state x="455" y="113" key="CommitChangelistDialog2" timestamp="1584953153855">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="455" y="113" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1584953153855" />
+    <state width="1080" height="466" key="DebuggerActiveHint" timestamp="1584695175723">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1080" height="466" key="DebuggerActiveHint/0.0.1920.1040@0.0.1920.1040" timestamp="1584695175723" />
+    <state x="714" y="235" key="DetectedRootsChooserDialog" timestamp="1583204748207">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="714" y="235" key="DetectedRootsChooserDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1583204748207" />
+    <state x="80" y="492" width="1536" height="412" key="DiffContextDialog" timestamp="1584953918823">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="80" y="492" width="1536" height="412" key="DiffContextDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1584953918823" />
+    <state x="601" y="233" key="FileChooserDialogImpl" timestamp="1584955331455">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="601" y="233" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1584955331455" />
+    <state x="781" y="416" width="382" height="207" key="Github.CreateGistDialog" timestamp="1584583706831">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="781" y="416" width="382" height="207" key="Github.CreateGistDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1584583706831" />
+    <state width="1877" height="367" key="GridCell.Tab.0.bottom" timestamp="1584954322380">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="367" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1584954322380" />
+    <state width="1877" height="367" key="GridCell.Tab.0.center" timestamp="1584954322380">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="367" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1584954322380" />
+    <state width="1877" height="367" key="GridCell.Tab.0.left" timestamp="1584954322380">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="367" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1584954322380" />
+    <state width="1877" height="367" key="GridCell.Tab.0.right" timestamp="1584954322380">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="367" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1584954322380" />
+    <state width="1681" height="444" key="GridCell.Tab.1.bottom" timestamp="1584952102175">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1681" height="444" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1584952102175" />
+    <state width="1681" height="444" key="GridCell.Tab.1.center" timestamp="1584952102175">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1681" height="444" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1584952102175" />
+    <state width="1681" height="444" key="GridCell.Tab.1.left" timestamp="1584952102175">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1681" height="444" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1584952102175" />
+    <state width="1681" height="444" key="GridCell.Tab.1.right" timestamp="1584952102175">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1681" height="444" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1584952102175" />
+    <state width="1681" height="444" key="GridCell.Tab.2.bottom" timestamp="1584952102175">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1681" height="444" key="GridCell.Tab.2.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1584952102175" />
+    <state width="1681" height="444" key="GridCell.Tab.2.center" timestamp="1584952102175">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1681" height="444" key="GridCell.Tab.2.center/0.0.1920.1040@0.0.1920.1040" timestamp="1584952102175" />
+    <state width="1681" height="444" key="GridCell.Tab.2.left" timestamp="1584952102175">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1681" height="444" key="GridCell.Tab.2.left/0.0.1920.1040@0.0.1920.1040" timestamp="1584952102175" />
+    <state width="1681" height="444" key="GridCell.Tab.2.right" timestamp="1584952102175">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1681" height="444" key="GridCell.Tab.2.right/0.0.1920.1040@0.0.1920.1040" timestamp="1584952102175" />
+    <state width="1681" height="444" key="GridCell.Tab.3.bottom" timestamp="1584952102175">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1681" height="444" key="GridCell.Tab.3.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1584952102175" />
+    <state width="1681" height="444" key="GridCell.Tab.3.center" timestamp="1584952102175">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1681" height="444" key="GridCell.Tab.3.center/0.0.1920.1040@0.0.1920.1040" timestamp="1584952102175" />
+    <state width="1681" height="444" key="GridCell.Tab.3.left" timestamp="1584952102175">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1681" height="444" key="GridCell.Tab.3.left/0.0.1920.1040@0.0.1920.1040" timestamp="1584952102175" />
+    <state width="1681" height="444" key="GridCell.Tab.3.right" timestamp="1584952102175">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1681" height="444" key="GridCell.Tab.3.right/0.0.1920.1040@0.0.1920.1040" timestamp="1584952102175" />
+    <state x="184" y="92" key="MergeDialog" timestamp="1584517684258">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="184" y="92" key="MergeDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1584517684258" />
+    <state x="696" y="207" key="MultipleFileMergeDialog" timestamp="1584946268867">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="696" y="207" key="MultipleFileMergeDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1584946268867" />
+    <state x="440" y="95" key="SettingsEditor" timestamp="1584955334738">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="440" y="95" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1584955334738" />
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1584953156726">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1584953156726" />
+    <state x="640" y="344" key="com.intellij.ide.util.TipDialog" timestamp="1584950703820">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="640" y="344" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1584950703820" />
+    <state x="752" y="437" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1584955336773">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="752" y="437" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1584955336773" />
+    <state x="919" y="352" width="647" height="534" key="find.popup" timestamp="1584951506783">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="919" y="352" width="647" height="534" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1584951506783" />
+    <state x="389" y="215" key="git4idea.branch.GitSmartOperationDialog" timestamp="1584953315296">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="389" y="215" key="git4idea.branch.GitSmartOperationDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1584953315296" />
+    <state x="744" y="311" key="git4idea.merge.GitMergeDialog" timestamp="1584955279582">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="744" y="311" key="git4idea.merge.GitMergeDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1584955279582" />
+    <state x="665" y="311" key="git4idea.merge.GitPullDialog" timestamp="1583736471551">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="665" y="311" key="git4idea.merge.GitPullDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1583736471551" />
+    <state x="573" y="385" key="git4idea.rebase.GitRebaseDialog" timestamp="1583208462219">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="573" y="385" key="git4idea.rebase.GitRebaseDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1583208462219" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1584947970638">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1584947970638" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/forbesmall$mall.ic" NAME="mall Coverage Results" MODIFIED="1583721801015" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+  </component>
+</project>

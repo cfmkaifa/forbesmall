@@ -7,13 +7,13 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="forbesmall" />
-        <module name="msg-utils" />
-        <module name="usercenter-config" />
+        <module name="mall" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="forbes-gather" target="1.8" />
       <module name="forbesmall" target="1.8" />
+      <module name="mall" target="1.8" />
       <module name="msg-utils" target="1.8" />
       <module name="rl_zg_usercenter" target="1.8" />
       <module name="smartwork_gateway" target="1.8" />
