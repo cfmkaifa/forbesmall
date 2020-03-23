@@ -41,7 +41,7 @@
 			<artifactId>chinapaysecure</artifactId>
 			<version>0.0.1</version>
 			<scope>system</scope>
-			<systemPath>D:/maven/localRepository/other/chinapaysecure1_5.jar</systemPath>
+			<systemPath>C:/Users/hankh/.m2/repository/other/chinapaysecure1_5.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
