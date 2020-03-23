@@ -140,7 +140,12 @@ public class XssInterceptor extends HandlerInterceptorAdapter {
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        if (!isValid(request)) {
+        String uri = request.getRequestURI();
+        if (!isValid(request)
+                && !uri.startsWith("/admin/article/save")
+                && !uri.startsWith("/admin/article/update")
+                && !uri.startsWith("/business/product/update")
+                && !uri.startsWith("/business/product/update")) {
             if (WebUtils.isAjaxRequest(request)) {
                 Results.forbidden(response, "common.message.invalidXss");
             } else {
