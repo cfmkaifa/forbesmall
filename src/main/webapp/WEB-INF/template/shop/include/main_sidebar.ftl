@@ -11,8 +11,7 @@
         <li>
             <a href="${base}<%-product.path%>" target="_blank">
                 <img class="img-responsive center-block"
-                     src="<%-product.thumbnail != null ? product.thumbnail : "${setting.defaultThumbnailProductImage}
-                "%>" alt="<%-product.name%>">
+                     src="<%-product.thumbnail != null ? product.thumbnail : "${setting.defaultThumbnailProductImage}"%>" alt="<%-product.name%>">
                 <h5 class="text-overflow" title="<%-product.name%>"><%-product.name%></h5>
             </a>
         </li>
