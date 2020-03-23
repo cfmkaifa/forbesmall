@@ -449,8 +449,8 @@
                         </div>
                     </div>
                     <div class="drawer-2">
-                        <span class="iconfont">&#xe70b;</span>
-                        <p>${product.store.name}</p>
+                        <span class="iconfont" style="color: orange">&#xe6ee;</span>
+                        <p>：${product.store.name}</p>
                     </div>
                 </div>
                 [#if product.type == "GENERAL" || product.type == "EXCHANGE"]
