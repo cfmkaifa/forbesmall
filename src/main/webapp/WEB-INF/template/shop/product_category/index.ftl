@@ -80,31 +80,31 @@
                                 <a href="#productCategory_${rootProductCategory_index}">
                                     [#switch rootProductCategory_index]
                                         [#case 0]
-                                            <i class="iconfont icon-mobile text-blue"></i>
+                                            <span class="iconfont">&#xe651;</span>
                                             [#break /]
                                         [#case 1]
-                                            <i class="iconfont icon-camera text-purple"></i>
+                                            <span class="iconfont">&#xe642;</span>
                                             [#break /]
                                         [#case 2]
-                                            <i class="iconfont icon-dress text-orange"></i>
+                                            <span class="iconfont">&#xe681;</span>
                                             [#break /]
                                         [#case 3]
-                                            <i class="iconfont icon-choiceness text-green"></i>
+                                            <span class="iconfont">&#xe650;</span>
                                             [#break /]
                                         [#case 4]
-                                            <i class="iconfont icon-present text-yellow"></i>
+                                            <span class="iconfont">&#xe697;</span>
                                             [#break /]
                                         [#case 5]
-                                            <i class="iconfont icon-evaluate text-pink"></i>
+                                            <span class="iconfont">&#xe61a;</span>
                                             [#break /]
                                         [#case 6]
-                                            <i class="iconfont icon-favor text-red"></i>
+                                            <i class="iconfont icon-favor"></i>
                                             [#break /]
                                         [#case 7]
-                                            <i class="iconfont icon-like text-cyan"></i>
+                                            <i class="iconfont icon-like"></i>
                                             [#break /]
                                         [#default]
-                                            <i class="iconfont icon-goodsfavor text-blue"></i>
+                                            <i class="iconfont icon-goodsfavor"></i>
                                     [/#switch]
                                     ${rootProductCategory.name}
                                 </a>
