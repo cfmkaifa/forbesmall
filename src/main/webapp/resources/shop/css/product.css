@@ -707,6 +707,7 @@
 	padding: 5px 0px;
 	border-top: 1px dotted #cccccc;
 	border-bottom: 1px dotted #cccccc;
+	margin: 12px 0px 12px 0px;
 }
 
 .product-detail .summary ul li {
@@ -742,10 +743,18 @@
 	font-weight: normal;
 	text-align: right;
 }
-
+.colorkgnav {
+	width: 86%;
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+.colorkg {
+	width: 50%;
+}
 .product-detail .specification dl dd {
 	line-height: 35px;
-	/*margin-left: 90px;*/
+	/* margin-left: 90px; */
 }
 
 .product-detail .specification dl dd a {
@@ -785,10 +794,16 @@
 }
 
 .product-detail .quantity {
-	padding: 0px 15px;
-	margin-bottom: 10px;
+	padding: 0px 59px;
+	margin: 15px 0px 15px -62px;
 }
 .star-level {
+	width: 100px;
+	height: 20px;
+	border: 1px solid #FF7500;
+	display: flex;
+}
+.star-level1 {
 	width: 100px;
 	height: 20px;
 	border: 1px solid #FF7500;
@@ -803,6 +818,7 @@
 .xing-2 {
 	width: 42px;
 	height: 18px;
+	line-height: 18px;
 	background: #FF7500;
 	border-right: #FF7500;
 	color: #FFFFFF;
@@ -818,9 +834,22 @@
 .thecompany-2 {
 	border-left: 1px solid #e5e5e5;
 	padding-left: 10px;
+	line-height: 22px;
 }
 .drawer-2 {
 	display: flex;
+	line-height: 10px;
+	margin-top: 12px;
+}
+.btna {
+	margin-right: 10px;
+	border-radius: 0px;
+	padding: 10px 16px;
+	font-size: 15px;
+	line-height: 1.3333333;
+	color: #fff;
+	border: 1px solid #ee3834;
+	background: #ee3834;
 }
 .drawer-2 p {
 	margin-left: 8px;
@@ -832,7 +861,6 @@
 .information {
 	width: 1125px;
 	display: flex;
-	/* justify-content: space-between; */
 	flex-wrap: wrap;
 }
 .information li {
@@ -842,11 +870,11 @@
 	display: flex;
 }
 .information-p {
-	width: 30%;
+	width: 40%;
 	text-align: right;
 }
 .information-p2 {
-	width: 70%;
+	width: 60%;
 	height: 40px;
 	text-align: left;
 	overflow: hidden;
@@ -1472,11 +1500,6 @@
 	color: #FFFFFF;
 	line-height: 20px;
 }
-.points-2 {
-	padding-left: 5px;
-	color: #FF7500;
-	line-height: 20px;
-}
 .company-2 {
 	color: #007dbe;
 	margin: -2px 0px 0px 5px;
@@ -1633,6 +1656,7 @@
 }
 .points-2 {
 	padding-left: 5px;
+	line-height: 17px;
 	color: #FF7500;
 }
 .company-2 {
@@ -1742,11 +1766,12 @@
 	margin-top: 6px;
 }
 .money-2 {
-	margin: 0 auto;
+	margin: 12px auto 2px 0px;
 	font-size: 15px;
 	border-top: 1px dashed #e5e5e5;
 	border-bottom: 1px dashed #e5e5e5;
 	background: #F9F9F9;
+	padding: 10px;
 }
 .money-2 p {
 	display: flex;
@@ -1764,4 +1789,15 @@
 	right: 3px;
 	width: 46%;
 	height: 52%;
+}
+.supply-1 {
+	width:40px;
+	height:36px;
+	background:#2091D5;
+	border-radius:4px;
+	text-align: center;
+	line-height: 36px;
+	color: #FFFFFF;
+	font-size: 14px;
+	margin-top: 32px;
 }

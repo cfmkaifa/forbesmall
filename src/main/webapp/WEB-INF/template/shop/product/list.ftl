@@ -526,6 +526,7 @@
                                     <li class="list-item">
                                         <div class="list-item-body"
                                              style="display: flex;justify-content: space-around;">
+                                            <div class="supply-1">${message("shop.mainHeader.supply")}</div>
                                             <a href="${base}${product.path}" target="_blank" class="aaaa">
                                                 <img id="productImage${product.id}"
                                                      class="listimg lazy-load img-responsive"
