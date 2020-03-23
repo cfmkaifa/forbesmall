@@ -156,6 +156,7 @@ public class XssInterceptor extends HandlerInterceptorAdapter {
         return super.preHandle(request, response, handler);
     }
 
+
     /**
      * 白名单验证
      *
