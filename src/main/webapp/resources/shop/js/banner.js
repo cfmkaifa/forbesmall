@@ -16,14 +16,14 @@ $(function(){
 
 /*以下代码按照需要添加/修改*/
     $(".carousel-prev").hover(function(){
-        $(this).find("img").attr("src","./img/left_btn1.png");
+        $(this).find("img").attr("src","/resources/common/images/left_btn1.png");
     },function(){
-        $(this).find("img").attr("src","./img/left_btn1.png");
+        $(this).find("img").attr("src","/resources/common/images/left_btn1.png");
     });
     $(".carousel-next").hover(function(){
-        $(this).find("img").attr("src","./img/right_btn1.png");
+        $(this).find("img").attr("src","/resources/common/images/right_btn1.png");
     },function(){
-        $(this).find("img").attr("src","./img/right_btn1.png");
+        $(this).find("img").attr("src","/resources/common/images/right_btn1.png");
     });
 
     $("#carousel3").find('.carousel-prev,.carousel-next,.carousel-index').hide();
@@ -59,7 +59,6 @@ $(function(){
                 // console.log($('.introduce_content'));
             }
         }
-
     })
 });
 

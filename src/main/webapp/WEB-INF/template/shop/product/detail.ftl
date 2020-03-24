@@ -402,7 +402,7 @@
             </div>
             <div class="col-xs-7">
                 <div class="name">
-                    <h1 style="font-size: 18px">${product.name}</h1>
+                    <h1 style="font-size: 18px; font-weight: 600;">${product.name}</h1>
                     [#if product.caption?has_content]
                         <strong>${product.caption}</strong>
                     [/#if]
@@ -410,8 +410,8 @@
                 <div class="summary">
                     <div class="money-2">
                         <p>
-                            ${message("Product.unitPrice")}：<strong id="price" class="unit-2">${product.price}</strong>
-                            <span class="unit-2">/${product.unit}</span>
+                            ${message("Product.unitPrice")}：<strong id="price" style="font-size: 20px;" class="unit-2">${product.price}</strong>
+                            <span class="unit-2" style="font-size: 20px;">/${product.unit}</span>
                         </p>
                         <p>${message("Product.shelfTime")}：<span>${product.createdDate}</span></p>
                         [#--<p><span>[#noautoesc]${message("Product.serviceCall")}：${product.introduction}[/#noautoesc]</span></p>--]
@@ -437,10 +437,10 @@
                         </li>
                     </ul>
                     <div class="xing-22">
-                        <p style="font-size: 16px;">卖家信息：</p>
+                        <p style="font-size: 16px;">${message("shop.mainHeader.saler")}</p>
                         <div class="star-level">
                             <div class="xing-2">
-                                <span class="iconfont">&#xe70b;</span>${message("shop.product.star")}
+                                <span class="iconfont">&#xe70b;</span>${message("shop.mainHeader.drawer")}${message("shop.product.star")}
                             </div>
                             <div class="points-2">
                                 ${message("shop.product.grade")}
@@ -451,28 +451,30 @@
                         </div>
                     </div>
                     <div class="drawer-2">
-                        <span class="iconfont">&#xe70b;</span>
-                        <p>${product.store.name}</p>
+                        <span class="iconfont" style="color: orange">&#xe6ee;</span>
+                        <p>：${product.store.name}</p>
                     </div>
                 </div>
                 [#if product.type == "GENERAL" || product.type == "EXCHANGE"]
                     [#if product.hasSpecification()]
                         [#assign defaultSpecificationValueIds = defaultSku.specificationValueIds /]
                         <div id="specification" class="specification">
-                            <dl class="dl-horizontal clearfix">
+                            <dl class="dl-horizontal clearfix colorkgnav">
                                 [#list product.specificationItems as specificationItem]
-                                         <dt>
-                                             <span title="${specificationItem.name}">${specificationItem.name}:</span>
-                                         </dt>
-                                    <dd>
-                                        [#list specificationItem.entries as entry]
-                                            [#if entry.isSelected]
-                                                <a[#if defaultSpecificationValueIds[specificationItem_index] == entry.id] class="active"[/#if]
-                                                        href="javascript:;"
-                                                        data-specification-item-entry-id="${entry.id}">${entry.value}</a>
-                                            [/#if]
-                                        [/#list]
-                                    </dd>
+                                    <div class="colorkg">
+                                        <dt>
+                                            <span title="${specificationItem.name}">${specificationItem.name}:</span>
+                                        </dt>
+                                        <dd>
+                                            [#list specificationItem.entries as entry]
+                                                [#if entry.isSelected]
+                                                    <a[#if defaultSpecificationValueIds[specificationItem_index] == entry.id] class="active"[/#if]
+                                                            href="javascript:;"
+                                                            data-specification-item-entry-id="${entry.id}">${entry.value}</a>
+                                                [/#if]
+                                            [/#list]
+                                        </dd>
+                                    </div>
                                 [/#list]
                             </dl>
                         </div>
@@ -501,7 +503,7 @@
                         [#if product.type == "GENERAL"]
                             <button id="buy" class="btn btn-default btn-lg"
                                     type="button"[#if defaultSku.isOutOfStock] disabled[/#if]>${message("shop.product.buy")}</button>
-                            <button id="addCart" class="btn btn-primary btn-lg"
+                            <button id="addCart" class="btna"
                                     type="button"[#if defaultSku.isOutOfStock] disabled[/#if]>
                                 <i class="iconfont icon-cart"></i>
                                 ${message("shop.product.addCart")}

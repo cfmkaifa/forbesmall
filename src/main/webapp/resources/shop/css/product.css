@@ -707,6 +707,7 @@
 	padding: 5px 0px;
 	border-top: 1px dotted #cccccc;
 	border-bottom: 1px dotted #cccccc;
+	margin: 12px 0px 12px 0px;
 }
 
 .product-detail .summary ul li {
@@ -741,6 +742,15 @@
 	color: #999999;
 	font-weight: normal;
 	text-align: right;
+}
+.colorkgnav {
+	width: 86%;
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+.colorkg {
+	width: 50%;
 }
 
 .product-detail .specification dl dd {
@@ -785,8 +795,8 @@
 }
 
 .product-detail .quantity {
-	padding: 0px 15px;
-	margin-bottom: 10px;
+	padding: 0px 59px;
+	margin: 15px 0px 15px -62px;
 }
 
 .product-detail .quantity dl dt {
@@ -1563,6 +1573,7 @@
 .xing-2 {
 	width: 42px;
 	height: 18px;
+	line-height: 18px;
 	background: #FF7500;
 	border-right: #FF7500;
 	color: #FFFFFF;
@@ -1740,16 +1751,23 @@
 }
 .thecompany-2 {
 	border-left: 1px solid #e5e5e5;
-	height: 23px;
-	margin-top: 7px;
 	padding-left: 10px;
-	line-height: 25px;
+	line-height: 39px;
 }
 .drawer-2 {
 	display: flex;
-	height: 30px;
-	line-height: 30px;
-	font-size: 14px;
+	line-height: 10px;
+	margin-top: 12px;
+}
+.btna {
+	margin-right: 10px;
+	border-radius: 0px;
+	padding: 10px 16px;
+	font-size: 15px;
+	line-height: 1.3333333;
+	color: #fff;
+	border: 1px solid #ee3834;
+	background: #ee3834;
 }
 .drawer-2 p {
 	margin-left: 8px;
@@ -1761,7 +1779,6 @@
 .information {
 	width: 1125px;
 	display: flex;
-	/* justify-content: space-between; */
 	flex-wrap: wrap;
 }
 .information li {
@@ -1773,10 +1790,6 @@
 .information-p {
 	width: 40%;
 	text-align: right;
-	padding-right: 10px;
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
 }
 .information-p2 {
 	width: 60%;
@@ -1786,4 +1799,15 @@
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	padding-left: 10px;
+}
+.supply-1 {
+	width:40px;
+	height:36px;
+	background:#2091D5;
+	border-radius:4px;
+	text-align: center;
+	line-height: 36px;
+	color: #FFFFFF;
+	font-size: 14px;
+	margin-top: 32px;
 }

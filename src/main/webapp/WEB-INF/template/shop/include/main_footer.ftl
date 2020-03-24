@@ -75,6 +75,12 @@
                     <dd>
                         <a href="${base}/article/detail/15_1">平台交易规则</a>
                     </dd>
+                    <dd>
+                        <a href="${base}/article/detail/15_1">购物流程</a>
+                    </dd>
+                    <dd>
+                        <a href="${base}/article/detail/17_1">会员等级</a>
+                    </dd>
                 </dl>
             </div>
             <div class="col-xs-2">
@@ -86,6 +92,15 @@
                     <dd>
                         <a href="${base}/article/detail/19_1">下载合同</a>
                     </dd>
+                    <dd>
+                        <a href="${base}/article/detail/19_1">货到付款</a>
+                    </dd>
+                    <dd>
+                        <a href="${base}/article/detail/20_1">网银支付</a>
+                    </dd>
+                    <dd>
+                        <a href="${base}/article/detail/21_1">银行转帐</a>
+                    </dd>
                 </dl>
             </div>
             <div class="col-xs-2">
@@ -96,6 +111,15 @@
                     </dd>
                     <dd>
                         <a href="${base}/article/detail/33_1">银行承兑汇票</a>
+                    </dd>
+                    <dd>
+                        <a href="${base}/article/detail/31_1">退换货政策</a>
+                    </dd>
+                    <dd>
+                        <a href="${base}/article/detail/33_1">退换货申请</a>
+                    </dd>
+                    <dd>
+                        <a href="${base}/article/detail/34_1">退款说明</a>
                     </dd>
 
                 </dl>
@@ -115,6 +139,12 @@
                     </dd>
                     <dd>
                         <a href="${base}/article/detail/34_1">服务热线</a>
+                    </dd>
+                    <dd>
+                        <a href="${base}/article/detail/37_1">商家帮助</a>
+                    </dd>
+                    <dd>
+                        <a href="${base}/article/detail/38_1">运营服务</a>
                     </dd>
                 </dl>
             </div>
