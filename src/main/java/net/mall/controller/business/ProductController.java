@@ -6,27 +6,19 @@
  */
 package net.mall.controller.business;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
+import net.mall.Page;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.Assert;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import net.mall.FileType;
@@ -440,6 +432,29 @@ public class ProductController extends BaseController {
         model.addAttribute("isStockAlert", isStockAlert);
         model.addAttribute("page", productService.findPage(type, 0,false, null, currentStore, productCategory, null, brand, promotion, productTag, storeProductTag, null, null, null, isMarketable, isList, isTop, isActive, isOutOfStock, isStockAlert, null, null, pageable));
         return "business/product/list";
+    }
+
+    /**
+     * @description  一键更新，更新商品上架时间
+     * @author xfx
+     * @date 2020/3/24 15:51
+     * @parameter
+     * @return
+     */
+    @PostMapping("/update-product")
+    public ResponseEntity<?> updateProduct(Long[] ids, @CurrentStore final Store currentStore){
+        for(Long id:ids){
+            Product product = productService.find(id);
+            if (product == null) {
+                return Results.UNPROCESSABLE_ENTITY;
+            }
+            if (!currentStore.equals(product.getStore())) {
+                return Results.UNPROCESSABLE_ENTITY;
+            }
+            Date currentDate = new Date();
+            productService.modifyProduct(currentDate,id);
+        }
+        return Results.OK;
     }
 
     /**

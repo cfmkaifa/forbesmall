@@ -73,13 +73,28 @@
 						});
 					});
 				});
-				
+
+
+
 				// ID多选框
 				$ids.change(function() {
 					$shelves.add($shelf).attr("disabled", $("input[name='ids']:checked").length < 1);
 				});
 			
 			});
+
+
+			// 一键更新
+			function updateProduct(){
+				var ids = [];
+				$.each($('input:checkbox:checked'),function(){
+					ids.push($(this).val());
+				});
+				console.log("ids:"+ids);
+				$.post("${base}/business/product/update-product",{ids:ids}, function() {
+					location.reload(true);
+				});
+			}
 			</script>
 		[/#escape]
 	[/#noautoesc]
@@ -295,6 +310,10 @@
 											</li>
 										</ul>
 									</div>
+                                    <!--一键更新-->
+									<button id="updproduct" class="btn btn-default" type="button" onclick="updateProduct()">
+										${message("shop.product.update")}
+									</button>
 								</div>
 							</div>
 							<div class="col-xs-12 col-sm-3">
