@@ -7,6 +7,7 @@
 package net.mall.service;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -311,4 +312,11 @@ public interface ProductService extends BaseService<Product, Long> {
      */
     void shelf(Long[] ids);
 
+
+    /***
+     *
+     * @param curentDate
+     * @param productId
+     */
+    public void modifyProduct(Date curentDate, Long productId);
 }
