@@ -90,7 +90,6 @@
 				$.each($('input:checkbox:checked'),function(){
 					ids.push($(this).val());
 				});
-				console.log("ids:"+ids);
 				$.post("${base}/business/product/update-product",{ids:ids}, function() {
 					location.reload(true);
 				});
