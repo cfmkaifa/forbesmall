@@ -562,8 +562,9 @@
                                                     </li>
                                                     <li>
                                                             <span class="specific-2">
-															${message("shop.product.state")}${product.keyword}
+															${message("shop.product.state")}
 															</span>
+                                                        [#noautoesc]${product.introduction}[/#noautoesc]
                                                     </li>
                                                     <li>
                                                     </li>
@@ -580,12 +581,12 @@
                                                             <p class="text-center">
                                                                 <a href="${base}${product.store.path}"
                                                                    title="${product.store.name}"
-                                                                   target="_blank">${abbreviate(product.store.name)}</a>
+                                                                   target="_blank">${product.store.name}
+                                                                </a>
                                                                 [#if product.store.type == "SELF"]
                                                                     <span class="label label-primary">${message("Store.Type.SELF")}</span>
                                                                 [/#if]
                                                             </p>
-                                                            [#--<span class="iconfont">&#xe683;</span>--]
                                                         </div>
                                                     </li>
                                                 </ul>
