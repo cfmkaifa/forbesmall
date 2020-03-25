@@ -561,8 +561,9 @@
                                                     </li>
                                                     <li>
                                                             <span class="specific-2">
-															${message("shop.product.state")}${product.keyword}
+															${message("shop.product.state")}
 															</span>
+                                                        [#noautoesc]${product.introduction}[/#noautoesc]
                                                     </li>
                                                     <li>
                                                     </li>
