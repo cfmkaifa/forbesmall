@@ -383,7 +383,13 @@
 																	  <img src="${stores.logo}" class="logo-2">
 																	<p>${stores.name}</p>
 																</span>
-                                                            <p class="tonsof-2">${stores.capacity}${message("shop.index.capacity")}</p>
+                                                            <p class="tonsof-2">
+                                                                [#if stores.capacity ==0]
+
+                                                                [#else]
+                                                                    ${stores.capacity}${message("shop.index.capacity")}
+                                                                [/#if]
+                                                            </p>
                                                             <p class="themain-2">${message("shop.index.main")}</p>
                                                             <p class="varieties-2">${stores.keyword}</p>
                                                         </a>
