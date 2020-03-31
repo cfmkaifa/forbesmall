@@ -308,7 +308,7 @@
                         [@navigation_list navigationGroupId = 2]
                             [#if navigations?has_content]
                                 [#list navigations as navigation]
-                                    <li[#if navigation.url == requestContext.requestUri] class="active"[/#if]>
+                                    <li[#if navigation.url?contains(requestContext.requestUri) && requestContext.requestUri != "/"] class="active"[/#if]>
                                         <a href="${navigation.url}"[#if navigation.isBlankTarget] target="_blank"[/#if]>${navigation.name}</a>
                                     </li>
                                 [/#list]
