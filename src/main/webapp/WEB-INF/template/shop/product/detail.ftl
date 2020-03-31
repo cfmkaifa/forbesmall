@@ -437,7 +437,7 @@
                         </li>
                     </ul>
                     <div class="xing-22">
-                        <p style="font-size: 16px;">${message("shop.mainHeader.saler")}</p>
+                        <p style="font-size: 15px;">${message("shop.mainHeader.saler")}</p>
                         <div class="star-level">
                             <div class="xing-2">
                                 <span class="iconfont">&#xe70b;</span>${message("shop.product.star")}

@@ -26,7 +26,7 @@ a {
 .navigation li{
 	width: 100px;
 	height: 34px;
-	font-size: 13px;
+	font-size: 17px;
 	line-height: 37px;
 	text-align: center;
 	font-weight: 600;
@@ -64,15 +64,14 @@ a {
 	display: flex;
 	justify-content: space-between;
 	text-align: left;
-	margin-top: 20px;
 }
-/*.hotAttention_img {*/
-/*	width: 43%;*/
-/*}*/
+.hotAttention_img {
+	width: 52%;
+}
 .hotAttention_img img{
-	width: 96%;
-	height: 95%;
-}
+	 width: 100%;
+	 height: 100%;
+ }
 .hotAttention_news{
 	width: 100%;
 	display: flex;
@@ -104,7 +103,6 @@ a {
 	cursor: pointer;
 }
 .hotAttention_content{
-	margin-top: 20px;
 	color: #333;
 	width: 100%;
 	text-align: left;
@@ -119,10 +117,13 @@ a {
 }
 .hotAttention_content span p{
 	width: 100%;
-	height: 40px;
+	height: 30px;
 	border-bottom: 1px dashed #999;
-	line-height: 40px;
+	line-height: 30px;
 	font-size: 13px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 .view{
 	margin-top: -14px;
@@ -140,4 +141,19 @@ a {
 .information_img img{
 	width: 100%;
 	height: 280px;
+}
+.index .side-slider {
+	height: 205px;
+	position: relative;
+	z-index: 200;
+	overflow: hidden;
+	background-color: #ffffff;
+}
+.clearfix {
+	display: flex;
+	justify-content: space-between;
+}
+.hotAttention_img li {
+	width: 100%;
+	height: 100%;
 }

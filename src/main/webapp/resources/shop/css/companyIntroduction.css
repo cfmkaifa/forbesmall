@@ -95,11 +95,13 @@ h2{
     /* position: relative; */
 }
 .content_title .title_left{
-    display: flex; 
-    justify-content:space-evenly;
+    display: flex;
     width: 70%;
     align-items: center;
     
+}
+.left_two {
+    margin-top: 10px;
 }
 .left_text{
     /* width:550px; */
@@ -109,7 +111,6 @@ h2{
     font-weight:400;
     color:rgba(45,45,45,1);
     line-height:40px;
-    margin-top: 10px;
 }
 .return{
     width:126px;
@@ -228,23 +229,32 @@ h2{
     margin-top: 30px;
     position: relative;
     height: 210px;
-  
 }
 .cooperation p{
     font-weight:normal;
     /* width: ; */
 }
+.left_one {
+    display: block;
+    width: 51px;
+}
+.left_two {
+    display: block;
+    width: 166px;
+}
 .cooperation .cooperation_button{
-    width:302px;
-    height:42px;
+    width: 302px;
+    height: 102px;
     position: absolute;
-    background:rgba(153,153,153,1);
-    border-radius:7px;
-    bottom: 50px;
+    background: rgba(156,153,153,1);
+    border-radius: 7px;
+    top: 110px;
     left: 20px;
-    text-align: center;
+    text-align: left;
     color: #fff;
-    line-height: 42px;
+    font-size: 17px;
+    line-height: 25px;
+    padding-left: 10px;
 }
 .project{
     width: 100%;

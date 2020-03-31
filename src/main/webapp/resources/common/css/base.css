@@ -1589,9 +1589,24 @@ img.captcha-image {
 	margin: 0 auto;
 }
 .login-main3 {
-	width: 90%;
+	width: 92%;
 	margin: 0 auto;
 	display: flex;
 	justify-content: space-between;
 
+}
+.page-input {
+	width: 45px;
+	height: 31px;
+	border: 1px solid #d8d8d8;
+	margin-left: 5px;
+}
+.page-go {
+	width: 31px;
+	height: 31px;
+	border: 1px solid #d8d8d8;
+	line-height: 31px;
+	text-align: center;
+	color: #FFFFFF;
+	background: red;
 }

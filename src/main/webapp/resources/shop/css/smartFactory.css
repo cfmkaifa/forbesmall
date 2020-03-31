@@ -33,11 +33,12 @@ video{
 
 }
 .smartFactory_top{
-    width: 1200px;
+    width: 100%;
     height: 538px;
     /* z-index: 100; */
     margin: 0 auto;
-    /* background: url(./img/smartFactory.png) no-repeat; */
+    background: url(/resources/shop/images/zhineng.png) no-repeat;
+    background-size: 100% 100%;
     color: #ffffff;
     position: relative;
 }
@@ -249,4 +250,19 @@ li.active{
     margin-bottom: 10px;
     margin-left: 10px;
 
+}
+.bottom-nav {
+    text-align: center;
+}
+.smart p {
+    width: 732px;
+    margin: 0 auto;
+    text-align: left;
+    text-indent: 2em;
+}
+.factory p {
+    width: 754px;
+    margin: 0 auto;
+    text-align: left;
+    text-indent: 2em;
 }

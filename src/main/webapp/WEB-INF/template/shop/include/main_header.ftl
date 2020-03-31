@@ -276,7 +276,16 @@
                     [/#if]
                 </div>
             </div>
-            <div class="col-xs-3">
+            <div class="col-xs-3"style=" display: flex; justify-content: space-between;">
+                <div class="totality-2">
+                    ${message("shop.product.amount")}
+                    [@pro_amount ]
+                    <span>
+                       ${proAmount}
+                    </span>
+                    [/@pro_amount ]
+                    <span>${message("shop.product.trip")}</span>
+                </div>
                 <div id="mainHeaderCart" class="cart">
                     <i class="iconfont icon-cart"></i>
                     <a href="${base}/cart/list">${message("shop.mainHeader.cart")}</a>
