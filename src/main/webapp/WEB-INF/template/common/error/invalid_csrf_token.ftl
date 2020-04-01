@@ -36,8 +36,7 @@
 				<img class="media-object" src="${base}/resources/common/images/error_icon.png" alt="${message("common.error.invalidCsrfToken")}">
 			</div>
 			<div class="media-body media-middle">
-				<h2 class="media-heading">${message("common.error.title")}</h2>
-				<p class="text-red-light">${errorMessage!message("common.error.invalidCsrfToken")}</p>
+				<h2 class="media-heading" >${message("common.error.title")}</h2>
 				<p>
 					<a class="text-blue-light" href="javascript:;" data-action="back">${message("common.error.back")}</a>
 					<a class="text-blue-light" href="${base}/">${message("common.error.home")}</a>

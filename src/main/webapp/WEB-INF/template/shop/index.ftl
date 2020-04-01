@@ -376,6 +376,7 @@
                                         <div class="factory-2">
                                             [@ad_factory]
                                                 [#list adFactory.content as stores]
+                                                     [#if stores.id !=10551 && stores.id != 10451]
                                                     <div class="swiper-2">
                                                         <a href="${base}/store/${stores.id}">
 																<span class="swiper_title-2">
@@ -394,6 +395,7 @@
                                                             <p class="varieties-2">${stores.keyword}</p>
                                                         </a>
                                                     </div>
+                                                   [/#if]
                                                 [/#list]
                                             [/@ad_factory]
                                         </div>

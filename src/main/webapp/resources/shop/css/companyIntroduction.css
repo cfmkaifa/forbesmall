@@ -95,11 +95,12 @@ h2{
     /* position: relative; */
 }
 .content_title .title_left{
-    display: flex; 
-    justify-content:space-evenly;
+    display: flex;
     width: 70%;
     align-items: center;
-    
+}
+.left_two {
+    margin-top: 10px;
 }
 .left_text{
     /* width:550px; */

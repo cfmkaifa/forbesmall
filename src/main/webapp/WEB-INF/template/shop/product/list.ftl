@@ -650,7 +650,7 @@
                         </div>
                         [@pagination pageNumber = page.pageNumber totalPages = page.totalPages]
                             [#if totalPages > 1]
-                                <div class="text-right">
+                                <div class="text-center">
                                     [#include "/shop/include/pagination.ftl" /]
                                 </div>
                             [/#if]
@@ -665,6 +665,31 @@
         </div>
     </div>
 </main>
+[#noautoesc]
+    [#escape x as x?js_string]
+        <script>
+            function toPage(obj){
+                try {
+                    var $element = $(obj);
+                    var $form = $element.closest("form");
+                    var $pageNumber = $form.find("input[name='pageNumber']");
+                    var pageNumber = $("#pageInputNumber").val();
+                    if ($form.length > 0) {
+                        if ($pageNumber.length > 0) {
+                            $pageNumber.val(pageNumber);
+                        } else {
+                            $form.append('<input name="pageNumber" type="hidden" value="' + pageNumber + '">');
+                        }
+                        $form.submit();
+                        return false;
+                    }
+                }catch (e) {
+                    console.log(e);
+                }
+            }
+        </script>
+    [/#escape]
+[/#noautoesc]
 [#include "/shop/include/main_footer.ftl" /]
 </body>
 </html>
