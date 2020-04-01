@@ -738,20 +738,21 @@
 }
 
 .product-detail .specification dl dt {
-	width: 136px;
+	width: 86px;
 	line-height: 35px;
 	color: #999999;
 	font-weight: normal;
 	text-align: left;
 }
 .colorkgnav {
-	width: 86%;
+	width: 100%;
 	display: flex;
-	justify-content: space-between;
+	/* justify-content: space-between; */
 	flex-wrap: wrap;
+	margin: 0 auto;
 }
 .colorkg {
-	width: 50%;
+	width: 34%;
 	font-size: 15px;
 }
 
@@ -803,7 +804,7 @@
 }
 
 .product-detail .quantity dl dt {
-	width: 138px;
+	width: 48px;
 	line-height: 30px;
 	color: #999999;
 	font-weight: normal;
@@ -812,7 +813,7 @@
 
 .product-detail .quantity dl dd {
 	line-height: 30px;
-	margin-left: 90px;
+	margin-left: 49px;
 }
 
 .product-detail .quantity dl dd .spinner {

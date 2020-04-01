@@ -186,7 +186,7 @@ public class CartItem extends BaseEntity<Long> {
                 }
             }
             if (getSku().getTotalUnit() != null) {
-                setting.setScale(price.multiply(getSku().getTotalUnit()));
+               return setting.setScale(price.multiply(getSku().getTotalUnit()));
             }
             return setting.setScale(price);
         } else {

@@ -1589,10 +1589,10 @@ img.captcha-image {
 	margin: 0 auto;
 }
 .login-main3 {
-	width: 92%;
-	margin: 0 auto;
+	width:100%;
+	/* margin: 0 auto; */
 	display: flex;
-	justify-content: space-between;
+	/* justify-content: space-between; */
 
 }
 .page-input {

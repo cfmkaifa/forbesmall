@@ -228,6 +228,63 @@
     <div class="logo-3">
         <div class="login-main3">
            <a href="http://www.chinafibermarketing.cn"><img  src="${base}/resources/shop/images/logo.png"></a>
+            <div class="col-xs-6 col-xs-offset-1">
+                <div id="mainHeaderProductSearch" class="product-search clearfix">
+                    <form action="[#if searchType == "STORE"]${base}/store/search[#else]${base}/product/search[/#if]"
+                          method="get" style="width: 77%;">
+                        <div class="input-group">
+                            <div class="input-group-btn search-type">
+                                <button class="btn btn-default" type="button" data-toggle="dropdown">
+                                    [#if searchType == "STORE"]
+                                        <span>${message("shop.mainHeader.store")}</span>
+                                    [#else]
+                                        <span>${message("shop.mainHeader.product")}</span>
+                                    [/#if]
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li data-search-type="product">
+                                        <a href="javascript:;">${message("shop.mainHeader.product")}</a>
+                                    </li>
+                                    <li data-search-type="store">
+                                        <a href="javascript:;">${message("shop.mainHeader.store")}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <input name="keyword" class="form-control"
+                                   type="text"[#if !store??] value="[#if searchType == "STORE"]${storeKeyword}[#else]${productKeyword}[/#if]"[/#if]
+                                   placeholder="${message("shop.mainHeader.productSearchKeywordPlaceholder")}"
+                                   autocomplete="off" x-webkit-speech="x-webkit-speech"
+                                   x-webkit-grammar="builtin:search">
+                            <div class="input-group-btn">
+                                <button class="btn btn-default search-btn" type="submit">
+                                    <i class="iconfont icon-search"></i>
+                                    ${message("shop.mainHeader.productSearchSubmit")}
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    [#if setting.hotSearches?has_content]
+                        <dl>
+                            <dt>${message("shop.mainHeader.productSearchHotSearch")}:</dt>
+                            [#list setting.hotSearches as hotSearch]
+                                <dd>
+                                    <a href="${base}/product/search?keyword=${hotSearch?url}">${hotSearch}</a>
+                                </dd>
+                            [/#list]
+                        </dl>
+                    [/#if]
+                </div>
+            </div>
+        </div>
+        <div class="newsNav">
+            <ul class="navigation">
+                [#list articleCategories as articleCategories]
+                    <li [#--[#if articleCategories_index ==0 ] class="item active" [/#if]--] [#if articleCategoryId == articleCategories.id] class="item active" [/#if]class="item">
+                        <a href="${base}/article/articlelist/${articleCategories.id}">${articleCategories.name}</a>
+                    </li>
+                [/#list]
+            </ul>
         </div>
     </div>
 </header>

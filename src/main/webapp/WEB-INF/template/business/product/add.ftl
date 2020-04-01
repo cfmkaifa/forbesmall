@@ -203,7 +203,7 @@
 						<%}%>
 						<th>${message("Sku.stock")}</th>
 						<th>${message("Product.unit")}</th>
-						<th>${message("Product.defaultUnit")}</th>
+						<th id="parentUnit">${message("Product.unit.data")}</th>
 						<th>${message("Sku.isDefault")}</th>
 						<th>${message("business.product.isEnabled")}</th>
 					</tr>
@@ -267,7 +267,7 @@
 								<input name="skuList[<%-i%>].stock" class="stock form-control" type="text" value="<%-stock%>" maxlength="9"<%-!isEnabled ? " disabled" : ""%>>
 							</td>
 							<td>
-								<input name="skuList[<%-i%>].unit" class="unit form-control" type="text"  value="<%-unit%>" maxlength="9"<%-!isEnabled ? " disabled" : ""%>>
+								<input id="prounit" name="skuList[<%-i%>].unit" class="unit form-control" type="text"  value="<%-unit%>" maxlength="9"<%-!isEnabled ? " disabled" : ""%>>
 							</td>
 							<td>
 								<input name="skuList[<%-i%>].totalUnit" class="totalUnit form-control" type="text" value="<%-totalUnit%>" maxlength="9"<%-!isEnabled ? " disabled" : ""%>>
@@ -335,7 +335,7 @@
 				loadParameter();
 				loadAttribute();
 				loadSpecification();
-				
+
 				// 商品分类
 				$productCategoryId.change(function() {
 					if (!isEmpty($attribute.find("select"))) {
@@ -900,8 +900,15 @@
 						});
 					}
 				});
-			
 			});
+			</script>
+			<script>
+				//单位显示
+				$("#prounit").keyup(function(){
+					var oText=$("#prounit").val()
+					console.log("======"+oText)
+					$("#parentUnit").text(oText).value
+				})
 			</script>
 		[/#escape]
 	[/#noautoesc]
