@@ -1719,6 +1719,7 @@
 	right: 3px;
 	width: 46%;
 	height: 52%;
+	broder:none !important;
 }
 
 .star-level {

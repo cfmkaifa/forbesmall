@@ -238,7 +238,6 @@ public class Setting implements Serializable {
 
     /***文件下载地址
      */
-    @NotEmpty
     @Length(max = 200)
     @URL
     private String fileUrl;
@@ -248,7 +247,6 @@ public class Setting implements Serializable {
      */
     @NotEmpty
     @Length(max = 200)
-    @URL
     private String logo;
 
     /**
@@ -483,14 +481,12 @@ public class Setting implements Serializable {
 
     /***图片上传地址
      */
-    @NotEmpty
     @Length(max = 200)
     private String uploadDir;
 
 
     /***模板地址
      */
-    @NotEmpty
     @Length(max = 200)
     private String templeatePath;
 

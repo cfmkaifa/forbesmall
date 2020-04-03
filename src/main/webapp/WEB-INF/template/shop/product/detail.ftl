@@ -70,6 +70,7 @@
                     var $specificationValue = $("#specification dd a");
                     var $quantity = $("#quantity");
                     var $buy = $("#buy");
+                    var $sampleBuy = $("#sampleBuy");
                     var $addCart = $("#addCart");
                     var $exchange = $("#exchange");
                     var $addProductNotify = $("#addProductNotify");
@@ -214,7 +215,10 @@
                         }
                         return true;
                     }
-
+                    // 样品购买页面
+                    $sampleBuy.click(function(){
+                        window.location.href= "${base}/product/sample-detail/${product.id}";
+                    });
                     // 立即购买
                     $buy.checkout({
                         skuId: function () {
@@ -349,6 +353,9 @@
                         [#else]
                             <a id="zoom" href="${setting.defaultLargeProductImage}" rel="gallery">
                                 <img src="${setting.defaultMediumProductImage}" alt="${product.name}">
+                                [#if product.sample]
+                                    <img src="/resources/shop/images/biao.png" class="active-2">
+                                [/#if]
                             </a>
                         [/#if]
                     </div>
@@ -383,6 +390,9 @@
                             <i class="iconfont icon-right"></i>
                         </a>
                     </div>
+                    [#if product.sample]
+                        <img src="/resources/shop/images/sample_large.png" class="active-2">
+                    [/#if]
                 </div>
                 <div class="product-action clearfix">
                     <div class="bdsharebuttonbox">
@@ -503,6 +513,10 @@
                         [#if product.type == "GENERAL"]
                             <button id="buy" class="btn btn-default btn-lg"
                                     type="button"[#if defaultSku.isOutOfStock] disabled[/#if]>${message("shop.product.buy")}</button>
+                            [#if product.sample]
+                                <button id="sampleBuy" class="btn btn-default btn-lg"
+                                        type="button"[#if defaultSku.isOutOfStock] disabled[/#if]>${message("shop.product.sampleBuy")}</button>
+                            [/#if]
                             <button id="addCart" class="btna"
                                     type="button"[#if defaultSku.isOutOfStock] disabled[/#if]>
                                 <i class="iconfont icon-cart"></i>

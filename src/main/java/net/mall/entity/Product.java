@@ -2212,7 +2212,8 @@ public class Product extends BaseEntity<Long> {
      * @return sample
      */
     public boolean getSample() {
-        return sample;
+        long sampleCount = skus.stream().filter(sku -> Sample.YES.equals(sku.getSample())).count();
+        return sampleCount > 0;
     }
 
     /**
