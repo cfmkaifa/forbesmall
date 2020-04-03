@@ -14,6 +14,7 @@ import net.mall.util.SecurityUtils;
 import net.mall.util.WebUtils;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
@@ -234,7 +235,7 @@ public class UnionpayPaymentPlugin extends PaymentPlugin {
         String result = WebUtils.post(QUERY_REQUEST_URL, parameterMap);
         System.out.println("====result====="+result);
         Map<String, String> resultMap = WebUtils.parse(result);
-        return true;// StringUtils.equals(resultMap.get("respCode"), "00") && StringUtils.equals(resultMap.get("origRespCode"), "00") && paymentTransaction.getAmount().multiply(new BigDecimal(100)).compareTo(new BigDecimal(resultMap.get("txnAmt"))) == 0;
+        return StringUtils.equals(resultMap.get("respCode"), "0000") && paymentTransaction.getAmount().multiply(new BigDecimal(100)).compareTo(new BigDecimal(resultMap.get("OrderAmt"))) == 0;
     }
 
 

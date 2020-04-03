@@ -86,7 +86,10 @@
 			function updateProduct(){
 				var ids = [];
 				$.each($('input:checkbox:checked'),function(){
-					ids.push($(this).val());
+					var proId = $(this).val();
+					if(proId != 'on'){
+						ids.push(proId);
+					}
 				});
 				$.post("${base}/business/product/update-product",{ids:ids}, function() {
 					location.reload(true);
