@@ -11,7 +11,7 @@
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
-          <element id="module-output" name="mall" />
+          <element id="module-output" name="forbesmall" />
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: org.springframework:spring-aop:4.3.14.RELEASE" />
@@ -166,7 +166,7 @@
       <element id="directory" name="META-INF">
         <element id="file-copy" path="$PROJECT_DIR$/target/ROOT/META-INF/MANIFEST.MF" />
       </element>
-      <element id="javaee-facet-resources" facet="mall/web/Web" />
+      <element id="javaee-facet-resources" facet="forbesmall/web/Web" />
     </root>
   </artifact>
 </component>
