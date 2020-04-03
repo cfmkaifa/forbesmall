@@ -156,6 +156,7 @@
 				<entry key="article_list" value-ref="articleListDirective" />
 				<entry key="article_tag_list" value-ref="articleTagListDirective" />
 				<entry key="attribute_list" value-ref="attributeListDirective" />
+				<entry key="pro_amount" value-ref="proAmountDirective" />
 				<entry key="brand_list" value-ref="brandListDirective" />
 				<entry key="business_attribute_list" value-ref="businessAttributeListDirective" />
 				<entry key="business_cash_count" value-ref="businessCashCountDirective" />

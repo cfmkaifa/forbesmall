@@ -156,7 +156,8 @@ public class PaginationDirective extends BaseDirective {
             endSegmentPageNumber = totalPages;
         }
         List<Integer> segment = new ArrayList<>();
-        for (int i = startSegmentPageNumber; i <= endSegmentPageNumber; i++) {
+        for (int i = 1; i <= totalPages; i++) {
+            /* segment.add(i);*/
             segment.add(i);
         }
 

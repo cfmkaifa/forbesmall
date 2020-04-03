@@ -33,19 +33,19 @@
     <title>${message("shop.product.logo")}</title>
 </head>
 <body>
-[#-- [#include "/shop/include/main_newheader.ftl" /]--]
+   [#include "/shop/include/main_newheader.ftl" /]
 <main>
     <div>
         <div class="newsNav">
             <ul class="navigation">
                 [#list articleCategories as articleCategories]
-                    <li class="item">
+                    <li class ="item [#if articleCategories.id == articleCategoryId] active[/#if]">
                         <a href="${base}/article/articlelist/${articleCategories.id}">${articleCategories.name}</a>
                     </li>
                 [/#list]
             </ul>
         </div>
-        <div style="width:1200px;padding:40px;background: #ffffff;margin: 0 auto;">
+        <div style="width:1200px;background: #ffffff;margin: 0 auto;">
             [#if isPerm == false]
                 [#include "/shop/include/noperm.ftl" /]
             [#else]
@@ -54,7 +54,7 @@
                         <div class="insights_content">
                             <div class="insights_title">
 								<span class="time">
-									<p style="font-size:24px;">${article.createdDate}</p>
+									<p style="font-size:17px;">${article.createdDate}</p>
 								</span>
                                 <span class="news_border"></span>
 

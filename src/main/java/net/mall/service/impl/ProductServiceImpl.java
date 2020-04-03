@@ -1227,4 +1227,14 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
         stockLogDao.persist(stockLog);
     }
 
+
+    /***
+     *
+     * @param curentDate
+     * @param productId
+     */
+    public void modifyProduct(Date curentDate, Long productId){
+        productDao.modifyProduct(curentDate,productId);
+    }
+
 }

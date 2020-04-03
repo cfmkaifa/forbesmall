@@ -562,8 +562,9 @@
                                                     </li>
                                                     <li>
                                                             <span class="specific-2">
-															${message("shop.product.state")}${product.keyword}
+															${message("shop.product.state")}
 															</span>
+                                                        [#noautoesc]${product.introduction}[/#noautoesc]
                                                     </li>
                                                     <li>
                                                     </li>
@@ -580,12 +581,12 @@
                                                             <p class="text-center">
                                                                 <a href="${base}${product.store.path}"
                                                                    title="${product.store.name}"
-                                                                   target="_blank">${abbreviate(product.store.name)}</a>
+                                                                   target="_blank">${product.store.name}
+                                                                </a>
                                                                 [#if product.store.type == "SELF"]
                                                                     <span class="label label-primary">${message("Store.Type.SELF")}</span>
                                                                 [/#if]
                                                             </p>
-                                                            [#--<span class="iconfont">&#xe683;</span>--]
                                                         </div>
                                                     </li>
                                                 </ul>
@@ -649,7 +650,7 @@
                         </div>
                         [@pagination pageNumber = page.pageNumber totalPages = page.totalPages]
                             [#if totalPages > 1]
-                                <div class="text-right">
+                                <div class="text-center">
                                     [#include "/shop/include/pagination.ftl" /]
                                 </div>
                             [/#if]
@@ -664,6 +665,31 @@
         </div>
     </div>
 </main>
+[#noautoesc]
+    [#escape x as x?js_string]
+        <script>
+            function toPage(obj){
+                try {
+                    var $element = $(obj);
+                    var $form = $element.closest("form");
+                    var $pageNumber = $form.find("input[name='pageNumber']");
+                    var pageNumber = $("#pageInputNumber").val();
+                    if ($form.length > 0) {
+                        if ($pageNumber.length > 0) {
+                            $pageNumber.val(pageNumber);
+                        } else {
+                            $form.append('<input name="pageNumber" type="hidden" value="' + pageNumber + '">');
+                        }
+                        $form.submit();
+                        return false;
+                    }
+                }catch (e) {
+                    console.log(e);
+                }
+            }
+        </script>
+    [/#escape]
+[/#noautoesc]
 [#include "/shop/include/main_footer.ftl" /]
 </body>
 </html>

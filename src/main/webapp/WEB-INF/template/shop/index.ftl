@@ -376,6 +376,7 @@
                                         <div class="factory-2">
                                             [@ad_factory]
                                                 [#list adFactory.content as stores]
+                                                     [#if stores.id !=10551 && stores.id != 10451]
                                                     <div class="swiper-2">
                                                         <a href="${base}/store/${stores.id}">
 																<span class="swiper_title-2">
@@ -383,11 +384,18 @@
 																	  <img src="${stores.logo}" class="logo-2">
 																	<p>${stores.name}</p>
 																</span>
-                                                            <p class="tonsof-2">${stores.capacity}${message("shop.index.capacity")}</p>
+                                                            <p class="tonsof-2">
+                                                                [#if stores.capacity ==0]
+
+                                                                [#else]
+                                                                    ${stores.capacity}${message("shop.index.capacity")}
+                                                                [/#if]
+                                                            </p>
                                                             <p class="themain-2">${message("shop.index.main")}</p>
                                                             <p class="varieties-2">${stores.keyword}</p>
                                                         </a>
                                                     </div>
+                                                   [/#if]
                                                 [/#list]
                                             [/@ad_factory]
                                         </div>

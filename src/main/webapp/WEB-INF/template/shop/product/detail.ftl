@@ -435,10 +435,10 @@
                         </li>
                     </ul>
                     <div class="xing-22">
-                        <p style="font-size: 16px;">${message("shop.mainHeader.saler")}</p>
+                        <p style="font-size: 15px;">${message("shop.mainHeader.saler")}</p>
                         <div class="star-level">
                             <div class="xing-2">
-                                <span class="iconfont">&#xe70b;</span>${message("shop.mainHeader.drawer")}${message("shop.product.star")}
+                                <span class="iconfont">&#xe70b;</span>${message("shop.product.star")}
                             </div>
                             <div class="points-2">
                                 ${message("shop.product.grade")}
@@ -450,7 +450,7 @@
                     </div>
                     <div class="drawer-2">
                         <span class="iconfont" style="color: orange">&#xe6ee;</span>
-                        <p>：${product.store.name}</p>
+                        <p>${message("shop.mainHeader.drawer")}${product.store.name}</p>
                     </div>
                 </div>
                 [#if product.type == "GENERAL" || product.type == "EXCHANGE"]

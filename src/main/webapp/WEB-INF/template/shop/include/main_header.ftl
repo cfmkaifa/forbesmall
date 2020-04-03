@@ -297,7 +297,16 @@
                     [/#if]
                 </div>
             </div>
-            <div class="col-xs-3">
+            <div class="col-xs-3"style=" display: flex; justify-content: space-between;">
+                <div class="totality-2">
+                    ${message("shop.product.amount")}
+                    [@pro_amount ]
+                        <span>
+                       ${proAmount}
+                    </span>
+                    [/@pro_amount ]
+                    <span>${message("shop.product.trip")}</span>
+                </div>
                 <div id="mainHeaderCart" class="cart">
                     <i class="iconfont icon-cart"></i>
                     <a href="${base}/cart/list">${message("shop.mainHeader.cart")}</a>
@@ -320,7 +329,7 @@
                         [@navigation_list navigationGroupId = 2]
                             [#if navigations?has_content]
                                 [#list navigations as navigation]
-                                    <li[#if navigation.url == requestContext.requestUri] class="active"[/#if]>
+                                    <li[#if navigation.url?contains(requestContext.requestUri) && requestContext.requestUri != "/"] class="active"[/#if]>
                                         <a href="${navigation.url}"[#if navigation.isBlankTarget] target="_blank"[/#if]>${navigation.name}</a>
                                     </li>
                                 [/#list]

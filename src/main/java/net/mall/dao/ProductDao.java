@@ -172,4 +172,13 @@ public interface ProductDao extends BaseDao<Product, Long> {
      * @param proSn
      */
     void modifyProductGroupPurch(Boolean isGroup, String proSn);
+
+
+
+    /***
+     *
+     * @param curentDate
+     * @param productId
+     */
+    void modifyProduct(Date curentDate,Long productId);
 }

@@ -221,6 +221,7 @@ public class ArticleController extends BaseController {
         model.addAttribute("articleCategory", articleCategory);
         model.addAttribute("page", articleService.findPage(articleCategory, null, true, pageable));
         model.addAttribute("articleCategories", articleCategories);
+        model.addAttribute("articleCategoryId",articleCategoryId);
         return "shop/article/attention";
     }
 
@@ -302,8 +303,10 @@ public class ArticleController extends BaseController {
         List<ArticleCategory> articleCategories = articleCategoryService.findRoots(6, ArticleCategory.Type.NEWS);
         Map<String, Page<Article>> map = new HashMap<>();
         Pageable pageable = new Pageable();
-        pageable.setPageSize(5);
-        model.addAttribute("instantnews", articleService.findPage(articleCategoryService.find(articleCategories.get(1).getId()), null, true, pageable));
+        pageable.setPageSize(8);
+        Pageable temppage = new Pageable();
+        temppage.setPageSize(5);
+        model.addAttribute("instantnews", articleService.findPage(articleCategoryService.find(articleCategories.get(1).getId()), null, true, temppage));
         model.addAttribute("fubuinsights", articleService.findPage(articleCategoryService.find(articleCategories.get(2).getId()), null, true, pageable));
         model.addAttribute("factorystatus", articleService.findPage(articleCategoryService.find(articleCategories.get(3).getId()), null, true, pageable));
         model.addAttribute("commonality", articleService.findPage(articleCategoryService.find(articleCategories.get(5).getId()), null, true, pageable));

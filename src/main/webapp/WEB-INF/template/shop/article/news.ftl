@@ -7,6 +7,7 @@
     <link href="${base}/resources/shop/css/base.css" rel="stylesheet">
     <link href="${base}/resources/shop/css/articlenews.css" rel="stylesheet">
     <link href="${base}/resources/common/css/iconfont.css" rel="stylesheet">
+    <script src="${base}/resources/common/js/jquery.bxslider.js"></script>
     <link href="${base}/resources/common/css/demo.css" rel="stylesheet">
     <!--[if lt IE 9]>
 		<script src="${base}/resources/common/js/html5shiv.js"></script>
@@ -35,9 +36,14 @@
         <div class="information_content">
             <div class="hotAttention content">
                 <div class="hotAttention_img">
-                    <img src="${base}/resources/shop/images/bannerx.jpg" alt="">
+                    [#--<img src="${base}/resources/shop/images/bannerx.jpg" alt="">--]
+                    [@ad_position id = 9952]
+                        [#if adPosition??]
+                            [#noautoesc]${adPosition.resolveTemplate()}[/#noautoesc]
+                        [/#if]
+                    [/@ad_position]
                 </div>
-                <div style="width: 45%;">
+                <div style="width: 100%;">
                     <div class="hotAttention_news">
 				            <span class="hotAttention_title">
 				                <div></div>
@@ -49,7 +55,7 @@
                     </div>
                     <div class="hotAttention_content1 hotAttention_content">
                         [#list instantnews.content as instantnews]
-                            <span><p><a href="${base}${instantnews.path}">${instantnews.title}</a></p></span>
+                            <span><p><a title="${instantnews.title}" href="${base}${instantnews.path}">${instantnews.title}</a></p></span>
                         [/#list]
                     </div>
                 </div>
@@ -66,11 +72,15 @@
                 <div class="hotAttention">
                     <div class="hotAttention_content hotAttention_content2">
                         [#list fubuinsights.content as fubuinsights]
-                            <span><p><a href="${base}${fubuinsights.path}">${fubuinsights.title}</a></p></span>
+                            <span><p><a title="${instantnews.title}" href="${base}${fubuinsights.path}">${fubuinsights.title}</a></p></span>
                         [/#list]
                     </div>
                     <div class="information_img">
-                        <img src="${base}/resources/shop/images/11.png" alt="">
+                        [@ad_position id = 10001]
+                            [#if adPosition??]
+                                [#noautoesc]${adPosition.resolveTemplate()}[/#noautoesc]
+                            [/#if]
+                        [/@ad_position]
                     </div>
                 </div>
             </div>
@@ -86,11 +96,15 @@
                 <div class="hotAttention">
                     <div class="hotAttention_content hotAttention_content2">
                         [#list factorystatus.content as factorystatus]
-                            <span><p><a href="${base}${factorystatus.path}">${factorystatus.title}</a></p></span>
+                            <span><p><a title="${instantnews.title}" href="${base}${factorystatus.path}">${factorystatus.title}</a></p></span>
                         [/#list]
                     </div>
                     <div class="information_img">
-                        <img src="${base}/resources/shop/images/11.png" alt="">
+                        [@ad_position id = 10002]
+                            [#if adPosition??]
+                                [#noautoesc]${adPosition.resolveTemplate()}[/#noautoesc]
+                            [/#if]
+                        [/@ad_position]
                     </div>
                 </div>
             </div>
@@ -106,11 +120,15 @@
                 <div class="hotAttention">
                     <div class="hotAttention_content hotAttention_content2">
                         [#list commonality.content as commonality]
-                            <span><p><a href="${base}${commonality.path}">${commonality.title}</a></p></span>
+                            <span><p><a title="${instantnews.title}" href="${base}${commonality.path}">${commonality.title}</a></p></span>
                         [/#list]
                     </div>
                     <div class="information_img">
-                        <img src="${base}/resources/shop/images/11.png" alt="">
+                        [@ad_position id = 10003]
+                            [#if adPosition??]
+                                [#noautoesc]${adPosition.resolveTemplate()}[/#noautoesc]
+                            [/#if]
+                        [/@ad_position]
                     </div>
                 </div>
             </div>
