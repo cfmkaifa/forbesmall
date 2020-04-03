@@ -70,16 +70,16 @@
                 <dl class="help">
                     <dt>平台规则</dt>
                     <dd>
-                        <a href="${base}/article/detail/16_1">平台服务协议</a>
+                        <a href="${base}/article/detail/17_1">平台服务协议</a>
                     </dd>
                     <dd>
-                        <a href="${base}/article/detail/15_1">平台交易规则</a>
+                        <a href="${base}/article/detail/16_1">平台交易规则</a>
                     </dd>
                     <dd>
                         <a href="${base}/article/detail/15_1">购物流程</a>
                     </dd>
                     <dd>
-                        <a href="${base}/article/detail/17_1">会员等级</a>
+                        <a href="${base}/article/detail/14_1">会员等级</a>
                     </dd>
                 </dl>
             </div>
@@ -87,19 +87,16 @@
                 <dl class="help">
                     <dt>合同模板</dt>
                     <dd>
-                        <a href="${base}/article/detail/19_1">产品采购合同</a>
+                        <a href="${base}/article/detail/22_1">产品采购合同</a>
                     </dd>
                     <dd>
-                        <a href="${base}/article/detail/19_1">下载合同</a>
-                    </dd>
-                    <dd>
-                        <a href="${base}/article/detail/19_1">货到付款</a>
+                        <a href="${base}/article/detail/21_1">货到付款</a>
                     </dd>
                     <dd>
                         <a href="${base}/article/detail/20_1">网银支付</a>
                     </dd>
                     <dd>
-                        <a href="${base}/article/detail/21_1">银行转帐</a>
+                        <a href="${base}/article/detail/19_1">银行转帐</a>
                     </dd>
                 </dl>
             </div>
@@ -107,19 +104,19 @@
                 <dl class="help">
                     <dt>支付方式</dt>
                     <dd>
-                        <a href="${base}/article/detail/31_1">线下打款</a>
+                        <a href="${base}/article/detail/30_1">线下打款</a>
                     </dd>
                     <dd>
-                        <a href="${base}/article/detail/33_1">银行承兑汇票</a>
+                        <a href="${base}/article/detail/27_1">银行承兑汇票</a>
                     </dd>
                     <dd>
-                        <a href="${base}/article/detail/31_1">退换货政策</a>
+                        <a href="${base}/article/detail/28_1">退换货政策</a>
                     </dd>
                     <dd>
-                        <a href="${base}/article/detail/33_1">退换货申请</a>
+                        <a href="${base}/article/detail/29_1">退换货申请</a>
                     </dd>
                     <dd>
-                        <a href="${base}/article/detail/34_1">退款说明</a>
+                        <a href="${base}/article/detail/10466_1">退款说明</a>
                     </dd>
 
                 </dl>
@@ -132,19 +129,13 @@
                         <a href="${base}/article/member">会员入驻</a>
                     </dd>
                     <dd>
-                        <a href="${base}/article/detail/31_1">上传合同</a>
+                        <a href="${base}/article/detail/10470_1">服务热线</a>
                     </dd>
                     <dd>
-                        <a href="${base}/article/detail/33_1">审核查询</a>
+                        <a href="${base}/article/detail/10469_1">商家帮助</a>
                     </dd>
                     <dd>
-                        <a href="${base}/article/detail/34_1">服务热线</a>
-                    </dd>
-                    <dd>
-                        <a href="${base}/article/detail/37_1">商家帮助</a>
-                    </dd>
-                    <dd>
-                        <a href="${base}/article/detail/38_1">运营服务</a>
+                        <a href="${base}/article/detail/10468_1">运营服务</a>
                     </dd>
                 </dl>
             </div>

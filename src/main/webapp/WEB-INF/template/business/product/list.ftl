@@ -54,7 +54,6 @@
 						if (result == null || !result) {
 							return;
 						}
-						
 						$.post("${base}/business/product/shelves", $("input[name='ids']").serialize(), function() {
 							location.reload(true);
 						});

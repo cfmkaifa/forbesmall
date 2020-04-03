@@ -2,7 +2,10 @@
     <%if (currentUser != null && currentUser.type == "member") {%>
     <ul class="list-inline">
         <li>
-            <a href="${base}/member/index"><%-currentUser.username%></a>
+            <a href="${base}/member/index">${message("shop.mainHeader.username")}<%-currentUser.username%></a>
+        </li>
+        <li>
+            <a class="membercenter" href="${base}/member/index">${message("shop.mainHeader.buyer")}</a>
         </li>
         <li>
             <a class="logout" href="${base}/member/logout">${message("shop.mainHeader.memberLogout")}</a>

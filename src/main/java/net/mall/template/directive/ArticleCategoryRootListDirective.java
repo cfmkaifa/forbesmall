@@ -7,6 +7,7 @@
 package net.mall.template.directive;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -52,12 +53,12 @@ public class ArticleCategoryRootListDirective extends BaseDirective {
         Integer count = getCount(params);
         boolean useCache = useCache(params);
         long temp = 10051;
-        List<ArticleCategory> articleCategories = articleCategoryService.findRoots(1, useCache, ArticleCategory.Type.INST);
+        long newsId=2;
+        List<ArticleCategory> articleCategories = new ArrayList<ArticleCategory>();
         ArticleCategory articleCategory = articleCategoryService.findArticleCategory(temp, ArticleCategory.Type.NEWS);
+        ArticleCategory articleCategoryData = articleCategoryService.findArticleCategory(newsId, ArticleCategory.Type.NEWS);
         articleCategories.add(articleCategory);
-        if (articleCategories.size() == 3) {
-            articleCategories.remove(1);
-        }
+        articleCategories.add(articleCategoryData);
         setLocalVariable(VARIABLE_NAME, articleCategories, env, body);
     }
 }

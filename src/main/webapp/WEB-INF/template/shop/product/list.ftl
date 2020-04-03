@@ -540,7 +540,6 @@
                                             <div class="product-left-2">
                                                 <ul>
                                                     <li class="product-li-12">
-
 															<span class="product-name">
 																<b>
 																	<a href="${base}${product.path}" target="_blank">

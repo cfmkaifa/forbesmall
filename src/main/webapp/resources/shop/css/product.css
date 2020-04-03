@@ -758,7 +758,7 @@
 
 .product-detail .specification dl dd {
 	line-height: 35px;
-	/*margin-left: 90px;*/
+	margin-left: 90px !important;
 }
 
 .product-detail .specification dl dd a {
@@ -932,6 +932,7 @@
 	z-index: 300;
 	border: 1px solid #eeeeee;
 	background-color: #ffffff;
+	font-size: 15px;
 }
 
 .product-detail .topbar.affix {
@@ -986,6 +987,7 @@
 	margin-bottom: -2px;
 	color: #999999;
 	border-bottom: 2px solid #ff5500;
+	font-size: 14px;
 }
 
 .product-detail .introduction .introduction-body ul {
@@ -1021,6 +1023,7 @@
 	margin-bottom: -2px;
 	color: #999999;
 	border-bottom: 2px solid #ff5500;
+	font-size: 14px;
 }
 
 .product-detail .parameter .parameter-body table {
