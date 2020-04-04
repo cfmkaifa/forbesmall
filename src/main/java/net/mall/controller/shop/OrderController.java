@@ -260,6 +260,7 @@ public class OrderController extends BaseController {
         Order.Type orderType;
         if (skuId != null) {
             Sku sku = skuService.find(skuId);
+            model.addAttribute("sku",sku);
             if (sku == null) {
                 return UNPROCESSABLE_ENTITY_VIEW;
             }
@@ -764,9 +765,9 @@ public class OrderController extends BaseController {
 
     /****
      * certificatePayment方法慨述:支付订单
-     * @param paymentPluginId
-     * @param orderSns
-     * @param currentUser
+     * @param
+     * @param
+     * @param
      * @return ResponseEntity<?>
      * @创建人 huanghy
      * @创建时间 2019年12月26日 下午3:18:01
@@ -798,7 +799,7 @@ public class OrderController extends BaseController {
 
     /***
      * sealContract方法慨述:
-     * @param orderSn
+     * @param
      * @param sealContractPath
      * @return ResponseEntity<?>
      * @创建人 huanghy

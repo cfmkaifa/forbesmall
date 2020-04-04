@@ -20,7 +20,17 @@
     <title>${message("shop.product.logo")}</title>
 </head>
 <body>
-[#include "/shop/include/main_newheader.ftl" /]
+      [#if article.articleCategory.name == '平台规则']
+          [#include "/shop/include/main_header.ftl" /]
+      [#elseif article.articleCategory.name == '合同模板']
+          [#include "/shop/include/main_header.ftl" /]
+      [#elseif article.articleCategory.name == '支付方式']
+          [#include "/shop/include/main_header.ftl" /]
+      [#elseif article.articleCategory.name == '供应商服务']
+          [#include "/shop/include/main_header.ftl" /]
+      [#else]
+           [#include "/shop/include/main_newheader.ftl" /]
+      [/#if]
 <main>
     <div class="detail">
         <div class="details">
@@ -32,7 +42,7 @@
                                 <span>${temparticle.createdDate}</span>
                             </div>
                             <div>
-                                <p><a href="${base}${temparticle.path}">${temparticle.title}</a></a></p>
+                                <p><a href="${base}${temparticle.path}">${temparticle.title}</a></p>
                             </div>
                         </li>
                     [/#list]

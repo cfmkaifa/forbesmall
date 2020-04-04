@@ -833,9 +833,10 @@
 
 .product-detail .action .btn-default {
 	margin-right: 10px;
-	color: #ff6900;
+	color: white;
+	background: #2091D5;
 	border-radius: 0px;
-	border-color: #ff6900;
+	border-color: #2091D5;
 }
 
 .product-detail .action .btn-primary {
@@ -1672,8 +1673,8 @@
 .button-2 {
 	width: 120px;
 	height: 36px;
-	background-color: #ff6600;
-	border: 1px solid #ff6600;
+	background-color: red;
+	border: 1px solid red;
 	color: #fff;
 	margin-top: 0px;
 }
@@ -1681,8 +1682,8 @@
 .button-3 {
 	width: 120px;
 	height: 27px;
-	background-color: #ff6600;
-	border: 1px solid #ff6600;
+	background-color: red;
+	border: 1px solid red;
 	color: #fff;
 	margin-top: 6px;
 }
@@ -1720,6 +1721,7 @@
 	width: 46%;
 	height: 52%;
 	broder:none !important;
+	z-index: 100;
 }
 
 .star-level {

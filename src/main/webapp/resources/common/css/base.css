@@ -479,8 +479,8 @@ ol, ul {
 .btn-primary {
 	-webkit-transition: border-color 0.3s, background-color 0.3s;
 	transition: border-color 0.3s, background-color 0.3s;
-	border-color: #EE3834;
-	background-color: #EE3834;
+	border-color: #EE3834 !important;
+	background-color: #EE3834 !important;
 }
 
 .btn-primary:hover {

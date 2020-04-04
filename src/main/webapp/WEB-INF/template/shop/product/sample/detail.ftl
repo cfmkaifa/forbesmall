@@ -419,20 +419,23 @@
                     [#if product.hasSpecification()]
                         [#assign defaultSpecificationValueIds = defaultSku.specificationValueIds /]
                         <div id="specification" class="specification">
-                            <dl class="dl-horizontal clearfix">
+                            <dl class="dl-horizontal clearfix colorkgnav">
                                 [#list product.specificationItems as specificationItem]
-                                    <dt>
-                                        <span title="${specificationItem.name}">${specificationItem.name}:</span>
-                                    </dt>
-                                    <dd>
-                                        [#list specificationItem.entries as entry]
-                                            [#if entry.isSelected]
-                                                <a[#if defaultSpecificationValueIds[specificationItem_index] == entry.id] class="active"[/#if]
-                                                        href="javascript:;"
-                                                        data-specification-item-entry-id="${entry.id}">${entry.value}</a>
-                                            [/#if]
-                                        [/#list]
-                                    </dd>
+                                    <div class="colorkg">
+                                        <dt>
+                                            <span title="${specificationItem.name}">${specificationItem.name}:</span>
+                                        </dt>
+                                        <dd>
+                                            [#list specificationItem.entries as entry]
+                                                [#if entry.isSelected]
+                                                    <a[#if defaultSpecificationValueIds[specificationItem_index] == entry.id] class="active"[/#if]
+                                                            href="javascript:;"
+                                                            data-specification-item-entry-id="${entry.id}">${entry.value}</a>
+                                                [/#if]
+                                            [/#list]
+                                        </dd>
+                                    </div>
+
                                 [/#list]
                             </dl>
                         </div>
@@ -596,27 +599,41 @@
                             <h4>${message("shop.product.parameter")}</h4>
                         </div>
                         <div class="parameter-body">
-                            <table class=" table-2">
-                                [#list product.parameterValues as parameterValue]
-                                    <tr>
-                                        <th class="group" colspan="2">${parameterValue.group}</th>
-                                    </tr>
+                            [#list product.parameterValues as parameterValue]
+                                <div>
+                                    <p class="group" colspan="2">${parameterValue.group}</p>
+                                </div>
+                                <ul class="information">
                                     [#list parameterValue.entries as entry]
-                                        <tr>
-                                            <td>${entry.name}</td>
-                                            <td>${entry.value}</td>
-                                        </tr>
+                                        <li>
+                                            <p class="information-p">${entry.name}</p>
+                                            <p class="information-p2">${entry.value}</p>
+                                        </li>
                                     [/#list]
-                                [/#list]
-                                [#--	[#list product.specificationItems as parameterSpec]
-                                        <tr>
-                                            <td>${parameterSpec.name}：</td>
-                                        [#list parameterSpec.entries as entry]
-                                            <td>${entry.value}</td>
-                                        [/#list]
-                                        </tr>
-                                    [/#list]--]
-                            </table>
+                                </ul>
+                            [/#list]
+
+[#--                            <table class=" table-2">--]
+[#--                                [#list product.parameterValues as parameterValue]--]
+[#--                                    <tr>--]
+[#--                                        <th class="group" colspan="2">${parameterValue.group}</th>--]
+[#--                                    </tr>--]
+[#--                                    [#list parameterValue.entries as entry]--]
+[#--                                        <tr>--]
+[#--                                            <td>${entry.name}</td>--]
+[#--                                            <td>${entry.value}</td>--]
+[#--                                        </tr>--]
+[#--                                    [/#list]--]
+[#--                                [/#list]--]
+[#--                                --][#--	[#list product.specificationItems as parameterSpec]--]
+[#--                                        <tr>--]
+[#--                                            <td>${parameterSpec.name}：</td>--]
+[#--                                        [#list parameterSpec.entries as entry]--]
+[#--                                            <td>${entry.value}</td>--]
+[#--                                        [/#list]--]
+[#--                                        </tr>--]
+[#--                                    [/#list]--]
+[#--                            </table>--]
                         </div>
                     </div>
                 [/#if]

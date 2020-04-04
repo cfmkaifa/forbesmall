@@ -202,7 +202,7 @@
 						[/#if]
 						<th>${message("Sku.stock")}</th>
 						<th>${message("Product.unit")}</th>
-						<th>${product.unit}</th>
+						<th>${message("Product.unit.data")}</th>
 						<th>${message("Sku.isDefault")}</th>
 						<th>${message("business.product.isEnabled")}</th>
 					</tr>

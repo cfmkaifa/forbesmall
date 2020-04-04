@@ -158,8 +158,8 @@
         <p>上海市青浦区虹桥世界中心L2-B栋503室  客服电话021-61833519</p>
         <div class="record">
             <div style="text-align:center; margin-top:10px;">
-                <a href="https://cec.osichina.cn/bz8687805698.html">
-                    <img src="http://cec.osichina.cn/cec/gswj.png" alt="企业亮照验证电子标识" width="109" height="47" border="0" />
+                <a href="https://rz.ce9000.org/QX8687805698.html">
+                    <img src="https://rz.ce9000.org/cec/qxrz.png" alt="企信验证实名网站" width="128" height="47" border="0" />
                 </a>
             </div>
             <p><a href="http://www.miit.gov.cn/" target="_blank">沪ICP备17024305号-2</a></p>

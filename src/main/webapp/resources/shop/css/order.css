@@ -34,6 +34,7 @@
 .order-checkout main .panel .panel-body {
 	padding-right: 0px;
 	padding-left: 0px;
+	font-size: 14px;
 }
 
 .order-checkout main .panel .panel-body>.form-group:last-child {
@@ -275,6 +276,7 @@
 .order-checkout main table {
 	width: 100%;
 	background-color: #ffffff;
+	font-size: 14px;
 }
 
 .order-checkout main table th, .order-checkout main table td {
@@ -389,4 +391,7 @@
 
 .payment .panel-footer .payment-method {
 	padding-left: 50px;
+}
+.price{
+	color: red;
 }

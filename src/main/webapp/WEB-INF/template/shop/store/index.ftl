@@ -87,10 +87,10 @@
                                 <li>
                                     [#if storeAdImage.url?has_content]
                                         <a href="${storeAdImage.url}" title="${storeAdImage.title}">
-                                            <img src="${storeAdImage.image}" alt="${storeAdImage.title}">
+                                            [#--<img src="${storeAdImage.image}" alt="${storeAdImage.title}">--]
                                         </a>
                                     [#else]
-                                        <img src="${storeAdImage.image}" alt="${storeAdImage.title}">
+                                        [#--<img src="${storeAdImage.image}" alt="${storeAdImage.title}">--]
                                     [/#if]
                                 </li>
                             [/#list]
@@ -106,7 +106,7 @@
                                         <div class="hot-product-heading">
                                             <h5>店铺简介</h5>
                                         </div>
-                                        <p>${store.introduction}</p>
+                                        <p class="hot-introduction">${store.introduction}</p>
                                         <div class="hot-product-heading">
                                             <h5>${storeProductTag.name}</h5>
                                         </div>
