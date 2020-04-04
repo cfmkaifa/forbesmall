@@ -113,11 +113,14 @@ public class ArticleController extends BaseController {
         } else {
             model.addAttribute("isPerm", true);
         }
+        List<ArticleCategory> articleCategories = articleCategoryService.findRoots(6, ArticleCategory.Type.NEWS);
         model.addAttribute("article", article);
         model.addAttribute("pageNumber", pageNumber);
-        Pageable pageable = new Pageable(pageNumber, 5);
+        Pageable pageable = new Pageable(pageNumber, 10);
         ArticleCategory articleCategory = articleCategoryService.find(article.getArticleCategory().getId());
         model.addAttribute("page", articleService.findPage(articleCategory, null, true, pageable));
+        model.addAttribute("articleCategories",articleCategories);
+        model.addAttribute("articleCategoryId",articleCategory.getId());
         return "shop/article/details";
     }
 
@@ -311,6 +314,7 @@ public class ArticleController extends BaseController {
         model.addAttribute("factorystatus", articleService.findPage(articleCategoryService.find(articleCategories.get(3).getId()), null, true, pageable));
         model.addAttribute("commonality", articleService.findPage(articleCategoryService.find(articleCategories.get(5).getId()), null, true, pageable));
         model.addAttribute("articleCategories", articleCategories);
+        model.addAttribute("articleCategoryId",articleCategories.get(0).getId());
         return "shop/article/news";
     }
 

@@ -2,9 +2,9 @@
 
 /*
  *
- * 
  *
- * 
+ *
+ *
  * Style - Base
  * Version: 6.1
  */
@@ -44,14 +44,12 @@ ol, ul {
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
-
 .payli>.text-overflow {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	text-align: center;
 }
-
 /* ---------- color ---------- */
 .text-red-darker {
 	color: #bd2636;
@@ -787,7 +785,7 @@ a.thumbnail:hover, a.thumbnail:focus, a.thumbnail.active {
 		-webkit-transform-origin: 0 0;
 		transform-origin: 0 0;
 	}
-	
+
 	to {
 		opacity: 1;
 		-webkit-transform: scaleY(1);
@@ -805,7 +803,7 @@ a.thumbnail:hover, a.thumbnail:focus, a.thumbnail.active {
 		-webkit-transform-origin: 0 0;
 		transform-origin: 0 0;
 	}
-	
+
 	to {
 		opacity: 1;
 		-webkit-transform: scaleY(1);
@@ -919,7 +917,7 @@ a.thumbnail:hover, a.thumbnail:focus, a.thumbnail.active {
 		-webkit-transform: scale(0.8);
 		transform: scale(0.8);
 	}
-	
+
 	to {
 		-webkit-transform: scale(1);
 		transform: scale(1);
@@ -931,7 +929,7 @@ a.thumbnail:hover, a.thumbnail:focus, a.thumbnail.active {
 		-webkit-transform: scale(0.8);
 		transform: scale(0.8);
 	}
-	
+
 	to {
 		-webkit-transform: scale(1);
 		transform: scale(1);
@@ -1051,7 +1049,7 @@ a.thumbnail:hover, a.thumbnail:focus, a.thumbnail.active {
 		-webkit-transform: translateY(-50%);
 		transform: translateY(-50%);
 	}
-	
+
 	to {
 		opacity: 1;
 		-webkit-transform: none;
@@ -1065,7 +1063,7 @@ a.thumbnail:hover, a.thumbnail:focus, a.thumbnail.active {
 		-webkit-transform: translateY(-50%);
 		transform: translateY(-50%);
 	}
-	
+
 	to {
 		opacity: 1;
 		-webkit-transform: none;
@@ -1152,7 +1150,7 @@ th .checkbox, td .checkbox {
 		-webkit-transform: scale(0.8);
 		transform: scale(0.8);
 	}
-	
+
 	to {
 		opacity: 1;
 		-webkit-transform: none;
@@ -1166,7 +1164,7 @@ th .checkbox, td .checkbox {
 		-webkit-transform: scale(0.8);
 		transform: scale(0.8);
 	}
-	
+
 	to {
 		opacity: 1;
 		-webkit-transform: none;
@@ -1485,7 +1483,7 @@ th .checkbox, td .checkbox {
 		-webkit-transform: scale(0, 0);
 		transform: scale(0, 0);
 	}
-	
+
 	to {
 		-webkit-transform: scale(1, 1);
 		transform: scale(1, 1);
@@ -1497,7 +1495,7 @@ th .checkbox, td .checkbox {
 		-webkit-transform: scale(0, 0);
 		transform: scale(0, 0);
 	}
-	
+
 	to {
 		-webkit-transform: scale(1, 1);
 		transform: scale(1, 1);
@@ -1591,10 +1589,10 @@ img.captcha-image {
 	margin: 0 auto;
 }
 .login-main3 {
-	width: 92%;
-	margin: 0 auto;
+	width:100%;
+	/* margin: 0 auto; */
 	display: flex;
-	justify-content: space-between;
+	/* justify-content: space-between; */
 
 }
 .page-input {

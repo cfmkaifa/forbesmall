@@ -33,10 +33,10 @@
     <title>${message("shop.product.logo")}</title>
 </head>
 <body>
-   [#include "/shop/include/main_newheader.ftl" /]
+[#include "/shop/include/main_newheader.ftl" /]
 <main>
     <div>
-        <div class="newsNav">
+        [#--<div class="newsNav">
             <ul class="navigation">
                 [#list articleCategories as articleCategories]
                     <li class ="item [#if articleCategories.id == articleCategoryId] active[/#if]">
@@ -44,7 +44,7 @@
                     </li>
                 [/#list]
             </ul>
-        </div>
+        </div>--]
         <div style="width:1200px;background: #ffffff;margin: 0 auto;">
             [#if isPerm == false]
                 [#include "/shop/include/noperm.ftl" /]
@@ -63,8 +63,7 @@
 								<span class="newsTitle_text">
 									<h3>${article.title}</h3>
 								</span>
-                                [#--<a href="${base}${article.path}">--]
-                                <a href="${base}${article.path}">
+                                <a target="_blank" href="${base}${article.path}">
                                     <img src="${base}/resources/shop/images/khcfdc.png" alt="" style="width:18px;">
                                 </a>
                             </div>
