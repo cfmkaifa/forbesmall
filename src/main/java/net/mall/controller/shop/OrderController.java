@@ -260,6 +260,7 @@ public class OrderController extends BaseController {
         Order.Type orderType;
         if (skuId != null) {
             Sku sku = skuService.find(skuId);
+            model.addAttribute("sku",sku);
             if (sku == null) {
                 return UNPROCESSABLE_ENTITY_VIEW;
             }

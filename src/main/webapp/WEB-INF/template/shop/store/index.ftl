@@ -87,10 +87,10 @@
                                 <li>
                                     [#if storeAdImage.url?has_content]
                                         <a href="${storeAdImage.url}" title="${storeAdImage.title}">
-                                            <img src="${storeAdImage.image}" alt="${storeAdImage.title}">
+                                            [#--<img src="${storeAdImage.image}" alt="${storeAdImage.title}">--]
                                         </a>
                                     [#else]
-                                        <img src="${storeAdImage.image}" alt="${storeAdImage.title}">
+                                        [#--<img src="${storeAdImage.image}" alt="${storeAdImage.title}">--]
                                     [/#if]
                                 </li>
                             [/#list]
@@ -103,6 +103,10 @@
                             [@product_list storeId = store.id storeProductTagId = storeProductTag.id count = 20]
                                 [#if products?has_content]
                                     <div class="hot-product">
+                                        <div class="hot-product-heading">
+                                            <h5>店铺简介</h5>
+                                        </div>
+                                        <p class="hot-introduction">${store.introduction}</p>
                                         <div class="hot-product-heading">
                                             <h5>${storeProductTag.name}</h5>
                                         </div>

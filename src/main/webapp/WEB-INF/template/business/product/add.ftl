@@ -1045,13 +1045,13 @@
 									</div>
 								</div>
 								<div class="form-group">
-									<label class="col-xs-3 col-sm-2 control-label" for="unit">${message("Product.unit")}:</label>
+									<label class="col-xs-3 col-sm-2 control-label item-required" for="unit">${message("Product.unit")}:</label>
 									<div class="col-xs-9 col-sm-4">
 										<input id="unit" name="unit" class="form-control" type="text" maxlength="200">
 									</div>
 								</div>
 								<div class="form-group">
-									<label class="col-xs-3 col-sm-2 control-label" for="weight">${message("Product.weight")}:</label>
+									<label class="col-xs-3 col-sm-2 control-label item-required" for="weight">${message("Product.weight")}:</label>
 									<div class="col-xs-9 col-sm-4">
 										<div class="input-group">
 											<input id="weight" name="weight" class="form-control" type="text" maxlength="9">
@@ -1107,7 +1107,7 @@
 										<div class="col-xs-9 col-sm-10">
 											[#list productTags as productTag]
 												<div class="checkbox checkbox-inline">
-													<input id="productTag_${productTag.id}" name="productTagIds" type="checkbox" value="${productTag.id}">
+													<input id="productTag_${productTag.id}" name="productTagIds" type="checkbox" value="true" checked>
 													<label for="productTag_${productTag.id}">${productTag.name}</label>
 												</div>
 											[/#list]
@@ -1120,7 +1120,7 @@
 										<div class="col-xs-9 col-sm-10">
 											[#list storeProductTags as storeProductTag]
 												<div class="checkbox checkbox-inline">
-													<input id="storeProductTag_${storeProductTag.id}" name="storeProductTagIds" type="checkbox" value="${storeProductTag.id}">
+													<input id="storeProductTag_${storeProductTag.id}" name="storeProductTagIds" type="checkbox" value="${storeProductTag.id}" checked>
 													<label for="storeProductTag_${storeProductTag.id}">${storeProductTag.name}</label>
 												</div>
 											[/#list]

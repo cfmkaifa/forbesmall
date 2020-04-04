@@ -65,9 +65,9 @@ a {
     border-bottom: 2px solid #ed0000;
 }
 .navigation{
-    width: 1099px;
+    width: 1200px;
     height: 34px;
-    margin: 0 auto;
+    margin: 0;
     display: flex;
     /*justify-content: space-between;*/
     /* align-items: center; */

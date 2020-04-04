@@ -232,7 +232,7 @@
                         var $element = $(this);
 
                         if ($.trim($element.val()) === "") {
-                            $element.val("${message("shop.order.defaultInvoiceTitle")}");
+                            $element.val("${sku.product.store.name}");
                         }
                     });
 
@@ -571,7 +571,7 @@
                                     <label class="col-xs-1 control-label">${message("shop.order.invoiceTitle")}</label>
                                     <div class="col-xs-4">
                                         <input id="invoiceTitle" name="invoiceTitle" class="form-control" type="text"
-                                               value="${message("shop.order.defaultInvoiceTitle")}" maxlength="200"
+                                               value="${sku.product.store.name}" maxlength="200"
                                                disabled>
                                     </div>
                                 </div>
@@ -670,9 +670,9 @@
                                     </div>
                                 </div>
                             </td>
-                            <td>${currency(orderItem.price, true)}</td>
+                            <td class="price">${currency(orderItem.price, true)}</td>
                             <td>${orderItem.quantity}</td>
-                            <td>
+                            <td class="price">
                                 <strong>${currency(orderItem.subtotal, true)}</strong>
                             </td>
                         </tr>

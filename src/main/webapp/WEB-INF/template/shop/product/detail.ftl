@@ -354,6 +354,9 @@
                         [#else]
                             <a id="zoom" href="${setting.defaultLargeProductImage}" rel="gallery">
                                 <img src="${setting.defaultMediumProductImage}" alt="${product.name}">
+                                [#if product.sample]
+                                    <img src="/resources/shop/images/biao.png" class="active-2">
+                                [/#if]
                             </a>
                         [/#if]
                     </div>
