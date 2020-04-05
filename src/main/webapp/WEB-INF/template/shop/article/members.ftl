@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>会员中心</title>
-    <link rel="stylesheet" href="/resources/shop/css/members.css">
+    <link rel="stylesheet" href="${base}/resources/shop/css/members.css">
     <link href="${base}/favicon.ico" rel="icon">
     <link href="${base}/resources/common/css/bootstrap.css" rel="stylesheet">
     <link href="${base}/resources/common/css/iconfont.css" rel="stylesheet">
@@ -28,233 +28,320 @@
     <script src="${base}/resources/shop/js/base.js"></script>
 </head>
 <body>
-<div class="header">
-    <img src="/resources/shop/images/logos.png" class="logo">
-    <ul class="nav">
-        <li><a href="${base}/product/list/10301">交易商城</a></li>
-        <li><a href="#">分析中心</a></li>
-        <li><a href="${base}/article/articleindex">行情资讯</a></li>
-        <li><a href="#">化纤团购</a></li>
-        <li><a href="#">化纤求购</a></li>
-        <li><a href="#">运输服务</a></li>
-        <li><a href="#">数据中心</a></li>
-        <li><a href="${base}/resources/shop/html/smartFactory.html">智能工厂</a></li>
-        <li><a href="${base}/resources/shop/html/companyIntroduction.html?v=1.0">联系我们</a></li>
-    </ul>
-</div>
-<div class="banner">
-    <img src="/resources/shop/images/banner.png">
-</div>
-<div class="membersbg">
-    <div class="members">
-        <p class="members-tltle1">会员优享</p>
-        <p class="members-tltle2">Member Services</p>
-        <div class="plate">
-            <!-- 普通会员 -->
-            <div class="supermembers">
-                <div class="supermembers-top">
-                    <p class="details"><span>详情</span></p>
-                    <p class="supermembers-title">${page[0].name}</p>
-                </div>
-                <div class="supermembers-center">
-                    <p class="money-2">￥${page[0].serviceFee}元<span>/年</span></p>
-                    <ul class="apst">
-                        <li>标样销售</li>
-                        <li>产品展示</li>
-                        <li>交易数据</li>
-                    </ul>
-                    <ul class="posr">
-                        <li><p></p>产品位展示(${page[0].quantity}个)</li>
-                        <li><p></p>求购信息接收(50条)</li>
-                        <li><p></p>客户按星级优先展示</li>
-                        <li><p></p>专业的客服服务</li>
-                        <li><p></p>移动端APP</li>
-                        <li><p></p>站内消息接收</li>
-                    </ul>
-                    <button class="super_button"><a href="${base}/business/store/payment">升级会员</a></button>
-                </div>
-            </div>
-            <!-- 俱乐部会员 -->
-            <div class="supermembers">
-                <div class="supermembers-top">
-                    <p class="details"><span>详情</span></p>
-                    <p class="supermembers-title">${page[1].name}</p>
-                </div>
-                <div class="supermembers-center">
-                    <p class="money-2">￥${page[1].serviceFee}元<span>/年</span></p>
-                    <ul class="apst">
-                        <li>标样销售</li>
-                        <li>产品展示</li>
-                        <li>交易数据</li>
-                    </ul>
-                    <ul class="posr">
-                        <li><p></p>产品位展示(${page[1].quantity}个)</li>
-                        <li><p></p>求购信息接收(100条)</li>
-                        <li><p></p>客户按星级优先展示</li>
-                        <li><p></p>专业的客服服务</li>
-                        <li><p></p>发起团售，设定保证金</li>
-                        <li><p></p>站内资讯接收</li>
-                    </ul>
-                    <button class="super_button"><a href="${base}/business/store/payment">升级会员</a></button>
-                </div>
-            </div>
-            <!-- 白银会员 -->
-            <div class="supermembers">
-                <div class="supermembers-top">
-                    <p class="details"><span>详情</span></p>
-                    <p class="supermembers-title">${page[2].name}</p>
-                </div>
-                <div class="supermembers-center">
-                    <p class="money-2">￥${page[2].serviceFee}元<span>/年</span></p>
-                    <ul class="apst">
-                        <li>标样销售</li>
-                        <li>产品展示</li>
-                        <li>交易数据</li>
-                    </ul>
-                    <ul class="posr">
-                        <li><p></p>产品位展示(${page[2].quantity}个)</li>
-                        <li><p></p>求购信息接收(150条)</li>
-                        <li><p></p>客户按星级优先展示</li>
-                        <li><p></p>专业的客服服务</li>
-                        <li><p></p>发起团售，设定保证金</li>
-                        <li><p></p>推送行业月报</li>
-                    </ul>
-                    <button class="super_button"><a href="${base}/business/store/payment">升级会员</a></button>
-                </div>
-            </div>
-            <!-- 铂金会员 -->
-            <div class="supermembers">
-                <div class="supermembers-top">
-                    <p class="details"><span>详情</span></p>
-                    <p class="supermembers-title">${page[3].name}</p>
-                </div>
-                <div class="supermembers-center">
-                    <p class="money-2">￥${page[3].serviceFee}元<span>/年</span></p>
-                    <ul class="apst">
-                        <li>标样销售</li>
-                        <li>产品展示</li>
-                        <li>交易数据</li>
-                    </ul>
-                    <ul class="posr">
-                        <li><p></p>产品位展示(${page[3].quantity}个)</li>
-                        <li><p></p>求购信息接收(200条)</li>
-                        <li><p></p>客户按星级优先展示</li>
-                        <li><p></p>团购/采购信息推送</li>
-                        <li><p></p>数据推送</li>
-                        <li><p></p>行业月报</li>
-                    </ul>
-                    <button class="super_button"><a href="${base}/business/store/payment">升级会员</a></button>
-                </div>
-            </div>
-            <!-- 黄金会员 -->
-            <div class="supermembers">
-                <div class="supermembers-top">
-                    <p class="details"><span>详情</span></p>
-                    <p class="supermembers-title">${page[4].name}</p>
-                </div>
-                <div class="supermembers-center">
-                    <p class="money-2">￥${page[4].serviceFee}元<span>/年</span></p>
-                    <ul class="apst">
-                        <li>标样销售</li>
-                        <li>产品展示</li>
-                        <li>交易数据</li>
-                    </ul>
-                    <ul class="posr">
-                        <li><p></p>产品位展示(${page[4].quantity}个)</li>
-                        <li><p></p>求购信息接收(250条)</li>
-                        <li><p></p>客户按星级优先展示</li>
-                        <li><p></p>行业月报、季报、年报</li>
-                        <li><p></p>团购/采购信息推送</li>
-                        <li><p></p>数据推送</li>
-                    </ul>
-                    <button class="super_button"><a href="${base}/business/store/payment">升级会员</a></button>
-                </div>
-            </div>
-            <!-- 臻享会员 -->
-            <div class="supermembers">
-                <div class="supermembers-top">
-                    <p class="details"><span>详情</span></p>
-                    <p class="supermembers-title">${page[5].name}</p>
-                </div>
-                <div class="supermembers-center">
-                    <p class="money-2">￥${page[5].serviceFee}元<span>/年</span></p>
-                    <ul class="apst">
-                        <li>标样销售</li>
-                        <li>产品展示</li>
-                        <li>交易数据</li>
-                    </ul>
-                    <ul class="posr">
-                        <li><p></p>产品位展示(${page[5].quantity}个)</li>
-                        <li><p></p>求购信息接收(300条)</li>
-                        <li><p></p>客户按星级优先展示</li>
-                        <li><p></p>行业月报、季报、年报</li>
-                        <li><p></p>出口流向月报</li>
-                        <li><p></p>智慧经济</li>
-                    </ul>
-                    <button class="super_button"><a href="${base}/business/store/payment">升级会员</a></button>
-                </div>
-            </div>
-        </div>
+[#include "/shop/include/main_header.ftl" /]
+<div class="members">
+    <div class="membersBanner">
+        <img src="/resources/shop/images/membersbanner.png" alt="">
     </div>
-</div>
-<div class="introduce">
-    <div class="platform">
-        <p class="members-tltle1">平台介绍</p>
-        <p class="members-tltle2">Platform is introduced</p>
-        <p class="platform-indent">上海让雷智能科技有限公司根据市场调查，目前中国市场还没有一款完善的与纺织品企业对接原材料采购平台，尤其是无纺布生产企业对接的原材料采购平台。
-            同时应对与各个化纤工厂，由于化纤是传统纺织行业，属于大宗物资交易交流，化纤工厂与纺织品企业交流交易方式仍然采用传统的方式进行，鉴于此市场信息交流
-            更新缓慢，信息不集中等特点，上海让雷智能科技有限公司联合上海缔荣纺织品有限公司投资开发CFM平台，
-            真诚服务于纺织品企业原材料采购，尤其是无纺布生产企业对于原材料采购的需求服务，致力于打造跨行业跨领域“互联网+”一站式化纤供采服务平台。</p>
-        <p class="members-tltle1">产品优势</p>
-        <p class="members-tltle2">platform advantage</p>
-        <div class="advantage">
-            <ul>
-                <li class="advantage-color">
-                    <img src="/resources/shop/images/xinhaota.png">
-                </li>
-                <li class="advantageli">
-                    <p class="advantagep1">信息全面化</p>
-                    <p class="advantagep2">近三千家化纤工厂与无纺布工厂的加入，供采更方便更快捷</p>
-                </li>
-            </ul>
-            <ul>
-                <li class="advantage-color2">
-                    <img src="/resources/shop/images/jiage.png">
-                </li>
-                <li class="advantageli">
-                    <p class="advantagep1">价格</p>
-                    <p class="advantagep2">性价比高，划算的价格打造，给予客户更完善的体验 </p>
-                </li>
-            </ul>
-            <ul>
-                <li class="advantage-color3">
-                    <img src="/resources/shop/images/ziyuanxhdpi.png">
-                </li>
-                <li class="advantageli">
-                    <p class="advantagep1">智能化</p>
-                    <p class="advantagep2">避免过多的人工成本，只需点一点便可完成订单 </p>
-                </li>
-            </ul>
-        </div>
-        <p class="members-tltle1">常见问题</p>
-        <p class="members-tltle2">question ＆ Anwser</p>
-        <ul class="dialogue">
-            <li>Q：<span>注册时候一般需要哪些证明材料？</span></li>
-            <li>A：<span>您在注册的时候需要展示商家注册号与营业执照等相关文件。</span></li>
-            <li>Q：<span>在买家已经付款，我却没有收到款项，买家急着找我发货的时候我应该怎么办？</span></li>
-            <li>A：<span>您这边可以联系我们客服人员，我们会处理相关问题的。</span></li>
-            <li>Q：<span>我忘记密码了如何登陆？</span></li>
-            <li>A：<span>您可以在登陆页面点击忘记密码，根据提示进行相关操作，如果还是有问题的话，您可以联系工作人员，我们后台帮助您重设密码。</span></li>
-            <li>Q：<span>客户买了产品需要开发票，我在哪给客户开具发票？</span></li>
-            <li>A：<span>在客户申请开票的情况下，您在发票管理>申请列表，找到客户提交的申请，点击同意按钮即可。</span></li>
-        </ul>
-    </div>
-</div>
-<div class="fonter">
-    [#include "/shop/include/main_footer.ftl" /]
-</div>
-</body>
-<script type="text/javascript">
+    <div class="membership">
+        <div>
+            <div class="membershipTitle">
+                <h3>会员优享</h3>
+                <span></span>
+                <p>MEMBER SERVICES</p>
+            </div>
+            <div class="membershipContent">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th class="th1">
+                            <div class="out">
+                                <b>会员等级</b>
+                                <em>会员权益</em>
+                            </div>
+                        </th>
+                        <th class="services">普通会员</th>
+                        <th class="services">黄金会员</th>
+                        <th class="services">臻享会员</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td></td>
+                        <td>价格</td>
+                        <td class="services">3688元/年</td>
+                        <td class="services">9688元/年</td>
+                        <td class="services">16688元/年</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>标样销售</td>
+                        <td><img src="/resources/shop/images/members4.png" ></td>
+                        <td><img src="/resources/shop/images/members5.png" ></td>
+                        <td><img src="/resources/shop/images/members6.png" ></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>产品展示</td>
+                        <td><img src="/resources/shop/images/members4.png" ></td>
+                        <td><img src="/resources/shop/images/members5.png" ></td>
+                        <td><img src="/resources/shop/images/members6.png" ></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>交易数据</td>
+                        <td><img src="/resources/shop/images/members4.png" ></td>
+                        <td><img src="/resources/shop/images/members5.png" ></td>
+                        <td><img src="/resources/shop/images/members6.png" ></td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>产品位展示数量</td>
+                        <td><img src="/resources/shop/images/members4.png" ></td>
+                        <td><img src="/resources/shop/images/members5.png" ></td>
+                        <td><img src="/resources/shop/images/members6.png" ></td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>求购信息接收</td>
+                        <td><img src="/resources/shop/images/members4.png" ></td>
+                        <td><img src="/resources/shop/images/members5.png" ></td>
+                        <td><img src="/resources/shop/images/members6.png" ></td>
+                    </tr>
 
-</script>
+                    <tr>
+                        <td>6</td>
+                        <td>星级优先展示</td>
+                        <td><img src="/resources/shop/images/members4.png" ></td>
+                        <td><img src="/resources/shop/images/members5.png" ></td>
+                        <td><img src="/resources/shop/images/members6.png" ></td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>专业客服服务</td>
+                        <td><img src="/resources/shop/images/members4.png" ></td>
+                        <td><img src="/resources/shop/images/members5.png" ></td>
+                        <td><img src="/resources/shop/images/members6.png" ></td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>移动APP产品展示</td>
+                        <td><img src="/resources/shop/images/members4.png" ></td>
+                        <td><img src="/resources/shop/images/members5.png" ></td>
+                        <td><img src="/resources/shop/images/members6.png" ></td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>站内信息接收</td>
+                        <td><img src="/resources/shop/images/members4.png" ></td>
+                        <td><img src="/resources/shop/images/members5.png" ></td>
+                        <td><img src="/resources/shop/images/members6.png" ></td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td>运输服务</td>
+                        <td><img src="/resources/shop/images/members4.png" ></td>
+                        <td><img src="/resources/shop/images/members5.png" ></td>
+                        <td><img src="/resources/shop/images/members6.png" ></td>
+                    </tr>
+
+                    <tr>
+                        <td>11</td>
+                        <td>站内广告服务</td>
+                        <td><img src="/resources/shop/images/members4.png" ></td>
+                        <td><img src="/resources/shop/images/members5.png" ></td>
+                        <td><img src="/resources/shop/images/members6.png" ></td>
+                    </tr>
+                    <tr>
+                        <td>12</td>
+                        <td>发起团售</td>
+                        <td><img src="/resources/shop/images/members4.png" ></td>
+                        <td><img src="/resources/shop/images/members5.png" ></td>
+                        <td><img src="/resources/shop/images/members6.png" ></td>
+                    </tr>
+                    <tr>
+                        <td>13</td>
+                        <td>设定保证金</td>
+                        <td><img src="/resources/shop/images/members4.png" ></td>
+                        <td><img src="/resources/shop/images/members5.png" ></td>
+                        <td><img src="/resources/shop/images/members6.png" ></td>
+                    </tr>
+                    <tr>
+                        <td>14</td>
+                        <td>行业资讯接收</td>
+                        <td><img src="/resources/shop/images/members4.png" ></td>
+                        <td><img src="/resources/shop/images/members5.png" ></td>
+                        <td><img src="/resources/shop/images/members6.png" ></td>
+                    </tr>
+                    <tr>
+                        <td>15</td>
+                        <td>行业周报推送</td>
+                        <td><img src="/resources/shop/images/members4.png" ></td>
+                        <td><img src="/resources/shop/images/members5.png" ></td>
+                        <td><img src="/resources/shop/images/members6.png" ></td>
+                    </tr>
+                    <tr>
+                        <td>16</td>
+                        <td>行业数据分析推送</td>
+                        <td><img src="/resources/shop/images/members4.png" ></td>
+                        <td><img src="/resources/shop/images/members5.png" ></td>
+                        <td><img src="/resources/shop/images/members6.png" ></td>
+                    </tr>
+                    <tr>
+                        <td>17</td>
+                        <td>行业月报推送</td>
+                        <td></td>
+                        <td><img src="/resources/shop/images/members5.png" ></td>
+                        <td><img src="/resources/shop/images/members6.png" ></td>
+                    </tr>
+                    <tr>
+                        <td>18</td>
+                        <td>行业季报推送</td>
+                        <td></td>
+                        <td><img src="/resources/shop/images/members5.png" ></td>
+                        <td><img src="/resources/shop/images/members6.png" ></td>
+                    </tr>
+                    <tr>
+                        <td>19</td>
+                        <td>行业年报推送</td>
+                        <td></td>
+                        <td><img src="/resources/shop/images/members5.png" ></td>
+                        <td><img src="/resources/shop/images/members6.png" ></td>
+                    </tr>
+                    <tr>
+                        <td>20</td>
+                        <td>海关数据月报</td>
+                        <td></td>
+                        <td><img src="/resources/shop/images/members5.png" ></td>
+                        <td><img src="/resources/shop/images/members6.png" ></td>
+                    </tr>
+                    <tr>
+                        <td>21</td>
+                        <td>数据中心服务</td>
+                        <td></td>
+                        <td><img src="/resources/shop/images/members5.png" ></td>
+                        <td><img src="/resources/shop/images/members6.png" ></td>
+                    </tr>
+                    <tr>
+                        <td>22</td>
+                        <td>智能工厂升级服务</td>
+                        <td></td>
+                        <td><img src="/resources/shop/images/members5.png" ></td>
+                        <td><img src="/resources/shop/images/members6.png" ></td>
+                    </tr>
+                    <tr>
+                        <td>23</td>
+                        <td>供应链金融服务</td>
+                        <td></td>
+                        <td><img src="/resources/shop/images/members5.png" ></td>
+                        <td><img src="/resources/shop/images/members6.png" ></td>
+                    </tr>
+                    <tr>
+                        <td>24</td>
+                        <td>区块链通证服务</td>
+                        <td></td>
+                        <td><img src="/resources/shop/images/members5.png" ></td>
+                        <td><img src="/resources/shop/images/members6.png" ></td>
+                    </tr>
+                    <tr>
+                        <td>25</td>
+                        <td>产学研联合服务</td>
+                        <td></td>
+                        <td><img src="/resources/shop/images/members5.png" ></td>
+                        <td><img src="/resources/shop/images/members6.png" ></td>
+                    </tr>
+                    <tr>
+                        <td>26</td>
+                        <td>新品专利服务</td>
+                        <td></td>
+                        <td></td>
+                        <td><img src="/resources/shop/images/members6.png" ></td>
+                    </tr>
+                    <tr>
+                        <td>27</td>
+                        <td>行业展会服务</td>
+                        <td></td>
+                        <td></td>
+                        <td><img src="/resources/shop/images/members6.png" ></td>
+                    </tr>
+                    <tr>
+                        <td>28</td>
+                        <td>国际贸易服务</td>
+                        <td></td>
+                        <td></td>
+                        <td><img src="/resources/shop/images/members6.png" ></td>
+                    </tr>
+                    <tr>
+                        <td>29</td>
+                        <td>国际专业机构服务</td>
+                        <td></td>
+                        <td></td>
+                        <td><img src="/resources/shop/images/members6.png" ></td>
+                    </tr>
+                    <tr>
+                        <td>30</td>
+                        <td>专业律师服务</td>
+                        <td></td>
+                        <td></td>
+                        <td><img src="/resources/shop/images/members6.png" ></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td><a href="${base}/business/store/payment" class="memberColor">立即订购</a></td>
+                        <td><a href="${base}/business/store/payment" class="memberColor">升级会员</a></td>
+                        <td><a href="${base}/business/store/payment" class="memberColor">升级会员</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div>
+            <div class="membershipTitle platformTitle">
+                <h3>平台介绍</h3>
+                <span></span>
+                <p>PLATFORM IS INTRODUCED</p>
+            </div>
+            <div class="platform">
+                <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上海让雷智能科技有限公司根据市场调查，目前中国市场还没有一款完善的与纺织品企业对接原材料采购平台，尤其是无纺布生产企业对接的原材料采购平台。同时应对与各个化纤工厂，由于化纤是传统纺织行业，属于大宗物资交易交流，化纤工厂与纺织品企业交流交易方式仍然采用传统的方式进行，鉴于此市场信息交流更新缓慢，信息不集中等特点，上海让雷智能科技有限公司联合上海缔荣纺织品有限公司投资开发CFM平台，真诚服务于纺织品企业原材料采购，尤其是无纺布生产企业对于原材料采购的需求服务，致力于打造跨行业跨领域“互联网+”一站式</p>
+            </div>
+        </div>
+        <div>
+            <div class="membershipTitle platformTitle">
+                <h3>产品优势</h3>
+                <span></span>
+                <p>PLATFORM ADVANTAGE</p>
+            </div>
+            <div class="advavtane">
+                <div>
+                    <img src="/resources/shop/images/members1.png" alt="">
+                    <p>信息全面化</p>
+                    <p>近三千家化纤工厂与无纺布工厂的加入，供采更方便更快捷</p>
+                </div>
+                <div>
+                    <img src="/resources/shop/images/members2.png" alt="">
+                    <p>性价比高</p>
+                    <p>性价比高，划算的价格打造，给予客户更完善的体验</p>
+                </div>
+                <div>
+                    <img src="/resources/shop/images/members3.png" alt="">
+                    <p>智能化</p>
+                    <p>避免过多的人工成本，只需点一点便可完成订单</p>
+                </div>
+            </div>
+        </div>
+        <div class="question">
+            <div class="membershipTitle platformTitle">
+                <h3>常见问题</h3>
+                <span></span>
+                <p>QUESTION ＆ ANWSER</p>
+            </div>
+            <div>
+                <p>Q：注册时候一般需要哪些证明材料？</p>
+                <p>A：您在注册的时候需要展示商家注册号与营业执照等相关文件。</p>
+                <p>Q：在买家已经付款，我却没有收到款项，买家急着找我发货的时候我应该怎么办？</p>
+                <p>A：您这边可以联系我们客服人员，我们会处理相关问题的。</p>
+                <p>Q：我忘记密码了如何登陆？</p>
+                <p>A：您可以在登陆页面点击忘记密码，根据提示进行相关操作，如果还是有问题的话，您可以联系工作人员，我们后台帮助
+                    您重设密码。</p>
+                <p>Q：客户买了产品需要开发票，我在哪给客户开具发票？</p>
+                <p>A：在客户申请开票的情况下，您在发票管理>申请列表，找到客户提交的申请</p>
+
+            </div>
+        </div>
+    </div>
+</div>
+[#include "/shop/include/main_footer.ftl" /]
+</body>
 </html>

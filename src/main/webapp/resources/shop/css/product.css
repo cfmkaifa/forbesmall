@@ -1709,7 +1709,7 @@
 	margin:5px 0px 0px 0px;
 }
 .unit-2 {
-	color: orange !important;
+	color: red !important;
 }
 .table-2 tr:nth-of-type(even) {
 	background: #f9f9f9;
@@ -1717,10 +1717,19 @@
 .active-2 {
 	position: absolute;
 	top: 2px;
-	right: 3px;
-	width: 46%;
-	height: 52%;
+	right: 26px;
+	width: 40%;
+	height: 34%;
 	broder:none !important;
+	z-index: 100;
+}
+.active-3{
+	position: absolute;
+	top: 2px;
+	right: 7px;
+	width: 42%;
+	height: 44%;
+	broder: none !important;
 	z-index: 100;
 }
 

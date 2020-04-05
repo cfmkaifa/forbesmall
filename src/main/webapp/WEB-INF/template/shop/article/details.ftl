@@ -38,11 +38,11 @@
                 <ul>
                     [#list page.content as temparticle]
                         <li>
+                            <div style="padding-top: 20px">
+                                <p><a href="${base}${temparticle.path}">${temparticle.title}</a></p>
+                            </div>
                             <div class="detailsTime">
                                 <span>${temparticle.createdDate}</span>
-                            </div>
-                            <div>
-                                <p><a href="${base}${temparticle.path}">${temparticle.title}</a></a></p>
                             </div>
                         </li>
                     [/#list]

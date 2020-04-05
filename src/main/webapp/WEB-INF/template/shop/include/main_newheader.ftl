@@ -227,7 +227,7 @@
     </div>
     <div class="logo-3">
         <div class="login-main3">
-            <a href="http://www.chinafibermarketing.cn"><img  src="${base}/resources/shop/images/logo.png"></a>
+            <a href="http://www.chinafibermarketing.com"><img  src="${base}/resources/shop/images/logo.png"></a>
             <div class="col-xs-6 col-xs-offset-1">
                 <div id="mainHeaderProductSearch" class="product-search clearfix">
                     <form action="[#if searchType == "STORE"]${base}/store/search[#else]${base}/product/search[/#if]"

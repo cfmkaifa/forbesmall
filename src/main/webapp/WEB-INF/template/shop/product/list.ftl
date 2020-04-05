@@ -533,7 +533,7 @@
                                                      src="${base}/resources/common/images/transparent.png"
                                                      alt="${product.name}"
                                                      data-original="${product.thumbnail!setting.defaultThumbnailProductImage}">
-                                                <img [#if product.sample ] src="/resources/shop/images/biao.png" class="active-2" [/#if]>
+                                                <img [#if product.sample ] src="/resources/shop/images/biao.png" class="active-3" [/#if]>
                                             </a>
                                             <div class="product-left-2">
                                                 <ul>
