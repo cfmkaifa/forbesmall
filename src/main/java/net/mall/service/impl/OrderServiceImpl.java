@@ -17,6 +17,7 @@ import net.mall.entity.Order.CommissionType;
 import net.mall.entity.Order.Status;
 import net.mall.entity.Order.Type;
 import net.mall.service.*;
+import net.mall.util.ContractBuildImpl;
 import net.mall.util.ConvertUtils;
 import net.mall.util.PdfUtil;
 import net.mall.util.SystemUtils;
@@ -39,8 +40,10 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Service - 订单
@@ -631,11 +634,63 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
                 orderItems.add(orderItem);
             }
             try {
-                String contractPath = PdfUtil.generateContract(order);
+                /***************/
+                /***供应商**/
+                Business business = store.getBusiness();
+                String storeName = (null !=  business.getName() ?  business.getName() : store.getName());
+                String storeAddress = (null != business.getAddress() ? business.getAddress() : store.getAddress());
+                String storePhone = (null != business.getPhone() ? business.getPhone() : store.getPhone());
+                String storeBankName = (null != business.getBankName() ? business.getBankName() : "");
+                String storeBankAccount = (null != business.getBankAccount() ? business.getBankAccount() : "");
+                /***采购商*/
+                String memberName = (null != member.getName() ? member.getName() : "");
+                String memberAddress = (null != member.getAddress() ? member.getAddress() : order.getAddress());
+                String memberPhone = (null != member.getPhone() ? member.getPhone() : order.getPhone());
+                String memberBankName = (null != member.getBankName() ? member.getBankName() : "");
+                String memberBankAccount = (null != member.getBankAccount() ? member.getBankAccount() : "");
+                /*******/
+                List<Map<String,Object>>  items = order.getOrderItems().stream().map(orderItem -> {
+                    Map<String,Object> orderItemMap = new HashMap<>();
+                    orderItemMap.put("proName",orderItem.getName());
+                    orderItemMap.put("quantity",orderItem.getQuantity());
+                    orderItemMap.put("unitPrice",orderItem.getPrice());
+                    orderItemMap.put("totalAmount",orderItem.getSubtotal());
+                    return  orderItemMap;
+                }).collect(Collectors.toList());
+                ContractBuildImpl contractBuildImpl = new ContractBuildImpl();
+                contractBuildImpl
+                        .setCompanyTtile(memberName)
+                        .setSellerName(storeName)
+                        .setBuyName(memberName)
+                        .setOrderNo(order.getSn())
+                        .setItems(items)
+                        .setOrderTotalAmount(order.getAmount())
+                        .setMemberName(memberName)
+                        .setMemberAddress(memberAddress)
+                        .setMemberPhone(memberPhone)
+                        .setMemberLegalPerson("")
+                        .setMemberDate("")
+                        .setMemberTaxNo("")
+                        .setMemberBankName(memberBankName)
+                        .setMemberBankAddress("")
+                        .setMemberBankAccount(memberBankAccount)
+                        .setStoreName(storeName)
+                        .setStoreAdress(storeAddress)
+                        .setStorePhone(storePhone)
+                        .setStoreLegalPerson("")
+                        .setStoreDate("")
+                        .setStoreTaxNo("")
+                        .setStoreBankName(storeBankName)
+                        .setStoreBankAddress("")
+                        .setStoreBankAccount(storeBankAccount);
+                String contractPath = contractBuildImpl.generateContract();
+                 ///PdfUtil.generateContract(order);
                 order.setContractPath(contractPath);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (DocumentException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
                 e.printStackTrace();
             }
             orderDao.persist(order);
