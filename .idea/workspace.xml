@@ -6,14 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="11b64c26-e744-4364-b8b2-94ea2dfc2eac" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/Setting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/Setting.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/entity/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/entity/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/plugin/UnionpayPaymentPlugin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/plugin/UnionpayPaymentPlugin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/business/product/list.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/business/product/list.ftl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/product/detail.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/product/detail.ftl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/product/search.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/product/search.ftl" afterDir="false" />
-    </list>
+    <list default="true" id="11b64c26-e744-4364-b8b2-94ea2dfc2eac" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -84,6 +77,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\software\workspace\forbesmall\src\main\webapp\resources\shop\images" />
       <recent name="D:\work\forbesmall\src\main\webapp\resources\shop\images" />
     </key>
   </component>
@@ -232,7 +226,7 @@
       <workItem from="1585527965520" duration="1593000" />
       <workItem from="1585552864789" duration="665000" />
       <workItem from="1585906603591" duration="2000" />
-      <workItem from="1585906647420" duration="626000" />
+      <workItem from="1585906647420" duration="1381000" />
     </task>
     <task id="LOCAL-00001" summary="中文替换">
       <created>1583208192749</created>
