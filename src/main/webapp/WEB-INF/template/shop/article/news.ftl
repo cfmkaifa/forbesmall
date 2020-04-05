@@ -45,7 +45,7 @@
                         [/#if]
                     [/@ad_position]
                 </div>
-                <div style="width: 100%;">
+                <div style="width: 43%;">
                     <div class="hotAttention_news">
 				            <span class="hotAttention_title">
 				                <div></div>
@@ -77,16 +77,12 @@
                             <span><p><a target="_blank" title="${instantnews.title}" href="${base}${fubuinsights.path}">${fubuinsights.title}</a></p></span>
                         [/#list]
                     </div>
-                    <div class="bx-wrapper" style="max-width: 100%;">
-                        <div class="bx-viewport" aria-live="polite" style="width: 100%; overflow: hidden; position: relative; height: 133px;">
-                            <div class="information_img">
-                                [@ad_position id = 10001]
-                                    [#if adPosition??]
-                                        [#noautoesc]${adPosition.resolveTemplate()}[/#noautoesc]
-                                    [/#if]
-                                [/@ad_position]
-                            </div>
-                        </div>
+                    <div class="information_img">
+                        [@ad_position id = 10001]
+                            [#if adPosition??]
+                                [#noautoesc]${adPosition.resolveTemplate()}[/#noautoesc]
+                            [/#if]
+                        [/@ad_position]
                     </div>
                 </div>
             </div>
@@ -95,7 +91,7 @@
 				            <span class="hotAttention_title">
 				                <div></div>
 				                <h3>${articleCategories[3].name}</h3>
-				                  <p>${message("shop.article.factorystatus")}</p>
+				                <p>${message("shop.article.factorystatus")}</p>
 				            </span>
                     <span class="more"><a target="_blank" href="${base}/article/articlelist/${articleCategories[3].id}">更多>></a></span>
                 </div>

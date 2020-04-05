@@ -308,7 +308,7 @@ public class ArticleController extends BaseController {
         Pageable pageable = new Pageable();
         pageable.setPageSize(8);
         Pageable temppage = new Pageable();
-        temppage.setPageSize(5);
+        temppage.setPageSize(6);
         model.addAttribute("instantnews", articleService.findPage(articleCategoryService.find(articleCategories.get(1).getId()), null, true, temppage));
         model.addAttribute("fubuinsights", articleService.findPage(articleCategoryService.find(articleCategories.get(2).getId()), null, true, pageable));
         model.addAttribute("factorystatus", articleService.findPage(articleCategoryService.find(articleCategories.get(3).getId()), null, true, pageable));

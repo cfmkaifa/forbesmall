@@ -424,7 +424,6 @@
                             <span class="unit-2" style="font-size: 20px;">/${product.unit}</span>
                         </p>
                         <p>${message("Product.shelfTime")}：<span>${product.createdDate}</span></p>
-                        [#--<p><span>[#noautoesc]${message("Product.serviceCall")}：${product.introduction}[/#noautoesc]</span></p>--]
                         <div style="display: flex">
                             <p>${message("Product.serviceCall")}:[#noautoesc]${product.introduction}[/#noautoesc]</p>
                         </div>
@@ -511,7 +510,7 @@
                     </div>
                     <div class="action">
                         [#if product.type == "GENERAL"]
-                            <button id="buy" class="btn btn-default btn-lg"
+                            <button id="buy" class="btna"
                                     type="button"[#if defaultSku.isOutOfStock] disabled[/#if]>${message("shop.product.buy")}</button>
                             [#if product.sample]
                                 <button id="sampleBuy" class="btn btn-default btn-lg"

@@ -527,6 +527,7 @@
                                     <li class="list-item">
                                         <div class="list-item-body"
                                              style="display: flex;justify-content: space-around;">
+                                            <div class="supply-1">${message("shop.mainHeader.supply")}</div>
                                             <a href="${base}${product.path}" target="_blank" class="aaaa">
                                                 <img id="productImage${product.id}"
                                                      class="listimg lazy-load img-responsive"
@@ -538,7 +539,6 @@
                                             <div class="product-left-2">
                                                 <ul>
                                                     <li class="product-li-12">
-
 															<span class="product-name">
 																<b>
 																	<a href="${base}${product.path}" target="_blank">
@@ -562,13 +562,16 @@
                                                     </li>
                                                     <li>
                                                             <span class="specific-2">
-															${message("shop.product.state")}${product.keyword}
+															 ${message("shop.product.state")}
 															</span>
+                                                        <div class="state">
+                                                            [#noautoesc]${product.introduction}[/#noautoesc]
+                                                        </div>
                                                     </li>
                                                     <li>
                                                     </li>
                                                     <li>
-                                                        <div class="star-level">
+                                                        <div class="star-level1">
                                                             <div class="xing-2">
                                                                 <span class="iconfont">&#xe70b;</span>${message("shop.product.star")}
                                                             </div>
@@ -580,7 +583,8 @@
                                                             <p class="text-center">
                                                                 <a href="${base}${product.store.path}"
                                                                    title="${product.store.name}"
-                                                                   target="_blank">${abbreviate(product.store.name, 15)}</a>
+                                                                   target="_blank">${product.store.name}
+                                                                </a>
                                                                 [#if product.store.type == "SELF"]
                                                                     <span class="label label-primary">${message("Store.Type.SELF")}</span>
                                                                 [/#if]
@@ -614,9 +618,6 @@
                                                         <span class="iconfont">&#xe634;</span>${message("shop.product.entrepot")}
                                                     </li>
                                                     <li>
-                                                        <span class="iconfont">&#xe615;</span>${message("shop.product.pay")}
-                                                    </li>
-                                                    <li>
                                                         <span class="iconfont">&#xe602;</span>${message("shop.product.flash")}
                                                     </li>
                                                     <li>
@@ -625,7 +626,6 @@
                                                 </ul>
                                             </div>
                                             <div class="detailsbutton-2">
-                                                [#--<p class="data-2">2019-12-12  13:52:10</p>--]
                                                 <p class="data-2">${product.createdDate}</p>
                                                 <a href="${base}/product/group-purch-detail/${product.id}"
                                                    target="_blank">
