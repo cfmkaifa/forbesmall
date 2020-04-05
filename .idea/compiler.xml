@@ -7,8 +7,6 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="forbesmall" />
-        <module name="msg-utils" />
-        <module name="usercenter-config" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

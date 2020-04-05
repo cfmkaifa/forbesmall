@@ -545,4 +545,27 @@ public class ProductDaoImpl extends BaseDaoImpl<Product, Long> implements Produc
         String jpql = "UPDATE Product SET createdDate = :createdDate WHERE id = :id";
         entityManager.createQuery(jpql).setParameter("createdDate", curentDate).setParameter("id", productId).executeUpdate();
     }
+
+
+
+    /***
+     * 根据sourceID更新新产品ID
+     * @param newProductId
+     * @param sourceProId
+     */
+   public void modifyNewProductIdBySourceId(Long newProductId,Long sourceProId){
+       String jpql = "UPDATE Product SET newProId = :newProId WHERE sourceProId = :sourceProId";
+       entityManager.createQuery(jpql).setParameter("newProId", newProductId).setParameter("sourceProId", sourceProId).executeUpdate();
+   }
+
+
+    /***
+     * 根据产品ID更新新产品ID
+     * @param newProductId
+     * @param productId
+     */
+   public void modifyNewProductId(Long newProductId,Long productId){
+       String jpql = "UPDATE Product SET newProId = :newProId WHERE id = :id";
+       entityManager.createQuery(jpql).setParameter("newProId", newProductId).setParameter("id", productId).executeUpdate();
+   }
 }

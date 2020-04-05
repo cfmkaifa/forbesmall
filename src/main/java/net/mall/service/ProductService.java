@@ -25,6 +25,7 @@ import net.mall.entity.Sku;
 import net.mall.entity.Store;
 import net.mall.entity.StoreProductCategory;
 import net.mall.entity.StoreProductTag;
+import org.springframework.cache.annotation.CacheEvict;
 
 /**
  * Service - 商品
@@ -33,6 +34,13 @@ import net.mall.entity.StoreProductTag;
  * @version 6.1
  */
 public interface ProductService extends BaseService<Product, Long> {
+
+    /***
+     * 变成游离态
+     * @param product
+     * @return
+     */
+    boolean clearProduct(Product product);
 
     /**
      * 判断编号是否存在
@@ -239,6 +247,15 @@ public interface ProductService extends BaseService<Product, Long> {
      * @return 商品
      */
     Product create(Product product, List<Sku> skus);
+
+
+    /***
+     * 复制商品
+     * @param product
+     * @param skus
+     * @return
+     */
+    public Product copyProduct(Product product, List<Sku> skus,Long productId);
 
     /**
      * 修改

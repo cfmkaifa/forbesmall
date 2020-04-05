@@ -7,13 +7,16 @@
 package net.mall.controller.business;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import net.mall.Page;
+import net.mall.util.ConvertUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -451,8 +454,58 @@ public class ProductController extends BaseController {
             if (!currentStore.equals(product.getStore())) {
                 return Results.UNPROCESSABLE_ENTITY;
             }
-            Date currentDate = new Date();
-            productService.modifyProduct(currentDate,id);
+            /***新商品
+             * */
+            Product newProduct = new Product();
+            BeanUtils.copyProperties(product,newProduct,"id","sn","createdDate","lastModifiedDate",
+                    "productImages","productCategory","brand","parameterValues","specificationItems","promotions","productTags",
+                    "storeProductTags","reviews","consultations","productFavorites","skus");
+            newProduct.setProductImages(product.getProductImages());
+            newProduct.setParameterValues(product.getParameterValues());
+            newProduct.setSpecificationItems(product.getSpecificationItems());
+            Set<Sku> skus = product.getSkus();
+           List<Sku> newSkus =  skus.stream().map(sku -> {
+                Sku newsku = new Sku();
+                BeanUtils.copyProperties(sku,newsku,"id","sn","createdDate","lastModifiedDate",
+                        "product","cartItems","orderItems","orderShippingItems","productNotifies","stockLogs","giftAttributes");
+                return newsku;
+            }).collect(Collectors.toList());
+            productImageService.filter(newProduct.getProductImages());
+            parameterValueService.filter(newProduct.getParameterValues());
+            specificationItemService.filter(newProduct.getSpecificationItems());
+            skuService.filter(newSkus);
+            Long productCount = productService.count(null, currentStore, null, null, null, null, null, null);
+            if (currentStore.getStoreRank() != null && currentStore.getStoreRank().getQuantity() != null && productCount >= currentStore.getStoreRank().getQuantity()) {
+                return Results.unprocessableEntity("business.product.addCountNotAllowed", currentStore.getStoreRank().getQuantity());
+            }
+            /***判断店铺分类***/
+            if (product.getStoreProductCategory() != null) {
+                StoreProductCategory storeProductCategory = product.getStoreProductCategory();
+                if (storeProductCategory == null || !currentStore.equals(storeProductCategory.getStore())) {
+                    return Results.UNPROCESSABLE_ENTITY;
+                }
+                newProduct.setStoreProductCategory(storeProductCategory);
+            }
+            newProduct.setStore(currentStore);
+            newProduct.setProductCategory(product.getProductCategory());
+            newProduct.setBrand(product.getBrand());
+            newProduct.setPromotions(product.getPromotions());
+            newProduct.setProductTags(product.getProductTags());
+            newProduct.setStoreProductTags(product.getStoreProductTags());
+            if (!isValid(newProduct, BaseEntity.Save.class)) {
+                return Results.UNPROCESSABLE_ENTITY;
+            }
+            if (StringUtils.isNotEmpty(newProduct.getSn()) && productService.snExists(newProduct.getSn())) {
+                return Results.UNPROCESSABLE_ENTITY;
+            }
+            Long sourceProductId = product.getId();
+            if(ConvertUtils.isNotEmpty(product.getSourceProId())){
+                sourceProductId = product.getSourceProId();
+            }
+            /***清除游离态数据
+             * ***/
+            productService.clearProduct(product);
+            productService.copyProduct(newProduct,newSkus,sourceProductId);
         }
         return Results.OK;
     }
