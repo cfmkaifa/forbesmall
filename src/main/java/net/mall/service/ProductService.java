@@ -319,4 +319,21 @@ public interface ProductService extends BaseService<Product, Long> {
      * @param productId
      */
     public void modifyProduct(Date curentDate, Long productId);
+
+
+    /***
+     * 变成游离态
+     * @param product
+     * @return
+     */
+    boolean clearProduct(Product product);
+
+
+    /***
+     * 复制商品
+     * @param product
+     * @param skus
+     * @return
+     */
+    public Product copyProduct(Product product, List<Sku> skus,Long productId);
 }

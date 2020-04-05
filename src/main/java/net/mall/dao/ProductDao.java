@@ -181,4 +181,20 @@ public interface ProductDao extends BaseDao<Product, Long> {
      * @param productId
      */
     void modifyProduct(Date curentDate,Long productId);
+
+
+    /***
+     * 根据sourceID更新新产品ID
+     * @param newProductId
+     * @param sourceProId
+     */
+    void modifyNewProductIdBySourceId(Long newProductId,Long sourceProId);
+
+
+    /***
+     * 根据产品ID更新新产品ID
+     * @param newProductId
+     * @param productId
+     */
+    void modifyNewProductId(Long newProductId,Long productId);
 }

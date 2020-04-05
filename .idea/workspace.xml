@@ -6,7 +6,14 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="11b64c26-e744-4364-b8b2-94ea2dfc2eac" name="Default Changelist" comment="" />
+    <list default="true" id="11b64c26-e744-4364-b8b2-94ea2dfc2eac" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/controller/business/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/controller/business/ProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/dao/ProductDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/dao/ProductDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/dao/impl/ProductDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/dao/impl/ProductDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/entity/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/entity/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/service/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/service/ProductService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/service/impl/ProductServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/service/impl/ProductServiceImpl.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -227,6 +234,7 @@
       <workItem from="1585552864789" duration="665000" />
       <workItem from="1585906603591" duration="2000" />
       <workItem from="1585906647420" duration="1381000" />
+      <workItem from="1586054196576" duration="328000" />
     </task>
     <task id="LOCAL-00001" summary="中文替换">
       <created>1583208192749</created>
@@ -478,6 +486,10 @@
     </state>
     <state x="191" y="0" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1280.680@0.0.1280.680" timestamp="1584961463025" />
     <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1584946284055" />
+    <state x="446" y="34" key="#com.intellij.ide.util.MemberChooser" timestamp="1586054421832">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="446" y="34" key="#com.intellij.ide.util.MemberChooser/0.0.1280.680@0.0.1280.680" timestamp="1586054421832" />
     <state x="552" y="178" key="#com.intellij.j2ee.appServerIntegrations.ApplicationServersConfigurable" timestamp="1583204994615">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

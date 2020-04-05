@@ -8,6 +8,7 @@ package net.mall.entity;
 
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -587,6 +588,17 @@ public class Product extends BaseEntity<Long> {
     @Length(max = 200)
     private String attributeValue19;
 
+    /***源商品ID
+     */
+    @Column(name = "source_pro_id")
+    private Long sourceProId;
+
+
+    /***新商品ID
+     */
+    @Column(name = "new_pro_id")
+    private Long newProId;
+
     /**
      * 店铺
      */
@@ -836,6 +848,9 @@ public class Product extends BaseEntity<Long> {
      * @return 最大佣金
      */
     public BigDecimal getMaxCommission() {
+        if(ConvertUtils.isNotEmpty(maxCommission)){
+            return maxCommission.setScale(3, RoundingMode.UP);
+        }
         return maxCommission;
     }
 
@@ -1911,7 +1926,11 @@ public class Product extends BaseEntity<Long> {
     @JsonView(BaseView.class)
     @Transient
     public String getPath() {
-        return String.format(Product.PATH, getId());
+        if(ConvertUtils.isNotEmpty(getNewProId())){
+            return String.format(Product.PATH, getNewProId());
+        } else {
+            return String.format(Product.PATH, getId());
+        }
     }
 
     /**
@@ -2230,4 +2249,19 @@ public class Product extends BaseEntity<Long> {
     }
 
 
+    public Long getSourceProId() {
+        return sourceProId;
+    }
+
+    public void setSourceProId(Long sourceProId) {
+        this.sourceProId = sourceProId;
+    }
+
+    public Long getNewProId() {
+        return newProId;
+    }
+
+    public void setNewProId(Long newProId) {
+        this.newProId = newProId;
+    }
 }

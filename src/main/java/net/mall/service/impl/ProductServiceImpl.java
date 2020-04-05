@@ -1237,4 +1237,112 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
         productDao.modifyProduct(curentDate,productId);
     }
 
+
+
+    /***
+     * 变成游离态
+     * @param product
+     * @return
+     */
+    public  boolean clearProduct(Product product){
+        if(entityManager.contains(product)){
+            entityManager.clear();
+        }
+        return true;
+    }
+
+
+    /***
+     * 复制商品
+     * @param product
+     * @param skus
+     * @return
+     */
+    @Override
+    @CacheEvict(value = {"product", "productCategory"}, allEntries = true)
+    public Product copyProduct(Product product, List<Sku> skus,Long productId) {
+        Assert.notNull(product, "[Assertion failed] - product is required; it must not be null");
+        Assert.isTrue(product.isNew(), "[Assertion failed] - product must be new");
+        Assert.notNull(product.getType(), "[Assertion failed] - product type is required; it must not be null");
+        Assert.isTrue(product.hasSpecification(), "[Assertion failed] - product must have specification");
+        Assert.notEmpty(skus, "[Assertion failed] - skus must not be empty: it must contain at least 1 element");
+        product.setSourceProId(productId);
+        final List<SpecificationItem> specificationItems = product.getSpecificationItems();
+        /****验证规格值
+         * */
+        if (CollectionUtils.exists(skus, new Predicate() {
+            private Set<List<Integer>> set = new HashSet<>();
+            public boolean evaluate(Object object) {
+                Sku sku = (Sku) object;
+                return sku == null || !sku.isNew() || !sku.hasSpecification() || !set.add(sku.getSpecificationValueIds()) || !specificationValueService.isValid(specificationItems, sku.getSpecificationValues());
+            }
+        })) {
+            throw new IllegalArgumentException();
+        }
+        /***设置默认规格
+         * **/
+        Sku defaultSku = (Sku) CollectionUtils.find(skus, new Predicate() {
+            public boolean evaluate(Object object) {
+                Sku sku = (Sku) object;
+                return sku != null && sku.getIsDefault();
+            }
+        });
+        if (defaultSku == null) {
+            defaultSku = skus.get(0);
+            defaultSku.setIsDefault(true);
+        }
+        /***设置所有规格***/
+        for (Sku sku : skus) {
+            switch (product.getType()) {
+                case GENERAL:
+                    sku.setExchangePoint(0L);
+                    break;
+                case EXCHANGE:
+                    sku.setPrice(BigDecimal.ZERO);
+                    sku.setMaxCommission(BigDecimal.ZERO);
+                    sku.setRewardPoint(0L);
+                    product.setPromotions(null);
+                    break;
+                case GIFT:
+                    sku.setPrice(BigDecimal.ZERO);
+                    sku.setMaxCommission(BigDecimal.ZERO);
+                    sku.setRewardPoint(0L);
+                    sku.setExchangePoint(0L);
+                    product.setPromotions(null);
+                    break;
+            }
+            if (sku.getMarketPrice() == null) {
+                sku.setMarketPrice(calculateDefaultMarketPrice(sku.getPrice()));
+            }
+            if (sku.getRewardPoint() == null) {
+                sku.setRewardPoint(calculateDefaultRewardPoint(sku.getPrice()));
+            } else {
+                long maxRewardPoint = calculateMaxRewardPoint(sku.getPrice());
+                sku.setRewardPoint(sku.getRewardPoint() > maxRewardPoint ? maxRewardPoint : sku.getRewardPoint());
+            }
+            if (sku != defaultSku) {
+                sku.setIsDefault(false);
+            }
+            sku.setProduct(product);
+            sku.setCartItems(null);
+            sku.setOrderItems(null);
+            sku.setOrderShippingItems(null);
+            sku.setProductNotifies(null);
+            sku.setStockLogs(null);
+        }
+        product.setReviews(null);
+        product.setConsultations(null);
+        product.setProductFavorites(null);
+        product.setSkus(null);
+        setValue(product);
+        productDao.persist(product);
+        for (Sku sku : skus) {
+            setValue(sku);
+            skuDao.persist(sku);
+            stockIn(sku);
+        }
+        productDao.modifyNewProductId(product.getId(),productId);
+        productDao.modifyNewProductIdBySourceId(product.getId(),productId);
+        return product;
+    }
 }
