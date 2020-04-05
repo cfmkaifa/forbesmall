@@ -134,9 +134,6 @@
                     <dd>
                         <a href="${base}/article/detail/10469_1">商家帮助</a>
                     </dd>
-                    <dd>
-                        <a href="${base}/article/detail/10468_1">运营服务</a>
-                    </dd>
                 </dl>
             </div>
         </div>

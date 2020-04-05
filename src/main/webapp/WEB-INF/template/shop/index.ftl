@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html style="filter: progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);filter: grayscale(100%);">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
