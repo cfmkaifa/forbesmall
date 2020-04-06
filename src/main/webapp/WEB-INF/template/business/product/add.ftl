@@ -1050,7 +1050,7 @@
 									</div>
 								</div>
 								<div class="form-group">
-									<label class="col-xs-3 col-sm-2 control-label item-required" for="weight">${message("Product.weight")}:</label>
+									<label class="col-xs-3 col-sm-2 control-label" for="weight">${message("Product.weight")}:</label>
 									<div class="col-xs-9 col-sm-4">
 										<div class="input-group">
 											<input id="weight" name="weight" class="form-control" type="text" maxlength="9">
@@ -1102,7 +1102,7 @@
 								[/#if]
 								[#if productTags?has_content]
 									<div class="form-group">
-										<label class="col-xs-3 col-sm-2 control-label">${message("Product.productTags")}:</label>
+										<label class="col-xs-3 col-sm-2 control-label item-required">${message("Product.productTags")}:</label>
 										<div class="col-xs-9 col-sm-10">
 											[#list productTags as productTag]
 												<div class="checkbox checkbox-inline">
@@ -1115,7 +1115,7 @@
 								[/#if]
 								[#if storeProductTags?has_content]
 									<div class="form-group">
-										<label class="col-xs-3 col-sm-2 control-label">${message("Product.storeProductTags")}:</label>
+										<label class="col-xs-3 col-sm-2 control-label item-required">${message("Product.storeProductTags")}:</label>
 										<div class="col-xs-9 col-sm-10">
 											[#list storeProductTags as storeProductTag]
 												<div class="checkbox checkbox-inline">

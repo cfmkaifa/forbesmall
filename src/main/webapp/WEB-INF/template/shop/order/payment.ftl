@@ -148,7 +148,7 @@
                         </p>
                     </div>
                     <div class="modal-footer">
-                        <a class="btn btn-primary"
+                        <a style="color:#FFFFFF" class="btn btn-primary"
                            href="${base}/member/order/list">${message("PayConfirmModal.complete")}</a>
                         <a class="btn btn-default" href="${base}/">${message("PayConfirmModal.problem")}</a>
                     </div>

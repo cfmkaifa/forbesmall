@@ -1,0 +1,185 @@
+.exchangetop {
+	margin: 10px auto auto auto;
+}
+.top {
+	display: flex;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	margin-top: 20px;
+}
+.top img {
+	width: 719px;
+	height: 417px;
+}
+.top dl {
+	width: 480px;
+	height: 417px;
+	
+}
+.top dt{
+	font-size:28px;
+	font-family:Source Han Sans CN;
+	font-weight:400;
+	text-align: left;
+	color:rgba(51,51,51,1);
+	margin-left: 20px;
+	display: flex;
+}
+.top dt span {
+	width:14px;
+	height:14px;
+	background:rgba(198,22,22,1);
+	opacity:0.7;
+	margin: 15px 14px 0px 0px;
+}
+.top dd{
+	width: 100%;
+	height: 63px;
+	font-size:20px;
+	font-family:Source Han Sans CN;
+	font-weight:400;
+	text-align: left;
+	color:rgba(51,51,51,1);
+	margin-left: 40px;
+	line-height: 64px;
+}
+.mainbottom {
+	display: flex;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	margin-bottom: 22px;
+}
+.mainbottom dl {
+	margin-left: 22px;
+}
+.top dd:hover {
+	background:rgba(238,238,238,1);
+	cursor: pointer;
+}
+.exchange-conter {
+	margin: 20px auto;
+}
+.tablea {
+	margin-top: 25px;
+}
+.tablea thead{
+	width: 100%;
+	
+	background: #FAFAFA;
+}
+.tablea thead  tr{
+	height: 40px;
+	background: #E5E5E5;
+	font-size: 16px;
+}
+.tablea thead  tr th {
+	border: 1px solid #FFFFFF;
+	height: 40px;
+	font-size: 17px;
+	font-weight: 500;
+	position: relative;
+	text-align: center;
+	line-height: 40px;
+}
+.tablea tbody tr {
+	height: 36px;
+}
+
+.tablea tbody tr td {
+	height: 36px;
+	border: 1px solid #EEEEEE;
+	text-align: center;
+	line-height: 36px;
+	font-size: 14px;
+	font-weight: 500;
+}
+.diqu {
+	position: absolute;
+	top: 24%;
+	left: 30%;
+	line-height: 40px;
+}
+.information {
+	margin-top: 20px;
+}
+.diqutop {
+	width: 55px;
+}
+/* .shijian {
+	width: 122px;
+} */
+.rise {
+	font-size: 14px;
+	color: #C50C0C;
+}
+.fall {
+	color: #18981E;
+}
+.Bank1 .iconfont{
+	color: #BB262C;
+	padding-right: 5px;
+	font-size: 17px;
+}
+.Bank2 .iconfont{
+	color: #EE6A74;
+	padding-right: 5px;
+	font-size: 17px;
+}
+.Bank3 .iconfont{
+	color: #5DB8A6;
+	padding-right: 5px;
+	font-size: 17px;
+}
+.Bank4 .iconfont{
+	color: #015BAB;
+	padding-right: 5px;
+	font-size: 17px;
+}
+.Bank5 .iconfont{
+	color: #13227A;
+	padding-right: 5px;
+	font-size: 17px;
+}
+.exchange-bottom {
+	display: flex;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	justify-content: space-between;
+	margin: 0 auto;
+}
+.exchange-bottom table {
+	height:484px;
+	background:rgba(255,255,255,1);
+	border:1px solid rgba(219,219,219,1);
+}
+.exchange-bottom .titlebal{
+	height: 56px;
+	line-height: 37px;
+	background:rgba(252,252,252,1);
+	border:1px solid rgba(219,219,219,1);
+}
+.titlebale {
+	height: 47px;
+	border-bottom: 1px solid #DBDBDB;
+}
+.titlebal-p {
+	width: 93%;
+	height: 32px;
+	border-left: 4px solid #C61616;
+	margin: 12px auto auto auto;
+	font-size: 22px;
+}
+.titlebale th {
+	height: 47px;
+	line-height: 47px;
+}
+.exchange-bottom tr {
+	height: 43px;
+	line-height: 43px;
+}
+.exchange-bottom tbody{
+	font-size: 14px;
+}
+.exchange-bottom tr:nth-child(odd){
+	background:#F4F4F4;
+}
