@@ -124,7 +124,6 @@ public class BusinessController extends BaseController {
             Object memberAttributeValue = businessAttributeService.toBusinessAttributeValue(businessAttribute, values);
             business.setAttributeValue(businessAttribute, memberAttributeValue);
         }
-
         business.setBalance(BigDecimal.ZERO);
         business.setFrozenAmount(BigDecimal.ZERO);
         business.setIsLocked(false);

@@ -20,6 +20,9 @@ public class ContractModel implements Serializable {
      * 卖方
      * */
     protected  String sellerName;
+    /***订单地址
+     * */
+    protected  String orderAddress;
     /***买方
      * */
     protected  String buyName;
@@ -174,5 +177,11 @@ public class ContractModel implements Serializable {
     public ContractModel setOrderTotalAmount(BigDecimal orderTotalAmount) {
         this.orderTotalAmount = orderTotalAmount;
         return this;
+    }
+
+
+    public ContractModel setOrderAddress(String orderAddress) {
+        this.orderAddress = orderAddress;
+        return  this;
     }
 }

@@ -164,22 +164,54 @@ public class MemberAttributeServiceImpl extends BaseServiceImpl<MemberAttribute,
         }
         String value = values[0].trim();
         switch (memberAttribute.getType()) {
-            case NAME:
-            case ADDRESS:
-            case ZIP_CODE:
-            case PHONE:
-            case LICENSE_NUMBER:
-            case LICENSE_IMAGE:
-            case LEGAL_PERSON:
-            case ID_CARD:
-            case ID_CARD_IMAGE:
-            case ORGANIZATION_CODE:
-            case ORGANIZATION_IMAGE:
-            case IDENTIFICATION_NUMBER:
-            case TAX_IMAGE:
-            case BANK_NAME:
-            case BANK_ACCOUNT:
-            case IMAGE:
+            case NAME:{
+                return value;
+            }
+            case ADDRESS:{
+                return value;
+            }
+            case ZIP_CODE:{
+                return value;
+            }
+            case PHONE:{
+                return value;
+            }
+            case LICENSE_NUMBER:{
+                return value;
+            }
+            case LICENSE_IMAGE:{
+                return value;
+            }
+            case LEGAL_PERSON:{
+                return value;
+            }
+            case ID_CARD:{
+                return value;
+            }
+            case ID_CARD_IMAGE:{
+                return value;
+            }
+            case ORGANIZATION_CODE:{
+                return value;
+            }
+            case ORGANIZATION_IMAGE:{
+                return value;
+            }
+            case IDENTIFICATION_NUMBER:{
+                return value;
+            }
+            case TAX_IMAGE:{
+                return value;
+            }
+            case BANK_NAME:{
+                return value;
+            }
+            case BANK_ACCOUNT:{
+                return value;
+            }
+            case IMAGE:{
+                return value;
+            }
             case TEXT:
                 return StringUtils.isNotEmpty(value) ? value : null;
             case GENDER:

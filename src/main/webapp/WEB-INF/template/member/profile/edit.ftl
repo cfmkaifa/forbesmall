@@ -144,7 +144,7 @@
 											<label class="col-xs-3 col-sm-2 control-label[#if memberAttribute.isRequired] item-required[/#if]"[#if memberAttribute.type != "GENDER" && memberAttribute.type != "AREA" && memberAttribute.type != "CHECKBOX"] for="memberAttribute_${memberAttribute.id}"[/#if]>${memberAttribute.name}:</label>
 											[#if memberAttribute.type == "NAME" || memberAttribute.type == "LICENSE_NUMBER" || memberAttribute.type == "LEGAL_PERSON" || memberAttribute.type == "ID_CARD" || memberAttribute.type == "PHONE" || memberAttribute.type == "ORGANIZATION_CODE" || memberAttribute.type == "IDENTIFICATION_NUMBER" || memberAttribute.type == "BANK_NAME" || memberAttribute.type == "BANK_ACCOUNT" || memberAttribute.type == "TEXT"]
 												<div class="col-xs-9 col-sm-4">
-													<input id="memberAttribute_${memberAttribute.id}" name="memberAttribute_${memberAttribute.id}" class="form-control" type="text" value="${currentUser.getAttributeValue(memberAttribute)}" maxlength="200">
+													<input id="memberAttribute_${memberAttribute.id}" name="memberAttribute_${memberAttribute.id}" class="form-control" type="text" value="[#if currentUser.getAttributeValue(memberAttribute)?has_content]${currentUser.getAttributeValue(memberAttribute)}[/#if]" maxlength="200">
 												</div>
 											[#elseif memberAttribute.type == "LICENSE_IMAGE" || memberAttribute.type == "ID_CARD_IMAGE" || memberAttribute.type == "ORGANIZATION_IMAGE" || memberAttribute.type == "TAX_IMAGE" || memberAttribute.type == "IMAGE"]
 												<div class="col-xs-9 col-sm-4">

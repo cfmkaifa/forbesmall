@@ -393,7 +393,7 @@ public class ContractBuildImpl  extends ContractModel {
         threeCellLable.setColspan(9);
         threeCellLable.setPaddingTop(10f);
         tableBaseInfo.addCell(threeCellLable);
-        PdfPCell fourCellLable = new PdfPCell(new Phrase("五、交货地点：上海市青浦区诸光路1588号虹桥世界中心L2B-503室", contentFont));
+        PdfPCell fourCellLable = new PdfPCell(new Phrase(String.format(STR_FORMAT,"五、交货地点：",orderAddress), contentFont));
         fourCellLable.setUseAscender(true);
         fourCellLable.setUseDescender(true);
         fourCellLable.setBorder(0);

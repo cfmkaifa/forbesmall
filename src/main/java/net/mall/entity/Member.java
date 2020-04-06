@@ -1227,11 +1227,11 @@ public class Member extends User {
                         String propertyName = ATTRIBUTE_VALUE_PROPERTY_NAME_PREFIX + memberAttribute.getPropertyIndex();
                         return PropertyUtils.getProperty(this, propertyName);
                     } catch (IllegalAccessException e) {
-                        throw new RuntimeException(e.getMessage(), e);
+                        e.printStackTrace();
                     } catch (InvocationTargetException e) {
-                        throw new RuntimeException(e.getMessage(), e);
+                        e.printStackTrace();
                     } catch (NoSuchMethodException e) {
-                        throw new RuntimeException(e.getMessage(), e);
+                        e.printStackTrace();
                     }
                 }
                 break;
@@ -1244,11 +1244,11 @@ public class Member extends User {
                             return JsonUtils.toObject(propertyValue, List.class);
                         }
                     } catch (IllegalAccessException e) {
-                        throw new RuntimeException(e.getMessage(), e);
+                        e.printStackTrace();
                     } catch (InvocationTargetException e) {
-                        throw new RuntimeException(e.getMessage(), e);
+                        e.printStackTrace();
                     } catch (NoSuchMethodException e) {
-                        throw new RuntimeException(e.getMessage(), e);
+                        e.printStackTrace();
                     }
                 }
                 break;

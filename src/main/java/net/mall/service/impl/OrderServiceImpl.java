@@ -657,10 +657,13 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
                     orderItemMap.put("totalAmount",orderItem.getSubtotal());
                     return  orderItemMap;
                 }).collect(Collectors.toList());
+                java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy年mm月dd日");
+                String orderAddress = order.getAreaName() + order.getAddress();
                 ContractBuildImpl contractBuildImpl = new ContractBuildImpl();
                 contractBuildImpl
                         .setCompanyTtile(memberName)
                         .setSellerName(storeName)
+                        .setOrderAddress(orderAddress)
                         .setBuyName(memberName)
                         .setOrderNo(order.getSn())
                         .setItems(items)
@@ -668,18 +671,18 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
                         .setMemberName(memberName)
                         .setMemberAddress(memberAddress)
                         .setMemberPhone(memberPhone)
-                        .setMemberLegalPerson("")
-                        .setMemberDate("")
-                        .setMemberTaxNo("")
+                        .setMemberLegalPerson(member.getLegalPerson())
+                        .setMemberDate(sdf.format(order.getCreatedDate()))
+                        .setMemberTaxNo(member.getIdentificationNumber())
                         .setMemberBankName(memberBankName)
                         .setMemberBankAddress("")
                         .setMemberBankAccount(memberBankAccount)
                         .setStoreName(storeName)
                         .setStoreAdress(storeAddress)
                         .setStorePhone(storePhone)
-                        .setStoreLegalPerson("")
-                        .setStoreDate("")
-                        .setStoreTaxNo("")
+                        .setStoreLegalPerson(business.getLegalPerson())
+                        .setStoreDate(sdf.format(order.getCreatedDate()))
+                        .setStoreTaxNo(business.getIdentificationNumber())
                         .setStoreBankName(storeBankName)
                         .setStoreBankAddress("")
                         .setStoreBankAccount(storeBankAccount);
