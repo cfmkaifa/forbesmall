@@ -1304,6 +1304,9 @@ public class Business extends User {
                     }
                 }
                 break;
+            case BANK_ADDRESS:{
+                return getBankAddress();
+            }
         }
         return null;
     }
