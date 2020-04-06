@@ -104,6 +104,7 @@ public class BusinessAttributeController extends BaseController {
                 || BusinessAttribute.Type.LICENSE_IMAGE.equals(businessAttribute.getType())
                 || BusinessAttribute.Type.PHONE.equals(businessAttribute.getType())
                 || BusinessAttribute.Type.ZIP_CODE.equals(businessAttribute.getType())
+                || BusinessAttribute.Type.BANK_ADDRESS.equals(businessAttribute.getType())
                 || BusinessAttribute.Type.NAME.equals(businessAttribute.getType())
                 || BusinessAttribute.Type.ADDRESS.equals(businessAttribute.getType())) {
             businessAttribute.setOptions(null);

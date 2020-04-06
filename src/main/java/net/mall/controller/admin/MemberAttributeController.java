@@ -11,7 +11,6 @@ import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 import javax.inject.Inject;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.functors.AndPredicate;
@@ -103,6 +102,7 @@ public class MemberAttributeController extends BaseController {
                 || MemberAttribute.Type.ID_CARD.equals(memberAttribute.getType())
                 || MemberAttribute.Type.ID_CARD_IMAGE.equals(memberAttribute.getType())
                 || MemberAttribute.Type.LEGAL_PERSON.equals(memberAttribute.getType())
+                || MemberAttribute.Type.BANK_ADDRESS.equals(memberAttribute.getType())
                 || MemberAttribute.Type.LICENSE_IMAGE.equals(memberAttribute.getType())
                 || MemberAttribute.Type.LICENSE_NUMBER.equals(memberAttribute.getType())
                 || MemberAttribute.Type.PHONE.equals(memberAttribute.getType())

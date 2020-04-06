@@ -209,6 +209,9 @@ public class MemberAttributeServiceImpl extends BaseServiceImpl<MemberAttribute,
             case BANK_ACCOUNT:{
                 return value;
             }
+            case BANK_ADDRESS:{
+                return value;
+            }
             case IMAGE:{
                 return value;
             }

@@ -153,7 +153,10 @@ public class MemberAttribute extends OrderedEntity<Long> {
         /**
          * 公司银行账号
          */
-        BANK_ACCOUNT
+        BANK_ACCOUNT,
+        /***银行账号地址
+         * */
+        BANK_ADDRESS
     }
 
     /**

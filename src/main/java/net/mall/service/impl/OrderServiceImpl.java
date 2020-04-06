@@ -672,10 +672,10 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
                         .setMemberAddress(memberAddress)
                         .setMemberPhone(memberPhone)
                         .setMemberLegalPerson(member.getLegalPerson())
-                        .setMemberDate(sdf.format(order.getCreatedDate()))
+                        .setMemberDate(sdf.format(new Date()))
                         .setMemberTaxNo(member.getIdentificationNumber())
                         .setMemberBankName(memberBankName)
-                        .setMemberBankAddress("")
+                        .setMemberBankAddress(member.getBankAddress())
                         .setMemberBankAccount(memberBankAccount)
                         .setStoreName(storeName)
                         .setStoreAdress(storeAddress)
@@ -684,7 +684,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
                         .setStoreDate(sdf.format(order.getCreatedDate()))
                         .setStoreTaxNo(business.getIdentificationNumber())
                         .setStoreBankName(storeBankName)
-                        .setStoreBankAddress("")
+                        .setStoreBankAddress(business.getBankAddress())
                         .setStoreBankAccount(storeBankAccount);
                 String contractPath = contractBuildImpl.generateContract();
                 order.setContractPath(contractPath);

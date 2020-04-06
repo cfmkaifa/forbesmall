@@ -270,6 +270,10 @@ public class Member extends User {
     @Length(max = 200)
     private String bankAccount;
 
+    @Length(max = 200)
+    @Column(name = "bank_address")
+    private String bankAddress;
+
     /**
      * 会员注册项值0
      */
@@ -1252,6 +1256,9 @@ public class Member extends User {
                     }
                 }
                 break;
+            case BANK_ADDRESS:{
+                return getBankAddress();
+            }
         }
         return null;
     }
@@ -1478,6 +1485,12 @@ public class Member extends User {
                     setBankAccount((String) memberAttributeValue);
                 }
                 break;
+            case BANK_ADDRESS:{
+                if (memberAttributeValue instanceof String || memberAttributeValue == null) {
+                    setBankAddress((String) memberAttributeValue);
+                }
+                break;
+            }
             case NAME:
                 if (memberAttributeValue instanceof String || memberAttributeValue == null) {
                     setName((String) memberAttributeValue);
@@ -1637,4 +1650,12 @@ public class Member extends User {
         setMobile(StringUtils.lowerCase(getMobile()));
     }
 
+
+    public String getBankAddress() {
+        return bankAddress;
+    }
+
+    public void setBankAddress(String bankAddress) {
+        this.bankAddress = bankAddress;
+    }
 }

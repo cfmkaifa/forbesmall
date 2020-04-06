@@ -102,6 +102,9 @@ public class BusinessAttributeServiceImpl extends BaseServiceImpl<BusinessAttrib
             case BANK_NAME: {
                 break;
             }
+            case BANK_ADDRESS:{
+                break;
+            }
             case BANK_ACCOUNT: {
                 break;
             }
@@ -198,6 +201,9 @@ public class BusinessAttributeServiceImpl extends BaseServiceImpl<BusinessAttrib
                 return value;
             }
             case BANK_ACCOUNT: {
+                return value;
+            }
+            case BANK_ADDRESS:{
                 return value;
             }
             case TEXT: {

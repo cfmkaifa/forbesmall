@@ -239,6 +239,13 @@ public class Business extends User {
     private String bankAccount;
 
     /**
+     * 银行账号地址
+     */
+    @Length(max = 200)
+    @Column(name = "bank_address")
+    private String bankAddress;
+
+    /**
      * 商家注册项值0
      */
     @Length(max = 200)
@@ -1388,6 +1395,12 @@ public class Business extends User {
                     setBankAccount((String) businessAttributeValue);
                 }
                 break;
+            case BANK_ADDRESS:{
+                if (businessAttributeValue instanceof String || businessAttributeValue == null) {
+                    setBankAddress((String) businessAttributeValue);
+                }
+                break;
+            }
             case TEXT:
             case SELECT:
                 if ((businessAttributeValue instanceof String || businessAttributeValue == null) && businessAttribute.getPropertyIndex() != null) {
@@ -1523,4 +1536,11 @@ public class Business extends User {
         setMobile(StringUtils.lowerCase(getMobile()));
     }
 
+    public String getBankAddress() {
+        return bankAddress;
+    }
+
+    public void setBankAddress(String bankAddress) {
+        this.bankAddress = bankAddress;
+    }
 }

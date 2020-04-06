@@ -259,7 +259,7 @@
 												<div class="col-xs-9 col-sm-4">
 													<input id="memberAttribute${memberAttribute.id}" name="memberAttribute_${memberAttribute.id}" class="form-control" type="text" value="${member.phone}" maxlength="200">
 												</div>
-											[#elseif memberAttribute.type == "TEXT" || memberAttribute.type == "LICENSE_NUMBER" || memberAttribute.type == "LEGAL_PERSON" || memberAttribute.type == "ID_CARD" || memberAttribute.type == "ORGANIZATION_CODE" || memberAttribute.type == "IDENTIFICATION_NUMBER" || memberAttribute.type == "BANK_NAME" || memberAttribute.type == "BANK_ACCOUNT"]
+											[#elseif memberAttribute.type == "TEXT" || memberAttribute.type == "LICENSE_NUMBER" || memberAttribute.type == "LEGAL_PERSON" || memberAttribute.type == "ID_CARD" || memberAttribute.type == "ORGANIZATION_CODE" || memberAttribute.type == "IDENTIFICATION_NUMBER" || memberAttribute.type == "BANK_NAME" || memberAttribute.type == "BANK_ADDRESS" || memberAttribute.type == "BANK_ACCOUNT"]
 												<div class="col-xs-9 col-sm-4">
 													<input id="memberAttribute${memberAttribute.id}" name="memberAttribute_${memberAttribute.id}" class="form-control" type="text" value="${member.getAttributeValue(memberAttribute)}" maxlength="200">
 												</div>
