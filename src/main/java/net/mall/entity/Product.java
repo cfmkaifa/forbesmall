@@ -215,6 +215,27 @@ public class Product extends BaseEntity<Long> {
     }
 
     /**
+     * 状态
+     */
+    public enum ProApplyStatus {
+
+        /**
+         * 等待审核
+         */
+        PENDING,
+
+        /**
+         * 审核通过
+         */
+        APPROVED,
+
+        /**
+         * 审核失败
+         */
+        FAILED
+    }
+
+    /**
      * 编号
      */
     @JsonView(BaseView.class)
@@ -331,6 +352,14 @@ public class Product extends BaseEntity<Long> {
     @JsonView(BaseView.class)
     @Column(name = "is_group")
     private Boolean isGroup;
+
+
+    @Column(name = "is_purch")
+    private Boolean isPurch;
+
+
+    @Column(name = "is_audit")
+    private ProApplyStatus isAudit;
 
     /**
      * 是否置顶
@@ -607,8 +636,16 @@ public class Product extends BaseEntity<Long> {
     @IndexedEmbedded(includeEmbeddedObjectId = true)
     @NotNull(groups = Save.class)
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false, updatable = false)
+    @JoinColumn(updatable = false)
     private net.mall.entity.Store store;
+
+    /***
+     *
+     */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @NotNull(groups = Purchase.class)
+    @JoinColumn(updatable = false,name = "member_id")
+    Member member;
 
 
     /****样品店铺
@@ -2264,5 +2301,30 @@ public class Product extends BaseEntity<Long> {
 
     public void setNewProId(Long newProId) {
         this.newProId = newProId;
+    }
+
+
+    public Boolean getPurch() {
+        return isPurch;
+    }
+
+    public void setPurch(Boolean purch) {
+        isPurch = purch;
+    }
+
+    public ProApplyStatus getIsAudit() {
+        return isAudit;
+    }
+
+    public void setIsAudit(ProApplyStatus isAudit) {
+        this.isAudit = isAudit;
+    }
+
+    public Member getMember() {
+        return member;
+    }
+
+    public void setMember(Member member) {
+        this.member = member;
     }
 }

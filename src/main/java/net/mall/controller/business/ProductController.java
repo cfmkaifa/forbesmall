@@ -240,7 +240,11 @@ public class ProductController extends BaseController {
      * 保存
      */
     @PostMapping("/save")
-    public ResponseEntity<?> save(@ModelAttribute(name = "productForm") Product productForm, @ModelAttribute(binding = false) ProductCategory productCategory, SkuForm skuForm, SkuListForm skuListForm, Long brandId, Long[] promotionIds, Long[] productTagIds, Long[] storeProductTagIds,
+    public ResponseEntity<?> save(@ModelAttribute(name = "productForm") Product productForm,
+                                  @ModelAttribute(binding = false) ProductCategory productCategory,
+                                  SkuForm skuForm, SkuListForm skuListForm,
+                                  Long brandId, Long[] promotionIds,
+                                  Long[] productTagIds, Long[] storeProductTagIds,
                                   Long storeProductCategoryId, HttpServletRequest request, @CurrentStore Store currentStore) {
         productImageService.filter(productForm.getProductImages());
         parameterValueService.filter(productForm.getParameterValues());
@@ -433,7 +437,7 @@ public class ProductController extends BaseController {
         model.addAttribute("isActive", isActive);
         model.addAttribute("isOutOfStock", isOutOfStock);
         model.addAttribute("isStockAlert", isStockAlert);
-        model.addAttribute("page", productService.findPage(type, 0,false, null, currentStore, productCategory, null, brand, promotion, productTag, storeProductTag, null, null, null, isMarketable, isList, isTop, isActive, isOutOfStock, isStockAlert, null, null, pageable));
+        model.addAttribute("page", productService.findPage(type, 0,false, null, currentStore,null, productCategory, null, brand, promotion, productTag, storeProductTag, null, null, null, isMarketable, isList, isTop, isActive, isOutOfStock, isStockAlert, null, null, pageable));
         return "business/product/list";
     }
 

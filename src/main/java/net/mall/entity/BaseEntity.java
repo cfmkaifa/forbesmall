@@ -80,6 +80,13 @@ public abstract class BaseEntity<ID extends Serializable> implements Serializabl
 
     }
 
+    /***采购验证组
+     */
+    public interface  Purchase extends  Default{
+
+    }
+
+
     /**
      * 基础视图
      */

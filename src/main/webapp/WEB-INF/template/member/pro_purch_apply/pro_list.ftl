@@ -54,7 +54,13 @@
 						<div class="panel panel-default">
 							<div class="panel-heading">
 								<div class="row">
-									<div class="col-xs-12 col-sm-3">
+									<div class="col-xs-12 col-sm-3" style="display: flex;">
+										<div class="btn-group">
+											<a class="btn btn-default" href="${base}/member/product/add"  data-redirect-url="${base}/member/product/list">
+												<i class="iconfont icon-add"></i>
+												${message("common.add")}
+											</a>
+										</div>
 										<div id="search" class="input-group">
 											<div class="input-group-btn">
 												<button class="btn btn-default" type="button" data-toggle="dropdown">
@@ -134,10 +140,7 @@
 												</a>
 											</th>
 											<th>
-												<a href="javascript:;" data-order-property="store.name">
-													${message("Product.store")}
-													<i class="iconfont icon-biaotou-kepaixu"></i>
-												</a>
+												${message("CategoryApplication.status")}
 											</th>
 											<th>
 												<a href="javascript:;" data-order-property="createdDate">
@@ -145,7 +148,6 @@
 													<i class="iconfont icon-biaotou-kepaixu"></i>
 												</a>
 											</th>
-											<th>${message("common.action")}</th>
 										</tr>
 										</thead>
 										[#if page.content?has_content]
@@ -171,7 +173,7 @@
 														[/#list]
 													</td>
 													<td>
-														[#if !product.productCategory?has_content ]
+														[#if product.productCategory?has_content ]
 															${product.productCategory.name}
 														[/#if]
 
@@ -191,16 +193,11 @@
 															<i class="text-red iconfont icon-close"></i>
 														[/#if]
 													</td>
-													<td>${product.store.name}</td>
 													<td>
-														<span title="${product.createdDate?string("yyyy-MM-dd HH:mm:ss")}" data-toggle="tooltip">${product.createdDate}</span>
+														<span class="[#if product.isAudit == "PENDING"]text-orange[#elseif product.isAudit == "FAILED"]text-red[#else]text-green[/#if]">${message("CategoryApplication.Status." + product.isAudit)}</span>
 													</td>
 													<td>
-														[#if product.isMarketable && product.isActive]
-															<a class="btn btn-default btn-xs btn-icon" href="${base}/member/pro_purch_apply/index/${product.id}" title="${message("member.mainMenu.proApply")}" data-toggle="tooltip" data-redirect-url>
-																<i class="iconfont icon-write"></i>
-															</a>
-														[/#if]
+														<span title="${product.createdDate?string("yyyy-MM-dd HH:mm:ss")}" data-toggle="tooltip">${product.createdDate}</span>
 													</td>
 												</tr>
 											[/#list]

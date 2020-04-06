@@ -39,7 +39,7 @@
     <link href="${base}/resources/common/css/base.css" rel="stylesheet">
     <link href="${base}/resources/shop/css/base.css" rel="stylesheet">
     <link href="${base}/resources/shop/css/store.css" rel="stylesheet">
-    <link href="${base}/resources/shop/css/product.css?version=0.1" rel="stylesheet">
+    <link href="${base}/resources/shop/css/product.css?version=0.2" rel="stylesheet">
     <!--[if lt IE 9]>
 		<script src="${base}/resources/common/js/html5shiv.js"></script>
 		<script src="${base}/resources/common/js/respond.js"></script>
@@ -528,7 +528,11 @@
                                     <li class="list-item">
                                         <div class="list-item-body"
                                              style="display: flex;justify-content: space-around;">
-                                            <div class="supply-1">${message("shop.mainHeader.supply")}</div>
+                                            [#if product.purch]
+                                                <div class="purchase">${message("shop.mainHeader.purchase")}</div>
+                                            [#else ]
+                                                <div class="supply-1">${message("shop.mainHeader.supply")}</div>
+                                            [/#if]
                                             <a href="${base}${product.path}" target="_blank" class="aaaa">
                                                 <img id="productImage${product.id}"
                                                      class="listimg lazy-load img-responsive"
@@ -582,10 +586,13 @@
                                                         </div>
                                                         <div class="company-2">
                                                             <p class="text-center">
-                                                                <a href="${base}${product.store.path}"
-                                                                   title="${product.store.name}"
-                                                                   target="_blank">${product.store.name}
-                                                                </a>
+                                                                [#if product.purch]
+                                                                    ${product.member.name}
+                                                                 [#else ]
+                                                                  <a href="${base}${product.store.path}"
+                                                                           title="${product.store.name}"
+                                                                           target="_blank">${product.store.name}</a>
+                                                                [/#if]
                                                                 [#if product.store.type == "SELF"]
                                                                     <span class="label label-primary">${message("Store.Type.SELF")}</span>
                                                                 [/#if]
@@ -630,21 +637,23 @@
                                             <div class="detailsbutton-2">
                                                 [#--<p class="data-2">2019-12-12  13:52:10</p>--]
                                                 <p class="data-2">${product.createdDate}</p>
-                                                [#if product.sample]
+                                                [#if product.purch]
+                                                    <a href="${base}/product/purch-detail/${product.id}" target="_blank">
+                                                        <button type="button"
+                                                                class="button-3">${message("shop.product.detail")}</button>
+                                                    </a>
+                                                [#else ]
                                                     <a href="${base}${product.path}" target="_blank">
                                                         <button type="button"
                                                                 class="button-3">${message("shop.product.detail")}</button>
                                                     </a>
-                                                    <a href="${base}/product/sample-detail/${product.id}"
-                                                       target="_blank">
-                                                        <button type="button"
-                                                                class="button-4">${message("shop.product.sample")}</button>
-                                                    </a>
-                                                [#else]
-                                                    <a href="${base}${product.path}" target="_blank">
-                                                        <button type="button"
-                                                                class="button-2 ">${message("shop.product.detail")}</button>
-                                                    </a>
+                                                    [#if product.sample]
+                                                        <a href="${base}/product/sample-detail/${product.id}"
+                                                           target="_blank">
+                                                            <button type="button"
+                                                                    class="button-4">${message("shop.product.sample")}</button>
+                                                        </a>
+                                                    [/#if]
                                                 [/#if]
                                             </div>
                                     </li>

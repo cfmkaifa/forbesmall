@@ -1825,17 +1825,27 @@
 	padding-left: 10px;
 }
 .supply-1 {
-	width:40px;
-	height:36px;
-	background:#2091D5;
-	border-radius:4px;
+	 width:40px;
+	 height:36px;
+	 background:#2091D5;
+	 border-radius:4px;
+	 text-align: center;
+	 line-height: 36px;
+	 color: #FFFFFF;
+	 font-size: 14px;
+	 margin-top: 32px;
+ }
+.purchase {
+	width: 40px;
+	height: 36px;
+	background: #EA1820;
+	border-radius: 4px;
 	text-align: center;
 	line-height: 36px;
 	color: #FFFFFF;
 	font-size: 14px;
 	margin-top: 32px;
 }
-
 .state p{
 	width: 372px;
 	overflow: hidden;

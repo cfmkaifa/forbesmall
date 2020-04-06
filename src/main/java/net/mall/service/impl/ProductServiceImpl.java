@@ -22,6 +22,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.LockModeType;
 import javax.persistence.PersistenceContext;
 
+import net.mall.entity.*;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.collections.Predicate;
@@ -62,21 +63,8 @@ import net.mall.dao.StockLogDao;
 import net.mall.dao.StoreDao;
 import net.mall.dao.StoreProductCategoryDao;
 import net.mall.dao.StoreProductTagDao;
-import net.mall.entity.Attribute;
-import net.mall.entity.Brand;
-import net.mall.entity.Product;
 import net.mall.entity.Product.Type;
-import net.mall.entity.ProductCategory;
-import net.mall.entity.ProductTag;
-import net.mall.entity.Promotion;
-import net.mall.entity.Sku;
-import net.mall.entity.Sn;
 import net.mall.entity.Specification.Sample;
-import net.mall.entity.SpecificationItem;
-import net.mall.entity.StockLog;
-import net.mall.entity.Store;
-import net.mall.entity.StoreProductCategory;
-import net.mall.entity.StoreProductTag;
 import net.mall.service.ProductService;
 import net.mall.service.SearchService;
 import net.mall.service.SpecificationValueService;
@@ -213,9 +201,9 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
 
     @Override
     @Transactional(readOnly = true)
-    public Page<Product> findPage(Product.Type type, Integer method,boolean isSample, Store.Type storeType, Store store, ProductCategory productCategory, StoreProductCategory storeProductCategory, Brand brand, Promotion promotion, ProductTag productTag, StoreProductTag storeProductTag, Map<Attribute, String> attributeValueMap,
+    public Page<Product> findPage(Product.Type type, Integer method, boolean isSample, Store.Type storeType, Store store, Member member, ProductCategory productCategory, StoreProductCategory storeProductCategory, Brand brand, Promotion promotion, ProductTag productTag, StoreProductTag storeProductTag, Map<Attribute, String> attributeValueMap,
                                   BigDecimal startPrice, BigDecimal endPrice, Boolean isMarketable, Boolean isList, Boolean isTop, Boolean isActive, Boolean isOutOfStock, Boolean isStockAlert, Boolean hasPromotion, Product.OrderType orderType, Pageable pageable) {
-        return productDao.findPage(type, method,isSample, storeType, store, productCategory, storeProductCategory, brand, promotion, productTag, storeProductTag, attributeValueMap, startPrice, endPrice, isMarketable, isList, isTop, isActive, isOutOfStock, isStockAlert, hasPromotion, orderType, pageable);
+        return productDao.findPage(type, method,isSample, storeType, store,member, productCategory, storeProductCategory, brand, promotion, productTag, storeProductTag, attributeValueMap, startPrice, endPrice, isMarketable, isList, isTop, isActive, isOutOfStock, isStockAlert, hasPromotion, orderType, pageable);
     }
 
     @SuppressWarnings("unchecked")
@@ -1342,4 +1330,14 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
         productDao.modifyProduct(curentDate,productId);
     }
 
+
+
+    /***
+     * 修改审核状态
+     * @param isAudit
+     * @param productId
+     */
+    public void modifyProductAudit(Product.ProApplyStatus isAudit, Long productId){
+        productDao.modifyProductAudit(isAudit,productId);
+    }
 }

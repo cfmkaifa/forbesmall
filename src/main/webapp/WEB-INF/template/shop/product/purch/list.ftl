@@ -41,9 +41,9 @@
     <link href="${base}/resources/shop/css/store.css" rel="stylesheet">
     <link href="/resources/shop/css/product.css?version=0.1" rel="stylesheet">
     <!--[if lt IE 9]>
-		<script src="${base}/resources/common/js/html5shiv.js"></script>
-		<script src="${base}/resources/common/js/respond.js"></script>
-	<![endif]-->
+    <script src=${base}"/resources/common/js/html5shiv.js"></script>
+    <script src=${base}"/resources/common/js/respond.js"></script>
+    <![endif]-->
     <script src="${base}/resources/common/js/jquery.js"></script>
     <script src="${base}/resources/common/js/bootstrap.js"></script>
     <script src="${base}/resources/common/js/bootstrap-growl.js"></script>
@@ -527,7 +527,7 @@
                                     <li class="list-item">
                                         <div class="list-item-body"
                                              style="display: flex;justify-content: space-around;">
-                                            <a href="${base}${product.path}" target="_blank" class="aaaa">
+                                            <a href="${base}/product/purch-detail/${product.id}" target="_blank" class="aaaa">
                                                 <img id="productImage${product.id}"
                                                      class="listimg lazy-load img-responsive"
                                                      src="${base}/resources/common/images/transparent.png"
@@ -578,9 +578,7 @@
                                                         </div>
                                                         <div class="company-2">
                                                             <p class="text-center">
-                                                                <a href="${base}${product.store.path}"
-                                                                   title="${product.store.name}"
-                                                                   target="_blank">${abbreviate(product.store.name, 15)}</a>
+                                                                ${abbreviate(product.member.name, 15)}
                                                                 [#if product.store.type == "SELF"]
                                                                     <span class="label label-primary">${message("Store.Type.SELF")}</span>
                                                                 [/#if]
