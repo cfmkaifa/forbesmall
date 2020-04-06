@@ -681,7 +681,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
                         .setStoreAdress(storeAddress)
                         .setStorePhone(storePhone)
                         .setStoreLegalPerson(business.getLegalPerson())
-                        .setStoreDate(sdf.format(order.getCreatedDate()))
+                        .setStoreDate(sdf.format(new Date()))
                         .setStoreTaxNo(business.getIdentificationNumber())
                         .setStoreBankName(storeBankName)
                         .setStoreBankAddress(business.getBankAddress())
