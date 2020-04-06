@@ -1575,11 +1575,11 @@ public class Member extends User {
             try {
                 PropertyUtils.setProperty(this, propertyName, null);
             } catch (IllegalAccessException e) {
-                throw new RuntimeException(e.getMessage(), e);
+                e.printStackTrace();
             } catch (InvocationTargetException e) {
-                throw new RuntimeException(e.getMessage(), e);
+                e.printStackTrace();
             } catch (NoSuchMethodException e) {
-                throw new RuntimeException(e.getMessage(), e);
+                e.printStackTrace();
             }
         }
     }
