@@ -323,7 +323,7 @@
             </li>
         </ol>
         <div class="row">
-            <div class="col-xs-3">
+            <div class="col-xs-4">
                 <div id="productImage" class="product-image">
                     <div class="medium-product-image">
                         [#if product.productImages?has_content]
@@ -384,9 +384,9 @@
                     </a>
                 </div>
             </div>
-            <div class="col-xs-7">
+            <div class="col-xs-6">
                 <div class="name">
-                    <h4>${product.name}</h4>
+                    <h1 style="font-size: 18px; font-weight: 600; text-align: left;">${product.name}</h1>
                     [#if product.caption?has_content]
                         <strong>${product.caption}</strong>
                     [/#if]
@@ -465,7 +465,7 @@
                     </div>
                     <div class="action">
                         [#if product.type == "GENERAL"]
-                            <button id="buy" class="btn btn-default btn-lg"
+                            <button id="buy" class="btna"
                                     type="button"[#if defaultSku.isOutOfStock] disabled[/#if]>${message("shop.product.buy")}</button>
                         [#elseif product.type == "EXCHANGE"]
                             <button id="exchange" class="btn btn-primary btn-lg"
@@ -550,9 +550,6 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-2">
-                [#--[#include "/shop/include/featured_product.ftl" /]--]
-            </div>
             <div class="col-xs-10">
                 [#if product.introduction?has_content || product.parameterValues?has_content || setting.isReviewEnabled || setting.isConsultationEnabled]
                     <div class="topbar-wrapper">

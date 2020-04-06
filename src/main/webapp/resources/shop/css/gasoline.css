@@ -1,0 +1,164 @@
+.money {
+	display: flex;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	justify-content: space-between;
+	margin-top: 29px;
+}
+.money img {
+	width:523px;
+	height:269px;
+}
+.table {
+	width: 550px;
+}
+.table thead {
+	font-size: 16px;
+}
+.table thead tr {
+	height: 33px;
+}
+.table tbody {
+	font-size: 14px;
+}
+.table tbody tr {
+	height: 30px;
+}
+.moneyoil {
+	margin-top: 15px;
+}
+.tablea {
+	margin-top: 25px;
+}
+.tablea thead{
+	width: 100%;
+	
+	background: #FAFAFA;
+}
+.tablea thead  tr{
+	height: 40px;
+	background: #E5E5E5;
+	font-size: 16px;
+}
+.tablea thead  tr th {
+	border: 1px solid #FFFFFF;
+	height: 40px;
+	font-weight: 400;
+	position: relative;
+}
+.tablea tbody tr {
+	height: 36px;
+}
+
+.tablea tbody tr td {
+	height: 36px;
+	border: 1px solid #EEEEEE;
+	text-align: center;
+	line-height: 36px;
+}
+.diqu {
+	position: absolute;
+	top: 24%;
+	left: 39%;
+	line-height: 40px;
+}
+.information {
+	margin-top: 20px;
+}
+.informationblock {
+	display: flex;
+	flex-wrap: wrap;
+}
+.informationimg {
+	width:351px;
+	height:243px;
+	margin: 10px 24px 10px 24px;
+	position: relative;
+	
+}
+.informationimg img{
+	width:351px;
+	height:243px;
+}
+.informationfont {
+	width: 100%;
+	font-size: 22px;
+	color: #FFFFFF;
+	padding: 0px 10px 0px 20px;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	overflow: hidden;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	background:rgba(0,0,0,0.5);
+}
+.maintltle {
+	margin-top: 15px;
+}
+.under {
+	width: 20%;
+}
+.more {
+	font-size: 14px;
+	color: #666666;
+}
+.things {
+	margin: 0px 0px 20px 0px;
+}
+.thingsconter {
+	width: 96%;
+	margin: 10px auto auto auto;
+	display: flex;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	-webkit-justify-content: space-between;
+	justify-content: space-between;
+}
+.thingsconter-left {
+	width: 269px;
+	height: 156px;
+}
+.thingsconter li {
+	width:824px;
+	margin-top: 7px;
+}
+.amain {
+	font-size:16px;
+	font-family:Source Han Sans CN;
+	font-weight:400;
+	color:#999999;
+	line-height:24px;
+	text-overflow: -o-ellipsis-lastline;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+
+}
+.conli {
+	display: flex;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	height: 50px;
+	line-height: 50px;
+}
+.img1 {
+	width: 22px;
+	height: 13px;
+	margin-top: 18px;
+}
+.img2 {
+	width: 19px;
+	height: 19px;
+	margin: 16px 15px 0px 0px;
+}
+.conli span {
+	margin:0px 25px 0px 10px;
+}
+.conli p{
+	font-size:16px;
+	color: #666666;
+}

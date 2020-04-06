@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html style="filter: progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);filter: grayscale(100%);">
+<html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -403,14 +403,14 @@
                                     </div>
                                 </div>
                                 <!-- 轮播（Carousel）导航 -->
-                                <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-                                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                                    <span class="sr-only">Previous</span>
-                                </a>
-                                <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-                                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                                    <span class="sr-only">Next</span>
-                                </a>
+[#--                                <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">--]
+[#--                                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>--]
+[#--                                    <span class="sr-only">Previous</span>--]
+[#--                                </a>--]
+[#--                                <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">--]
+[#--                                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>--]
+[#--                                    <span class="sr-only">Next</span>--]
+[#--                                </a>--]
                             </div>
                         </div>
                     </div>

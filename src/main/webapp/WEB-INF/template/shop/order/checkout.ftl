@@ -682,7 +682,7 @@
             </table>
             <div class="summary panel panel-default">
                 <div class="panel-body">
-                    <dl class="dl-horizontal pull-right">
+                    <dl class="dl-horizontal">
                         [#if orderType == "GENERAL"]
                             [#if rewardPoint > 0]
                                 <dt>${message("Order.rewardPoint")}:</dt>

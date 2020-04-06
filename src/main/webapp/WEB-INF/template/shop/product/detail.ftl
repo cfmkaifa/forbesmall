@@ -51,6 +51,7 @@
     <script src="${base}/resources/common/js/velocity.ui.js"></script>
     <script src="${base}/resources/common/js/base.js?version=0.1"></script>
     <script src="${base}/resources/shop/js/base.js"></script>
+    <script src="${base}/resources/shop/js/slide.js"></script>
     <script src="${base}/resources/common/js/iconfont1.js"></script>
     [#noautoesc]
         [#escape x as x?js_string]
@@ -343,7 +344,7 @@
             </li>
         </ol>
         <div class="row">
-            <div class="col-xs-3">
+            <div class="col-xs-4">
                 <div id="productImage" class="product-image">
                     <div class="medium-product-image">
                         [#if product.productImages?has_content]
@@ -410,9 +411,9 @@
                     </a>
                 </div>
             </div>
-            <div class="col-xs-7">
+            <div class="col-xs-6">
                 <div class="name">
-                    <h1 style="font-size: 18px; font-weight: 600;">${product.name}</h1>
+                    <h1 style="font-size: 18px; font-weight: 600; text-align: left;">${product.name}</h1>
                     [#if product.caption?has_content]
                         <strong>${product.caption}</strong>
                     [/#if]
@@ -421,15 +422,13 @@
                     <div class="money-2">
                         <p>
                             ${message("Product.unitPrice")}：<strong id="price" style="font-size: 20px;" class="unit-2">${product.price}</strong>
-                            <span class="unit-2" style="font-size: 20px;">/${product.unit}</span>
+                            <span class="unit-2" style="font-size: 20px;">/${product.unit}</span><span class="unit-2" style="font-size:14px;margin-top:4px;">${message("Product.newtime")}</span>
                         </p>
+                        <p>${message("Product.updatetime")}：<span>${product.lastModifiedDate}</span></p>
                         <p>${message("Product.shelfTime")}：<span>${product.createdDate}</span></p>
                         <div style="display: flex">
                             <p>${message("Product.serviceCall")}:[#noautoesc]${product.introduction}[/#noautoesc]</p>
                         </div>
-                    </div>
-                    <div>
-
                     </div>
                     <ul class="clearfix">
                         <li>
@@ -601,12 +600,18 @@
                            data-store-id="${product.store.id}">${message("shop.product.addStoreFavorite")}</a>
                     </div>
                 </div>
+                <div class="xinagqingqq">
+                    <ul id="slider">
+                        [#list product.store.storeAdImages as storeImgs]
+                            <li>
+                                <img src="${storeImgs.image}">
+                            </li>
+                        [/#list]
+                    </ul>
+                </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-2">
-                [#--[#include "/shop/include/featured_product.ftl" /]--]
-            </div>
             <div class="col-xs-10">
                 [#if product.introduction?has_content || product.parameterValues?has_content || setting.isReviewEnabled || setting.isConsultationEnabled]
                     <div class="topbar-wrapper">
