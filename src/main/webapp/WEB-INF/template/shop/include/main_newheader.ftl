@@ -5,6 +5,9 @@
             <a href="${base}/member/index"><%-currentUser.username%></a>
         </li>
         <li>
+            <a class="membercenter" href="${base}/member/index">${message("shop.mainHeader.buyer")}</a>
+        </li>
+        <li>
             <a class="logout" href="${base}/member/logout">${message("shop.mainHeader.memberLogout")}</a>
         </li>
     </ul>

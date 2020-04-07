@@ -20,10 +20,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import net.mall.Results;
 import net.mall.entity.BaseEntity;
@@ -217,15 +214,19 @@ public class StoreController extends BaseController {
     /**
      * 缴费
      */
-    @GetMapping("/payment")
-    public String payment(@CurrentStore Store currentStore, ModelMap model) {
+    @GetMapping("/payment/{id}")
+    public String payment(@CurrentStore Store currentStore, ModelMap model,@PathVariable Long id) {
         if (currentStore == null) {
             return UNPROCESSABLE_ENTITY_VIEW;
         }
         if (!Store.Status.APPROVED.equals(currentStore.getStatus()) && !Store.Status.SUCCESS.equals(currentStore.getStatus())) {
             return UNPROCESSABLE_ENTITY_VIEW;
         }
-
+        if(id ==null){
+            return UNPROCESSABLE_ENTITY_VIEW;
+        }
+        StoreRank storeRank=storeRankService.find(id);
+        currentStore.setStoreRank(storeRank);
         List<PaymentPlugin> paymentPlugins = pluginService.getActivePaymentPlugins(WebUtils.getRequest());
         if (CollectionUtils.isNotEmpty(paymentPlugins)) {
             model.addAttribute("defaultPaymentPlugin", paymentPlugins.get(0));

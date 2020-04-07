@@ -97,7 +97,7 @@ public class Member extends User {
     /**
      * 会员注册项值属性个数
      */
-    public static final int ATTRIBUTE_VALUE_PROPERTY_COUNT = 10;
+    public static final int ATTRIBUTE_VALUE_PROPERTY_COUNT = 20;
 
     /**
      * 会员注册项值属性名称前缀

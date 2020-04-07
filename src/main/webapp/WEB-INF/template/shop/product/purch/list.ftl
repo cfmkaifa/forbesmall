@@ -626,6 +626,7 @@
                                                 [#--<p class="data-2">2019-12-12  13:52:10</p>--]
                                                 <p class="data-2">${product.createdDate}</p>
                                             </div>
+                                        </div>
                                     </li>
                                 [/#list]
                             </ul>

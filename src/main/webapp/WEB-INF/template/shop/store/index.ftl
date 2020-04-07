@@ -97,16 +97,15 @@
                         </ul>
                     [/#if]
                 [/@store_ad_image_list]
+                <div class="hot-product-heading">
+                    <h5>店铺简介</h5>
+                </div>
+                <p class="hot-introduction">${store.introduction}</p>
                 [@store_product_tag_list storeId = store.id count = 10]
                     [#if storeProductTags?has_content]
                         [#list storeProductTags as storeProductTag]
                             [@product_list storeId = store.id storeProductTagId = storeProductTag.id count = 20]
-
                                     <div class="hot-product">
-                                        <div class="hot-product-heading">
-                                            <h5>店铺简介</h5>
-                                        </div>
-                                        <p class="hot-introduction">${store.introduction}</p>
                                         <div class="hot-product-heading">
                                             <h5>${storeProductTag.name}</h5>
                                         </div>
