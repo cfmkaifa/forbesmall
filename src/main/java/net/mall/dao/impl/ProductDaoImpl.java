@@ -277,7 +277,11 @@ public class ProductDaoImpl extends BaseDaoImpl<Product, Long> implements Produc
             restrictions =  criteriaBuilder.and(restrictionsc);
         }
         if (store != null) {
-            restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.notEqual(root.get("store"), store));
+            if(1 == method){
+                restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.notEqual(root.get("store"), store));
+            } else {
+                restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("store"), store));
+            }
         }
         if(2 == method){
             restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("isPurch"), true));
