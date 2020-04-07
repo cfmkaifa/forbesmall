@@ -11,7 +11,9 @@ import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolation;
 
+import com.alibaba.fastjson.JSON;
 import net.mall.Page;
 import net.mall.util.ConvertUtils;
 import org.apache.commons.collections.CollectionUtils;
@@ -22,6 +24,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.multipart.MultipartFile;
 
 import net.mall.FileType;
@@ -453,10 +457,10 @@ public class ProductController extends BaseController {
         for(Long id:ids){
             Product product = productService.find(id);
             if (product == null) {
-                return Results.UNPROCESSABLE_ENTITY;
+                return Results.unprocessableEntity("business.product.notProduct");
             }
             if (!currentStore.equals(product.getStore())) {
-                return Results.UNPROCESSABLE_ENTITY;
+                return Results.unprocessableEntity("business.product.notStoreProduct");
             }
             /***新商品
              * */
@@ -486,7 +490,7 @@ public class ProductController extends BaseController {
             if (product.getStoreProductCategory() != null) {
                 StoreProductCategory storeProductCategory = product.getStoreProductCategory();
                 if (storeProductCategory == null || !currentStore.equals(storeProductCategory.getStore())) {
-                    return Results.UNPROCESSABLE_ENTITY;
+                    return Results.unprocessableEntity("business.product.storeProductCategory");
                 }
                 newProduct.setStoreProductCategory(storeProductCategory);
             }
@@ -497,10 +501,16 @@ public class ProductController extends BaseController {
             newProduct.setProductTags(product.getProductTags());
             newProduct.setStoreProductTags(product.getStoreProductTags());
             if (!isValid(newProduct, BaseEntity.Save.class)) {
-                return Results.UNPROCESSABLE_ENTITY;
+                RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+                Set<ConstraintViolation<Object>> constraintViolations = (Set<ConstraintViolation<Object>>) requestAttributes.getAttribute("constraintViolations",RequestAttributes.SCOPE_REQUEST);
+                if(ConvertUtils.isNotEmpty(constraintViolations)){
+                    return Results.unprocessableEntity("business.product.valdateError", JSON.toJSONString(constraintViolations));
+                } else {
+                    return Results.unprocessableEntity("business.product.valdateError", "");
+                }
             }
             if (StringUtils.isNotEmpty(newProduct.getSn()) && productService.snExists(newProduct.getSn())) {
-                return Results.UNPROCESSABLE_ENTITY;
+                return Results.unprocessableEntity("business.product.productSn",newProduct.getSn());
             }
             Long sourceProductId = product.getId();
             if(ConvertUtils.isNotEmpty(product.getSourceProId())){
