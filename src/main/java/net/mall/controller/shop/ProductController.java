@@ -109,7 +109,15 @@ public class ProductController extends BaseController {
         isMobile(request,o->{
             product.setSample(true);
         });
-        model.addAttribute("product", product);
+        Product sourceProduct=productService.find(product.getSourceProId());
+        if(sourceProduct == null){
+            model.addAttribute("product", product);
+        }else {
+            product.setCreatedDate(sourceProduct.getCreatedDate());
+            model.addAttribute("product", product);
+        }
+
+
         return "shop/product/detail";
     }
 

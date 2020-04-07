@@ -629,10 +629,10 @@
             <table>
                 <thead>
                 <tr>
-                    <th width="800">${message("shop.order.sku")}</th>
-                    <th>${message("OrderItem.price")}</th>
-                    <th>${message("OrderItem.quantity")}</th>
-                    <th width="150">${message("OrderItem.subtotal")}</th>
+                    <th width="513">${message("shop.order.sku")}</th>
+                    <th width="210">${message("OrderItem.price")}</th>
+                    <th width="210">${message("OrderItem.quantity")}</th>
+                    <th width="237">${message("OrderItem.subtotal")}</th>
                 </tr>
                 </thead>
                 [#list orders as order]
