@@ -350,6 +350,9 @@ public class ProductController extends BaseController {
         if (productCategory == null) {
             return Results.UNPROCESSABLE_ENTITY;
         }
+        if (!currentStore.equals(product.getStore())) {
+            return Results.unprocessableEntity("business.product.notStoreProduct");
+        }
         List<Promotion> promotions = promotionService.findList(promotionIds);
         if (CollectionUtils.isNotEmpty(promotions)) {
             if (currentStore.getPromotions() == null || !currentStore.getPromotions().containsAll(promotions)) {
@@ -371,18 +374,15 @@ public class ProductController extends BaseController {
         productForm.setPromotions(new HashSet<>(promotions));
         productForm.setProductTags(new HashSet<>(productTagService.findList(productTagIds)));
         productForm.setStoreProductTags(new HashSet<>(storeProductTagService.findList(storeProductTagIds)));
-
         productForm.removeAttributeValue();
         for (Attribute attribute : productForm.getProductCategory().getAttributes()) {
             String value = request.getParameter("attribute_" + attribute.getId());
             String attributeValue = attributeService.toAttributeValue(attribute, value);
             productForm.setAttributeValue(attribute, attributeValue);
         }
-
         if (!isValid(productForm, BaseEntity.Update.class)) {
             return Results.UNPROCESSABLE_ENTITY;
         }
-
         if (productForm.hasSpecification()) {
             List<Sku> skus = skuListForm.getSkuList();
             if (CollectionUtils.isEmpty(skus) || !isValid(skus, getValidationGroup(productForm.getType()), BaseEntity.Update.class)) {
