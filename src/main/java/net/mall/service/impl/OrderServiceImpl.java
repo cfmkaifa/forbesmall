@@ -657,7 +657,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
                     orderItemMap.put("totalAmount",orderItem.getSubtotal());
                     return  orderItemMap;
                 }).collect(Collectors.toList());
-                java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy年mm月dd日");
+                java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy年MM月dd日");
                 String orderAddress = order.getAreaName() + order.getAddress();
                 ContractBuildImpl contractBuildImpl = new ContractBuildImpl();
                 contractBuildImpl
