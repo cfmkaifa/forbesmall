@@ -369,6 +369,7 @@ public class ProductController extends BaseController {
         productForm.setId(product.getId());
         productForm.setType(product.getType());
         productForm.setIsActive(true);
+        productForm.setPurch(false);
         productForm.setProductCategory(productCategory);
         productForm.setBrand(brandService.find(brandId));
         productForm.setPromotions(new HashSet<>(promotions));
@@ -459,6 +460,7 @@ public class ProductController extends BaseController {
             if (product == null) {
                 return Results.unprocessableEntity("business.product.notProduct");
             }
+            Long temp=product.getStore().getId();
             if (!currentStore.equals(product.getStore())) {
                 return Results.unprocessableEntity("business.product.notStoreProduct");
             }

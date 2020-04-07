@@ -178,7 +178,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-12" style="position: relative">
-                    <div id="mainHeaderMemberInfo" class="pull-left"></div>
+                    <div id="mainHeaderMemberInfo" class="pull-left">
+
+                    </div>
                     <ul class="list-inline pull-right">
                         <li class="top-nav-dropdown">
                             <a href="javascript:;">
@@ -234,7 +236,7 @@
             <div class="col-xs-6">
                 <div id="mainHeaderProductSearch" class="product-search clearfix">
                     <form action="[#if searchType == "STORE"]${base}/store/search[#else]${base}/product/search[/#if]"
-                          method="get">
+                          method="get" style="width: 580px">
                         <div class="input-group">
                             <div class="input-group-btn search-type">
                                 <button class="btn btn-default" type="button" data-toggle="dropdown">

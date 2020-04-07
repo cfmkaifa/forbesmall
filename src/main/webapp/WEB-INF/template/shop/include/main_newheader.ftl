@@ -283,8 +283,12 @@
         <div class="newsNav">
             <ul class="navigation">
                 [#list articleCategories as articleCategories]
-                    <li [#--[#if articleCategories_index ==0 ] class="item active" [/#if]--] [#if articleCategoryId == articleCategories.id] class="item active" [/#if]class="item">
-                        <a href="${base}/article/articlelist/${articleCategories.id}">${articleCategories.name}</a>
+                    <li [#if articleCategoryId == articleCategories.id] class="item active" [/#if]class="item">
+                        [#if articleCategories.name == '资讯首页']
+                            <a href="${base}/article/articleindex">${articleCategories.name}</a>
+                        [#else ]
+                            <a href="${base}/article/articlelist/${articleCategories.id}">${articleCategories.name}</a>
+                        [/#if]
                     </li>
                 [/#list]
             </ul>

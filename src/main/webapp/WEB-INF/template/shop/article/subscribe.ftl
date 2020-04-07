@@ -111,8 +111,6 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-2">
-                [#include "/shop/include/hot_article_category.ftl" /]
-                [#include "/shop/include/hot_article.ftl" /]
             </div>
             <div class="col-xs-8">
                 <ol class="breadcrumb">

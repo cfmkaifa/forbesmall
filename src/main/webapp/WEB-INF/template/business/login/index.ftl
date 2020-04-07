@@ -129,11 +129,15 @@
 <body class="business login">
 	<main>
 		<div class="container">
+			<div class="container-left">
+				<img src="/resources/shop/images/merchantsbg.png" class="container-leftimg">
+				<p>简化采购流程、节约采购成本、加速新品开发促进采购合规化管理</p>
+			</div>
 			<div class="panel panel-default">
 				<div class="panel-heading">${message("business.login.title")}</div>
 				<div class="panel-body">
 					<form id="loginForm" action="${base}/business/login" method="post">
-						<div class="form-group">
+						<div class="form-group loForm-a">
 							<div class="input-group">
 								<span class="input-group-addon">
 									<i class="iconfont icon-people"></i>
@@ -141,7 +145,7 @@
 								<input id="username" name="username" class="form-control" type="text" maxlength="200" placeholder="${message("business.login.usernamePlaceholder")}" autocomplete="off">
 							</div>
 						</div>
-						<div class="form-group">
+						<div class="form-group loForm-a">
 							<div class="input-group">
 								<span class="input-group-addon">
 									<i class="iconfont icon-lock"></i>
@@ -150,7 +154,7 @@
 							</div>
 						</div>
 						[#if setting.captchaTypes?? && setting.captchaTypes?seq_contains("BUSINESS_LOGIN")]
-							<div class="form-group">
+							<div class="form-group loForm-a">
 								<div class="input-group">
 									<span class="input-group-addon">
 										<i class="iconfont icon-pic"></i>
@@ -162,18 +166,19 @@
 								</div>
 							</div>
 						[/#if]
-						<div class="form-group">
+
+						<div class="form-group loForm-a">
 							<div class="checkbox checkbox-inline">
 								<input id="rememberUsername" name="rememberUsername" type="checkbox" value="true">
 								<label for="rememberUsername">${message("business.login.rememberUsername")}</label>
 							</div>
 							<a class="text-white pull-right" href="${base}/password/forgot?type=BUSINESS">${message("business.login.forgotPassword")}</a>
 						</div>
-						<div class="form-group">
-							<button class="btn btn-primary btn-lg btn-block" type="submit">${message("business.login.submit")}</button>
+						<div class="form-group loForm-a">
+							<button class="btn btn-primary btn-lg btn-block abab" type="submit">${message("business.login.submit")}</button>
 						</div>
 						<p>
-							<a class="text-orange" href="${base}/business/register">${message("business.login.register")}</a>
+							<a class="text-aaa" href="${base}/business/register">${message("business.login.register")}</a>
 						</p>
 					</form>
 				</div>

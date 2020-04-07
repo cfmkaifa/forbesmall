@@ -5,8 +5,20 @@
 		<title>智能工厂</title>
 		<link rel="stylesheet" type="text/css" href="/resources/shop/css/common.css"/>
 		<link rel="stylesheet" type="text/css" href="/resources/shop/css/smart.css"/>
+		<link href="${base}/favicon.ico" rel="icon">
+		<link href="${base}/resources/common/css/bootstrap.css" rel="stylesheet">
+		<link href="${base}/resources/common/css/iconfont.css" rel="stylesheet">
+		<link href="${base}/resources/common/css/demo.css" rel="stylesheet">
+		<link href="${base}/resources/common/css/jquery.bxslider.css" rel="stylesheet">
+		<link href="${base}/resources/common/css/base.css" rel="stylesheet">
+		<link href="${base}/resources/shop/css/base.css" rel="stylesheet">
+		<link href="${base}/resources/shop/css/iconfont.css" rel="stylesheet">
+		<link href="${base}/resources/shop/css/index.css?version=0.3" rel="stylesheet">
+
+		<script src="${base}/resources/common/js/jquery.js"></script>
 	</head>
 	<body>
+	[#include "/shop/include/main_header.ftl" /]
 		<div class="smart-top">
 			<ul>
 				<li><h2>智能工厂</h2></li>
@@ -15,7 +27,7 @@
 		</div>
 		<div class="smartnav">
 			<ul class="smartnav-ul">
-				<li class="active smartnavli1">智能工厂应用场景</li>
+				<li class="activeaa smartnavli1">智能工厂应用场景</li>
 				<li class="smartnavli2">智能工厂解决方案</li>
 				<li class="smartnavli3">工业互联网业务规划及实施建议</li>
 			</ul>
@@ -186,12 +198,13 @@
 				</div>
 			</div>
 		</div>
+	 [#include "/shop/include/main_footer.ftl" /]
 	</body>
 	<script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.js"></script>
 	<script type="text/javascript">
 		$(function(){
 			$(".smartnav-ul li").click(function(){
-				$(this).addClass("active").siblings("li").removeClass("active")
+				$(this).addClass("activeaa").siblings("li").removeClass("activeaa")
 			})
 			$(".smartnavli1").click(function(){
 				$(".scenario").show();

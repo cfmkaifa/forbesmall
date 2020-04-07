@@ -636,7 +636,7 @@ public class Product extends BaseEntity<Long> {
     @IndexedEmbedded(includeEmbeddedObjectId = true)
     @NotNull(groups = Save.class)
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(updatable = false)
+    @JoinColumn(updatable = false,name = "store_id")
     private net.mall.entity.Store store;
 
     /***

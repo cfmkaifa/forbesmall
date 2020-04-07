@@ -11,17 +11,20 @@
 
 /* ---------- login ---------- */
 .login {
-	background: url(../images/login.png) repeat-x;
+	background: url(/resources/shop/images/merchantsbg2.png) no-repeat;
+	background-size: 100% 100%;
 }
-
+.container {
+	display: flex;
+}
 .login main {
 	margin: 0px;
 }
 
 .login main .panel {
-	width: 500px;
-	padding: 0px 35px;
-	margin: 200px auto 0px auto;
+	width: 542px;
+	height: 456px;
+	margin: 119px auto 0px auto;
 	color: #ffffff;
 	border-radius: 10px;
 	-webkit-transition: box-shadow 0.5s;
@@ -29,7 +32,6 @@
 	box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.1);
 	border: none;
 	background-color: #ffffff;
-	background-color: rgba(255, 255, 255, 0.3);
 }
 
 .login main .panel:hover {
@@ -37,29 +39,43 @@
 }
 
 .login main .panel > .panel-heading {
-	padding: 20px 0px;
-	color: #ffffff;
-	font-size: 14px;
+	height: 62px;
+	padding: 14px 17px;
+	color: #333333;
+	font-size: 28px;
 	border-color: rgba(255, 255, 255, 0.3);
-	background-color: transparent;
+	background-color: #F8F8F8;
 }
 
 .login main .panel > .panel-body {
 	padding: 20px 0px;
 }
-
+a {
+	color: #666666;
+}
+.abab {
+	width:391px;
+	height:40px;
+	background:rgba(251,130,54,1);
+	opacity:1;
+	margin: 0 auto;
+}
 .login main .panel .input-group .input-group-addon {
 	border: none;
-	background-color: rgba(255, 255, 255, 0.3);
 }
 
 .login main .panel .input-group .input-group-addon .iconfont {
-	color: #ffffff;
+	color: #999999;
 	font-size: 16px;
 }
-
+.input-group {
+	width: 391px;
+	height: 44px;
+	border: 1px solid #E9EAEC;
+	margin: 0 auto;
+}
 .login main .panel input {
-	color: #ffffff;
+	color: #999999;
 	-webkit-transition: 0.3s;
 	transition: 0.3s;
 	border-radius: 0px;
@@ -86,15 +102,20 @@
 }
 
 .login main .panel input::-ms-input-placeholder {
-	color: #ffffff;
-}
-
-.login main .panel label {
-	color: #ffffff;
+	color: #666666;
 	-webkit-user-select: none;
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
+}
+
+.login main .panel label {
+	color: #666666;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	margin-left: 76px;
 }
 
 .login main .panel .btn-primary {
@@ -107,4 +128,29 @@
 .login main .panel .btn-primary:hover {
 	box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.1);
 	background-color: #ffa100;
+}
+.text-aaa {
+	color: #666666;
+	margin-left: 14%;
+}
+.loForm-a {
+	margin-bottom: 23px;
+}
+.container-left {
+	width: 397px;
+	margin: 119px auto 0px auto;
+}
+.container-leftimg {
+	width: 397px;
+	height: 385px;
+}
+.container-left p{
+	width: 100%;
+	font-size:18px;
+	font-family:Microsoft YaHei;
+	font-weight:400;
+	line-height:24px;
+	color:rgba(255,255,255,1);
+	opacity:1;
+	margin: 42px auto auto auto;
 }

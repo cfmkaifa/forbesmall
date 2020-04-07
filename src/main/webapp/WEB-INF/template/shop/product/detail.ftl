@@ -349,11 +349,11 @@
                     <div class="medium-product-image">
                         [#if product.productImages?has_content]
                             <a id="zoom" href="${product.productImages[0].large}" rel="gallery">
-                                <img src="${product.productImages[0].medium}" alt="${product.name}">
+                                <img src="${product.productImages[0].medium}" alt="${product.name}" style="width: 100%">
                             </a>
                         [#else]
                             <a id="zoom" href="${setting.defaultLargeProductImage}" rel="gallery">
-                                <img src="${setting.defaultMediumProductImage}" alt="${product.name}">
+                                <img src="${setting.defaultMediumProductImage}" alt="${product.name}" style="width: 100%">
                                 [#if product.sample]
                                     <img src="/resources/shop/images/biao.png" class="active-2">
                                 [/#if]
@@ -643,7 +643,8 @@
                 [/#if]
                 [#if product.introduction?has_content]
                     <div class="introduction">
-                        <span id="introductionAnchor" class="introduction-anchor"></span>
+[#--                        <span id="introductionAnchor" class="introduction-anchor"></span>--]
+                        <a href="#" name="introductionAnchor"></a>
                         <div class="introduction-heading">
                             <h4>${message("shop.product.introduction")}</h4>
                         </div>
@@ -656,7 +657,8 @@
                 [/#if]
                 [#if product.parameterValues?has_content]
                     <div class="parameter">
-                        <span id="parameterAnchor" class="parameter-anchor"></span>
+[#--                        <span id="parameterAnchor" class="parameter-anchor"></span>--]
+                        <a href="#" name="parameterAnchor"></a>
                         <div class="parameter-heading">
                             <h4>${message("shop.product.parameter")}</h4>
                         </div>
@@ -685,7 +687,8 @@
                 [/#if]
                 [#if setting.isReviewEnabled]
                     <div class="review">
-                        <span id="reviewAnchor" class="review-anchor"></span>
+[#--                        <span id="reviewAnchor" class="review-anchor"></span>--]
+                        <a href="#" name="reviewAnchor"></a>
                         <div class="review-heading">
                             <h4>${message("shop.product.review")}</h4>
                         </div>
@@ -775,7 +778,8 @@
                 [/#if]
                 [#if setting.isConsultationEnabled]
                     <div class="consultation">
-                        <span id="consultationAnchor" class="consultation-anchor"></span>
+[#--                        <span id="consultationAnchor" class="consultation-anchor"></span>--]
+                        <a href="#" name="consultationAnchor"></a>
                         <div class="consultation-heading">
                             <h4>${message("shop.product.consultation")}</h4>
                         </div>

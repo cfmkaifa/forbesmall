@@ -9,7 +9,7 @@ body {
 	overflow: hidden;
 }
 .smart-top ul {
-	width: 17%;
+	width: 323px;
 	margin: 4% 23% auto auto;
 	text-align: left;
 	color: #FFFFFF;
@@ -33,20 +33,20 @@ body {
 }
 .smartnav-ul {
 	font-size: 16px;
-	width: 600px;
+	width: 1200px;
 	height: 46px;
 	line-height: 46px;
 	display: flex;
 	display: -ms-flexbox;
 	display: -webkit-flex;
-	margin-left: 20%;
+	margin: auto;
 }
 .smartnav-ul li {
 	margin-right: 20px;
 	cursor: pointer;
 	user-select:none;
 }
-.active {
+.activeaa {
 	border-bottom: 2px solid #EC3031;
 }
 .scenario {
@@ -226,6 +226,7 @@ body {
 	opacity:1;
 	border-radius:24px;
 	background: url(/resources/shop/images/advice1.png) no-repeat 17px 0px;
+	background-size: 100% 100%;
 }
 .open-tltle {
 	width: 100%;
@@ -239,53 +240,62 @@ body {
 	width: 1144px;
 	height: 563px;
 	background: url(/resources/shop/images/smart7.png) repeat  center;
+	background-size: 100% 100%;
 	margin: 0 auto;
 }
 .openimg2 {
 	width: 1144px;
 	height: 591px;
 	background: url(/resources/shop/images/smart6.png) repeat  center;
+	background-size: 100% 100%;
 	margin: 0 auto;
 }
 .openimg3 {
 	width: 1144px;
 	height: 563px;
 	background: url(/resources/shop/images/advice2.png) repeat  center;
+	background-size: 100% 100%;
 	margin: 0 auto;
 }
 .openimg4 {
 	width: 1144px;
 	height: 563px;
 	background: url(/resources/shop/images/advice6.png) repeat  center;
+	background-size: 100% 100%;
 	margin: 0 auto;
 }
 .openimg5 {
 	width: 1144px;
 	height: 563px;
 	background: url(/resources/shop/images/smart8.png) repeat  center;
+	background-size: 100% 100%;
 	margin: 0 auto;
 }
 .openimg6 {
 	width: 1144px;
-	height: 598px;
+	height: 563px;
 	background: url(/resources/shop/images/bobottom1.png) repeat  center;
+	background-size: 100% 100%;
 	margin: 0 auto;
 }
 .openimg7 {
 	width: 1144px;
 	height: 563px;
 	background: url(/resources/shop/images/bobottom2.png) repeat  center;
+	background-size: 100% 100%;
 	margin: 0 auto;
 }
 .openimg8 {
 	width: 1144px;
 	height: 563px;
 	background: url(/resources/shop/images/bobottom4.png) repeat  center;
+	background-size: 100% 100%;
 	margin: 0 auto;
 }
 .openimg9 {
 	width: 1144px;
 	height: 563px;
 	background: url(/resources/shop/images/bobottom3.png) repeat  center;
+	background-size: 100% 100%;
 	margin: 0 auto;
 }

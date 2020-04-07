@@ -941,7 +941,7 @@
 }
 
 .product-detail .topbar-wrapper {
-	height: 47px;
+	height: 56px;
 }
 
 .product-detail .topbar {
@@ -1166,7 +1166,7 @@
 	color: #ff5500;
 }
 
-.product-detail .review .review-body .score .media-body .graph .graph-description {
+.product-detail .review .review-body .score .media-body .graph .navgraph-description {
 	padding-left: 40px;
 }
 
@@ -1733,7 +1733,7 @@
 .active-2 {
 	position: absolute;
 	top: 2px;
-	right: 26px;
+	right: 8px;
 	width: 40%;
 	height: 34%;
 	broder:none !important;
