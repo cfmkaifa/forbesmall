@@ -370,6 +370,7 @@ public class ProductController extends BaseController {
         productForm.setType(product.getType());
         productForm.setIsActive(true);
         productForm.setPurch(false);
+        productForm.setIsAudit(Product.ProApplyStatus.PENDING);
         productForm.setProductCategory(productCategory);
         productForm.setBrand(brandService.find(brandId));
         productForm.setPromotions(new HashSet<>(promotions));
