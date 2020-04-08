@@ -460,7 +460,6 @@ public class ProductController extends BaseController {
             if (product == null) {
                 return Results.unprocessableEntity("business.product.notProduct");
             }
-            Long temp=product.getStore().getId();
             if (!currentStore.equals(product.getStore())) {
                 return Results.unprocessableEntity("business.product.notStoreProduct");
             }

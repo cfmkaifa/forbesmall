@@ -24,7 +24,7 @@
 .login main .panel {
 	width: 542px;
 	height: 456px;
-	margin: 119px auto 0px auto;
+	margin: 143px auto 0px auto;
 	color: #ffffff;
 	border-radius: 10px;
 	-webkit-transition: box-shadow 0.5s;
@@ -146,11 +146,47 @@ a {
 }
 .container-left p{
 	width: 100%;
-	font-size:18px;
-	font-family:Microsoft YaHei;
-	font-weight:400;
-	line-height:24px;
-	color:rgba(255,255,255,1);
-	opacity:1;
-	margin: 42px auto auto auto;
+	font-size: 18px;
+	font-family: Microsoft YaHei;
+	font-weight: 400;
+	line-height: 30px;
+	color: rgba(255,255,255,1);
+	opacity: 1;
+	margin: 20px auto auto auto;
+}
+::-webkit-input-placeholder { /* WebKit browsers */
+	color: #999;
+	font-size: 16px;
+}
+
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+	color: #999;
+	font-size: 16px;
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+	color: #999;
+	font-size: 16px;
+}
+.checkbox label::after {
+	display: inline-block;
+	position: absolute;
+	width: 16px;
+	height: 16px;
+	left: 0;
+	top: 0;
+	margin-left: -20px;
+	padding-left: 3px;
+	padding-top: 1px;
+	font-size: 11px;
+	color: #ffffff !important;
+}
+.checkbox>label:after {
+	width: 15px;
+	height: 15px;
+	padding: 0px;
+	text-align: center;
+	-webkit-animation: checkboxEffect 0.3s;
+	animation: checkboxEffect 0.3s;
+	background: #FA8136 !important;
 }

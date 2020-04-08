@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html style="width: 100%; height: 100%">
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -167,15 +167,15 @@
 							</div>
 						[/#if]
 
-						<div class="form-group loForm-a">
+						<div class="form-group loForm-a" style="width: 86%;">
 							<div class="checkbox checkbox-inline">
 								<input id="rememberUsername" name="rememberUsername" type="checkbox" value="true">
 								<label for="rememberUsername">${message("business.login.rememberUsername")}</label>
 							</div>
-							<a class="text-white pull-right" href="${base}/password/forgot?type=BUSINESS">${message("business.login.forgotPassword")}</a>
+							<a class="pull-right" href="${base}/password/forgot?type=BUSINESS">${message("business.login.forgotPassword")}</a>
 						</div>
 						<div class="form-group loForm-a">
-							<button class="btn btn-primary btn-lg btn-block abab" type="submit">${message("business.login.submit")}</button>
+							<button class="btn btn-lg btn-block abab" type="submit">${message("business.login.submit")}</button>
 						</div>
 						<p>
 							<a class="text-aaa" href="${base}/business/register">${message("business.login.register")}</a>
