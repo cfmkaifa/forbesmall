@@ -516,14 +516,14 @@ public class ContractBuildImpl  extends ContractModel {
      */
     private void createOtherInfo(PdfPTable tableBaseInfo,Font contentFont){
         /*****甲方***/
-        PdfPCell nameCell = new PdfPCell(new Phrase(String.format(STR_FORMAT,"甲方：",memberName), contentFont));
+        PdfPCell nameCell = new PdfPCell(new Phrase(String.format(STR_FORMAT,"甲方：",storeName), contentFont));
         nameCell.setUseAscender(true);
         nameCell.setUseDescender(true);
         nameCell.setBorderWidth(0.0f);
         nameCell.setBorderWidthLeft(0.1f);
         nameCell.setColspan(5);
         tableBaseInfo.addCell(nameCell);
-        PdfPCell nameaCell = new PdfPCell(new Phrase(String.format(STR_FORMAT,"乙方：",storeName), contentFont));
+        PdfPCell nameaCell = new PdfPCell(new Phrase(String.format(STR_FORMAT,"乙方：",memberName), contentFont));
         nameaCell.setUseAscender(true);
         nameaCell.setUseDescender(true);
         nameaCell.setBorderWidth(0.0f);

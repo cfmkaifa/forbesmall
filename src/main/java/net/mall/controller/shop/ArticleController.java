@@ -374,4 +374,51 @@ public class ArticleController extends BaseController {
         model.addAttribute("orderSn", orderSn);
         return "shop/article/subscribe";
     }
+
+    /**
+     * @description  跳转至分析中心
+     * @author xfx
+     * @date 2020/4/5 18:00
+     * @parameter
+     * @return
+     */
+    @GetMapping(value ="/declarecenter")
+    public String declare(){
+        return "/shop/declare/index";
+    }
+
+    /**
+     * @description 原油石化跳转
+     * @author xfx
+     * @date 2020/4/5 18:06
+     * @parameter
+     * @return
+     */
+    @GetMapping(value = "/oil")
+    public String futures(){
+        return "/shop/declare/gasoline";
+    }
+    /**
+     * @description 跳转至外汇
+     * @author xfx
+     * @date 2020/4/5 18:06
+     * @parameter
+     * @return
+     */
+    @GetMapping(value = "/forex")
+    public String forex(){
+        return "/shop/declare/exchange";
+    }
+    /**
+     * @descriptio 详情
+     * @author xfx
+     * @date 2020/4/5 18:06
+     * @parameter
+     * @return
+     */
+    @GetMapping(value = "/decdetail")
+    public String decdetail(){
+        return "/shop/declare/page";
+    }
+
 }

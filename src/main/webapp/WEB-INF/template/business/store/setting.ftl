@@ -157,7 +157,7 @@
 						<div class="form-group">
 							<label class="col-xs-3 col-sm-2 control-label" for="introduction">${message("Store.introduction")}:</label>
 							<div class="col-xs-9 col-sm-4">
-								<textarea id="introduction" name="introduction" class="form-control" maxlength="200" rows="5">${currentStore.introduction}</textarea>
+								<textarea id="introduction" name="introduction" class="form-control" rows="5">${currentStore.introduction}</textarea>
 							</div>
 						</div>
 						<div class="form-group">

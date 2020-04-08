@@ -65,9 +65,6 @@
 						},
 						zipCode: "zipCode",
 						phone: "phone",
-						introduction: {
-							maxlength: 200
-						},
 						endDate: "required"
 					},
 					messages: {

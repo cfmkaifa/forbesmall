@@ -76,7 +76,7 @@
                     var $topbar = $("#topbar");
                     var skuId = ${defaultSku.id};
                     var skuData = {};
-                    var historyProductIdsLocalStorageKey = "historyProductIds";
+                    var historyProductIdsLocalStorageKey = "historyProductIds";name
                     [#if product.hasSpecification()]
                     [#list product.skus as sku]
                     [#if sku.sample == "YES" ]
@@ -320,7 +320,7 @@
             </li>
         </ol>
         <div class="row">
-            <div class="col-xs-3">
+            <div class="col-xs-4">
                 <div id="productImage" class="product-image">
                     <div class="medium-product-image">
                         [#if product.productImages?has_content]
@@ -381,9 +381,9 @@
                     </a>
                 </div>
             </div>
-            <div class="col-xs-7">
+            <div class="col-xs-6">
                 <div class="name">
-                    <h4>${product.name}</h4>
+                    <h1 style="font-size: 18px; font-weight: 600; text-align: left">${product.name}</h1>
                     [#if product.caption?has_content]
                         <strong>${product.caption}</strong>
                     [/#if]
@@ -391,14 +391,13 @@
                 <div class="summary">
                     <div class="money-2">
                         <p>
-                            ${message("Product.unitPrice")}：<strong id="price" class="unit-2">${product.price}</strong>
-                            <span class="unit-2">/${product.unit}</span>
+                            ${message("Product.unitPrice")}：<strong id="price" style="font-size: 20px;" class="unit-2">${product.price}</strong>
+                            <span class="unit-2" style="font-size: 20px;">/${product.unit}</span>
                         </p>
-                        <div style="display: flex">
-                            [#--  <p><span>[#noautoesc]介绍：${product.introduction}[/#noautoesc]</span></p>--]
-                        </div>
                         <p>${message("Product.shelfTime")}：<span>${product.createdDate}</span></p>
-                        <p>${message("Product.serviceCall")}：<span>${product.store.phone}</span></p>
+                        <div style="display: flex">
+                            <p>${message("Product.serviceCall")}:[#noautoesc]${product.introduction}[/#noautoesc]</p>
+                        </div>
                     </div>
                     <ul class="clearfix">
                         <li>
@@ -462,7 +461,7 @@
                     </div>
                     <div class="action">
                         [#if product.type == "GENERAL"]
-                            <button id="buy" class="btn btn-default btn-lg"
+                            <button id="buy" class="btna"
                                     type="button"[#if defaultSku.isOutOfStock] disabled[/#if]>${message("shop.product.sampleBuy")}</button>
                         [#elseif product.type == "EXCHANGE"]
                             <button id="exchange" class="btn btn-primary btn-lg"
@@ -544,12 +543,18 @@
                            data-store-id="${product.store.id}">${message("shop.product.addStoreFavorite")}</a>
                     </div>
                 </div>
+                <div class="xinagqingqq">
+                    <ul id="slider">
+                        [#list product.store.storeAdImages as storeImgs]
+                            <li>
+                                <img src="${storeImgs.image}">
+                            </li>
+                        [/#list]
+                    </ul>
+                </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-2">
-                [#--[#include "/shop/include/featured_product.ftl" /]--]
-            </div>
             <div class="col-xs-10">
                 [#if product.introduction?has_content || product.parameterValues?has_content || setting.isReviewEnabled || setting.isConsultationEnabled]
                     <div class="topbar-wrapper">

@@ -293,6 +293,10 @@
 	border-bottom: 1px solid #eeeeee;
 }
 
+.dl-horizontal {
+	margin-left: 70.5%;
+}
+
 .order-checkout main .summary .dl-horizontal dt {
 	line-height: 20px;
 	font-weight: normal;
@@ -321,7 +325,7 @@
 
 .order-checkout main .bar strong {
 	color: #de342f;
-	font-size: 14px;
+	font-size: 18px;
 }
 
 .order-checkout main .bar .btn-primary {
