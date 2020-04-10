@@ -246,7 +246,7 @@
 }
 
 .pay-confirm-modal .modal-footer .btn-primary {
-	color: #f56a00;
+	color: #ffffff !important;
 	opacity: 1;
 	-webkit-transition: box-shadow 0.3s;
 	transition: box-shadow 0.3s;

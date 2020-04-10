@@ -39,7 +39,7 @@
 				<h2 class="media-heading">${message("common.error.title")}</h2>
 				<p class="text-red-light">${errorMessage!message("common.error.unprocessableEntity")}</p>
 				<p>
-					<a class="text-blue-light" href="javascript:;" data-action="back">${message("common.error.back")}</a>
+					<a class="text-blue-light" href="javascript:history.back(-1)" data-action="back">${message("common.error.back")}</a>
 					<a class="text-blue-light" href="${base}/">${message("common.error.home")}</a>
 				</p>
 			</div>

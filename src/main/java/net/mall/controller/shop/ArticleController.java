@@ -311,9 +311,7 @@ public class ArticleController extends BaseController {
         Map<String, Page<Article>> map = new HashMap<>();
         Pageable pageable = new Pageable();
         pageable.setPageSize(8);
-        Pageable temppage = new Pageable();
-        temppage.setPageSize(7);
-        model.addAttribute("instantnews", articleService.findPage(articleCategoryService.find(articleCategories.get(1).getId()), null, true, temppage));
+        model.addAttribute("instantnews", articleService.findPage(articleCategoryService.find(articleCategories.get(1).getId()), null, true, pageable));
         model.addAttribute("fubuinsights", articleService.findPage(articleCategoryService.find(articleCategories.get(2).getId()), null, true, pageable));
         model.addAttribute("factorystatus", articleService.findPage(articleCategoryService.find(articleCategories.get(3).getId()), null, true, pageable));
         model.addAttribute("commonality", articleService.findPage(articleCategoryService.find(articleCategories.get(5).getId()), null, true, pageable));

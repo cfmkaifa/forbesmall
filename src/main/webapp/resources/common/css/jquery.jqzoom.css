@@ -1,4 +1,5 @@
 .zoomPad{
+    width: 100%;
 	position:relative;
 	float:left;
 	z-index:99;

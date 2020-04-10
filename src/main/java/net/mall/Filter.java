@@ -107,7 +107,6 @@ public class Filter implements Serializable {
      */
     public Filter() {
     }
-
     /**
      * 构造方法
      *
