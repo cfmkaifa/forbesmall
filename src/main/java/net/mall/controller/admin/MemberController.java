@@ -11,22 +11,17 @@ import java.math.BigDecimal;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
+import net.mall.entity.*;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import net.mall.Pageable;
 import net.mall.Results;
 import net.mall.audit.Audit;
-import net.mall.entity.BaseEntity;
-import net.mall.entity.Member;
-import net.mall.entity.MemberAttribute;
 import net.mall.service.MemberAttributeService;
 import net.mall.service.MemberRankService;
 import net.mall.service.MemberService;
@@ -224,6 +219,24 @@ public class MemberController extends BaseController {
         model.addAttribute("memberAttributes", memberAttributeService.findAll());
         model.addAttribute("page", memberService.findPage(pageable));
         return "admin/member/list";
+    }
+
+
+    /**
+     * 会员审核
+     */
+    @PostMapping("/review")
+    public ResponseEntity<?> review(@RequestParam(value = "id") Long id, Boolean isPassed,ModelMap model) {
+        User user = userService.find(id);
+        if(user !=null && isPassed){
+            user.setIsAudit(User.CheckStatus.SUCCESS);
+        }
+       if(!isPassed){
+            user.setIsAudit(User.CheckStatus.FAILED);
+        }
+        userService.update(user);
+        model.addAttribute("user", user);
+        return Results.OK;
     }
 
     /**

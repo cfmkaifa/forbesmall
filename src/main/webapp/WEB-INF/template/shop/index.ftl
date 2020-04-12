@@ -21,6 +21,7 @@
     <link href="${base}/resources/common/css/iconfont.css" rel="stylesheet">
     <link href="${base}/resources/common/css/demo.css" rel="stylesheet">
     <link href="${base}/resources/common/css/jquery.bxslider.css" rel="stylesheet">
+    <link href="${base}/resources/common/css/page.css" rel="stylesheet">
     <link href="${base}/resources/common/css/base.css" rel="stylesheet">
     <link href="${base}/resources/shop/css/base.css" rel="stylesheet">
     <link href="${base}/resources/shop/css/iconfont.css" rel="stylesheet">
@@ -42,6 +43,7 @@
     <script src="${base}/resources/common/js/base.js?version=0.1"></script>
     <script src="${base}/resources/shop/js/base.js"></script>
     <script src="${base}/resources/shop/js/iconfont.js"></script>
+    <script src="${base}/resources/common/js/vue.min.js"></script>
     [#noautoesc]
         [#escape x as x?js_string]
             <script>

@@ -95,6 +95,7 @@
 	line-height: 40px;
 	padding-left: 17px;
 	text-align: left;
+	width: 108px;
 }
 
 .product-list .filter .filter-body dl dd {
@@ -583,6 +584,7 @@
 
 .product-detail .product-image .medium-product-image img {
 	border: 1px solid #eeeeee;
+	height: 100%;
 }
 
 .product-detail .product-image .medium-product-image .zoomPad * {

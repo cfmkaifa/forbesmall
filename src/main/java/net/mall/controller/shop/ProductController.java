@@ -13,6 +13,7 @@ import net.mall.Pageable;
 import net.mall.Results;
 import net.mall.entity.*;
 import net.mall.exception.ResourceNotFoundException;
+import net.mall.security.CurrentUser;
 import net.mall.service.*;
 import net.mall.util.ConvertUtils;
 import org.apache.commons.collections.CollectionUtils;
@@ -78,6 +79,8 @@ public class ProductController extends BaseController {
     private ProductTagService productTagService;
     @Inject
     private AttributeService attributeService;
+    @Inject
+    private MemberService memberService;
 
     /***
      * 判断手机
@@ -100,7 +103,7 @@ public class ProductController extends BaseController {
      * 详情
      */
     @GetMapping("/detail/{productId}")
-    public String detail(@PathVariable Long productId, HttpServletRequest request,
+    public String detail(@PathVariable Long productId, HttpServletRequest request,@CurrentUser Member currentUser,
                          ModelMap model) {
         Product product = productService.find(productId);
         if (product == null || BooleanUtils.isNotTrue(product.getIsActive()) || BooleanUtils.isNotTrue(product.getIsMarketable())) {
@@ -116,8 +119,10 @@ public class ProductController extends BaseController {
             product.setCreatedDate(sourceProduct.getCreatedDate());
             model.addAttribute("product", product);
         }
-
-
+        if(currentUser!=null){
+            String checkresult= String.valueOf(currentUser.getIsAudit());
+            model.addAttribute("checkresult",checkresult);
+        }
         return "shop/product/detail";
     }
 

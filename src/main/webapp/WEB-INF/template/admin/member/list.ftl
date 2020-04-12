@@ -31,6 +31,57 @@
 	<script src="${base}/resources/common/js/velocity.ui.js"></script>
 	<script src="${base}/resources/common/js/base.js?version=0.1"></script>
 	<script src="${base}/resources/admin/js/base.js"></script>
+	[#noautoesc]
+		[#escape x as x?js_string]
+			<script>
+				$().ready(function() {
+
+					var $review = $("a.review");
+
+					// 审核
+					$review.click(function() {
+						var $element = $(this);
+
+						bootbox.prompt({
+							title: "${message("common.bootbox.title")}",
+							inputType: "select",
+							value: "APPROVED",
+							inputOptions: [
+								{
+									text: "${message("admin.businessCash.reviewApproved")}",
+									value: "APPROVED"
+								},
+								{
+									text: "${message("admin.businessCash.reviewFailed")}",
+									value: "FAILED"
+								}
+							],
+							callback: function(result) {
+								if (result == null) {
+									return;
+								}
+
+								$.ajax({
+									url: "${base}/admin/member/review",
+									type: "POST",
+									data: {
+										id: $element.data("id"),
+										isPassed: result == "APPROVED" ? "true" : "false"
+									},
+									dataType: "json",
+									cache: false,
+									success: function() {
+										location.reload(true);
+									}
+								});
+							}
+						})
+					});
+
+				});
+			</script>
+		[/#escape]
+	[/#noautoesc]
 </head>
 <body class="admin">
 	[#include "/admin/include/main_header.ftl" /]
@@ -193,6 +244,15 @@
 													<a class="btn btn-default btn-xs btn-icon" href="${base}/admin/member/edit?id=${member.id}" title="${message("common.edit")}" data-toggle="tooltip" data-redirect-url>
 														<i class="iconfont icon-write"></i>
 													</a>
+													[#if member.isAudit == "CHECKING"]
+														<a class="review btn btn-default btn-xs btn-icon" href="javascript:;" title="${message("common.review")}" data-toggle="tooltip" data-id="${member.id}">
+															<i class="iconfont icon-comment"></i>
+														</a>
+													[#else ]
+														<button class="btn btn-default btn-xs btn-icon" type="button"  data-toggle="tooltip" disabled>
+															<i class="iconfont icon-comment"></i>
+														</button>
+													[/#if]
 												</td>
 											</tr>
 										[/#list]

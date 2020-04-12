@@ -510,13 +510,13 @@
                     <div class="action">
                         [#if product.type == "GENERAL"]
                             <button id="buy" class="btna"
-                                    type="button"[#if defaultSku.isOutOfStock] disabled[/#if]>${message("shop.product.buy")}</button>
+                                    type="button"[#if defaultSku.isOutOfStock ] disabled[/#if] >${message("shop.product.buy")}</button>
                             [#if product.sample]
                                 <button id="sampleBuy" class="btn btn-default btn-lg"
-                                        type="button"[#if defaultSku.isOutOfStock] disabled[/#if]>${message("shop.product.sampleBuy")}</button>
+                                        type="button"[#if defaultSku.isOutOfStock ] disabled[/#if] >${message("shop.product.sampleBuy")}</button>
                             [/#if]
                             <button id="addCart" class="btna"
-                                    type="button"[#if defaultSku.isOutOfStock] disabled[/#if]>
+                                    type="button"[#if defaultSku.isOutOfStock ] disabled [/#if] >
                                 <i class="iconfont icon-cart"></i>
                                 ${message("shop.product.addCart")}
                             </button>

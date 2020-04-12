@@ -10,9 +10,8 @@
         </li>
     [/#if]
     [#list segment as segmentPageNumber]
-        <li[#if segmentPageNumber == pageNumber] class="active"[/#if]>
-            <a href="[@pattern?replace("{pageNumber}", "${segmentPageNumber}")?interpret /]"
-               data-page-number="${segmentPageNumber}">
+       <li[#if segmentPageNumber == pageNumber] class="active"[/#if]>
+            <a href="[@pattern?replace("{pageNumber}", "${segmentPageNumber}")?interpret /]" data-page-number="${segmentPageNumber}">
                 [#if totalPages == segmentPageNumber]
                     ${segmentPageNumber}(end)
                 [#else]
