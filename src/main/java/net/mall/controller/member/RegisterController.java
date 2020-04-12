@@ -12,6 +12,7 @@ import java.util.Date;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
+import net.mall.entity.*;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.http.ResponseEntity;
@@ -24,10 +25,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import net.mall.Results;
 import net.mall.Setting;
-import net.mall.entity.BaseEntity;
-import net.mall.entity.Member;
-import net.mall.entity.MemberAttribute;
-import net.mall.entity.SocialUser;
 import net.mall.security.UserAuthenticationToken;
 import net.mall.service.DistributorService;
 import net.mall.service.MemberAttributeService;
@@ -169,6 +166,7 @@ public class RegisterController extends BaseController {
         member.setProductNotifies(null);
         member.setSocialUsers(null);
         member.setPointLogs(null);
+        member.setIsAudit(User.CheckStatus.CHECKING);
         userService.register(member);
         userService.login(new UserAuthenticationToken(Member.class, username, password, false, request.getRemoteAddr()));
         Member spreadMember = memberService.findByUsername(spreadMemberUsername);

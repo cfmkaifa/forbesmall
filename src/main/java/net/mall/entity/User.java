@@ -55,6 +55,27 @@ public abstract class User extends BaseEntity<Long> {
     }
 
     /**
+     * 审核类型
+     */
+    public enum CheckStatus {
+
+        /**
+         * 未通过（0）
+         */
+        FAILED,
+
+        /**
+         * 通过（1）
+         */
+        SUCCESS,
+
+        /**
+         * 审核中
+         */
+        CHECKING
+    }
+
+    /**
      * "登录失败尝试次数"缓存名称
      */
     public static final String FAILED_LOGIN_ATTEMPTS_CACHE_NAME = "failedLoginAttempts";
@@ -86,6 +107,12 @@ public abstract class User extends BaseEntity<Long> {
      * 最后登录日期
      */
     private Date lastLoginDate;
+
+    /**
+     * 审核状态0未通过1通过2审核中
+     */
+    @Column(name = "is_audit")
+    private User.CheckStatus isAudit;
 
     /**
      * 社会化用户
@@ -378,5 +405,13 @@ public abstract class User extends BaseEntity<Long> {
      */
     @Transient
     public abstract boolean isValidCredentials(Object credentials);
+
+    public CheckStatus getIsAudit() {
+        return isAudit;
+    }
+
+    public void setIsAudit(CheckStatus isAudit) {
+        this.isAudit = isAudit;
+    }
 
 }

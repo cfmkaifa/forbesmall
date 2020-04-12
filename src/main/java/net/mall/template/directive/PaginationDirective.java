@@ -137,7 +137,7 @@ public class PaginationDirective extends BaseDirective {
             totalPages = 1;
         }
         if (segmentCount == null || segmentCount < 1) {
-            segmentCount = 5;
+            segmentCount = 10;
         }
         boolean hasPrevious = pageNumber > 1;
         boolean hasNext = pageNumber < totalPages;
@@ -156,11 +156,9 @@ public class PaginationDirective extends BaseDirective {
             endSegmentPageNumber = totalPages;
         }
         List<Integer> segment = new ArrayList<>();
-        for (int i = 1; i <= totalPages; i++) {
-            /* segment.add(i);*/
+        for (int i = startSegmentPageNumber; i <= endSegmentPageNumber; i++) {
             segment.add(i);
         }
-
         Map<String, Object> variables = new HashMap<>();
         variables.put(PATTERN_VARIABLE_NAME, pattern);
         variables.put(PAGE_NUMBER_VARIABLE_NAME, pageNumber);

@@ -3,6 +3,7 @@
 	float:left;
 	z-index:99;
 	cursor:crosshair;
+    height: 100%;
 }
 
 

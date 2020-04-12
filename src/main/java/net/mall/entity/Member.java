@@ -1628,7 +1628,7 @@ public class Member extends User {
     @Override
     @Transient
     public boolean isValidCredentials(Object credentials) {
-        return credentials != null && StringUtils.equals(DigestUtils.md5Hex(credentials instanceof char[] ? String.valueOf((char[]) credentials) : String.valueOf(credentials)), getEncodedPassword());
+        return credentials != null && StringUtils.equals(DigestUtils.md5Hex(credentials instanceof char[] ? String.valueOf((char[]) credentials) : String.valueOf(credentials)), getEncodedPassword()) && getIsAudit().equals(CheckStatus.SUCCESS);
     }
 
     /**

@@ -21,6 +21,7 @@
     <link href="${base}/resources/common/css/iconfont.css" rel="stylesheet">
     <link href="${base}/resources/common/css/demo.css" rel="stylesheet">
     <link href="${base}/resources/common/css/jquery.bxslider.css" rel="stylesheet">
+    <link href="${base}/resources/common/css/page.css" rel="stylesheet">
     <link href="${base}/resources/common/css/base.css" rel="stylesheet">
     <link href="${base}/resources/shop/css/base.css" rel="stylesheet">
     <link href="${base}/resources/shop/css/iconfont.css" rel="stylesheet">

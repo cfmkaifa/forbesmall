@@ -566,6 +566,8 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
         product.setSales(0L);
         product.setWeekSales(0L);
         product.setMonthSales(0L);
+        product.setIsAudit(Product.ProApplyStatus.PENDING);
+        product.setPurch(false);
         product.setWeekHitsDate(new Date());
         product.setMonthHitsDate(new Date());
         product.setWeekSalesDate(new Date());
