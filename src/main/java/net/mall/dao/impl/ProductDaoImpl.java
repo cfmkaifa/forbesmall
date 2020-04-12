@@ -286,7 +286,7 @@ public class ProductDaoImpl extends BaseDaoImpl<Product, Long> implements Produc
         if(2 == method){
             restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("isPurch"), true));
             if(null != member){
-                restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.notEqual(root.get("member"), member));
+                restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("member"), member));
             }
         }
         /***查询样品**/

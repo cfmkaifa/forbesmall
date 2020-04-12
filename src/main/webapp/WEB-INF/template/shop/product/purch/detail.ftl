@@ -288,12 +288,12 @@
             </li>
         </ol>
         <div class="row">
-            <div class="col-xs-3">
+            <div class="col-xs-4">
                 <div id="productImage" class="product-image">
                     <div class="medium-product-image">
                         [#if product.productImages?has_content]
                             <a id="zoom" href="${product.productImages[0].large}" rel="gallery">
-                                <img src="${product.productImages[0].medium}" alt="${product.name}">
+                                <img src="${product.productImages[0].medium}" alt="${product.name}" style="width: 100%">
                             </a>
                         [#else]
                             <a id="zoom" href="${setting.defaultLargeProductImage}" rel="gallery">
@@ -355,9 +355,9 @@
                     </a>
                 </div>
             </div>
-            <div class="col-xs-7">
+            <div class="col-xs-6">
                 <div class="name">
-                    <h1 style="font-size: 18px; font-weight: 600;">${product.name}</h1>
+                    <h1 style="font-size: 18px; font-weight: 600; text-align: left">${product.name}</h1>
                     [#if product.caption?has_content]
                         <strong>${product.caption}</strong>
                     [/#if]
@@ -470,9 +470,6 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-2">
-                [#--[#include "/shop/include/featured_product.ftl" /]--]
-            </div>
             <div class="col-xs-10">
                 [#if product.introduction?has_content || product.parameterValues?has_content || setting.isReviewEnabled || setting.isConsultationEnabled]
                     <div class="topbar-wrapper">

@@ -205,7 +205,7 @@ public class ProductController extends BaseController {
         model.addAttribute("isActive", isActive);
         model.addAttribute("isOutOfStock", isOutOfStock);
         model.addAttribute("isStockAlert", isStockAlert);
-        model.addAttribute("page", productService.findPage(type, 2,false,null, null,null, productCategory, null, brand, null, productTag, null, null, null, null, isMarketable, isList, isTop, isActive, isOutOfStock, isStockAlert, null, null, pageable));
+        model.addAttribute("page", productService.findPage(type, 2,false,null, null,member, productCategory, null, brand, null, productTag, null, null, null, null, isMarketable, isList, isTop, isActive, isOutOfStock, isStockAlert, null, null, pageable));
         return "member/pro_purch_apply/pro_list";
     }
 
