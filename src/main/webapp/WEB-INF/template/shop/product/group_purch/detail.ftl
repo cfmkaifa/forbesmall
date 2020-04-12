@@ -328,7 +328,7 @@
                     <div class="medium-product-image">
                         [#if product.productImages?has_content]
                             <a id="zoom" href="${product.productImages[0].large}" rel="gallery">
-                                <img src="${product.productImages[0].medium}" alt="${product.name}">
+                                <img src="${product.productImages[0].medium}" alt="${product.name}" style="width: 100%">
                             </a>
                         [#else]
                             <a id="zoom" href="${setting.defaultLargeProductImage}" rel="gallery">

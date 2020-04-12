@@ -528,47 +528,43 @@
                                         <div class="list-item-body"
                                              style="display: flex;justify-content: space-around;">
                                             <a href="${base}/product/purch-detail/${product.id}" target="_blank" class="aaaa">
-                                                <img id="productImage${product.id}"
-                                                     class="listimg lazy-load img-responsive"
-                                                     src="${base}/resources/common/images/transparent.png"
-                                                     alt="${product.name}"
-                                                     data-original="${product.thumbnail!setting.defaultThumbnailProductImage}">
+                                                <img id="productImage${product.id}" class="listimg lazy-load img-responsive" src="${base}/resources/common/images/transparent.png" alt="${product.name}" data-original="${product.thumbnail!setting.defaultThumbnailProductImage}"/>
                                                 <img [#if product.sample ] src="/resources/shop/images/biao.png" class="active-2" [/#if]>
                                             </a>
                                             <div class="product-left-2">
                                                 <ul>
                                                     <li class="product-li-12">
-
 															<span class="product-name">
 																<b>
 																	<a href="${base}${product.path}" target="_blank">
-																	<h5 class="text-overflow"
-                                                                        title="${product.name}">${product.name}</h5>
+																	<h5 class="text-overflow" title="${product.name}">${product.name}</h5>
 																	[#if product.caption?has_content]
-                                                                        <h6 class="text-overflow"
-                                                                            title="${product.caption}">${product.caption}</h6>
+                                                                        <h6 class="text-overflow" title="${product.caption}">${product.caption}</h6>
                                                                     [/#if]
 																	</a>
 																</b>
 															</span>
                                                         <span class="product-specifications">
-																	${defaultSku.specificationVal}
-																</span>
+																${defaultSku.specificationVal}
+														</span>
                                                         <span class="product-brand">
-																	<a href="${base}${product.brand.path}"
-                                                                       target="_blank">
-																		${product.brand.name}
-																</span>
+                                                            <a href="${base}${product.brand.path}" target="_blank">
+                                                               ${product.brand.name}
+                                                             </a>
+														</span>
                                                     </li>
                                                     <li>
                                                             <span class="specific-2">
-															${message("shop.product.state")}${product.keyword}
+															  ${message("shop.product.state")}
 															</span>
+                                                            <div class="state">
+                                                                [#noautoesc]${product.introduction}[/#noautoesc]
+                                                            </div>
                                                     </li>
                                                     <li>
                                                     </li>
                                                     <li>
-                                                        <div class="star-level">
+                                                        <div class="star-level1">
                                                             <div class="xing-2">
                                                                 <span class="iconfont">&#xe70b;</span>${message("shop.product.star")}
                                                             </div>
@@ -623,8 +619,10 @@
                                                 </ul>
                                             </div>
                                             <div class="detailsbutton-2">
-                                                [#--<p class="data-2">2019-12-12  13:52:10</p>--]
                                                 <p class="data-2">${product.createdDate}</p>
+                                                <a href="${base}/product/purch-detail/${product.id}" target="_blank">
+                                                    <button type="button" class="button-3">${message("shop.product.detail")}</button>
+                                                </a>
                                             </div>
                                         </div>
                                     </li>

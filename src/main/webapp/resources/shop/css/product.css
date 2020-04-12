@@ -15,7 +15,9 @@
 		width: 1200px ;
 	}
 }
-
+.name h1{
+	text-align: left ;
+}
 .featured-product {
 	margin-bottom: 15px;
 	border: 1px solid #eeeeee;
