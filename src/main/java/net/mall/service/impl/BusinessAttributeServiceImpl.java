@@ -102,6 +102,9 @@ public class BusinessAttributeServiceImpl extends BaseServiceImpl<BusinessAttrib
             case BANK_NAME: {
                 break;
             }
+            case BANK_ADDRESS:{
+                break;
+            }
             case BANK_ACCOUNT: {
                 break;
             }
@@ -156,63 +159,64 @@ public class BusinessAttributeServiceImpl extends BaseServiceImpl<BusinessAttrib
     public Object toBusinessAttributeValue(BusinessAttribute businessAttribute, String[] values) {
         Assert.notNull(businessAttribute, "[Assertion failed] - businessAttribute is required; it must not be null");
         Assert.notNull(businessAttribute.getType(), "[Assertion failed] - businessAttribute type is required; it must not be null");
-
         if (ArrayUtils.isEmpty(values)) {
             return null;
         }
-
         String value = values[0].trim();
         switch (businessAttribute.getType()) {
             case NAME: {
-                break;
+                return value;
             }
             case LICENSE_NUMBER: {
-                break;
+                return value;
             }
             case LICENSE_IMAGE: {
-                break;
+                return value;
             }
             case LEGAL_PERSON: {
-                break;
+                return value;
             }
             case ID_CARD: {
-                break;
+                return value;
             }
             case ID_CARD_IMAGE: {
-                break;
+                return value;
             }
             case PHONE: {
-                break;
+                return value;
             }
             case ORGANIZATION_CODE: {
-                break;
+                return value;
             }
             case ORGANIZATION_IMAGE: {
-                break;
+                return value;
             }
             case IDENTIFICATION_NUMBER: {
-                break;
+                return value;
             }
             case TAX_IMAGE: {
-                break;
+                return value;
             }
             case BANK_NAME: {
-                break;
+                return value;
             }
             case BANK_ACCOUNT: {
-                break;
+                return value;
+            }
+            case BANK_ADDRESS:{
+                return value;
             }
             case TEXT: {
-                break;
+                return value;
             }
             case ADDRESS: {
-                break;
+                return value;
             }
             case ZIP_CODE: {
-                break;
+                return value;
             }
             case IMAGE: {
-                break;
+                return value;
             }
             case DATE:
                 return StringUtils.isNotEmpty(value) ? value : null;
@@ -235,12 +239,9 @@ public class BusinessAttributeServiceImpl extends BaseServiceImpl<BusinessAttrib
     @CacheEvict(value = "businessAttribute", allEntries = true)
     public BusinessAttribute save(BusinessAttribute businessAttribute) {
         Assert.notNull(businessAttribute, "[Assertion failed] - businessAttribute is required; it must not be null");
-
         Integer unusedPropertyIndex = businessAttributeDao.findUnusedPropertyIndex();
         Assert.notNull(unusedPropertyIndex, "[Assertion failed] - unusedPropertyIndex is required; it must not be null");
-
         businessAttribute.setPropertyIndex(unusedPropertyIndex);
-
         return super.save(businessAttribute);
     }
 

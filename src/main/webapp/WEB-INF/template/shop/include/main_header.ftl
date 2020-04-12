@@ -255,7 +255,7 @@
             <div class="col-xs-6">
                 <div id="mainHeaderProductSearch" class="product-search clearfix">
                     <form action="[#if searchType == "STORE"]${base}/store/search[#else]${base}/product/search[/#if]"
-                          method="get">
+                          method="get" style="width: 580px">
                         <div class="input-group">
                             <div class="input-group-btn search-type">
                                 <button class="btn btn-default" type="button" data-toggle="dropdown">

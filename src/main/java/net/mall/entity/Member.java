@@ -97,7 +97,7 @@ public class Member extends User {
     /**
      * 会员注册项值属性个数
      */
-    public static final int ATTRIBUTE_VALUE_PROPERTY_COUNT = 10;
+    public static final int ATTRIBUTE_VALUE_PROPERTY_COUNT = 20;
 
     /**
      * 会员注册项值属性名称前缀
@@ -269,6 +269,10 @@ public class Member extends User {
      */
     @Length(max = 200)
     private String bankAccount;
+
+    @Length(max = 200)
+    @Column(name = "bank_address")
+    private String bankAddress;
 
     /**
      * 会员注册项值0
@@ -1227,11 +1231,11 @@ public class Member extends User {
                         String propertyName = ATTRIBUTE_VALUE_PROPERTY_NAME_PREFIX + memberAttribute.getPropertyIndex();
                         return PropertyUtils.getProperty(this, propertyName);
                     } catch (IllegalAccessException e) {
-                        throw new RuntimeException(e.getMessage(), e);
+                        e.printStackTrace();
                     } catch (InvocationTargetException e) {
-                        throw new RuntimeException(e.getMessage(), e);
+                        e.printStackTrace();
                     } catch (NoSuchMethodException e) {
-                        throw new RuntimeException(e.getMessage(), e);
+                        e.printStackTrace();
                     }
                 }
                 break;
@@ -1244,14 +1248,17 @@ public class Member extends User {
                             return JsonUtils.toObject(propertyValue, List.class);
                         }
                     } catch (IllegalAccessException e) {
-                        throw new RuntimeException(e.getMessage(), e);
+                        e.printStackTrace();
                     } catch (InvocationTargetException e) {
-                        throw new RuntimeException(e.getMessage(), e);
+                        e.printStackTrace();
                     } catch (NoSuchMethodException e) {
-                        throw new RuntimeException(e.getMessage(), e);
+                        e.printStackTrace();
                     }
                 }
                 break;
+            case BANK_ADDRESS:{
+                return getBankAddress();
+            }
         }
         return null;
     }
@@ -1478,6 +1485,12 @@ public class Member extends User {
                     setBankAccount((String) memberAttributeValue);
                 }
                 break;
+            case BANK_ADDRESS:{
+                if (memberAttributeValue instanceof String || memberAttributeValue == null) {
+                    setBankAddress((String) memberAttributeValue);
+                }
+                break;
+            }
             case NAME:
                 if (memberAttributeValue instanceof String || memberAttributeValue == null) {
                     setName((String) memberAttributeValue);
@@ -1520,11 +1533,11 @@ public class Member extends User {
                         String propertyName = ATTRIBUTE_VALUE_PROPERTY_NAME_PREFIX + memberAttribute.getPropertyIndex();
                         PropertyUtils.setProperty(this, propertyName, memberAttributeValue);
                     } catch (IllegalAccessException e) {
-                        throw new RuntimeException(e.getMessage(), e);
+                        e.printStackTrace();
                     } catch (InvocationTargetException e) {
-                        throw new RuntimeException(e.getMessage(), e);
+                        e.printStackTrace();
                     } catch (NoSuchMethodException e) {
-                        throw new RuntimeException(e.getMessage(), e);
+                        e.printStackTrace();
                     }
                 }
                 break;
@@ -1534,11 +1547,11 @@ public class Member extends User {
                         String propertyName = ATTRIBUTE_VALUE_PROPERTY_NAME_PREFIX + memberAttribute.getPropertyIndex();
                         PropertyUtils.setProperty(this, propertyName, memberAttributeValue != null ? JsonUtils.toJson(memberAttributeValue) : null);
                     } catch (IllegalAccessException e) {
-                        throw new RuntimeException(e.getMessage(), e);
+                        e.printStackTrace();
                     } catch (InvocationTargetException e) {
-                        throw new RuntimeException(e.getMessage(), e);
+                        e.printStackTrace();
                     } catch (NoSuchMethodException e) {
-                        throw new RuntimeException(e.getMessage(), e);
+                        e.printStackTrace();
                     }
                 }
                 break;
@@ -1562,11 +1575,11 @@ public class Member extends User {
             try {
                 PropertyUtils.setProperty(this, propertyName, null);
             } catch (IllegalAccessException e) {
-                throw new RuntimeException(e.getMessage(), e);
+                e.printStackTrace();
             } catch (InvocationTargetException e) {
-                throw new RuntimeException(e.getMessage(), e);
+                e.printStackTrace();
             } catch (NoSuchMethodException e) {
-                throw new RuntimeException(e.getMessage(), e);
+                e.printStackTrace();
             }
         }
     }
@@ -1637,4 +1650,11 @@ public class Member extends User {
         setMobile(StringUtils.lowerCase(getMobile()));
     }
 
+    public String getBankAddress() {
+        return bankAddress;
+    }
+
+    public void setBankAddress(String bankAddress) {
+        this.bankAddress = bankAddress;
+    }
 }

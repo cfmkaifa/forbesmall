@@ -100,7 +100,7 @@
                                         </div>
                                         <div class="col-xs-6">
                                             <ul class="product-thumbnail clearfix">
-                                                [@product_list storeId = store.id count = 4]
+                                                [#--[@product_list storeId = store.id count = 4]
                                                     [#if products?has_content]
                                                         [#list products as product]
                                                             <li>
@@ -115,7 +115,7 @@
                                                             </li>
                                                         [/#list]
                                                     [/#if]
-                                                [/@product_list]
+                                                [/@product_list]--]
                                             </ul>
                                         </div>
                                     </div>

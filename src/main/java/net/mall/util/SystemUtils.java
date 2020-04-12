@@ -120,9 +120,11 @@ public final class SystemUtils {
             for (org.dom4j.Element element : elements) {
                 try {
                     String name = element.attributeValue("name");
-                    String value = CONVERSION_SERVICE.convert(PropertyUtils.getProperty(setting, name), String.class);
-                    Attribute attribute = element.attribute("value");
-                    attribute.setValue(value);
+                    if(!name.equalsIgnoreCase("fileUrl")){
+                        String value = CONVERSION_SERVICE.convert(PropertyUtils.getProperty(setting, name), String.class);
+                        Attribute attribute = element.attribute("value");
+                        attribute.setValue(value);
+                    }
                 } catch (IllegalAccessException e) {
                     throw new RuntimeException(e.getMessage(), e);
                 } catch (InvocationTargetException e) {

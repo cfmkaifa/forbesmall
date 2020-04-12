@@ -539,7 +539,6 @@
                                             <div class="product-left-2">
                                                 <ul>
                                                     <li class="product-li-12">
-
 															<span class="product-name">
 																<b>
 																	<a href="${base}${product.path}" target="_blank">
@@ -630,10 +629,10 @@
                                                 <p class="data-2">${product.createdDate}</p>
                                                 <a href="${base}/product/group-purch-detail/${product.id}"
                                                    target="_blank">
-                                                    <button type="button"
-                                                            class="button-4">${message("shop.product.detail")}</button>
+                                                    <button type="button" class="button-3">${message("shop.product.detail")}</button>
                                                 </a>
                                             </div>
+                                        </div>
                                     </li>
                                 [/#list]
                             </ul>

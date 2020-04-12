@@ -175,10 +175,13 @@ public class ArticleController extends BaseController {
         } else {
             model.addAttribute("isPerm", true);
         }
+        List<ArticleCategory> articleCategories = articleCategoryService.findRoots(6, ArticleCategory.Type.NEWS);
         Pageable pageable = new Pageable(pageNumber, PAGE_SIZE);
         model.addAttribute("articleCategory", articleCategory);
         model.addAttribute("page", articleService.findPage(articleCategory, null, true, pageable));
-        return "shop/article/list";
+        model.addAttribute("articleCategories", articleCategories);
+        model.addAttribute("articleCategoryId",articleCategoryId);
+        return "shop/article/attention";
     }
 
     /**
@@ -208,7 +211,8 @@ public class ArticleController extends BaseController {
             Filter humanIdFilter = new Filter("humanId", Filter.Operator.EQ, humanId);
             Filter articleCategoryIdFilter = new Filter("dataId", Filter.Operator.EQ, articleCategoryId);
             Filter expdFilter = new Filter("expd", Filter.Operator.LE, new Date());
-            long subsCount = subsNewsHumanService.count(humanIdFilter, articleCategoryIdFilter, expdFilter);
+            Filter expdaFilter = new Filter("expd", Filter.Operator.IS_NOT_NULL,true);
+            long subsCount = subsNewsHumanService.count(humanIdFilter, articleCategoryIdFilter, expdFilter,expdaFilter);
             if (subsCount > 0) {
                 model.addAttribute("isPerm", true);
             } else {
@@ -307,9 +311,7 @@ public class ArticleController extends BaseController {
         Map<String, Page<Article>> map = new HashMap<>();
         Pageable pageable = new Pageable();
         pageable.setPageSize(8);
-        Pageable temppage = new Pageable();
-        temppage.setPageSize(7);
-        model.addAttribute("instantnews", articleService.findPage(articleCategoryService.find(articleCategories.get(1).getId()), null, true, temppage));
+        model.addAttribute("instantnews", articleService.findPage(articleCategoryService.find(articleCategories.get(1).getId()), null, true, pageable));
         model.addAttribute("fubuinsights", articleService.findPage(articleCategoryService.find(articleCategories.get(2).getId()), null, true, pageable));
         model.addAttribute("factorystatus", articleService.findPage(articleCategoryService.find(articleCategories.get(3).getId()), null, true, pageable));
         model.addAttribute("commonality", articleService.findPage(articleCategoryService.find(articleCategories.get(5).getId()), null, true, pageable));
@@ -419,6 +421,18 @@ public class ArticleController extends BaseController {
     @GetMapping(value = "/decdetail")
     public String decdetail(){
         return "/shop/declare/page";
+    }
+
+    /**
+     * @description智能工厂
+     * @author xfx
+     * @date 2020/4/7 9:09
+     * @parameter
+     * @return
+     */
+    @GetMapping(value = "/smart")
+    public String amrtFactory(){
+        return "/shop/declare/smart";
     }
 
 }

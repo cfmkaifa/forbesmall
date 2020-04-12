@@ -1051,7 +1051,7 @@
 									</div>
 								</div>
 								<div class="form-group">
-									<label class="col-xs-3 col-sm-2 control-label" for="weight">${message("Product.weight")}:</label>
+									<label class="col-xs-3 col-sm-2 control-label item-required" for="weight">${message("Product.weight")}:</label>
 									<div class="col-xs-9 col-sm-4">
 										<div class="input-group">
 											<input id="weight" name="weight" class="form-control" type="text" maxlength="9">

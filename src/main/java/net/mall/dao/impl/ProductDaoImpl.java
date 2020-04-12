@@ -19,6 +19,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Subquery;
 
+import net.mall.entity.*;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Repository;
@@ -30,16 +31,6 @@ import net.mall.Page;
 import net.mall.Pageable;
 import net.mall.Setting;
 import net.mall.dao.ProductDao;
-import net.mall.entity.Attribute;
-import net.mall.entity.Brand;
-import net.mall.entity.Product;
-import net.mall.entity.ProductCategory;
-import net.mall.entity.ProductTag;
-import net.mall.entity.Promotion;
-import net.mall.entity.Sku;
-import net.mall.entity.Store;
-import net.mall.entity.StoreProductCategory;
-import net.mall.entity.StoreProductTag;
 import net.mall.entity.Specification.Sample;
 import net.mall.util.SystemUtils;
 
@@ -257,7 +248,7 @@ public class ProductDaoImpl extends BaseDaoImpl<Product, Long> implements Produc
     }
 
     @Override
-    public Page<Product> findPage(Product.Type type, Integer method,boolean isSample, Store.Type storeType, Store store, ProductCategory productCategory, StoreProductCategory storeProductCategory, Brand brand, Promotion promotion, ProductTag productTag, StoreProductTag storeProductTag, Map<Attribute, String> attributeValueMap,
+    public Page<Product> findPage(Product.Type type, Integer method, boolean isSample, Store.Type storeType, Store store, Member member, ProductCategory productCategory, StoreProductCategory storeProductCategory, Brand brand, Promotion promotion, ProductTag productTag, StoreProductTag storeProductTag, Map<Attribute, String> attributeValueMap,
                                   BigDecimal startPrice, BigDecimal endPrice, Boolean isMarketable, Boolean isList, Boolean isTop, Boolean isActive, Boolean isOutOfStock, Boolean isStockAlert, Boolean hasPromotion, Product.OrderType orderType, Pageable pageable) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Product> criteriaQuery = criteriaBuilder.createQuery(Product.class);
@@ -274,12 +265,28 @@ public class ProductDaoImpl extends BaseDaoImpl<Product, Long> implements Produc
             subquery.where(criteriaBuilder.equal(subqueryRoot.get("type"), storeType));
             restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.in(root.get("store")).value(subquery));
         }
+        if( 0 == method || 1== method){
+            restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("isPurch"), false));
+        }
+        if(3 == method){
+            Predicate  restrictionsa = criteriaBuilder.equal(root.get("isPurch"), true);
+            restrictionsa = criteriaBuilder.and(restrictionsa,criteriaBuilder.equal(root.get("isAudit"), Product.ProApplyStatus.APPROVED));
+            Predicate  restrictionsb = criteriaBuilder.equal(root.get("isPurch"), false);
+            restrictionsb = criteriaBuilder.and(restrictionsb,criteriaBuilder.equal(root.get("isAudit"), Product.ProApplyStatus.PENDING));
+            Predicate  restrictionsc = criteriaBuilder.or(restrictionsa,restrictionsb);
+            restrictions =  criteriaBuilder.and(restrictionsc);
+        }
         if (store != null) {
-            if (0 == method) {
+            if(1 == method){
+                restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.notEqual(root.get("store"), store));
+            } else {
                 restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("store"), store));
             }
-            if (1 == method) {
-                restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.notEqual(root.get("store"), store));
+        }
+        if(2 == method){
+            restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("isPurch"), true));
+            if(null != member){
+                restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.notEqual(root.get("member"), member));
             }
         }
         /***查询样品**/
@@ -536,7 +543,6 @@ public class ProductDaoImpl extends BaseDaoImpl<Product, Long> implements Produc
     }
 
 
-
     /***
      *
      * @param curentDate
@@ -546,6 +552,7 @@ public class ProductDaoImpl extends BaseDaoImpl<Product, Long> implements Produc
         String jpql = "UPDATE Product SET createdDate = :createdDate WHERE id = :id";
         entityManager.createQuery(jpql).setParameter("createdDate", curentDate).setParameter("id", productId).executeUpdate();
     }
+
 
 
     /***
@@ -567,5 +574,17 @@ public class ProductDaoImpl extends BaseDaoImpl<Product, Long> implements Produc
     public void modifyNewProductId(Long newProductId,Long productId){
         String jpql = "UPDATE Product SET newProId = :newProId WHERE id = :id";
         entityManager.createQuery(jpql).setParameter("newProId", newProductId).setParameter("id", productId).executeUpdate();
+    }
+
+
+
+    /***
+     * 修改审核状态
+     * @param isAudit
+     * @param productId
+     */
+    public void modifyProductAudit(Product.ProApplyStatus isAudit, Long productId){
+        String jpql = "UPDATE Product SET isAudit = :isAudit WHERE id = :id";
+        entityManager.createQuery(jpql).setParameter("isAudit", isAudit).setParameter("id", productId).executeUpdate();
     }
 }

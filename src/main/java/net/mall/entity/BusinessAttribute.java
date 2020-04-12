@@ -137,7 +137,10 @@ public class BusinessAttribute extends OrderedEntity<Long> {
         /**
          * 邮编
          */
-        ZIP_CODE
+        ZIP_CODE,
+        /****银行账号地址
+         * */
+        BANK_ADDRESS
     }
 
     /**

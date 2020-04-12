@@ -239,6 +239,13 @@ public class Business extends User {
     private String bankAccount;
 
     /**
+     * 银行账号地址
+     */
+    @Length(max = 200)
+    @Column(name = "bank_address")
+    private String bankAddress;
+
+    /**
      * 商家注册项值0
      */
     @Length(max = 200)
@@ -1272,11 +1279,11 @@ public class Business extends User {
                         String propertyName = ATTRIBUTE_VALUE_PROPERTY_NAME_PREFIX + businessAttribute.getPropertyIndex();
                         return PropertyUtils.getProperty(this, propertyName);
                     } catch (IllegalAccessException e) {
-                        throw new RuntimeException(e.getMessage(), e);
+                        e.printStackTrace();
                     } catch (InvocationTargetException e) {
-                        throw new RuntimeException(e.getMessage(), e);
+                        e.printStackTrace();
                     } catch (NoSuchMethodException e) {
-                        throw new RuntimeException(e.getMessage(), e);
+                        e.printStackTrace();
                     }
                 }
                 break;
@@ -1289,14 +1296,17 @@ public class Business extends User {
                             return JsonUtils.toObject(propertyValue, List.class);
                         }
                     } catch (IllegalAccessException e) {
-                        throw new RuntimeException(e.getMessage(), e);
+                        e.printStackTrace();
                     } catch (InvocationTargetException e) {
-                        throw new RuntimeException(e.getMessage(), e);
+                        e.printStackTrace();
                     } catch (NoSuchMethodException e) {
-                        throw new RuntimeException(e.getMessage(), e);
+                        e.printStackTrace();
                     }
                 }
                 break;
+            case BANK_ADDRESS:{
+                return getBankAddress();
+            }
         }
         return null;
     }
@@ -1388,6 +1398,12 @@ public class Business extends User {
                     setBankAccount((String) businessAttributeValue);
                 }
                 break;
+            case BANK_ADDRESS:{
+                if (businessAttributeValue instanceof String || businessAttributeValue == null) {
+                    setBankAddress((String) businessAttributeValue);
+                }
+                break;
+            }
             case TEXT:
             case SELECT:
                 if ((businessAttributeValue instanceof String || businessAttributeValue == null) && businessAttribute.getPropertyIndex() != null) {
@@ -1458,11 +1474,11 @@ public class Business extends User {
             try {
                 PropertyUtils.setProperty(this, propertyName, null);
             } catch (IllegalAccessException e) {
-                throw new RuntimeException(e.getMessage(), e);
+                e.printStackTrace();
             } catch (InvocationTargetException e) {
-                throw new RuntimeException(e.getMessage(), e);
+                e.printStackTrace();
             } catch (NoSuchMethodException e) {
-                throw new RuntimeException(e.getMessage(), e);
+                e.printStackTrace();
             }
         }
     }
@@ -1521,6 +1537,14 @@ public class Business extends User {
     public void preUpdate() {
         setEmail(StringUtils.lowerCase(getEmail()));
         setMobile(StringUtils.lowerCase(getMobile()));
+    }
+
+    public String getBankAddress() {
+        return bankAddress;
+    }
+
+    public void setBankAddress(String bankAddress) {
+        this.bankAddress = bankAddress;
     }
 
 }

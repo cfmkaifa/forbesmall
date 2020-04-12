@@ -198,6 +198,7 @@
 									<option value="TAX_IMAGE">${message("BusinessAttribute.Type.TAX_IMAGE")}</option>
 									<option value="BANK_NAME">${message("BusinessAttribute.Type.BANK_NAME")}</option>
 									<option value="BANK_ACCOUNT">${message("BusinessAttribute.Type.BANK_ACCOUNT")}</option>
+									<option value="BANK_ADDRESS">${message("BusinessAttribute.Type.BANK_ADDRESS")}</option>
 									<option value="TEXT">${message("BusinessAttribute.Type.TEXT")}</option>
 									<option value="SELECT">${message("BusinessAttribute.Type.SELECT")}</option>
 									<option value="CHECKBOX">${message("BusinessAttribute.Type.CHECKBOX")}</option>

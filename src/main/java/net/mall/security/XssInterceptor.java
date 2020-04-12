@@ -144,7 +144,8 @@ public class XssInterceptor extends HandlerInterceptorAdapter {
         if (!isValid(request)
                 && !uri.startsWith("/admin/article/save")
                 && !uri.startsWith("/admin/article/update")
-                && !uri.startsWith("/business/product/update")
+                && !uri.startsWith("/business/product/save")
+                && !uri.startsWith("/member/product/save")
                 && !uri.startsWith("/business/product/update")) {
             if (WebUtils.isAjaxRequest(request)) {
                 Results.forbidden(response, "common.message.invalidXss");
@@ -155,7 +156,6 @@ public class XssInterceptor extends HandlerInterceptorAdapter {
         }
         return super.preHandle(request, response, handler);
     }
-
 
     /**
      * 白名单验证

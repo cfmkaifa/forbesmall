@@ -392,7 +392,7 @@
 													[/#list]
 												</td>
 												<td>
-													[#if !product.productCategory?has_content ]
+													[#if product.productCategory?has_content ]
 														${product.productCategory.name}
 													[/#if]
 

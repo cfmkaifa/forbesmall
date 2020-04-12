@@ -117,7 +117,7 @@
 												<dt>${businessAttribute.name}:</dt>
 												[#if businessAttribute.type == "NAME"]
 													<dd>${business.name}</dd>
-												[#elseif businessAttribute.type == "TEXT" || businessAttribute.type == "NAME" || businessAttribute.type == "LICENSE_NUMBER" || businessAttribute.type == "LEGAL_PERSON" || businessAttribute.type == "ID_CARD" || businessAttribute.type == "PHONE" || businessAttribute.type == "ORGANIZATION_CODE" || businessAttribute.type == "IDENTIFICATION_NUMBER" || businessAttribute.type == "BANK_NAME" || businessAttribute.type == "BANK_ACCOUNT" || businessAttribute.type == "DATE"]
+												[#elseif businessAttribute.type == "TEXT" || businessAttribute.type == "NAME" || businessAttribute.type == "LICENSE_NUMBER" || businessAttribute.type == "LEGAL_PERSON" || businessAttribute.type == "ID_CARD" || businessAttribute.type == "PHONE" || businessAttribute.type == "ORGANIZATION_CODE" || businessAttribute.type == "IDENTIFICATION_NUMBER" || businessAttribute.type == "BANK_NAME" ||  businessAttribute.type == "BANK_ADDRESS"  || businessAttribute.type == "BANK_ACCOUNT" || businessAttribute.type == "DATE"]
 													<dd>${business.getAttributeValue(businessAttribute)}</dd>
 												[#elseif businessAttribute.type == "IMAGE" || businessAttribute.type == "LICENSE_IMAGE" || businessAttribute.type == "ID_CARD_IMAGE" || businessAttribute.type == "ORGANIZATION_IMAGE" || businessAttribute.type == "TAX_IMAGE"]
 													<dd>

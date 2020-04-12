@@ -657,10 +657,13 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
                     orderItemMap.put("totalAmount",orderItem.getSubtotal());
                     return  orderItemMap;
                 }).collect(Collectors.toList());
+                java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy年MM月dd日");
+                String orderAddress = order.getAreaName() + order.getAddress();
                 ContractBuildImpl contractBuildImpl = new ContractBuildImpl();
                 contractBuildImpl
                         .setCompanyTtile(memberName)
                         .setSellerName(storeName)
+                        .setOrderAddress(orderAddress)
                         .setBuyName(memberName)
                         .setOrderNo(order.getSn())
                         .setItems(items)
@@ -668,23 +671,22 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
                         .setMemberName(memberName)
                         .setMemberAddress(memberAddress)
                         .setMemberPhone(memberPhone)
-                        .setMemberLegalPerson("")
-                        .setMemberDate("")
-                        .setMemberTaxNo("")
+                        .setMemberLegalPerson(member.getLegalPerson())
+                        .setMemberDate(sdf.format(new Date()))
+                        .setMemberTaxNo(member.getIdentificationNumber())
                         .setMemberBankName(memberBankName)
-                        .setMemberBankAddress("")
+                        .setMemberBankAddress(member.getBankAddress())
                         .setMemberBankAccount(memberBankAccount)
                         .setStoreName(storeName)
                         .setStoreAdress(storeAddress)
                         .setStorePhone(storePhone)
-                        .setStoreLegalPerson("")
-                        .setStoreDate("")
-                        .setStoreTaxNo("")
+                        .setStoreLegalPerson(business.getLegalPerson())
+                        .setStoreDate(sdf.format(new Date()))
+                        .setStoreTaxNo(business.getIdentificationNumber())
                         .setStoreBankName(storeBankName)
-                        .setStoreBankAddress("")
+                        .setStoreBankAddress(business.getBankAddress())
                         .setStoreBankAccount(storeBankAccount);
                 String contractPath = contractBuildImpl.generateContract();
-                 ///PdfUtil.generateContract(order);
                 order.setContractPath(contractPath);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();

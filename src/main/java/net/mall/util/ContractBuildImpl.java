@@ -393,7 +393,7 @@ public class ContractBuildImpl  extends ContractModel {
         threeCellLable.setColspan(9);
         threeCellLable.setPaddingTop(10f);
         tableBaseInfo.addCell(threeCellLable);
-        PdfPCell fourCellLable = new PdfPCell(new Phrase("五、交货地点：上海市青浦区诸光路1588号虹桥世界中心L2B-503室", contentFont));
+        PdfPCell fourCellLable = new PdfPCell(new Phrase(String.format(STR_FORMAT,"五、交货地点：",orderAddress), contentFont));
         fourCellLable.setUseAscender(true);
         fourCellLable.setUseDescender(true);
         fourCellLable.setBorder(0);
@@ -532,7 +532,7 @@ public class ContractBuildImpl  extends ContractModel {
         nameaCell.setColspan(4);
         tableBaseInfo.addCell(nameaCell);
         /****地址：******/
-        PdfPCell addressCell = new PdfPCell(new Phrase(String.format(STR_FORMAT,"地址：",memberAddress), contentFont));
+        PdfPCell addressCell = new PdfPCell(new Phrase(String.format(STR_FORMAT,"地址：",storeAdress), contentFont));
         addressCell.setPaddingTop(10f);
         addressCell.setUseAscender(true);
         addressCell.setUseDescender(true);
@@ -540,7 +540,7 @@ public class ContractBuildImpl  extends ContractModel {
         addressCell.setBorderWidthLeft(0.1f);
         addressCell.setColspan(5);
         tableBaseInfo.addCell(addressCell);
-        PdfPCell addressaCell = new PdfPCell(new Phrase(String.format(STR_FORMAT,"地址：",storeAdress), contentFont));
+        PdfPCell addressaCell = new PdfPCell(new Phrase(String.format(STR_FORMAT,"地址：",memberAddress), contentFont));
         addressaCell.setPaddingTop(10f);
         addressaCell.setUseAscender(true);
         addressaCell.setUseDescender(true);
@@ -550,7 +550,7 @@ public class ContractBuildImpl  extends ContractModel {
         addressaCell.setColspan(4);
         tableBaseInfo.addCell(addressaCell);
         /****电话：******/
-        PdfPCell phoneCell = new PdfPCell(new Phrase(String.format(STR_FORMAT,"电话：",memberPhone), contentFont));
+        PdfPCell phoneCell = new PdfPCell(new Phrase(String.format(STR_FORMAT,"电话：",storePhone), contentFont));
         phoneCell.setPaddingTop(10f);
         phoneCell.setUseAscender(true);
         phoneCell.setUseDescender(true);
@@ -558,7 +558,7 @@ public class ContractBuildImpl  extends ContractModel {
         phoneCell.setBorderWidthLeft(0.1f);
         phoneCell.setColspan(5);
         tableBaseInfo.addCell(phoneCell);
-        PdfPCell phoneaCell = new PdfPCell(new Phrase(String.format(STR_FORMAT,"电话：",storePhone), contentFont));
+        PdfPCell phoneaCell = new PdfPCell(new Phrase(String.format(STR_FORMAT,"电话：",memberPhone), contentFont));
         phoneaCell.setPaddingTop(10f);
         phoneaCell.setUseAscender(true);
         phoneaCell.setUseDescender(true);
@@ -568,7 +568,7 @@ public class ContractBuildImpl  extends ContractModel {
         phoneaCell.setColspan(4);
         tableBaseInfo.addCell(phoneaCell);
         /****法定代表人：******/
-        PdfPCell legalCell = new PdfPCell(new Phrase(String.format(STR_FORMAT,"法定代表人：",memberLegalPerson), contentFont));
+        PdfPCell legalCell = new PdfPCell(new Phrase(String.format(STR_FORMAT,"法定代表人：",storeLegalPerson), contentFont));
         legalCell.setPaddingTop(10f);
         legalCell.setUseAscender(true);
         legalCell.setUseDescender(true);
@@ -576,7 +576,7 @@ public class ContractBuildImpl  extends ContractModel {
         legalCell.setBorderWidthLeft(0.1f);
         legalCell.setColspan(5);
         tableBaseInfo.addCell(legalCell);
-        PdfPCell legalaCell = new PdfPCell(new Phrase(String.format(STR_FORMAT,"法定代表人：",storeLegalPerson), contentFont));
+        PdfPCell legalaCell = new PdfPCell(new Phrase(String.format(STR_FORMAT,"法定代表人：",memberLegalPerson), contentFont));
         legalaCell.setPaddingTop(10f);
         legalaCell.setUseAscender(true);
         legalaCell.setUseDescender(true);
@@ -586,7 +586,7 @@ public class ContractBuildImpl  extends ContractModel {
         legalaCell.setColspan(4);
         tableBaseInfo.addCell(legalaCell);
         /****日期******/
-        PdfPCell dateCell = new PdfPCell(new Phrase(String.format(STR_FORMAT,"日期：",memberDate), contentFont));
+        PdfPCell dateCell = new PdfPCell(new Phrase(String.format(STR_FORMAT,"日期：",storeDate), contentFont));
         dateCell.setPaddingTop(10f);
         dateCell.setUseAscender(true);
         dateCell.setUseDescender(true);
@@ -594,7 +594,7 @@ public class ContractBuildImpl  extends ContractModel {
         dateCell.setBorderWidthLeft(0.1f);
         dateCell.setColspan(5);
         tableBaseInfo.addCell(dateCell);
-        PdfPCell dateaCell = new PdfPCell(new Phrase(String.format(STR_FORMAT,"日期：",storeDate), contentFont));
+        PdfPCell dateaCell = new PdfPCell(new Phrase(String.format(STR_FORMAT,"日期：",memberDate), contentFont));
         dateaCell.setPaddingTop(10f);
         dateaCell.setUseAscender(true);
         dateaCell.setUseDescender(true);
@@ -604,7 +604,7 @@ public class ContractBuildImpl  extends ContractModel {
         dateaCell.setColspan(4);
         tableBaseInfo.addCell(dateaCell);
         /****税号：******/
-        PdfPCell einCell = new PdfPCell(new Phrase(String.format(STR_FORMAT,"税号：",memberTaxNo), contentFont));
+        PdfPCell einCell = new PdfPCell(new Phrase(String.format(STR_FORMAT,"税号：",storeTaxNo), contentFont));
         einCell.setPaddingTop(10f);
         einCell.setUseAscender(true);
         einCell.setUseDescender(true);
@@ -612,7 +612,7 @@ public class ContractBuildImpl  extends ContractModel {
         einCell.setBorderWidthLeft(0.1f);
         einCell.setColspan(5);
         tableBaseInfo.addCell(einCell);
-        PdfPCell einaCell = new PdfPCell(new Phrase(String.format(STR_FORMAT,"税号：",storeTaxNo), contentFont));
+        PdfPCell einaCell = new PdfPCell(new Phrase(String.format(STR_FORMAT,"税号：",memberTaxNo), contentFont));
         einaCell.setPaddingTop(10f);
         einaCell.setUseAscender(true);
         einaCell.setUseDescender(true);
@@ -622,7 +622,7 @@ public class ContractBuildImpl  extends ContractModel {
         einaCell.setColspan(4);
         tableBaseInfo.addCell(einaCell);
         /****开户行：******/
-        PdfPCell openingBankCell = new PdfPCell(new Phrase(String.format(STR_FORMAT,"开户行：",memberBankName), contentFont));
+        PdfPCell openingBankCell = new PdfPCell(new Phrase(String.format(STR_FORMAT,"开户行：",storeBankName), contentFont));
         openingBankCell.setPaddingTop(10f);
         openingBankCell.setUseAscender(true);
         openingBankCell.setUseDescender(true);
@@ -630,7 +630,7 @@ public class ContractBuildImpl  extends ContractModel {
         openingBankCell.setBorderWidthLeft(0.1f);
         openingBankCell.setColspan(5);
         tableBaseInfo.addCell(openingBankCell);
-        PdfPCell openingBankaCell = new PdfPCell(new Phrase(String.format(STR_FORMAT,"开户行：",storeBankName), contentFont));
+        PdfPCell openingBankaCell = new PdfPCell(new Phrase(String.format(STR_FORMAT,"开户行：",memberBankName), contentFont));
         openingBankaCell.setPaddingTop(10f);
         openingBankaCell.setUseAscender(true);
         openingBankaCell.setUseDescender(true);
@@ -640,7 +640,7 @@ public class ContractBuildImpl  extends ContractModel {
         openingBankaCell.setColspan(4);
         tableBaseInfo.addCell(openingBankaCell);
         /****开户行地址：******/
-        PdfPCell bankAddressCell = new PdfPCell(new Phrase(String.format(STR_FORMAT,"开户行地址：",memberBankAddress), contentFont));
+        PdfPCell bankAddressCell = new PdfPCell(new Phrase(String.format(STR_FORMAT,"开户行地址：",storeBankAddress), contentFont));
         bankAddressCell.setPaddingTop(10f);
         bankAddressCell.setUseAscender(true);
         bankAddressCell.setUseDescender(true);
@@ -648,7 +648,7 @@ public class ContractBuildImpl  extends ContractModel {
         bankAddressCell.setBorderWidthLeft(0.1f);
         bankAddressCell.setColspan(5);
         tableBaseInfo.addCell(bankAddressCell);
-        PdfPCell bankAddressaCell = new PdfPCell(new Phrase(String.format(STR_FORMAT,"开户行地址：",storeBankAddress), contentFont));
+        PdfPCell bankAddressaCell = new PdfPCell(new Phrase(String.format(STR_FORMAT,"开户行地址：",memberBankAddress), contentFont));
         bankAddressaCell.setPaddingTop(10f);
         bankAddressaCell.setUseAscender(true);
         bankAddressaCell.setUseDescender(true);
@@ -658,7 +658,7 @@ public class ContractBuildImpl  extends ContractModel {
         bankAddressaCell.setColspan(4);
         tableBaseInfo.addCell(bankAddressaCell);
         /***账号：**/
-        PdfPCell bankAccounCell = new PdfPCell(new Phrase(String.format(STR_FORMAT,"账号：",memberBankAccount), contentFont));
+        PdfPCell bankAccounCell = new PdfPCell(new Phrase(String.format(STR_FORMAT,"账号：",storeBankAccount), contentFont));
         bankAccounCell.setPaddingTop(10f);
         bankAccounCell.setUseAscender(true);
         bankAccounCell.setUseDescender(true);
@@ -667,7 +667,7 @@ public class ContractBuildImpl  extends ContractModel {
         bankAccounCell.setBorderWidthBottom(0.1f);
         bankAccounCell.setColspan(5);
         tableBaseInfo.addCell(bankAccounCell);
-        PdfPCell bankAccounaCell = new PdfPCell(new Phrase(String.format(STR_FORMAT,"账号：",storeBankAccount), contentFont));
+        PdfPCell bankAccounaCell = new PdfPCell(new Phrase(String.format(STR_FORMAT,"账号：",memberBankAccount), contentFont));
         bankAccounaCell.setPaddingTop(10f);
         bankAccounaCell.setUseAscender(true);
         bankAccounaCell.setUseDescender(true);

@@ -28,6 +28,11 @@ a,a:hover{
 	cursor: pointer;
 	
 }
+.navigation li a:hover{
+	color: #ffffff;
+	background: red;
+	text-decoration: none;
+}
 /* .item a{
 	font-weight:600;
 	width: 100%;
@@ -76,7 +81,7 @@ a,a:hover{
 	display: flex;
 	justify-content: space-between;
 	width: 80%;
-	line-height: 60px;
+	/*line-height: 60px;*/
 	align-items: center
 }
 .newsTitle img{

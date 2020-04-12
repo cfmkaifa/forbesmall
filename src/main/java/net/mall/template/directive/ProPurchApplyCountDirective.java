@@ -12,7 +12,9 @@ import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
 import net.mall.Filter;
 import net.mall.entity.ProPurchApply;
+import net.mall.entity.Product;
 import net.mall.service.ProPurchApplyService;
+import net.mall.service.ProductService;
 import net.mall.util.FreeMarkerUtils;
 import org.springframework.stereotype.Component;
 
@@ -32,7 +34,7 @@ public class ProPurchApplyCountDirective extends BaseDirective {
     /**
      * "状态"参数名称
      */
-    private static final String STATUS_PARAMETER_NAME = "status";
+    private static final String STATUS_PARAMETER_NAME = "isAudit";
 
 
     /**
@@ -41,7 +43,7 @@ public class ProPurchApplyCountDirective extends BaseDirective {
     private static final String VARIABLE_NAME = "count";
 
     @Inject
-    ProPurchApplyService proPurchApplyService;
+    ProductService productService;
 
     /**
      * 执行
@@ -54,8 +56,8 @@ public class ProPurchApplyCountDirective extends BaseDirective {
     @SuppressWarnings({"unchecked", "rawtypes"})
     @Override
     public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException, IOException {
-        ProPurchApply.ProApplyStatus status = FreeMarkerUtils.getParameter(STATUS_PARAMETER_NAME, ProPurchApply.ProApplyStatus.class, params);
-        Long count = proPurchApplyService.count(new Filter(STATUS_PARAMETER_NAME, Filter.Operator.EQ, status));
+        Product.ProApplyStatus status = FreeMarkerUtils.getParameter(STATUS_PARAMETER_NAME, Product.ProApplyStatus.class, params);
+        Long count = productService.count(new Filter(STATUS_PARAMETER_NAME, Filter.Operator.EQ, status));
         setLocalVariable(VARIABLE_NAME, count, env, body);
     }
 

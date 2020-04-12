@@ -1,5 +1,5 @@
 .zoomPad{
-	position:relative;
+    width: 100%;
 	float:left;
 	z-index:99;
 	cursor:crosshair;

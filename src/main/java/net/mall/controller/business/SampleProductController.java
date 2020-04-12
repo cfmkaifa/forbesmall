@@ -159,6 +159,8 @@ public class SampleProductController extends BaseController {
         productForm.setId(product.getId());
         productForm.setType(product.getType());
         productForm.setIsActive(true);
+        productForm.setPurch(false);
+        productForm.setIsAudit(Product.ProApplyStatus.PENDING);
         productForm.setProductCategory(productCategory);
         productForm.setBrand(brandService.find(brandId));
         productForm.setPromotions(new HashSet<>(promotions));
@@ -234,7 +236,7 @@ public class SampleProductController extends BaseController {
         model.addAttribute("isActive", isActive);
         model.addAttribute("isOutOfStock", isOutOfStock);
         model.addAttribute("isStockAlert", isStockAlert);
-        model.addAttribute("page", productService.findPage(type, 1,false, null, currentStore, productCategory, null, brand, promotion, productTag, storeProductTag, null, null, null, true, isList, isTop, isActive, isOutOfStock, isStockAlert, null, null, pageable));
+        model.addAttribute("page", productService.findPage(type, 1,false, null, currentStore,null, productCategory, null, brand, promotion, productTag, storeProductTag, null, null, null, true, isList, isTop, isActive, isOutOfStock, isStockAlert, null, null, pageable));
         return "business/sample/list";
     }
 

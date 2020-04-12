@@ -64,6 +64,7 @@ public class BaseControllerAdvice {
     @ExceptionHandler(TypeMismatchException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public String exceptionHandler(TypeMismatchException typeMismatchException) {
+        typeMismatchException.printStackTrace();
         return "common/error/type_mismatch";
     }
 
