@@ -134,13 +134,11 @@
                 });
                 // 购物车数量
                 var currentCartQuantity = $.getCurrentCartQuantity();
-                console.log("+++++++++++"+currentCartQuantity)
                 if (currentCartQuantity != null) {
                     $mainHeaderCartQuantity.text(currentCartQuantity < 100 ? currentCartQuantity : "99+");
                 }
                 // 购物车数量
                 $document.on("complete.mall.setCurrentCartQuantity", function (event, quantity) {
-                    console.log("xxxxxxxxxxxxxx"+quantity)
                     $mainHeaderCartQuantity.text(quantity < 100 ? quantity : "99+");
                 });
                 // 主导航

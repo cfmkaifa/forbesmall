@@ -331,7 +331,7 @@
 										<div class="checkbox">
 											<input id="agree" name="agree" type="checkbox" value="true" checked>
 											<label for="agree">${message("member.register.agree")}</label>
-											<a class="text-red" href="${base}/article/detail/14_1" target="_blank">${message("member.register.agreement")}</a>
+											<a class="text-red" href="${base}/article/detail/17_1" target="_blank">${message("member.register.agreement")}</a>
 										</div>
 									</div>
 								</div>

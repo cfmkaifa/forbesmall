@@ -36,6 +36,7 @@
 				<img class="media-object" src="${base}/resources/common/images/amount_tip.png" alt="${message("common.error.unprocessableEntity")}">
 			</div>
 			<div class="media-body media-middle">
+				<h2 class="media-heading">${message("common.error.tip")}</h2>
 				<p class="text-red-light">${errorMessage!message("common.error.unprocessableEntity")}</p>
 				<p>
 					<a class="text-blue-light" href="javascript:history.back(-1)" data-action="back">${message("common.error.back")}</a>
