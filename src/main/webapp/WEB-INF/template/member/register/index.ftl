@@ -232,7 +232,7 @@
 									[#list memberAttributes as memberAttribute]
 										<div class="form-group">
 											<label class="col-xs-3 control-label[#if memberAttribute.isRequired] item-required[/#if]" for="memberAttribute_${memberAttribute.id}">${memberAttribute.name}:</label>
-											[#if memberAttribute.type == "NAME" || memberAttribute.type == "ADDRESS" || memberAttribute.type == "ZIP_CODE" || memberAttribute.type == "PHONE" || memberAttribute.type == "TEXT" || memberAttribute.type == "LICENSE_NUMBER" || memberAttribute.type == "LEGAL_PERSON" || memberAttribute.type == "ID_CARD" || memberAttribute.type == "ORGANIZATION_CODE" || memberAttribute.type == "IDENTIFICATION_NUMBER" || memberAttribute.type == "BANK_NAME" || memberAttribute.type == "BANK_ACCOUNT" ]
+											[#if memberAttribute.type == "NAME" || memberAttribute.type == "ADDRESS" || memberAttribute.type == "ZIP_CODE" || memberAttribute.type == "PHONE" || memberAttribute.type == "TEXT" || memberAttribute.type == "LICENSE_NUMBER" || memberAttribute.type == "LEGAL_PERSON" || memberAttribute.type == "ID_CARD" || memberAttribute.type == "ORGANIZATION_CODE" || memberAttribute.type == "IDENTIFICATION_NUMBER" || memberAttribute.type == "BANK_NAME" || memberAttribute.type == "BANK_ACCOUNT" ||memberAttribute.type == "BANK_ADDRESS" ]
 												<div class="col-xs-8">
 													<input id="memberAttribute_${memberAttribute.id}" name="memberAttribute_${memberAttribute.id}" class="form-control" type="text" maxlength="200">
 												</div>
