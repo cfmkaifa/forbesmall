@@ -159,7 +159,7 @@ public class ProductController extends BaseController {
 
 
     /**
-     * 详情
+     * 团购商品详情
      */
     @GetMapping("/group-purch-detail/{productId}")
     public String groupPurchDetail(@PathVariable Long productId, HttpServletRequest request,
