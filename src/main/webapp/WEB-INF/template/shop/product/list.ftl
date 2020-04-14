@@ -388,7 +388,7 @@
                         [/#list]
                         [#if filterProductCategories?has_content || filterBrands?has_content || filterAttributes?has_content]
                             <div id="filter" class="filter[#if attributeValueMap?has_content] expanded[/#if]">
-                                <div class="filter-body">
+                                <div class="filter-body filter-adl">
                                     <dl class="dl-horizontal">
                                         [#if filterProductCategories?has_content]
                                             <dt>${message("shop.product.productCategory")}:</dt>
