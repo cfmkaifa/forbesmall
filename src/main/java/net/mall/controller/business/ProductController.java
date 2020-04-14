@@ -269,7 +269,7 @@ public class ProductController extends BaseController {
             }
             productForm.setStoreProductCategory(storeProductCategory);
         }
-        productForm.setPurch(true);
+        productForm.setPurch(false);
         productForm.setIsAudit(Product.ProApplyStatus.PENDING);
         productForm.setStore(currentStore);
         productForm.setProductCategory(productCategory);
