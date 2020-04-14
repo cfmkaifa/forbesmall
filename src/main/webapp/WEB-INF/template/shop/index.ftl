@@ -325,7 +325,7 @@
                     <ul class="listbarul">
                         <li>
                             <img src="${base}/resources/shop/images/1.png">
-                            <p><a href="http://www.chinafibermarketing.com/resources/shop/html/smartFactory.html">${message("shop.index.smart")}</a></p>
+                            <p><a href="http://www.chinafibermarketing.com/article/smart">${message("shop.index.smart")}</a></p>
                         </li>
                         <li>
                             <img src="${base}/resources/shop/images/2.png">
@@ -333,7 +333,7 @@
                         </li>
                         <li>
                             <img src="${base}/resources/shop/images/5.png">
-                            <p><a href="#">${message("shop.index.marketanalyze")}</a></p>
+                            <p><a href="http://www.chinafibermarketing.com/article/declarecenter">${message("shop.index.marketanalyze")}</a></p>
                         </li>
                         <li>
                             <img src="${base}/resources/shop/images/3.png">
@@ -345,7 +345,7 @@
                         </li>
                         <li>
                             <img src="${base}/resources/shop/images/6.png">
-                            <p><a href="http://www.chinafibermarketing.com/resources/shop/html/companyIntroduction.html?v=1.0">${message("shop.index.aboutus")}</a></p>
+                            <p><a href="http://www.chinafibermarketing.com/resources/shop/html/we.html?v=1.0">${message("shop.index.aboutus")}</a></p>
                         </li>
                     </ul>
                 </div>

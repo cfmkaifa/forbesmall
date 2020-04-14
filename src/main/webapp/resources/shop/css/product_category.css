@@ -30,9 +30,7 @@
 
 .product-category .sidebar .nav li:hover a, .product-category .sidebar .nav li.active a {
 	color: #ffffff;
-	background: -webkit-linear-gradient(left, #f76359, #ff9f4e);
-	background: linear-gradient(left, #f76359, #ff9f4e);
-	background-color: #ff9f4e;
+	background-color: red;
 }
 
 .product-category .sidebar .nav li .iconfont {

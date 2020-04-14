@@ -206,7 +206,7 @@
 							[#list businessAttributes as businessAttribute]
 								<div class="form-group">
 									<label class="col-xs-3 control-label[#if businessAttribute.isRequired] item-required[/#if]" for="businessAttribute_${businessAttribute.id}">${businessAttribute.name}:</label>
-									[#if businessAttribute.type == "NAME" || businessAttribute.type == "LICENSE_NUMBER" || businessAttribute.type == "LEGAL_PERSON" || businessAttribute.type == "ID_CARD" || businessAttribute.type == "PHONE" || businessAttribute.type == "ORGANIZATION_CODE" || businessAttribute.type == "IDENTIFICATION_NUMBER" || businessAttribute.type == "BANK_NAME" || businessAttribute.type == "BANK_ACCOUNT" || businessAttribute.type == "TEXT"  || businessAttribute.type == "ADDRESS"|| businessAttribute.type == "ZIP_CODE"]
+									[#if businessAttribute.type == "NAME" || businessAttribute.type == "LICENSE_NUMBER" || businessAttribute.type == "LEGAL_PERSON" || businessAttribute.type == "ID_CARD" || businessAttribute.type == "PHONE" || businessAttribute.type == "ORGANIZATION_CODE" || businessAttribute.type == "IDENTIFICATION_NUMBER" || businessAttribute.type == "BANK_NAME" || businessAttribute.type == "BANK_ACCOUNT" || businessAttribute.type == "TEXT"  || businessAttribute.type == "ADDRESS"|| businessAttribute.type == "ZIP_CODE" || businessAttribute.type == "BANK_ADDRESS"]
 										<div class="col-xs-6">
 											<input id="businessAttribute_${businessAttribute.id}" name="businessAttribute_${businessAttribute.id}" class="form-control" type="text" maxlength="200">
 										</div>
@@ -265,7 +265,7 @@
 								<div class="checkbox">
 									<input id="agree" name="agree" type="checkbox" value="true" checked>
 									<label for="agree">${message("business.register.agree")}</label>
-									<a class="text-red" href="${base}/article/detail/35_1" target="_blank">${message("business.register.agreement", setting.siteName)}</a>
+									<a class="text-red" href="${base}/article/detail/10903_1" target="_blank">${message("business.register.agreement", setting.siteName)}</a>
 								</div>
 							</div>
 						</div>

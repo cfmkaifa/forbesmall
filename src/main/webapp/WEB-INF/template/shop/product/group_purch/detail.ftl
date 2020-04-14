@@ -398,11 +398,10 @@
                                                                     class="unit-2">${currency(defaultSku.groupPrice, true)}</strong>
                             <span class="unit-2">/${product.unit}</span>
                         </p>
+                        <p>${message("Product.shelfTime")}：<span>${product.lastModifiedDate}</span></p>
                         <div style="display: flex">
-                            [#--  <p><span>[#noautoesc]介绍：${product.introduction}[/#noautoesc]</span></p>--]
+                            <p>${message("Product.serviceCall")}:[#noautoesc]${product.introduction}[/#noautoesc]</p>
                         </div>
-                        <p>${message("Product.shelfTime")}：<span>${product.createdDate}</span></p>
-                        <p>${message("Product.serviceCall")}：<span>${product.store.phone}</span></p>
                     </div>
                     <ul class="clearfix">
                         <li>

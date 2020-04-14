@@ -372,6 +372,7 @@
                         <div style="display: flex">
                             <p>${message("Product.serviceCall")}:[#noautoesc]${product.introduction}[/#noautoesc]</p>
                         </div>
+                        <p>${message("Product.storephone")}:<span>${product.member.mobile}</span></p>
                     </div>
                     <div>
 
