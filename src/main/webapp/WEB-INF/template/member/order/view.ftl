@@ -468,7 +468,7 @@
 												<a id="cancel" class="btn btn-default"  href="javascript:;">${message("member.order.cancel")}</a>
 											[/#if]
 											[#if !order.hasExpired() && order.status == "SHIPPED"]
-												<a id="receive" class="btn btn-default" style="float: left;margin: -31px 0px 0px 287px;" href="javascript:;">${message("member.order.receive")}</a>
+												<a id="receive" class="btn btn-default" style="float: left;margin: 0px 15px 0px 287px;background:#108ee9;color:#ffffff;" href="javascript:;">${message("member.order.receive")}</a>
 											[/#if]
 										</div>
 									</div>

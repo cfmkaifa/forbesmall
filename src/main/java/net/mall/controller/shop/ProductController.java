@@ -116,7 +116,7 @@ public class ProductController extends BaseController {
         if(sourceProduct == null){
             model.addAttribute("product", product);
         }else {
-            product.setCreatedDate(sourceProduct.getCreatedDate());
+            /*product.setCreatedDate(sourceProduct.getCreatedDate());*/
             model.addAttribute("product", product);
         }
         if(currentUser!=null){
@@ -333,7 +333,7 @@ public class ProductController extends BaseController {
         model.addAttribute("orderType", orderType);
         model.addAttribute("pageNumber", pageNumber);
         model.addAttribute("pageSize", pageSize);
-        model.addAttribute("page", productService.findPage(type, 3,isSample[0], storeType, null, null,null, storeProductCategory, brand, promotion, productTag, null, null, startPrice, endPrice, true, true, null, true, isOutOfStock, null, null, orderType, pageable));
+        model.addAttribute("page", productService.findPage(type, 3,isSample[0], storeType, null, null,null, storeProductCategory, brand, promotion, productTag, null, null, startPrice, endPrice, true, true, null, true, isOutOfStock, null, null, Product.OrderType.DATE_DESC, pageable));
         return "shop/product/list";
     }
 
