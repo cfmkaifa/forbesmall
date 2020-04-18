@@ -104,12 +104,15 @@ public class ArticleDaoImpl extends BaseDaoImpl<Article, Long> implements Articl
             subquery.select(subqueryRoot);
             subquery.where(criteriaBuilder.or(criteriaBuilder.equal(subqueryRoot, articleCategory), criteriaBuilder.like(subqueryRoot.<String>get("treePath"), "%" + ArticleCategory.TREE_PATH_SEPARATOR + articleCategory.getId() + ArticleCategory.TREE_PATH_SEPARATOR + "%")));
             restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.in(root.get("articleCategory")).value(subquery));
+            criteriaQuery.orderBy(criteriaBuilder.desc(root.get("createdDate")));
         }
         if (articleTag != null) {
             restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.join("articleTags"), articleTag));
+            criteriaQuery.orderBy(criteriaBuilder.desc(root.get("createdDate")));
         }
         if (isPublication != null) {
             restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("isPublication"), isPublication));
+            criteriaQuery.orderBy(criteriaBuilder.desc(root.get("createdDate")));
         }
         criteriaQuery.where(restrictions);
         if (pageable == null || ((StringUtils.isEmpty(pageable.getOrderProperty()) || pageable.getOrderDirection() == null) && CollectionUtils.isEmpty(pageable.getOrders()))) {

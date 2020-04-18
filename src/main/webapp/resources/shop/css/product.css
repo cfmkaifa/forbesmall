@@ -103,6 +103,7 @@
 .product-list .filter .filter-body dl dd {
 	position: relative;
 	border-bottom: 1px solid #f8f8f8;
+	margin-left: 0;
 }
 
 .product-list .filter .filter-body dl dd:last-child {
@@ -1462,7 +1463,7 @@
 	margin: 10px 5px 20px 15px;
 }
 .price-2 {
-	width: 130px;
+	/*width: 130px;*/
 	margin: 21px 0px 0px 0px;
 	text-align: center;
 }

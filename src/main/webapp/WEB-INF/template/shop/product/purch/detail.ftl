@@ -377,7 +377,7 @@
                     <div>
 
                     </div>
-                    <ul class="clearfix">
+                   [#-- <ul class="clearfix">
                         <li>
                             ${message("Product.monthSales")}:
                             <strong>${product.monthSales}</strong>
@@ -390,8 +390,8 @@
                             ${message("Product.score")}:
                             <strong>${product.score?string("0.0")}</strong>
                         </li>
-                    </ul>
-                    <div class="xing-22">
+                    </ul>--]
+                    [#--<div class="xing-22">
                         <p style="font-size: 15px;">${message("shop.mainHeader.saler")}</p>
                         <div class="star-level">
                             <div class="xing-2">
@@ -404,7 +404,7 @@
                         <div class="thecompany-2">
                             ${product.member.name}
                         </div>
-                    </div>
+                    </div>--]
                     <div class="drawer-2">
                         <span class="iconfont" style="color: orange">&#xe6ee;</span>
                         <p>${message("shop.mainHeader.drawer")}${product.member.name}</p>
@@ -435,7 +435,7 @@
                         </div>
                     [/#if]
                     <div class="quantity">
-                        <dl class="dl-horizontal clearfix">
+                        [#--<dl class="dl-horizontal clearfix">
                             <dt>${message("shop.product.quantity")}:</dt>
                             <dd>
                                 <div class="spinner input-group input-group-sm" data-trigger="spinner">
@@ -452,7 +452,7 @@
                                 </div>
                                 <span class="unit">${message("Product.defaultUnit")}</span>
                             </dd>
-                        </dl>
+                        </dl>--]
                     </div>
                     <div class="action">
                         [#if defaultSku.isOutOfStock]
