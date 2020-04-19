@@ -424,7 +424,7 @@ public class ProductController extends BaseController {
         }
         Store store = storeService.find(storeId);
         Pageable pageable = new Pageable(pageNumber, pageSize);
-        return ResponseEntity.ok(productService.search(keyword, null, null, store, null, null, startPrice, endPrice, orderType, pageable).getContent());
+        return ResponseEntity.ok(productService.search(keyword, null, null, store, null, null, startPrice, endPrice, Product.OrderType.DATE_DESC, pageable).getContent());
     }
 
     /**
