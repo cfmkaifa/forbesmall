@@ -166,7 +166,7 @@ public class RegisterController extends BaseController {
         member.setProductNotifies(null);
         member.setSocialUsers(null);
         member.setPointLogs(null);
-        member.setIsAudit(User.CheckStatus.CHECKING);
+        member.setIsAudit(User.CheckStatus.SUCCESS);
         userService.register(member);
         userService.login(new UserAuthenticationToken(Member.class, username, password, false, request.getRemoteAddr()));
         Member spreadMember = memberService.findByUsername(spreadMemberUsername);
