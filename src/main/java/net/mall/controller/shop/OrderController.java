@@ -380,6 +380,7 @@ public class OrderController extends BaseController {
         model.addAttribute("defaultPaymentMethod", paymentMethods.get(0));
         model.addAttribute("paymentMethods", paymentMethods);
         model.addAttribute("shippingMethods", shippingMethodService.findAll());
+        model.addAttribute("member",currentUser);
         return "shop/order/checkout";
     }
 

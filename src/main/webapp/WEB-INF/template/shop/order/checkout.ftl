@@ -571,7 +571,7 @@
                                     <label class="col-xs-1 control-label">${message("shop.order.invoiceTitle")}</label>
                                     <div class="col-xs-4">
                                         <input id="invoiceTitle" name="invoiceTitle" class="form-control" type="text"
-                                               value="${sku.product.store.name}" maxlength="200"
+                                               value="${member.name}" maxlength="200"
                                                disabled>
                                     </div>
                                 </div>
@@ -579,7 +579,7 @@
                                     <label class="col-xs-1 control-label">${message("shop.order.invoiceTaxNumber")}</label>
                                     <div class="col-xs-4">
                                         <input id="invoiceTaxNumber" name="invoiceTaxNumber" class="form-control"
-                                               type="text" maxlength="200" value="${sku.product.store.bussiness.identificationNumber}" disabled>
+                                               type="text" maxlength="200" value="${member.identificationNumber}" disabled>
                                     </div>
                                 </div>
                             </div>
