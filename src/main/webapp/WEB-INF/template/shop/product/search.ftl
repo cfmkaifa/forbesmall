@@ -331,49 +331,45 @@
                                     <li class="list-item">
                                         <div class="list-item-body"
                                              style="display: flex;justify-content: space-around;">
-                                            [#if product.purch]
-                                                <div class="purchase">${message("shop.mainHeader.purchase")}</div>
+                                            [#if product.purch ]
+                                                <div class="purchasedata">${message("shop.mainHeader.purchase")}</div>
                                             [#else ]
                                                 <div class="supply-1">${message("shop.mainHeader.supply")}</div>
                                             [/#if]
                                             <a href="${base}${product.path}" target="_blank" class="aaaa">
-                                                <img id="productImage${product.id}"
-                                                     class="listimg lazy-load img-responsive"
-                                                     src="${base}/resources/common/images/transparent.png"
-                                                     alt="${product.name}"
-                                                     data-original="${product.thumbnail!setting.defaultThumbnailProductImage}">
-                                                <img [#if product.sample ] src="/resources/shop/images/biao.png" class="active-2" [/#if]>
+                                                <img id="productImage${product.id}" class="listimg lazy-load img-responsive" src="${base}/resources/common/images/transparent.png" alt="${product.name}" data-original="${product.thumbnail!setting.defaultThumbnailProductImage}" />
+                                                <img [#if product.sample ] src="/resources/shop/images/biao.png" class="active-3" [/#if] />
                                             </a>
                                             <div class="product-left-2">
                                                 <ul>
                                                     <li class="product-li-12">
-
 															<span class="product-name">
 																<b>
 																	<a href="${base}${product.path}" target="_blank">
-																	<h5 class="text-overflow"
-                                                                        title="${product.name}">${product.name}</h5>
-																	[#if product.caption?has_content]
-                                                                        <h6 class="text-overflow"
-                                                                            title="${product.caption}">${product.caption}</h6>
-                                                                    [/#if]
+                                                                        <h5 class="text-overflow"  title="${product.name}">${product.name}</h5>
+                                                                        [#if product.caption?has_content]
+                                                                            <h6 class="text-overflow" title="${product.caption}">${product.caption}</h6>
+                                                                        [/#if]
 																	</a>
 																</b>
 															</span>
                                                         <span class="product-specifications">
-																	${defaultSku.specificationVal}
-																</span>
+                                                            ${defaultSku.specificationVal}
+                                                        </span>
                                                         <span class="product-brand">
-																	<a href="${base}${product.brand.path}"
-                                                                       target="_blank">
-																		${product.brand.name}
-																</span>
+                                                            [#if product.brand?has_content]
+                                                                <a href="${base}${product.brand.path}"  target="_blank" >${product.brand.name}</a>
+                                                            [/#if]
+
+                                                        </span>
                                                     </li>
                                                     <li>
                                                             <span class="specific-2">
-															   ${message("shop.product.state")}
+															 ${message("shop.product.state")}
 															</span>
-                                                        [#noautoesc]${product.introduction}[/#noautoesc]
+                                                        <div class="state">
+                                                            [#noautoesc]${product.introduction}[/#noautoesc]
+                                                        </div>
                                                     </li>
                                                     <li>
                                                     </li>
@@ -388,16 +384,15 @@
                                                         </div>
                                                         <div class="company-2">
                                                             <p class="text-center">
-                                                                 [#if product.purch]
+                                                                [#if product.purch ]
                                                                     ${product.member.name}
-                                                                 [#else ]
-                                                                     <a href="${base}${product.store.path}"
-                                                                        title="${product.store.name}"
-                                                                        target="_blank">${product.store.name}
-                                                                     </a>
-                                                                 [/#if]
-                                                                [#if product.store.type == "SELF"]
-                                                                    <span class="label label-primary">${message("Store.Type.SELF")}</span>
+                                                                [#else ]
+                                                                    <a href="${base}${product.store.path}" title="${product.store.name}" target="_blank">${product.store.name}</a>
+                                                                [/#if]
+                                                                [#if product.store?has_content ]
+                                                                    [#if product.store.type == "SELF"]
+                                                                        <span class="label label-primary">${message("Store.Type.SELF")}</span>
+                                                                    [/#if ]
                                                                 [/#if]
                                                             </p>
                                                         </div>
@@ -418,7 +413,6 @@
                                                         <span class="unit">/${product.unit!message("shop.product.defaultUnit")}</span>
                                                     </b>
                                                 </p>
-
                                                 <p class="guarantee">${message("shop.product.report")}</p>
                                             </div>
                                             <div class="icon-2">
@@ -438,12 +432,10 @@
                                                 </ul>
                                             </div>
                                             <div class="detailsbutton-2">
-                                                [#--<p class="data-2">2019-12-12  13:52:10</p>--]
                                                 <p class="data-2">${product.createdDate}</p>
-                                                [#if product.purch]
+                                                [#if product.purch ]
                                                     <a href="${base}/product/purch-detail/${product.id}" target="_blank">
-                                                        <button type="button"
-                                                                class="button-3">${message("shop.product.detail")}</button>
+                                                        <button type="button" class="button-3">${message("shop.product.detail")}</button>
                                                     </a>
                                                 [#else ]
                                                     <a href="${base}${product.path}" target="_blank">
@@ -451,14 +443,14 @@
                                                                 class="button-3">${message("shop.product.detail")}</button>
                                                     </a>
                                                     [#if product.sample]
-                                                        <a href="${base}/product/sample-detail/${product.id}"
-                                                           target="_blank">
+                                                        <a href="${base}/product/sample-detail/${product.id}"  target="_blank">
                                                             <button type="button"
                                                                     class="button-4">${message("shop.product.sample")}</button>
                                                         </a>
                                                     [/#if]
                                                 [/#if]
                                             </div>
+                                        </div>
                                     </li>
                                 [/#list]
                             </ul>
