@@ -244,15 +244,15 @@
 													<a class="btn btn-default btn-xs btn-icon" href="${base}/admin/member/edit?id=${member.id}" title="${message("common.edit")}" data-toggle="tooltip" data-redirect-url>
 														<i class="iconfont icon-write"></i>
 													</a>
-													[#if member.isAudit == "CHECKING"]
+													[#--[#if member.isAudit == "CHECKING"]--]
 														<a class="review btn btn-default btn-xs btn-icon" href="javascript:;" title="${message("common.review")}" data-toggle="tooltip" data-id="${member.id}">
 															<i class="iconfont icon-comment"></i>
 														</a>
-													[#else ]
+													[#--[#else ]
 														<button class="btn btn-default btn-xs btn-icon" type="button"  data-toggle="tooltip" disabled>
 															<i class="iconfont icon-comment"></i>
 														</button>
-													[/#if]
+													[/#if]--]
 												</td>
 											</tr>
 										[/#list]
