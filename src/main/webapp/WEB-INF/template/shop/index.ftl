@@ -377,7 +377,7 @@
                                         <div class="factory-2">
                                             [@ad_factory]
                                                 [#list adFactory.content as stores]
-                                                    [#if stores.id !=10551 && stores.id != 10451]
+                                                    [#if stores.id !=10551 && stores.id != 10451 && stores.id != 10651]
                                                     <div class="swiper-2">
                                                         <a href="${base}/store/${stores.id}">
 																<span class="swiper_title-2">
