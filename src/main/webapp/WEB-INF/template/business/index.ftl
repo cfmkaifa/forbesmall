@@ -186,9 +186,9 @@
 							[#elseif currentStore.status == "FAILED"]
 								<a class="btn btn-primary" href="${base}/business/store/reapply">${message("business.index.storeReapply")}</a>
 							[#elseif currentStore.status == "APPROVED"]
-								<a class="btn btn-primary" href="${base}/business/store/payment">${message("business.index.storePayment")}</a>
+								<a class="btn btn-primary" href="${base}/business/store/payment/${currentStore.storeRank.id}">${message("business.index.storePayment")}</a>
 							[#elseif currentStore.hasExpired()]
-								<a class="btn btn-primary" href="${base}/business/store/payment">${message("business.index.storeRenewal")}</a>
+								<a class="btn btn-primary" href="${base}/business/store/payment/${currentStore.storeRank.id}">${message("business.index.storeRenewal")}</a>
 							[/#if]
 							<a id="logout" class="btn btn-default" href="${base}/business/logout">${message("business.index.logout")}</a>
 						</div>
