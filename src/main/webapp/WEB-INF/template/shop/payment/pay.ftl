@@ -24,6 +24,7 @@
             </script>
         [/#escape]
     [/#noautoesc]
+    [#include "/common/js/buried_point.ftl"]
 </head>
 <body>
 <form id="payForm" action="${requestUrl}"
