@@ -29,4 +29,8 @@
     sensors.quick('autoTrack', {
         platform:'h5'
     })
+    // 增加平台
+    sensors.registerPage({
+        platform: "${base}"
+    });
 </script>
