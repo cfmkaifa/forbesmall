@@ -31,6 +31,6 @@
     })
     //以异步加载 SDK 为例，神策 SDK 初始化完成，此时调用设置公共属性的方法，来保证之后的事件都有这两个属性。
     sensors.registerPage({
-        platform: ${base}
+        platform: "${base}"
     });
 </script>

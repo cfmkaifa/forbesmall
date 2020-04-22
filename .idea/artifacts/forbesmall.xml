@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="forbesmall">
+    <output-path>$PROJECT_DIR$/target/artifacts/forbesmall</output-path>
+    <root id="root">
+      <element id="module-output" name="forbesmall" />
+    </root>
+  </artifact>
+</component>
