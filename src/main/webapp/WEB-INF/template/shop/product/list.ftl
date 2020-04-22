@@ -63,8 +63,7 @@
             <div class="media">
                 <div class="media-left media-middle">
                     <a href="${base}<%-compareProduct.path%>" target="_blank">
-                        <img class="media-object img-thumbnail"
-                             src="<%-compareProduct.thumbnail != null ? compareProduct.thumbnail : "${setting.defaultThumbnailProductImage}"%>" alt="<%-compareProduct.name%>">
+                        <img class="media-object img-thumbnail" src="<%-compareProduct.thumbnail != null ? compareProduct.thumbnail : "${setting.defaultThumbnailProductImage}"%>" alt="<%-compareProduct.name%>">
                     </a>
                 </div>
                 <div class="media-body media-middle">

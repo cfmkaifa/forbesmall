@@ -6,7 +6,6 @@
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/../smartwork/rl_zg_usercenter/pom.xml" />
         <option value="$PROJECT_DIR$/smartwork_gateway/pom.xml" />
       </list>
