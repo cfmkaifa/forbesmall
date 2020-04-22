@@ -7,8 +7,6 @@
         <packaging>war</packaging>
       </options>
     </properties>
-    <root id="archive" name="ROOT.war">
-      <element id="artifact" artifact-name="forbesmall:war exploded" />
-    </root>
+    <root id="archive" name="ROOT.war" />
   </artifact>
 </component>
