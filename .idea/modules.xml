@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/forbesmall.iml" filepath="$PROJECT_DIR$/forbesmall.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/forbesmall.iml" filepath="$PROJECT_DIR$/.idea/forbesmall.iml" />
     </modules>
   </component>
 </project>
