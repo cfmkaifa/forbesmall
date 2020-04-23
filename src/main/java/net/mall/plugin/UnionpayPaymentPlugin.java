@@ -123,7 +123,6 @@ public class UnionpayPaymentPlugin extends PaymentPlugin {
         if("0:0:0:0:0:0:0:1".equalsIgnoreCase(clientIp)){
             clientIp = "127.0.0.1";
         }
-        System.out.println("========clientIp======"+clientIp);
         return clientIp;
     }
 
@@ -167,13 +166,13 @@ public class UnionpayPaymentPlugin extends PaymentPlugin {
 //        parameterMap.put("currencyCode", "156");
 //        parameterMap.put("txnAmt", String.valueOf(paymentTransaction.getAmount().multiply(new BigDecimal(100)).setScale(0)));
 //        parameterMap.put("txnTime", DateFormatUtils.format(new Date(), "yyyyMMddHHmmss"));
-         parameterMap.put("Version", "20150922");
+         parameterMap.put("Version", "20140728");
          parameterMap.put("MerId", merchantId);
          parameterMap.put("MerOrderNo", paymentTransaction.getSn());
          parameterMap.put("TranDate", DateFormatUtils.format(new Date(), "yyyyMMdd"));
          parameterMap.put("TranTime", DateFormatUtils.format(new Date(), "HHmmss"));
          parameterMap.put("OrderAmt",String.valueOf(paymentTransaction.getAmount().multiply(new BigDecimal(100)).setScale(0)));
-         parameterMap.put("TranType", "0004");
+         parameterMap.put("TranType", "0002");
          parameterMap.put("BusiType", "0001");
          parameterMap.put("MerPageUrl", getPostPayUrl(paymentPlugin, paymentTransaction));
          parameterMap.put("MerBgUrl", getPostPayUrl(paymentPlugin, paymentTransaction));
