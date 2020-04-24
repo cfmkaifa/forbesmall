@@ -191,6 +191,8 @@ public class UnionpayPaymentPlugin extends PaymentPlugin {
     @Override
     public boolean isPaySuccess(PaymentPlugin paymentPlugin, PaymentTransaction paymentTransaction, String paymentDescription, String extra, HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String, Object> parameterMap = new HashMap<>();
+        String certId = getCertId();
+        String merchantId = getMerchantId();
 //        Order order = paymentTransaction.getOrder();
 //        String certId = getCertId();
 //        String merchantId = getMerchantId();
@@ -224,7 +226,7 @@ public class UnionpayPaymentPlugin extends PaymentPlugin {
 //        // generateSign(parameterMap, privateKey)
 //        Map<String, String> resultMap = WebUtils.parse(result);
         parameterMap.put("Version", "20150922");
-        parameterMap.put("MerId", "531112001080001");
+        parameterMap.put("MerId", merchantId);
         parameterMap.put("MerOrderNo", paymentTransaction.getSn());
         parameterMap.put("TranDate", DateFormatUtils.format(new Date(), "yyyyMMdd"));
         parameterMap.put("TranType", "0502");
