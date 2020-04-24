@@ -7,8 +7,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bc5e5ed1-96c1-46e3-948c-a8aa1ccb6836" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/plugin/UnionpayPaymentPlugin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/plugin/UnionpayPaymentPlugin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/cert/info.pfx" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/cert/info.pfx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/security.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/security.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -83,7 +81,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/cert" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -259,11 +257,6 @@
                 <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
                 <item name="Tomcat Server" type="7427dc5b:ServiceModel$ServiceGroupNode" />
               </path>
-              <path>
-                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-                <item name="Tomcat Server" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-                <item name="Running" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              </path>
             </expand>
             <select />
           </treeState>
@@ -325,6 +318,7 @@
       <workItem from="1587519805039" duration="798000" />
       <workItem from="1587520720502" duration="501000" />
       <workItem from="1587621889928" duration="2500000" />
+      <workItem from="1587686771107" duration="12000" />
     </task>
     <task id="LOCAL-00001" summary="中文替换">
       <created>1583208192749</created>
