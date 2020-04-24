@@ -126,6 +126,7 @@ public class UnionpayPaymentController extends BaseController {
             } catch (NoSuchAlgorithmException e) {
                 throw new RuntimeException(e.getMessage(), e);
             } catch (RuntimeException e) {
+                e.printStackTrace();
                 return Results.unprocessableEntity("admin.plugin.unionpayPayment.keyInvalid");
             } finally {
                 IOUtils.closeQuietly(inputStream);
