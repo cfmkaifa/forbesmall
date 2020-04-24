@@ -167,13 +167,13 @@ public class UnionpayPaymentPlugin extends PaymentPlugin {
 //        parameterMap.put("currencyCode", "156");
 //        parameterMap.put("txnAmt", String.valueOf(paymentTransaction.getAmount().multiply(new BigDecimal(100)).setScale(0)));
 //        parameterMap.put("txnTime", DateFormatUtils.format(new Date(), "yyyyMMddHHmmss"));
-         parameterMap.put("Version", "20150922");
+         parameterMap.put("Version", "20140728");
          parameterMap.put("MerId", merchantId);
          parameterMap.put("MerOrderNo", paymentTransaction.getSn());
          parameterMap.put("TranDate", DateFormatUtils.format(new Date(), "yyyyMMdd"));
          parameterMap.put("TranTime", DateFormatUtils.format(new Date(), "HHmmss"));
          parameterMap.put("OrderAmt",String.valueOf(paymentTransaction.getAmount().multiply(new BigDecimal(100)).setScale(0)));
-         parameterMap.put("TranType", "0004");
+         parameterMap.put("TranType", "0002");
          parameterMap.put("BusiType", "0001");
          parameterMap.put("MerPageUrl", getPostPayUrl(paymentPlugin, paymentTransaction));
          parameterMap.put("MerBgUrl", getPostPayUrl(paymentPlugin, paymentTransaction));
@@ -224,8 +224,10 @@ public class UnionpayPaymentPlugin extends PaymentPlugin {
 //        String result = WebUtils.post(QUERY_REQUEST_URL, parameterMap);
 //        // generateSign(parameterMap, privateKey)
 //        Map<String, String> resultMap = WebUtils.parse(result);
+        String certId = getCertId();
+        String merchantId = getMerchantId();
         parameterMap.put("Version", "20150922");
-        parameterMap.put("MerId", "531112001080001");
+        parameterMap.put("MerId", merchantId);
         parameterMap.put("MerOrderNo", paymentTransaction.getSn());
         parameterMap.put("TranDate", DateFormatUtils.format(new Date(), "yyyyMMdd"));
         parameterMap.put("TranType", "0502");
