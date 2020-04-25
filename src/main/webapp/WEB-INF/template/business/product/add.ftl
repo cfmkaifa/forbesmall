@@ -1107,7 +1107,7 @@
 										<div class="col-xs-9 col-sm-10">
 											[#list productTags as productTag]
 												<div class="checkbox checkbox-inline">
-													<input id="productTag_${productTag.id}" name="productTagIds" type="checkbox" value="true" checked>
+													<input id="productTag_${productTag.id}" name="productTagIds" type="checkbox" value="${productTag.id}" checked>
 													<label for="productTag_${productTag.id}">${productTag.name}</label>
 												</div>
 											[/#list]

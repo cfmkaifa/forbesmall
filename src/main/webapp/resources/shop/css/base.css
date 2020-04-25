@@ -1021,7 +1021,7 @@
 }
 .record p {
 	color: #63C6F2;
-	margin: 21px auto auto 10px;
+	/*margin: 21px auto auto 10px;*/
 }
 .record p a {
 	color: #000000 !important;
@@ -1049,4 +1049,9 @@
 }
 .totality-2 span {
 	color: red;
+}
+
+.foots{
+	margin-left: 10px;
+	margin-top: 10px;
 }

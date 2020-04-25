@@ -551,7 +551,7 @@
                 <div class="panel-body">
                     [#if orderType == "GENERAL"]
                         [#if setting.isInvoiceEnabled]
-                            <div id="invoiceWrapper">
+                            [#--<div id="invoiceWrapper">
                                 <div class="form-group">
                                     <label class="col-xs-1 control-label">${message("shop.order.isInvoice")}</label>
                                     <div class="col-xs-1">
@@ -582,7 +582,7 @@
                                                type="text" maxlength="200"  value="${member.identificationNumber}" disabled>
                                     </div>
                                 </div>
-                            </div>
+                            </div>--]
                         [/#if]
                         <div class="form-group">
                             <label class="col-xs-1 control-label">${message("shop.order.coupon")}</label>
