@@ -962,7 +962,7 @@
 										</div>
 										<div class="col-xs-12 col-sm-6">
 											<div class="form-group">
-												<label class="col-xs-4 control-label" for="shippingFreight">${message("OrderShipping.freight")}:</label>
+												<label class="col-xs-4 control-label item-required" for="shippingFreight">${message("OrderShipping.freight")}:</label>
 												<div class="col-xs-8">
 													<input id="shippingFreight" name="freight" class="form-control" type="text" maxlength="16">
 												</div>
@@ -978,9 +978,9 @@
 										</div>
 										<div class="col-xs-12 col-sm-6">
 											<div class="form-group">
-												<label class="col-xs-4 control-label item-required" for="shippingZipCode">${message("OrderShipping.zipCode")}:</label>
+												<label class="col-xs-4 control-label " for="shippingZipCode">${message("OrderShipping.zipCode")}:</label>
 												<div class="col-xs-8">
-													<input id="shippingZipCode" name="zipCode" class="form-control" type="text" value="${order.zipCode}" maxlength="200">
+													<input id="shippingZipCode" name="zipCode" class="form-control" type="text" value="" maxlength="200">
 												</div>
 											</div>
 										</div>
@@ -1002,9 +1002,9 @@
 										</div>
 										<div class="col-xs-12 col-sm-6">
 											<div class="form-group">
-												<label class="col-xs-4 control-label item-required" for="shippingPhone">${message("OrderShipping.phone")}:</label>
+												<label class="col-xs-4 control-label" for="shippingPhone">${message("OrderShipping.carnumber")}:</label>
 												<div class="col-xs-8">
-													<input id="shippingPhone" name="phone" class="form-control" type="text" value="${order.phone}" maxlength="200">
+													<input id="shippingPhone" name="phone" class="form-control" type="text" value="" maxlength="200">
 												</div>
 											</div>
 										</div>

@@ -159,7 +159,10 @@
                     <img src="https://rz.ce9000.org/cec/qxrz.png" alt="企信验证实名网站" width="128" height="47" border="0" />
                 </a>
             </div>
-            <p><a href="http://www.miit.gov.cn/" target="_blank">沪ICP备17024305号-2</a></p>
+            <div class="foots">
+                <p><a href="https://tsm.miit.gov.cn" target="_blank">沪B2-20200070</a></p>
+                <p><a href="http://www.beian.miit.gov.cn/" target="_blank">沪ICP备17024305号-2</a></p>
+            </div>
         </div>
     </div>
 </footer>

@@ -551,7 +551,7 @@
                 <div class="panel-body">
                     [#if orderType == "GENERAL"]
                         [#if setting.isInvoiceEnabled]
-                            <div id="invoiceWrapper">
+                            [#--<div id="invoiceWrapper">
                                 <div class="form-group">
                                     <label class="col-xs-1 control-label">${message("shop.order.isInvoice")}</label>
                                     <div class="col-xs-1">
@@ -566,8 +566,8 @@
                                                 : ${setting.taxRate * 100}%</p>
                                         </div>
                                     [/#if]
-                                </div>
-                                <div class="form-group hidden-element">
+                                </div>--]
+                                [#--<div class="form-group hidden-element">
                                     <label class="col-xs-1 control-label">${message("shop.order.invoiceTitle")}</label>
                                     <div class="col-xs-4">
                                         <input id="invoiceTitle" name="invoiceTitle" class="form-control" type="text"
@@ -581,17 +581,17 @@
                                         <input id="invoiceTaxNumber" name="invoiceTaxNumber" class="form-control"
                                                type="text" maxlength="200" value="${member.identificationNumber}" disabled>
                                     </div>
-                                </div>
-                            </div>
+                                </div>--]
+                           [#-- </div>--]
                         [/#if]
-                        <div class="form-group">
+                       [#-- <div class="form-group">
                             <label class="col-xs-1 control-label">${message("shop.order.coupon")}</label>
                             <div class="col-xs-4">
                                 <span id="couponName" class="coupon-name"></span>
                                 <input id="couponCode" name="code" class="form-control" type="text" maxlength="200"
                                        placeholder="${message("shop.order.couponCodePlaceholder")}">
                             </div>
-                        </div>
+                        </div>--]
                     [/#if]
                     [#if currentUser.availableBalance > 0]
                         <div id="balanceWrapper"[#if amount <= 0] class="hidden-element"[/#if]>
