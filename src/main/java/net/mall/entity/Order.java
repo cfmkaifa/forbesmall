@@ -306,6 +306,20 @@ public class Order extends BaseEntity<Long> {
     private String zipCode;
 
     /**
+     * 车牌号
+     */
+    @NotEmpty(groups = Delivery.class)
+    @Column(name = "plate")
+    private String plate;
+
+    /**
+     * 司机姓名
+     */
+    @NotEmpty(groups = Delivery.class)
+    @Column(name = "driver")
+    private String driver;
+
+    /**
      * 电话
      */
     @NotEmpty(groups = Delivery.class)
@@ -1763,6 +1777,25 @@ public class Order extends BaseEntity<Long> {
         if (getShippingMethod() != null) {
             setShippingMethodName(getShippingMethod().getName());
         }
+    }
+
+    /**
+     *设置车牌号
+     */
+    public String getPlate() {
+        return plate;
+    }
+
+    public void setPlate(String plate) {
+        this.plate = plate;
+    }
+
+    public String getDriver() {
+        return driver;
+    }
+
+    public void setDriver(String driver) {
+        this.driver = driver;
     }
 
     /**

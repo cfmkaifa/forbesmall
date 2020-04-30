@@ -48,6 +48,8 @@
                         [/#list]
                     ];
 
+                    var $sealContractFile = $("#sealContractFile");
+
                     if (orderSns.length > 0) {
                         $rePayUrl.val("${base}/order/payment?" + $.param({
                             orderSns: orderSns
@@ -124,7 +126,6 @@
                             }
                         });
                     });
-
                 });
             </script>
         [/#escape]
@@ -135,6 +136,34 @@
 [#include "/shop/include/main_sidebar.ftl" /]
 <main>
     <div class="container">
+        <!--订单合同start-->
+        [#list orders as order]
+            <div id="sealContractModal" class="modal fade" tabindex="-1">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button class="close" type="button" data-dismiss="modal">&times;</button>
+                            <h5 class="modal-title">${message("member.order.sealContract")}</h5>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12">
+                                    <input    id="sealContractPath"  type="hidden" value="" >
+                                    <input  class="btn btn-primary"  id="sealContractFile" name="file" type="file" >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            [#if !order.hasExpired() && (order.status == "PENDING_PAYMENT" || order.status == "PENDING_REVIEW") ]
+                                <button class="btn btn-primary" type="button" id="sealContractConfirm" >${message("common.ok")}</button>
+                            [/#if]
+                            <button class="btn btn-default" type="button" data-dismiss="modal">${message("common.cancel")}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        [/#list]
+        <!--订单合同end-->
         <div id="payConfirmModal" class="pay-confirm-modal modal fade" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -171,7 +200,7 @@
                             </div>
                             <div class="media-body media-middle">
                                 <div class="row">
-                                    <div class="col-xs-7">
+                                    <div class="col-xs-6">
                                         [#if order.status == "PENDING_PAYMENT"]
                                             <h3>${message("shop.order.pendingPayment")}</h3>
                                         [#elseif order.status == "PENDING_REVIEW"]
@@ -197,6 +226,9 @@
                                             <p>[#noautoesc]${message("shop.order.expireTips", expireDate?string("yyyy-MM-dd HH:mm:ss"))}[/#noautoesc]</p>
                                         </div>
                                     [/#if]
+                                    <div class="col-xs-1">
+                                        <a href="javascript:;" class="btn btn-primary looklook" data-toggle="modal" data-target="#sealContractModal">${message("shop.compact")}</a>
+                                    </div>
                                 </div>
                             </div>
                             <div class="media-right media-middle">
