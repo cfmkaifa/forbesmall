@@ -312,8 +312,8 @@
 							   <td></td>
 							   <td></td>
 							   <td><a href="${base}/business/store/payment/1" class="memberColor">立即订购</a></td>
-							   <td><a href="${base}/business/store/payment/5" class="memberColor">升级会员</a></td>
-							   <td><a href="${base}/business/store/payment/6" class="memberColor">升级会员</a></td>
+							   <td><a href="${base}/business/store/payment/5" class="memberColor">立即订购</a></td>
+							   <td><a href="${base}/business/store/payment/6" class="memberColor">立即订购</a></td>
 						   </tr>
 						   </tbody>
 					   </table>
