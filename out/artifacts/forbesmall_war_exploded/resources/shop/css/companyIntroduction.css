@@ -1,0 +1,350 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    width: 100%;
+    height: 100%;
+    background: #f4f4f4;
+}
+ul li{
+    list-style: none;
+}
+a{
+    text-decoration: none;
+}
+
+.companyIntroduction{
+    position: relative;
+}
+
+.introduce_top{
+    width: 100%;
+    height: 74px;
+    border-bottom: 2px solid #CC0000;
+}
+.introduce{
+    width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    font-size: 16px;
+   
+    /* line-height: 74px; */
+}
+.introduce li{
+    margin-top:38px;
+    margin-left:20px;
+    width: 110px;;
+    height: 36px;
+    text-align: center;
+    line-height: 36px;
+    cursor:pointer;
+    color: #000;
+   
+}
+
+.introduce li.active{
+    color: #fff;
+}
+li.active{
+    background: #CC0000;
+    border-radius: 10px 10px 0 0;
+}
+h2{
+    font-size: 28px;
+}
+
+.banner img{
+    width: 100%;
+    height: 244px;
+}
+
+.introduce_content{
+    width: 1200px;
+    margin:0 auto;
+    position: absolute;
+    top: 110px;
+    left: 50%;
+    transform: translate(-50%);
+    background: #ffffff;
+    padding-bottom: 90px;
+    display:none;
+}
+
+.content0{
+    display: block;
+}
+.content1{
+    display: none;
+}
+.content2{
+    display: none;
+    
+}
+.content3{
+    display: none;
+}
+.content_title{
+    width: 100%;
+    height:210px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #f4f4f4; 
+    box-shadow: 0px 20px 20px -20px #ccc;
+    /* position: relative; */
+}
+.content_title .title_left{
+    display: flex;
+    width: 70%;
+    align-items: center;
+    
+}
+.left_two {
+    margin-top: 10px;
+}
+.left_text{
+    /* width:550px; */
+    /* height:80px; */
+    font-size:30px;
+    font-family:Microsoft YaHei;
+    font-weight:400;
+    color:rgba(45,45,45,1);
+    line-height:40px;
+}
+.return{
+    width:126px;
+    height:45px;
+    /* background:rgba(255,255,255,1); */
+    border:2px solid #CC0000;
+    border-radius:23px;
+    line-height: 45px;
+    text-align: center;
+    font-size: 18px;
+    
+    font-weight:400;
+    margin-right: 60px;
+}
+.return a{
+    color: #CC0000;
+}
+.triangle{
+    width: 0;
+    height: 0;
+    border-top: 30px solid #010d3d;
+    border-bottom: 30px solid #fff;
+    border-right: 30px solid #fff;
+    border-left: 30px solid #010d3d;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.content_text{
+    padding-top: 60px;
+    display: flex;
+    justify-content: space-between;
+    
+}
+.text_left{
+    width: 570px;
+    padding-left: 100px;
+    font-size: 14px;
+    color: #333;
+}
+.text_left span p{
+   margin:30px 0;
+   line-height: 25px;
+}
+.text_right{
+    width:370px;
+    margin-right: 60px;
+    font-size: 20px;
+    line-height: 50px;
+    margin-top: 20px;
+}
+.text_right img {
+    width: 370px;
+    height: 344px;
+    margin-top: 110px;
+}
+.internet_title{
+    display: flex;
+    justify-content:space-between;
+    color: #333;
+    font-weight:400;
+}
+.internet_title p{
+    color: #999999;
+}
+.internet_data{
+    width: 100%;
+    height: 10px;
+    display: flex;
+}
+.internet_data .data_left{
+    width: 80%;
+    height:100%;
+    background: #E91A21;
+}
+.internet_data .data_right{
+    width:20%;
+    height: 100%;
+    background: #EEEEEE;
+}
+.internet_data .data_left2{
+    width: 70%;
+    height:100%;
+    background: #E91A21;
+}
+.internet_data .data_right2{
+    width:30%;
+    height: 100%;
+    background: #EEEEEE;
+}
+.internet_data .data_left3{
+    width: 75%;
+    height:100%;
+    background: #E91A21;
+}
+.internet_data .data_right3{
+    width:25%;
+    height: 100%;
+    background: #EEEEEE;
+}
+.internet_data .data_left4{
+    width: 60%;
+    height:100%;
+    background: #E91A21;
+}
+.internet_data .data_right4{
+    width:40%;
+    height: 100%;
+    background: #EEEEEE;
+}
+.cooperation{
+    background: url(/resources/shop/images/corner.png) no-repeat;
+    font-size: 18px;
+    color: #333;
+    padding: 20px;
+    margin-top: 30px;
+    position: relative;
+    height: 210px;
+}
+.cooperation p{
+    font-weight:normal;
+    /* width: ; */
+}
+.left_one {
+    display: block;
+    width: 51px;
+}
+.left_two {
+    display: block;
+    width: 166px;
+}
+.cooperation .cooperation_button{
+    width: 302px;
+    height: 102px;
+    position: absolute;
+    background: rgba(156,153,153,1);
+    border-radius: 7px;
+    top: 110px;
+    left: 20px;
+    text-align: left;
+    color: #fff;
+    font-size: 17px;
+    line-height: 25px;
+    padding-left: 10px;
+}
+.project{
+    width: 100%;
+    padding-top: 40px;
+}
+.project >span{
+    margin: 10px;
+    line-height:25px
+}
+.project >span>p{
+    width: 80%;
+    margin: 0 auto;
+    font-size: 14px;
+    color: #2D2D2D;
+    /* padding:40px; */
+}
+.project img{
+    width: 80%;
+    /* margin: 0 auto; */
+    margin-left: 10%;
+}
+.contact{
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    color: #fff;
+}
+.contact h4{
+    font-size: 30px;
+    font-weight:400;
+}
+.contact_left{
+    /* width: 50%; */
+    width: 555px;
+    height: 420px;
+    margin: 30px;
+    background: url(/resources/shop/images/contactLeft.png) no-repeat;
+    text-align: center;
+    padding-top: 160px;
+    box-sizing:boder-box;
+    -moz-box-sizing: border-box; 
+    -webkit-box-sizing: border-box;
+    -o-box-sizing: border-box; 
+    -ms-box-sizing: border-box; 
+    line-height: 40px;
+}
+.contact_right>div{
+    display: flex;
+    margin-top: 30px;
+}
+.contact_right span{
+    width: 264px;
+    height: 195px;
+    text-align: center;
+    margin-right: 30px;
+    text-align: center;
+    padding-top: 70px;
+    box-sizing:boder-box;
+    -moz-box-sizing: border-box; 
+    -webkit-box-sizing: border-box;
+    -o-box-sizing: border-box; 
+    -ms-box-sizing: border-box; 
+    line-height: 40px;
+
+}
+.right1{
+    background: url(/resources/shop/images/contactRight1.png) no-repeat;
+}
+.right2{
+    background: url(/resources/shop/images/contactRight2.png) no-repeat;
+}
+.right3{
+    background: url(/resources/shop/images/contactRight3.png) no-repeat;
+}
+.right4{
+    background: url(/resources/shop/images/contactRight4.png) no-repeat;
+}
+.contact_bottom{
+    margin-left: 30px;
+    color: #333333;
+}
+.contact_bottom h5{
+    font-size: 30px;
+    font-weight:400;
+    line-height: 45px;
+}
+#mymap{
+    width:1140px;  
+    height:320px;
+    margin:0;
+    overflow:hidden;  
+    margin-top: 20px;
+}
