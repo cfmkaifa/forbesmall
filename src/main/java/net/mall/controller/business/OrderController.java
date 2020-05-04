@@ -12,6 +12,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.http.ResponseEntity;
@@ -276,7 +277,7 @@ public class OrderController extends BaseController {
 
     /***
      * sealContract方法慨述:
-     * @param orderSn
+     * @param
      * @param sealContractPath
      * @return ResponseEntity<?>
      * @创建人 huanghy
@@ -321,6 +322,7 @@ public class OrderController extends BaseController {
         orderPaymentForm.setFee(BigDecimal.ZERO);
         orderService.payment(order, orderPaymentForm);
 
+
         return Results.OK;
     }
 
@@ -359,7 +361,11 @@ public class OrderController extends BaseController {
      * 发货
      */
     @PostMapping("/shipping")
-    public ResponseEntity<?> shipping(OrderShipping orderShippingForm, @ModelAttribute(binding = false) Order order, Long shippingMethodId, Long deliveryCorpId, Long areaId, @CurrentUser Business currentUser) {
+    public ResponseEntity<?> shipping(HttpServletRequest request,OrderShipping orderShippingForm, @ModelAttribute(binding = false) Order order, Long shippingMethodId, Long deliveryCorpId, Long areaId, @CurrentUser Business currentUser) {
+        String plate=request.getParameter("plate");
+        order.setPlate(plate);
+        String driver=request.getParameter("driver");
+        order.setDriver(driver);
         if (order == null
                 || ConvertUtils.isEmpty(orderShippingForm.getWeightMemo())
                 || order.getShippableQuantity() <= 0) {

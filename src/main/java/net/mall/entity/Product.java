@@ -249,7 +249,7 @@ public class Product extends BaseEntity<Long> {
      * 名称
      */
     @JsonView(BaseView.class)
-    @Field(store = Store.YES, index = Index.YES, analyze = Analyze.YES)
+    @Field(store = Store.YES, index = Index.YES, analyze = Analyze.NO)
     @Boost(1.5F)
     @NotEmpty
     @Length(max = 200)
@@ -2073,7 +2073,7 @@ public class Product extends BaseEntity<Long> {
         return (Sku) CollectionUtils.find(getSkus(), new Predicate() {
             public boolean evaluate(Object object) {
                 Sku sku = (Sku) object;
-                return sku != null && sku.getGroup();
+                return sku != null && ConvertUtils.isNotEmpty(sku.getGroup()) && sku.getGroup();
             }
         });
     }
