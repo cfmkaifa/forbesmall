@@ -63,8 +63,7 @@
 				<prop key="javax.persistence.validation.mode">none</prop>
 				<prop key="hibernate.search.analyzer">net.mall.AnsjAnalyzer</prop>
 				<prop key="hibernate.search.default.directory_provider">filesystem</prop>
-				<!--${java.io.tmpdir}-->
-				<prop key="hibernate.search.default.indexBase">C:/opt/mall_index</prop>
+				<prop key="hibernate.search.default.indexBase">${java.io.tmpdir}/mall_index</prop>
 				<prop key="hibernate.search.lucene_version">LUCENE_55</prop>
 			</props>
 		</property>

@@ -330,6 +330,10 @@ public class Order extends BaseEntity<Long> {
     @Column(name = "certificate_path")
     private String certificatePath;
 
+    // 发票地址
+    @Column(name = "invoice_path")
+    private String invoicePath;
+
     /***合同生成地址
      */
     @Column(name = "contract_path")
@@ -1808,4 +1812,12 @@ public class Order extends BaseEntity<Long> {
     public static class PromotionNameConverter extends BaseAttributeConverter<List<String>> {
     }
 
+
+    public String getInvoicePath() {
+        return invoicePath;
+    }
+
+    public void setInvoicePath(String invoicePath) {
+        this.invoicePath = invoicePath;
+    }
 }

@@ -303,6 +303,30 @@ public class OrderController extends BaseController {
     }
 
 
+    /***
+     * 上传发票
+     * @param orderId
+     * @param invoicePath
+     * @return
+     */
+    @PostMapping("/invoicePath")
+    public ResponseEntity<?> invoicePath(Long orderId, String invoicePath) {
+        if (null == orderId
+                || null == invoicePath
+                || invoicePath.trim().length() == 0) {
+            return Results.UNPROCESSABLE_ENTITY;
+        }
+        Order order = orderService.find(orderId);
+        if (order.getStatus().equals(Status.RECEIVED)) {
+            order.setInvoicePath(invoicePath);
+            orderService.update(order);
+        } else {
+            return Results.UNPROCESSABLE_ENTITY;
+        }
+        return Results.OK;
+    }
+
+
     /**
      * 收款
      */

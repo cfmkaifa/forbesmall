@@ -86,6 +86,8 @@
                     var $shippingWeightMemo = $("#shippingWeightMemo");
                     var $sealContractFile = $("#sealContractFile");
                     var $sealContractConfirm = $("#sealContractConfirm");
+                    var $invoicePathFile = $("#invoicePathFile");
+                    var $invoiceConfirm = $("#invoiceConfirm");
                     // 地区选择
                     $areaId.lSelect({
                         url: "${base}/common/area"
@@ -369,6 +371,82 @@
                                 });
                             }
                         }).find("select").selectpicker();
+                    });
+                    <!--上传发票-->
+                    $invoicePathFile.fileinput({
+                        uploadUrl: "${base}/common/file/upload",
+                        uploadExtraData: {
+                            fileType: "FILE"
+                        },
+                        allowedFileExtensions: "${setting.uploadImageExtension}".split(","),
+                        [#if setting.uploadMaxSize != 0]
+                        maxFileSize: ${setting.uploadMaxSize} * 1024,
+                        [/#if]
+                        maxFileCount: 1,
+                        autoReplace: true,
+                        showClose: false,
+                        showPreview:true,
+                        [#if order.hasExpired() || order.status != "RECEIVED" ]
+                        showRemove: false,
+                        showBrowse:false,
+                        showUpload:false,
+                        showCaption:false,
+                        [/#if]
+                        dropZoneEnabled: false,
+                        overwriteInitial: false,
+                        initialPreviewAsData: true,
+                        previewClass: "file-preview",
+                        [#if order.invoicePath?has_content]
+                            [#if order.invoicePath?contains("pdf")]
+                                initialPreviewFileType:"pdf",
+                                [#else]
+                                initialPreviewFileType:"image",
+                                [/#if]
+                                initialPreview:"${order.invoicePath}",
+                        [/#if]
+                        layoutTemplates: {
+                            footer: '<div class="file-thumbnail-footer">{actions}</div>',
+                            actions: '<div class="file-actions"><div class="file-footer-buttons">{upload} {download} {delete} {zoom} {other}</div>{drag}<div class="clearfix"></div></div>'
+                        },
+                        fileActionSettings: {
+                            showUpload: false,
+                            showRemove: false,
+                            showDrag: false
+                        },
+                        removeFromPreviewOnError: true,
+                        showAjaxErrorDetails: false
+                    }).on("fileloaded", function(event, file, previewId, index, reader) {
+                    }).on("fileuploaded", function(event, data, previewId, index) {
+                        $("#invoicePath").val(data.response.url);
+                    }).on("filecleared fileerror fileuploaderror", function() {
+                    });
+                    <!--发票确认-->
+                    $invoiceConfirm.click(function() {
+                        var invoicePath = $("#invoicePath").val();
+                        if(null == invoicePath
+                            || invoicePath == ''
+                            || invoicePath == 'undefined'){
+                            $.bootstrapGrowl("${message("business.order.uploadFile")}", {
+                                type: "warning"
+                            });
+                            return false;
+                        }
+                        $.ajax({
+                            url: "${base}/business/order/invoicePath",
+                            type: "POST",
+                            data: {
+                                orderId: "${order.id}",
+                                invoicePath:invoicePath
+                            },
+                            dataType: "json",
+                            cache: false,
+                            success: function(data) {
+                                $('#invoiceModal').modal('hide');
+                            },
+                            error: function (xhr, textStatus, errorThrown){
+
+                            }
+                        });
                     });
                     // 审核
                     $review.click(function() {
@@ -690,6 +768,32 @@
             </div>
         </div>
         <!--支付凭证end-->
+        <!--发票start-->
+        <div id="invoiceModal" class="modal fade" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button class="close" type="button" data-dismiss="modal">&times;</button>
+                        <h5 class="modal-title">${message("business.order.confirmInvoice")}</h5>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12">
+                                <input    id="invoicePath"  type="hidden" value="" >
+                                <input  class="btn btn-primary"  id="invoicePathFile" name="file" type="file" >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        [#if !order.hasExpired() && order.status == "RECEIVED" ]
+                            <button class="btn btn-primary" type="button" id="invoiceConfirm" >${message("common.ok")}</button>
+                        [/#if]
+                        <button class="btn btn-default" type="button" data-dismiss="modal">${message("common.cancel")}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--发票end-->
         [#if currentStore.isSelf()]
             <form id="paymentForm" class="form-horizontal" action="${base}/business/order/payment" method="post">
                 <input name="orderId" type="hidden" value="${order.id}">
@@ -1336,6 +1440,7 @@
                                         [/#if]
                                         <button id="refundsModalButton" class="btn btn-default" type="button" data-toggle="modal" data-target="#refundsModal"[#if order.hasExpired() || order.refundableAmount <= 0 && !order.isAllowRefund] disabled[/#if]>${message("business.order.orderRefunds")}</button>
                                         <button id="shippingModalButton" class="btn btn-default" type="button" data-toggle="modal" data-target="#shippingModal"[#if order.shippableQuantity <= 0] disabled[/#if]>${message("business.order.orderShipping")}</button>
+                                        <button id="confirmInvoiceButton" class=" btn btn-default" type="button" data-id="${order.id}"   data-toggle="modal" data-target="#invoiceModal"        [#if order.hasExpired() || order.status != "RECEIVED"] disabled[/#if]>${message("business.order.confirmInvoice")}</button>
                                         <button id="returnsModalButton" class="btn btn-default" type="button" data-toggle="modal" data-target="#returnsModal"[#if order.returnableQuantity <= 0 || order.status != "FAILED"] disabled[/#if]>${message("business.order.orderReturns")}</button>
                                         <button class="complete btn btn-default" type="button" data-id="${order.id}"[#if order.hasExpired() || order.status != "RECEIVED"] disabled[/#if]>${message("business.order.complete")}</button>
                                         <button class="fail btn btn-default" type="button" data-id="${order.id}"[#if order.hasExpired() || (order.status != "PENDING_SHIPMENT" && order.status != "SHIPPED" && order.status != "RECEIVED")] disabled[/#if]>${message("business.order.fail")}</button>

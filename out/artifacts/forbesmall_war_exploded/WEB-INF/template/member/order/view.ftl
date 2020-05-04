@@ -82,6 +82,7 @@
 				var $certificatePaymentConfirm = $("#certificatePaymentConfirm");
 				var $sealContractFile = $("#sealContractFile");
 				var $sealContractConfirm = $("#sealContractConfirm");
+				var $invoicePathFile = $("#invoicePathFile");
 				// 订单支付
 				$payment.click(function() {
 					$.ajax({
@@ -156,6 +157,52 @@
 						}
 					});
 					return false;
+				});
+				// 发票信息
+				$invoicePathFile.fileinput({
+					uploadUrl: "${base}/common/file/upload",
+					uploadExtraData: {
+						fileType: "FILE"
+					},
+					allowedFileExtensions: "${setting.uploadImageExtension}".split(","),
+					[#if setting.uploadMaxSize != 0]
+					maxFileSize: ${setting.uploadMaxSize} * 1024,
+					[/#if]
+					maxFileCount: 0,
+					autoReplace: false,
+					showRemove: false,
+					showClose: false,
+					dropZoneEnabled: false,
+					overwriteInitial: false,
+					showBrowse:false,
+					showUpload:false,
+					showCaption:false,
+					initialPreviewAsData: true,
+					previewClass: "multiple-file-preview",
+					[#if order.invoicePath?has_content]
+					[#if order.invoicePath?contains("pdf")]
+					initialPreviewFileType:"pdf",
+					[#else]
+					initialPreviewFileType:"image",
+					[/#if]
+					initialPreview: "${order.invoicePath}",
+					[/#if]
+					layoutTemplates: {
+						actionDelete:'',
+						footer: '<div class="file-thumbnail-footer">{actions}</div>',
+						actions: '<div class="file-actions"><div class="file-footer-buttons">{upload} {download} {delete} {zoom} {other}</div>{drag}<div class="clearfix"></div></div>'
+					},
+					fileActionSettings: {
+						showUpload: false,
+						showRemove: false,
+						showDrag: false
+					},
+					removeFromPreviewOnError:false,
+					showAjaxErrorDetails: false
+				}).on("fileloaded", function(event, file, previewId, index, reader) {
+				}).on("fileuploaded", function(event, data, previewId, index) {
+
+				}).on("filecleared fileerror fileuploaderror", function() {
 				});
 				/***码单预览
 				**/
@@ -424,6 +471,28 @@
 						</div>
 					</div>
 			<!--支付凭证end-->
+			<!--发票start-->
+			<div id="invoiceModal" class="modal fade" tabindex="-1">
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button class="close" type="button" data-dismiss="modal">&times;</button>
+							<h5 class="modal-title">${message("business.order.confirmInvoice")}</h5>
+						</div>
+						<div class="modal-body">
+							<div class="row">
+								<div class="col-xs-12 col-sm-12">
+									<input  class="btn btn-primary"  id="invoicePathFile" name="file" type="file" >
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button class="btn btn-default" type="button" data-dismiss="modal">${message("common.cancel")}</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--发票end-->
 			<div id="transitStepModal" class="modal fade" tabindex="-1">
 				<div class="modal-dialog">
 					<div class="modal-content">
@@ -469,6 +538,9 @@
 											[/#if]
 											[#if !order.hasExpired() && order.status == "SHIPPED"]
 												<a id="receive" class="btn btn-default" style="float: left;margin: 0px 15px 0px 287px;background:#108ee9;color:#ffffff;" href="javascript:;">${message("member.order.receive")}</a>
+											[/#if]
+											[#if !order.hasExpired() && order.status == "RECEIVED"]
+												<a id="confirmInvoiceButton" class="btn btn-primary" href="javascript:;" data-toggle="modal" data-target="#invoiceModal">${message("business.order.confirmInvoice")}</a>
 											[/#if]
 										</div>
 									</div>

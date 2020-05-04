@@ -42,7 +42,6 @@
         [#escape x as x?js_string]
             <script>
                 $().ready(function () {
-
                     var $payConfirmModal = $("#payConfirmModal");
                     var $panelHeading = $("#panelHeading");
                     var panelHeadingTemplate = _.template($("#panelHeadingTemplate").html());
@@ -52,7 +51,6 @@
                             keyboard: false
                         }).modal("show");
                     });
-
                     // 检查是否支付成功
                     function checkIsPaySuccess() {
                         $.ajax({
@@ -93,6 +91,29 @@
 [#include "/shop/include/main_sidebar.ftl" /]
 <main>
     <div class="container">
+        <!--订单合同start-->
+        <div id="sealContractModal" class="modal fade" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button class="close" type="button" data-dismiss="modal">&times;</button>
+                        <h5 class="modal-title">${message("member.order.sealContract")}</h5>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12">
+                                <input    id="sealContractPath"  type="hidden" value="" >
+                                <input  class="btn btn-primary"  id="sealContractFile" name="file" type="file" >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-default" type="button" data-dismiss="modal">${message("common.cancel")}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--订单合同end-->
         <div id="payConfirmModal" class="pay-confirm-modal modal fade" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
