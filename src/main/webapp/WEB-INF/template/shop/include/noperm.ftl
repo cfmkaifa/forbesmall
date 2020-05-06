@@ -8,7 +8,7 @@
             <div class="industryContent">
                 <ul class="content">
                     <li class="span3">
-                        <h4>${articleCategory.name}${message("shop.article.weekly")}</h4>
+                        <h4>${articleCategory.name}${message("shop.article.day")}</h4>
                         <span class="price"><p>${articleCategory.weekSubFee}${message("shop.article.unit")}</p></span>
                         <p>${articleCategory.seoKeywords}</p>
                         <a class="immediately" subType="weekSubFee">${message("shop.article.subscribeNow")}</a>

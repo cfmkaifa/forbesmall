@@ -33,4 +33,10 @@
     sensors.registerPage({
         platform: "${base}"
     });
+    // SDK 初始化参数配置
+    heatmap: {
+        //是否开启点击图，默认 default 表示开启，自动采集 $WebClick 事件，可以设置 'not_collect' 表示关闭
+        //需要 Web JS SDK 版本号大于 1.7
+        clickmap:'default'
+    }
 </script>

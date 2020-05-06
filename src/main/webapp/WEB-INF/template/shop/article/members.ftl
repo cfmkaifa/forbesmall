@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>会员中心</title>
-    <link rel="stylesheet" href="${base}/resources/shop/css/members.css">
+    <link href="${base}/resources/shop/css/members.css?version=0.1" rel="stylesheet">
     <link href="${base}/favicon.ico" rel="icon">
     <link href="${base}/resources/common/css/bootstrap.css" rel="stylesheet">
     <link href="${base}/resources/common/css/iconfont.css" rel="stylesheet">
@@ -26,12 +26,44 @@
     <script src="${base}/resources/common/js/velocity.ui.js"></script>
     <script src="${base}/resources/common/js/base.js?version=0.1"></script>
     <script src="${base}/resources/shop/js/base.js"></script>
+
+    <style type="text/css">
+        .platform{
+            font-size: 16px;
+            color: #000000;
+
+        }
+        .platformTitle{
+            margin-top: 40px;
+        }
+        .members{
+            width: 1010px;
+            margin: 0 auto;
+            /* text-align: center; */
+        }
+        .table>tbody>tr img{
+            width: 22px;
+            height: 22px;
+        }
+        .table>thead>tr>th{
+            vertical-align: top;
+            line-height: 40px;
+        }
+    </style>
+
 </head>
 <body>
 [#include "/shop/include/main_header.ftl" /]
 <div class="members">
-    <div class="membersBanner">
-        <img src="/resources/shop/images/membersbanner.png" alt="">
+    <div>
+        <div class="membershipTitle platformTitle">
+            <h3>平台介绍</h3>
+            <span></span>
+            <p>PLATFORM IS INTRODUCED</p>
+        </div>
+        <div class="platform">
+            <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上海让雷智能科技有限公司根据市场调查，目前中国市场还没有一款完善的与纺织品企业对接原材料采购平台，尤其是无纺布生产企业对接的原材料采购平台。同时应对与各个化纤工厂，由于化纤是传统纺织行业，属于大宗物资交易交流，化纤工厂与纺织品企业交流交易方式仍然采用传统的方式进行，鉴于此市场信息交流更新缓慢，信息不集中等特点，上海让雷智能科技有限公司联合上海缔荣纺织品有限公司投资开发CFM平台，真诚服务于纺织品企业原材料采购，尤其是无纺布生产企业对于原材料采购的需求服务，致力于打造跨行业跨领域“互联网+”一站式化纤供采服务平台。</p>
+        </div>
     </div>
     <div class="membership">
         <div>
@@ -280,23 +312,14 @@
                         <td></td>
                         <td></td>
                         <td><a href="${base}/business/store/payment/1" class="memberColor">立即订购</a></td>
-                        <td><a href="${base}/business/store/payment/5" class="memberColor">升级会员</a></td>
-                        <td><a href="${base}/business/store/payment/6" class="memberColor">升级会员</a></td>
+                        <td><a href="${base}/business/store/payment/5" class="memberColor">立即订购</a></td>
+                        <td><a href="${base}/business/store/payment/6" class="memberColor">立即订购</a></td>
                     </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-        <div>
-            <div class="membershipTitle platformTitle">
-                <h3>平台介绍</h3>
-                <span></span>
-                <p>PLATFORM IS INTRODUCED</p>
-            </div>
-            <div class="platform">
-                <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上海让雷智能科技有限公司根据市场调查，目前中国市场还没有一款完善的与纺织品企业对接原材料采购平台，尤其是无纺布生产企业对接的原材料采购平台。同时应对与各个化纤工厂，由于化纤是传统纺织行业，属于大宗物资交易交流，化纤工厂与纺织品企业交流交易方式仍然采用传统的方式进行，鉴于此市场信息交流更新缓慢，信息不集中等特点，上海让雷智能科技有限公司联合上海缔荣纺织品有限公司投资开发CFM平台，真诚服务于纺织品企业原材料采购，尤其是无纺布生产企业对于原材料采购的需求服务，致力于打造跨行业跨领域“互联网+”一站式</p>
-            </div>
-        </div>
+
         <div>
             <div class="membershipTitle platformTitle">
                 <h3>产品优势</h3>
@@ -306,17 +329,17 @@
             <div class="advavtane">
                 <div>
                     <img src="/resources/shop/images/members1.png" alt="">
-                    <p>信息全面化</p>
+                    <h3>信息全面化</h3>
                     <p>近三千家化纤工厂与无纺布工厂的加入，供采更方便更快捷</p>
                 </div>
                 <div>
                     <img src="/resources/shop/images/members2.png" alt="">
-                    <p>性价比高</p>
+                    <h3>性价比高</h3>
                     <p>性价比高，划算的价格打造，给予客户更完善的体验</p>
                 </div>
                 <div>
                     <img src="/resources/shop/images/members3.png" alt="">
-                    <p>智能化</p>
+                    <h3>智能化</h3>
                     <p>避免过多的人工成本，只需点一点便可完成订单</p>
                 </div>
             </div>
@@ -341,6 +364,7 @@
             </div>
         </div>
     </div>
+
 </div>
 [#include "/shop/include/main_footer.ftl" /]
 </body>

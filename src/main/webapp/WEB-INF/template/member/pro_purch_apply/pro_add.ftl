@@ -1053,7 +1053,7 @@
                                         </div>
                                     [/#if]
                                     [#if productTags?has_content]
-                                        <div class="form-group">
+                                       [#-- <div class="form-group">
                                             <label class="col-xs-3 col-sm-2 control-label">${message("Product.productTags")}:</label>
                                             <div class="col-xs-9 col-sm-10">
                                                 [#list productTags as productTag]
@@ -1063,7 +1063,7 @@
                                                     </div>
                                                 [/#list]
                                             </div>
-                                        </div>
+                                        </div>--]
                                     [/#if]
                                     <div class="form-group">
                                         <label class="col-xs-3 col-sm-2 control-label" for="memo">${message("Product.memo")}:</label>

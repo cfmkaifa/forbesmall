@@ -12,6 +12,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.http.ResponseEntity;
@@ -301,6 +302,28 @@ public class OrderController extends BaseController {
         return Results.OK;
     }
 
+    /***
+     * 上传发票
+     * @param orderId
+     * @param invoicePath
+     * @return
+     */
+    @PostMapping("/invoicePath")
+    public ResponseEntity<?> invoicePath(Long orderId, String invoicePath) {
+        if (null == orderId
+                || null == invoicePath
+                || invoicePath.trim().length() == 0) {
+            return Results.UNPROCESSABLE_ENTITY;
+        }
+        Order order = orderService.find(orderId);
+        if (order.getStatus().equals(Status.RECEIVED)) {
+            order.setInvoicePath(invoicePath);
+            orderService.update(order);
+        } else {
+            return Results.UNPROCESSABLE_ENTITY;
+        }
+        return Results.OK;
+    }
 
     /**
      * 收款
@@ -359,7 +382,11 @@ public class OrderController extends BaseController {
      * 发货
      */
     @PostMapping("/shipping")
-    public ResponseEntity<?> shipping(OrderShipping orderShippingForm, @ModelAttribute(binding = false) Order order, Long shippingMethodId, Long deliveryCorpId, Long areaId, @CurrentUser Business currentUser) {
+    public ResponseEntity<?> shipping(HttpServletRequest request,OrderShipping orderShippingForm, @ModelAttribute(binding = false) Order order, Long shippingMethodId, Long deliveryCorpId, Long areaId, @CurrentUser Business currentUser) {
+        String plate=request.getParameter("plate");
+        order.setPlate(plate);
+        String driver=request.getParameter("driver");
+        order.setDriver(driver);
         if (order == null
                 || ConvertUtils.isEmpty(orderShippingForm.getWeightMemo())
                 || order.getShippableQuantity() <= 0) {

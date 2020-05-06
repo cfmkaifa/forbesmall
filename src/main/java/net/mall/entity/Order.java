@@ -306,6 +306,20 @@ public class Order extends BaseEntity<Long> {
     private String zipCode;
 
     /**
+     * 车牌号
+     */
+    @NotEmpty(groups = Delivery.class)
+    @Column(name = "plate")
+    private String plate;
+
+    /**
+     * 司机姓名
+     */
+    @NotEmpty(groups = Delivery.class)
+    @Column(name = "driver")
+    private String driver;
+
+    /**
      * 电话
      */
     @NotEmpty(groups = Delivery.class)
@@ -315,6 +329,10 @@ public class Order extends BaseEntity<Long> {
 
     @Column(name = "certificate_path")
     private String certificatePath;
+
+    // 发票地址
+    @Column(name = "invoice_path")
+    private String invoicePath;
 
     /***合同生成地址
      */
@@ -1775,4 +1793,30 @@ public class Order extends BaseEntity<Long> {
     public static class PromotionNameConverter extends BaseAttributeConverter<List<String>> {
     }
 
+    /**
+     *设置车牌号
+     */
+    public String getPlate() {
+        return plate;
+    }
+
+    public void setPlate(String plate) {
+        this.plate = plate;
+    }
+
+    public String getDriver() {
+        return driver;
+    }
+
+    public void setDriver(String driver) {
+        this.driver = driver;
+    }
+
+    public String getInvoicePath() {
+        return invoicePath;
+    }
+
+    public void setInvoicePath(String invoicePath) {
+        this.invoicePath = invoicePath;
+    }
 }

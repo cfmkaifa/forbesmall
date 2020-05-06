@@ -221,8 +221,8 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
             Query keywordPhraseQuery = queryBuilder.phrase().withSlop(3).onField("keyword").sentence(keyword).createQuery();
             subJunction.should(namePhraseQuery).should(keywordPhraseQuery);
         } else {
-            Query nameFuzzyQuery = queryBuilder.keyword().fuzzy().onField("name").ignoreAnalyzer().matching(keyword).createQuery();
-            Query keywordFuzzyQuery = queryBuilder.keyword().fuzzy().onField("keyword").ignoreAnalyzer().matching(keyword).createQuery();
+            Query nameFuzzyQuery = queryBuilder.keyword().fuzzy().withPrefixLength(5).onField("name").matching(keyword).createQuery();
+            Query keywordFuzzyQuery = queryBuilder.keyword().fuzzy().withPrefixLength(5).onField("keyword").matching(keyword).createQuery();
             subJunction.should(nameFuzzyQuery).should(keywordFuzzyQuery);
         }
         junction.must(subJunction.createQuery());
