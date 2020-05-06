@@ -202,6 +202,8 @@
                             <td>
                                 <a href="javascript:;" data-action="removeCart"
                                    data-sku-id="${cartItem.sku.id}">${message("common.delete")}</a>
+                                <a href="javascript:;" data-action="checkout"
+                                   data-sku-id="${cartItem.sku.id}">${message("shop.cart.checkout")}</a>
                             </td>
                         </tr>
                     [/#list]

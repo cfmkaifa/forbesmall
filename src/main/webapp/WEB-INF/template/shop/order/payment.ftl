@@ -68,20 +68,13 @@
                             overwriteInitial: false,
                             initialPreviewAsData: true,
                             previewClass: "multiple-file-preview",
-                            [#if order.sealContract?has_content]
-                            [#if order.sealContract?contains("pdf")]
-                            initialPreviewFileType:"pdf",
-                            [#else]
-                            initialPreviewFileType:"image",
-                            [/#if]
-                            initialPreview:"${order.sealContract}",
-                            [#elseif order.contractPath?has_content]
-                            [#if order.contractPath?contains("pdf")]
-                            initialPreviewFileType:"pdf",
-                            [#else]
-                            initialPreviewFileType:"image",
-                            [/#if]
-                            initialPreview:"${order.contractPath}",
+                            [#if order.contractPath?has_content]
+                                [#if order.contractPath?contains("pdf")]
+                                    initialPreviewFileType:"pdf",
+                                [#else]
+                                    initialPreviewFileType:"image",
+                                [/#if]
+                                initialPreview:"${order.contractPath}",
                             [/#if]
                             layoutTemplates: {
                                 footer: '<div class="file-thumbnail-footer">{actions}</div>',
