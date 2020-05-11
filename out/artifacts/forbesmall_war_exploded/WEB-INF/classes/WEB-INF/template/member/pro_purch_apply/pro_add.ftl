@@ -1029,6 +1029,12 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <label class="col-xs-3 col-sm-2 control-label item-required" for="expire">${message("Product.expire")}:</label>
+                                        <div class="col-xs-9 col-sm-4">
+                                            <input id="expire" name="expire" class="form-control" type="text"  data-provide="datetimepicker" data-date-format="YYYY-MM-DD">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
                                         <label class="col-xs-3 col-sm-2 control-label">${message("Product.brand")}:</label>
                                         <div class="col-xs-9 col-sm-4">
                                             <select name="brandId" class="selectpicker form-control" data-live-search="true" data-size="10">

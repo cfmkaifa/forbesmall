@@ -520,7 +520,9 @@
 									<div class="list-group-item clearfix">
 										<span class="pull-left">${message("Order.sn")}: ${order.sn}</span>
 										<div class="action pull-right">
-											<a id="sealContractModalButton" class="btn btn-primary" href="javascript:;" data-toggle="modal" data-target="#sealContractModal">${message("member.order.sealContract")}</a>
+											[#if !order.hasExpired() && order.status != "CANCELED" && order.status != "DENIED"]
+												<a id="sealContractModalButton" class="btn btn-primary" href="javascript:;" data-toggle="modal" data-target="#sealContractModal">${message("member.order.sealContract")}</a>
+											[/#if]
 											[#if setting.isReviewEnabled && !order.isReviewed && (order.status == "RECEIVED" || order.status == "COMPLETED")]
 												<a class="btn btn-default" href="${base}/member/review/add?orderId=${order.id}">${message("member.order.review")}</a>
 											[/#if]
@@ -530,7 +532,7 @@
 											[#if order.paymentMethod?? && order.amountPayable > 0 && order.paymentMethod.method == "ONLINE"]
 												<a id="payment" class="btn btn-primary" href="javascript:;">${message("member.order.payment")}</a>
 											[/#if]
-											[#if order.paymentMethod.method == "OFFLINE"]
+											[#if !order.hasExpired() && order.status != "CANCELED" && order.status != "DENIED" && order.paymentMethod.method == "OFFLINE"]
 												<a id="certificatePaymentModalButton" class="btn btn-primary" href="javascript:;" data-toggle="modal" data-target="#certificatePaymentModal">${message("member.order.certificatePayment")}</a>
 											[/#if]
 											[#if !order.hasExpired() && (order.status == "PENDING_PAYMENT" || order.status == "PENDING_REVIEW")]

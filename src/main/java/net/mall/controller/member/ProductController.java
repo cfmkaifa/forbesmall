@@ -14,8 +14,10 @@ import net.mall.entity.*;
 import net.mall.exception.UnauthorizedException;
 import net.mall.security.CurrentUser;
 import net.mall.service.*;
+import net.mall.util.ConvertUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.time.DateUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -292,6 +294,13 @@ public class ProductController extends BaseController {
         skuService.filter(skuListForm.getSkuList());
         if (productCategory == null) {
             return Results.UNPROCESSABLE_ENTITY;
+        }
+        if(ConvertUtils.isNotEmpty(productForm.getExpire())){
+            if(productForm.getExpire().before(new Date())){
+                return Results.UNPROCESSABLE_ENTITY;
+            }
+        } else {
+            productForm.setExpire(DateUtils.addMonths(new Date(),1));
         }
         productForm.setPurch(true);
         productForm.setIsAudit(Product.ProApplyStatus.PENDING);

@@ -174,6 +174,16 @@ public interface ProductDao extends BaseDao<Product, Long> {
     void modifyProduct(Date curentDate,Long productId);
 
 
+
+
+    /***
+     * 修改上下架
+     * @param marketable
+     * @param productId
+     */
+    public void modifyMarketable(Boolean marketable, Long productId);
+
+
     /***
      * 根据sourceID更新新产品ID
      * @param newProductId

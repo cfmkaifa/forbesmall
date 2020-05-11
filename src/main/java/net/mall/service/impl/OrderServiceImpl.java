@@ -260,7 +260,6 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
     public void releaseLock(Order order) {
         Assert.notNull(order, "[Assertion failed] - order is required; it must not be null");
         Assert.isTrue(!order.isNew(), "[Assertion failed] - order must not be new");
-
         Ehcache cache = cacheManager.getEhcache(Order.ORDER_LOCK_CACHE_NAME);
         cache.remove(order.getId());
     }
@@ -972,14 +971,11 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
         Assert.notNull(order, "[Assertion failed] - order is required; it must not be null");
         Assert.isTrue(!order.isNew(), "[Assertion failed] - order must not be new");
         Assert.state(!order.hasExpired() && Order.Status.SHIPPED.equals(order.getStatus()), "[Assertion failed] - order must not be expired and order status must be SHIPPED");
-
         order.setStatus(Order.Status.RECEIVED);
-
         OrderLog orderLog = new OrderLog();
         orderLog.setType(OrderLog.Type.RECEIVE);
         orderLog.setOrder(order);
         orderLogDao.persist(orderLog);
-
         mailService.sendReceiveOrderMail(order);
         smsService.sendReceiveOrderSms(order);
     }

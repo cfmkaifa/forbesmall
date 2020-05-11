@@ -11,6 +11,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import net.mall.util.SpringUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -153,7 +154,6 @@ public class OrderController extends BaseController {
         if (order == null) {
             return Results.NOT_FOUND;
         }
-
         if (order.hasExpired() || (!Order.Status.PENDING_PAYMENT.equals(order.getStatus()) && !Order.Status.PENDING_REVIEW.equals(order.getStatus()))) {
             return Results.NOT_FOUND;
         }
@@ -161,6 +161,8 @@ public class OrderController extends BaseController {
             return Results.unprocessableEntity("member.order.locked");
         }
         orderService.cancel(order);
+        /**释放订单锁***/
+        orderService.releaseLock(order);
         return Results.OK;
     }
 
@@ -177,9 +179,11 @@ public class OrderController extends BaseController {
             return Results.NOT_FOUND;
         }
         if (!orderService.acquireLock(order, currentUser)) {
-            return Results.unprocessableEntity("member.order.locked");
+            return Results.unprocessableEntity("member.order.locked.receive");
         }
         orderService.receive(order);
+        /**释放订单锁***/
+        orderService.releaseLock(order);
         return Results.OK;
     }
 

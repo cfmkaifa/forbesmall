@@ -1335,6 +1335,17 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
 
 
     /***
+     * 修改上下架
+     * @param marketable
+     * @param productId
+     */
+    public void modifyMarketable(Boolean marketable, Long productId){
+        productDao.modifyMarketable(marketable,productId);
+    }
+
+
+
+    /***
      * 修改审核状态
      * @param isAudit
      * @param productId
