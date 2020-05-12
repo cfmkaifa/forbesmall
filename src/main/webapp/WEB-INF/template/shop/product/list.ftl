@@ -304,6 +304,9 @@
                         return false;
                     });
 
+                    //提示框
+                    $('[data-toggle="tooltip"]').tooltip();
+
                 });
             </script>
         [/#escape]
@@ -390,7 +393,7 @@
                                 <div class="filter-body filter-adl">
                                     <dl class="dl-horizontal">
                                         [#if filterProductCategories?has_content]
-                                            <dt>${message("shop.product.productCategory")}:</dt>
+                                            <dt data-toggle="tooltip" data-placement="bottom" title="${message("shop.product.productCategory")}">${message("shop.product.productCategory")}:</dt>
                                             <dd>
                                                 <ul class="text-filter-group clearfix">
                                                     [#list filterProductCategories as filterProductCategory]

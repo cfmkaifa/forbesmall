@@ -554,6 +554,18 @@ public class ProductDaoImpl extends BaseDaoImpl<Product, Long> implements Produc
     }
 
 
+    /***
+     * 修改上下架
+     * @param marketable
+     * @param productId
+     */
+    public void modifyMarketable(Boolean marketable, Long productId){
+        String jpql = "UPDATE Product SET isMarketable = :marketable WHERE id = :id";
+        entityManager.createQuery(jpql).setParameter("marketable", marketable).setParameter("id", productId).executeUpdate();
+    }
+
+
+
 
     /***
      * 根据sourceID更新新产品ID

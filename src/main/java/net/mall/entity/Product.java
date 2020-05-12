@@ -754,6 +754,11 @@ public class Product extends BaseEntity<Long> {
     private boolean sample = false;
 
     /**
+     * 过期时间
+     */
+    private Date expire;
+
+    /**
      * 获取编号
      *
      * @return 编号
@@ -2324,5 +2329,13 @@ public class Product extends BaseEntity<Long> {
 
     public void setMember(Member member) {
         this.member = member;
+    }
+
+    public Date getExpire() {
+        return expire;
+    }
+
+    public void setExpire(Date expire) {
+        this.expire = expire;
     }
 }

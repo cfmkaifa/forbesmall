@@ -161,6 +161,8 @@ public class OrderController extends BaseController {
             return Results.unprocessableEntity("member.order.locked");
         }
         orderService.cancel(order);
+        /**释放订单锁***/
+        orderService.releaseLock(order);
         return Results.OK;
     }
 
@@ -177,9 +179,11 @@ public class OrderController extends BaseController {
             return Results.NOT_FOUND;
         }
         if (!orderService.acquireLock(order, currentUser)) {
-            return Results.unprocessableEntity("member.order.locked");
+            return Results.unprocessableEntity("member.order.locked.receive");
         }
         orderService.receive(order);
+        /**释放订单锁***/
+        orderService.releaseLock(order);
         return Results.OK;
     }
 

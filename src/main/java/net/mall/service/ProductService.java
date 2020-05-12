@@ -331,6 +331,13 @@ public interface ProductService extends BaseService<Product, Long> {
 
 
     /***
+     * 修改上下架
+     * @param marketable
+     * @param productId
+     */
+    public void modifyMarketable(Boolean marketable, Long productId);
+
+    /***
      * 修改审核状态
      * @param isAudit
      * @param productId

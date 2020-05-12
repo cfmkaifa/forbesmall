@@ -57,6 +57,10 @@ public final class Results {
      */
     public static final String DEFAULT_UNPROCESSABLE_ENTITY_MESSAGE = "common.message.unprocessableEntity";
 
+
+    public static final String DEFAULT_ORDER_LOCK_MESSAGE = "common.message.order.lock";
+
+
     /**
      * 200状态ResponseEntity
      */

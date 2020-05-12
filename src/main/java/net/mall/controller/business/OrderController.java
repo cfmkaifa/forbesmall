@@ -207,6 +207,8 @@ public class OrderController extends BaseController {
         }
         orderService.modify(order);
 
+        /**释放订单锁***/
+        orderService.releaseLock(order);
         return Results.OK;
     }
 
@@ -243,6 +245,9 @@ public class OrderController extends BaseController {
         }
         orderService.review(order, passed);
 
+        /**释放订单锁***/
+        orderService.releaseLock(order);
+
         return Results.OK;
     }
 
@@ -271,6 +276,8 @@ public class OrderController extends BaseController {
             return Results.UNPROCESSABLE_ENTITY;
         }
         orderService.confirmPayment(order);
+        /**释放订单锁***/
+        orderService.releaseLock(order);
         return Results.OK;
     }
 
@@ -343,6 +350,8 @@ public class OrderController extends BaseController {
         }
         orderPaymentForm.setFee(BigDecimal.ZERO);
         orderService.payment(order, orderPaymentForm);
+        /**释放订单锁***/
+        orderService.releaseLock(order);
 
         return Results.OK;
     }
@@ -375,6 +384,8 @@ public class OrderController extends BaseController {
         }
         orderService.refunds(order, orderRefundsForm);
 
+        /**释放订单锁***/
+        orderService.releaseLock(order);
         return Results.OK;
     }
 
@@ -387,8 +398,9 @@ public class OrderController extends BaseController {
         order.setPlate(plate);
         String driver=request.getParameter("driver");
         order.setDriver(driver);
+        String driverPhone=request.getParameter("driverPhone");
+        order.setDriverPhone(driverPhone);
         if (order == null
-                || ConvertUtils.isEmpty(orderShippingForm.getWeightMemo())
                 || order.getShippableQuantity() <= 0) {
             return Results.UNPROCESSABLE_ENTITY;
         }
@@ -482,6 +494,8 @@ public class OrderController extends BaseController {
         }
         orderService.returns(order, orderReturnsForm);
 
+        /**释放订单锁***/
+        orderService.releaseLock(order);
         return Results.OK;
     }
 
@@ -497,7 +511,8 @@ public class OrderController extends BaseController {
             return Results.UNPROCESSABLE_ENTITY;
         }
         orderService.complete(order);
-
+        /**释放订单锁***/
+        orderService.releaseLock(order);
         return Results.OK;
     }
 
@@ -513,6 +528,8 @@ public class OrderController extends BaseController {
             return Results.UNPROCESSABLE_ENTITY;
         }
         orderService.fail(order);
+        /**释放订单锁***/
+        orderService.releaseLock(order);
 
         return Results.OK;
     }
@@ -558,6 +575,8 @@ public class OrderController extends BaseController {
                 if (!order.canDelete()) {
                     return Results.unprocessableEntity("business.order.deleteStatusNotAllowed", order.getSn());
                 }
+                /**释放订单锁***/
+                orderService.releaseLock(order);
             }
             orderService.delete(ids);
         }
