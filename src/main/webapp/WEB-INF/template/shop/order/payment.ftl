@@ -43,6 +43,12 @@
                     var $orderCollapse = $("#orderCollapse");
                     var $summary = $("#summary");
                     var $rePayUrl = $("#rePayUrl");
+
+                    var $modal = $("#modal");
+                    $modal.modal({
+                        backdrop: "static",
+                        keyboard: false
+                    }).modal("show");
                     // 电子合同
                     [#list orders as order]
                         $("#sealContractFile${order.id}").fileinput({
@@ -183,6 +189,26 @@
 [#include "/shop/include/main_sidebar.ftl" /]
 <main>
     <div class="container">
+        <!--提示框-->
+        <div id="modal" class="modal fade" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header ">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                        <h5 class="modal-title">${message("business.index.modalTitle")}</h5>
+                    </div>
+                    <div class="modal-body">
+                       <h1 style="margin: 20px; font-size: 18px;">请前往采购商会员中心上传支付凭证！</h1>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!--订单合同start-->
         [#list orders as order]
             <div id="sealContractModal${order.id}" class="modal fade" tabindex="-1">
@@ -276,7 +302,7 @@
                                 <a id="orderCollapse" class="text-overflow" href="javascript:;"
                                    title="${message("shop.order.info")}">
                                     ${message("shop.order.info")}
-                                    <i class="iconfont icon-unfold"></i>
+                                    <i class="iconfont icon-fold"></i>
                                 </a>
                             </div>
                         </div>
@@ -287,8 +313,8 @@
                                     [#list orders as order]
                                         <li>
                                             <strong class="text-orange">${order.sn}</strong>
-                                            <a href="${base}/member/order/view?orderSn=${order.sn}">[${message("shop.order.view")}]</a>
-                                            <a href="javascript:;" data-toggle="modal" data-target="#sealContractModal${order.id}">[${message("shop.compact")}]</a>
+                                            <a class="btn btn-primary" href="${base}/member/order/view?orderSn=${order.sn}">${message("shop.order.view")}</a>
+                                            <a class="btn btn-primary" href="javascript:;" data-toggle="modal" data-target="#sealContractModal${order.id}">${message("shop.compact")}</a>
                                         </li>
                                     [/#list]
                                 </ul>

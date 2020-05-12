@@ -168,12 +168,12 @@
                     <i class="iconfont icon-like"></i>
                 </a>
             </li>
-            <li>
+           [#-- <li>
                 <a href="${base}/member/coupon_code/list" title="${message("shop.mainSidebar.couponCodeListTitle")}"
                    data-toggle="tooltip" data-placement="left">
                     <i class="iconfont icon-ticket"></i>
                 </a>
-            </li>
+            </li>--]
             <li>
                 <a id="mainSidebarQrcode" class="qrcode" href="javascript:;">
                     <i class="iconfont icon-scan"></i>
