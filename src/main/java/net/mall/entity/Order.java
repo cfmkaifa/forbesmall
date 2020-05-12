@@ -300,9 +300,7 @@ public class Order extends BaseEntity<Long> {
     /**
      * 邮编
      */
-    @NotEmpty(groups = Delivery.class)
     @Length(max = 200)
-    @Pattern(regexp = "^\\d{6}$")
     private String zipCode;
 
     /**
@@ -318,6 +316,15 @@ public class Order extends BaseEntity<Long> {
     @NotEmpty(groups = Delivery.class)
     @Column(name = "driver")
     private String driver;
+
+    /**
+     * 司机电话
+     */
+    @NotEmpty(groups = Delivery.class)
+    @Length(max = 200)
+    @Pattern(regexp = "^\\d{3,4}-?\\d{7,9}$")
+    @Column(name = "driver_phone")
+    private String driverPhone;
 
     /**
      * 电话
@@ -1819,5 +1826,13 @@ public class Order extends BaseEntity<Long> {
 
     public void setInvoicePath(String invoicePath) {
         this.invoicePath = invoicePath;
+    }
+
+    public String getDriverPhone() {
+        return driverPhone;
+    }
+
+    public void setDriverPhone(String driverPhone) {
+        this.driverPhone = driverPhone;
     }
 }

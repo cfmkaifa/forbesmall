@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -385,7 +386,6 @@ public class OrderController extends BaseController {
         orderService.releaseLock(order);
         return Results.OK;
     }
-
     /**
      * 发货
      */
@@ -395,8 +395,9 @@ public class OrderController extends BaseController {
         order.setPlate(plate);
         String driver=request.getParameter("driver");
         order.setDriver(driver);
+        String driverPhone=request.getParameter("driverPhone");
+        order.setDriverPhone(driverPhone);
         if (order == null
-                || ConvertUtils.isEmpty(orderShippingForm.getWeightMemo())
                 || order.getShippableQuantity() <= 0) {
             return Results.UNPROCESSABLE_ENTITY;
         }

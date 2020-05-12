@@ -567,6 +567,7 @@
                         }
                     });
 
+                    //表单验证
                     $shippingForm.validate({
                         rules: {
                             deliveryCorpId: "required",
@@ -579,12 +580,9 @@
                                 }
                             },
                             consignee: "required",
-                            zipCode: {
-                                required: true,
-                                zipCode: true
-                            },
                             areaId: "required",
                             address: "required",
+                            plate:"required",
                             phone: {
                                 required: true,
                                 phone: true
@@ -637,7 +635,6 @@
                                     fraction: ${setting.priceScale}
                                 }
                             },
-                            zipCode: "zipCode",
                             phone: "phone"
                         },
                         submitHandler: function(form) {
@@ -1084,7 +1081,7 @@
                                         <div class="form-group">
                                             <label class="col-xs-4 control-label" for="shippingZipCode">${message("OrderShipping.zipCode")}:</label>
                                             <div class="col-xs-8">
-                                                <input id="shippingZipCode" name="zipCode" class="form-control" type="text" value="" maxlength="200">
+                                                <input id="shippingZipCode" name="zipCode" class="form-control" type="text" value="${order.zipCode}" maxlength="200" disabled>
                                             </div>
                                         </div>
                                     </div>
@@ -1108,7 +1105,7 @@
                                         <div class="form-group">
                                             <label class="col-xs-4 control-label item-required" for="shippingPhone">${message("OrderShipping.phone")}:</label>
                                             <div class="col-xs-8">
-                                                <input id="shippingPhone" name="phone" class="form-control" type="text" value="" maxlength="200">
+                                                <input id="shippingPhone" name="phone" class="form-control" type="text" value="${order.member.phone}" maxlength="200" disabled>
                                             </div>
                                         </div>
                                     </div>
@@ -1131,10 +1128,19 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <!--司机电话-->
+                                    <div class="col-xs-12 col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-xs-4 control-label item-required" for="shippingDriverPhone">${message("OrderShipping.driverphone")}:</label>
+                                            <div class="col-xs-8">
+                                                <input id="shippingDriverPhone" name="driverPhone" class="form-control" type="text" value="">
+                                            </div>
+                                        </div>
+                                    </div>
 
                                     <div class="col-xs-12 col-sm-6">
                                         <div class="form-group">
-                                            <label class="col-xs-4 control-label" for="shippingWeightMemo">${message("OrderShipping.weightMemo")}:</label>
+                                            <label class="col-xs-4 control-label item-required" for="shippingWeightMemo">${message("OrderShipping.weightMemo")}:</label>
                                             <div class="col-xs-8">
                                                 <input id="shippingWeightMemoFile" name="file" class="form-control" type="file" maxlength="200">
                                                 <input id = "shippingWeightMemo" name="weightMemo" class="form-control" type="hidden" maxlength="200">
@@ -1505,10 +1511,10 @@
                                             <span class="[#if order.status == "PENDING_SHIPMENT" || order.status == "PENDING_REVIEW" || order.status == "PENDING_PAYMENT"]text-orange[#elseif order.status == "FAILED" || order.status == "DENIED"]text-red[#elseif order.status == "CANCELED"]text-gray-dark[#else]text-green[/#if]">${message("Order.Status." + order.status)}</span>
                                             [#if order.hasExpired()]
                                                 <span class="text-gray-dark">(${message("business.order.hasExpired")})</span>
-                                            [#else]
+                                          [#--  [#else]
                                                 [#if order.expire??]
                                                     <span class="text-orange">(${message("Order.expire")}: ${order.expire?string("yyyy-MM-dd HH:mm:ss")})</span>
-                                                [/#if]
+                                                [/#if]--]
                                             [/#if]
                                         </dd>
                                         <dt>${message("Member.memberRank")}:</dt>
@@ -1686,7 +1692,7 @@
                                         <th>${message("OrderShipping.isDelivery")}</th>
                                         <th>${message("common.createdDate")}</th>
                                         <th>${message("OrderShipping.driver")}</th>
-                                        <th>${message("OrderShipping.phone")}</th>
+                                        <th>${message("OrderShipping.driverphone")}</th>
                                         <th>${message("OrderShipping.plate")}</th>
                                     </tr>
                                     </thead>
@@ -1717,7 +1723,7 @@
                                                 <span title="${orderShipping.createdDate?string("yyyy-MM-dd HH:mm:ss")}" data-toggle="tooltip">${orderShipping.createdDate}</span>
                                             </td>
                                             <td>${order.driver}</td>
-                                            <td>${orderShipping.phone}</td>
+                                            <td>${order.driverPhone}</td>
                                             <td>${order.plate}</td>
                                         </tr>
                                     [/#list]

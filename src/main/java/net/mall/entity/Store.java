@@ -110,7 +110,7 @@ public class Store extends BaseEntity<Long> {
      * 名称
      */
     @JsonView(BaseView.class)
-    @Field(store = org.hibernate.search.annotations.Store.YES, index = Index.YES, analyze = Analyze.YES)
+    @Field(store = org.hibernate.search.annotations.Store.YES, index = Index.YES, analyze = Analyze.NO)
     @Boost(1.5F)
     @NotEmpty
     @Length(max = 200)
