@@ -590,8 +590,7 @@
                             driverPhone:{
                                 required: true,
                                 driverPhone:true
-                            },
-                            plate:"required"
+                            }
                         },
                         submitHandler: function(form) {
                             var weightMemo = $("#shippingWeightMemo").val();
