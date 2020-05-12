@@ -586,7 +586,12 @@
                             phone: {
                                 required: true,
                                 phone: true
-                            }
+                            },
+                            driverPhone:{
+                                required: true,
+                                driverPhone:true
+                            },
+                            plate:"required"
                         },
                         submitHandler: function(form) {
                             var weightMemo = $("#shippingWeightMemo").val();
@@ -1081,7 +1086,7 @@
                                         <div class="form-group">
                                             <label class="col-xs-4 control-label" for="shippingZipCode">${message("OrderShipping.zipCode")}:</label>
                                             <div class="col-xs-8">
-                                                <input id="shippingZipCode" name="zipCode" class="form-control" type="text" value="${order.zipCode}" maxlength="200" disabled>
+                                                <input id="shippingZipCode" name="zipCode" class="form-control" type="text" value="${order.zipCode}" maxlength="200" readonly="true">
                                             </div>
                                         </div>
                                     </div>
@@ -1105,7 +1110,7 @@
                                         <div class="form-group">
                                             <label class="col-xs-4 control-label item-required" for="shippingPhone">${message("OrderShipping.phone")}:</label>
                                             <div class="col-xs-8">
-                                                <input id="shippingPhone" name="phone" class="form-control" type="text" value="${order.member.phone}" maxlength="200" disabled>
+                                                <input id="shippingPhone" name="phone" class="form-control" type="text" value="${order.member.phone}" maxlength="200" readonly="true">
                                             </div>
                                         </div>
                                     </div>
