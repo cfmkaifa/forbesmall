@@ -1116,7 +1116,7 @@
                                     <!--司机姓名-->
                                     <div class="col-xs-12 col-sm-6">
                                         <div class="form-group">
-                                            <label class="col-xs-4 control-label item-required" for="shippingDriver" >${message("OrderShipping.driver")}:</label>
+                                            <label class="col-xs-4 control-label" for="shippingDriver" >${message("OrderShipping.driver")}:</label>
                                             <div class="col-xs-8">
                                                 <input id="shippingDriver" name="driver" class="form-control" type="text" value="" maxlength="200">
                                             </div>

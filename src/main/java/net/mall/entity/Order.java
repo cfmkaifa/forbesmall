@@ -345,6 +345,12 @@ public class Order extends BaseEntity<Long> {
     @Column(name = "seal_contract")
     private String sealContract;
 
+
+    /***父级订单ID
+     */
+    @Column(name = "parent_id")
+    private Long parentId;
+
     /**
      * 附言
      */
@@ -1819,5 +1825,14 @@ public class Order extends BaseEntity<Long> {
 
     public void setInvoicePath(String invoicePath) {
         this.invoicePath = invoicePath;
+    }
+
+
+    public Long getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
     }
 }

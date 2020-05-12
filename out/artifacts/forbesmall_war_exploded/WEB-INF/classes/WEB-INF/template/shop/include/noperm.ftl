@@ -31,7 +31,6 @@
                         <p>${articleCategory.seoKeywords}</p>
                         <a class="immediately" subType="yearSubFee">${message("shop.article.subscribeNow")}</a>
                     </li>
-
                 </ul>
             </div>
         </div>

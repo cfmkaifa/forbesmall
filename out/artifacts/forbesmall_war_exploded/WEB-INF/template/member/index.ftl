@@ -204,6 +204,7 @@
 											</div>
 											<div class="media-right media-middle">
 												<strong class="text-red pull-left">${currency(order.amount, true)}</strong>
+												<a class="btn btn-primary" href="${base}/member/order/view?orderSn=${order.sn}">查看订单</a>
 												<a class="btn btn-default btn-icon pull-right" href="${base}/member/order/view?orderSn=${order.sn}" title="${message("common.view")}">
 													<i class="iconfont icon-search"></i>
 												</a>

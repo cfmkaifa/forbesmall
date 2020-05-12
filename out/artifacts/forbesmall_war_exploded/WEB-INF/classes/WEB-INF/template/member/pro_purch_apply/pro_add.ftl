@@ -17,7 +17,6 @@
     <link href="${base}/resources/common/css/bootstrap-select.css" rel="stylesheet">
     <link href="${base}/resources/common/css/bootstrap-fileinput.css" rel="stylesheet">
     <link href="${base}/resources/common/css/summernote.css" rel="stylesheet">
-    <link href="${base}/resources/common/css/bootstrap-fileinput.css" rel="stylesheet">
     <link href="${base}/resources/common/css/base.css" rel="stylesheet">
     <link href="${base}/resources/shop/css/base.css" rel="stylesheet">
     <link href="${base}/resources/member/css/base.css" rel="stylesheet">
