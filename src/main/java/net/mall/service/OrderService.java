@@ -369,4 +369,13 @@ public interface OrderService extends BaseService<Order, Long> {
      * @修改日期 (请填上修改该文件时的日期)
      */
     void confirmPayment(Order order);
+
+    /**
+     * @description 根据父级订单
+     * @author xfx
+     * @date 2020/5/13 18:10
+     * @parameter
+     * @return
+     */
+
 }

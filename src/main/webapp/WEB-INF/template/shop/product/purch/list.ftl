@@ -637,7 +637,7 @@
                         [/@pagination]
                     [#else]
                         [#noautoesc]
-                            <div class="no-result">${message("shop.product.noData")}</div>
+                            <div class="no-result">${message("shop.product.noResult")}</div>
                         [/#noautoesc]
                     [/#if]
                 </form>
