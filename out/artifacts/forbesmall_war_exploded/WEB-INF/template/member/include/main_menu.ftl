@@ -12,12 +12,12 @@
 			<dd[#if .main_template_name?matches(".*/order/.*")] class="active"[/#if]>
 				<a href="${base}/member/order/list">${message("member.mainMenu.orderList")}</a>
 			</dd>
-			<dd[#if .main_template_name?matches(".*/coupon_code/list.*")] class="active"[/#if]>
+			[#--<dd[#if .main_template_name?matches(".*/coupon_code/list.*")] class="active"[/#if]>
 				<a href="${base}/member/coupon_code/list">${message("member.mainMenu.couponCodeList")}</a>
 			</dd>
 			<dd[#if .main_template_name?matches(".*/coupon_code/exchange.*")] class="active"[/#if]>
 				<a href="${base}/member/coupon_code/exchange">${message("member.mainMenu.couponCodeExchange")}</a>
-			</dd>
+			</dd>--]
 			<dd[#if .main_template_name?matches(".*/point_log/.*")] class="active"[/#if]>
 				<a href="${base}/member/point_log/list">${message("member.mainMenu.pointLogList")}</a>
 			</dd>

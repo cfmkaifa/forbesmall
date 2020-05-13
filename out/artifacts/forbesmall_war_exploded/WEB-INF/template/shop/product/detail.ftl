@@ -122,8 +122,8 @@
                     });
                     // 商品图片放大镜
                     $zoom.jqzoom({
-                        zoomWidth: 500,
-                        zoomHeight: 500,
+                        zoomWidth: 378,
+                        zoomHeight: 378,
                         title: false,
                         preloadText: null,
                         preloadImages: false
@@ -353,7 +353,7 @@
                             </a>
                         [#else]
                             <a id="zoom" href="${setting.defaultLargeProductImage}" rel="gallery">
-                                <img src="${setting.defaultMediumProductImage}" alt="${product.name}" style="width: 100%">
+                                <img src="${setting.defaultMediumProductImage}" alt="${product.name}" style="width:580px;height: 580px">
                                 [#if product.sample]
                                     <img src="/resources/shop/images/biao.png" class="active-2">
                                 [/#if]

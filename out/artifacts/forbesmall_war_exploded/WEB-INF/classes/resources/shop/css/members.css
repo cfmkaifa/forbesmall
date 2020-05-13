@@ -1,8 +1,8 @@
 .th1{
 	/* width:200px !important; */
-	width:180px !important;
-	height: 60px;
-	background:linear-gradient(18deg,transparent 49.5%,
+	width:157px !important;
+	height: 40px;
+	background:linear-gradient(11deg,transparent 49.5%,
 	#CCCCCC 49.5%,
 	#CCCCCC 50.5%,
 	transparent 50.5%);
@@ -22,16 +22,18 @@ em {
 	font-style: normal;
 	display: block;
 	position: absolute;
-	top: 20px;
-	left: 10px;
+	top: 18px;
+	left: 15px;
 	border:none;
+}
+.out b {
+
 }
 th, td {
 	border-left: 2px solid #ccc;
 	border-right: 2px solid #ccc;
 	text-align: center;
-	/* height: 74px; */
-	/* line-height: 46px !important; */
+	color: #333333;
 	border-bottom: 1px solid #ccc;
 }
 .membership{
@@ -46,9 +48,15 @@ th, td {
 	/* margin-top: 20px; */
 	font-size: 14px;
 	margin-bottom: 100px;
-	width: 820px;
+	width: 720px;
 	margin: 20px auto;
 	border-top: 1px solid #ebebeb;
+}
+.table td {
+	padding: 5px 3px 0px 3px !important;
+}
+.services {
+	width: 120px !important;
 }
 .table>thead:first-child>tr:first-child>th{
 	border-top: 2px solid #E5E5E5;

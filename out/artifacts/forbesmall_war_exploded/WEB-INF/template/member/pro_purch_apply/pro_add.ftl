@@ -192,10 +192,10 @@
                     <%if (type == "GENERAL") {%>
                     <th>${message("Sku.price")}</th>
                     <%}%>
-                    <th>${message("Sku.cost")}</th>
-                    <th>${message("Sku.marketPrice")}</th>
+                    <th style="display: none">${message("Sku.cost")}</th>
+                    <th style="display: none">${message("Sku.marketPrice")}</th>
                     <%if (type == "GENERAL") {%>
-                    <th>${message("Sku.maxCommission")}</th>
+                    <th style="display: none">${message("Sku.maxCommission")}</th>
                     <%}%>
                     <%if (type == "GENERAL") {%>
                     <th>${message("Sku.rewardPoint")}</th>
@@ -244,15 +244,15 @@
                     <input name="skuList[<%-i%>].price" class="price form-control" type="text" value="<%-price%>" maxlength="16"<%-!isEnabled ? " disabled" : ""%>>
                 </td>
                 <%}%>
-                <td>
+                <td style="display: none">
                     <input name="skuList[<%-i%>].cost" class="cost form-control" type="text" value="<%-cost%>" maxlength="16"<%-!isEnabled ? " disabled" : ""%>>
                 </td>
-                <td>
+               <td style="display: none">
                     <input name="skuList[<%-i%>].marketPrice" class="market-price form-control" type="text" value="<%-marketPrice%>" maxlength="16"<%-!isEnabled ? " disabled" : ""%>>
                 </td>
                 <%if (type == "GENERAL") {%>
-                <td>
-                    <input name="skuList[<%-i%>].maxCommission" class="max-commission form-control" type="text" value="<%-maxCommission%>" maxlength="16"<%-!isEnabled ? " disabled" : ""%>>
+                <td style="display: none">
+                    <input name="skuList[<%-i%>].maxCommission" value="0" class="max-commission form-control" type="text" value="<%-maxCommission%>" maxlength="16"<%-!isEnabled ? " disabled" : ""%>>
                 </td>
                 <%}%>
                 <%if (type == "GENERAL") {%>
@@ -832,7 +832,7 @@
                                     fraction: ${setting.priceScale}
                                 }
                             },
-                            "sku.maxCommission": {
+                           /* "sku.maxCommission": {
                                 required: true,
                                 number: true,
                                 min: 0,
@@ -845,7 +845,7 @@
                                     integer: 12,
                                     fraction: ${setting.priceScale}
                                 }
-                            },
+                            },*/
                             weight: "digits",
                             "sku.rewardPoint": {
                                 digits: true,
@@ -989,7 +989,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-xs-3 col-sm-2 control-label item-required" for="price">${message("Sku.price")}:</label>
+                                        <label class="col-xs-3 col-sm-2 control-label item-required" for="price">${message("Sku.accept")}:</label>
                                         <div class="col-xs-9 col-sm-4">
                                             <input id="price" name="sku.price" class="form-control" type="text" maxlength="16">
                                         </div>
