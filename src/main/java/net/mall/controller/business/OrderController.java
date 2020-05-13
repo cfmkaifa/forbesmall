@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -385,7 +386,6 @@ public class OrderController extends BaseController {
         orderService.releaseLock(order);
         return Results.OK;
     }
-
     /**
      * 发货
      */
@@ -395,14 +395,18 @@ public class OrderController extends BaseController {
         order.setPlate(plate);
         String driver=request.getParameter("driver");
         order.setDriver(driver);
+        String driverPhone=request.getParameter("driverPhone");
+        order.setDriverPhone(driverPhone);
         if (order == null
-                || ConvertUtils.isEmpty(orderShippingForm.getWeightMemo())
                 || order.getShippableQuantity() <= 0) {
             return Results.UNPROCESSABLE_ENTITY;
         }
         boolean isDelivery = false;
         for (Iterator<OrderShippingItem> iterator = orderShippingForm.getOrderShippingItems().iterator(); iterator.hasNext(); ) {
             OrderShippingItem orderShippingItem = iterator.next();
+            if(ConvertUtils.isEmpty(orderShippingItem.getTotalWeight())){
+                return Results.UNPROCESSABLE_TOTAL_WEIGHT_ENTITY;
+            }
             if (orderShippingItem == null || StringUtils.isEmpty(orderShippingItem.getSn()) || orderShippingItem.getQuantity() == null || orderShippingItem.getQuantity() <= 0) {
                 iterator.remove();
                 continue;
@@ -452,7 +456,8 @@ public class OrderController extends BaseController {
             return Results.UNPROCESSABLE_ENTITY;
         }
         orderService.shipping(order, orderShippingForm);
-
+        /***释放锁**/
+        orderService.releaseLock(order);
         return Results.OK;
     }
 

@@ -994,7 +994,7 @@
                                             <input id="price" name="sku.price" class="form-control" type="text" maxlength="16">
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    [#--<div class="form-group">
                                         <label class="col-xs-3 col-sm-2 control-label" for="cost">${message("Sku.cost")}:</label>
                                         <div class="col-xs-9 col-sm-4" title="${message("business.product.costTitle")}" data-toggle="tooltip">
                                             <input id="cost" name="sku.cost" class="form-control" type="text" maxlength="16">
@@ -1005,7 +1005,7 @@
                                         <div class="col-xs-9 col-sm-4" title="${message("business.product.marketPriceTitle")}" data-toggle="tooltip">
                                             <input id="marketPrice" name="sku.marketPrice" class="form-control" type="text" maxlength="16">
                                         </div>
-                                    </div>
+                                    </div>--]
                                     <div class="form-group">
                                         <label class="col-xs-3 col-sm-2 control-label item-required" for="unit">${message("Product.addunit")}:</label>
                                         <div class="col-xs-9 col-sm-4">
@@ -1022,18 +1022,12 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-xs-3 col-sm-2 control-label item-required" for="stock">${message("Sku.stock")}:</label>
+                                        <label class="col-xs-3 col-sm-2 control-label item-required" for="stock">${message("Sku.purQuantity")}:</label>
                                         <div class="col-xs-9 col-sm-4">
                                             <input id="stock" name="sku.stock" class="form-control" type="text" value="1" maxlength="9">
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-xs-3 col-sm-2 control-label item-required" for="expire">${message("Product.expire")}:</label>
-                                        <div class="col-xs-9 col-sm-4">
-                                            <input id="expire" name="expire" class="form-control" type="text"  data-provide="datetimepicker" data-date-format="YYYY-MM-DD">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
+                                    [#--<div class="form-group">
                                         <label class="col-xs-3 col-sm-2 control-label">${message("Product.brand")}:</label>
                                         <div class="col-xs-9 col-sm-4">
                                             <select name="brandId" class="selectpicker form-control" data-live-search="true" data-size="10">
@@ -1043,7 +1037,7 @@
                                                 [/#list]
                                             </select>
                                         </div>
-                                    </div>
+                                    </div>--]
                                     [#if promotions?has_content]
                                         <div class="form-group">
                                             <label class="col-xs-3 col-sm-2 control-label">${message("Product.promotions")}:</label>
@@ -1057,7 +1051,7 @@
                                             </div>
                                         </div>
                                     [/#if]
-                                    [#if productTags?has_content]
+                                   [#-- [#if productTags?has_content]
                                         <div class="form-group">
                                             <label class="col-xs-3 col-sm-2 control-label">${message("Product.productTags")}:</label>
                                             <div class="col-xs-9 col-sm-10">
@@ -1069,7 +1063,7 @@
                                                 [/#list]
                                             </div>
                                         </div>
-                                    [/#if]
+                                    [/#if]--]
                                     <div class="form-group">
                                         <label class="col-xs-3 col-sm-2 control-label" for="memo">${message("Product.memo")}:</label>
                                         <div class="col-xs-9 col-sm-4">

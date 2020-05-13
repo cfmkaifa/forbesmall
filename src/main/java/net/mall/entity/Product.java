@@ -931,6 +931,9 @@ public class Product extends BaseEntity<Long> {
      * @return 重量
      */
     public Integer getWeight() {
+        if(ConvertUtils.isEmpty(weight)){
+            return 0;
+        }
         return weight;
     }
 

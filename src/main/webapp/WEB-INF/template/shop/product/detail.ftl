@@ -122,13 +122,13 @@
                     });
                     // 商品图片放大镜
                     $zoom.jqzoom({
-                        zoomWidth: 378,
-                        zoomHeight: 378,
+                        zoomWidth: 500,
+                        zoomHeight: 500,
                         title: false,
                         preloadText: null,
                         preloadImages: false
                     });
-                    // 商品缩略图
+                    // 商品缩略图S
                     $thumbnailProductImageItem.hover(function () {
                         $(this).click();
                     });

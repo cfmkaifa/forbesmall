@@ -92,6 +92,11 @@ public final class Results {
 
 
 
+
+    public static final  ResponseEntity<Map<String, String>> UNPROCESSABLE_TOTAL_WEIGHT_ENTITY = Results.unprocessableEntity("common.message.order.totalWeight");
+
+
+
     public static final ResponseEntity<Map<String, String>> ORDER_LOCK = Results.unprocessableEntity(DEFAULT_ORDER_LOCK_MESSAGE);
 
     /**

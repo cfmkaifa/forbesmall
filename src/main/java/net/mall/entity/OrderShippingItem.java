@@ -6,6 +6,7 @@
  */
 package net.mall.entity;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,6 +63,12 @@ public class OrderShippingItem extends BaseEntity<Long> {
      */
     @Column(nullable = false, updatable = false)
     private Boolean isDelivery;
+
+    /***总重量
+     */
+    @Column(name = "total_weight")
+    @NotNull
+    private BigDecimal totalWeight;
 
     /**
      * SKU
@@ -221,4 +228,11 @@ public class OrderShippingItem extends BaseEntity<Long> {
     public static class SpecificationConverter extends BaseAttributeConverter<List<String>> {
     }
 
+    public BigDecimal getTotalWeight() {
+        return totalWeight;
+    }
+
+    public void setTotalWeight(BigDecimal totalWeight) {
+        this.totalWeight = totalWeight;
+    }
 }

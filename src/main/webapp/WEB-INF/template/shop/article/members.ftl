@@ -49,12 +49,29 @@
 				vertical-align: top;
 				line-height: 40px;
 			}
+			.rowspan {
+				width: 80px;
+			}
+			.one {
+				width: 20px;
+				margin: 0 auto;
+				line-height: 24px;
+				font-size: 14px;
+				color: #333333;
+			}
+			.table tr th,.table tr td {
+				text-align: center;
+				vertical-align: middle !important;
+			}
 		</style>
 
 	</head>
 	<body>
 	   [#include "/shop/include/main_header.ftl" /]
 	   <div class="members">
+		   <!-- <div class="membersBanner">
+               <img src="/resources/shop/images/membersbanner.png" alt="">
+           </div> -->
 		   <div>
 			   <div class="membershipTitle platformTitle">
 				   <h3>平台介绍</h3>
@@ -62,7 +79,7 @@
 				   <p>PLATFORM IS INTRODUCED</p>
 			   </div>
 			   <div class="platform">
-				   <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上海让雷智能科技有限公司根据市场调查，目前中国市场还没有一款完善的与纺织品企业对接原材料采购平台，尤其是无纺布生产企业对接的原材料采购平台。同时应对与各个化纤工厂，由于化纤是传统纺织行业，属于大宗物资交易交流，化纤工厂与纺织品企业交流交易方式仍然采用传统的方式进行，鉴于此市场信息交流更新缓慢，信息不集中等特点，上海让雷智能科技有限公司联合上海缔荣纺织品有限公司投资开发CFM平台，真诚服务于纺织品企业原材料采购，尤其是无纺布生产企业对于原材料采购的需求服务，致力于打造跨行业跨领域“互联网+”一站式化纤供采服务平台。</p>
+				   <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上海让雷智能科技有限公司根据市场调查，目前中国市场还没有一款完善的与纺织品企业对接原材料采购平台，尤其是无纺布生产企业对接的原材料采购平台。同时应对与各个化纤工厂，由于化纤是传统纺织行业，属于大宗物资交易交流，化纤工厂与纺织品企业交流交易方式仍然采用传统的方式进行，鉴于此市场信息交流更新缓慢，信息不集中等特点，上海让雷智能科技有限公司联合上海缔荣纺织品有限公司投资开发CFM平台，真诚服务于纺织品企业原材料采购，尤其是无纺布生产企业对于原材料采购的需求服务，致力于打造跨行业跨领域“互联网+”一站式</p>
 			   </div>
 		   </div>
 		   <div class="membership">
@@ -77,6 +94,7 @@
 						   <thead>
 						   <tr>
 							   <th>序号</th>
+							   <th class="rowspan">服务类型</th>
 							   <th class="th1">
 								   <div class="out">
 									   <b>会员等级</b>
@@ -89,8 +107,9 @@
 						   </tr>
 						   </thead>
 						   <tbody>
-						   <tr>
+						   <tr align="center">
 							   <td></td>
+							   <td rowspan="10"><p class="one">信息服务</p></td>
 							   <td>价格</td>
 							   <td class="services">3688元/年</td>
 							   <td class="services">9688元/年</td>
@@ -162,6 +181,7 @@
 						   </tr>
 						   <tr>
 							   <td>10</td>
+							   <td rowspan="7"><p class="one">行业销售服务</p></td>
 							   <td>运输服务</td>
 							   <td><img src="/resources/shop/images/members4.png" ></td>
 							   <td><img src="/resources/shop/images/members5.png" ></td>
@@ -212,6 +232,7 @@
 						   </tr>
 						   <tr>
 							   <td>17</td>
+							   <td rowspan="9"><p class="one">智能数据服务</p></td>
 							   <td>行业月报推送</td>
 							   <td></td>
 							   <td><img src="/resources/shop/images/members5.png" ></td>
@@ -275,6 +296,7 @@
 						   </tr>
 						   <tr>
 							   <td>26</td>
+							   <td rowspan="10"><p class="one">国际商业合作</p></td>
 							   <td>新品专利服务</td>
 							   <td></td>
 							   <td></td>

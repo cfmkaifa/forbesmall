@@ -161,4 +161,11 @@ public interface OrderDao extends BaseDao<Order, Long> {
      */
     BigDecimal grantedCommissionTotalAmount(Store store, CommissionType commissionType, Date beginDate, Date endDate, Order.Status... statuses);
 
+
+    /***
+     * 设置对账单
+     * @param statPath
+     * @param orderId
+     */
+    public void modifyStatPath(String statPath, Long orderId);
 }

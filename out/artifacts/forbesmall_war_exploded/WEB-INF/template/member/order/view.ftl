@@ -757,7 +757,7 @@
 													<dd>${message("member.order.deliveryDate")}: ${orderShipping.createdDate?string("yyyy-MM-dd HH:mm:ss")}</dd>
 													<dd>${message("member.order.driver")}: ${order.driver}</dd>
 													<dd>${message("member.order.plate")}: ${order.plate}</dd>
-													<dd>${message("member.order.phone")}: ${order.phone}</dd>
+													<dd>${message("member.order.phone")}: ${order.driverPhone}</dd>
 												[/#list]
 											</dl>
 										</div>
