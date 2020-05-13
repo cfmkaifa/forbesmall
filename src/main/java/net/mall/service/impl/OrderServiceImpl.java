@@ -1099,7 +1099,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
             } else {
                 List<Filter> filters = new ArrayList<Filter>();
                 filters.add(new Filter("parentId",Filter.Operator.EQ,order.getId()));
-                List<Order> subOrders = orderDao.findList(1,1,filters,null);
+                List<Order> subOrders = orderDao.findList(0,1,filters,null);
                 if(ConvertUtils.isNotEmpty(subOrders)){
                     deliveryTotalAmount = deliveryTotalAmount.add(subOrders.get(0).getAmountPaid());
                 }
