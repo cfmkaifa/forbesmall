@@ -275,9 +275,9 @@ public class ProductController extends BaseController {
         final Boolean[] isSample = {false};
         /**判断手机
          * */
-        isMobile(request,o->{
+        /*isMobile(request,o->{
             isSample[0] = true;
-        });
+        });*/
         model.addAttribute("orderTypes", Product.OrderType.values());
         model.addAttribute("productCategory", productCategory);
         model.addAttribute("type", type);
@@ -315,9 +315,9 @@ public class ProductController extends BaseController {
         final Boolean[] isSample = {false};
         /**判断手机
          * */
-        isMobile(request,o->{
+        /*isMobile(request,o->{
             isSample[0] = true;
-        });
+        });*/
         Pageable pageable = new Pageable(pageNumber, pageSize);
         model.addAttribute("orderTypes", Product.OrderType.values());
         model.addAttribute("type", type);
@@ -363,9 +363,9 @@ public class ProductController extends BaseController {
         /**判断手机
          * */
         final Boolean[] isSample = {false};
-        isMobile(request,o->{
+       /* isMobile(request,o->{
             isSample[0] = true;
-        });
+        });*/
         if (startPrice != null && endPrice != null && startPrice.compareTo(endPrice) > 0) {
             BigDecimal tempPrice = startPrice;
             startPrice = endPrice;

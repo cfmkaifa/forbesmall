@@ -304,7 +304,7 @@ public class Product extends BaseEntity<Long> {
      */
     @Min(0)
     @Digits(integer = 12, fraction = 3)
-    @Column(nullable = false, precision = 21, scale = 6)
+    @Column(nullable = true, precision = 21, scale = 6)
     private BigDecimal maxCommission;
 
     /**

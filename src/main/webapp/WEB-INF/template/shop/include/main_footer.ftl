@@ -42,7 +42,7 @@
         </div>
         <div class="row">
             <div class="col-xs-2">
-                <ul class="contact">
+               [#-- <ul class="contact">
                     <li>
                         <i class="iconfont icon-phone"></i>
                         <strong>${setting.phone}</strong>
@@ -55,7 +55,7 @@
                         <i class="iconfont icon-location"></i>
                         ${setting.address}
                     </li>
-                </ul>
+                </ul>--]
             </div>
             <div class="col-xs-2">
                 <ul style="margin: 0 auto">

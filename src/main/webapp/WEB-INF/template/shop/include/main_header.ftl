@@ -300,7 +300,7 @@
                     [/#if]
                 </div>
             </div>
-            <div class="col-xs-3"style=" display: flex; justify-content: space-between;">
+            <div class="col-xs-3"style="display: flex; justify-content: space-between; margin-top: 5px;">
                 <div class="totality-2">
                     ${message("shop.product.amount")}
                     [@pro_amount ]

@@ -372,7 +372,7 @@
 }
 
 .payment .order-payment-detail .summary {
-	display: none;
+	/*display: none;*/
 	padding-top: 20px;
 	margin: 15px 0px 0px 140px;
 	color: #888888;

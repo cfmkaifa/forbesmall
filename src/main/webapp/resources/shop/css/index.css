@@ -107,6 +107,7 @@
 	background: no-repeat top center;
 	width: 880px !important;
 	background-size:880px 500px;
+	border-radius: 6px;
 }
 
 .index .main-slider li a {
@@ -121,7 +122,8 @@
 	margin-bottom: 20px;
 	position: relative;
 	z-index: 200;
-	background-color: rgba(0, 0, 0, 0.6);
+	background-color: #000000;
+	border-radius: 0px 0px 6px 6px;
 }
 
 .index .product-category-menu>ul>li {
@@ -419,7 +421,7 @@
 }
 
 .index .hot-ad li img {
-	border-radius: 5px;
+	border-radius: 6px;
 }
 
 .index .middle-ad {
@@ -757,6 +759,10 @@
 	float: left;
 	background-color: #ffffff;
 	margin: 10px 12px;
+	border-radius: 6px;
+}
+.center-block {
+	border-radius: 6px !important;
 }
 .logo-2 {
 	width: 35px;

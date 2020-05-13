@@ -122,7 +122,7 @@
                                                     </a>
                                                     <strong>
                                                         [#if product.type == "GENERAL"]
-                                                            ${currency(defaultSku.price, true)}
+                                                            ${product.price}
                                                         [#elseif product.type == "EXCHANGE"]
                                                             ${message("Sku.exchangePoint")}: ${defaultSku.exchangePoint}
                                                         [/#if]
