@@ -1108,7 +1108,7 @@
                                         <div class="form-group">
                                             <label class="col-xs-4 control-label item-required" for="shippingAddress">${message("OrderShipping.address")}:</label>
                                             <div class="col-xs-8">
-                                                <input id="shippingAddress" name="address" class="form-control" type="text" value="" maxlength="200">
+                                                <input id="shippingAddress" name="address" class="form-control" type="text" value="${order.address}" maxlength="200" readonly="true">
                                             </div>
                                         </div>
                                     </div>

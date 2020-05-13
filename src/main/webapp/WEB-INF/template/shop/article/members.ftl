@@ -93,8 +93,8 @@
 					   <table class="table">
 						   <thead>
 						   <tr>
-							   <th>序号</th>
-							   <th class="rowspan">服务类型</th>
+							   <th style="width: 50px;">序号</th>
+							   <th style="width: 50px;" class="rowspan">类型</th>
 							   <th class="th1">
 								   <div class="out">
 									   <b>会员等级</b>
