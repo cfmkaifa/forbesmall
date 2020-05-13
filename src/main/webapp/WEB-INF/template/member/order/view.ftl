@@ -83,6 +83,8 @@
 					var $sealContractFile = $("#sealContractFile");
 					var $sealContractConfirm = $("#sealContractConfirm");
 					var $invoicePathFile = $("#invoicePathFile");
+					var $reconciliationPathFile = $("#reconciliationPathFile");
+
 					// 订单支付
 					$payment.click(function() {
 						$.ajax({
@@ -186,6 +188,52 @@
 						initialPreviewFileType:"image",
 						[/#if]
 						initialPreview: "${order.invoicePath}",
+						[/#if]
+						layoutTemplates: {
+							actionDelete:'',
+							footer: '<div class="file-thumbnail-footer">{actions}</div>',
+							actions: '<div class="file-actions"><div class="file-footer-buttons">{upload} {download} {delete} {zoom} {other}</div>{drag}<div class="clearfix"></div></div>'
+						},
+						fileActionSettings: {
+							showUpload: false,
+							showRemove: false,
+							showDrag: false
+						},
+						removeFromPreviewOnError:false,
+						showAjaxErrorDetails: false
+					}).on("fileloaded", function(event, file, previewId, index, reader) {
+					}).on("fileuploaded", function(event, data, previewId, index) {
+
+					}).on("filecleared fileerror fileuploaderror", function() {
+					});
+					// 对账单信息
+					$reconciliationPathFile.fileinput({
+						uploadUrl: "${base}/common/file/upload",
+						uploadExtraData: {
+							fileType: "FILE"
+						},
+						allowedFileExtensions: "${setting.uploadImageExtension}".split(","),
+						[#if setting.uploadMaxSize != 0]
+						maxFileSize: ${setting.uploadMaxSize} * 1024,
+						[/#if]
+						maxFileCount: 0,
+						autoReplace: false,
+						showRemove: false,
+						showClose: false,
+						dropZoneEnabled: false,
+						overwriteInitial: false,
+						showBrowse:false,
+						showUpload:false,
+						showCaption:false,
+						initialPreviewAsData: true,
+						previewClass: "multiple-file-preview",
+						[#if order.statPath?has_content]
+						[#if order.statPath?contains("pdf")]
+						initialPreviewFileType:"pdf",
+						[#else]
+						initialPreviewFileType:"image",
+						[/#if]
+						initialPreview: "${order.statPath}",
 						[/#if]
 						layoutTemplates: {
 							actionDelete:'',
@@ -493,6 +541,28 @@
 			</div>
 		</div>
 		<!--发票end-->
+		<!--对账单start-->
+		<div id="reconciliationModal" class="modal fade" tabindex="-1">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button class="close" type="button" data-dismiss="modal">&times;</button>
+						<h5 class="modal-title">${message("member.order.reconciliation")}</h5>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-xs-12 col-sm-12">
+								<input  class="btn btn-primary"  id="reconciliationPathFile" name="file" type="file" >
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-default" type="button" data-dismiss="modal">${message("common.cancel")}</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--对账单end-->
 		<div id="transitStepModal" class="modal fade" tabindex="-1">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -522,6 +592,9 @@
 									<div class="action pull-right">
 										[#if !order.hasExpired() && order.status != "CANCELED" && order.status != "DENIED"]
 											<a id="sealContractModalButton" class="btn btn-primary" href="javascript:;" data-toggle="modal" data-target="#sealContractModal">${message("member.order.sealContract")}</a>
+										[/#if]
+										[#if !order.hasExpired() && (order.status == "SHIPPED" || order.status == "COMPLETED")]
+											<a id="reconciliationModalButton" class="btn btn-primary" href="javascript:;" data-toggle="modal" data-target="#reconciliationModal">${message("member.order.reconciliation")}</a>
 										[/#if]
 										[#if setting.isReviewEnabled && !order.isReviewed && (order.status == "RECEIVED" || order.status == "COMPLETED")]
 											<a class="btn btn-default" href="${base}/member/review/add?orderId=${order.id}">${message("member.order.review")}</a>

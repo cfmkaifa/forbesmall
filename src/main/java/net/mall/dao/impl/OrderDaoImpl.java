@@ -390,4 +390,12 @@ public class OrderDaoImpl extends BaseDaoImpl<Order, Long> implements OrderDao {
         return result != null ? result : BigDecimal.ZERO;
     }
 
+
+    @Override
+    public void modifyStatPath(String statPath, Long orderId){
+        String jpql = "UPDATE Order SET statPath = :statPath WHERE id = :id";
+        entityManager.createQuery(jpql).setParameter("statPath", statPath)
+                .setParameter("id", orderId).executeUpdate();
+    }
+
 }

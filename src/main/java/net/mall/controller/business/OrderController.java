@@ -407,6 +407,9 @@ public class OrderController extends BaseController {
         boolean isDelivery = false;
         for (Iterator<OrderShippingItem> iterator = orderShippingForm.getOrderShippingItems().iterator(); iterator.hasNext(); ) {
             OrderShippingItem orderShippingItem = iterator.next();
+            if(ConvertUtils.isEmpty(orderShippingItem.getTotalWeight())){
+                return Results.UNPROCESSABLE_TOTAL_WEIGHT_ENTITY;
+            }
             if (orderShippingItem == null || StringUtils.isEmpty(orderShippingItem.getSn()) || orderShippingItem.getQuantity() == null || orderShippingItem.getQuantity() <= 0) {
                 iterator.remove();
                 continue;
@@ -456,7 +459,8 @@ public class OrderController extends BaseController {
             return Results.UNPROCESSABLE_ENTITY;
         }
         orderService.shipping(order, orderShippingForm);
-
+        /***释放锁**/
+        orderService.releaseLock(order);
         return Results.OK;
     }
 

@@ -180,8 +180,9 @@ public class Sku extends BaseEntity<Long> {
      */
     @Field(store = Store.YES, index = Index.NO, analyze = Analyze.NO)
     @NotNull(groups = General.class)
-    @Min(0)
+    @Min(1)
     @Digits(integer = 12, fraction = 3)
+    @NumericField
     @Column(name = "total_unit", nullable = false, precision = 21, scale = 6)
     private BigDecimal totalUnit;
 

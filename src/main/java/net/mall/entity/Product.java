@@ -234,6 +234,7 @@ public class Product extends BaseEntity<Long> {
          */
         FAILED
     }
+
     /**
      * 编号
      */
@@ -462,6 +463,18 @@ public class Product extends BaseEntity<Long> {
     @Column(nullable = false)
     private Long monthSales;
 
+
+    /***源商品ID
+     */
+    @Column(name = "source_pro_id")
+    private Long sourceProId;
+
+
+    /***新商品ID
+     */
+    @Column(name = "new_pro_id")
+    private Long newProId;
+
     /**
      * 销量
      */
@@ -616,17 +629,6 @@ public class Product extends BaseEntity<Long> {
     @Length(max = 200)
     private String attributeValue19;
 
-    /***源商品ID
-     */
-    @Column(name = "source_pro_id")
-    private Long sourceProId;
-
-
-    /***新商品ID
-     */
-    @Column(name = "new_pro_id")
-    private Long newProId;
-
     /**
      * 店铺
      */
@@ -644,7 +646,6 @@ public class Product extends BaseEntity<Long> {
     @NotNull(groups = Purchase.class)
     @JoinColumn(updatable = false,name = "member_id")
     Member member;
-
 
 
     /****样品店铺
@@ -752,6 +753,7 @@ public class Product extends BaseEntity<Long> {
      */
     @Transient
     private boolean sample = false;
+
 
     /**
      * 过期时间
@@ -929,6 +931,9 @@ public class Product extends BaseEntity<Long> {
      * @return 重量
      */
     public Integer getWeight() {
+        if(ConvertUtils.isEmpty(weight)){
+            return 0;
+        }
         return weight;
     }
 
@@ -2306,6 +2311,7 @@ public class Product extends BaseEntity<Long> {
     public void setNewProId(Long newProId) {
         this.newProId = newProId;
     }
+
 
     public Boolean getPurch() {
         return isPurch;

@@ -160,6 +160,12 @@ public class OrderShipping extends BaseEntity<Long> {
     @Column(name = "weight_memo")
     private String weightMemo;
 
+    /***总重量
+     */
+    @Column(name = "total_weight")
+    @NotNull(groups = Delivery.class)
+    private BigDecimal totalWeight;
+
     /**
      * 备注
      */
@@ -542,5 +548,8 @@ public class OrderShipping extends BaseEntity<Long> {
     public void prePersist() {
         setSn(StringUtils.lowerCase(getSn()));
     }
+
+
+
 
 }

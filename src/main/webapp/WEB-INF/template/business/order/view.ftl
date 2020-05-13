@@ -37,7 +37,7 @@
     <script src="${base}/resources/common/js/base.js?version=0.1"></script>
     <script src="${base}/resources/business/js/base.js"></script>
     <style>
-        .returns-items-quantity, .shipping-items-quantity {
+        .returns-items-quantity, .shipping-items-quantity,.shipping-items-totalWeight {
             width: 50px;
         }
 
@@ -72,6 +72,7 @@
                     var $areaId = $("[name='areaId']");
                     var $shippingForm = $("#shippingForm");
                     var $shippingItemsQuantity = $("#shippingForm .shipping-items-quantity");
+                    var $shippingItemsTotalWeight = $("#shippingForm .shipping-items-totalWeight");
                     var $returnsForm = $("#returnsForm");
                     var $returnsItemsQuantity = $("#returnsForm .returns-items-quantity");
                     var $complete = $("button.complete");
@@ -88,6 +89,7 @@
                     var $sealContractConfirm = $("#sealContractConfirm");
                     var $invoicePathFile = $("#invoicePathFile");
                     var $invoiceConfirm = $("#invoiceConfirm");
+                    var $reconciliationPathFile = $("#reconciliationPathFile");
                     // 地区选择
                     $areaId.lSelect({
                         url: "${base}/common/area"
@@ -448,6 +450,52 @@
                             }
                         });
                     });
+                    // 对账单信息
+                    $reconciliationPathFile.fileinput({
+                        uploadUrl: "${base}/common/file/upload",
+                        uploadExtraData: {
+                            fileType: "FILE"
+                        },
+                        allowedFileExtensions: "${setting.uploadImageExtension}".split(","),
+                        [#if setting.uploadMaxSize != 0]
+                        maxFileSize: ${setting.uploadMaxSize} * 1024,
+                        [/#if]
+                        maxFileCount: 0,
+                        autoReplace: false,
+                        showRemove: false,
+                        showClose: false,
+                        dropZoneEnabled: false,
+                        overwriteInitial: false,
+                        showBrowse:false,
+                        showUpload:false,
+                        showCaption:false,
+                        initialPreviewAsData: true,
+                        previewClass: "multiple-file-preview",
+                        [#if order.statPath?has_content]
+                        [#if order.statPath?contains("pdf")]
+                        initialPreviewFileType:"pdf",
+                        [#else]
+                        initialPreviewFileType:"image",
+                        [/#if]
+                        initialPreview: "${order.statPath}",
+                        [/#if]
+                        layoutTemplates: {
+                            actionDelete:'',
+                            footer: '<div class="file-thumbnail-footer">{actions}</div>',
+                            actions: '<div class="file-actions"><div class="file-footer-buttons">{upload} {download} {delete} {zoom} {other}</div>{drag}<div class="clearfix"></div></div>'
+                        },
+                        fileActionSettings: {
+                            showUpload: false,
+                            showRemove: false,
+                            showDrag: false
+                        },
+                        removeFromPreviewOnError:false,
+                        showAjaxErrorDetails: false
+                    }).on("fileloaded", function(event, file, previewId, index, reader) {
+                    }).on("fileuploaded", function(event, data, previewId, index) {
+
+                    }).on("filecleared fileerror fileuploaderror", function() {
+                    });
                     // 审核
                     $review.click(function() {
                         var $element = $(this);
@@ -566,7 +614,14 @@
                             digits: true
                         }
                     });
-
+                    // 验证重量
+                    $.validator.addClassRules({
+                        "shipping-items-totalWeigh": {
+                            required: true,
+                            digits: true
+                        }
+                    });
+                    //表单验证
                     $shippingForm.validate({
                         rules: {
                             deliveryCorpId: "required",
@@ -579,9 +634,9 @@
                                 }
                             },
                             consignee: "required",
-                            plate:"required",
                             areaId: "required",
                             address: "required",
+                            plate:"required",
                             phone: {
                                 required: true,
                                 phone: true
@@ -794,6 +849,28 @@
             </div>
         </div>
         <!--发票end-->
+        <!--对账单start-->
+        <div id="reconciliationModal" class="modal fade" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button class="close" type="button" data-dismiss="modal">&times;</button>
+                        <h5 class="modal-title">${message("member.order.reconciliation")}</h5>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12">
+                                <input  class="btn btn-primary"  id="reconciliationPathFile" name="file" type="file" >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-default" type="button" data-dismiss="modal">${message("common.cancel")}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--对账单end-->
         [#if currentStore.isSelf()]
             <form id="paymentForm" class="form-horizontal" action="${base}/business/order/payment" method="post">
                 <input name="orderId" type="hidden" value="${order.id}">
@@ -1131,7 +1208,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <!--司机电话-->
                                     <div class="col-xs-12 col-sm-6">
                                         <div class="form-group">
@@ -1171,6 +1247,7 @@
                                             <th>${message("business.order.skuQuantity")}</th>
                                             <th>${message("business.order.shippedQuantity")}</th>
                                             <th>${message("business.order.shippingQuantity")}</th>
+                                            <th>${message("OrderShippingItem.totalWeight")}</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -1206,6 +1283,9 @@
                                                         [#assign shippingQuantity = orderItem.shippableQuantity /]
                                                     [/#if]
                                                     <input name="orderShippingItems[${orderItem_index}].quantity" class="shipping-items-quantity form-control" type="text" value="${shippingQuantity}" data-is-delivery="${orderItem.isDelivery?string('true', 'false')}" maxlength="9"[#if shippingQuantity <= 0] disabled[/#if]>
+                                                </td>
+                                                <td style="display: flex;align-items: center;">
+                                                    <input name="orderShippingItems[${orderItem_index}].totalWeight" class="shipping-items-totalWeight form-control" type="text" value=""  maxlength="9">(${orderItem.sku.unit})
                                                 </td>
                                             </tr>
                                         [/#list]
@@ -1454,6 +1534,7 @@
                                         <button id="returnsModalButton" class="btn btn-default" type="button" data-toggle="modal" data-target="#returnsModal"[#if order.returnableQuantity <= 0 || order.status != "FAILED"] disabled[/#if]>${message("business.order.orderReturns")}</button>
                                         <button class="complete btn btn-default" type="button" data-id="${order.id}"[#if order.hasExpired() || order.status != "RECEIVED"] disabled[/#if]>${message("business.order.complete")}</button>
                                         <button class="fail btn btn-default" type="button" data-id="${order.id}"[#if order.hasExpired() || (order.status != "PENDING_SHIPMENT" && order.status != "SHIPPED" && order.status != "RECEIVED")] disabled[/#if]>${message("business.order.fail")}</button>
+                                        <button class="btn btn-default" type="button" data-toggle="modal" data-target="#reconciliationModal" [#if order.hasExpired() && order.status != "SHIPPED" && order.status == "COMPLETED" ] disabled[/#if]>${message("member.order.reconciliation")}</button>
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-6">
@@ -1515,10 +1596,10 @@
                                             <span class="[#if order.status == "PENDING_SHIPMENT" || order.status == "PENDING_REVIEW" || order.status == "PENDING_PAYMENT"]text-orange[#elseif order.status == "FAILED" || order.status == "DENIED"]text-red[#elseif order.status == "CANCELED"]text-gray-dark[#else]text-green[/#if]">${message("Order.Status." + order.status)}</span>
                                             [#if order.hasExpired()]
                                                 <span class="text-gray-dark">(${message("business.order.hasExpired")})</span>
-                                            [#--[#else]
-                                                [#if order.expire??]
-                                                    <span class="text-orange">(${message("Order.expire")}: ${order.expire?string("yyyy-MM-dd HH:mm:ss")})</span>
-                                                [/#if]--]
+                                            [#--  [#else]
+                                                  [#if order.expire??]
+                                                      <span class="text-orange">(${message("Order.expire")}: ${order.expire?string("yyyy-MM-dd HH:mm:ss")})</span>
+                                                  [/#if]--]
                                             [/#if]
                                         </dd>
                                         <dt>${message("Member.memberRank")}:</dt>

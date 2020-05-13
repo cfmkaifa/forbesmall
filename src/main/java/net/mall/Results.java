@@ -91,6 +91,9 @@ public final class Results {
      */
     public static final ResponseEntity<Map<String, String>> UNPROCESSABLE_ENTITY = Results.unprocessableEntity(DEFAULT_UNPROCESSABLE_ENTITY_MESSAGE);
 
+    public static final  ResponseEntity<Map<String, String>> UNPROCESSABLE_TOTAL_WEIGHT_ENTITY = Results.unprocessableEntity("common.message.order.totalWeight");
+
+
     /**
      * JSON内容类型
      */

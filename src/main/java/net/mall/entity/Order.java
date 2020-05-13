@@ -300,9 +300,7 @@ public class Order extends BaseEntity<Long> {
     /**
      * 邮编
      */
-    @NotEmpty(groups = Delivery.class)
     @Length(max = 200)
-    @Pattern(regexp = "^\\d{6}$")
     private String zipCode;
 
     /**
@@ -343,6 +341,11 @@ public class Order extends BaseEntity<Long> {
     @Column(name = "invoice_path")
     private String invoicePath;
 
+    // 对账单地址
+    @Column(name = "stat_path")
+    private String statPath;
+
+
     /***合同生成地址
      */
     @Column(name = "contract_path")
@@ -353,6 +356,12 @@ public class Order extends BaseEntity<Long> {
      */
     @Column(name = "seal_contract")
     private String sealContract;
+
+
+    /***父级订单ID
+     */
+    @Column(name = "parent_id")
+    private Long parentId;
 
     /**
      * 附言
@@ -1793,16 +1802,6 @@ public class Order extends BaseEntity<Long> {
     }
 
     /**
-     * 类型转换 - 促销名称
-     *
-     * @author huanghy
-     * @version 6.1
-     */
-    @Converter
-    public static class PromotionNameConverter extends BaseAttributeConverter<List<String>> {
-    }
-
-    /**
      *设置车牌号
      */
     public String getPlate() {
@@ -1821,6 +1820,17 @@ public class Order extends BaseEntity<Long> {
         this.driver = driver;
     }
 
+    /**
+     * 类型转换 - 促销名称
+     *
+     * @author huanghy
+     * @version 6.1
+     */
+    @Converter
+    public static class PromotionNameConverter extends BaseAttributeConverter<List<String>> {
+    }
+
+
     public String getInvoicePath() {
         return invoicePath;
     }
@@ -1829,11 +1839,29 @@ public class Order extends BaseEntity<Long> {
         this.invoicePath = invoicePath;
     }
 
+
+    public Long getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
+    }
+
     public String getDriverPhone() {
         return driverPhone;
     }
 
     public void setDriverPhone(String driverPhone) {
         this.driverPhone = driverPhone;
+    }
+
+
+    public String getStatPath() {
+        return statPath;
+    }
+
+    public void setStatPath(String statPath) {
+        this.statPath = statPath;
     }
 }
