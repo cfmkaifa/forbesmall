@@ -523,7 +523,7 @@
                             <ul class="clearfix">
                                 [#list page.content as product]
                                     [#assign defaultSku = product.groupPurchSku /]
-                                    [#if product.sampleStore == null]
+                                    [#if !product.sample]
                                     <li class="list-item">
                                         <div class="list-item-body"
                                              style="display: flex;justify-content: space-around;">
