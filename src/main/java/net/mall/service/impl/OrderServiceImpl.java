@@ -1023,14 +1023,15 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
             }
             /***增加补款单**/
             if(isAdd){
-                /***生成合同***/
-                String statPath = this.createReconContract(order,newOrder,"补款单未付款",false);
-                orderDao.modifyStatPath(statPath,order.getId());
-                newOrder.setStatPath(statPath);
                 newOrder.setParentId(order.getId());
                 newOrder.setWeight(orderTotalWeight.setScale(0,RoundingMode.UP).intValue());
                 newOrder.setQuantity(totalQuantity);
                 newOrder.setAmount(orderTotalAmount);
+                newOrder.setAmountPaid(orderTotalAmount);
+                /***生成合同***/
+                String statPath = this.createReconContract(order,newOrder,"补款单未付款",false);
+                orderDao.modifyStatPath(statPath,order.getId());
+                newOrder.setStatPath(statPath);
                 orderDao.persist(newOrder);
                 OrderLog orderLog = new OrderLog();
                 orderLog.setType(OrderLog.Type.CREATE);
