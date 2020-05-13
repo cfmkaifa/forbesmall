@@ -790,7 +790,8 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
         if (passed) {
             if(ConvertUtils.isNotEmpty(order.getParentId())){
                 order.setStatus(Order.Status.COMPLETED);
-                String statPath = this.createReconContract(order,null,"订单已完结",true);
+                Order parentOrder = orderDao.find(order.getParentId());
+                String statPath = this.createReconContract(parentOrder,null,"订单已完结",true);
                 orderDao.modifyStatPath(statPath,order.getId());
                 orderDao.modifyStatPath(statPath,order.getParentId());
             }
@@ -1425,7 +1426,8 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
         order.setAmountPaid(order.getAmount());
         if(ConvertUtils.isNotEmpty(order.getParentId())){
             order.setStatus(Order.Status.COMPLETED);
-            String statPath = this.createReconContract(order,null,"订单已完结",true);
+            Order parentOrder = orderDao.find(order.getParentId());
+            String statPath = this.createReconContract(parentOrder,null,"订单已完结",true);
             orderDao.modifyStatPath(statPath,order.getId());
             orderDao.modifyStatPath(statPath,order.getParentId());
         } else {
