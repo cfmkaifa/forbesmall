@@ -190,7 +190,7 @@
                     <th><%-specificationItem.name%></th>
                     <%});%>
                     <%if (type == "GENERAL") {%>
-                    <th>${message("Sku.price")}</th>
+                    <th>${message("Product.accept.price")}</th>
                     <%}%>
                     <th style="display: none">${message("Sku.cost")}</th>
                     <th style="display: none">${message("Sku.marketPrice")}</th>
@@ -202,7 +202,7 @@
                     <%} else if (type == "EXCHANGE") {%>
                     <th>${message("Sku.exchangePoint")}</th>
                     <%}%>
-                    <th>${message("Sku.stock")}</th>
+                    <th>${message("Sku.purQuantity")}</th>
                     <th>${message("Product.unit")}</th>
                     <th id="parentUnit">${message("Product.unit.data")}</th>
                     <th>${message("Sku.isDefault")}</th>
@@ -832,6 +832,10 @@
                                     fraction: ${setting.priceScale}
                                 }
                             },
+                            "Sku.totalUnit":{
+                                number:true,
+                                min:1
+                            },
                            /* "sku.maxCommission": {
                                 required: true,
                                 number: true,
@@ -1025,6 +1029,12 @@
                                         <label class="col-xs-3 col-sm-2 control-label item-required" for="stock">${message("Sku.purQuantity")}:</label>
                                         <div class="col-xs-9 col-sm-4">
                                             <input id="stock" name="sku.stock" class="form-control" type="text" value="1" maxlength="9">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-xs-3 col-sm-2 control-label item-required" for="expire">${message("Product.expire")}:</label>
+                                        <div class="col-xs-9 col-sm-4">
+                                            <input id="expire" name="expire" class="form-control" type="text"  data-provide="datetimepicker" data-date-format="YYYY-MM-DD">
                                         </div>
                                     </div>
                                     [#--<div class="form-group">
