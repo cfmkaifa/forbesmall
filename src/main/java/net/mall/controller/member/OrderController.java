@@ -6,11 +6,15 @@
  */
 package net.mall.controller.member;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
 
+import net.mall.Filter;
+import net.mall.util.ConvertUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -142,6 +146,13 @@ public class OrderController extends BaseController {
         Setting setting = SystemUtils.getSetting();
         model.addAttribute("isKuaidi100Enabled", StringUtils.isNotEmpty(setting.getKuaidi100Customer()) && StringUtils.isNotEmpty(setting.getKuaidi100Key()));
         model.addAttribute("order", order);
+        List<Filter> filters = new ArrayList<Filter>();
+        filters.add(new Filter("parentId",Filter.Operator.EQ,order.getId()));
+        filters.add(new Filter("status",Filter.Operator.EQ,Order.Status.PENDING_PAYMENT));
+        List<Order> orderts = orderService.findList(0,1,filters,null);
+        if(ConvertUtils.isNotEmpty(orderts)){
+            model.addAttribute("subOrder", orderts.get(0));
+        }
         return "member/order/view";
     }
 
@@ -174,7 +185,10 @@ public class OrderController extends BaseController {
         if (order == null) {
             return Results.NOT_FOUND;
         }
-
+        long subOrderCount = orderService.count(new Filter("parentId",Filter.Operator.EQ,order.getId()),new Filter("status",Filter.Operator.EQ,Order.Status.COMPLETED));
+        if(subOrderCount > 0){
+            return  Results.unprocessableEntity("common.message.subOrderParent");
+        }
         if (order.hasExpired() || !Order.Status.SHIPPED.equals(order.getStatus())) {
             return Results.NOT_FOUND;
         }

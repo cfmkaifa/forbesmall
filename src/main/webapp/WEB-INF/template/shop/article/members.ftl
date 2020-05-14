@@ -47,7 +47,10 @@
         }
         .table>thead>tr>th{
             vertical-align: top;
-            line-height: 40px;
+        }
+        .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+            padding: 0px !important;
+            color: #333333 !important;
         }
         .rowspan {
             width: 80px;

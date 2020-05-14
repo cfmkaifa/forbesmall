@@ -134,6 +134,9 @@ public class ReconContractBuildImpl extends ReconContractModel {
                 ttitleCellLable.setBorderWidth(0.1f);
                 ttitleCellLable.setColspan(2);
                 tableBaseInfo.addCell(ttitleCellLable);
+                if(ConvertUtils.isEmpty(freight)){
+                    freight = BigDecimal.ZERO;
+                }
                 PdfPCell tvalueCellLable = new PdfPCell(new Phrase(proName, contentFont));
                 tvalueCellLable.setUseAscender(true);
                 tvalueCellLable.setUseDescender(true);
@@ -370,6 +373,9 @@ public class ReconContractBuildImpl extends ReconContractModel {
                 ttitleCellLable.setBorderWidth(0.1f);
                 ttitleCellLable.setColspan(2);
                 tableBaseInfo.addCell(ttitleCellLable);
+                if(ConvertUtils.isEmpty(freight)){
+                    freight = BigDecimal.ZERO;
+                }
                 tvalueCellLable = new PdfPCell(new Phrase(numberToStr(freight), contentFont));
                 tvalueCellLable.setUseAscender(true);
                 tvalueCellLable.setUseDescender(true);

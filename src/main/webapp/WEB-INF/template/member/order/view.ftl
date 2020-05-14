@@ -715,6 +715,9 @@
 											<dd>
 												${message("Order.amountPaid")}:
 												<span class="text-red">${currency(order.amountPaid, true, true)}</span>
+												[#if subOrder?has_content]
+													<a  class="btn btn-primary" href="${base}/member/order/view?orderSn=${subOrder.sn}" style="margin-left: 30px;">${message("Order.remaining")}</a>
+												[/#if]
 											</dd>
 										[/#if]
 										[#if order.refundAmount > 0]

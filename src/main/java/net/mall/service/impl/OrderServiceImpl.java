@@ -790,13 +790,10 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
         if (passed) {
             if(ConvertUtils.isNotEmpty(order.getParentId())){
                 order.setStatus(Order.Status.COMPLETED);
-                String statPath = this.createReconContract(order,null,"订单已完结",true);
+                Order parentOrder = orderDao.find(order.getParentId());
+                String statPath = this.createReconContract(parentOrder,null,"订单已完结",true);
                 orderDao.modifyStatPath(statPath,order.getId());
                 orderDao.modifyStatPath(statPath,order.getParentId());
-            } else {
-                String statPath = this.createReconContract(order,null,"订单已完结",true);
-                orderDao.modifyStatPath(statPath,order.getId());
-                order.setStatus(Order.Status.PENDING_SHIPMENT);
             }
         } else {
             order.setStatus(Order.Status.DENIED);
@@ -1102,7 +1099,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
             } else {
                 List<Filter> filters = new ArrayList<Filter>();
                 filters.add(new Filter("parentId",Filter.Operator.EQ,order.getId()));
-                List<Order> subOrders = orderDao.findList(1,1,filters,null);
+                List<Order> subOrders = orderDao.findList(0,1,filters,null);
                 if(ConvertUtils.isNotEmpty(subOrders)){
                     deliveryTotalAmount = deliveryTotalAmount.add(subOrders.get(0).getAmountPaid());
                 }
