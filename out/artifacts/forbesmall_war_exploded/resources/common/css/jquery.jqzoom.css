@@ -101,10 +101,12 @@
 
 }
 .zoomWrapperImage img{
-  border:0px;
-  display:block;
-  position:absolute;
-  z-index:101;
+    border:0px;
+    display:block;
+    position:absolute;
+    z-index:101;
+    width: 700px !important;
+    height: 700px !important;
 }
 
 .zoomIframe{

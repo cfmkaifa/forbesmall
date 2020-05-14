@@ -105,7 +105,9 @@
 .media .media-right .btn {
 	margin-left: 62px;
 }
-
+.mediaa .btn {
+	margin-left: 0px !important;
+}
 
 /* ---------- payment-plugin ---------- */
 .member .payment-plugin .payment-plugin-heading {

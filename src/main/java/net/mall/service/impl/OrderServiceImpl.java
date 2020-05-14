@@ -1025,6 +1025,10 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
                 newOrder.setParentId(order.getId());
                 newOrder.setWeight(orderTotalWeight.setScale(0,RoundingMode.UP).intValue());
                 newOrder.setQuantity(totalQuantity);
+                if(ConvertUtils.isNotEmpty(orderShipping.getFreight())){
+                    newOrder.setFreight(orderShipping.getFreight());
+                    orderTotalAmount = orderTotalAmount.add(orderShipping.getFreight());
+                }
                 newOrder.setAmount(orderTotalAmount);
                 newOrder.setAmountPaid(orderTotalAmount);
                 /***生成合同***/
