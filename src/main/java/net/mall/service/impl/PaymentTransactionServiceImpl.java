@@ -7,16 +7,14 @@
 package net.mall.service.impl;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.math.RoundingMode;
+import java.util.*;
 
 import javax.inject.Inject;
 import javax.persistence.LockModeType;
 
+import net.mall.entity.*;
+import net.mall.util.SensorsAnalyticsUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
@@ -29,25 +27,8 @@ import net.mall.Filter;
 import net.mall.Setting;
 import net.mall.dao.PaymentTransactionDao;
 import net.mall.dao.SnDao;
-import net.mall.entity.Business;
-import net.mall.entity.BusinessDepositLog;
-import net.mall.entity.Member;
-import net.mall.entity.MemberDepositLog;
-import net.mall.entity.Order;
-import net.mall.entity.OrderPayment;
-import net.mall.entity.PaymentItem;
-import net.mall.entity.PaymentMethod;
-import net.mall.entity.PaymentTransaction;
 import net.mall.entity.PaymentTransaction.LineItem;
 import net.mall.entity.PaymentTransaction.NewsSubscribePaymentLineItem;
-import net.mall.entity.PlatformSvc;
-import net.mall.entity.PromotionPluginSvc;
-import net.mall.entity.Sn;
-import net.mall.entity.Store;
-import net.mall.entity.StorePluginStatus;
-import net.mall.entity.SubsNewsHuman;
-import net.mall.entity.Svc;
-import net.mall.entity.User;
 import net.mall.plugin.PaymentPlugin;
 import net.mall.service.BusinessService;
 import net.mall.service.MemberService;
@@ -93,6 +74,8 @@ public class PaymentTransactionServiceImpl extends BaseServiceImpl<PaymentTransa
     private StorePluginStatusService storePluginStatusService;
     @Inject
     SubsNewsHumanService subsNewsHumanService;
+    @Inject
+    SensorsAnalyticsUtils sensorsAnalyticsUtils;
 
     @Override
     @Transactional(readOnly = true)
@@ -190,7 +173,6 @@ public class PaymentTransactionServiceImpl extends BaseServiceImpl<PaymentTransa
     @Override
     public void handle(PaymentTransaction paymentTransaction) {
         Assert.notNull(paymentTransaction, "[Assertion failed] - paymentTransaction is required; it must not be null");
-
         if (!LockModeType.PESSIMISTIC_WRITE.equals(paymentTransactionDao.getLockMode(paymentTransaction))) {
             paymentTransactionDao.flush();
             paymentTransactionDao.refresh(paymentTransaction, LockModeType.PESSIMISTIC_WRITE);
@@ -199,7 +181,6 @@ public class PaymentTransactionServiceImpl extends BaseServiceImpl<PaymentTransa
         if (BooleanUtils.isNotFalse(paymentTransaction.getIsSuccess())) {
             return;
         }
-
         Set<PaymentTransaction> paymentTransactions = new HashSet<>();
         Set<PaymentTransaction> childrenList = paymentTransaction.getChildren();
         if (CollectionUtils.isNotEmpty(childrenList)) {
@@ -208,13 +189,11 @@ public class PaymentTransactionServiceImpl extends BaseServiceImpl<PaymentTransa
         } else {
             paymentTransactions.add(paymentTransaction);
         }
-
         for (PaymentTransaction transaction : paymentTransactions) {
             Svc svc = transaction.getSvc();
             Store store = transaction.getStore();
             User user = transaction.getUser();
             BigDecimal effectiveAmount = transaction.getEffectiveAmount();
-
             Assert.notNull(transaction.getType(), "[Assertion failed] - transaction type is required; it must not be null");
             switch (transaction.getType()) {
                 case ORDER_PAYMENT:
@@ -234,7 +213,6 @@ public class PaymentTransactionServiceImpl extends BaseServiceImpl<PaymentTransa
                         break;
                     }
                     store = svc.getStore();
-
                     Integer durationDays = svc.getDurationDays();
                     if (svc instanceof PlatformSvc) {
                         storeService.addEndDays(store, durationDays);
@@ -243,6 +221,19 @@ public class PaymentTransactionServiceImpl extends BaseServiceImpl<PaymentTransa
                         } else {
                             productService.refreshActive(store);
                         }
+                        /****平台服务费***/
+                        /****上报神策数据****/
+                        Map<String,Object> properties = new HashMap<String,Object>();
+                        properties.put("present_page","");
+                        properties.put("vip_type",store.getStoreRank().getName());
+                        properties.put("vip_price",transaction.getAmount().setScale(0,RoundingMode.UP));
+                        properties.put("store_id",String.valueOf(store.getId()));
+                        properties.put("store_name",store.getName());
+                        properties.put("is_success",true);
+                        properties.put("service_type","店铺升级");
+                        properties.put("fail_reason","");
+                        properties.put("pay_type",transaction.getPaymentPluginName());
+                        sensorsAnalyticsUtils.reportData(String.valueOf(store.getBusiness().getId()),"vipPay",properties);
                     } else if (svc instanceof PromotionPluginSvc) {
                         String promotionPluginId = ((PromotionPluginSvc) svc).getPromotionPluginId();
                         StorePluginStatus storePluginStatus = storePluginStatusService.find(store, promotionPluginId);
@@ -269,19 +260,53 @@ public class PaymentTransactionServiceImpl extends BaseServiceImpl<PaymentTransa
                         subsNewsHumans.forEach(subsNewsHuman -> {
                             subsNewsHuman.setPaySn(transaction.getSn());
                             String subType = subsNewsHuman.getDataType();
+                            String  newsBuyType = "周报";
                             if (subType.equals("weekSubFee")) {
                                 subsNewsHuman.setExpd(DateUtils.addDays(new Date(), 7));
+                               newsBuyType = "周报";
                             }
                             if (subType.equals("monthSubFee")) {
                                 subsNewsHuman.setExpd(DateUtils.addMonths(new Date(), 1));
+                                newsBuyType = "月报";
                             }
                             if (subType.equals("quarterSubFee")) {
                                 subsNewsHuman.setExpd(DateUtils.addMonths(new Date(), 3));
+                                newsBuyType = "季报";
                             }
                             if (subType.equals("yearSubFee")) {
                                 subsNewsHuman.setExpd(DateUtils.addYears(new Date(), 1));
+                                newsBuyType = "年报";
                             }
                             subsNewsHumanService.update(subsNewsHuman);
+                            /**订阅**/
+                            /****上报神策数据****/
+                            Long humanId = subsNewsHuman.getHumanId();
+                            Member member = memberService.find(humanId);
+                            Map<String,Object> properties = new HashMap<String,Object>();
+                            properties.put("pay_no",transaction.getSn());
+                            properties.put("news_buy_type",newsBuyType);
+                            properties.put("news_buy_price",transaction.getAmount().setScale(0,RoundingMode.UP));
+                            properties.put("is_vip",false);
+                            if(ConvertUtils.isNotEmpty(member)){
+                                properties.put("news_buy_user","采购商");
+                                MemberRank memberRank =  member.getMemberRank();
+                                if(ConvertUtils.isNotEmpty(memberRank)){
+                                    properties.put("is_vip",true);
+                                    properties.put("vip_type",memberRank.getName());
+                                }
+                            } else {
+                                properties.put("news_buy_user","供应商");
+                                Business business =  businessService.find(humanId);
+                                if(ConvertUtils.isNotEmpty(business)
+                                        && ConvertUtils.isNotEmpty(business.getStore())
+                                        && ConvertUtils.isNotEmpty(business.getStore().getStoreRank())){
+                                    StoreRank storeRank = business.getStore().getStoreRank();
+                                    properties.put("is_vip",true);
+                                    properties.put("vip_type",storeRank.getName());
+                                }
+                            }
+                            properties.put("pay_type",transaction.getPaymentPluginName());
+                            sensorsAnalyticsUtils.reportData(String.valueOf(humanId),"payNews",properties);
                         });
                     }
                     break;

@@ -381,6 +381,16 @@ public class OrderController extends BaseController {
         model.addAttribute("paymentMethods", paymentMethods);
         model.addAttribute("shippingMethods", shippingMethodService.findAll());
         model.addAttribute("member",currentUser);
+        String refererUrl = request.getHeader("Referer");
+        if(ConvertUtils.isNotEmpty(refererUrl)
+                && refererUrl.contains("/cart/list")){
+            model.addAttribute("entrance", "cart");
+        } else if (ConvertUtils.isNotEmpty(refererUrl)
+                && refererUrl.contains("/product/sample-detail")) {
+            model.addAttribute("entrance", "sample");
+        } else {
+            model.addAttribute("entrance", "buyNow");
+        }
         return "shop/order/checkout";
     }
 
@@ -551,7 +561,7 @@ public class OrderController extends BaseController {
      * 创建
      */
     @PostMapping("/create")
-    public ResponseEntity<?> create(Long skuId, Integer quantity, String methodCode,
+    public ResponseEntity<?> create(Long skuId, Integer quantity, String methodCode,String entrance,
                                     String cartTag, Long receiverId, Long paymentMethodId, Long shippingMethodId, String code, String invoiceTitle, String invoiceTaxNumber, BigDecimal balance, String memo, @CurrentUser Member currentUser,
                                     @CurrentCart Cart currentCart) {
         Map<String, Object> data = new HashMap<>();
@@ -636,6 +646,11 @@ public class OrderController extends BaseController {
         Invoice invoice = StringUtils.isNotEmpty(invoiceTitle) ? new Invoice(invoiceTitle, invoiceTaxNumber, null) : null;
         if (ConvertUtils.isNotEmpty(methodCode)) {
             cart.setMethodCode(methodCode);
+        }
+        /***订单入口
+         * */
+        if(ConvertUtils.isNotEmpty(entrance)){
+            cart.setEntrance(entrance);
         }
         List<Order> orders = orderService.create(orderType, cart, receiver, paymentMethod, shippingMethod, couponCode, invoice, balance, memo);
         List<String> orderSns = new ArrayList<>();

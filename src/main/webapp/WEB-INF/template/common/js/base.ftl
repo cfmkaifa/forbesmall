@@ -658,6 +658,7 @@
 				var that = this;
 				var skuId = typeof this.options.skuId === "function" ? this.options.skuId(this.$element) : this.options.skuId;
 				var quantity = typeof this.options.quantity === "function" ? this.options.quantity(this.$element) : this.options.quantity;
+
 				var methodCode = typeof this.options.methodCode === "function" ? this.options.methodCode(this.$element) : this.options.methodCode;
 				var beforeEvent = $.Event("before.mall.checkout");
 				this.$element.trigger(beforeEvent);

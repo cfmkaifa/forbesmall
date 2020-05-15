@@ -22,7 +22,7 @@
         sdk_url: 'https://cdn.jsdelivr.net/npm/sa-sdk-javascript@1.15.1/sensorsdata.min.js',
         heatmap_url: 'https://cdn.jsdelivr.net/npm/sa-sdk-javascript@1.15.1/heatmap.min.js',
         name: 'sensors',
-        server_url: 'http://fiber.datasink.sensorsdata.cn/sa?token=59f587d85e2799d7'
+        server_url: 'http://fiber.datasink.sensorsdata.cn/sa?project=production&token=59f587d85e2799d7'
     });
     sensors.quick('autoTrack');
     // 如果需要调用 login 来重新设置用户标识，必须在此之前调用

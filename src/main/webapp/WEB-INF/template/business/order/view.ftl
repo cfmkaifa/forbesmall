@@ -1534,7 +1534,7 @@
                                         <button id="returnsModalButton" class="btn btn-default" type="button" data-toggle="modal" data-target="#returnsModal"[#if order.returnableQuantity <= 0 || order.status != "FAILED"] disabled[/#if]>${message("business.order.orderReturns")}</button>
                                         <button class="complete btn btn-default" type="button" data-id="${order.id}"[#if order.hasExpired() || order.status != "RECEIVED"] disabled[/#if]>${message("business.order.complete")}</button>
                                         <button class="fail btn btn-default" type="button" data-id="${order.id}"[#if order.hasExpired() || (order.status != "PENDING_SHIPMENT" && order.status != "SHIPPED" && order.status != "RECEIVED")] disabled[/#if]>${message("business.order.fail")}</button>
-                                        <button class="btn btn-default" type="button" data-toggle="modal" data-target="#reconciliationModal" [#if order.hasExpired() && order.status != "SHIPPED" && order.status == "COMPLETED" ] disabled[/#if]>${message("member.order.reconciliation")}</button>
+                                        <button class="btn btn-default" type="button" data-toggle="modal" data-target="#reconciliationModal" [#if order.hasExpired() || (order.status != "SHIPPED" && order.status != "COMPLETED") ] disabled[/#if]>${message("member.order.reconciliation")}</button>
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-6">

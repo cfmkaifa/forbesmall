@@ -13,6 +13,7 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
+import net.mall.util.*;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
@@ -33,8 +34,6 @@ import net.mall.event.UserRegisteredEvent;
 import net.mall.service.CartService;
 import net.mall.service.MemberService;
 import net.mall.service.SocialUserService;
-import net.mall.util.SystemUtils;
-import net.mall.util.WebUtils;
 
 /**
  * Listener - 用户事件
@@ -89,7 +88,6 @@ public class UserEventListener {
     public void handle(UserLoggedInEvent userLoggedInEvent) {
         User user = userLoggedInEvent.getUser();
         HttpServletRequest request = WebUtils.getRequest();
-
         if (user instanceof Member) {
             String socialUserId = request.getParameter("socialUserId");
             String uniqueId = request.getParameter("uniqueId");
@@ -99,16 +97,35 @@ public class UserEventListener {
                     socialUserService.bindUser(user, socialUser, uniqueId);
                 }
             }
-
             Member member = (Member) user;
             Subject subject = SecurityUtils.getSubject();
             sessionFixationProtection(subject);
-
             Cart cart = member.getCart();
             cartService.merge(cart != null ? cart : cartService.create());
+            /**采购商登录**/
+            Map<String,Object> properties = new HashMap<String,Object>();
+            properties.put("account",member.getUsername());
+            properties.put("is_quick_login",false);
+            properties.put("is_success",true);
+            properties.put("fail_reason","");
+            SensorsAnalyticsUtils sensorsAnalyticsUtils = SpringUtils.getBean(SensorsAnalyticsUtils.class);
+            if(ConvertUtils.isNotEmpty(sensorsAnalyticsUtils)){
+                sensorsAnalyticsUtils.reportData(String.valueOf(member.getId()),"LoginResult",properties);
+            }
         } else if (user instanceof Business) {
             Subject subject = SecurityUtils.getSubject();
             sessionFixationProtection(subject);
+            /**供应商商登录**/
+            Business business = (Business) user;
+            Map<String,Object> properties = new HashMap<String,Object>();
+            properties.put("account",business.getUsername());
+            properties.put("is_quick_login",false);
+            properties.put("is_success",true);
+            properties.put("fail_reason","");
+            SensorsAnalyticsUtils sensorsAnalyticsUtils = SpringUtils.getBean(SensorsAnalyticsUtils.class);
+            if(ConvertUtils.isNotEmpty(sensorsAnalyticsUtils)){
+                sensorsAnalyticsUtils.reportData(String.valueOf(business.getId()),"LoginResult",properties);
+            }
         }
 
     }

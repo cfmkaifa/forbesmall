@@ -93,6 +93,12 @@ public class Cart extends BaseEntity<Long> implements Iterable<CartItem> {
     @Transient
     private String methodCode;
 
+
+    /***订单来源
+     */
+    @Transient
+    private String entrance;
+
     /**
      * 过期时间
      */
@@ -1027,6 +1033,15 @@ public class Cart extends BaseEntity<Long> implements Iterable<CartItem> {
     @Transient
     public Iterator<CartItem> iterator() {
         return getCartItems() != null ? getCartItems().iterator() : Collections.<CartItem>emptyIterator();
+    }
+
+
+    public String getEntrance() {
+        return entrance;
+    }
+
+    public void setEntrance(String entrance) {
+        this.entrance = entrance;
     }
 
     /**

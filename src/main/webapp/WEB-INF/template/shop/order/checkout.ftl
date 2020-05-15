@@ -462,6 +462,7 @@
             </div>
         </form>
         <form id="orderForm" class="ajax-form form-horizontal" action="${base}/order/create" method="post">
+            <input name="entrance" type="hidden" value="${entrance}">
             [#if skuId??]
                 <input name="skuId" type="hidden" value="${skuId}">
                 <input name="quantity" type="hidden" value="${quantity}">
