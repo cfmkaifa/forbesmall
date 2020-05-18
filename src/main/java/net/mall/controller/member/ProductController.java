@@ -15,6 +15,7 @@ import net.mall.exception.UnauthorizedException;
 import net.mall.security.CurrentUser;
 import net.mall.service.*;
 import net.mall.util.ConvertUtils;
+import net.mall.util.SensorsAnalyticsUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
@@ -27,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.swing.text.html.parser.Entity;
 import java.util.*;
 
 /**
@@ -63,6 +65,9 @@ public class ProductController extends BaseController {
     private ProductImageService productImageService;
     @Inject
     private FileService fileService;
+
+    @Inject
+    SensorsAnalyticsUtils sensorsAnalyticsUtils;
 
 
 
@@ -339,6 +344,42 @@ public class ProductController extends BaseController {
             }
             productService.create(productForm, sku);
         }
+        //神策提交采购埋点上报神策
+        if(ConvertUtils.isNotEmpty(productForm)){
+            Map<String,Object> map=new HashMap<String,Object>();
+            map.put("commodity_name",productForm.getName());
+            map.put("first_commodity",productForm.getProductCategory().getName());
+            map.put("second_commodity",productForm.getProductCategory().getParent().getName());
+            map.put("present_price",productForm.getPrice());
+            map.put("member_id",currentMember.getId());
+            map.put("member_name",currentMember.getName());
+            List<Sku> skus=skuListForm.getSkuList();
+            for(Sku item:skus){
+                map.put("goods_amount",item.getStock());
+                List<SpecificationValue> spec= item.getSpecificationValues();
+                for(SpecificationValue temp:spec){
+                    if(temp.getValue().contains("mm")){
+                        map.put("commodity_length",temp.getValue());
+                    }
+                    if(temp.getValue().contains("dtex")){
+                        map.put("commodity_dtex",temp.getValue());
+                    }
+                }
+                break;
+            }
+            List<SpecificationItem> specificationItems=productForm.getSpecificationItems();
+            for(SpecificationItem temp:specificationItems){
+                List<SpecificationItem.Entry> entries=temp.getEntries();
+                for (SpecificationItem.Entry entry:entries){
+                    if(entry.getIsSelected()){
+                        map.put("commodity_color",entry.getValue());
+                    }
+                }
+                break;
+            }
+            sensorsAnalyticsUtils.reportData(String.valueOf(currentMember.getId()),"purch_apply",map);
+        }
+
         return Results.OK;
     }
 

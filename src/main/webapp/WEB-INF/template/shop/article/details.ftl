@@ -67,4 +67,22 @@
 </main>
 [#include "/shop/include/main_footer.ftl" /]
 </body>
+
+<script type="text/javascript">
+    //新闻资讯详情浏览埋点事件
+    $(function () {
+        try {
+            sensors.track('newsClick',{
+                news_id:${article.id},
+                news_title:"${article.title}",
+                news_category:"${article.articleCategory.name}",
+                is_pay:"${article.articleCategory.subscribe}",
+                is_vip:${is_vip},
+                vip_type:"${vip_type}"
+            })
+        }catch (e) {
+            console.log(e)
+        }
+    })
+</script>
 </html>

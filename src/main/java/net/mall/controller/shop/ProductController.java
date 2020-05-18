@@ -123,6 +123,24 @@ public class ProductController extends BaseController {
             String checkresult= String.valueOf(currentUser.getIsAudit());
             model.addAttribute("checkresult",checkresult);
         }
+        model.addAttribute("temp_is_group",product.getGroup());
+        model.addAttribute("temp_is_purch",product.getPurch());
+        model.addAttribute("temp_is_sample",product.getSample());
+        Set<Sku> skuSet=product.getSkus();
+        for(Sku temp:skuSet){
+            List<SpecificationValue> specificationValues=temp.getSpecificationValues();
+            for(SpecificationValue spec:specificationValues){
+                if(spec.getValue().contains("mm")){
+                    model.addAttribute("temp_commodity_length",spec.getValue());
+                }else if(spec.getValue().contains("dtex")){
+                    model.addAttribute("temp_commodity_dtex",spec.getValue());
+                } else if(spec.getValue().contains("kg")){
+                    model.addAttribute("temp_commodity_weight",spec.getValue());
+                }else{
+                    model.addAttribute("temp_commodity_color",spec.getValue());
+                }
+            }
+        }
         return "shop/product/detail";
     }
 
@@ -403,7 +421,10 @@ public class ProductController extends BaseController {
         model.addAttribute("endPrice", endPrice);
         model.addAttribute("orderType", orderType);
         model.addAttribute("searchType", "PRODUCT");
-        model.addAttribute("page", productService.search(keyword, null, storeType, store, isOutOfStock, null, startPrice, endPrice, orderType, pageable));
+        Page<Product> page=productService.search(keyword, null, storeType, store, isOutOfStock, null, startPrice, endPrice, orderType, pageable);
+        model.addAttribute("page",page);
+        model.addAttribute("key_word",keyword);
+        model.addAttribute("result_number",page.getContent().size());
         return "shop/product/search";
     }
 

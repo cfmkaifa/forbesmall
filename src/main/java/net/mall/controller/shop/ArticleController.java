@@ -121,6 +121,13 @@ public class ArticleController extends BaseController {
         model.addAttribute("page", articleService.findPage(articleCategory, null, true, pageable));
         model.addAttribute("articleCategories",articleCategories);
         model.addAttribute("articleCategoryId",articleCategory.getId());
+        if(ConvertUtils.isNotEmpty(currentMember) && ConvertUtils.isNotEmpty(currentMember.getMemberRank())){
+            model.addAttribute("is_vip",true);
+            model.addAttribute("vip_type",currentMember.getMemberRank().getName());
+        }else{
+            model.addAttribute("is_vip",false);
+            model.addAttribute("vip_type",currentMember.getMemberRank().getName());
+        }
         return "shop/article/details";
     }
 
@@ -337,6 +344,15 @@ public class ArticleController extends BaseController {
                             @CurrentUser Business currentBusiness,
                             @CurrentUser Member currentMember,
                             ModelMap model) {
+        if(ConvertUtils.isNotEmpty(currentBusiness)){
+            model.addAttribute("news_buy_user","供应商");
+            model.addAttribute("is_vip",true);
+            model.addAttribute("vip_type",currentMember.getMemberRank().getName());
+        }else{
+            model.addAttribute("news_buy_user","采购商");
+            model.addAttribute("is_vip",true);
+            model.addAttribute("vip_type",currentMember.getMemberRank().getName());
+        }
         ArticleCategory articleCategory = articleCategoryService.find(articleCategoryId);
         if (articleCategory == null) {
             throw new ResourceNotFoundException();
@@ -349,15 +365,23 @@ public class ArticleController extends BaseController {
         model.addAttribute("articleCategory", articleCategory);
         if (subType.equals("weekSubFee")) {
             model.addAttribute("subFee", articleCategory.getWeekSubFee());
+            model.addAttribute("news_buy_price",articleCategory.getWeekSubFee());
+            model.addAttribute("news_buy_type","周报");
         }
         if (subType.equals("monthSubFee")) {
             model.addAttribute("subFee", articleCategory.getMonthSubFee());
+            model.addAttribute("news_buy_price",articleCategory.getMonthSubFee());
+            model.addAttribute("news_buy_type","月报");
         }
         if (subType.equals("quarterSubFee")) {
             model.addAttribute("subFee", articleCategory.getQuarterSubFee());
+            model.addAttribute("news_buy_price",articleCategory.getQuarterSubFee());
+            model.addAttribute("news_buy_type","季报");
         }
         if (subType.equals("yearSubFee")) {
             model.addAttribute("subFee", articleCategory.getYearSubFee());
+            model.addAttribute("news_buy_price",articleCategory.getYearSubFee());
+            model.addAttribute("news_buy_type","年报");
         }
         model.addAttribute("articleCategory", articleCategory);
         SubsNewsHuman subsNewsHuman = new SubsNewsHuman();

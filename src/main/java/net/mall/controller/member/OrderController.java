@@ -14,6 +14,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import net.mall.Filter;
+import net.mall.entity.*;
 import net.mall.util.ConvertUtils;
 import net.mall.util.SpringUtils;
 import org.apache.commons.lang.StringUtils;
@@ -31,10 +32,6 @@ import com.fasterxml.jackson.annotation.JsonView;
 import net.mall.Pageable;
 import net.mall.Results;
 import net.mall.Setting;
-import net.mall.entity.BaseEntity;
-import net.mall.entity.Member;
-import net.mall.entity.Order;
-import net.mall.entity.OrderShipping;
 import net.mall.exception.UnauthorizedException;
 import net.mall.security.CurrentUser;
 import net.mall.service.OrderService;
@@ -154,6 +151,34 @@ public class OrderController extends BaseController {
         if(ConvertUtils.isNotEmpty(orderts)){
             model.addAttribute("subOrder", orderts.get(0));
         }
+        List<OrderItem> orderItems=order.getOrderItems();
+        for(OrderItem itemTemp:orderItems){
+            model.addAttribute("product",itemTemp);
+            model.addAttribute("temp_is_group",itemTemp.getProduct().getGroup());
+            model.addAttribute("temp_is_purch",itemTemp.getProduct().getPurch());
+            model.addAttribute("temp_is_sample",itemTemp.getProduct().getSample());
+            model.addAttribute("commodity_name",itemTemp.getProduct().getName());
+            model.addAttribute("present_price",itemTemp.getProduct().getPrice());
+            model.addAttribute("commodity_id",itemTemp.getProduct().getId());
+            model.addAttribute("first_commodity",itemTemp.getProduct().getProductCategory().getParent().getName());
+            model.addAttribute("second_commodity",itemTemp.getProduct().getProductCategory().getName());
+            model.addAttribute("store_id",itemTemp.getOrder().getStore().getId());
+            model.addAttribute("store_name",itemTemp.getOrder().getStore().getName());
+            List<String> specifications=itemTemp.getSpecifications();
+            for(String spec:specifications){
+                if(spec.contains("mm")){
+                    model.addAttribute("temp_commodity_length",spec);
+                }else if(spec.contains("dtex")){
+                    model.addAttribute("temp_commodity_dtex",spec);
+                } else if(spec.contains("kg")){
+                    model.addAttribute("temp_commodity_weight",spec);
+                }else{
+                    model.addAttribute("temp_commodity_color",spec);
+                }
+            }
+            model.addAttribute("orderCancel",order);
+            break;
+        }
         return "member/order/view";
     }
 
@@ -161,7 +186,7 @@ public class OrderController extends BaseController {
      * 取消
      */
     @PostMapping("/cancel")
-    public ResponseEntity<?> cancel(@ModelAttribute(binding = false) Order order, @CurrentUser Member currentUser) {
+    public ResponseEntity<?> cancel(@ModelAttribute(binding = false) Order order, @CurrentUser Member currentUser,ModelMap model) {
         if (order == null) {
             return Results.NOT_FOUND;
         }

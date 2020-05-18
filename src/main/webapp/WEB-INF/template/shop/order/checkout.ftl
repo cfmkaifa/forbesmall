@@ -742,4 +742,29 @@
 </main>
 [#include "/shop/include/main_footer.ftl" /]
 </body>
+<script type="text/javascript">
+    //立即购买埋点事件
+    $(function () {
+        try {
+            sensors.track('buyNow',{
+                commodity_id:${sku.product.id},
+                commodity_name:"${sku.product.name}",
+                first_commodity:"${sku.product.productCategory.parent.name}",
+                second_commodity:"${sku.product.productCategory.name}",
+                present_price:${sku.product.price},
+                commodity_length:"${temp_commodity_length}",
+                commodity_dtex:"${temp_commodity_dtex}",
+                commodity_color:"${temp_commodity_color}",
+                commodity_weight:"${temp_commodity_weight}",
+                store_id:${sku.product.store.id},
+                store_name:"${sku.product.store.name}",
+                is_group:${temp_is_group?string ("true","false")},
+                is_purch:${temp_is_purch?string ("true","false")},
+                is_sample:${temp_is_sample?string ("true","false")}
+            })
+        }catch (e) {
+            console.log(e)
+        }
+    })
+</script>
 </html>

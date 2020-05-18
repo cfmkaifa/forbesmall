@@ -8,6 +8,8 @@ package net.mall.controller.shop;
 
 import javax.inject.Inject;
 
+import net.mall.Page;
+import net.mall.entity.Product;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -69,7 +71,10 @@ public class StoreController extends BaseController {
         Pageable pageable = new Pageable(pageNumber, pageSize);
         model.addAttribute("storeKeyword", keyword);
         model.addAttribute("searchType", "STORE");
-        model.addAttribute("page", storeService.search(keyword, pageable));
+        Page<Store> page= storeService.search(keyword, pageable);
+        model.addAttribute("page",page);
+        model.addAttribute("key_word",keyword);
+        model.addAttribute("result_number",page.getContent().size());
         return "shop/store/search";
     }
 

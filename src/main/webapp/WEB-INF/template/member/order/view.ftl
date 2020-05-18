@@ -107,6 +107,44 @@
 						if (result == null || !result) {
 							return;
 						}
+
+						//取消订单埋点事件
+						try {
+							sensors.track('CancelOrder',{
+								order_id:"${orderCancel.sn}",
+								order_amount:${orderCancel.price},
+								order_actual_amount:${orderCancel.price},
+								payment_method:"${orderCancel.paymentMethodName}",
+								delivery_method:"${orderCancel.shippingMethodName}",
+							})
+						}catch (e) {
+							console.log(e)
+						}
+
+						//取消订单详情埋点事件
+						try{
+							sensors.track('CancelOrderDetail',{
+								order_id:"${orderTemp.sn}",
+								commodity_id:${commodity_id},
+								commodity_name:"${commodity_name}",
+								first_commodity:"${first_commodity}",
+								second_commodity:"${second_commodity}",
+								present_price:${present_price},
+								order_amount:${product.price},
+								commodity_length:"${temp_commodity_length}",
+								commodity_dtex:"${temp_commodity_dtex}",
+								commodity_color:"${temp_commodity_color}",
+								commodity_weight:"${temp_commodity_weight}",
+								store_id:${store_id},
+								store_name:"${store_name}",
+								is_group:${temp_is_group?string ("true","false")},
+								is_purch:${temp_is_purch?string ("true","false")},
+								is_sample:${temp_is_sample?string ("true","false")}
+							})
+						}catch (e) {
+							console.log(e)
+						}
+
 						$.ajax({
 							url: "${base}/member/order/cancel?orderSn=${order.sn}",
 							type: "POST",
@@ -125,7 +163,6 @@
 						if (result == null || !result) {
 							return;
 						}
-						
 						$.ajax({
 							url: "${base}/member/order/receive?orderSn=${order.sn}",
 							type: "POST",

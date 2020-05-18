@@ -8,9 +8,12 @@ package net.mall.template.directive;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.Set;
 
 import javax.inject.Inject;
 
+import net.mall.entity.Ad;
+import net.mall.util.ConvertUtils;
 import org.springframework.stereotype.Component;
 
 import freemarker.core.Environment;
@@ -19,6 +22,7 @@ import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
 import net.mall.entity.AdPosition;
 import net.mall.service.AdPositionService;
+import org.springframework.ui.ModelMap;
 
 /**
  * 模板指令 - 广告位
@@ -53,5 +57,6 @@ public class AdPositionDirective extends BaseDirective {
 
         AdPosition adPosition = adPositionService.find(id, useCache);
         setLocalVariable(VARIABLE_NAME, adPosition, env, body);
+        ModelMap model=new ModelMap();
     }
 }

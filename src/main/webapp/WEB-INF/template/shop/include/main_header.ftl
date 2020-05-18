@@ -218,7 +218,7 @@
             </div>
         </div>
     </div>
-    <div class="advertis">
+    <div id="top_banner" class="advertis" onclick="Top_Banner()">
         [@ad_position id = 9951]
             [#if adPosition??]
                 [#noautoesc]${adPosition.resolveTemplate()}[/#noautoesc]

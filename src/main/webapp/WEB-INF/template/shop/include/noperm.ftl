@@ -102,8 +102,8 @@
             </div>
             <div class="modalBody">
                 <form>
-                    <a id="supplierPay" class="btna btn-defaulta btnava" href="">${message("shop.article.supplier")}</a>
-                    <a id="purchaserPay" class="btna btn-defaulta" href="">${message("shop.article.purchaser")}</a>
+                    <a id="supplierPay" class="btna btn-defaulta btnava" href="" onclick="buyNews()">${message("shop.article.supplier")}</a>
+                    <a id="purchaserPay" class="btna btn-defaulta" href="" onclick="buyNews()" >${message("shop.article.purchaser")}</a>
                 </form>
             </div>
         </div>

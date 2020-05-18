@@ -261,6 +261,24 @@ public class OrderController extends BaseController {
         if (skuId != null) {
             Sku sku = skuService.find(skuId);
             model.addAttribute("sku",sku);
+            Set<Sku> skuSet=sku.getProduct().getSkus();
+            for(Sku temp:skuSet){
+                List<SpecificationValue> specificationValues=temp.getSpecificationValues();
+                for(SpecificationValue spec:specificationValues){
+                    if(spec.getValue().contains("mm")){
+                        model.addAttribute("temp_commodity_length",spec.getValue());
+                    }else if(spec.getValue().contains("dtex")){
+                        model.addAttribute("temp_commodity_dtex",spec.getValue());
+                    } else if(spec.getValue().contains("kg")){
+                        model.addAttribute("temp_commodity_weight",spec.getValue());
+                    }else{
+                        model.addAttribute("temp_commodity_color",spec.getValue());
+                    }
+                }
+            }
+            model.addAttribute("temp_is_group",sku.getProduct().getGroup());
+            model.addAttribute("temp_is_purch",sku.getProduct().getPurch());
+            model.addAttribute("temp_is_sample",sku.getProduct().getSample());
             if (sku == null) {
                 return UNPROCESSABLE_ENTITY_VIEW;
             }
@@ -358,6 +376,7 @@ public class OrderController extends BaseController {
         model.addAttribute("exchangePoint", exchangePoint);
         model.addAttribute("isDelivery", isDelivery);
         List<PaymentMethod> paymentMethods = paymentMethodService.findAll();
+
         /***判断是否手机端
          * **/
         if (request.getAttribute(DeviceUtils.CURRENT_DEVICE_ATTRIBUTE) instanceof Device) {
@@ -724,6 +743,36 @@ public class OrderController extends BaseController {
         model.addAttribute("amount", amount);
         model.addAttribute("orders", orders);
         model.addAttribute("orderSns", Arrays.asList(orderSns));
+       for(Order orderTemp:orders){
+            model.addAttribute("orderTemp",orderTemp);
+            List<OrderItem> orderItems=orderTemp.getOrderItems();
+            for(OrderItem itemTemp:orderItems){
+                model.addAttribute("product",itemTemp);
+                model.addAttribute("temp_is_group",itemTemp.getProduct().getGroup());
+                model.addAttribute("temp_is_purch",itemTemp.getProduct().getPurch());
+                model.addAttribute("temp_is_sample",itemTemp.getProduct().getSample());
+                model.addAttribute("commodity_name",itemTemp.getProduct().getName());
+                model.addAttribute("present_price",itemTemp.getProduct().getPrice());
+                model.addAttribute("commodity_id",itemTemp.getProduct().getId());
+                model.addAttribute("first_commodity",itemTemp.getProduct().getProductCategory().getParent().getName());
+                model.addAttribute("second_commodity",itemTemp.getProduct().getProductCategory().getName());
+                model.addAttribute("store_id",itemTemp.getOrder().getStore().getId());
+                model.addAttribute("store_name",itemTemp.getOrder().getStore().getName());
+                List<String> specifications=itemTemp.getSpecifications();
+                for(String spec:specifications){
+                    if(spec.contains("mm")){
+                        model.addAttribute("temp_commodity_length",spec);
+                    }else if(spec.contains("dtex")){
+                        model.addAttribute("temp_commodity_dtex",spec);
+                    } else if(spec.contains("kg")){
+                        model.addAttribute("temp_commodity_weight",spec);
+                    }else{
+                        model.addAttribute("temp_commodity_color",spec);
+                    }
+                }
+                break;
+            }
+        }
         return "shop/order/payment";
     }
 
