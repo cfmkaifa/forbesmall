@@ -126,7 +126,7 @@ public class ArticleController extends BaseController {
             model.addAttribute("vip_type",currentMember.getMemberRank().getName());
         }else{
             model.addAttribute("is_vip",false);
-            model.addAttribute("vip_type",currentMember.getMemberRank().getName());
+            model.addAttribute("vip_type","暂未登录");
         }
         return "shop/article/details";
     }

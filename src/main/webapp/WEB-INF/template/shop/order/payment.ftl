@@ -420,7 +420,8 @@
                 store_name:"${store_name}",
                 is_group:${temp_is_group?string ("true","false")},
                 is_purch:${temp_is_purch?string ("true","false")},
-                is_sample:${temp_is_sample?string ("true","false")}
+                is_sample:${temp_is_sample?string ("true","false")},
+                total_price_of_commodity:${amount}
             })
         }catch (e) {
             console.log(e);

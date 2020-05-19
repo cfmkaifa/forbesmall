@@ -224,7 +224,7 @@
 							</a>
 						</li>
 						<li class="list-group-item[#if .main_template_name?matches("business/store/payment.*")] active[/#if]">
-							<a href="${base}/business/store/payment">
+							<a href="${base}/business/store/payment/${currentStore.storeRank.id}">
 								<i class="iconfont icon-weixuanzhong"></i>
 								${message("business.mainSidebar.storePayment")}
 							</a>
