@@ -6,6 +6,7 @@
  */
 package net.mall.controller.shop;
 
+import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -16,6 +17,10 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.mall.entity.Area;
+import net.mall.entity.Order;
+import net.mall.util.ConvertUtils;
+import net.mall.util.SensorsAnalyticsUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
@@ -49,6 +54,8 @@ public class PaymentController extends BaseController {
     private PluginService pluginService;
     @Inject
     private PaymentTransactionService paymentTransactionService;
+    @Inject
+    SensorsAnalyticsUtils sensorsAnalyticsUtils;
 
     /**
      * 是否支付成功
@@ -157,6 +164,34 @@ public class PaymentController extends BaseController {
         boolean isPaySuccess = paymentPlugin.isPaySuccess(paymentPlugin, paymentTransaction, getPaymentDescription(paymentTransaction), extra, request, response);
         if (isPaySuccess) {
             paymentTransactionService.handle(paymentTransaction);
+            Order order = paymentTransaction.getOrder();
+            /****上报神策数据****/
+            if(ConvertUtils.isNotEmpty(order)){
+                Map<String,Object> properties = new HashMap<String,Object>();
+                properties.put("order_id",order.getSn());
+                properties.put("order_amount",order.getAmount().setScale(2, RoundingMode.UP));
+                properties.put("payment_method",paymentPlugin.getDisplayName());
+                properties.put("pay_type",order.getPaymentMethodName());
+                Long memberId = order.getMember().getId();
+                properties.put("supplier_id",String.valueOf(order.getStore().getBusiness().getId()));
+                properties.put("receiver_id",String.valueOf(memberId));
+                Area area = order.getArea();
+                if(ConvertUtils.isNotEmpty(area)){
+                    if(ConvertUtils.isNotEmpty(area.getParent())){
+                        properties.put("receiver_province",area.getParent().getName());
+                    } else {
+                        properties.put("receiver_province",area.getName());
+                    }
+                    properties.put("receiver_city",order.getArea().getName());
+                }
+                /****设置省市区**/
+                else {
+                    properties.put("receiver_province",order.getAreaName());
+                    properties.put("receiver_city",order.getAreaName());
+                }
+                properties.put("delivery_method",order.getShippingMethodName());
+                sensorsAnalyticsUtils.reportData(String.valueOf(memberId),"PayOrder",properties);
+            }
         }
         ModelAndView modelAndView = new ModelAndView();
         paymentPlugin.postPayHandle(paymentPlugin, paymentTransaction, getPaymentDescription(paymentTransaction), extra, isPaySuccess, request, response, modelAndView);

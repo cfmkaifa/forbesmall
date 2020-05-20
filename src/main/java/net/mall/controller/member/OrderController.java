@@ -14,6 +14,8 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import net.mall.Filter;
+import net.mall.entity.*;
+import net.mall.service.ProductService;
 import net.mall.util.ConvertUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.http.MediaType;
@@ -30,10 +32,6 @@ import com.fasterxml.jackson.annotation.JsonView;
 import net.mall.Pageable;
 import net.mall.Results;
 import net.mall.Setting;
-import net.mall.entity.BaseEntity;
-import net.mall.entity.Member;
-import net.mall.entity.Order;
-import net.mall.entity.OrderShipping;
 import net.mall.exception.UnauthorizedException;
 import net.mall.security.CurrentUser;
 import net.mall.service.OrderService;
@@ -59,6 +57,8 @@ public class OrderController extends BaseController {
     private OrderService orderService;
     @Inject
     private OrderShippingService orderShippingService;
+    @Inject
+    private ProductService productService;
 
     /**
      * 添加属性
@@ -152,6 +152,58 @@ public class OrderController extends BaseController {
         List<Order> orderts = orderService.findList(0,1,filters,null);
         if(ConvertUtils.isNotEmpty(orderts)){
             model.addAttribute("subOrder", orderts.get(0));
+        }
+        List<OrderItem> orderItems=order.getOrderItems();
+        for(OrderItem itemTemp:orderItems){
+            model.addAttribute("product",itemTemp);
+            model.addAttribute("temp_is_group",itemTemp.getProduct().getGroup());
+            model.addAttribute("temp_is_purch",itemTemp.getProduct().getPurch());
+            model.addAttribute("temp_is_sample",itemTemp.getProduct().getSample());
+            model.addAttribute("commodity_name",itemTemp.getProduct().getName());
+            model.addAttribute("present_price",itemTemp.getProduct().getPrice());
+            model.addAttribute("commodity_id",itemTemp.getProduct().getId());
+            model.addAttribute("first_commodity",itemTemp.getProduct().getProductCategory().getParent().getName());
+            model.addAttribute("second_commodity",itemTemp.getProduct().getProductCategory().getName());
+            model.addAttribute("store_id",itemTemp.getOrder().getStore().getId());
+            model.addAttribute("store_name",itemTemp.getOrder().getStore().getName());
+            Product product=itemTemp.getProduct();
+            List<SpecificationItem> specificationItems=product.getSpecificationItems();
+            for(SpecificationItem temp:specificationItems){
+                if(temp.getName().contains("颜色")){
+                    List<SpecificationItem.Entry> entries=temp.getEntries();
+                    for (SpecificationItem.Entry tempEntry:entries){
+                        if(tempEntry.getIsSelected()){
+                            model.addAttribute("temp_commodity_color",tempEntry.getValue());
+                        }
+                    }
+                }
+                if(temp.getName().contains("cm")){
+                    List<SpecificationItem.Entry> entries=temp.getEntries();
+                    for (SpecificationItem.Entry tempEntry:entries){
+                        if(tempEntry.getIsSelected()){
+                            model.addAttribute("temp_commodity_cm",tempEntry.getValue());
+                        }
+                    }
+                }
+                if(temp.getName().contains("gsm")){
+                    List<SpecificationItem.Entry> entries=temp.getEntries();
+                    for (SpecificationItem.Entry tempEntry:entries){
+                        if(tempEntry.getIsSelected()){
+                            model.addAttribute("temp_commodity_gsm",tempEntry.getValue());
+                        }
+                    }
+                }
+                if(temp.getName().contains("纤维")){
+                    List<SpecificationItem.Entry> entries=temp.getEntries();
+                    for (SpecificationItem.Entry tempEntry:entries){
+                        if(tempEntry.getIsSelected()){
+                            model.addAttribute("temp_commodity_fiber",tempEntry.getValue());
+                        }
+                    }
+                }
+            }
+            model.addAttribute("orderCancel",order);
+            break;
         }
         return "member/order/view";
     }

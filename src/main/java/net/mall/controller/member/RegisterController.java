@@ -8,11 +8,14 @@ package net.mall.controller.member;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import net.mall.entity.*;
+import net.mall.util.SensorsAnalyticsUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.http.ResponseEntity;
@@ -59,6 +62,9 @@ public class RegisterController extends BaseController {
     private MemberAttributeService memberAttributeService;
     @Inject
     private SocialUserService socialUserService;
+    @Inject
+    private SensorsAnalyticsUtils sensorsAnalyticsUtils;
+
 
     /**
      * 检查用户名是否存在
@@ -173,6 +179,16 @@ public class RegisterController extends BaseController {
         if (spreadMember != null) {
             distributorService.create(member, spreadMember);
         }
+        /***会员注册
+         * **/
+        Map<String,Object> properties = new HashMap<String,Object>();
+        properties.put("account",member.getUsername());
+        properties.put("email",member.getEmail());
+        properties.put("phone",member.getPhone());
+        properties.put("company",member.getName());
+        properties.put("is_success",true);
+        properties.put("fail_reason","");
+        sensorsAnalyticsUtils.reportData(String.valueOf(member.getId()),"RegisterResult",properties);
         return Results.OK;
     }
 

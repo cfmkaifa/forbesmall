@@ -15,6 +15,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import net.mall.util.ConvertUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.http.ResponseEntity;
@@ -231,6 +232,20 @@ public class StoreController extends BaseController {
         if (CollectionUtils.isNotEmpty(paymentPlugins)) {
             model.addAttribute("defaultPaymentPlugin", paymentPlugins.get(0));
             model.addAttribute("paymentPlugins", paymentPlugins);
+        }
+        if(ConvertUtils.isNotEmpty(id) && ConvertUtils.isNotEmpty(storeRank)){
+            model.addAttribute("vip_price",storeRank.getServiceFee());
+            model.addAttribute("store_id",currentStore.getId());
+            model.addAttribute("store_name",currentStore.getName());
+            if(id ==1){
+                model.addAttribute("vip_type",storeRank.getName());
+            }
+            if(id ==5){
+                model.addAttribute("vip_type",storeRank.getName());
+            }
+            if(id ==6){
+                model.addAttribute("vip_type",storeRank.getName());
+            }
         }
         return "business/store/payment";
     }

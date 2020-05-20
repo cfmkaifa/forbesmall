@@ -15,6 +15,7 @@ import net.mall.exception.UnauthorizedException;
 import net.mall.security.CurrentUser;
 import net.mall.service.*;
 import net.mall.util.ConvertUtils;
+import net.mall.util.SensorsAnalyticsUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
@@ -63,6 +64,8 @@ public class ProductController extends BaseController {
     private ProductImageService productImageService;
     @Inject
     private FileService fileService;
+    @Inject
+    SensorsAnalyticsUtils sensorsAnalyticsUtils;
 
 
 
@@ -338,6 +341,52 @@ public class ProductController extends BaseController {
                 return Results.UNPROCESSABLE_ENTITY;
             }
             productService.create(productForm, sku);
+        }
+        //神策提交采购埋点上报神策
+        if(ConvertUtils.isNotEmpty(productForm)){
+            Map<String,Object> map=new HashMap<String,Object>();
+            map.put("commodity_name",productForm.getName());
+            map.put("first_commodity",productForm.getProductCategory().getName());
+            map.put("second_commodity",productForm.getProductCategory().getParent().getName());
+            map.put("present_price",productForm.getPrice());
+            map.put("member_id",currentMember.getId());
+            map.put("member_name",currentMember.getName());
+            List<SpecificationItem> specificationItems=productForm.getSpecificationItems();
+            for(SpecificationItem temp:specificationItems){
+                if(temp.getName().contains("颜色")){
+                    List<SpecificationItem.Entry> entries=temp.getEntries();
+                    for (SpecificationItem.Entry tempEntry:entries){
+                        if(tempEntry.getIsSelected()){
+                            map.put("temp_commodity_color",tempEntry.getValue());
+                        }
+                    }
+                }
+                if(temp.getName().contains("cm")){
+                    List<SpecificationItem.Entry> entries=temp.getEntries();
+                    for (SpecificationItem.Entry tempEntry:entries){
+                        if(tempEntry.getIsSelected()){
+                            map.put("temp_commodity_cm",tempEntry.getValue());
+                        }
+                    }
+                }
+                if(temp.getName().contains("gsm")){
+                    List<SpecificationItem.Entry> entries=temp.getEntries();
+                    for (SpecificationItem.Entry tempEntry:entries){
+                        if(tempEntry.getIsSelected()){
+                            map.put("temp_commodity_gsm",tempEntry.getValue());
+                        }
+                    }
+                }
+                if(temp.getName().contains("纤维")){
+                    List<SpecificationItem.Entry> entries=temp.getEntries();
+                    for (SpecificationItem.Entry tempEntry:entries){
+                        if(tempEntry.getIsSelected()){
+                            map.put("temp_commodity_fiber",tempEntry.getValue());
+                        }
+                    }
+                }
+            }
+            sensorsAnalyticsUtils.reportData(String.valueOf(currentMember.getId()),"purch_apply",map);
         }
         return Results.OK;
     }

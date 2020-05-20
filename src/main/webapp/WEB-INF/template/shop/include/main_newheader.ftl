@@ -294,4 +294,5 @@
             </ul>
         </div>
     </div>
+    [#include "/common/js/buried_point.ftl"]
 </header>

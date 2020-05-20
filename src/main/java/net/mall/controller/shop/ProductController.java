@@ -123,6 +123,44 @@ public class ProductController extends BaseController {
             String checkresult= String.valueOf(currentUser.getIsAudit());
             model.addAttribute("checkresult",checkresult);
         }
+        model.addAttribute("temp_is_group",product.getGroup());
+        model.addAttribute("temp_is_purch",product.getPurch());
+        model.addAttribute("temp_is_sample",product.getSample());
+        List<SpecificationItem> specificationItems=product.getSpecificationItems();
+        for(SpecificationItem temp:specificationItems){
+            if(temp.getName().contains("颜色")){
+                List<SpecificationItem.Entry> entries=temp.getEntries();
+                for (SpecificationItem.Entry tempEntry:entries){
+                    if(tempEntry.getIsSelected()){
+                        model.addAttribute("temp_commodity_color",tempEntry.getValue());
+                    }
+                }
+            }
+            if(temp.getName().contains("cm")){
+                List<SpecificationItem.Entry> entries=temp.getEntries();
+                for (SpecificationItem.Entry tempEntry:entries){
+                    if(tempEntry.getIsSelected()){
+                        model.addAttribute("temp_commodity_cm",tempEntry.getValue());
+                    }
+                }
+            }
+            if(temp.getName().contains("gsm")){
+                List<SpecificationItem.Entry> entries=temp.getEntries();
+                for (SpecificationItem.Entry tempEntry:entries){
+                    if(tempEntry.getIsSelected()){
+                        model.addAttribute("temp_commodity_gsm",tempEntry.getValue());
+                    }
+                }
+            }
+            if(temp.getName().contains("纤维")){
+                List<SpecificationItem.Entry> entries=temp.getEntries();
+                for (SpecificationItem.Entry tempEntry:entries){
+                    if(tempEntry.getIsSelected()){
+                        model.addAttribute("temp_commodity_fiber",tempEntry.getValue());
+                    }
+                }
+            }
+        }
         return "shop/product/detail";
     }
 
@@ -402,7 +440,10 @@ public class ProductController extends BaseController {
         model.addAttribute("endPrice", endPrice);
         model.addAttribute("orderType", orderType);
         model.addAttribute("searchType", "PRODUCT");
-        model.addAttribute("page", productService.search(keyword, null, storeType, store, isOutOfStock, null, startPrice, endPrice, orderType, pageable));
+        Page<Product> page=productService.search(keyword, null, storeType, store, isOutOfStock, null, startPrice, endPrice, orderType, pageable);
+        model.addAttribute("page",page);
+        model.addAttribute("key_word",keyword);
+        model.addAttribute("result_number",page.getContent().size());
         return "shop/product/search";
     }
 

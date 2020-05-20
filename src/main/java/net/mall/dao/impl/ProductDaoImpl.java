@@ -566,7 +566,6 @@ public class ProductDaoImpl extends BaseDaoImpl<Product, Long> implements Produc
 
 
 
-
     /***
      * 根据sourceID更新新产品ID
      * @param newProductId

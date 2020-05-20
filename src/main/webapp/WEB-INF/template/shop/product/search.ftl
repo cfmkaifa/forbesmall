@@ -433,18 +433,16 @@
                                             <div class="detailsbutton-2">
                                                 <p class="data-2">${product.createdDate}</p>
                                                 [#if product.purch ]
-                                                    <a href="${base}/product/purch-detail/${product.id}" target="_blank">
-                                                        <button type="button" class="button-3">${message("shop.product.detail")}</button>
+                                                    <a href="${base}/product/purch-detail/${product.id}" target="_blank" onclick="productDeatail(${product_index},${product.id},'${product.name}','${product.store.name}',${product.store.id})" />
+                                                    <button type="button" class="button-3">${message("shop.product.detail")}</button>
                                                     </a>
                                                 [#else ]
-                                                    <a href="${base}${product.path}" target="_blank">
-                                                        <button type="button"
-                                                                class="button-3">${message("shop.product.detail")}</button>
+                                                    <a href="${base}${product.path}" target="_blank" onclick="productDeatail(${product_index},${product.id},'${product.name}','${product.store.name}',${product.store.id})" />
+                                                    <button type="button" class="button-3" >${message("shop.product.detail")}</button>
                                                     </a>
                                                     [#if product.sample]
                                                         <a href="${base}/product/sample-detail/${product.id}"  target="_blank">
-                                                            <button type="button"
-                                                                    class="button-4">${message("shop.product.sample")}</button>
+                                                            <button type="button" class="button-4">${message("shop.product.sample")}</button>
                                                         </a>
                                                     [/#if]
                                                 [/#if]
@@ -473,4 +471,37 @@
 </main>
 [#include "/shop/include/main_footer.ftl" /]
 </body>
+<script type="text/javascript">
+    //搜索返回结果埋点事件
+    $(function () {
+        try {
+            sensors.track('SearchRequest',{
+                key_word:"${key_word}",
+                key_word_classify:"${searchType}",
+                result_number:${result_number}
+            })
+        }catch (e) {
+            console.log(e);
+        }
+    })
+
+
+    //点击搜索结果埋点事件
+    function productDeatail(no,productId,productName,storeName,storeId){
+        var str=no+1;
+        try {
+            sensors.track('SearchResultClick',{
+                key_word:"${key_word}",
+                key_word_classify:"${searchType}",
+                position_number:str,
+                commodity_id:productId,
+                commodity_name:productName,
+                store_name:storeName,
+                store_ID:storeId
+            })
+        }catch (e) {
+            console.log(e);
+        }
+    }
+</script>
 </html>

@@ -99,7 +99,8 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
     private MailService mailService;
     @Inject
     private SmsService smsService;
-
+    @Inject
+    SensorsAnalyticsUtils sensorsAnalyticsUtils;
 
     @Override
     @Transactional(readOnly = true)
@@ -720,6 +721,28 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
             mailService.sendCreateOrderMail(order);
             smsService.sendCreateOrderSms(order);
             orders.add(order);
+            /****上报神策数据****/
+            Map<String,Object> properties = new HashMap<String,Object>();
+            properties.put("order_id",order.getSn());
+            properties.put("order_amount",order.getAmount().setScale(2,RoundingMode.UP));
+            properties.put("receiver_id",String.valueOf(member.getId()));
+            Area  area = order.getArea();
+            if(ConvertUtils.isNotEmpty(area)){
+                if(ConvertUtils.isNotEmpty(area.getParent())){
+                    properties.put("receiver_province",area.getParent().getName());
+                } else {
+                    properties.put("receiver_province",area.getName());
+                }
+                properties.put("receiver_city",order.getArea().getName());
+            }
+            /****设置省市区**/
+            else {
+                properties.put("receiver_province",order.getAreaName());
+                properties.put("receiver_city",order.getAreaName());
+            }
+            properties.put("delivery_method",order.getShippingMethodName());
+            properties.put("entrance",cart.getEntrance());
+            sensorsAnalyticsUtils.reportData(String.valueOf(member.getId()),"SubmitOrder",properties);
         }
 
         if (!cart.isNew()) {
@@ -1025,6 +1048,10 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
             newOrder.setParentId(order.getId());
             newOrder.setWeight(orderTotalWeight.setScale(0,RoundingMode.UP).intValue());
             newOrder.setQuantity(totalQuantity);
+            if(ConvertUtils.isNotEmpty(orderShipping.getFreight())){
+                newOrder.setFreight(orderShipping.getFreight());
+                orderTotalAmount = orderTotalAmount.add(orderShipping.getFreight());
+            }
             newOrder.setAmount(orderTotalAmount);
             newOrder.setAmountPaid(orderTotalAmount);
             /***生成合同***/

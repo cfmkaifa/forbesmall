@@ -22,14 +22,14 @@
         sdk_url: 'https://cdn.jsdelivr.net/npm/sa-sdk-javascript@1.15.1/sensorsdata.min.js',
         heatmap_url: 'https://cdn.jsdelivr.net/npm/sa-sdk-javascript@1.15.1/heatmap.min.js',
         name: 'sensors',
-        server_url: 'http://fiber.datasink.sensorsdata.cn/sa?token=59f587d85e2799d7'
+        server_url: 'http://fiber.datasink.sensorsdata.cn/sa?project=production&token=59f587d85e2799d7'
     });
     sensors.quick('autoTrack');
     // 如果需要调用 login 来重新设置用户标识，必须在此之前调用
     sensors.quick('autoTrack', {
         platform:'h5'
     })
-    //以异步加载 SDK 为例，神策 SDK 初始化完成，此时调用设置公共属性的方法，来保证之后的事件都有这两个属性。
+    // 增加平台
     sensors.registerPage({
         platform: "${base}"
     });

@@ -462,6 +462,7 @@
             </div>
         </form>
         <form id="orderForm" class="ajax-form form-horizontal" action="${base}/order/create" method="post">
+            <input name="entrance" type="hidden" value="${entrance}">
             [#if skuId??]
                 <input name="skuId" type="hidden" value="${skuId}">
                 <input name="quantity" type="hidden" value="${quantity}">
@@ -741,4 +742,30 @@
 </main>
 [#include "/shop/include/main_footer.ftl" /]
 </body>
+
+<script type="text/javascript">
+    //立即购买埋点事件
+    $(function () {
+        try {
+            sensors.track('FiberbuyNow',{
+                commodity_id:${sku.product.id},
+                commodity_name:"${sku.product.name}",
+                first_commodity:"${sku.product.productCategory.parent.name}",
+                second_commodity:"${sku.product.productCategory.name}",
+                present_price:${sku.product.price},
+                commodity_gsm:"${temp_commodity_gsm}",
+                commodity_cm:"${temp_commodity_cm}",
+                commodity_color:"${temp_commodity_color}",
+                commodity_fiber:"${temp_commodity_fiber}",
+                store_id:${sku.product.store.id},
+                store_name:"${sku.product.store.name}",
+                is_group:${temp_is_group?string ("true","false")},
+                is_purch:${temp_is_purch?string ("true","false")},
+                is_sample:${temp_is_sample?string ("true","false")}
+            })
+        }catch (e) {
+            console.log(e)
+        }
+    })
+</script>
 </html>

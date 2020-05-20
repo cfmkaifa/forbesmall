@@ -121,6 +121,13 @@ public class ArticleController extends BaseController {
         model.addAttribute("page", articleService.findPage(articleCategory, null, true, pageable));
         model.addAttribute("articleCategories",articleCategories);
         model.addAttribute("articleCategoryId",articleCategory.getId());
+        if(ConvertUtils.isNotEmpty(currentMember) && ConvertUtils.isNotEmpty(currentMember.getMemberRank())){
+            model.addAttribute("is_vip",true);
+            model.addAttribute("vip_type",currentMember.getMemberRank().getName());
+        }else{
+            model.addAttribute("is_vip",false);
+            model.addAttribute("vip_type","暂未登录");
+        }
         return "shop/article/details";
     }
 

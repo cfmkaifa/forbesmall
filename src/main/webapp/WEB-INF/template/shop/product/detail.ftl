@@ -406,7 +406,7 @@
                         <a class="bds_more" data-cmd="more"></a>
                     </div>
                     <a class="add-product-favorite" href="javascript:;" data-action="addProductFavorite"
-                       data-product-id="${product.id}">
+                       data-product-id="${product.id}"onclick="collect()">
                         <i class="iconfont icon-like"></i>
                         ${message("shop.product.addProductFavorite")}
                     </a>
@@ -839,4 +839,56 @@
     [/#escape]
 [/#noautoesc]
 </body>
+
+<script type="text/javascript">
+    $(function () {
+        //浏览商品详情埋点事件
+        try {
+            sensors.track('FiberCommodityDetail',{
+                //商品id
+                commodity_id:${product.id},
+                commodity_name:"${product.name}",
+                first_commodity:"${product.productCategory.parent.name}",
+                second_commodity:"${product.productCategory.name}",
+                present_price:${product.price},
+                commodity_gsm:"${temp_commodity_gsm}",
+                commodity_cm:"${temp_commodity_cm}",
+                commodity_color:"${temp_commodity_color}",
+                commodity_fiber:"${temp_commodity_fiber}",
+                store_id:${product.store.id},
+                store_name:"${product.store.name}",
+                is_group:${temp_is_group?string ("true","false")},
+                is_purch:${temp_is_purch?string ("true","false")},
+                is_sample:${temp_is_sample?string ("true","false")}
+            })
+        }catch (e) {
+            console.log(e);
+        }
+    })
+
+
+    //商品收藏埋点事件
+    function collect() {
+        try {
+            sensors.track('FiberGoodsFavorite',{
+                commodity_id:${product.id},
+                commodity_name:"${product.name}",
+                first_commodity:"${product.productCategory.parent.name}",
+                second_commodity:"${product.productCategory.name}",
+                present_price:${product.price},
+                commodity_gsm:"${temp_commodity_gsm}",
+                commodity_cm:"${temp_commodity_cm}",
+                commodity_color:"${temp_commodity_color}",
+                commodity_fiber:"${temp_commodity_fiber}",
+                store_id:${product.store.id},
+                store_name:"${product.store.name}",
+                is_group:${temp_is_group?string ("true","false")},
+                is_purch:${temp_is_purch?string ("true","false")},
+                is_sample:${temp_is_sample?string ("true","false")}
+            })
+        }catch (e) {
+            console.log(e)
+        }
+    }
+</script>
 </html>

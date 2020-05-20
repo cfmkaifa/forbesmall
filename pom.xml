@@ -68,6 +68,11 @@
 			<artifactId>spring-expression</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>com.sensorsdata.analytics.javasdk</groupId>
+			<artifactId>SensorsAnalyticsSDK</artifactId>
+			<version>3.1.15</version>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
 		</dependency>

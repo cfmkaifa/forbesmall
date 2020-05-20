@@ -7,6 +7,7 @@
 package net.mall.controller.business;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -14,6 +15,7 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
+import net.mall.util.SensorsAnalyticsUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -82,6 +84,8 @@ public class OrderController extends BaseController {
     private OrderShippingService orderShippingService;
     @Inject
     private MemberService memberService;
+    @Inject
+    private SensorsAnalyticsUtils sensorsAnalyticsUtils;
 
     /**
      * 添加属性
@@ -276,6 +280,31 @@ public class OrderController extends BaseController {
             return Results.UNPROCESSABLE_ENTITY;
         }
         orderService.confirmPayment(order);
+        /****上报神策数据****/
+        Map<String,Object> properties = new HashMap<String,Object>();
+        properties.put("order_id",order.getSn());
+        properties.put("order_amount",order.getAmount().setScale(2, RoundingMode.UP));
+        properties.put("payment_method",order.getPaymentMethodName());
+        properties.put("pay_type",order.getPaymentMethodName());
+        Long memberId = order.getMember().getId();
+        properties.put("supplier_id",String.valueOf(order.getStore().getBusiness().getId()));
+        properties.put("receiver_id",String.valueOf(memberId));
+        Area area = order.getArea();
+        if(ConvertUtils.isNotEmpty(area)){
+            if(ConvertUtils.isNotEmpty(area.getParent())){
+                properties.put("receiver_province",area.getParent().getName());
+            } else {
+                properties.put("receiver_province",area.getName());
+            }
+            properties.put("receiver_city",order.getArea().getName());
+        }
+        /****设置省市区**/
+        else {
+            properties.put("receiver_province",order.getAreaName());
+            properties.put("receiver_city",order.getAreaName());
+        }
+        properties.put("delivery_method",order.getShippingMethodName());
+        sensorsAnalyticsUtils.reportData(String.valueOf(memberId),"PayOrder",properties);
         /**释放订单锁***/
         orderService.releaseLock(order);
         return Results.OK;
