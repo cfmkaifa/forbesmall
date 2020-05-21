@@ -777,10 +777,10 @@ public class OrderController extends BaseController {
                 model.addAttribute("commodity_name",itemTemp.getProduct().getName());
                 model.addAttribute("present_price",itemTemp.getProduct().getPrice());
                 model.addAttribute("commodity_id",itemTemp.getProduct().getId());
-                if(ConvertUtils.isNotEmpty(itemTemp.getProduct().getProductCategory().getParent().getName())){
-                    model.addAttribute("first_commodity",itemTemp.getProduct().getProductCategory().getParent().getName());
-                }else {
+                if(ConvertUtils.isEmpty(itemTemp.getSku().getProduct().getProductCategory().getParent())){
                     model.addAttribute("first_commodity","无");
+                }else {
+                    model.addAttribute("first_commodity",itemTemp.getSku().getProduct().getProductCategory().getParent().getName());
                 }
                 model.addAttribute("second_commodity",itemTemp.getProduct().getProductCategory().getName());
                 model.addAttribute("store_id",itemTemp.getOrder().getStore().getId());
@@ -862,9 +862,9 @@ public class OrderController extends BaseController {
 
     /****
      * certificatePayment方法慨述:支付订单
-     * @param paymentPluginId
-     * @param orderSns
-     * @param currentUser
+     * @param
+     * @param
+     * @param
      * @return ResponseEntity<?>
      * @创建人 huanghy
      * @创建时间 2019年12月26日 下午3:18:01
@@ -896,7 +896,7 @@ public class OrderController extends BaseController {
 
     /***
      * sealContract方法慨述:
-     * @param orderSn
+     * @param
      * @param sealContractPath
      * @return ResponseEntity<?>
      * @创建人 huanghy
