@@ -10,6 +10,9 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.mall.entity.Business;
+import net.mall.entity.Member;
+import net.mall.util.ConvertUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -52,7 +55,19 @@ public class CurrentUserHandlerInterceptor extends HandlerInterceptorAdapter {
      */
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        request.setAttribute(getCurrentUserAttributeName(), userService.getCurrent(getUserClass()));
+        User user = userService.getCurrent(getUserClass());
+        request.setAttribute(getCurrentUserAttributeName(), user);
+        if(ConvertUtils.isNotEmpty(user)){
+            request.getSession().setAttribute("isLogin","true");
+        }else {
+            request.getSession().setAttribute("isLogin","false");
+        }
+        if(user instanceof Member){
+            request.getSession().setAttribute("userType","member");
+        }
+        if(user instanceof Business){
+            request.getSession().setAttribute("userType","business");
+        }
     }
 
     /**

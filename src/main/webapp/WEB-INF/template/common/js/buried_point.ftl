@@ -31,7 +31,9 @@
     })
     // 增加平台
     sensors.registerPage({
-        platform: "${base}"
+        platform: "${base}",
+        user_type:"${Session.userType}",
+        is_login:${Session.isLogin}
     });
     // SDK 初始化参数配置
     heatmap: {
