@@ -162,7 +162,11 @@ public class OrderController extends BaseController {
             model.addAttribute("commodity_name",itemTemp.getProduct().getName());
             model.addAttribute("present_price",itemTemp.getProduct().getPrice());
             model.addAttribute("commodity_id",itemTemp.getProduct().getId());
-            model.addAttribute("first_commodity",itemTemp.getProduct().getProductCategory().getParent().getName());
+            if(ConvertUtils.isEmpty(itemTemp.getSku().getProduct().getProductCategory().getParent())){
+                model.addAttribute("first_commodity","无");
+            }else {
+                model.addAttribute("first_commodity",itemTemp.getSku().getProduct().getProductCategory().getParent().getName());
+            }
             model.addAttribute("second_commodity",itemTemp.getProduct().getProductCategory().getName());
             model.addAttribute("store_id",itemTemp.getOrder().getStore().getId());
             model.addAttribute("store_name",itemTemp.getOrder().getStore().getName());

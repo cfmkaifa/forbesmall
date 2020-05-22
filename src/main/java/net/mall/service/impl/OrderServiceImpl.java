@@ -1457,8 +1457,6 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
             orderDao.modifyStatPath(statPath,order.getId());
             orderDao.modifyStatPath(statPath,order.getParentId());
         } else {
-            String statPath = this.createReconContract(order,null,"订单已完结",true);
-            orderDao.modifyStatPath(statPath,order.getId());
             order.setStatus(Order.Status.PENDING_SHIPMENT);
         }
         OrderLog orderLog = new OrderLog();
