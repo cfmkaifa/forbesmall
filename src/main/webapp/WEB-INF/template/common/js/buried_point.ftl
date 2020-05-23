@@ -29,11 +29,23 @@
     sensors.quick('autoTrack', {
         platform:'h5'
     })
-    // 增加平台
+    // 公共属性
     sensors.registerPage({
         platform: "${base}",
         user_type:"${Session.userType}",
         is_login:${Session.isLogin}
+    });
+
+    //设置用户表内容
+    sensors.setProfile({
+        email:"${Session.email}",
+        user_name:"${Session.username}",
+        last_login_date:"${Session.lastLoginDate}",
+        phone_number:"${Session.phone_number}",
+        register_time:"${Session.register_time}",
+        first_order_time:"${Session.first_order_time}",
+        last_order_time:"${Session.last_order_time}",
+        vip_level:"${Session.vip_level}"
     });
     // SDK 初始化参数配置
     heatmap: {
