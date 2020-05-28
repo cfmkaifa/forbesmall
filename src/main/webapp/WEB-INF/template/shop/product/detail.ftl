@@ -847,10 +847,12 @@
 </body>
 <script type="text/javascript">
     $(function () {
+        var refer=document.referrer;
         //浏览商品详情埋点事件
         try {
             sensors.track('CommodityDetail',{
                 //商品id
+                commodity_detail_souce:refer,
                 commodity_id:${product.id},
                 commodity_name:"${product.name}",
                 first_commodity:"${product.productCategory.parent.name}",

@@ -752,6 +752,7 @@
                 first_commodity:"${sku.product.productCategory.parent.name}",
                 second_commodity:"${sku.product.productCategory.name}",
                 present_price:${sku.product.price},
+                quantity:"${quantity}",
                 commodity_length:"${temp_commodity_length}",
                 commodity_dtex:"${temp_commodity_dtex}",
                 commodity_color:"${temp_commodity_color}",

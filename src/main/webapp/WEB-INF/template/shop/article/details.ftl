@@ -71,8 +71,11 @@
 <script type="text/javascript">
     //新闻资讯详情浏览埋点事件
     $(function () {
+        var refer=document.referrer;
+
         try {
             sensors.track('newsClick',{
+                news_from_page:refer,
                 news_id:${article.id},
                 news_title:"${article.title}",
                 news_category:"${article.articleCategory.name}",

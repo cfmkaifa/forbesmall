@@ -130,6 +130,7 @@
 								first_commodity:"${first_commodity}",
 								second_commodity:"${second_commodity}",
 								present_price:${present_price},
+								quantity:"${quantity}",
 								order_amount:${product.price},
 								commodity_length:"${temp_commodity_length}",
 								commodity_dtex:"${temp_commodity_dtex}",
