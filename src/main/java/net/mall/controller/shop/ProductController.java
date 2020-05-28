@@ -157,6 +157,24 @@ public class ProductController extends BaseController {
         }
         product.setSample(true);
         model.addAttribute("product", product);
+        model.addAttribute("temp_is_group",product.getGroup());
+        model.addAttribute("temp_is_purch",product.getPurch());
+        model.addAttribute("temp_is_sample",product.getSample());
+        Set<Sku> skuSet=product.getSkus();
+        for(Sku temp:skuSet){
+            List<SpecificationValue> specificationValues=temp.getSpecificationValues();
+            for(SpecificationValue spec:specificationValues){
+                if(spec.getValue().contains("mm")){
+                    model.addAttribute("temp_commodity_length",spec.getValue());
+                }else if(spec.getValue().contains("dtex")){
+                    model.addAttribute("temp_commodity_dtex",spec.getValue());
+                } else if(spec.getValue().contains("kg")){
+                    model.addAttribute("temp_commodity_weight",spec.getValue());
+                }else{
+                    model.addAttribute("temp_commodity_color",spec.getValue());
+                }
+            }
+        }
         return "shop/product/sample/detail";
     }
 
@@ -172,6 +190,24 @@ public class ProductController extends BaseController {
         }
         product.setSample(true);
         model.addAttribute("product", product);
+        model.addAttribute("temp_is_group",product.getGroup());
+        model.addAttribute("temp_is_purch",product.getPurch());
+        model.addAttribute("temp_is_sample",product.getSample());
+        Set<Sku> skuSet=product.getSkus();
+        for(Sku temp:skuSet){
+            List<SpecificationValue> specificationValues=temp.getSpecificationValues();
+            for(SpecificationValue spec:specificationValues){
+                if(spec.getValue().contains("mm")){
+                    model.addAttribute("temp_commodity_length",spec.getValue());
+                }else if(spec.getValue().contains("dtex")){
+                    model.addAttribute("temp_commodity_dtex",spec.getValue());
+                } else if(spec.getValue().contains("kg")){
+                    model.addAttribute("temp_commodity_weight",spec.getValue());
+                }else{
+                    model.addAttribute("temp_commodity_color",spec.getValue());
+                }
+            }
+        }
         return "shop/product/purch/detail";
     }
 
@@ -187,6 +223,24 @@ public class ProductController extends BaseController {
             throw new ResourceNotFoundException();
         }
         model.addAttribute("product", product);
+        model.addAttribute("temp_is_group",product.getGroup());
+        model.addAttribute("temp_is_purch",product.getPurch());
+        model.addAttribute("temp_is_sample",product.getSample());
+        Set<Sku> skuSet=product.getSkus();
+        for(Sku temp:skuSet){
+            List<SpecificationValue> specificationValues=temp.getSpecificationValues();
+            for(SpecificationValue spec:specificationValues){
+                if(spec.getValue().contains("mm")){
+                    model.addAttribute("temp_commodity_length",spec.getValue());
+                }else if(spec.getValue().contains("dtex")){
+                    model.addAttribute("temp_commodity_dtex",spec.getValue());
+                } else if(spec.getValue().contains("kg")){
+                    model.addAttribute("temp_commodity_weight",spec.getValue());
+                }else{
+                    model.addAttribute("temp_commodity_color",spec.getValue());
+                }
+            }
+        }
         return "shop/product/group_purch/detail";
     }
 

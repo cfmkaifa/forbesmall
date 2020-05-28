@@ -801,4 +801,57 @@
     [/#escape]
 [/#noautoesc]
 </body>
+<script type="text/javascript">
+    $(function () {
+        var refer=document.referrer;
+        //浏览商品详情埋点事件
+        try {
+            sensors.track('CommodityDetail',{
+                //商品id
+                commodity_detail_souce:refer,
+                commodity_id:${product.id},
+                commodity_name:"${product.name}",
+                first_commodity:"${product.productCategory.parent.name}",
+                second_commodity:"${product.productCategory.name}",
+                present_price:${product.price},
+                commodity_length:"${temp_commodity_length}",
+                commodity_dtex:"${temp_commodity_dtex}",
+                commodity_color:"${temp_commodity_color}",
+                commodity_weight:"${temp_commodity_weight}",
+                store_id:${product.store.id},
+                store_name:"${product.store.name}",
+                is_group:${temp_is_group?string ("true","false")},
+                is_purch:${temp_is_purch?string ("true","false")},
+                is_sample:${temp_is_sample?string ("true","false")}
+            })
+        }catch (e) {
+            console.log(e);
+        }
+    })
+
+
+    //商品收藏埋点事件
+    function collect() {
+        try {
+            sensors.track('GoodsFavorite',{
+                commodity_id:${product.id},
+                commodity_name:"${product.name}",
+                first_commodity:"${product.productCategory.parent.name}",
+                second_commodity:"${product.productCategory.name}",
+                present_price:${product.price},
+                commodity_length:"${temp_commodity_length}",
+                commodity_dtex:"${temp_commodity_dtex}",
+                commodity_color:"${temp_commodity_color}",
+                commodity_weight:"${temp_commodity_weight}",
+                store_id:${product.store.id},
+                store_name:"${product.store.name}",
+                is_group:${temp_is_group?string ("true","false")},
+                is_purch:${temp_is_purch?string ("true","false")},
+                is_sample:${temp_is_sample?string ("true","false")}
+            })
+        }catch (e) {
+            console.log(e)
+        }
+    }
+</script>
 </html>
