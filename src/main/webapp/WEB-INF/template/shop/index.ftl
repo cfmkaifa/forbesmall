@@ -497,6 +497,7 @@
     function Top_Banner() {
         try {
             sensors.track('BannerClick',{
+                page_type:'首页',
                 banner_belong_area:"顶部广告位",
                 banner_type:"广告",
                 banner_name:"商城顶部广告位",
@@ -511,12 +512,10 @@
     //左侧运营位埋点事件
     function Left_Banner(data) {
         var url=data.href;
+        var commodity=data.innerHTML;
         try {
-            sensors.track('BannerClick',{
-                banner_belong_area:"左侧商品分类区域",
-                banner_type:"商品分类链接",
-                banner_name:"商品分类",
-                banner_id:2,
+            sensors.track('classification',{
+                commodity:commodity,
                 url:url
             })
         } catch (e) {
@@ -528,6 +527,7 @@
         var url=data.href;
         try {
             sensors.track('BannerClick',{
+                page_type:'首页',
                 banner_belong_area:"中部广告区域",
                 banner_type:"广告轮播",
                 banner_name:"中部广告轮播",
@@ -544,6 +544,7 @@
         var url=data.href;
         try {
             sensors.track('BannerClick',{
+                page_type:'首页',
                 banner_belong_area:"右侧新闻资讯区域",
                 banner_type:"新闻",
                 banner_name:"新闻列表",
@@ -559,6 +560,7 @@
         var url=data.href;
         try {
             sensors.track('BannerClick',{
+                page_type:'首页',
                 banner_belong_area:"右侧轮播区域",
                 banner_type:"广告轮播",
                 banner_name:"侧轮播",
@@ -576,6 +578,7 @@
         var url=data.href;
         try {
             sensors.track('BannerClick',{
+                page_type:'首页',
                 banner_belong_area:"右侧快捷入口区域",
                 banner_type:"快捷入口",
                 banner_name:"快捷入口",
@@ -594,6 +597,7 @@
         var url=data.href;
         try {
             sensors.track('BannerClick',{
+                page_type:'首页',
                 banner_belong_area:"工厂资源轮播区域",
                 banner_type:"店铺快捷入口",
                 banner_name:"店铺快捷入口",

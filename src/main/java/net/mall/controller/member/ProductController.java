@@ -351,13 +351,18 @@ public class ProductController extends BaseController {
             map.put("present_price",productForm.getPrice());
             map.put("member_id",currentMember.getId());
             map.put("member_name",currentMember.getName());
+            List<Sku> skus=skuListForm.getSkuList();
+            for(Sku item:skus){
+                map.put("goods_amount",item.getStock());
+                break;
+            }
             List<SpecificationItem> specificationItems=productForm.getSpecificationItems();
             for(SpecificationItem temp:specificationItems){
                 if(temp.getName().contains("颜色")){
                     List<SpecificationItem.Entry> entries=temp.getEntries();
                     for (SpecificationItem.Entry tempEntry:entries){
                         if(tempEntry.getIsSelected()){
-                            map.put("temp_commodity_color",tempEntry.getValue());
+                            map.put("commodity_color",tempEntry.getValue());
                         }
                     }
                 }
@@ -365,7 +370,7 @@ public class ProductController extends BaseController {
                     List<SpecificationItem.Entry> entries=temp.getEntries();
                     for (SpecificationItem.Entry tempEntry:entries){
                         if(tempEntry.getIsSelected()){
-                            map.put("temp_commodity_cm",tempEntry.getValue());
+                            map.put("commodity_cm",tempEntry.getValue());
                         }
                     }
                 }
@@ -373,7 +378,7 @@ public class ProductController extends BaseController {
                     List<SpecificationItem.Entry> entries=temp.getEntries();
                     for (SpecificationItem.Entry tempEntry:entries){
                         if(tempEntry.getIsSelected()){
-                            map.put("temp_commodity_gsm",tempEntry.getValue());
+                            map.put("commodity_gsm",tempEntry.getValue());
                         }
                     }
                 }
@@ -381,12 +386,12 @@ public class ProductController extends BaseController {
                     List<SpecificationItem.Entry> entries=temp.getEntries();
                     for (SpecificationItem.Entry tempEntry:entries){
                         if(tempEntry.getIsSelected()){
-                            map.put("temp_commodity_fiber",tempEntry.getValue());
+                            map.put("commodity_fiber",tempEntry.getValue());
                         }
                     }
                 }
             }
-            sensorsAnalyticsUtils.reportData(String.valueOf(currentMember.getId()),"purch_apply",map);
+            sensorsAnalyticsUtils.reportData(String.valueOf(currentMember.getId()),"Fiberpurch_apply",map);
         }
         return Results.OK;
     }

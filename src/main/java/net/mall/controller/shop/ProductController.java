@@ -169,7 +169,7 @@ public class ProductController extends BaseController {
      * 详情
      */
     @GetMapping("/sample-detail/{productId}")
-    public String sampleDetail(@PathVariable Long productId, HttpServletRequest request,
+    public String sampleDetail(@PathVariable Long productId, HttpServletRequest request,@CurrentUser Member currentUser,
                                ModelMap model) {
         Product product = productService.find(productId);
         if (product == null || BooleanUtils.isNotTrue(product.getIsActive()) || BooleanUtils.isNotTrue(product.getIsMarketable())) {
@@ -177,6 +177,55 @@ public class ProductController extends BaseController {
         }
         product.setSample(true);
         model.addAttribute("product", product);
+        Product sourceProduct=productService.find(product.getSourceProId());
+        if(sourceProduct == null){
+            model.addAttribute("product", product);
+        }else {
+            /*product.setCreatedDate(sourceProduct.getCreatedDate());*/
+            model.addAttribute("product", product);
+        }
+        if(currentUser!=null){
+            String checkresult= String.valueOf(currentUser.getIsAudit());
+            model.addAttribute("checkresult",checkresult);
+        }
+        model.addAttribute("temp_is_group",product.getGroup());
+        model.addAttribute("temp_is_purch",product.getPurch());
+        model.addAttribute("temp_is_sample",product.getSample());
+        List<SpecificationItem> specificationItems=product.getSpecificationItems();
+        for(SpecificationItem temp:specificationItems){
+            if(temp.getName().contains("颜色")){
+                List<SpecificationItem.Entry> entries=temp.getEntries();
+                for (SpecificationItem.Entry tempEntry:entries){
+                    if(tempEntry.getIsSelected()){
+                        model.addAttribute("temp_commodity_color",tempEntry.getValue());
+                    }
+                }
+            }
+            if(temp.getName().contains("cm")){
+                List<SpecificationItem.Entry> entries=temp.getEntries();
+                for (SpecificationItem.Entry tempEntry:entries){
+                    if(tempEntry.getIsSelected()){
+                        model.addAttribute("temp_commodity_cm",tempEntry.getValue());
+                    }
+                }
+            }
+            if(temp.getName().contains("gsm")){
+                List<SpecificationItem.Entry> entries=temp.getEntries();
+                for (SpecificationItem.Entry tempEntry:entries){
+                    if(tempEntry.getIsSelected()){
+                        model.addAttribute("temp_commodity_gsm",tempEntry.getValue());
+                    }
+                }
+            }
+            if(temp.getName().contains("纤维")){
+                List<SpecificationItem.Entry> entries=temp.getEntries();
+                for (SpecificationItem.Entry tempEntry:entries){
+                    if(tempEntry.getIsSelected()){
+                        model.addAttribute("temp_commodity_fiber",tempEntry.getValue());
+                    }
+                }
+            }
+        }
         return "shop/product/sample/detail";
     }
 
@@ -184,7 +233,7 @@ public class ProductController extends BaseController {
      * 详情
      */
     @GetMapping("/purch-detail/{productId}")
-    public String purchDetail(@PathVariable Long productId, HttpServletRequest request,
+    public String purchDetail(@PathVariable Long productId, HttpServletRequest request,@CurrentUser Member currentUser,
                               ModelMap model) {
         Product product = productService.find(productId);
         if (product == null || BooleanUtils.isNotTrue(product.getIsActive()) || BooleanUtils.isNotTrue(product.getIsMarketable())) {
@@ -192,6 +241,55 @@ public class ProductController extends BaseController {
         }
         product.setSample(true);
         model.addAttribute("product", product);
+        Product sourceProduct=productService.find(product.getSourceProId());
+        if(sourceProduct == null){
+            model.addAttribute("product", product);
+        }else {
+            /*product.setCreatedDate(sourceProduct.getCreatedDate());*/
+            model.addAttribute("product", product);
+        }
+        if(currentUser!=null){
+            String checkresult= String.valueOf(currentUser.getIsAudit());
+            model.addAttribute("checkresult",checkresult);
+        }
+        model.addAttribute("temp_is_group",product.getGroup());
+        model.addAttribute("temp_is_purch",product.getPurch());
+        model.addAttribute("temp_is_sample",product.getSample());
+        List<SpecificationItem> specificationItems=product.getSpecificationItems();
+        for(SpecificationItem temp:specificationItems){
+            if(temp.getName().contains("颜色")){
+                List<SpecificationItem.Entry> entries=temp.getEntries();
+                for (SpecificationItem.Entry tempEntry:entries){
+                    if(tempEntry.getIsSelected()){
+                        model.addAttribute("temp_commodity_color",tempEntry.getValue());
+                    }
+                }
+            }
+            if(temp.getName().contains("cm")){
+                List<SpecificationItem.Entry> entries=temp.getEntries();
+                for (SpecificationItem.Entry tempEntry:entries){
+                    if(tempEntry.getIsSelected()){
+                        model.addAttribute("temp_commodity_cm",tempEntry.getValue());
+                    }
+                }
+            }
+            if(temp.getName().contains("gsm")){
+                List<SpecificationItem.Entry> entries=temp.getEntries();
+                for (SpecificationItem.Entry tempEntry:entries){
+                    if(tempEntry.getIsSelected()){
+                        model.addAttribute("temp_commodity_gsm",tempEntry.getValue());
+                    }
+                }
+            }
+            if(temp.getName().contains("纤维")){
+                List<SpecificationItem.Entry> entries=temp.getEntries();
+                for (SpecificationItem.Entry tempEntry:entries){
+                    if(tempEntry.getIsSelected()){
+                        model.addAttribute("temp_commodity_fiber",tempEntry.getValue());
+                    }
+                }
+            }
+        }
         return "shop/product/purch/detail";
     }
 
@@ -199,13 +297,62 @@ public class ProductController extends BaseController {
      * 详情
      */
     @GetMapping("/group-purch-detail/{productId}")
-    public String groupPurchDetail(@PathVariable Long productId, HttpServletRequest request,
+    public String groupPurchDetail(@PathVariable Long productId, HttpServletRequest request,@CurrentUser Member currentUser,
                                    ModelMap model) {
         Product product = productService.find(productId);
         if (product == null || BooleanUtils.isNotTrue(product.getIsActive()) || BooleanUtils.isNotTrue(product.getIsMarketable())) {
             throw new ResourceNotFoundException();
         }
         model.addAttribute("product", product);
+        Product sourceProduct=productService.find(product.getSourceProId());
+        if(sourceProduct == null){
+            model.addAttribute("product", product);
+        }else {
+            /*product.setCreatedDate(sourceProduct.getCreatedDate());*/
+            model.addAttribute("product", product);
+        }
+        if(currentUser!=null){
+            String checkresult= String.valueOf(currentUser.getIsAudit());
+            model.addAttribute("checkresult",checkresult);
+        }
+        model.addAttribute("temp_is_group",product.getGroup());
+        model.addAttribute("temp_is_purch",product.getPurch());
+        model.addAttribute("temp_is_sample",product.getSample());
+        List<SpecificationItem> specificationItems=product.getSpecificationItems();
+        for(SpecificationItem temp:specificationItems){
+            if(temp.getName().contains("颜色")){
+                List<SpecificationItem.Entry> entries=temp.getEntries();
+                for (SpecificationItem.Entry tempEntry:entries){
+                    if(tempEntry.getIsSelected()){
+                        model.addAttribute("temp_commodity_color",tempEntry.getValue());
+                    }
+                }
+            }
+            if(temp.getName().contains("cm")){
+                List<SpecificationItem.Entry> entries=temp.getEntries();
+                for (SpecificationItem.Entry tempEntry:entries){
+                    if(tempEntry.getIsSelected()){
+                        model.addAttribute("temp_commodity_cm",tempEntry.getValue());
+                    }
+                }
+            }
+            if(temp.getName().contains("gsm")){
+                List<SpecificationItem.Entry> entries=temp.getEntries();
+                for (SpecificationItem.Entry tempEntry:entries){
+                    if(tempEntry.getIsSelected()){
+                        model.addAttribute("temp_commodity_gsm",tempEntry.getValue());
+                    }
+                }
+            }
+            if(temp.getName().contains("纤维")){
+                List<SpecificationItem.Entry> entries=temp.getEntries();
+                for (SpecificationItem.Entry tempEntry:entries){
+                    if(tempEntry.getIsSelected()){
+                        model.addAttribute("temp_commodity_fiber",tempEntry.getValue());
+                    }
+                }
+            }
+        }
         return "shop/product/group_purch/detail";
     }
 

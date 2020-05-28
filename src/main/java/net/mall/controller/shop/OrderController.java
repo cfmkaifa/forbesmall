@@ -775,6 +775,7 @@ public class OrderController extends BaseController {
                 model.addAttribute("temp_is_purch",itemTemp.getProduct().getPurch());
                 model.addAttribute("temp_is_sample",itemTemp.getProduct().getSample());
                 model.addAttribute("commodity_name",itemTemp.getProduct().getName());
+                model.addAttribute("quantity",itemTemp.getQuantity());
                 model.addAttribute("present_price",itemTemp.getProduct().getPrice());
                 model.addAttribute("commodity_id",itemTemp.getProduct().getId());
                 if(ConvertUtils.isEmpty(itemTemp.getSku().getProduct().getProductCategory().getParent())){

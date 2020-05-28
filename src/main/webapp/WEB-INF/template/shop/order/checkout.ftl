@@ -755,6 +755,7 @@
                 present_price:${sku.product.price},
                 commodity_gsm:"${temp_commodity_gsm}",
                 commodity_cm:"${temp_commodity_cm}",
+                quantity:"${quantity}",
                 commodity_color:"${temp_commodity_color}",
                 commodity_fiber:"${temp_commodity_fiber}",
                 store_id:${sku.product.store.id},

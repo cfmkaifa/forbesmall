@@ -378,4 +378,57 @@
 </main>
 [#include "/shop/include/main_footer.ftl" /]
 </body>
+<script type="text/javascript">
+    //提交订单详情埋点事件
+    $(function () {
+        try {
+            sensors.track('FiberSubmitOrderDetail',{
+                order_id:"${orderTemp.sn}",
+                commodity_id:${commodity_id},
+                commodity_name:"${commodity_name}",
+                first_commodity:"${first_commodity}",
+                second_commodity:"${second_commodity}",
+                quantity:"${quantity}",
+                present_price:${present_price},
+                order_amount:${product.price},
+                commodity_gsm:"${temp_commodity_gsm}",
+                commodity_cm:"${temp_commodity_cm}",
+                commodity_color:"${temp_commodity_color}",
+                commodity_fiber:"${temp_commodity_fiber}",
+                store_id:${store_id},
+                store_name:"${store_name}",
+                is_group:${temp_is_group?string ("true","false")},
+                is_purch:${temp_is_purch?string ("true","false")},
+                is_sample:${temp_is_sample?string ("true","false")}
+            })
+        }catch (e) {
+            console.log(e);
+        }
+
+        try {
+            sensors.track('FiberPayOrderDetail',{
+                order_id:"${orderTemp.sn}",
+                commodity_id:${commodity_id},
+                commodity_name:"${commodity_name}",
+                first_commodity:"${first_commodity}",
+                second_commodity:"${second_commodity}",
+                present_price:${present_price},
+                quantity:"${quantity}",
+                order_amount:${product.price},
+                commodity_gsm:"${temp_commodity_gsm}",
+                commodity_cm:"${temp_commodity_cm}",
+                commodity_color:"${temp_commodity_color}",
+                commodity_fiber:"${temp_commodity_fiber}",
+                store_id:${store_id},
+                store_name:"${store_name}",
+                is_group:${temp_is_group?string ("true","false")},
+                is_purch:${temp_is_purch?string ("true","false")},
+                is_sample:${temp_is_sample?string ("true","false")},
+                total_price_of_commodity:${amount}
+            })
+        }catch (e) {
+            console.log(e);
+        }
+    })
+</script>
 </html>

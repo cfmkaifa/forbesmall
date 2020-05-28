@@ -129,6 +129,7 @@
 									commodity_name:"${commodity_name}",
 									first_commodity:"${first_commodity}",
 									second_commodity:"${second_commodity}",
+									quantity:"${quantity}",
 									present_price:${present_price},
 									order_amount:${product.price},
 									commodity_gsm:"${temp_commodity_gsm}",

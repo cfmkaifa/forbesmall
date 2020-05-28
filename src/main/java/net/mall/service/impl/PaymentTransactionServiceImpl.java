@@ -226,7 +226,9 @@ public class PaymentTransactionServiceImpl extends BaseServiceImpl<PaymentTransa
                         Map<String,Object> properties = new HashMap<String,Object>();
                         properties.put("present_page","");
                         properties.put("vip_type",store.getStoreRank().getName());
+                        BigDecimal duration=transaction.getAmount().setScale(0,RoundingMode.UP).divide(store.getStoreRank().getServiceFee());
                         properties.put("vip_price",transaction.getAmount().setScale(0,RoundingMode.UP));
+                        properties.put("years",duration);
                         properties.put("store_id",String.valueOf(store.getId()));
                         properties.put("store_name",store.getName());
                         properties.put("is_success",true);

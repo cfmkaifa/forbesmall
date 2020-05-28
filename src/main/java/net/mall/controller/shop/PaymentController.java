@@ -173,7 +173,7 @@ public class PaymentController extends BaseController {
                 properties.put("payment_method",paymentPlugin.getDisplayName());
                 properties.put("pay_type",order.getPaymentMethodName());
                 Long memberId = order.getMember().getId();
-                properties.put("supplier_id",String.valueOf(order.getStore().getBusiness().getId()));
+                properties.put("store_id",String.valueOf(order.getStore().getBusiness().getId()));
                 properties.put("receiver_id",String.valueOf(memberId));
                 Area area = order.getArea();
                 if(ConvertUtils.isNotEmpty(area)){
