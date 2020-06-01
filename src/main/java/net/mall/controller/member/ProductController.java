@@ -391,7 +391,7 @@ public class ProductController extends BaseController {
                     }
                 }
             }
-            sensorsAnalyticsUtils.reportData(String.valueOf(currentMember.getId()),"Fiberpurch_apply",map);
+            sensorsAnalyticsUtils.reportData(String.valueOf(currentMember.getId()),"FiberpurchApply",map);
         }
         return Results.OK;
     }
