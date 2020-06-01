@@ -525,12 +525,13 @@
     //中部广告轮播运营位埋点事件
     function Middle_Ad(data) {
         var url=data.href;
+        var name=data.alt;
         try {
             sensors.track('BannerClick',{
                 page_type:'首页',
                 banner_belong_area:"中部广告区域",
                 banner_type:"广告轮播",
-                banner_name:"中部广告轮播",
+                banner_name:name,
                 banner_id:3,
                 url:url
             })
@@ -541,15 +542,10 @@
     
     //右侧新闻运营位点击事件
     function News(data) {
-        var url=data.href;
+        var name=data.name;
         try {
-            sensors.track('BannerClick',{
-                page_type:'首页',
-                banner_belong_area:"右侧新闻资讯区域",
-                banner_type:"新闻",
-                banner_name:"新闻列表",
-                banner_id:4,
-                url:url
+            sensors.track('homePageNewsClick',{
+                banner_name:name
             })
         }catch (e) {
             console.log(e)
@@ -558,12 +554,13 @@
     //首页侧轮播运营位埋点事件
     function Sider_Ad(data) {
         var url=data.href;
+        var name=data.alt;
         try {
             sensors.track('BannerClick',{
                 page_type:'首页',
                 banner_belong_area:"右侧轮播区域",
                 banner_type:"广告轮播",
-                banner_name:"侧轮播",
+                banner_name:name,
                 banner_id:5,
                 url:url
             })
@@ -575,15 +572,10 @@
 
     //右侧快捷入口侧轮播
     function Quick_Entry(data) {
-        var url=data.href;
+        var name=data.innerHTML;
         try {
-            sensors.track('BannerClick',{
-                page_type:'首页',
-                banner_belong_area:"右侧快捷入口区域",
-                banner_type:"快捷入口",
-                banner_name:"快捷入口",
-                banner_id:6,
-                url:url
+            sensors.track('homePageIconClick',{
+                icon_name:name
             })
         }catch (e) {
             console.log(e)
@@ -615,9 +607,8 @@
         var url=data.href;
         var navigation_name=data.innerHTML;
         try {
-            sensors.track('navigation',{
-                navigation_name:navigation_name,
-                url:url
+            sensors.track('homepageNavClick',{
+                navigation_name:navigation_name
             })
         } catch (e) {
             console.log(e)

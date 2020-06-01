@@ -377,7 +377,7 @@ public class ProductController extends BaseController {
                 }
                 break;
             }
-            sensorsAnalyticsUtils.reportData(String.valueOf(currentMember.getId()),"purch_apply",map);
+            sensorsAnalyticsUtils.reportData(String.valueOf(currentMember.getId()),"purchApply",map);
         }
 
         return Results.OK;
