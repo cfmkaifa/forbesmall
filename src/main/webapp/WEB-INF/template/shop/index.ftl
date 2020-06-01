@@ -545,7 +545,7 @@
         var name=data.name;
         try {
             sensors.track('homePageNewsClick',{
-                banner_name:name
+                news_title:name
             })
         }catch (e) {
             console.log(e)
