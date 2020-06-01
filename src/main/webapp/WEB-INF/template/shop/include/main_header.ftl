@@ -314,7 +314,7 @@
                             [#if navigations?has_content]
                                 [#list navigations as navigation]
                                     <li[#if navigation.url?contains(requestContext.requestUri) && requestContext.requestUri != "/"] class="active"[/#if]>
-                                        <a href="${navigation.url}"[#if navigation.isBlankTarget] target="_blank"[/#if]>${navigation.name}</a>
+                                        <a href="${navigation.url}"[#if navigation.isBlankTarget] target="_blank"[/#if] onclick="mall_navigation(this)">${navigation.name}</a>
                                     </li>
                                 [/#list]
                             [/#if]

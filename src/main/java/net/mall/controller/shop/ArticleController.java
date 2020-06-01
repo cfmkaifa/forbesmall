@@ -347,7 +347,7 @@ public class ArticleController extends BaseController {
         if(ConvertUtils.isNotEmpty(currentBusiness)){
             model.addAttribute("news_buy_user","供应商");
             model.addAttribute("is_vip",true);
-            model.addAttribute("vip_type",currentMember.getMemberRank().getName());
+            model.addAttribute("vip_type",currentBusiness.getStore().getStoreRank().getName());
         }else{
             model.addAttribute("news_buy_user","采购商");
             model.addAttribute("is_vip",true);

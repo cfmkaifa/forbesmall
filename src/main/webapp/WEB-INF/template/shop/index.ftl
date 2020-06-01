@@ -608,5 +608,21 @@
             console.log(e)
         }
     }
+
+
+    //导航条显示情况
+    function mall_navigation(data) {
+        var url=data.href;
+        var navigation_name=data.innerHTML;
+        try {
+            sensors.track('navigation',{
+                navigation_name:navigation_name,
+                url:url
+            })
+        } catch (e) {
+            console.log(e)
+        }
+
+    }
 </script>
 </html>
