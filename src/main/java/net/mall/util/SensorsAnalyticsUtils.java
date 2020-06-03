@@ -46,6 +46,14 @@ public class SensorsAnalyticsUtils {
     }
 
 
+    /***
+     * 登录发送数据
+     */
+    public void reportSignUp(String registerId ,String anonymousId ) throws InvalidArgumentException {
+        sa.trackSignUp(registerId,anonymousId);
+    }
+
+
 
     /***发送数据
      */

@@ -36,6 +36,8 @@
         is_login:${Session.isLogin}
     });
 
+    sensors.login("${Session.user_id}");
+
     //设置用户表内容
     sensors.setProfile({
         email:"${Session.email}",
