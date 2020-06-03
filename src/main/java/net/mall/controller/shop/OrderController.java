@@ -302,6 +302,30 @@ public class OrderController extends BaseController {
             }
         } else {
             cart = currentCart;
+            Set<CartItem> set= cart.getCartItems();
+            set.stream().forEach(sub->{
+                Long tempSkuId=sub.getId();
+                Sku sku = skuService.find(tempSkuId);
+                model.addAttribute("sku",sku);
+                Set<Sku> skuSet=sku.getProduct().getSkus();
+                for(Sku temp:skuSet){
+                    List<SpecificationValue> specificationValues=temp.getSpecificationValues();
+                    for(SpecificationValue spec:specificationValues){
+                        if(spec.getValue().contains("mm")){
+                            model.addAttribute("temp_commodity_length",spec.getValue());
+                        }else if(spec.getValue().contains("dtex")){
+                            model.addAttribute("temp_commodity_dtex",spec.getValue());
+                        } else if(spec.getValue().contains("kg")){
+                            model.addAttribute("temp_commodity_weight",spec.getValue());
+                        }else{
+                            model.addAttribute("temp_commodity_color",spec.getValue());
+                        }
+                    }
+                }
+                model.addAttribute("temp_is_group",sku.getProduct().getGroup());
+                model.addAttribute("temp_is_purch",sku.getProduct().getPurch());
+                model.addAttribute("temp_is_sample",sku.getProduct().getSample());
+            });
             orderType = Order.Type.GENERAL;
         }
         /***团购申请
