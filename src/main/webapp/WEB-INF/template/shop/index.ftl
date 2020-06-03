@@ -542,7 +542,7 @@
 
     //右侧新闻运营位点击事件
     function News(data) {
-        var name=data.name;
+        var name=data.innerHTML;
         try {
             sensors.track('homePageNewsClick',{
                 news_title:name

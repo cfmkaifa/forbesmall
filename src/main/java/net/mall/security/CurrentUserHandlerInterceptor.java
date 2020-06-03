@@ -20,10 +20,8 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import net.mall.entity.User;
 import net.mall.service.UserService;
 
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -64,38 +62,50 @@ public class CurrentUserHandlerInterceptor extends HandlerInterceptorAdapter {
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
         User user = userService.getCurrent(getUserClass());
         request.setAttribute(getCurrentUserAttributeName(), user);
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         if(ConvertUtils.isNotEmpty(user)){
             request.getSession().setAttribute("isLogin","true");
             //最后登录日期
-            request.getSession().setAttribute("lastLoginDate",user.getLastLoginDate());
+            request.getSession().setAttribute("lastLoginDate",sdf.format(user.getLastLoginDate()));
         }else {
             request.getSession().setAttribute("isLogin","false");
+            request.getSession().setAttribute("lastLoginDate","无");
         }
-         if(user instanceof Member){
-             request.getSession().setAttribute("userType","member");
-             Member member= (Member) userService.getCurrent(getUserClass());
-             request.getSession().setAttribute("email",member.getEmail());
-             request.getSession().setAttribute("phone_number",member.getMobile());
-             request.getSession().setAttribute("register_time",member.getCreatedDate());
-             request.getSession().setAttribute("username",member.getUsername());
-             Set<Order> ordersList=member.getOrders();
-             List<Date> dateList=ordersList.stream().map(Order::getCreatedDate).collect(Collectors.toList());
-             request.getSession().setAttribute("first_order_time", Collections.min(dateList));
-             request.getSession().setAttribute("last_order_time", Collections.max(dateList));
-             request.getSession().setAttribute("vip_level", member.getMemberRank().getName());
-         }
+        if(user instanceof Member){
+            request.getSession().setAttribute("userType","member");
+            Member member= (Member) userService.getCurrent(getUserClass());
+            request.getSession().setAttribute("email",member.getEmail());
+            request.getSession().setAttribute("phone_number",member.getMobile());
+            request.getSession().setAttribute("register_time",sdf.format(member.getCreatedDate()));
+            request.getSession().setAttribute("username",member.getUsername());
+            Set<Order> ordersList=member.getOrders();
+            if(ConvertUtils.isNotEmpty(ordersList)){
+                List<Date> dateList=ordersList.stream().map(Order::getCreatedDate).collect(Collectors.toList());
+                request.getSession().setAttribute("first_order_time", sdf.format(Collections.min(dateList)));
+                request.getSession().setAttribute("last_order_time", sdf.format(Collections.min(dateList)));
+            }else {
+                request.getSession().setAttribute("first_order_time", "无");
+                request.getSession().setAttribute("last_order_time", "无");
+            }
+
+            request.getSession().setAttribute("vip_level", member.getMemberRank().getName());
+        }
         if(user instanceof Business){
             request.getSession().setAttribute("userType","business");
             Business business=(Business) userService.getCurrent(getUserClass());
             request.getSession().setAttribute("email",business.getEmail());
             request.getSession().setAttribute("phone_number",business.getMobile());
-            request.getSession().setAttribute("register_time",business.getCreatedDate());
+            request.getSession().setAttribute("register_time",sdf.format(business.getCreatedDate()));
             request.getSession().setAttribute("username",business.getUsername());
             request.getSession().setAttribute("first_order_time","无");
             request.getSession().setAttribute("last_order_time","无");
-            request.getSession().setAttribute("vip_level", business.getStore().getStoreRank().getName());
-        }
+            if(ConvertUtils.isNotEmpty(business.getStore())){
+                request.getSession().setAttribute("vip_level", business.getStore().getStoreRank().getName());
+            }else {
+                request.getSession().setAttribute("vip_level", "暂未开通");
+            }
 
+        }
     }
 
     /**
