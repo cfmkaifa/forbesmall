@@ -6,7 +6,11 @@
  */
 package net.mall.controller.business;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.sensorsdata.analytics.javasdk.exceptions.InvalidArgumentException;
 import net.mall.entity.Business;
+import net.mall.service.BusinessService;
 import net.mall.util.SensorsAnalyticsUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -17,6 +21,9 @@ import net.mall.entity.Store;
 import net.mall.security.CurrentStore;
 
 import javax.inject.Inject;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,11 +40,13 @@ public class IndexController extends BaseController {
 
     @Inject
     private SensorsAnalyticsUtils sensorsAnalyticsUtils;
+
     /**
      * 首页
      */
     @GetMapping
-    public String index(@CurrentStore Store currentStore, ModelMap model) {
+    public String index(@CurrentStore Store currentStore, ModelMap model, HttpServletRequest request) throws InvalidArgumentException, UnsupportedEncodingException {
+        model.addAttribute("currentStore", currentStore);
         /***供应商登录
          * **/
         Map<String,Object> properties = new HashMap<String,Object>();
@@ -47,6 +56,24 @@ public class IndexController extends BaseController {
         properties.put("is_success",true);
         properties.put("fail_reason","");
         sensorsAnalyticsUtils.reportData(String.valueOf(business.getId()),"LoginResult",properties);
+
+        /***
+         * 上报数据调用登录接口
+         */
+        Map<String, Cookie> cookieMap = new HashMap<String, Cookie>();
+        Cookie[] cookies =request.getCookies();
+        if (null != cookies){
+            for(Cookie cookie:cookies){
+                cookieMap.put(cookie.getName(),cookie);
+            }
+        }
+        String temp="sensorsdata2015jssdkcross";
+        String tempObj=null;
+        if(cookieMap.containsKey(temp)){
+            tempObj=java.net.URLDecoder.decode(cookieMap.get(temp).getValue(), "UTF-8");
+            JSONObject jsonObject= JSON.parseObject(tempObj);
+            sensorsAnalyticsUtils.reportSignUp(business.getId().toString(),jsonObject.getString("distinct_id"));
+        }
         return "business/index";
     }
 

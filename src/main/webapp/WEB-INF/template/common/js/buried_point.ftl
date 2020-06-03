@@ -29,6 +29,9 @@
     sensors.quick('autoTrack', {
         platform:'h5'
     })
+
+    sensors.login("${Session.user_id}");
+
     // 公共属性
     sensors.registerPage({
         platform: "${base}",
@@ -47,6 +50,7 @@
         last_order_time:"${Session.last_order_time}",
         vip_level:"${Session.vip_level}"
     });
+    sensors.login("用户 ID")
     // SDK 初始化参数配置
     heatmap: {
         //是否开启点击图，默认 default 表示开启，自动采集 $WebClick 事件，可以设置 'not_collect' 表示关闭

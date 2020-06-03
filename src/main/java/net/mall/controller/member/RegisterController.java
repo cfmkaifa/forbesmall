@@ -6,14 +6,19 @@
  */
 package net.mall.controller.member;
 
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.sensorsdata.analytics.javasdk.exceptions.InvalidArgumentException;
 import net.mall.entity.*;
 import net.mall.util.SensorsAnalyticsUtils;
 import org.apache.commons.lang.ArrayUtils;
@@ -65,7 +70,6 @@ public class RegisterController extends BaseController {
     @Inject
     private SensorsAnalyticsUtils sensorsAnalyticsUtils;
 
-
     /**
      * 检查用户名是否存在
      */
@@ -115,7 +119,7 @@ public class RegisterController extends BaseController {
      * 注册提交
      */
     @PostMapping("/submit")
-    public ResponseEntity<?> submit(String username, String password, String email, String mobile, String spreadMemberUsername, HttpServletRequest request) {
+    public ResponseEntity<?> submit(String username, String password, String email, String mobile, String spreadMemberUsername, HttpServletRequest request) throws UnsupportedEncodingException, InvalidArgumentException {
         Setting setting = SystemUtils.getSetting();
         if (!ArrayUtils.contains(setting.getAllowedRegisterTypes(), Setting.RegisterType.MEMBER)) {
             return Results.unprocessableEntity("member.register.disabled");
@@ -189,6 +193,24 @@ public class RegisterController extends BaseController {
         properties.put("is_success",true);
         properties.put("fail_reason","");
         sensorsAnalyticsUtils.reportData(String.valueOf(member.getId()),"RegisterResult",properties);
+
+        /***
+         * 上报数据调用登录接口
+         */
+        Map<String,Cookie> cookieMap = new HashMap<String, Cookie>();
+        Cookie[] cookies =request.getCookies();
+        if (null != cookies){
+            for(Cookie cookie:cookies){
+                cookieMap.put(cookie.getName(),cookie);
+            }
+        }
+        String temp="sensorsdata2015jssdkcross";
+        String tempObj=null;
+        if(cookieMap.containsKey(temp)){
+            tempObj=java.net.URLDecoder.decode(cookieMap.get(temp).getValue(), "UTF-8");
+            JSONObject jsonObject=JSON.parseObject(tempObj);
+            sensorsAnalyticsUtils.reportSignUp(member.getId().toString(),jsonObject.getString("distinct_id"));
+        }
         return Results.OK;
     }
 

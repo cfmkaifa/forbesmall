@@ -7,13 +7,17 @@
 package net.mall.security;
 
 import javax.inject.Inject;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import net.mall.entity.Business;
 import net.mall.entity.Member;
 import net.mall.entity.Order;
 import net.mall.util.ConvertUtils;
+import net.mall.util.SensorsAnalyticsUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -49,6 +53,8 @@ public class CurrentUserHandlerInterceptor extends HandlerInterceptorAdapter {
 
     @Inject
     private UserService userService;
+    @Inject
+    private SensorsAnalyticsUtils sensorsAnalyticsUtils;
 
     /**
      * 请求后处理
@@ -75,6 +81,7 @@ public class CurrentUserHandlerInterceptor extends HandlerInterceptorAdapter {
             request.getSession().setAttribute("userType","member");
             Member member= (Member) userService.getCurrent(getUserClass());
             request.getSession().setAttribute("email",member.getEmail());
+            request.getSession().setAttribute("user_id",member.getId());
             request.getSession().setAttribute("phone_number",member.getMobile());
             request.getSession().setAttribute("register_time",sdf.format(member.getCreatedDate()));
             request.getSession().setAttribute("username",member.getUsername());
@@ -94,6 +101,7 @@ public class CurrentUserHandlerInterceptor extends HandlerInterceptorAdapter {
             request.getSession().setAttribute("userType","business");
             Business business=(Business) userService.getCurrent(getUserClass());
             request.getSession().setAttribute("email",business.getEmail());
+            request.getSession().setAttribute("user_id",business.getId());
             request.getSession().setAttribute("phone_number",business.getMobile());
             request.getSession().setAttribute("register_time",sdf.format(business.getCreatedDate()));
             request.getSession().setAttribute("username",business.getUsername());
@@ -104,8 +112,8 @@ public class CurrentUserHandlerInterceptor extends HandlerInterceptorAdapter {
             }else {
                 request.getSession().setAttribute("vip_level", "暂未开通");
             }
-
         }
+
     }
 
     /**

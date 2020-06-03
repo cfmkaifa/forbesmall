@@ -1,14 +1,11 @@
 package net.mall.util;
-
 import com.sensorsdata.analytics.javasdk.SensorsAnalytics;
 import com.sensorsdata.analytics.javasdk.exceptions.InvalidArgumentException;
 import org.springframework.stereotype.Component;
-
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.*;
-
 /***神策数据分析
  */
 @Component
@@ -46,6 +43,14 @@ public class SensorsAnalyticsUtils {
     public void reportData(String  distinctId,String eventName,Map<String, Object> properties){
         SendData sendData = new SendData(distinctId,eventName,properties);
         executorService.execute(sendData);
+    }
+
+
+    /***
+     * 登录发送数据
+     */
+    public void reportSignUp(String registerId ,String anonymousId ) throws InvalidArgumentException {
+        sa.trackSignUp(registerId,anonymousId);
     }
 
 

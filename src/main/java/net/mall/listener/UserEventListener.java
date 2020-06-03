@@ -6,13 +6,18 @@
  */
 package net.mall.listener;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.sensorsdata.analytics.javasdk.exceptions.InvalidArgumentException;
 import net.mall.util.*;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.SecurityUtils;
@@ -85,7 +90,7 @@ public class UserEventListener {
      * @param userLoggedInEvent 用户登录事件
      */
     @EventListener
-    public void handle(UserLoggedInEvent userLoggedInEvent) {
+    public void handle(UserLoggedInEvent userLoggedInEvent) throws UnsupportedEncodingException, InvalidArgumentException {
         User user = userLoggedInEvent.getUser();
         HttpServletRequest request = WebUtils.getRequest();
         if (user instanceof Member) {
@@ -112,6 +117,24 @@ public class UserEventListener {
             if(ConvertUtils.isNotEmpty(sensorsAnalyticsUtils)){
                 sensorsAnalyticsUtils.reportData(String.valueOf(member.getId()),"LoginResult",properties);
             }
+
+            /***
+             * 上报数据调用登录接口
+             */
+            Map<String, Cookie> cookieMap = new HashMap<String, Cookie>();
+            Cookie[] cookies =request.getCookies();
+            if (null != cookies){
+                for(Cookie cookie:cookies){
+                    cookieMap.put(cookie.getName(),cookie);
+                }
+            }
+            String temp="sensorsdata2015jssdkcross";
+            String tempObj=null;
+            if(cookieMap.containsKey(temp)){
+                tempObj=java.net.URLDecoder.decode(cookieMap.get(temp).getValue(), "UTF-8");
+                JSONObject jsonObject= JSON.parseObject(tempObj);
+                sensorsAnalyticsUtils.reportSignUp(member.getId().toString(),jsonObject.getString("distinct_id"));
+            }
         } else if (user instanceof Business) {
             Subject subject = SecurityUtils.getSubject();
             sessionFixationProtection(subject);
@@ -125,6 +148,24 @@ public class UserEventListener {
             SensorsAnalyticsUtils sensorsAnalyticsUtils = SpringUtils.getBean(SensorsAnalyticsUtils.class);
             if(ConvertUtils.isNotEmpty(sensorsAnalyticsUtils)){
                 sensorsAnalyticsUtils.reportData(String.valueOf(business.getId()),"LoginResult",properties);
+            }
+
+            /***
+             * 上报数据调用登录接口
+             */
+            Map<String, Cookie> cookieMap = new HashMap<String, Cookie>();
+            Cookie[] cookies =request.getCookies();
+            if (null != cookies){
+                for(Cookie cookie:cookies){
+                    cookieMap.put(cookie.getName(),cookie);
+                }
+            }
+            String temp="sensorsdata2015jssdkcross";
+            String tempObj=null;
+            if(cookieMap.containsKey(temp)){
+                tempObj=java.net.URLDecoder.decode(cookieMap.get(temp).getValue(), "UTF-8");
+                JSONObject jsonObject= JSON.parseObject(tempObj);
+                sensorsAnalyticsUtils.reportSignUp(business.getId().toString(),jsonObject.getString("distinct_id"));
             }
         }
 

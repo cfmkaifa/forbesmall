@@ -497,7 +497,7 @@
                 commodity_id:productId,
                 commodity_name:productName,
                 store_name:storeName,
-                store_ID:storeId
+                store_id:storeId
             })
         }catch (e) {
             console.log(e);
