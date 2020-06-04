@@ -304,7 +304,7 @@ public class OrderController extends BaseController {
             cart = currentCart;
             Set<CartItem> set= cart.getCartItems();
             set.stream().forEach(sub->{
-                Long tempSkuId=sub.getId();
+                Long tempSkuId=sub.getSku().getId();
                 Sku sku = skuService.find(tempSkuId);
                 model.addAttribute("sku",sku);
                 Set<Sku> skuSet=sku.getProduct().getSkus();
