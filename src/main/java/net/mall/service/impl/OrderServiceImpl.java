@@ -233,7 +233,6 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
         Assert.isTrue(!order.isNew(), "[Assertion failed] - order must not be new");
         Assert.notNull(user, "[Assertion failed] - user is required; it must not be null");
         Assert.isTrue(!user.isNew(), "[Assertion failed] - user must not be new");
-
         Long orderId = order.getId();
         Ehcache cache = cacheManager.getEhcache(Order.ORDER_LOCK_CACHE_NAME);
         cache.acquireWriteLockOnKey(orderId);
@@ -817,6 +816,8 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
                 String statPath = this.createReconContract(parentOrder,null,"订单已完结",true);
                 orderDao.modifyStatPath(statPath,order.getId());
                 orderDao.modifyStatPath(statPath,order.getParentId());
+            } else {
+                order.setStatus(Order.Status.PENDING_SHIPMENT);
             }
         } else {
             order.setStatus(Order.Status.DENIED);

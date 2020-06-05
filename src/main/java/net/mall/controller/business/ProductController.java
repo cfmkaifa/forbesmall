@@ -271,6 +271,7 @@ public class ProductController extends BaseController {
         }
         productForm.setPurch(false);
         productForm.setIsAudit(Product.ProApplyStatus.PENDING);
+        productForm.setGroup(false);
         productForm.setStore(currentStore);
         productForm.setProductCategory(productCategory);
         productForm.setBrand(brandService.find(brandId));

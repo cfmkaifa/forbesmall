@@ -499,7 +499,6 @@
                     // 审核
                     $review.click(function() {
                         var $element = $(this);
-
                         bootbox.prompt({
                             title: "${message("common.bootbox.title")}",
                             inputType: "select",
@@ -518,7 +517,6 @@
                                 if (result == null) {
                                     return;
                                 }
-
                                 $.ajax({
                                     url: "${base}/business/order/review",
                                     type: "POST",
