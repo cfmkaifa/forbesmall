@@ -125,12 +125,15 @@ public class AlipayPagePaymentPlugin extends PaymentPlugin {
         alipayTradeQueryModel.setTradeNo(request.getParameter("trade_no"));
 
         AlipayTradeQueryRequest alipayTradeQueryRequest = new AlipayTradeQueryRequest();
+        alipayTradeQueryRequest.setReturnUrl(getPostPayUrl(paymentPlugin, paymentTransaction));
+        alipayTradeQueryRequest.setNotifyUrl(getPostPayUrl(paymentPlugin, paymentTransaction));
         alipayTradeQueryRequest.setBizModel(alipayTradeQueryModel);
         try {
             AlipayTradeQueryResponse alipayTradeQueryResponse = getAlipayClient().execute(alipayTradeQueryRequest);
             return alipayTradeQueryResponse.isSuccess() && (StringUtils.equalsIgnoreCase(alipayTradeQueryResponse.getTradeStatus(), "TRADE_SUCCESS") || StringUtils.equalsIgnoreCase(alipayTradeQueryResponse.getTradeStatus(), "TRADE_FINISHED"))
                     && paymentTransaction.getAmount().compareTo(new BigDecimal(alipayTradeQueryResponse.getTotalAmount())) == 0;
         } catch (AlipayApiException e) {
+            e.printStackTrace();
             throw new RuntimeException(e.getMessage(), e);
         }
     }

@@ -326,6 +326,53 @@ public class OrderController extends BaseController {
             }
         } else {
             cart = currentCart;
+            Set<CartItem> cartItems=cart.getCartItems();
+            cartItems.stream().forEach(sub->{
+                Sku sku = skuService.find(sub.getSku().getId());
+                model.addAttribute("sku",sku);
+                Set<Sku> skuSet=sku.getProduct().getSkus();
+                for(Sku temp:skuSet){
+                    List<SpecificationItem> specificationItems=temp.getProduct().getSpecificationItems();
+                    for(SpecificationItem tempSpec:specificationItems){
+                        if(tempSpec.getName().contains("颜色")){
+                            List<SpecificationItem.Entry> entries=tempSpec.getEntries();
+                            for (SpecificationItem.Entry tempEntry:entries){
+                                if(tempEntry.getIsSelected()){
+                                    model.addAttribute("temp_commodity_color",tempEntry.getValue());
+                                }
+                            }
+                        }
+                        if(tempSpec.getName().contains("纤维")){
+                            List<SpecificationItem.Entry> entries=tempSpec.getEntries();
+                            for (SpecificationItem.Entry tempEntry:entries){
+                                if(tempEntry.getIsSelected()){
+                                    model.addAttribute("temp_commodity_fiber",tempEntry.getValue());
+                                }
+                            }
+                        }
+                        if(tempSpec.getName().contains("gsm")){
+                            List<SpecificationItem.Entry> entries=tempSpec.getEntries();
+                            for (SpecificationItem.Entry tempEntry:entries){
+                                if(tempEntry.getIsSelected()){
+                                    model.addAttribute("temp_commodity_gsm",tempEntry.getValue());
+                                }
+                            }
+                        }
+                        if(tempSpec.getName().contains("cm")){
+                            List<SpecificationItem.Entry> entries=tempSpec.getEntries();
+                            for (SpecificationItem.Entry tempEntry:entries){
+                                if(tempEntry.getIsSelected()){
+                                    model.addAttribute("temp_commodity_cm",tempEntry.getValue());
+                                }
+                            }
+                        }
+                    }
+
+                }
+                model.addAttribute("temp_is_group",sku.getProduct().getGroup());
+                model.addAttribute("temp_is_purch",sku.getProduct().getPurch());
+                model.addAttribute("temp_is_sample",sku.getProduct().getSample());
+            });
             orderType = Order.Type.GENERAL;
         }
         /***团购申请

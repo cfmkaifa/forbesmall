@@ -22,22 +22,27 @@
         sdk_url: 'https://cdn.jsdelivr.net/npm/sa-sdk-javascript@1.15.1/sensorsdata.min.js',
         heatmap_url: 'https://cdn.jsdelivr.net/npm/sa-sdk-javascript@1.15.1/heatmap.min.js',
         name: 'sensors',
-        server_url: 'http://fiber.datasink.sensorsdata.cn/sa?project=production&token=59f587d85e2799d7'
+        server_url: 'http://fiber.datasink.sensorsdata.cn/sa?project=production&token=59f587d85e2799d7',
+        heatmap: {
+            //是否开启点击图，默认 default 表示开启，自动采集 $WebClick 事件，可以设置 'not_collect' 表示关闭
+            //需要 Web JS SDK 版本号大于 1.7
+            clickmap:'default'
+        }
     });
-    sensors.quick('autoTrack');
+
+    // 公共属性
+    sensors.registerPage({
+        platform: "${base}",
+        user_type:"${Session.userType}",
+        is_login:"${Session.isLogin}"
+    });
+
     // 如果需要调用 login 来重新设置用户标识，必须在此之前调用
     sensors.quick('autoTrack', {
         platform:'h5'
     })
 
     sensors.login("${Session.user_id}");
-
-    // 公共属性
-    sensors.registerPage({
-        platform: "${base}",
-        user_type:"${Session.userType}",
-        is_login:${Session.isLogin}
-    });
 
     //设置用户表内容
     sensors.setProfile({
@@ -50,11 +55,4 @@
         last_order_time:"${Session.last_order_time}",
         vip_level:"${Session.vip_level}"
     });
-    sensors.login("用户 ID")
-    // SDK 初始化参数配置
-    heatmap: {
-        //是否开启点击图，默认 default 表示开启，自动采集 $WebClick 事件，可以设置 'not_collect' 表示关闭
-        //需要 Web JS SDK 版本号大于 1.7
-        clickmap:'default'
-    }
 </script>
