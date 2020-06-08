@@ -351,7 +351,7 @@ public class ProductController extends BaseController {
             map.put("first_commodity",productForm.getProductCategory().getName());
             map.put("second_commodity",productForm.getProductCategory().getParent().getName());
             map.put("present_price",productForm.getPrice());
-            map.put("member_id",currentMember.getId());
+            map.put("reveiver_id",currentMember.getId());
             map.put("member_name",currentMember.getName());
             List<Sku> skus=skuListForm.getSkuList();
             for(Sku item:skus){
@@ -370,12 +370,13 @@ public class ProductController extends BaseController {
             List<SpecificationItem> specificationItems=productForm.getSpecificationItems();
             for(SpecificationItem temp:specificationItems){
                 List<SpecificationItem.Entry> entries=temp.getEntries();
-                for (SpecificationItem.Entry entry:entries){
-                    if(entry.getIsSelected()){
-                        map.put("commodity_color",entry.getValue());
+                if(temp.getName().contains("颜色")){
+                    for (SpecificationItem.Entry entry:entries){
+                        if(entry.getIsSelected()){
+                            map.put("commodity_color",entry.getValue());
+                        }
                     }
                 }
-                break;
             }
             sensorsAnalyticsUtils.reportData(String.valueOf(currentMember.getId()),"purchApply",map);
         }

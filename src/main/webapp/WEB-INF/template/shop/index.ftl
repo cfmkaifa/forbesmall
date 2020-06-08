@@ -608,7 +608,7 @@
         var navigation_name=data.innerHTML;
         try {
             sensors.track('homepageNavClick',{
-                navigation_name:navigation_name
+                nav_category:navigation_name
             })
         } catch (e) {
             console.log(e)
