@@ -156,9 +156,9 @@ public class OrderController extends BaseController {
         List<OrderItem> orderItems=order.getOrderItems();
         for(OrderItem itemTemp:orderItems){
             model.addAttribute("product",itemTemp);
-            model.addAttribute("temp_is_group",itemTemp.getProduct().getGroup());
-            model.addAttribute("temp_is_purch",itemTemp.getProduct().getPurch());
-            model.addAttribute("temp_is_sample",itemTemp.getProduct().getSample());
+            model.addAttribute("temp_is_group",ConvertUtils.isNotEmpty(itemTemp.getProduct().getGroup())?itemTemp.getProduct().getGroup():false);
+            model.addAttribute("temp_is_purch",ConvertUtils.isNotEmpty(itemTemp.getProduct().getPurch())?itemTemp.getProduct().getPurch():false);
+            model.addAttribute("temp_is_sample",ConvertUtils.isNotEmpty(itemTemp.getProduct().getSample())?itemTemp.getProduct().getSample():false);
             model.addAttribute("quantity",itemTemp.getQuantity());
             model.addAttribute("commodity_name",itemTemp.getProduct().getName());
             model.addAttribute("present_price",itemTemp.getProduct().getPrice());
@@ -242,9 +242,14 @@ public class OrderController extends BaseController {
         if (order == null) {
             return Results.NOT_FOUND;
         }
-        long subOrderCount = orderService.count(new Filter("parentId",Filter.Operator.EQ,order.getId()),new Filter("status",Filter.Operator.EQ,Order.Status.COMPLETED));
-        if(subOrderCount > 0){
-            return  Results.unprocessableEntity("common.message.subOrderParent");
+        long subOrderCount = orderService
+                .count(new Filter("parentId",Filter.Operator.EQ,order.getId()));
+        if(subOrderCount > 0 ){
+            long subOrderCompletedCount = orderService
+                    .count(new Filter("parentId",Filter.Operator.EQ,order.getId()),new Filter("status",Filter.Operator.EQ,Order.Status.COMPLETED));
+            if(0 == subOrderCompletedCount){
+                return  Results.unprocessableEntity("common.message.subOrderParent");
+            }
         }
         if (order.hasExpired() || !Order.Status.SHIPPED.equals(order.getStatus())) {
             return Results.NOT_FOUND;

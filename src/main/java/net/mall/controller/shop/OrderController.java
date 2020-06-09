@@ -300,9 +300,9 @@ public class OrderController extends BaseController {
                 }
 
             }
-            model.addAttribute("temp_is_group",sku.getProduct().getGroup());
-            model.addAttribute("temp_is_purch",sku.getProduct().getPurch());
-            model.addAttribute("temp_is_sample",sku.getProduct().getSample());
+            model.addAttribute("temp_is_group",ConvertUtils.isNotEmpty(sku.getProduct().getGroup())?sku.getProduct().getGroup():false);
+            model.addAttribute("temp_is_purch",ConvertUtils.isNotEmpty(sku.getProduct().getPurch())?sku.getProduct().getPurch():false);
+            model.addAttribute("temp_is_sample",ConvertUtils.isNotEmpty(sku.getProduct().getSample())?sku.getProduct().getSample():false);
             if (sku == null) {
                 return UNPROCESSABLE_ENTITY_VIEW;
             }
@@ -369,9 +369,10 @@ public class OrderController extends BaseController {
                     }
 
                 }
-                model.addAttribute("temp_is_group",sku.getProduct().getGroup());
-                model.addAttribute("temp_is_purch",sku.getProduct().getPurch());
-                model.addAttribute("temp_is_sample",sku.getProduct().getSample());
+                Product product = sku.getProduct();
+                model.addAttribute("temp_is_group",ConvertUtils.isNotEmpty(product.getGroup())?product.getGroup():false);
+                model.addAttribute("temp_is_purch",ConvertUtils.isNotEmpty(product.getPurch())?product.getPurch():false);
+                model.addAttribute("temp_is_sample",ConvertUtils.isNotEmpty(product.getSample())?product.getSample():false);
             });
             orderType = Order.Type.GENERAL;
         }
@@ -818,9 +819,9 @@ public class OrderController extends BaseController {
             List<OrderItem> orderItems=orderTemp.getOrderItems();
             for(OrderItem itemTemp:orderItems){
                 model.addAttribute("product",itemTemp);
-                model.addAttribute("temp_is_group",itemTemp.getProduct().getGroup());
-                model.addAttribute("temp_is_purch",itemTemp.getProduct().getPurch());
-                model.addAttribute("temp_is_sample",itemTemp.getProduct().getSample());
+                model.addAttribute("temp_is_group",ConvertUtils.isNotEmpty(itemTemp.getProduct().getGroup())?itemTemp.getProduct().getGroup():false);
+                model.addAttribute("temp_is_purch",ConvertUtils.isNotEmpty(itemTemp.getProduct().getPurch())?itemTemp.getProduct().getPurch():false);
+                model.addAttribute("temp_is_sample",ConvertUtils.isNotEmpty(itemTemp.getProduct().getSample())?itemTemp.getProduct().getSample():false);
                 model.addAttribute("commodity_name",itemTemp.getProduct().getName());
                 model.addAttribute("quantity",itemTemp.getQuantity());
                 model.addAttribute("present_price",itemTemp.getProduct().getPrice());
