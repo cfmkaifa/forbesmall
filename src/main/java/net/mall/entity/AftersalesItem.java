@@ -36,6 +36,13 @@ public class AftersalesItem extends BaseEntity<Long> {
     @Column(nullable = false, updatable = false)
     private Integer quantity;
 
+
+    /**
+     * 重量
+     */
+    @Column(name = "weight")
+    private Integer weight;
+
     /**
      * 订单项
      */
@@ -107,4 +114,12 @@ public class AftersalesItem extends BaseEntity<Long> {
         this.aftersales = aftersales;
     }
 
+
+    public Integer getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Integer weight) {
+        this.weight = weight;
+    }
 }

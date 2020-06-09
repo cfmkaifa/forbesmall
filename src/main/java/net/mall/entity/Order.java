@@ -9,6 +9,7 @@ package net.mall.entity;
 import com.fasterxml.jackson.annotation.JsonView;
 import net.mall.BaseAttributeConverter;
 import net.mall.plugin.PaymentPlugin;
+import net.mall.util.ConvertUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.BooleanUtils;
@@ -1593,12 +1594,39 @@ public class Order extends BaseEntity<Long> {
             BigDecimal refundableAmount = getAmountPaid();
             return refundableAmount.compareTo(BigDecimal.ZERO) >= 0 ? refundableAmount : BigDecimal.ZERO;
         }
-
         if (Order.Status.COMPLETED.equals(getStatus())) {
+            // 退货退款
             BigDecimal refundableAmount = getAmountPaid().subtract(getAmount());
             return refundableAmount.compareTo(BigDecimal.ZERO) >= 0 ? refundableAmount : BigDecimal.ZERO;
+        } else {
+            BigDecimal refundableAmount = aftersalesItemAmount();
+            return refundableAmount.compareTo(BigDecimal.ZERO) >= 0 ? refundableAmount : BigDecimal.ZERO;
         }
-        return BigDecimal.ZERO;
+    }
+
+
+    @Transient
+    public BigDecimal aftersalesItemAmount(){
+        BigDecimal totalbRefundableAmount = orderItems.stream().map(orderItem -> {
+            Set<AftersalesItem> aftersalesItems = orderItem.getAftersalesItems();
+            BigDecimal totalaRefundableAmount = BigDecimal.ZERO;
+            if(ConvertUtils.isNotEmpty(aftersalesItems)){
+                totalaRefundableAmount = aftersalesItems.stream().map(aftersalesItem -> {
+                    BigDecimal totalRefundableAmount = BigDecimal.ZERO;
+                    Integer weight = aftersalesItem.getWeight();
+                    Integer quantity = aftersalesItem.getQuantity();
+                    if(ConvertUtils.isNotEmpty(weight)){
+                        totalRefundableAmount = aftersalesItem.getOrderItem().getProduct().getPrice().multiply(new BigDecimal(weight));
+                    } else {
+                        totalRefundableAmount = aftersalesItem.getOrderItem().getProduct().getPrice()
+                                .multiply(new BigDecimal(quantity)).multiply(aftersalesItem.getOrderItem().getSku().getTotalUnit());
+                    }
+                    return  totalRefundableAmount;
+                }).reduce(BigDecimal::add).orElse(BigDecimal.ZERO);
+            }
+            return  totalaRefundableAmount;
+        }).reduce(BigDecimal::add).orElse(BigDecimal.ZERO);
+        return  totalbRefundableAmount;
     }
 
     /**

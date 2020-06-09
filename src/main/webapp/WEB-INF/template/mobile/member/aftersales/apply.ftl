@@ -58,12 +58,10 @@
 				var $bank = $("#bank");
 				var $account = $("#account");
 				var $areaId = $("input.area-id");
-				
 				$selectedItem.change(function() {
 					var $element = $(this);
 					var $submit = $element.closest("div.tab-pane").find("button:submit");
 					var checked = $element.closest("table.table").find("tbody input:checked").length < 1;
-					
 					$submit.prop("disabled", checked);
 				});
 				
@@ -251,6 +249,7 @@
 											<th>${message("member.aftersalesItem.sku")}</th>
 											<th>${message("member.aftersalesItem.name")}</th>
 											<th>${message("AftersalesItem.quantity")}</th>
+											<th>${message("AftersalesItem.weight")}</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -287,6 +286,11 @@
 															<span class="input-group-addon" data-spin="down">-</span>
 															<input name="aftersalesItems[${orderItem_index}].quantity" class="form-control" type="text" maxlength="5" data-rule="quantity" data-min="1" data-max="[#if orderItem.allowApplyAftersalesQuantity > 0]${orderItem.allowApplyAftersalesQuantity}[#else]1[/#if]">
 															<span class="input-group-addon" data-spin="up">+</span>
+														</div>
+													</td>
+													<td>
+														<div class="spinner input-group input-group-sm" data-trigger="spinner">
+															<input name="aftersalesItems[${orderItem_index}].weight" class="form-control" type="text" maxlength="5" data-rule="weight" data-min="1" data-max="[#if orderItem.weight > 0]${orderItem.weight}[#else]1[/#if]">
 														</div>
 													</td>
 												</tr>

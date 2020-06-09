@@ -130,7 +130,6 @@ public class AftersalesServiceImpl extends BaseServiceImpl<Aftersales, Long> imp
                 iterator.remove();
                 continue;
             }
-
             OrderItem orderItem = orderItemDao.find(aftersalesItem.getOrderItem().getId());
             if (orderItem == null) {
                 throw new ResourceNotFoundException();
@@ -148,7 +147,10 @@ public class AftersalesServiceImpl extends BaseServiceImpl<Aftersales, Long> imp
             @Override
             public boolean evaluate(Object object) {
                 AftersalesItem aftersalesItem = (AftersalesItem) object;
-                return aftersalesItem == null || aftersalesItem.getOrderItem() == null || aftersalesItem.getOrderItem().getAllowApplyAftersalesQuantity() < aftersalesItem.getQuantity();
+                return aftersalesItem == null
+                        || aftersalesItem.getOrderItem() == null
+                        || aftersalesItem.getOrderItem().getAllowApplyAftersalesQuantity() < aftersalesItem.getQuantity()
+                        || aftersalesItem.getOrderItem().getWeight() < aftersalesItem.getWeight();
             }
         });
     }
