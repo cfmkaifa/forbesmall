@@ -53,6 +53,7 @@
         register_time:"${Session.register_time}",
         first_order_time:"${Session.first_order_time}",
         last_order_time:"${Session.last_order_time}",
-        vip_level:"${Session.vip_level}"
+        vip_level:"${Session.vip_level}",
+        user_type:"${Session.userType}"
     });
 </script>
