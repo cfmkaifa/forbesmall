@@ -123,9 +123,9 @@ public class ProductController extends BaseController {
             String checkresult= String.valueOf(currentUser.getIsAudit());
             model.addAttribute("checkresult",checkresult);
         }
-        model.addAttribute("temp_is_group",product.getGroup());
-        model.addAttribute("temp_is_purch",product.getPurch());
-        model.addAttribute("temp_is_sample",product.getSample());
+        model.addAttribute("temp_is_group",ConvertUtils.isNotEmpty(product.getGroup())?product.getGroup():false);
+        model.addAttribute("temp_is_purch",ConvertUtils.isNotEmpty(product.getPurch())?product.getPurch():false);
+        model.addAttribute("temp_is_sample",ConvertUtils.isNotEmpty(product.getSample())?product.getSample():false);
         Set<Sku> skuSet=product.getSkus();
         for(Sku temp:skuSet){
             List<SpecificationValue> specificationValues=temp.getSpecificationValues();
@@ -157,9 +157,9 @@ public class ProductController extends BaseController {
         }
         product.setSample(true);
         model.addAttribute("product", product);
-        model.addAttribute("temp_is_group",product.getGroup());
-        model.addAttribute("temp_is_purch",product.getPurch());
-        model.addAttribute("temp_is_sample",product.getSample());
+        model.addAttribute("temp_is_group",ConvertUtils.isNotEmpty(product.getGroup())?product.getGroup():false);
+        model.addAttribute("temp_is_purch",ConvertUtils.isNotEmpty(product.getPurch())?product.getPurch():false);
+        model.addAttribute("temp_is_sample",ConvertUtils.isNotEmpty(product.getSample())?product.getSample():false);
         Set<Sku> skuSet=product.getSkus();
         for(Sku temp:skuSet){
             List<SpecificationValue> specificationValues=temp.getSpecificationValues();
@@ -190,9 +190,9 @@ public class ProductController extends BaseController {
         }
         product.setSample(true);
         model.addAttribute("product", product);
-        model.addAttribute("temp_is_group",product.getGroup());
-        model.addAttribute("temp_is_purch",product.getPurch());
-        model.addAttribute("temp_is_sample",product.getSample());
+        model.addAttribute("temp_is_group",ConvertUtils.isNotEmpty(product.getGroup())?product.getGroup():false);
+        model.addAttribute("temp_is_purch",ConvertUtils.isNotEmpty(product.getPurch())?product.getPurch():false);
+        model.addAttribute("temp_is_sample",ConvertUtils.isNotEmpty(product.getSample())?product.getSample():false);
         Set<Sku> skuSet=product.getSkus();
         for(Sku temp:skuSet){
             List<SpecificationValue> specificationValues=temp.getSpecificationValues();
@@ -223,9 +223,9 @@ public class ProductController extends BaseController {
             throw new ResourceNotFoundException();
         }
         model.addAttribute("product", product);
-        model.addAttribute("temp_is_group",product.getGroup());
-        model.addAttribute("temp_is_purch",product.getPurch());
-        model.addAttribute("temp_is_sample",product.getSample());
+        model.addAttribute("temp_is_group",ConvertUtils.isNotEmpty(product.getGroup())?product.getGroup():false);
+        model.addAttribute("temp_is_purch",ConvertUtils.isNotEmpty(product.getPurch())?product.getPurch():false);
+        model.addAttribute("temp_is_sample",ConvertUtils.isNotEmpty(product.getSample())?product.getSample():false);
         Set<Sku> skuSet=product.getSkus();
         for(Sku temp:skuSet){
             List<SpecificationValue> specificationValues=temp.getSpecificationValues();

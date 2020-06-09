@@ -68,16 +68,13 @@ public class AftersalesReturnsController extends BaseController {
         if (order == null) {
             return Results.UNPROCESSABLE_ENTITY;
         }
-
         aftersalesService.filterNotActiveAftersalesItem(aftersalesReturnsForm);
         if (aftersalesService.existsIllegalAftersalesItems(aftersalesReturnsForm.getAftersalesItems())) {
             return Results.UNPROCESSABLE_ENTITY;
         }
-
         aftersalesReturnsForm.setStatus(Aftersales.Status.PENDING);
         aftersalesReturnsForm.setMember(order.getMember());
         aftersalesReturnsForm.setStore(order.getStore());
-
         if (!isValid(aftersalesReturnsForm)) {
             return Results.UNPROCESSABLE_ENTITY;
         }
