@@ -351,7 +351,7 @@ public class ProductController extends BaseController {
             map.put("first_commodity",productForm.getProductCategory().getName());
             map.put("second_commodity",productForm.getProductCategory().getParent().getName());
             map.put("present_price",productForm.getPrice());
-            map.put("reveiver_id",currentMember.getId());
+            map.put("receiver_id",currentMember.getId());
             map.put("member_name",currentMember.getName());
             List<Sku> skus=skuListForm.getSkuList();
             for(Sku item:skus){
