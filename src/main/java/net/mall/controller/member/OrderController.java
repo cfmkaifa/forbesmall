@@ -151,6 +151,13 @@ public class OrderController extends BaseController {
         if(ConvertUtils.isNotEmpty(orderts)){
             model.addAttribute("subOrder", orderts.get(0));
         }
+        if(ConvertUtils.isNotEmpty(order.getParentId())){
+            Long parOrderId=order.getParentId();
+            List<Filter> parentFilters = new ArrayList<Filter>();
+            parentFilters.add(new Filter("id",Filter.Operator.EQ,parOrderId));
+            List<Order> parOrder = orderService.findList(0,1,parentFilters,null);
+            model.addAttribute("parOrder",parOrder.get(0));
+        }
         List<OrderItem> orderItems=order.getOrderItems();
         for(OrderItem itemTemp:orderItems){
             model.addAttribute("product",itemTemp);

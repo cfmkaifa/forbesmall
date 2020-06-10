@@ -165,7 +165,7 @@ public class ProductDaoImpl extends BaseDaoImpl<Product, Long> implements Produc
                     break;
             }
         } else if (CollectionUtils.isEmpty(orders)) {
-            criteriaQuery.orderBy(criteriaBuilder.desc(root.get("isTop")), criteriaBuilder.desc(root.get("createdDate")));
+            criteriaQuery.orderBy(criteriaBuilder.desc(root.get("isTop")), criteriaBuilder.desc(root.get("createdDate")),criteriaBuilder.desc(root.get("lastModifiedDate")));
         }
         return super.findList(criteriaQuery, null, count, filters, orders);
     }

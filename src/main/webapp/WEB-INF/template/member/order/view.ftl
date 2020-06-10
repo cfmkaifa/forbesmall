@@ -750,12 +750,28 @@
 												<span class="text-gray-darker">${currency(order.amount, true, true)}</span>
 											</dd>
 											[#if order.amountPaid > 0]
+												[#if parOrder?has_content]
+													<dd>
+														${message("Order.amountPaid")}:
+														<span class="text-red">${currency(parOrder.amountPaid, true, true)}${message("Order.mother")}</span>
+														[#if subOrder?has_content]
+															<a  class="btn btn-primary" href="${base}/member/order/view?orderSn=${subOrder.sn}" style="margin-left: 30px;">${message("Order.remaining")}</a>
+														[/#if]
+													</dd>
+												[#else]
+													<dd>
+														${message("Order.amountPaid")}:
+														<span class="text-red">${currency(order.amountPaid, true, true)}</span>
+														[#if subOrder?has_content]
+															<a  class="btn btn-primary" href="${base}/member/order/view?orderSn=${subOrder.sn}" style="margin-left: 30px;">${message("Order.remaining")}</a>
+														[/#if]
+													</dd>
+												[/#if]
+											[/#if]
+											[#if subOrder?has_content]
 												<dd>
-													${message("Order.amountPaid")}:
-													<span class="text-red">${currency(order.amountPaid, true, true)}</span>
-													[#if subOrder?has_content]
-													  <a  class="btn btn-primary" href="${base}/member/order/view?orderSn=${subOrder.sn}" style="margin-left: 30px;">${message("Order.remaining")}</a>
-												    [/#if]
+													${message("Order.balance")}:
+													<span class="text-red">${currency(subOrder.amount, true, true)}</span>
 												</dd>
 											[/#if]
 											[#if order.refundAmount > 0]
