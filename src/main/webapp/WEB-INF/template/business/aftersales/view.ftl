@@ -255,6 +255,7 @@
 											<th>${message("OrderItem.name")}</th>
 											<th>${message("OrderItem.price")}</th>
 											<th>${message("OrderItem.quantity")}</th>
+											<th>${message("AftersalesItem.weight")}(kg)</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -282,6 +283,7 @@
 													[/#if]
 												</td>
 												<td>${aftersalesItem.quantity}</td>
+												<td>${aftersalesItem.weight}</td>
 											</tr>
 										[/#list]
 									</tbody>

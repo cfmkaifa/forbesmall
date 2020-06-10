@@ -37,6 +37,12 @@ public class AftersalesItem extends BaseEntity<Long> {
     private Integer quantity;
 
     /**
+     * 重量
+     */
+    @Column(name = "weight")
+    private Integer weight;
+
+    /**
      * 订单项
      */
     @JsonView(BaseView.class)
@@ -105,6 +111,14 @@ public class AftersalesItem extends BaseEntity<Long> {
      */
     public void setAftersales(Aftersales aftersales) {
         this.aftersales = aftersales;
+    }
+
+    public Integer getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Integer weight) {
+        this.weight = weight;
     }
 
 }

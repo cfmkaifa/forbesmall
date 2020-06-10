@@ -396,7 +396,9 @@ public class OrderController extends BaseController {
         if (order.getRefundableAmount().compareTo(BigDecimal.ZERO) <= 0 && !order.getIsAllowRefund()) {
             return Results.UNPROCESSABLE_ENTITY;
         }
-        if (orderRefundsForm.getAmount().compareTo(order.getAmountPaid()) > 0 || order.getAmountPaid().compareTo(BigDecimal.ZERO) <= 0) {
+        if (orderRefundsForm.getAmount().compareTo(order.getAmountPaid()) > 0
+                || orderRefundsForm.getAmount().compareTo(order.aftersalesItemAmount()) >0
+                || order.getAmountPaid().compareTo(BigDecimal.ZERO) <= 0) {
             return Results.UNPROCESSABLE_ENTITY;
         }
 
