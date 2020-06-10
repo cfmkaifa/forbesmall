@@ -478,6 +478,11 @@
                             ${message("shop.product.priceAsc")}
                             <i class="iconfont icon-fold"></i>
                         </a>
+                        <a class="bar-item[#if orderType == "PRICE_DESC"] active[/#if]" href="javascript:;"
+                           data-order-type="PRICE_DESC">
+                            ${message("shop.product.priceDesc")}
+                            <i class="iconfont icon-fold"></i>
+                        </a>
                         <div class="bar-item bg-white">
                             <div class="checkbox checkbox-inline">
                                 <input name="storeType" type="checkbox"

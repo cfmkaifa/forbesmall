@@ -421,6 +421,9 @@ public class OrderController extends BaseController {
      */
     @PostMapping("/shipping")
     public ResponseEntity<?> shipping(HttpServletRequest request,OrderShipping orderShippingForm, @ModelAttribute(binding = false) Order order, Long shippingMethodId, Long deliveryCorpId, Long areaId, @CurrentUser Business currentUser) {
+        if(ConvertUtils.isNotEmpty(orderShippingForm.getFreight())){
+            orderShippingForm.setFreight(BigDecimal.ZERO);
+        }
         String plate=request.getParameter("plate");
         order.setPlate(plate);
         String driver=request.getParameter("driver");

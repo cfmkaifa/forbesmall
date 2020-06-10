@@ -43,12 +43,16 @@
                     var $orderCollapse = $("#orderCollapse");
                     var $summary = $("#summary");
                     var $rePayUrl = $("#rePayUrl");
-
                     var $modal = $("#modal");
-                    $modal.modal({
-                        backdrop: "static",
-                        keyboard: false
-                    }).modal("show");
+                    [#if online == false ]
+                            $modal.modal({
+                                backdrop: "static",
+                                keyboard: false
+                            }).modal("show");
+                    [/#if]
+
+
+
                     // 电子合同
                     [#list orders as order]
                         $("#sealContractFile${order.id}").fileinput({

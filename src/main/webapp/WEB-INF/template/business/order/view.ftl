@@ -1141,7 +1141,7 @@
                                     </div>
                                     <div class="col-xs-12 col-sm-6">
                                         <div class="form-group">
-                                            <label class="col-xs-4 control-label item-required" for="shippingFreight">${message("OrderShipping.freight")}:</label>
+                                            <label class="col-xs-4 control-label" for="shippingFreight">${message("OrderShipping.freight")}:</label>
                                             <div class="col-xs-8">
                                                 <input id="shippingFreight" name="freight" class="form-control" type="text" maxlength="16">
                                             </div>
