@@ -713,7 +713,7 @@
 											[/#if]
 											<dd>
 												${message("Order.price")}:
-												<span class="text-gray-darker">${currency(order.price, true, true)}</span>
+												<span class="text-gray-darker">${currency(tempAmount, true, true)}</span>
 											</dd>
 											[#if order.fee > 0]
 												<dd>
