@@ -653,8 +653,8 @@ public class ProductController extends BaseController {
         model.addAttribute("orderType", orderType);
         model.addAttribute("pageNumber", pageNumber);
         model.addAttribute("pageSize", pageSize);
-        pageable.getFilters().add(new Filter("isGroup", Filter.Operator.EQ, true));
-        model.addAttribute("page", productService.findPage(type, 0,false, storeType, null, null,null, storeProductCategory, brand, promotion, productTag, null, null, startPrice, endPrice, true, true, null, true, isOutOfStock, null, null, orderType, pageable));
+        //pageable.getFilters().add(new Filter("isGroup", Filter.Operator.EQ, true));
+        model.addAttribute("page", productService.findPage(type, 4,false, storeType, null, null,null, storeProductCategory, brand, promotion, productTag, null, null, startPrice, endPrice, true, true, null, true, isOutOfStock, null, null, orderType, pageable));
         return "shop/product/group_purch/list";
     }
 
@@ -691,7 +691,7 @@ public class ProductController extends BaseController {
             orderType = Product.OrderType.DATE_DESC;
         }
         Pageable pageable = new Pageable(pageNumber, pageSize);
-        pageable.getFilters().add(new Filter("isGroup", Filter.Operator.EQ, true));
-        return ResponseEntity.ok(productService.findPage(type, 0,false,null, null,null, productCategory, storeProductCategory, brand, promotion, productTag, null, attributeValueMap, startPrice, endPrice, true, true, null, true, null, null, null, orderType, pageable).getContent());
+       // pageable.getFilters().add(new Filter("isGroup", Filter.Operator.EQ, true));
+        return ResponseEntity.ok(productService.findPage(type, 4,false,null, null,null, productCategory, storeProductCategory, brand, promotion, productTag, null, attributeValueMap, startPrice, endPrice, true, true, null, true, null, null, null, orderType, pageable).getContent());
     }
 }

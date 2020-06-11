@@ -289,6 +289,15 @@ public class ProductDaoImpl extends BaseDaoImpl<Product, Long> implements Produc
                 restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("member"), member));
             }
         }
+        // 团购
+        if(4 == method){
+            Subquery<Sku> subquery = criteriaQuery.subquery(Sku.class);
+            Root<Sku> subqueryRoot = subquery.from(Sku.class);
+            subquery.select(subqueryRoot);
+            Path<Boolean> group = subqueryRoot.get("isGroup");
+            subquery.where(criteriaBuilder.equal(subqueryRoot.get("product"), root), criteriaBuilder.equal(group,true));
+            restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.exists(subquery));
+        }
         /***查询样品**/
         if(isSample){
             Subquery<Sku> subquery = criteriaQuery.subquery(Sku.class);
