@@ -484,7 +484,7 @@ public class ProductController extends BaseController {
             newProduct.setParameterValues(product.getParameterValues());
             newProduct.setSpecificationItems(product.getSpecificationItems());
             Set<Sku> skus = product.getSkus();
-            List<Sku> newSkus =  skus.stream().map(sku -> {
+            List<Sku> newSkus =  skus.stream().filter(sku -> ConvertUtils.isEmpty(sku.getGroup()) || !sku.getGroup()).map(sku -> {
                 Sku newsku = new Sku();
                 BeanUtils.copyProperties(sku,newsku,"id","sn","createdDate","lastModifiedDate",
                         "product","cartItems","orderItems","orderShippingItems","productNotifies","stockLogs","giftAttributes");

@@ -463,6 +463,9 @@ public class ProductController extends BaseController {
         /*isMobile(request,o->{
             isSample[0] = true;
         });*/
+        if(ConvertUtils.isEmpty(orderType)){
+            orderType = Product.OrderType.DATE_DESC;
+        }
         model.addAttribute("orderTypes", Product.OrderType.values());
         model.addAttribute("productCategory", productCategory);
         model.addAttribute("type", type);
@@ -478,7 +481,7 @@ public class ProductController extends BaseController {
         model.addAttribute("orderType", orderType);
         model.addAttribute("pageNumber", pageNumber);
         model.addAttribute("pageSize", pageSize);
-        model.addAttribute("page", productService.findPage(type, 3, isSample[0], storeType, null,null, productCategory, null, brand, promotion, productTag, null, attributeValueMap, startPrice, endPrice, true, true, null, true, isOutOfStock, null, null, Product.OrderType.DATE_DESC, pageable));
+        model.addAttribute("page", productService.findPage(type, 3, isSample[0], storeType, null,null, productCategory, null, brand, promotion, productTag, null, attributeValueMap, startPrice, endPrice, true, true, null, true, isOutOfStock, null, null, orderType, pageable));
         return "shop/product/list";
     }
 
@@ -503,6 +506,9 @@ public class ProductController extends BaseController {
         /*isMobile(request,o->{
             isSample[0] = true;
         });*/
+        if(ConvertUtils.isEmpty(orderType)){
+            orderType = Product.OrderType.DATE_DESC;
+        }
         Pageable pageable = new Pageable(pageNumber, pageSize);
         model.addAttribute("orderTypes", Product.OrderType.values());
         model.addAttribute("type", type);
@@ -517,7 +523,7 @@ public class ProductController extends BaseController {
         model.addAttribute("orderType", orderType);
         model.addAttribute("pageNumber", pageNumber);
         model.addAttribute("pageSize", pageSize);
-        model.addAttribute("page", productService.findPage(type, 3,isSample[0], storeType, null, null,null, storeProductCategory, brand, promotion, productTag, null, null, startPrice, endPrice, true, true, null, true, isOutOfStock, null, null, Product.OrderType.DATE_DESC, pageable));
+        model.addAttribute("page", productService.findPage(type, 3,isSample[0], storeType, null, null,null, storeProductCategory, brand, promotion, productTag, null, null, startPrice, endPrice, true, true, null, true, isOutOfStock, null, null, orderType, pageable));
         return "shop/product/list";
     }
 
@@ -669,6 +675,9 @@ public class ProductController extends BaseController {
             endPrice = tempPrice;
         }
         Pageable pageable = new Pageable(pageNumber, pageSize);
+        if(ConvertUtils.isEmpty(orderType)){
+            orderType = Product.OrderType.DATE_DESC;
+        }
         model.addAttribute("orderTypes", Product.OrderType.values());
         model.addAttribute("type", type);
         model.addAttribute("storeType", storeType);
@@ -718,6 +727,9 @@ public class ProductController extends BaseController {
             endPrice = tempPrice;
         }
         Pageable pageable = new Pageable(pageNumber, pageSize);
+        if(ConvertUtils.isEmpty(orderType)){
+            orderType = Product.OrderType.DATE_DESC;
+        }
         pageable.getFilters().add(new Filter("isAudit", Filter.Operator.EQ, Product.ProApplyStatus.APPROVED));
         return ResponseEntity.ok(productService.findPage(type, 2,false,null, null,null, productCategory, storeProductCategory, brand, promotion, productTag, null, attributeValueMap, startPrice, endPrice, true, true, null, true, null, null, null, orderType, pageable).getContent());
     }
@@ -737,6 +749,9 @@ public class ProductController extends BaseController {
             BigDecimal tempPrice = startPrice;
             startPrice = endPrice;
             endPrice = tempPrice;
+        }
+        if(ConvertUtils.isEmpty(orderType)){
+            orderType = Product.OrderType.DATE_DESC;
         }
         Pageable pageable = new Pageable(pageNumber, pageSize);
         model.addAttribute("orderTypes", Product.OrderType.values());
@@ -785,6 +800,9 @@ public class ProductController extends BaseController {
             BigDecimal tempPrice = startPrice;
             startPrice = endPrice;
             endPrice = tempPrice;
+        }
+        if(ConvertUtils.isEmpty(orderType)){
+            orderType = Product.OrderType.DATE_DESC;
         }
         Pageable pageable = new Pageable(pageNumber, pageSize);
         pageable.getFilters().add(new Filter("isGroup", Filter.Operator.EQ, true));

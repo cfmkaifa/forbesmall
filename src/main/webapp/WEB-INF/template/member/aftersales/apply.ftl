@@ -702,9 +702,7 @@
 																		</div>
 																	</td>
 																	<td>
-																		<div class="spinner input-group input-group-sm" data-trigger="spinner">
-																			<input name="aftersalesItems[${orderItem_index}].weight" class="form-control" type="text" maxlength="5" data-rule="weight" data-min="1" data-max="[#if orderItem.weight > 0]${orderItem.weight}[#else]1[/#if]">
-																		</div>
+																		<input name="aftersalesItems[${orderItem_index}].weight" class="price form-control" type="text" maxlength="5"  data-min="1" data-max="[#if orderItem.weight > 0]${orderItem.weight}[#else]1[/#if]">
 																	</td>
 																	<td>${currency(orderItem.price, true)}</td>
 																</tr>

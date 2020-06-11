@@ -6,6 +6,7 @@
  */
 package net.mall.service.impl;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -151,7 +152,7 @@ public class AftersalesServiceImpl extends BaseServiceImpl<Aftersales, Long> imp
                 return aftersalesItem == null
                         || aftersalesItem.getOrderItem() == null
                         || aftersalesItem.getOrderItem().getAllowApplyAftersalesQuantity() < aftersalesItem.getQuantity()
-                        || aftersalesItem.getOrderItem().getWeight() < aftersalesItem.getWeight();
+                        || new BigDecimal(aftersalesItem.getOrderItem().getWeight()).compareTo(aftersalesItem.getWeight()) < 0;
             }
         });
     }

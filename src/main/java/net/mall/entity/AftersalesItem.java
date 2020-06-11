@@ -16,6 +16,8 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
+import java.math.BigDecimal;
+
 /**
  * Entity - 售后项
  *
@@ -40,7 +42,7 @@ public class AftersalesItem extends BaseEntity<Long> {
      * 重量
      */
     @Column(name = "weight")
-    private Integer weight;
+    private BigDecimal weight;
 
     /**
      * 订单项
@@ -113,11 +115,11 @@ public class AftersalesItem extends BaseEntity<Long> {
         this.aftersales = aftersales;
     }
 
-    public Integer getWeight() {
+    public BigDecimal getWeight() {
         return weight;
     }
 
-    public void setWeight(Integer weight) {
+    public void setWeight(BigDecimal weight) {
         this.weight = weight;
     }
 

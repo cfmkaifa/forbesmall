@@ -14,6 +14,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import net.mall.util.ConvertUtils;
 import org.apache.commons.lang.math.NumberUtils;
 import org.springframework.stereotype.Component;
 
@@ -133,6 +134,9 @@ public class ProductListDirective extends BaseDirective {
         BigDecimal endPrice = FreeMarkerUtils.getParameter(END_PRICE_PARAMETER_NAME, BigDecimal.class, params);
         Boolean hasPromotion = FreeMarkerUtils.getParameter(HAS_PROMOTION_PARAMETER_NAME, Boolean.class, params);
         Product.OrderType orderType = FreeMarkerUtils.getParameter(ORDER_TYPE_PARAMETER_NAME, Product.OrderType.class, params);
+        if(ConvertUtils.isEmpty(orderType)){
+            orderType = Product.OrderType.DATE_DESC;
+        }
         Integer count = getCount(params);
         List<Filter> filters = getFilters(params, Product.class);
         List<Order> orders = getOrders(params);

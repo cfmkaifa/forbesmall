@@ -6,6 +6,7 @@
  */
 package net.mall.controller.member;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -150,9 +151,27 @@ public class OrderController extends BaseController {
         filters.add(new Filter("parentId",Filter.Operator.EQ,order.getId()));
         filters.add(new Filter("status",Filter.Operator.EQ,Order.Status.PENDING_PAYMENT));
         List<Order> orderts = orderService.findList(0,1,filters,null);
+        BigDecimal tempAmount=null;
+        tempAmount=order.getAmount();
         if(ConvertUtils.isNotEmpty(orderts)){
             model.addAttribute("subOrder", orderts.get(0));
         }
+
+        List<Filter> parfilter = new ArrayList<Filter>();
+        parfilter.add(new Filter("parentId",Filter.Operator.EQ,order.getId()));
+        List<Order> tempOrder = orderService.findList(0,1,parfilter,null);
+        if(ConvertUtils.isNotEmpty(tempOrder)){
+            tempAmount=tempAmount.add(tempOrder.get(0).getAmount());
+        }
+        if(ConvertUtils.isNotEmpty(order.getParentId())){
+            Long parOrderId=order.getParentId();
+            List<Filter> parentFilters = new ArrayList<Filter>();
+            parentFilters.add(new Filter("id",Filter.Operator.EQ,parOrderId));
+            List<Order> parOrder = orderService.findList(0,1,parentFilters,null);
+            model.addAttribute("parOrder",parOrder.get(0));
+            tempAmount=tempAmount.add(parOrder.get(0).getAmount());
+        }
+        model.addAttribute("tempAmount",tempAmount);
         List<OrderItem> orderItems=order.getOrderItems();
         for(OrderItem itemTemp:orderItems){
             model.addAttribute("product",itemTemp);

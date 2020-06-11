@@ -796,10 +796,10 @@ public class OrderController extends BaseController {
             amount = amount.add(amountPayable);
             orders.add(order);
         }
+        model.addAttribute("online", online);
         if (online && defaultPaymentPlugin != null) {
             fee = defaultPaymentPlugin.calculateFee(amount).add(fee);
             amount = fee.add(amount);
-            model.addAttribute("online", online);
             model.addAttribute("defaultPaymentPlugin", defaultPaymentPlugin);
             model.addAttribute("paymentPlugins", paymentPlugins);
         }
