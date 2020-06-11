@@ -1613,10 +1613,10 @@ public class Order extends BaseEntity<Long> {
             if(ConvertUtils.isNotEmpty(aftersalesItems)){
                 totalaRefundableAmount = aftersalesItems.stream().map(aftersalesItem -> {
                     BigDecimal totalRefundableAmount = BigDecimal.ZERO;
-                    Integer weight = aftersalesItem.getWeight();
+                    BigDecimal weight = aftersalesItem.getWeight();
                     Integer quantity = aftersalesItem.getQuantity();
                     if(ConvertUtils.isNotEmpty(weight)){
-                        totalRefundableAmount = aftersalesItem.getOrderItem().getProduct().getPrice().multiply(new BigDecimal(weight));
+                        totalRefundableAmount = aftersalesItem.getOrderItem().getProduct().getPrice().multiply(weight);
                     } else {
                         totalRefundableAmount = aftersalesItem.getOrderItem().getProduct().getPrice()
                                 .multiply(new BigDecimal(quantity)).multiply(aftersalesItem.getOrderItem().getSku().getTotalUnit());
