@@ -143,7 +143,7 @@
 		<property name="freemarkerVariables">
 			<map>
 				<!-- http://www.chinafibermarketing.cn -->
-				<entry key="base" value="http://localhost:8080" />
+				<entry key="base" value="http://www.chinafibermarketing.cn" />
 				<entry key="showPowered" value="#{${show_powered}}" />
 				<entry key="message" value-ref="messageMethod" />
 				<entry key="abbreviate" value-ref="abbreviateMethod" />

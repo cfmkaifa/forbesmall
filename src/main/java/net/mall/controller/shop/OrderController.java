@@ -40,6 +40,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Controller - 订单
@@ -402,25 +403,18 @@ public class OrderController extends BaseController {
         model.addAttribute("exchangePoint", exchangePoint);
         model.addAttribute("isDelivery", isDelivery);
         List<PaymentMethod> paymentMethods = paymentMethodService.findAll();
-
+        boolean isMobile = false;
         /***判断是否手机端
          * **/
         if (request.getAttribute(DeviceUtils.CURRENT_DEVICE_ATTRIBUTE) instanceof Device) {
             Device device = (Device) request.getAttribute(DeviceUtils.CURRENT_DEVICE_ATTRIBUTE);
             if (device.isMobile()
                     || device.isTablet()) {
-                if (cart.contains(Store.Type.GENERAL)) {
-                    CollectionUtils.select(paymentMethodService.findAll(), new Predicate() {
-                        @Override
-                        public boolean evaluate(Object object) {
-                            PaymentMethod paymentMethod = (PaymentMethod) object;
-                            return paymentMethod != null && PaymentMethod.Method.ONLINE.equals(paymentMethod.getMethod());
-                        }
-                    }, paymentMethods);
-                } else {
-                    paymentMethods = paymentMethodService.findAll();
-                }
+                isMobile = true;
             }
+        }
+        if(isMobile){
+            paymentMethods = paymentMethods.stream().filter(paymentMethod -> PaymentMethod.Method.ONLINE.equals(paymentMethod.getMethod())).collect(Collectors.toList());
         }
         model.addAttribute("defaultPaymentMethod", paymentMethods.get(0));
         model.addAttribute("paymentMethods", paymentMethods);

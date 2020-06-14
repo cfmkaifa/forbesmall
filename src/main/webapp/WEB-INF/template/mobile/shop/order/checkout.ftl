@@ -275,7 +275,6 @@
 						areaId: "required",
 						address: "required",
 						zipCode: {
-							required: true,
 							zipCode: true
 						},
 						phone: {
@@ -731,7 +730,7 @@
 					<input id="address" name="address" class="form-control" type="text" maxlength="200">
 				</div>
 				<div class="form-group">
-					<label class="item-required" for="zipCode">${message("Receiver.zipCode")}</label>
+					<label for="zipCode">${message("Receiver.zipCode")}</label>
 					<input id="zipCode" name="zipCode" class="form-control" type="text" maxlength="200">
 				</div>
 				<div class="form-group">
