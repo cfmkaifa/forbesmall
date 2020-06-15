@@ -105,7 +105,7 @@ public class ReconContractBuildImpl extends ReconContractModel {
         valueCellLable.setUseAscender(true);
         valueCellLable.setUseDescender(true);
         valueCellLable.setHorizontalAlignment(Element.ALIGN_LEFT);
-        titleCellLable.setBorderWidth(0.1f);
+        valueCellLable.setBorderWidth(0.1f);
         valueCellLable.setColspan(7);
         tableBaseInfo.addCell(valueCellLable);
         /***************1行*******************************/
@@ -114,7 +114,7 @@ public class ReconContractBuildImpl extends ReconContractModel {
         otitleCellLable.setUseDescender(true);
         otitleCellLable.setBorderWidth(0.1f);
         otitleCellLable.setColspan(2);
-        tableBaseInfo.addCell(titleCellLable);
+        tableBaseInfo.addCell(otitleCellLable);
         PdfPCell ovalueCellLable = new PdfPCell(new Phrase(String.format(ORDER_NO_FORMAT,orderSn), contentFont));
         ovalueCellLable.setUseAscender(true);
         ovalueCellLable.setUseDescender(true);
