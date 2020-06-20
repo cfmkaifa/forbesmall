@@ -341,6 +341,29 @@
                 [#else]
                 [#--[#include "/shop/include/featured_product.ftl" /]--]
                 [/#if]
+                <div class="lefiimg">
+                    [@ad_position id = 10051]
+                        [#if adPosition??]
+                            [#noautoesc]${adPosition.resolveTemplate()}[/#noautoesc]
+                        [/#if]
+                    [/@ad_position]
+                    [#--<img src="${base}/resources/shop/images/bg5.png" class="lefiimg">--]
+                    [@ad_position id = 10052]
+                        [#if adPosition??]
+                            [#noautoesc]${adPosition.resolveTemplate()}[/#noautoesc]
+                        [/#if]
+                    [/@ad_position]
+                    [@ad_position id = 10053]
+                        [#if adPosition??]
+                            [#noautoesc]${adPosition.resolveTemplate()}[/#noautoesc]
+                        [/#if]
+                    [/@ad_position]
+                    [@ad_position id = 10054]
+                        [#if adPosition??]
+                            [#noautoesc]${adPosition.resolveTemplate()}[/#noautoesc]
+                        [/#if]
+                    [/@ad_position]
+                </div>
             </div>
             <div class="col-xs-10">
                 <ol class="breadcrumb">
@@ -606,10 +629,7 @@
                                                 <p class="kg-2">
                                                     <b>
                                                         [#if product.type == "GENERAL"]
-                                                            ${currency(defaultSku.price, true)}
-                                                            [#if setting.isShowMarketPrice]
-                                                            [#--<del>${currency(defaultSku.marketPrice, true)}</del>--]
-                                                            [/#if]
+                                                            ${currency(product.price, true)}
                                                         [#elseif product.type == "EXCHANGE"]
                                                             ${message("Sku.exchangePoint")}: ${defaultSku.exchangePoint}
                                                         [/#if]

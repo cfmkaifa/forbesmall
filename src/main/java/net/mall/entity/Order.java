@@ -336,6 +336,9 @@ public class Order extends BaseEntity<Long> {
     @Pattern(regexp = "^\\d{3,4}-?\\d{7,9}$")
     private String phone;
 
+    /***
+     * 支付凭证
+     */
     @Column(name = "certificate_path")
     private String certificatePath;
 

@@ -39,7 +39,7 @@
 
     // 如果需要调用 login 来重新设置用户标识，必须在此之前调用
     sensors.quick('autoTrack', {
-        platform:'h5'
+        platform:"${base}"
     })
 
     sensors.login("${Session.user_id}");

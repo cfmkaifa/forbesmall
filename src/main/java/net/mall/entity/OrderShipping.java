@@ -156,6 +156,7 @@ public class OrderShipping extends BaseEntity<Long> {
 
 
     /****
+     * 码单地址
      */
     @Column(name = "weight_memo")
     private String weightMemo;
