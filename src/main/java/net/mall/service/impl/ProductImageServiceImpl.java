@@ -105,6 +105,38 @@ public class ProductImageServiceImpl implements ProductImageService {
         });
     }
 
+
+    /***
+     * 处理图片
+     * @param tempFile
+     * @return
+     */
+    public ProductImage generate(File tempFile){
+        try {
+            Setting setting = SystemUtils.getSetting();
+            Map<String, Object> model = new HashMap<>();
+            model.put("uuid", String.valueOf(UUID.randomUUID()));
+            String uploadPath = setting.resolveImageUploadPath(model);
+            String uuid = String.valueOf(UUID.randomUUID());
+            String sourcePath = uploadPath + String.format(ProductImage.SOURCE_FILE_NAME, uuid, FilenameUtils.getExtension(tempFile.getName()));
+            String largePath = uploadPath + String.format(ProductImage.LARGE_FILE_NAME, uuid, ProductImage.FILE_EXTENSION);
+            String mediumPath = uploadPath + String.format(ProductImage.MEDIUM_FILE_NAME, uuid, ProductImage.FILE_EXTENSION);
+            String thumbnailPath = uploadPath + String.format(ProductImage.THUMBNAIL_FILE_NAME, uuid, ProductImage.FILE_EXTENSION);
+            for (StoragePlugin storagePlugin : pluginService.getStoragePlugins(true)) {
+                addTask(storagePlugin, sourcePath, largePath, mediumPath, thumbnailPath, tempFile, null);
+                ProductImage productImage = new ProductImage();
+                productImage.setSource(storagePlugin.getUrl(sourcePath));
+                productImage.setLarge(storagePlugin.getUrl(largePath));
+                productImage.setMedium(storagePlugin.getUrl(mediumPath));
+                productImage.setThumbnail(storagePlugin.getUrl(thumbnailPath));
+                return productImage;
+            }
+        } catch (IllegalStateException e) {
+            throw new RuntimeException(e.getMessage(), e);
+        }
+        return null;
+    }
+
     @Override
     public ProductImage generate(MultipartFile multipartFile) {
         Assert.notNull(multipartFile, "[Assertion failed] - multipartFile is required; it must not be null");

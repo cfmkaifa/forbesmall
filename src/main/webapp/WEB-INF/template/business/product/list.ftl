@@ -12,6 +12,7 @@
 	<link href="${base}/resources/common/css/bootstrap.css" rel="stylesheet">
 	<link href="${base}/resources/common/css/iconfont.css" rel="stylesheet">
 	<link href="${base}/resources/common/css/font-awesome.css" rel="stylesheet">
+	<link href="${base}/resources/common/css/bootstrap-fileinput.css" rel="stylesheet">
 	<link href="${base}/resources/common/css/awesome-bootstrap-checkbox.css" rel="stylesheet">
 	<link href="${base}/resources/common/css/bootstrap-select.css" rel="stylesheet">
 	<link href="${base}/resources/common/css/base.css" rel="stylesheet">
@@ -24,6 +25,7 @@
 	<script src="${base}/resources/common/js/bootstrap.js"></script>
 	<script src="${base}/resources/common/js/bootstrap-growl.js"></script>
 	<script src="${base}/resources/common/js/bootstrap-select.js"></script>
+	<script src="${base}/resources/common/js/bootstrap-fileinput.js"></script>
 	<script src="${base}/resources/common/js/bootbox.js"></script>
 	<script src="${base}/resources/common/js/jquery.nicescroll.js"></script>
 	<script src="${base}/resources/common/js/jquery.cookie.js"></script>
@@ -37,17 +39,16 @@
 		[#escape x as x?js_string]
 			<script>
 			$().ready(function() {
-				
 				var $delete = $("[data-action='delete']");
 				var $shelves = $("#shelves");
 				var $shelf = $("#shelf");
 				var $ids = $("input[name='ids']");
-				
+				var $productFile = $("#productFile");
+				var $productFileConfirm = $("#productFileConfirm");
 				// 删除
 				$delete.on("success.mall.delete", function() {
 					$shelves.add($shelf).attr("disabled", true);
 				});
-				
 				// 上架
 				$shelves.click(function() {
 					bootbox.confirm("${message("business.product.shelvesConfirm")}", function(result) {
@@ -59,7 +60,6 @@
 						});
 					});
 				});
-				
 				// 下架
 				$shelf.click(function() {
 					bootbox.confirm("${message("business.product.shelfConfirm")}", function(result) {
@@ -72,17 +72,74 @@
 						});
 					});
 				});
-
-
-
 				// ID多选框
 				$ids.change(function() {
 					$shelves.add($shelf).attr("disabled", $("input[name='ids']:checked").length < 1);
 				});
-			
+
+				// 导入文件
+				$productFile.fileinput({
+					uploadUrl: "${base}/common/file/upload",
+					uploadExtraData: {
+						fileType: "FILE"
+					},
+					allowedFileExtensions: "${setting.uploadFileExtension}".split(","),
+					[#if setting.uploadMaxSize != 0]
+					maxFileSize: ${setting.uploadMaxSize} * 1024,
+					[/#if]
+					maxFileCount: 1,
+					autoReplace: true,
+					showClose: true,
+					showPreview:true,
+					showRemove: true,
+					showBrowse:true,
+					showUpload:true,
+					showCaption:true,
+					dropZoneEnabled: true,
+					overwriteInitial: true,
+					initialPreviewAsData: true,
+					previewClass: "file-preview",
+					layoutTemplates: {
+						footer: '<div class="file-thumbnail-footer">{actions}</div>',
+						actions: '<div class="file-actions"><div class="file-footer-buttons">{upload} {download} {delete} {zoom} {other}</div>{drag}<div class="clearfix"></div></div>'
+					},
+					removeFromPreviewOnError: true,
+					showAjaxErrorDetails: true
+				}).on("fileloaded", function(event, file, previewId, index, reader) {
+				}).on("fileuploaded", function(event, data, previewId, index) {
+					$("#productFilePath").val(data.response.url);
+				}).on("filecleared fileerror fileuploaderror", function() {
+				});
+
+
+				// 导入
+				$productFileConfirm.click(function() {
+					var productFilePath = $("#productFilePath").val();
+					if(null == productFilePath
+							|| productFilePath == ''
+							|| productFilePath == 'undefined'){
+						$.bootstrapGrowl("${message("business.product.uploadFile")}", {
+							type: "warning"
+						});
+						return false;
+					}
+					$.ajax({
+						url: "${base}/business/product/import-product",
+						type: "POST",
+						data: {
+							productFilePath:productFilePath
+						},
+						dataType: "json",
+						cache: false,
+						success: function(data) {
+							$('#productModal').modal('hide');
+						},
+						error: function (xhr, textStatus, errorThrown){
+
+						}
+					});
+				});
 			});
-
-
 			// 一键更新
 			function updateProduct(){
 				var ids = [];
@@ -125,6 +182,30 @@
 				<input name="isTop" type="hidden" value="[#if isTop??]${isTop?string("true", "false")}[/#if]">
 				<input name="isOutOfStock" type="hidden" value="[#if isOutOfStock??]${isOutOfStock?string("true", "false")}[/#if]">
 				<input name="isStockAlert" type="hidden" value="[#if isStockAlert??]${isStockAlert?string("true", "false")}[/#if]">
+				<!--批量导入start-->
+				<div id="productModal" class="modal fade" tabindex="-1">
+					<div class="modal-dialog modal-lg">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button class="close" type="button" data-dismiss="modal">&times;</button>
+								<h5 class="modal-title">${message("shop.product.proFile")}</h5>
+							</div>
+							<div class="modal-body">
+								<div class="row">
+									<div class="col-xs-12 col-sm-12">
+										<input  class="btn btn-primary"  id="productFile" name="file" type="file" >
+										<input    id="productFilePath"  type="hidden" value="" >
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button class="btn btn-primary" type="button" id="productFileConfirm" >${message("common.ok")}</button>
+								<button class="btn btn-default" type="button" data-dismiss="modal">${message("common.cancel")}</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--批量导入end-->
 				<div id="filterModal" class="modal fade" tabindex="-1">
 					<div class="modal-dialog">
 						<div class="modal-content">
@@ -314,6 +395,10 @@
                                     <!--一键更新-->
 									<button id="updproduct" class="btn btn-default" type="button" onclick="updateProduct()">
 										${message("shop.product.update")}
+									</button>
+									<!--批量导入-->
+									<button class="btn btn-default" type="button" data-toggle="modal" data-target="#productModal" >
+										${message("shop.product.bulkImport")}
 									</button>
 								</div>
 							</div>
