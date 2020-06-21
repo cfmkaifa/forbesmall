@@ -117,7 +117,7 @@ public class ProductController extends BaseController {
             model.addAttribute("product", product);
         }else {
             /*product.setCreatedDate(sourceProduct.getCreatedDate());*/
-            model.addAttribute("product", product);
+            model.addAttribute("product", sourceProduct);
         }
         if(currentUser!=null){
             String checkresult= String.valueOf(currentUser.getIsAudit());

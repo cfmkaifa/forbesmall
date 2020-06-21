@@ -17,10 +17,10 @@
                     <dt>${message("Store.address")}:</dt>
                     <dd>${store.address}</dd>
                 [/#if]
-                [#if store.phone?has_content]
+                [#--[#if store.phone?has_content]
                     <dt>${message("Store.phone")}:</dt>
                     <dd>${store.phone}</dd>
-                [/#if]
+                [/#if]--]
             </dl>
         [/#if]
         [@instant_message_list storeId = store.id]
