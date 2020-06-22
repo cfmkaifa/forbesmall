@@ -1355,4 +1355,17 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
     public void modifyProductAudit(Product.ProApplyStatus isAudit, Long productId){
         productDao.modifyProductAudit(isAudit,productId);
     }
+
+
+    /***
+     * 查询快过期团购
+     * @param isPurch
+     * @param isAudit
+     * @param isMarketable
+     * @param expire
+     * @return
+     */
+    public List<Product> searchProApply(Boolean isPurch, Product.ProApplyStatus isAudit, Boolean isMarketable, Date expire){
+        return  productDao.searchProApply(isPurch,isAudit,isMarketable,expire);
+    }
 }

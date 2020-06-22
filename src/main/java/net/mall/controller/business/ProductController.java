@@ -466,7 +466,7 @@ public class ProductController extends BaseController {
      */
     @PostMapping("/update-product")
     public ResponseEntity<?> updateProduct(Long[] ids, @CurrentStore final Store currentStore){
-        for(Long id:ids){
+        for(Long id:ids) {
             Product product = productService.find(id);
             if (product == null) {
                 return Results.unprocessableEntity("business.product.notProduct");
@@ -474,64 +474,66 @@ public class ProductController extends BaseController {
             if (!currentStore.equals(product.getStore())) {
                 return Results.unprocessableEntity("business.product.notStoreProduct");
             }
-            /***新商品
-             * */
-            Product newProduct = new Product();
-            BeanUtils.copyProperties(product,newProduct,"id","sn","createdDate","lastModifiedDate",
-                    "productImages","productCategory","brand","parameterValues","specificationItems","promotions","productTags",
-                    "storeProductTags","reviews","consultations","productFavorites","skus");
-            newProduct.setProductImages(product.getProductImages());
-            newProduct.setParameterValues(product.getParameterValues());
-            newProduct.setSpecificationItems(product.getSpecificationItems());
-            Set<Sku> skus = product.getSkus();
-            List<Sku> newSkus =  skus.stream().filter(sku -> ConvertUtils.isEmpty(sku.getGroup()) || !sku.getGroup()).map(sku -> {
-                Sku newsku = new Sku();
-                BeanUtils.copyProperties(sku,newsku,"id","sn","createdDate","lastModifiedDate",
-                        "product","cartItems","orderItems","orderShippingItems","productNotifies","stockLogs","giftAttributes");
-                return newsku;
-            }).collect(Collectors.toList());
-            productImageService.filter(newProduct.getProductImages());
-            parameterValueService.filter(newProduct.getParameterValues());
-            specificationItemService.filter(newProduct.getSpecificationItems());
-            skuService.filter(newSkus);
-            Long productCount = productService.count(null, currentStore, null, null, null, null, null, null);
-            if (currentStore.getStoreRank() != null && currentStore.getStoreRank().getQuantity() != null && productCount >= currentStore.getStoreRank().getQuantity()) {
-                return Results.unprocessableEntity("business.product.addCountNotAllowed", currentStore.getStoreRank().getQuantity());
-            }
-            /***判断店铺分类***/
-            if (product.getStoreProductCategory() != null) {
-                StoreProductCategory storeProductCategory = product.getStoreProductCategory();
-                if (storeProductCategory == null || !currentStore.equals(storeProductCategory.getStore())) {
-                    return Results.unprocessableEntity("business.product.storeProductCategory");
+            if (!product.getGroup()) {
+                /***新商品
+                 * */
+                Product newProduct = new Product();
+                BeanUtils.copyProperties(product, newProduct, "id", "sn", "createdDate", "lastModifiedDate",
+                        "productImages", "productCategory", "brand", "parameterValues", "specificationItems", "promotions", "productTags",
+                        "storeProductTags", "reviews", "consultations", "productFavorites", "skus");
+                newProduct.setProductImages(product.getProductImages());
+                newProduct.setParameterValues(product.getParameterValues());
+                newProduct.setSpecificationItems(product.getSpecificationItems());
+                Set<Sku> skus = product.getSkus();
+                List<Sku> newSkus = skus.stream().filter(sku -> ConvertUtils.isEmpty(sku.getGroup()) || !sku.getGroup()).map(sku -> {
+                    Sku newsku = new Sku();
+                    BeanUtils.copyProperties(sku, newsku, "id", "sn", "createdDate", "lastModifiedDate",
+                            "product", "cartItems", "orderItems", "orderShippingItems", "productNotifies", "stockLogs", "giftAttributes");
+                    return newsku;
+                }).collect(Collectors.toList());
+                productImageService.filter(newProduct.getProductImages());
+                parameterValueService.filter(newProduct.getParameterValues());
+                specificationItemService.filter(newProduct.getSpecificationItems());
+                skuService.filter(newSkus);
+                Long productCount = productService.count(null, currentStore, null, null, null, null, null, null);
+                if (currentStore.getStoreRank() != null && currentStore.getStoreRank().getQuantity() != null && productCount >= currentStore.getStoreRank().getQuantity()) {
+                    return Results.unprocessableEntity("business.product.addCountNotAllowed", currentStore.getStoreRank().getQuantity());
                 }
-                newProduct.setStoreProductCategory(storeProductCategory);
-            }
-            newProduct.setStore(currentStore);
-            newProduct.setProductCategory(product.getProductCategory());
-            newProduct.setBrand(product.getBrand());
-            newProduct.setPromotions(product.getPromotions());
-            newProduct.setProductTags(product.getProductTags());
-            newProduct.setStoreProductTags(product.getStoreProductTags());
-            if (!isValid(newProduct, BaseEntity.Save.class)) {
-                RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
-                Set<ConstraintViolation<Object>> constraintViolations = (Set<ConstraintViolation<Object>>) requestAttributes.getAttribute("constraintViolations",RequestAttributes.SCOPE_REQUEST);
-                if(ConvertUtils.isNotEmpty(constraintViolations)){
-                    return Results.unprocessableEntity("business.product.valdateError", JSON.toJSONString(constraintViolations));
-                } else {
-                    return Results.unprocessableEntity("business.product.valdateError", "");
+                /***判断店铺分类***/
+                if (product.getStoreProductCategory() != null) {
+                    StoreProductCategory storeProductCategory = product.getStoreProductCategory();
+                    if (storeProductCategory == null || !currentStore.equals(storeProductCategory.getStore())) {
+                        return Results.unprocessableEntity("business.product.storeProductCategory");
+                    }
+                    newProduct.setStoreProductCategory(storeProductCategory);
                 }
+                newProduct.setStore(currentStore);
+                newProduct.setProductCategory(product.getProductCategory());
+                newProduct.setBrand(product.getBrand());
+                newProduct.setPromotions(product.getPromotions());
+                newProduct.setProductTags(product.getProductTags());
+                newProduct.setStoreProductTags(product.getStoreProductTags());
+                if (!isValid(newProduct, BaseEntity.Save.class)) {
+                    RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+                    Set<ConstraintViolation<Object>> constraintViolations = (Set<ConstraintViolation<Object>>) requestAttributes.getAttribute("constraintViolations", RequestAttributes.SCOPE_REQUEST);
+                    if (ConvertUtils.isNotEmpty(constraintViolations)) {
+                        return Results.unprocessableEntity("business.product.valdateError", JSON.toJSONString(constraintViolations));
+                    } else {
+                        return Results.unprocessableEntity("business.product.valdateError", "");
+                    }
+                }
+                if (StringUtils.isNotEmpty(newProduct.getSn()) && productService.snExists(newProduct.getSn())) {
+                    return Results.unprocessableEntity("business.product.productSn", newProduct.getSn());
+                }
+                Long sourceProductId = product.getId();
+                if (ConvertUtils.isNotEmpty(product.getSourceProId())) {
+                    sourceProductId = product.getSourceProId();
+                }
+                /***清除游离态数据
+                 * ***/
+                productService.clearProduct(product);
+                productService.copyProduct(newProduct, newSkus, sourceProductId);
             }
-            if (StringUtils.isNotEmpty(newProduct.getSn()) && productService.snExists(newProduct.getSn())) {
-                return Results.unprocessableEntity("business.product.productSn",newProduct.getSn());
-            }
-            Long sourceProductId = product.getId();
-            if(ConvertUtils.isNotEmpty(product.getSourceProId())){
-                sourceProductId = product.getSourceProId();
-            }
-            /***清除游离态数据
-             * ***/
-            productService.clearProduct(product);
-            productService.copyProduct(newProduct,newSkus,sourceProductId);
         }
         return Results.OK;
     }

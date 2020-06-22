@@ -1,6 +1,7 @@
 package net.mall.job;
 
 import net.mall.Filter;
+import net.mall.entity.GroupPurchApply;
 import net.mall.entity.Product;
 import net.mall.service.ProductService;
 import net.mall.util.ConvertUtils;
@@ -9,6 +10,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -32,16 +34,17 @@ public class ProPurchJob {
     @Scheduled(cron = "${job.putaway_purch_apply.cron}")
     public void putawayGroupPurchApply() {
         if (PUTAWAY_LOCK.writeLock().tryLock()) {
-            List<Filter> filters = new ArrayList<Filter>();
-            filters.add(new Filter("isPurch", Filter.Operator.EQ,true));
-            filters.add(new Filter("isAudit", Filter.Operator.EQ, Product.ProApplyStatus.APPROVED));
-            filters.add(new Filter("expire", Filter.Operator.GE, new Date()));
-           List<Product> products = productService.findList(MAX_COUNT,filters,null);
-           if(ConvertUtils.isNotEmpty(products)){
-               products.forEach(product->{
-                   productService.modifyMarketable(false,product.getId());
-               });
-           }
+            try{
+                SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd 00:00:00");
+                List<Product> products = productService.searchProApply(true,Product.ProApplyStatus.APPROVED,true,sdf.parse(sdf.format(new Date())));
+                if(ConvertUtils.isNotEmpty(products)){
+                    products.forEach(product->{
+                        productService.modifyMarketable(false,product.getId());
+                    });
+                }
+            }catch(Exception e){
+                e.printStackTrace();
+            }
             PUTAWAY_LOCK.writeLock().unlock();
         }
     }

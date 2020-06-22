@@ -204,4 +204,14 @@ public interface ProductDao extends BaseDao<Product, Long> {
      * @param productId
      */
     public void modifyProductAudit(Product.ProApplyStatus isAudit, Long productId);
+
+    /***
+     * 查询快过期团购
+     * @param isPurch
+     * @param isAudit
+     * @param isMarketable
+     * @param expire
+     * @return
+     */
+    public List<Product> searchProApply(Boolean isPurch, Product.ProApplyStatus isAudit, Boolean isMarketable, Date expire);
 }
