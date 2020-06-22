@@ -36,6 +36,7 @@ public class ProPurchApplyController extends BaseController {
         if (product == null) {
             return Results.UNPROCESSABLE_ENTITY;
         }
+        product.setIsMarketable(true);
         long statusCount =  Arrays.asList(Product.ProApplyStatus.values()).stream().filter(proApplyStatus -> proApplyStatus.equals(status)).count();
         if(statusCount == 0 ){
             return Results.UNPROCESSABLE_ENTITY;

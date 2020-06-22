@@ -607,4 +607,23 @@ public class ProductDaoImpl extends BaseDaoImpl<Product, Long> implements Produc
         String jpql = "UPDATE Product SET isAudit = :isAudit WHERE id = :id";
         entityManager.createQuery(jpql).setParameter("isAudit", isAudit).setParameter("id", productId).executeUpdate();
     }
+
+
+    /***
+     * 查询快过期团购
+     * @param isPurch
+     * @param isAudit
+     * @param isMarketable
+     * @param expire
+     * @return
+     */
+    public List<Product> searchProApply(Boolean isPurch, Product.ProApplyStatus isAudit, Boolean isMarketable, Date expire){
+        String jpql = "select pro from  Product pro where  pro.isAudit = :isAudit and pro.isPurch = :isPurch and pro.isMarketable = :isMarketable and pro.expire < :expire";
+        return  entityManager.createQuery(jpql)
+                .setParameter("isAudit", isAudit)
+                .setParameter("isPurch", isPurch)
+                .setParameter("isMarketable", isMarketable)
+                .setParameter("expire", expire)
+                .setParameter("isAudit", isAudit).getResultList();
+    }
 }
