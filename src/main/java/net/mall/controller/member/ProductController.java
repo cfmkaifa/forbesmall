@@ -310,6 +310,7 @@ public class ProductController extends BaseController {
         productForm.setMember(currentMember);
         productForm.setIsMarketable(true);
         productForm.setIsTop(true);
+        productForm.setGroup(false);
         productForm.setIsList(true);
         productForm.setIsActive(true);
         productForm.setIsDelivery(false);

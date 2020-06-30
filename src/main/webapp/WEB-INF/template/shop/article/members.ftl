@@ -114,9 +114,9 @@
                         <td></td>
                         <td rowspan="10"><p class="one">信息服务</p></td>
                         <td>价格</td>
+                        <td class="services">1688元/年</td>
                         <td class="services">3688元/年</td>
-                        <td class="services">9688元/年</td>
-                        <td class="services">16688元/年</td>
+                        <td class="services">6688元/年</td>
                     </tr>
                     <tr>
                         <td>1</td>
@@ -338,7 +338,7 @@
                         <td></td>
                         <td><a href="${base}/business/store/payment/1" class="memberColor">立即订购</a></td>
                         <td><a href="${base}/business/store/payment/5" class="memberColor">立即订购</a></td>
-                        <td><a href="${base}/business/store/payment/6" class="memberColor">立即订购</a></td>
+                        <td><a href="${base}/business/store/payment/4" class="memberColor">立即订购</a></td>
                     </tr>
                     </tbody>
                 </table>
