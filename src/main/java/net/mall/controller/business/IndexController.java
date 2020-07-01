@@ -9,13 +9,20 @@ package net.mall.controller.business;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.sensorsdata.analytics.javasdk.exceptions.InvalidArgumentException;
+import net.mall.Results;
 import net.mall.entity.Business;
+import net.mall.entity.Message;
+import net.mall.entity.User;
+import net.mall.security.CurrentUser;
 import net.mall.service.BusinessService;
+import net.mall.util.BusTypeEnum;
+import net.mall.util.RestTemplateUtil;
 import net.mall.util.SensorsAnalyticsUtils;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import net.mall.entity.Store;
 import net.mall.security.CurrentStore;
@@ -40,6 +47,25 @@ public class IndexController extends BaseController {
 
     @Inject
     private SensorsAnalyticsUtils sensorsAnalyticsUtils;
+
+    private final String ONE_ONE_ID_F = "a%s%s";
+
+    /***查询链详情
+     * @param dataId
+     * @param request
+     * @return
+     */
+    @PostMapping("/chain")
+    @ResponseBody
+    public ResponseEntity<?> chain(Long dataId,HttpServletRequest request) {
+        try {
+            ResponseEntity<RestTemplateUtil.BusResult>  responseEntity = RestTemplateUtil.reqTemplate(String.format(ONE_ONE_ID_F,"b",dataId), BusTypeEnum.SUPPLIER.getCode());
+             return responseEntity;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return Results.OK;
+    }
 
     /**
      * 首页

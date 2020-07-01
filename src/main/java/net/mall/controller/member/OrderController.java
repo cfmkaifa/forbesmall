@@ -13,20 +13,17 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import net.mall.Filter;
 import net.mall.entity.*;
-import net.mall.util.ConvertUtils;
-import net.mall.util.SpringUtils;
+import net.mall.util.*;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
@@ -37,7 +34,6 @@ import net.mall.exception.UnauthorizedException;
 import net.mall.security.CurrentUser;
 import net.mall.service.OrderService;
 import net.mall.service.OrderShippingService;
-import net.mall.util.SystemUtils;
 
 /**
  * Controller - 订单
@@ -58,6 +54,65 @@ public class OrderController extends BaseController {
     private OrderService orderService;
     @Inject
     private OrderShippingService orderShippingService;
+
+
+    private final String ONE_ID_F = "a%s";
+
+
+    /***查询链详情
+     * @param dataId
+     * @param request
+     * @return
+     */
+    @PostMapping("/chain")
+    @ResponseBody
+    public ResponseEntity<?> chain(Long dataId, HttpServletRequest request) {
+        try {
+            ResponseEntity<RestTemplateUtil.BusResult>  responseEntity = RestTemplateUtil.reqTemplate(String.format(ONE_ID_F,dataId), BusTypeEnum.ORDER.getCode());
+            return responseEntity;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return Results.OK;
+    }
+
+
+
+    /***发货单查询链详情
+     * @param dataId
+     * @param request
+     * @return
+     */
+    @PostMapping("/delivery-chain")
+    @ResponseBody
+    public ResponseEntity<?> deliveryChain(Long dataId, HttpServletRequest request) {
+        try {
+            ResponseEntity<RestTemplateUtil.BusResult>  responseEntity = RestTemplateUtil.reqTemplate(String.format(ONE_ID_F,dataId), BusTypeEnum.DELIVERY.getCode());
+            return responseEntity;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return Results.OK;
+    }
+
+
+    /***发货单查询链详情
+     * @param dataId
+     * @param request
+     * @return
+     */
+    @PostMapping("/payorder-chain")
+    @ResponseBody
+    public ResponseEntity<?> payorderChain(Long dataId, HttpServletRequest request) {
+        try {
+            ResponseEntity<RestTemplateUtil.BusResult>  responseEntity = RestTemplateUtil.reqTemplate(String.format(ONE_ID_F,dataId), BusTypeEnum.PAYORDER.getCode());
+            return responseEntity;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return Results.OK;
+    }
+
 
     /**
      * 添加属性

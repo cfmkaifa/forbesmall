@@ -32,7 +32,9 @@ import net.mall.*;
 import net.mall.entity.*;
 import net.mall.excel.ProImportQueueExcelMode;
 import net.mall.service.*;
+import net.mall.util.BusTypeEnum;
 import net.mall.util.ConvertUtils;
+import net.mall.util.RestTemplateUtil;
 import net.mall.util.SystemUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
@@ -91,6 +93,61 @@ public class ProductController extends BaseController {
     private FileService fileService;
     @Inject
     ProImportQueueService proImportQueueService;
+
+    private final String ONE_ID_F = "a%s";
+
+    /***查询链详情
+     * @param dataId
+     * @param request
+     * @return
+     */
+    @PostMapping("/chain")
+    @ResponseBody
+    public ResponseEntity<?> chain(Long dataId,HttpServletRequest request) {
+        try {
+            ResponseEntity<RestTemplateUtil.BusResult>  responseEntity = RestTemplateUtil.reqTemplate(String.format(ONE_ID_F,dataId), BusTypeEnum.PRODUCT.getCode());
+            return responseEntity;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return Results.OK;
+    }
+
+
+    /***分类查询链详情
+     * @param dataId
+     * @param request
+     * @return
+     */
+    @PostMapping("/categroy-chain")
+    @ResponseBody
+    public ResponseEntity<?> categroyChain(Long dataId,HttpServletRequest request) {
+        try {
+            ResponseEntity<RestTemplateUtil.BusResult>  responseEntity = RestTemplateUtil.reqTemplate(String.format(ONE_ID_F,dataId), BusTypeEnum.CATEGROY.getCode());
+            return responseEntity;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return Results.OK;
+    }
+
+    /***团购查询链详情
+     * @param dataId
+     * @param request
+     * @return
+     */
+    @PostMapping("/groupbuy-chain")
+    @ResponseBody
+    public ResponseEntity<?> groupbuyChain(Long dataId,HttpServletRequest request) {
+        try {
+            ResponseEntity<RestTemplateUtil.BusResult>  responseEntity = RestTemplateUtil.reqTemplate(String.format(ONE_ID_F,dataId), BusTypeEnum.GROUPBUY.getCode());
+            return responseEntity;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return Results.OK;
+    }
+
 
     /**
      * 添加属性
