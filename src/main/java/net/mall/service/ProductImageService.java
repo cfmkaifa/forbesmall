@@ -6,11 +6,11 @@
  */
 package net.mall.service;
 
-import java.util.List;
-
+import net.mall.entity.ProductImage;
 import org.springframework.web.multipart.MultipartFile;
 
-import net.mall.entity.ProductImage;
+import java.io.File;
+import java.util.List;
 
 /**
  * Service - 商品图片
@@ -35,4 +35,11 @@ public interface ProductImageService {
      */
     ProductImage generate(MultipartFile multipartFile);
 
+
+    /***
+     * 处理图片
+     * @param tempFile
+     * @return
+     */
+    ProductImage generate(File tempFile);
 }

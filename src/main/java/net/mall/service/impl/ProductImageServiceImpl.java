@@ -6,16 +6,13 @@
  */
 package net.mall.service.impl;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
-import javax.inject.Inject;
-import javax.servlet.ServletContext;
-
+import net.mall.Setting;
+import net.mall.entity.ProductImage;
+import net.mall.plugin.StoragePlugin;
+import net.mall.service.PluginService;
+import net.mall.service.ProductImageService;
+import net.mall.util.ImageUtils;
+import net.mall.util.SystemUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.io.FileUtils;
@@ -26,13 +23,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.web.multipart.MultipartFile;
 
-import net.mall.Setting;
-import net.mall.entity.ProductImage;
-import net.mall.plugin.StoragePlugin;
-import net.mall.service.PluginService;
-import net.mall.service.ProductImageService;
-import net.mall.util.ImageUtils;
-import net.mall.util.SystemUtils;
+import javax.inject.Inject;
+import javax.servlet.ServletContext;
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 /**
  * Service - 商品图片
@@ -103,6 +101,38 @@ public class ProductImageServiceImpl implements ProductImageService {
                 return productImage != null && StringUtils.isNotEmpty(productImage.getSource()) && StringUtils.isNotEmpty(productImage.getLarge()) && StringUtils.isNotEmpty(productImage.getMedium()) && StringUtils.isNotEmpty(productImage.getThumbnail());
             }
         });
+    }
+
+
+    /***
+     * 处理图片
+     * @param tempFile
+     * @return
+     */
+    public ProductImage generate(File tempFile){
+        try {
+            Setting setting = SystemUtils.getSetting();
+            Map<String, Object> model = new HashMap<>();
+            model.put("uuid", String.valueOf(UUID.randomUUID()));
+            String uploadPath = setting.resolveImageUploadPath(model);
+            String uuid = String.valueOf(UUID.randomUUID());
+            String sourcePath = uploadPath + String.format(ProductImage.SOURCE_FILE_NAME, uuid, FilenameUtils.getExtension(tempFile.getName()));
+            String largePath = uploadPath + String.format(ProductImage.LARGE_FILE_NAME, uuid, ProductImage.FILE_EXTENSION);
+            String mediumPath = uploadPath + String.format(ProductImage.MEDIUM_FILE_NAME, uuid, ProductImage.FILE_EXTENSION);
+            String thumbnailPath = uploadPath + String.format(ProductImage.THUMBNAIL_FILE_NAME, uuid, ProductImage.FILE_EXTENSION);
+            for (StoragePlugin storagePlugin : pluginService.getStoragePlugins(true)) {
+                addTask(storagePlugin, sourcePath, largePath, mediumPath, thumbnailPath, tempFile, null);
+                ProductImage productImage = new ProductImage();
+                productImage.setSource(storagePlugin.getUrl(sourcePath));
+                productImage.setLarge(storagePlugin.getUrl(largePath));
+                productImage.setMedium(storagePlugin.getUrl(mediumPath));
+                productImage.setThumbnail(storagePlugin.getUrl(thumbnailPath));
+                return productImage;
+            }
+        } catch (IllegalStateException e) {
+            throw new RuntimeException(e.getMessage(), e);
+        }
+        return null;
     }
 
     @Override
