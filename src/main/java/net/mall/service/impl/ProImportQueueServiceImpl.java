@@ -77,12 +77,10 @@ public class ProImportQueueServiceImpl extends BaseServiceImpl<ProImportQueue, L
                                     fileStr = fileStr.replaceAll("\\\\","/");
                                 }
                                 String filePath = uploadDir +"/"+ fileStr;
-                                System.out.println("=======filePath======="+filePath);
                                 File tempFile = new File(filePath);
                                 if(tempFile.exists()){
                                     ProductImage productImage =  productImageService.generate(tempFile);
                                     productImages.add(productImage);
-                                    System.out.println("=================="+ JSON.toJSONString(productImage));
                                 }
                             }
                         }
