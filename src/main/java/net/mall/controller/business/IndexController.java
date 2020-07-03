@@ -13,12 +13,14 @@ import net.mall.Results;
 import net.mall.entity.Business;
 import net.mall.entity.Message;
 import net.mall.entity.User;
+import net.mall.model.ResultModel;
 import net.mall.security.CurrentUser;
 import net.mall.service.BusinessService;
 import net.mall.util.BusTypeEnum;
 import net.mall.util.RestTemplateUtil;
 import net.mall.util.SensorsAnalyticsUtils;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -59,8 +61,10 @@ public class IndexController extends BaseController {
     @ResponseBody
     public ResponseEntity<?> chain(Long dataId,HttpServletRequest request) {
         try {
-            ResponseEntity<RestTemplateUtil.BusResult>  responseEntity = RestTemplateUtil.reqTemplate(String.format(ONE_ONE_ID_F,"b",dataId), BusTypeEnum.SUPPLIER.getCode());
-             return responseEntity;
+            ResultModel responseEntity = RestTemplateUtil.reqTemplate(String.format(ONE_ONE_ID_F,"b",dataId), BusTypeEnum.SUPPLIER.getCode());
+            if("000000".equals(responseEntity.getResultCode())){
+                return Results.status(HttpStatus.OK,responseEntity.getData());
+            }
         }catch (Exception e){
             e.printStackTrace();
         }

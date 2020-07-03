@@ -31,6 +31,7 @@ import com.alibaba.fastjson.JSON;
 import net.mall.*;
 import net.mall.entity.*;
 import net.mall.excel.ProImportQueueExcelMode;
+import net.mall.model.ResultModel;
 import net.mall.service.*;
 import net.mall.util.BusTypeEnum;
 import net.mall.util.ConvertUtils;
@@ -39,6 +40,7 @@ import net.mall.util.SystemUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -106,8 +108,10 @@ public class ProductController extends BaseController {
     public ResponseEntity<?> chain(Long dataId,HttpServletRequest request) {
         try {
             String  strDataId = String.format(ONE_ID_F,dataId);
-            ResponseEntity<RestTemplateUtil.BusResult>  responseEntity = RestTemplateUtil.reqTemplate(strDataId, BusTypeEnum.PRODUCT.getCode());
-            return responseEntity;
+            ResultModel responseEntity = RestTemplateUtil.reqTemplate(strDataId, BusTypeEnum.PRODUCT.getCode());
+            if("000000".equals(responseEntity.getResultCode())){
+                return Results.status(HttpStatus.OK,responseEntity.getData());
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -124,8 +128,10 @@ public class ProductController extends BaseController {
     @ResponseBody
     public ResponseEntity<?> categroyChain(Long dataId,HttpServletRequest request) {
         try {
-            ResponseEntity<RestTemplateUtil.BusResult>  responseEntity = RestTemplateUtil.reqTemplate(String.format(ONE_ID_F,dataId), BusTypeEnum.CATEGROY.getCode());
-            return responseEntity;
+            ResultModel responseEntity = RestTemplateUtil.reqTemplate(String.format(ONE_ID_F,dataId), BusTypeEnum.CATEGROY.getCode());
+            if("000000".equals(responseEntity.getResultCode())){
+                return Results.status(HttpStatus.OK,responseEntity.getData());
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -141,8 +147,10 @@ public class ProductController extends BaseController {
     @ResponseBody
     public ResponseEntity<?> groupbuyChain(Long dataId,HttpServletRequest request) {
         try {
-            ResponseEntity<RestTemplateUtil.BusResult>  responseEntity = RestTemplateUtil.reqTemplate(String.format(ONE_ID_F,dataId), BusTypeEnum.GROUPBUY.getCode());
-            return responseEntity;
+            ResultModel responseEntity =  RestTemplateUtil.reqTemplate(String.format(ONE_ID_F,dataId), BusTypeEnum.GROUPBUY.getCode());
+            if("000000".equals(responseEntity.getResultCode())){
+                return Results.status(HttpStatus.OK,responseEntity.getData());
+            }
         }catch (Exception e){
             e.printStackTrace();
         }

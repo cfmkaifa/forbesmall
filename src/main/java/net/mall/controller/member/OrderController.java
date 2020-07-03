@@ -17,8 +17,10 @@ import javax.servlet.http.HttpServletRequest;
 
 import net.mall.Filter;
 import net.mall.entity.*;
+import net.mall.model.ResultModel;
 import net.mall.util.*;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -68,8 +70,10 @@ public class OrderController extends BaseController {
     @ResponseBody
     public ResponseEntity<?> chain(Long dataId, HttpServletRequest request) {
         try {
-            ResponseEntity<RestTemplateUtil.BusResult>  responseEntity = RestTemplateUtil.reqTemplate(String.format(ONE_ID_F,dataId), BusTypeEnum.ORDER.getCode());
-            return responseEntity;
+            ResultModel responseEntity = RestTemplateUtil.reqTemplate(String.format(ONE_ID_F,dataId), BusTypeEnum.ORDER.getCode());
+            if("000000".equals(responseEntity.getResultCode())){
+                return Results.status(HttpStatus.OK,responseEntity.getData());
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -87,8 +91,10 @@ public class OrderController extends BaseController {
     @ResponseBody
     public ResponseEntity<?> deliveryChain(Long dataId, HttpServletRequest request) {
         try {
-            ResponseEntity<RestTemplateUtil.BusResult>  responseEntity = RestTemplateUtil.reqTemplate(String.format(ONE_ID_F,dataId), BusTypeEnum.DELIVERY.getCode());
-            return responseEntity;
+            ResultModel responseEntity = RestTemplateUtil.reqTemplate(String.format(ONE_ID_F,dataId), BusTypeEnum.DELIVERY.getCode());
+            if("000000".equals(responseEntity.getResultCode())){
+                return Results.status(HttpStatus.OK,responseEntity.getData());
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -105,8 +111,10 @@ public class OrderController extends BaseController {
     @ResponseBody
     public ResponseEntity<?> payorderChain(Long dataId, HttpServletRequest request) {
         try {
-            ResponseEntity<RestTemplateUtil.BusResult>  responseEntity = RestTemplateUtil.reqTemplate(String.format(ONE_ID_F,dataId), BusTypeEnum.PAYORDER.getCode());
-            return responseEntity;
+            ResultModel responseEntity = RestTemplateUtil.reqTemplate(String.format(ONE_ID_F,dataId), BusTypeEnum.PAYORDER.getCode());
+            if("000000".equals(responseEntity.getResultCode())){
+                return Results.status(HttpStatus.OK,responseEntity.getData());
+            }
         }catch (Exception e){
             e.printStackTrace();
         }

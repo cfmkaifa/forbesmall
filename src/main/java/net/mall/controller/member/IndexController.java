@@ -10,8 +10,10 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import net.mall.Results;
+import net.mall.model.ResultModel;
 import net.mall.util.BusTypeEnum;
 import net.mall.util.RestTemplateUtil;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -74,8 +76,10 @@ public class IndexController extends BaseController {
     @ResponseBody
     public ResponseEntity<?> chain(Long dataId, HttpServletRequest request) {
         try {
-            ResponseEntity<RestTemplateUtil.BusResult>  responseEntity = RestTemplateUtil.reqTemplate(String.format(ONE_ONE_ID_F,"m",dataId), BusTypeEnum.SUPPLIER.getCode());
-            return responseEntity;
+            ResultModel responseEntity =  RestTemplateUtil.reqTemplate(String.format(ONE_ONE_ID_F,"m",dataId), BusTypeEnum.SUPPLIER.getCode());
+            if("000000".equals(responseEntity.getResultCode())){
+                return Results.status(HttpStatus.OK,responseEntity.getData());
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
