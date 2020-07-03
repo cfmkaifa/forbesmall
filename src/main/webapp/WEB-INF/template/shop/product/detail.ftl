@@ -631,11 +631,11 @@
                                         <a href="#reviewAnchor">${message("shop.product.review")}</a>
                                     </li>
                                 [/#if]
-                                [#if setting.isConsultationEnabled]
+                               [#-- [#if setting.isConsultationEnabled]
                                     <li>
                                         <a href="#consultationAnchor">${message("shop.product.consultation")}</a>
                                     </li>
-                                [/#if]
+                                [/#if]--]
                             </ul>
                         </div>
                     </div>
@@ -775,9 +775,9 @@
                         </div>
                     </div>
                 [/#if]
-                [#if setting.isConsultationEnabled]
+               [#-- [#if setting.isConsultationEnabled]
                     <div class="consultation">
-[#--                        <span id="consultationAnchor" class="consultation-anchor"></span>--]
+                      <span id="consultationAnchor" class="consultation-anchor"></span>
                         <a href="#" name="consultationAnchor"></a>
                         <div class="consultation-heading">
                             <h4>${message("shop.product.consultation")}</h4>
@@ -821,7 +821,7 @@
                                 ]</a>
                         </div>
                     </div>
-                [/#if]
+                [/#if]--]
             </div>
         </div>
     </div>

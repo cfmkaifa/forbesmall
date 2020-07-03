@@ -685,7 +685,7 @@
                 <div class="panel-body">
                     <dl class="dl-horizontal">
                         [#if orderType == "GENERAL"]
-                            [#if rewardPoint > 0]
+                            [#--[#if rewardPoint > 0]
                                 <dt>${message("Order.rewardPoint")}:</dt>
                                 <dd>${rewardPoint}</dd>
                             [/#if]
@@ -696,7 +696,7 @@
                             <dt>${message("Order.couponDiscount")}:</dt>
                             <dd>
                                 <span id="couponDiscount">${currency(couponDiscount, true, true)}</span>
-                            </dd>
+                            </dd>--]
                             [#if setting.isInvoiceEnabled && setting.isTaxPriceEnabled]
                                 <dt>${message("Order.tax")}:</dt>
                                 <dd>

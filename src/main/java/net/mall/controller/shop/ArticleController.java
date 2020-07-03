@@ -338,7 +338,15 @@ public class ArticleController extends BaseController {
      * @修改人 (修改了该文件 ， 请填上修改人的名字)
      * @修改日期 (请填上修改该文件时的日期)
      */
-    @GetMapping(value = {"/subscribe-supplier/{articleCategoryId}/{subType}", "/subscribe-purchaser/{articleCategoryId}/{subType}"})
+    @GetMapping(value = {"/subscribe-supplier/{articleCategoryId}/{subType}", "" +
+            "" +
+            "" +
+            "" +
+            "" +
+            "" +
+            "" +
+            "" +
+            "/subscribe-purchaser/{articleCategoryId}/{subType}"})
     public String subscribe(@PathVariable Long articleCategoryId,
                             @PathVariable String subType,
                             @CurrentUser Business currentBusiness,

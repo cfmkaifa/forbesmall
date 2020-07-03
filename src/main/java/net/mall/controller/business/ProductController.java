@@ -105,7 +105,8 @@ public class ProductController extends BaseController {
     @ResponseBody
     public ResponseEntity<?> chain(Long dataId,HttpServletRequest request) {
         try {
-            ResponseEntity<RestTemplateUtil.BusResult>  responseEntity = RestTemplateUtil.reqTemplate(String.format(ONE_ID_F,dataId), BusTypeEnum.PRODUCT.getCode());
+            String  strDataId = String.format(ONE_ID_F,dataId);
+            ResponseEntity<RestTemplateUtil.BusResult>  responseEntity = RestTemplateUtil.reqTemplate(strDataId, BusTypeEnum.PRODUCT.getCode());
             return responseEntity;
         }catch (Exception e){
             e.printStackTrace();

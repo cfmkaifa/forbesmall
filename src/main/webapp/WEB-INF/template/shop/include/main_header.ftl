@@ -199,13 +199,37 @@
 
                         <li class="top-nav-dropdown">
                             <a href="javascript:;">
-                                ${message("shop.mainHeader.qrcode")}
+                                ${message("shop.mainHeader.navigation")}
                                 <span class="caret"></span>
                             </a>
                             <ul class="qrcode">
                                 <li>
+                                    <a href="${base}/product/list" target="_blank">${message("shop.mainHeader.marketing")}</a>
                                 </li>
                                 <li>
+                                    <a href="http://analysis.chinafibermarketing.net/" target="_blank">${message("shop.mainHeader.declare")}</a>
+                                </li>
+                                <li>
+                                    <a href="${base}/article/articleindex" target="_blank">${message("shop.mainHeader.industry")}</a>
+                                </li>
+                                <li>
+                                    <a href="${base}/product/group_purch/list" target="_blank">${message("shop.mainHeader.group")}</a>
+                                </li>
+                                <li>
+                                    <a href="${base}/product/pro_purch/list" target="_blank">${message("shop.mainHeader.purch")}</a>
+                                </li>
+                                <li>
+                                    <a href="https://static.ymm56.com/ymm-outdoor/pc-register?source=SEM_baidu_myrj_myrjpinpai_PC%E9%80%9A%E7%94%A8-%E7%BD%91%E5%9D%80_%E5%AE%98%E7%BD%91_%E8%BF%90%E6%BB%A1%E6%BB%A1%20%E5%AE%98%E7%BD%91&sdclkid=AL2615FG152_xSDNb-" target="_blank">${message("shop.mainHeader.transport")}</a>
+                                </li>
+                                <li>
+                                    <a href="${base}/datacenter" target="_blank">${message("shop.mainHeader.datacenter")}</a>
+                                </li>
+                                <li>
+                                    <a href="${base}/article/smart" target="_blank">${message("shop.mainHeader.smartfac")}</a>
+                                </li>
+
+                                <li>
+                                    <a href="${base}/resources/shop/html/we.html" target="_blank">${message("shop.mainHeader.aboutus")}</a>
                                 </li>
                             </ul>
                         </li>
@@ -300,8 +324,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-2">
-                <a class="product-category" href="${base}/product_category">
+            <div class="col-xs-2 product-category">
                     <i class="iconfont icon-sort"></i>
                     ${message("shop.mainHeader.productCategory")}
                 </a>

@@ -154,7 +154,7 @@
 				[/#list]
 			</tbody>
 		</table>
-		<div class="text-right">Powered By mall.net</div>
+		[#--<div class="text-right">Powered By mall.net</div>--]
 	</main>
 </body>
 </html>

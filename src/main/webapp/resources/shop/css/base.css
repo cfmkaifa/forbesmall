@@ -263,16 +263,16 @@
 }
 
 .main-header .top-nav .top-nav-dropdown>ul.qrcode {
-	width: 320px;
+	width: 270px;
 	padding: 20px 0px;
 	right: 0px;
 }
 
 .main-header .top-nav .top-nav-dropdown>ul.qrcode li {
 	float: left;
-	padding: 0px 20px;
+	padding: 2px 20px;
 	text-align: center;
-	border-right: 1px solid #eeeeee;
+	/*border-right: 1px solid #eeeeee;*/
 }
 
 .main-header .top-nav .top-nav-dropdown>ul.qrcode li:last-child {

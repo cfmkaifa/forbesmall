@@ -50,21 +50,23 @@
 											${message("member.index.memberRank")}:
 											<span class="text-red">${currentUser.memberRank.name}</span>
 										</li>
-										<li>
+										[#--<li>
 											${message("member.index.balance")}:
 											<span class="text-red">${currency(currentUser.balance, true, true)}</span>
-										</li>
-										[#if currentUser.frozenAmount > 0 ]
+										</li>--]
+										[#--[#if currentUser.frozenAmount > 0 ]
 											<li>
 												${message("member.index.frozenAmount")}:
 												<span class="text-gray">${currency(currentUser.frozenAmount, true, true)}</span>
 											</li>
-										[/#if]
+										[/#if]--]
+[#--
 										<li>${message("member.index.amount")}: ${currency(currentUser.amount, true, true)}</li>
-										<li>
+--]
+										[#--<li>
 											${message("member.index.point")}: ${currentUser.point}
 											<a class="text-gray" href="${base}/member/coupon_code/exchange">[${message("member.index.exchange")}]</a>
-										</li>
+										</li>--]
 									</ul>
 								</div>
 								<div class="media-body media-middle">

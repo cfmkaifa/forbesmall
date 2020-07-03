@@ -164,14 +164,14 @@
 								<p class="form-control-static">${message("BusinessAttribute.Type." + businessAttribute.type)}</p>
 							</div>
 						</div>
-						[#if businessAttribute.type != "SELECT" && businessAttribute.type != "CHECKBOX"]
+						[#--[#if businessAttribute.type != "SELECT" && businessAttribute.type != "CHECKBOX"]
 							<div class="form-group">
 								<label class="col-xs-3 col-sm-2 control-label" for="pattern">${message("BusinessAttribute.pattern")}:</label>
 								<div class="col-xs-9 col-sm-4">
 									<input id="pattern" name="pattern" class="form-control" type="text" value="${businessAttribute.pattern}" maxlength="200">
 								</div>
 							</div>
-						[/#if]
+						[/#if]--]
 						<div class="form-group">
 							<label class="col-xs-3 col-sm-2 control-label">${message("common.setting")}:</label>
 							<div class="col-xs-9 col-sm-4">

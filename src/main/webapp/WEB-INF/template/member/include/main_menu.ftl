@@ -48,11 +48,11 @@
 			<dd[#if .main_template_name?matches(".*/review/.*")] class="active"[/#if]>
 				<a href="${base}/member/review/list">${message("member.mainMenu.reviewList")}</a>
 			</dd>
-			<dd[#if .main_template_name?matches(".*/consultation/.*")] class="active"[/#if]>
+			[#--<dd[#if .main_template_name?matches(".*/consultation/.*")] class="active"[/#if]>
 				<a href="${base}/member/consultation/list">${message("member.mainMenu.consultationList")}</a>
-			</dd>
+			</dd>--]
 		</dl>
-		<dl>
+		[#--<dl>
 			<dt>
 				<i class="iconfont icon-message"></i>
 				${message("member.mainMenu.message")}
@@ -63,7 +63,7 @@
 			<dd[#if .main_template_name?matches(".*/message_group/.*")] class="active"[/#if]>
 				<a href="${base}/member/message_group/list">${message("member.mainMenu.messageGroupList")}</a>
 			</dd>
-		</dl>
+		</dl>--]
 		<dl>
 			<dt>
 				<i class="iconfont icon-profile"></i>

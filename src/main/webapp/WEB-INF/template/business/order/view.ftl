@@ -1522,16 +1522,22 @@
                                         <button id="sealContractModalButton" class="btn btn-default" type="button" data-toggle="modal" data-target="#sealContractModal">${message("member.order.sealContract")}</button>
                                         <button id="certificatePaymentModalButton" class="btn btn-default" type="button" data-toggle="modal" [#if  order.paymentMethod.method != "OFFLINE"] disabled[/#if] data-target="#certificatePaymentModal">${message("member.order.certPayment")}</button>
                                         <button id="confirmPaymentButton" class=" btn btn-default" type="button" data-id="${order.id}"[#if order.hasExpired() || order.status != "MERCHANT_CONFIRM" || order.paymentMethod.method != "OFFLINE"] disabled[/#if]>${message("business.order.confirmPayment")}</button>
+[#--
                                         <button class="review btn btn-default" type="button" data-id="${order.id}"[#if order.hasExpired() || order.status != "PENDING_REVIEW"] disabled[/#if]>${message("business.order.review")}</button>
+--]
                                         [#if currentStore.isSelf()]
                                             <button id="paymentModalButton" class="btn btn-default" type="button" data-toggle="modal" data-target="#paymentModal"[#if order.hasExpired()] disabled[/#if]>${message("business.order.payment")}</button>
                                         [/#if]
+[#--
                                         <button id="refundsModalButton" class="btn btn-default" type="button" data-toggle="modal" data-target="#refundsModal"[#if order.hasExpired() || order.refundableAmount <= 0 && !order.isAllowRefund] disabled[/#if]>${message("business.order.orderRefunds")}</button>
+--]
                                         <button id="shippingModalButton" class="btn btn-default" type="button" data-toggle="modal" data-target="#shippingModal"[#if order.shippableQuantity <= 0] disabled[/#if]>${message("business.order.orderShipping")}</button>
                                         <button id="confirmInvoiceButton" class=" btn btn-default" type="button" data-id="${order.id}"   data-toggle="modal" data-target="#invoiceModal"        [#if order.hasExpired() || order.status != "RECEIVED"] disabled[/#if]>${message("business.order.confirmInvoice")}</button>
                                         <button id="returnsModalButton" class="btn btn-default" type="button" data-toggle="modal" data-target="#returnsModal"[#if order.returnableQuantity <= 0 || order.status != "FAILED"] disabled[/#if]>${message("business.order.orderReturns")}</button>
                                         <button class="complete btn btn-default" type="button" data-id="${order.id}"[#if order.hasExpired() || order.status != "RECEIVED"] disabled[/#if]>${message("business.order.complete")}</button>
+[#--
                                         <button class="fail btn btn-default" type="button" data-id="${order.id}"[#if order.hasExpired() || (order.status != "PENDING_SHIPMENT" && order.status != "SHIPPED" && order.status != "RECEIVED")] disabled[/#if]>${message("business.order.fail")}</button>
+--]
                                         <button class="btn btn-default" type="button" data-toggle="modal" data-target="#reconciliationModal" [#if order.hasExpired() || (order.status != "SHIPPED" && order.status != "COMPLETED") ] disabled[/#if]>${message("member.order.reconciliation")}</button>
                                     </div>
                                 </div>
@@ -1856,7 +1862,6 @@
                                     <thead>
                                     <tr>
                                         <th>${message("OrderLog.type")}</th>
-                                        <th>${message("OrderLog.detail")}</th>
                                         <th>${message("common.createdDate")}</th>
                                     </tr>
                                     </thead>
@@ -1864,13 +1869,13 @@
                                     [#list order.orderLogs as orderLog]
                                         <tr>
                                             <td>${message("OrderLog.Type." + orderLog.type)}</td>
-                                            <td>
+                                            [#--<td>
                                                 [#if orderLog.detail??]
                                                     <span title="${orderLog.detail}">${abbreviate(orderLog.detail, 30, "...")}</span>
                                                 [#else]
                                                     -
                                                 [/#if]
-                                            </td>
+                                            </td>--]
                                             <td>
                                                 <span title="${orderLog.createdDate?string("yyyy-MM-dd HH:mm:ss")}" data-toggle="tooltip">${orderLog.createdDate}</span>
                                             </td>

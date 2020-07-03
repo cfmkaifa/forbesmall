@@ -139,7 +139,7 @@
 								</li>
 							[/#if]
 						[/@has_permission_tag]
-						[@has_permission_tag permission="admin:businessCash"]
+						[#--[@has_permission_tag permission="admin:businessCash"]
 							[#if hasPermission]
 								<li class="list-group-item[#if .main_template_name?matches("admin/business_cash/.*")] active[/#if]">
 									<a href="${base}/admin/business_cash/list">
@@ -151,7 +151,7 @@
 									</a>
 								</li>
 							[/#if]
-						[/@has_permission_tag]
+						[/@has_permission_tag]--]
 						[@has_permission_tag permission="admin:categoryApplication"]
 							[#if hasPermission]
 								<li class="list-group-item[#if .main_template_name?matches("admin/category_application/.*")] active[/#if]">
@@ -174,7 +174,7 @@
 							</li>
 							[/#if]
 						[/@has_permission_tag]
-						[@has_permission_tag permission="admin:businessDeposit"]
+						[#--[@has_permission_tag permission="admin:businessDeposit"]
 							[#if hasPermission]
 								<li class="list-group-item[#if .main_template_name?matches("admin/business_deposit/.*")] active[/#if]">
 									<a href="${base}/admin/business_deposit/log">
@@ -183,7 +183,7 @@
 									</a>
 								</li>
 							[/#if]
-						[/@has_permission_tag]
+						[/@has_permission_tag]--]
 					</ul>
 				</div>
 			</div>
@@ -366,7 +366,7 @@
 								</li>
 							[/#if]
 						[/@has_permission_tag]
-						[@has_permission_tag permission="admin:deliveryTemplate"]
+						[#--[@has_permission_tag permission="admin:deliveryTemplate"]
 							[#if hasPermission]
 								<li class="list-group-item[#if .main_template_name?matches("admin/delivery_template/.*")] active[/#if]">
 									<a href="${base}/admin/delivery_template/list">
@@ -375,7 +375,7 @@
 									</a>
 								</li>
 							[/#if]
-						[/@has_permission_tag]
+						[/@has_permission_tag]--]
 						[@has_permission_tag permission="admin:aftersales"]
 							[#if hasPermission]
 								<li class="list-group-item[#if .main_template_name?matches("admin/aftersales/.*")] active[/#if]">
@@ -457,7 +457,7 @@
 								</li>
 							[/#if]
 						[/@has_permission_tag]
-						[@has_permission_tag permission="admin:memberDeposit"]
+						[#--[@has_permission_tag permission="admin:memberDeposit"]
 							[#if hasPermission]
 								<li class="list-group-item[#if .main_template_name?matches("admin/member_deposit/.*")] active[/#if]">
 									<a href="${base}/admin/member_deposit/log">
@@ -466,8 +466,8 @@
 									</a>
 								</li>
 							[/#if]
-						[/@has_permission_tag]
-						[@has_permission_tag permission="admin:review"]
+						[/@has_permission_tag]--]
+						[#--[@has_permission_tag permission="admin:review"]
 							[#if hasPermission]
 								<li class="list-group-item[#if .main_template_name?matches("admin/review/.*")] active[/#if]">
 									<a href="${base}/admin/review/list">
@@ -476,8 +476,8 @@
 									</a>
 								</li>
 							[/#if]
-						[/@has_permission_tag]
-						[@has_permission_tag permission="admin:consultation"]
+						[/@has_permission_tag]--]
+						[#--[@has_permission_tag permission="admin:consultation"]
 							[#if hasPermission]
 								<li class="list-group-item[#if .main_template_name?matches("admin/consultation/.*")] active[/#if]">
 									<a href="${base}/admin/consultation/list">
@@ -486,7 +486,7 @@
 									</a>
 								</li>
 							[/#if]
-						[/@has_permission_tag]
+						[/@has_permission_tag]--]
 						[@has_permission_tag permission="admin:messageConfig"]
 							[#if hasPermission]
 								<li class="list-group-item[#if .main_template_name?matches("admin/message_config/.*")] active[/#if]">
@@ -502,7 +502,7 @@
 			</div>
 		</div>
 		<div class="panel panel-default">
-			[@has_any_permissions_tag permissions = ["admin:distributor", "admin:distributionCash", "admin:distributionCommission"]]
+			[#--[@has_any_permissions_tag permissions = ["admin:distributor", "admin:distributionCash", "admin:distributionCommission"]]
 				[#if hasPermission]
 					<div class="panel-heading">
 						<h4 class="panel-title">
@@ -514,7 +514,7 @@
 						</h4>
 					</div>
 				[/#if]
-			[/@has_any_permissions_tag]
+			[/@has_any_permissions_tag]--]
 			<div id="distributorGroupPanelCollapse" class="panel-collapse collapse[#if .main_template_name?matches("admin/distributor/.*|admin/distribution_cash/.*|admin/distribution_commission/.*")] in[/#if]">
 				<div class="panel-body">
 					<ul class="list-group">
@@ -677,7 +677,7 @@
 			</div>
 		</div>
 		<div class="panel panel-default">
-			[@has_any_permissions_tag permissions = ["admin:promotion", "admin:coupon", "admin:seo"]]
+			[#--[@has_any_permissions_tag permissions = ["admin:promotion", "admin:coupon", "admin:seo"]]
 				[#if hasPermission]
 					<div class="panel-heading">
 						<h4 class="panel-title">
@@ -689,7 +689,7 @@
 						</h4>
 					</div>
 				[/#if]
-			[/@has_any_permissions_tag]
+			[/@has_any_permissions_tag]--]
 			<div id="marketingGroupPanelCollapse" class="panel-collapse collapse[#if .main_template_name?matches("admin/promotion/.*|admin/coupon/.*|admin/seo/.*")] in[/#if]">
 				<div class="panel-body">
 					<ul class="list-group">
@@ -824,7 +824,7 @@
 								</li>
 							[/#if]
 						[/@has_permission_tag]
-						[@has_permission_tag permission="admin:promotionPlugin"]
+						[#--[@has_permission_tag permission="admin:promotionPlugin"]
 							[#if hasPermission]
 								<li class="list-group-item[#if .main_template_name?matches(".*/plugin/.*Promotion/.*|admin/promotion_plugin/.*|admin/plugin/.*promotion/.*")] active[/#if]">
 									<a href="${base}/admin/promotion_plugin/list">
@@ -833,7 +833,7 @@
 									</a>
 								</li>
 							[/#if]
-						[/@has_permission_tag]
+						[/@has_permission_tag]--]
 						[@has_permission_tag permission="admin:admin"]
 							[#if hasPermission]
 								<li class="list-group-item[#if .main_template_name?matches("admin/admin/.*")] active[/#if]">

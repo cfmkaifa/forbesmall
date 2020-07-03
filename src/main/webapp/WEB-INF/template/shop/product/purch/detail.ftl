@@ -405,10 +405,10 @@
                             ${product.member.name}
                         </div>
                     </div>--]
-                    <div class="drawer-2">
+                    [#--<div class="drawer-2">
                         <span class="iconfont" style="color: orange">&#xe6ee;</span>
                         <p>${message("shop.mainHeader.drawer")}${product.member.name}</p>
-                    </div>
+                    </div>--]
                 </div>
                 [#if product.type == "GENERAL" || product.type == "EXCHANGE"]
                     [#if product.hasSpecification()]

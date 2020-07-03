@@ -11,12 +11,14 @@ import net.mall.Pageable;
 import net.mall.Results;
 import net.mall.controller.admin.BaseController;
 import net.mall.entity.*;
+import net.mall.exception.ResourceNotFoundException;
 import net.mall.exception.UnauthorizedException;
 import net.mall.security.CurrentUser;
 import net.mall.service.*;
 import net.mall.util.ConvertUtils;
 import net.mall.util.SensorsAnalyticsUtils;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.springframework.http.ResponseEntity;
@@ -188,6 +190,22 @@ public class ProductController extends BaseController {
         model.addAttribute("productTags", productTagService.findAll());
         model.addAttribute("specifications", specificationService.findAll());
         return "member/pro_purch_apply/pro_add";
+    }
+
+    /***
+     * 删除采购申请
+     */
+    @ResponseBody
+    @RequestMapping("/del-pro")
+    public Map<String,Object> delProduct(Long id){
+        Map<String,Object> map=new HashMap<>();
+        Product product = productService.find(id);
+        if (product == null) {
+            throw new ResourceNotFoundException();
+        }
+        productService.delete(id);
+        map.put("result",true);
+        return map;
     }
 
     /**
