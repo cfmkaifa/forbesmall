@@ -7,6 +7,16 @@
 		<property name="unauthorizedUrl" value="${security.unauthorized_url}" />
 		<property name="filterChainDefinitionMap">
 			<map>
+				<!--区块链拦截-->
+				<entry key="/business/product/chain" value="anon" />
+				<entry key="/business/product/categroy-chain" value="anon" />
+				<entry key="/business/product/groupbuy-chain" value="anon" />
+				<entry key="/member/index/chain" value="anon" />
+				<entry key="/business/index/chain" value="anon" />
+				<entry key="/member/order/chain" value="anon" />
+				<entry key="/member/order/delivery-chain" value="anon" />
+				<entry key="/member/order/payorder-chain" value="anon" />
+				<!--区块链拦截end-->
 				<entry key="/member/register" value="anon" />
 				<entry key="/member/register/**" value="anon" />
 				<entry key="/member/login" value="memberAuthc" />

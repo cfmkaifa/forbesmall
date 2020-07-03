@@ -41,7 +41,7 @@
 			<artifactId>chinapaysecure</artifactId>
 			<version>0.0.1</version>
 			<scope>system</scope>
-			<systemPath>C:/Users/hankh/.m2/repository/other/chinapaysecure1_5.jar</systemPath>
+			<systemPath>D:/maven/localRepository/other/chinapaysecure1_5.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>com.alibaba</groupId>
@@ -364,7 +364,7 @@
 		<dependency>
 		    <groupId>com.alipay.sdk</groupId>
 		    <artifactId>alipay-sdk-java</artifactId>
-		    <version>4.8.73.ALL</version>
+		    <version>4.9.9</version>
 		</dependency>
 		<!--word to pdf-->
 		<!-- itextpdf,导出pdf核心架包 -->

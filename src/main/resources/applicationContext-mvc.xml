@@ -86,6 +86,14 @@
 		</mvc:interceptor>
 		<mvc:interceptor>
 			<mvc:mapping path="/**" />
+			<mvc:exclude-mapping path="/business/product/chain" />
+			<mvc:exclude-mapping path="/business/product/categroy-chain" />
+			<mvc:exclude-mapping path="/business/product/groupbuy-chain" />
+			<mvc:exclude-mapping path="/member/index/chain" />
+			<mvc:exclude-mapping path="/business/index/chain" />
+			<mvc:exclude-mapping path="/member/order/chain" />
+			<mvc:exclude-mapping path="/member/order/delivery-chain" />
+			<mvc:exclude-mapping path="/member/order/payorder-chain" />
 			<mvc:exclude-mapping path="/payment/**" />
 			<bean class="net.mall.security.CsrfInterceptor" />
 		</mvc:interceptor>

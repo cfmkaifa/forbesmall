@@ -413,6 +413,44 @@
             <div class="col-xs-6">
                 <div class="name">
                     <h1 style="font-size: 18px; font-weight: 600; text-align: left;">${product.name}</h1>
+                    <div>
+                        <div onmouseover="onmouseOver(${product.id})" onmouseout="onmouseOut()" class="ChainIcon">
+                            <img src="${base}/resources/shop/images/block.png">
+                        </div>
+                        <div class="blockChain" id="blockChain">
+                            <h3>相关信息</h3>
+                            <ul>
+                                <li>
+                                    <span class="blockChainTitle">链账户地址：</span>
+                                    <span id="accountAddress"></span>
+                                </li>
+                                <li>
+                                    <span class="blockChainTitle">上链值：</span>
+                                    <span id="linkValue"></span>
+                                </li>
+                                <li>
+                                    <span class="blockChainTitle">备注：</span>
+                                    <span id="remark"></span>
+                                </li>
+                                <li>
+                                    <span class="blockChainTitle">上链时间：</span>
+                                    <span id="linkCreateDate"></span>
+                                </li>
+                                <li>
+                                    <span class="blockChainTitle">高度：</span>
+                                    <span id="linkHeight"></span>
+                                </li>
+                                <li>
+                                    <span class="blockChainTitle">图片的上传地址：</span>
+                                    <span id="linkImgAddress"></span>
+                                </li>
+                                <li>
+                                    <span class="blockChainTitle">hash地址：</span>
+                                    <span id="hashAddress"></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                     [#if product.caption?has_content]
                         <strong>${product.caption}</strong>
                     [/#if]
@@ -846,6 +884,35 @@
 [/#noautoesc]
 </body>
 <script type="text/javascript">
+
+        function onmouseOver(id){
+            var dataId=id;
+            $("#blockChain")[0].style.display = "block";
+            $.ajax({
+                type: "POST",
+                url: "${base}/business/product/chain",
+                data: {
+                    "dataId": dataId
+                },
+                contentType: "application/x-www-form-urlencoded",
+                dataType: "json",
+                success: function (data) {//返回数据根据结果进行相应的处理
+                    $("#accountAddress").html(data.accountAddress);
+                    $("#linkValue").html(data.value);
+                    $("#remark").html(data.memo);
+                    $("#linkCreateDate").html(data.chainTransTime);
+                    $("#linkHeight").html(data.height);
+                    $("#linkImgAddress").html(data.ossFileUrl);
+                    $("#hashAddress").html(data.hash);
+                }
+            });
+        }
+
+    //鼠标离开事件
+    function onmouseOut(){
+        $("#blockChain")[0].style.display = "none"
+    }
+
     $(function () {
         var refer=document.referrer;
         //浏览商品详情埋点事件
