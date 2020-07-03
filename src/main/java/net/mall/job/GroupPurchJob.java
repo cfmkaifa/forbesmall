@@ -21,8 +21,8 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 /***
  * 团购审核定时任务
  */
-@Component
-@Lazy(false)
+//@Component
+//@Lazy(false)
 public class GroupPurchJob {
 
 

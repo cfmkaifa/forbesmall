@@ -18,8 +18,8 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /***到期自动下架
  */
-@Component
-@Lazy(false)
+//@Component
+//@Lazy(false)
 public class ProPurchJob {
 
 

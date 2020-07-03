@@ -23,8 +23,8 @@ import net.mall.service.StatisticService;
  * @author huanghy
  * @version 6.1
  */
-@Lazy(false)
-@Component
+//@Lazy(false)
+//@Component
 public class StatisticJob {
 
     @Inject

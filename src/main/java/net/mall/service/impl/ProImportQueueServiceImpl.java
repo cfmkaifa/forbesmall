@@ -51,7 +51,6 @@ public class ProImportQueueServiceImpl extends BaseServiceImpl<ProImportQueue, L
     @Transactional
     public void  proImportTask(){
         try {
-
             List<Filter> filters = new ArrayList<Filter>();
             filters.add(new Filter("inStorage",Filter.Operator.EQ,0));
             List<ProImportQueue> proImportQueues = proImportQueueDao.findList(0,100,filters,null);
