@@ -74,6 +74,7 @@ public class ProImportQueueServiceImpl extends BaseServiceImpl<ProImportQueue, L
                            String[]  proImgArray = productImgs.split(";");
                             for (String fileStr : proImgArray) {
                                 String filePath = uploadDir +"/"+ fileStr;
+                                System.out.println("=======filePath======="+filePath);
                                 File tempFile = new File(filePath);
                                 if(tempFile.exists()){
                                     ProductImage productImage =  productImageService.generate(tempFile);
