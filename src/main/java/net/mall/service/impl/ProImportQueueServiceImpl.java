@@ -1,5 +1,6 @@
 package net.mall.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import net.mall.Filter;
 import net.mall.Setting;
 import net.mall.dao.ProImportQueueDao;
@@ -73,12 +74,16 @@ public class ProImportQueueServiceImpl extends BaseServiceImpl<ProImportQueue, L
                         if(ConvertUtils.isNotEmpty(productImgs)){
                            String[]  proImgArray = productImgs.split(";");
                             for (String fileStr : proImgArray) {
+                                if(fileStr.contains("\\")){
+                                    fileStr = fileStr.replaceAll("\\\\","/");
+                                }
                                 String filePath = uploadDir +"/"+ fileStr;
                                 System.out.println("=======filePath======="+filePath);
                                 File tempFile = new File(filePath);
                                 if(tempFile.exists()){
                                     ProductImage productImage =  productImageService.generate(tempFile);
                                     productImages.add(productImage);
+                                    System.out.println("=================="+ JSON.toJSONString(productImage));
                                 }
                             }
                         }
