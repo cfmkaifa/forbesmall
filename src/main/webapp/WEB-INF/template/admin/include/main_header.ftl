@@ -10,6 +10,20 @@
 		<span class="icon-bar"></span>
 	</button>
 	<ul class="nav pull-right">
+		<li class="palette">
+			<div class="palette_item_wrapper">
+				<div data-color="#e169c3" class="palette_color"></div>
+				<div data-color="#b569e1" class="palette_color"></div>
+				<div data-color="#7169e1" class="palette_color"></div>
+				<div data-color="#69b8e1" class="palette_color"></div>
+				<div data-color="#69e1d4" class="palette_color"></div>
+				<div data-color="#6ce169" class="palette_color"></div>
+				<div data-color="#bee169" class="palette_color"></div>
+				<div data-color="#e1a169" class="palette_color"></div>
+				<div data-color="#83091d" class="palette_color"></div>
+			</div>
+			<p class="palette_color__main">换肤</p>
+		</li>
 		<li>
 			<a href="${base}/admin/profile/edit">${message("admin.mainHeader.profile")}</a>
 		</li>

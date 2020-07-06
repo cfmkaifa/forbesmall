@@ -56,13 +56,10 @@
 								<span class="time">
 									<p style="font-size:17px;">${article.createdDate}</p>
 								</span>
-                                <span class="news_border"></span>
                             </div>
                             <div class="newsTitle">
-                                <a target="_blank" href="${base}${article.path}">
-                                    <span class="newsTitle_text">
-                                        <h3>${article.title}</h3>
-                                    </span>
+                                <a target="_blank" class="newsTitle_text" href="${base}${article.path}">
+                                    ${article.title}
                                 </a>
                                 <a target="_blank" href="${base}${article.path}">
                                     <img src="${base}/resources/shop/images/khcfdc.png" alt="" style="width:18px;">
