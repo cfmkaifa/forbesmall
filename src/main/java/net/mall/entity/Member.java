@@ -122,6 +122,15 @@ public class Member extends User {
     @Transient
     private String password;
 
+
+    /***
+     * 父级ID
+     */
+    @Column(name = "parent_id")
+    private String parentId;
+
+
+
     /**
      * 加密密码
      */
@@ -705,6 +714,14 @@ public class Member extends User {
      */
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(String parentId) {
+        this.parentId = parentId;
     }
 
     /**

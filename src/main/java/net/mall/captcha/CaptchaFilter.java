@@ -14,6 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.mall.util.ConvertUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -82,7 +83,9 @@ public class CaptchaFilter extends OncePerRequestFilter {
         Setting setting = SystemUtils.getSetting();
         String captchaId = request.getParameter(CAPTCHA_ID_PARAMETER_NAME);
         String captcha = request.getParameter(CAPTCHA_PARAMETER_NAME);
-        if (ArrayUtils.contains(setting.getCaptchaTypes(), getCaptchaType()) && !containsIgnoreCase(getNotRequireProtectionRequestMethods(), request.getMethod()) && !captchaService.isValid(captchaId, captcha)) {
+        String isPhone = request.getParameter("isPhone");
+        if ((ConvertUtils.isEmpty(isPhone)
+                || "0".equalsIgnoreCase(isPhone))&&ArrayUtils.contains(setting.getCaptchaTypes(), getCaptchaType()) && !containsIgnoreCase(getNotRequireProtectionRequestMethods(), request.getMethod()) && !captchaService.isValid(captchaId, captcha)) {
             if (WebUtils.isAjaxRequest(request)) {
                 Results.unprocessableEntity(response, "common.message.ncorrectCaptcha");
             } else {

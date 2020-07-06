@@ -16,6 +16,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import javax.inject.Inject;
 import javax.persistence.LockModeType;
 
+import net.mall.util.ConvertUtils;
+import net.mall.util.ForbesContext;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.time.DateUtils;
@@ -28,6 +30,7 @@ import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.subject.Subject;
+import org.codehaus.jettison.Convention;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
@@ -83,13 +86,11 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements User
     public User getUser(AuthenticationToken authenticationToken) {
         Assert.notNull(authenticationToken, "[Assertion failed] - authenticationToken is required; it must not be null");
         Assert.state(authenticationToken instanceof UserAuthenticationToken || authenticationToken instanceof SocialUserAuthenticationToken, "[Assertion failed] - authenticationToken must be instanceof UserAuthenticationToken or SocialUserAuthenticationToken");
-
         User user = null;
         if (authenticationToken instanceof UserAuthenticationToken) {
             UserAuthenticationToken userAuthenticationToken = (UserAuthenticationToken) authenticationToken;
             Class<?> userClass = userAuthenticationToken.getUserClass();
             Object principal = userAuthenticationToken.getPrincipal();
-
             if (userClass == null || principal == null) {
                 throw new UnknownAccountException();
             }
@@ -99,7 +100,6 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements User
             SocialUserAuthenticationToken socialUserAuthenticationToken = (SocialUserAuthenticationToken) authenticationToken;
             user = socialUserAuthenticationToken.getSocialUser() != null ? socialUserAuthenticationToken.getSocialUser().getUser() : null;
         }
-
         if (user == null) {
             throw new UnknownAccountException();
         }
@@ -111,10 +111,21 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements User
         }
         if (authenticationToken instanceof UserAuthenticationToken) {
             Object credentials = authenticationToken.getCredentials();
-            if (!user.isValidCredentials(credentials)) {
-                addFailedLoginAttempt(user);
-                tryLock(user);
-                throw new IncorrectCredentialsException();
+            String reqUri = ForbesContext.getReqUri();
+            if(ConvertUtils.isNotEmpty(reqUri)
+                    && "1".equalsIgnoreCase(reqUri)){
+                String oldPhoneCode = ForbesContext.getSessionPhoneCode();
+                ForbesContext.clearThread();
+                if(!oldPhoneCode.equalsIgnoreCase(String.valueOf((char[]) credentials) )){
+                    throw new IncorrectCredentialsException();
+                }
+            }/***密码登录**/
+            else {
+                if (!user.isValidCredentials(credentials)) {
+                    addFailedLoginAttempt(user);
+                    tryLock(user);
+                    throw new IncorrectCredentialsException();
+                }
             }
         }
         if (authenticationToken instanceof HostAuthenticationToken) {

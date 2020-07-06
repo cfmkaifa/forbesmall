@@ -74,8 +74,8 @@
 	<setting name="isCnzzEnabled" value="false" />
 	<setting name="cnzzSiteId" value="" />
 	<setting name="cnzzPassword" value="" />
-	<setting name="smsAppId" value="EUCP-EMY-SMS0-0ET3J" />
-	<setting name="smsSecretKey" value="DBFB2E4B5EF73B43" />
+	<setting name="smsAppId" value="EUCP-EMY-SMS1-9A3DH" />
+	<setting name="smsSecretKey" value="3A1BFC84FDE90069" />
 	<setting name="locale" value="zh_CN" />
 
 	<templateConfig id="header" type="PAGE" name="头部" templatePath="shop/include/main_header.ftl" />
@@ -131,4 +131,5 @@
 	<templateConfig id="registerBusinessSms" type="SMS" name="商家注册" templatePath="shop/sms/register_business.ftl" />
 	<templateConfig id="approvalStoreSms" type="SMS" name="店铺审核成功" templatePath="shop/sms/approval_store.ftl" />
 	<templateConfig id="failStoreSms" type="SMS" name="店铺审核失败" templatePath="shop/sms/fail_store.ftl" />
+	<templateConfig id="loginSms" type="SMS" name="手机登录" templatePath="shop/sms/login_phone.ftl" />
 </mall>

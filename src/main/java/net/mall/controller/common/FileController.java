@@ -11,12 +11,18 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
+import net.mall.model.ResultModel;
+import net.mall.util.BusTypeEnum;
+import net.mall.util.RestTemplateUtil;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import net.mall.FileType;
@@ -54,6 +60,27 @@ public class FileController {
     private void initUploadDir() {
         Setting setting = SystemUtils.getSetting();
         fileDir = setting.getUploadDir();
+    }
+
+
+    /***查询链详情
+     * @param fileUrl
+     * @param request
+     * @return
+     */
+    @PostMapping("/chain")
+    @ResponseBody
+    public ResponseEntity<?> chain(String fileUrl, HttpServletRequest request) {
+        try {
+            String idStr = java.net.URLDecoder.decode(fileUrl,"utf-8");
+            ResultModel responseEntity = RestTemplateUtil.reqTemplate(idStr, BusTypeEnum.FILE.getCode());
+            if("000000".equals(responseEntity.getResultCode())){
+                return Results.status(HttpStatus.OK,responseEntity.getData());
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return Results.OK;
     }
 
     /**

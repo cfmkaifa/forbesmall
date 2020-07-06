@@ -94,6 +94,8 @@
 			<mvc:exclude-mapping path="/member/order/chain" />
 			<mvc:exclude-mapping path="/member/order/delivery-chain" />
 			<mvc:exclude-mapping path="/member/order/payorder-chain" />
+			<mvc:exclude-mapping path="/common/file/chain" />
+			<mvc:exclude-mapping path="/common/captcha/vericode" />
 			<mvc:exclude-mapping path="/payment/**" />
 			<bean class="net.mall.security.CsrfInterceptor" />
 		</mvc:interceptor>

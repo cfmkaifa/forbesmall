@@ -14,6 +14,8 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.mall.util.ConvertUtils;
+import net.mall.util.ForbesContext;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.DisabledAccountException;
@@ -55,6 +57,7 @@ public class AuthenticationFilter extends FormAuthenticationFilter {
     private ApplicationEventPublisher applicationEventPublisher;
     @Inject
     private UserService userService;
+    private String PHONE_FORMAT = "phone%s";
 
     /**
      * 创建令牌
@@ -66,6 +69,14 @@ public class AuthenticationFilter extends FormAuthenticationFilter {
     @Override
     protected org.apache.shiro.authc.AuthenticationToken createToken(ServletRequest servletRequest, ServletResponse servletResponse) {
         String username = getUsername(servletRequest);
+        HttpServletRequest request = (HttpServletRequest) servletRequest;
+        String isPhone = org.apache.shiro.web.util.WebUtils.getCleanParam(request, "isPhone");
+        if(ConvertUtils.isNotEmpty(isPhone)
+                && "1".equalsIgnoreCase(isPhone)){
+            ForbesContext.setReqUri(isPhone);
+            Object oldPhoneCode = request.getSession().getAttribute(String.format(PHONE_FORMAT,username));
+            ForbesContext.setSessionPhoneCode(oldPhoneCode.toString());
+        }
         String password = getPassword(servletRequest);
         boolean rememberMe = isRememberMe(servletRequest);
         String host = getHost(servletRequest);
@@ -101,7 +112,6 @@ public class AuthenticationFilter extends FormAuthenticationFilter {
     protected boolean onAccessDenied(ServletRequest servletRequest, ServletResponse servletResponse) throws Exception {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
-
         if (isLoginRequest(request, response)) {
             if (isLoginSubmission(request, response)) {
                 return executeLogin(request, response);
@@ -137,9 +147,7 @@ public class AuthenticationFilter extends FormAuthenticationFilter {
     protected boolean onLoginSuccess(org.apache.shiro.authc.AuthenticationToken authenticationToken, Subject subject, ServletRequest servletRequest, ServletResponse servletResponse) throws Exception {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
-
         applicationEventPublisher.publishEvent(new UserLoggedInEvent(this, userService.getCurrent()));
-
         if (WebUtils.isAjaxRequest(request)) {
             Results.ok(response, Results.DEFAULT_OK_MESSAGE);
             return false;
