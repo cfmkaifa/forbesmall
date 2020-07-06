@@ -316,8 +316,10 @@
                     <span>${message("shop.product.trip")}</span>
                 </div>
                 <div id="mainHeaderCart" class="cart">
-                    <i class="iconfont icon-cart"></i>
-                    <a href="${base}/cart/list">${message("shop.mainHeader.cart")}</a>
+                    <a href="${base}/cart/list">
+                        <i class="iconfont icon-cart"></i>
+                        <span>${message("shop.mainHeader.cart")}</span>
+                    </a>
                     <em></em>
                     <div class="cart-detail"></div>
                 </div>

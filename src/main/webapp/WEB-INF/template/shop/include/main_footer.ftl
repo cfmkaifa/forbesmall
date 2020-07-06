@@ -121,7 +121,6 @@
                     <dd>
                         <a href="${base}/article/detail/10466_1">退款说明</a>
                     </dd>
-
                 </dl>
             </div>
             <div class="col-xs-2">
@@ -159,19 +158,20 @@
         <div class="record">
             <div style="text-align:center; margin-top:10px;">
                 <a href="https://rz.ce9000.org/QX8687805698.html">
-                    <img src="https://rz.ce9000.org/cec/qxrz.png" alt="企信验证实名网站" width="128" height="47" border="0" />
+                    <img src="https://rz.ce9000.org/cec/qxrz.png" alt="企信验证实名网站" width="68" height="27" border="0" />
                 </a>
             </div>
-            <div class="foots">
+[#--            <div class="foots">--]
                 <p><a href="https://tsm.miit.gov.cn" target="_blank">沪B2-20200070</a></p>
                 <p><a href="http://www.beian.miit.gov.cn/" target="_blank">沪ICP备17024305号-2</a></p>
+[#--            </div>--]
+
+            <div style=" padding:15px 0; color: #333333">
+                <a target="_blank" href=" " style="display:inline-block;text-decoration:none;height:20px;line-height:20px;">
+                    <img src="${base}/resources/shop/images/police.png" style="float:left;"/>
+                    <p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#333333;">沪公网安备 31011802004050号</p >
+                </a>
             </div>
-        </div>
-        <div style="width:300px;margin:0 auto; padding:20px 0;">
-            <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=31011802004050" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;">
-                <img src="${base}/resources/shop/images/police.png" style="float:left;"/>
-                <p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">沪公网安备 31011802004050号</p >
-            </a>
         </div>
     </div>
 </footer>
