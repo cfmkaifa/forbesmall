@@ -221,6 +221,7 @@
 [#include "/shop/include/main_header.ftl" /]
 [#include "/shop/include/main_sidebar.ftl" /]
 <main>
+    [#include "/common/block_chain.ftl" /]
     <div class="container">
         <form id="compareForm" action="${base}/product/compare" method="get">
             <div id="compareBar" class="compare-bar">
@@ -346,6 +347,7 @@
 																<b>
 																	<a href="${base}${product.path}" target="_blank">
                                                                         <h5 class="text-overflow"  title="${product.name}">${product.name}</h5>
+                                                                         <img src="${base}/resources/shop/images/block.png" onmouseover="blockChain(this)"   dataId="${product.id}" dataUrl="/business/product/chain" >
                                                                         [#if product.caption?has_content]
                                                                             <h6 class="text-overflow" title="${product.caption}">${product.caption}</h6>
                                                                         [/#if]
@@ -385,8 +387,10 @@
                                                             <p class="text-center">
                                                                 [#if product.purch ]
                                                                     ${product.member.name}
+                                                                    <img src="${base}/resources/shop/images/block.png" onmouseover="blockChain(this)"   dataId="${product.member.id}" dataUrl="/business/index/chain" >
                                                                 [#else ]
                                                                     <a href="${base}${product.store.path}" title="${product.store.name}" target="_blank">${product.store.name}</a>
+                                                                    <img src="${base}/resources/shop/images/block.png" onmouseover="blockChain(this)"   dataId="${product.store.business.id}" dataUrl="/business/index/chain" >
                                                                 [/#if]
                                                                 [#if product.store?has_content ]
                                                                     [#if product.store.type == "SELF"]

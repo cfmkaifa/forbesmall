@@ -310,6 +310,7 @@
 <body class="shop product-list">
 [#include "/shop/include/main_header.ftl" /]
 [#include "/shop/include/main_sidebar.ftl" /]
+[#include "/common/block_chain.ftl" /]
 <main>
     <div class="container">
         <form id="compareForm" action="${base}/product/compare" method="get">
@@ -549,6 +550,7 @@
 																	<a href="${base}${product.path}" target="_blank">
 																	<h5 class="text-overflow"
                                                                         title="${product.name}">${product.name}</h5>
+                                                                        <img src="${base}/resources/shop/images/block.png" onmouseover="blockChain(this)"   dataId="${product.id}" dataUrl="/business/product/chain" >
 																	[#if product.caption?has_content]
                                                                         <h6 class="text-overflow"
                                                                             title="${product.caption}">${product.caption}</h6>
@@ -590,6 +592,7 @@
                                                                    title="${product.store.name}"
                                                                    target="_blank">${product.store.name}
                                                                 </a>
+                                                                <img src="${base}/resources/shop/images/block.png" onmouseover="blockChain(this)"   dataId="${product.store.business.id}" dataUrl="/business/index/chain" >
                                                                 [#if product.store.type == "SELF"]
                                                                     <span class="label label-primary">${message("Store.Type.SELF")}</span>
                                                                 [/#if]
