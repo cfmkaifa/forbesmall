@@ -398,7 +398,7 @@
                                                 [/#list]
                                                 <a style="float: right; margin-right: 14px; cursor: pointer; font-size: 14px;"
                                                    href="[@pattern?replace('${adFactory.pageable.pageNumber}', '${nextPageNumber}')?interpret /]"
-                                                   data-page-number="${nextPageNumber}">更多 ${adFactory.pageable.pageNumber}</a>
+                                                   data-page-number="${nextPageNumber}">更多</a>
                                             [/@ad_factory]
                                         </div>
                                     </div>

@@ -146,6 +146,13 @@
                 [/@store_product_tag_list]
             </div>
         </div>
+        [@pagination pageNumber = page.pageNumber totalPages = page.totalPages]
+            [#if totalPages > 1]
+                <div class="panel-footer text-right">
+                    [#include "/business/include/pagination.ftl" /]
+                </div>
+            [/#if]
+        [/@pagination]
     </div>
 </main>
 [#include "/shop/include/main_footer.ftl" /]

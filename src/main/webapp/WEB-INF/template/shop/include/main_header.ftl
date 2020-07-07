@@ -19,7 +19,7 @@
         <li>
             <a href="${base}/member/register">${message("shop.mainHeader.memberRegister")}</a>
         </li>
-        [@navigation_list navigationGroupId = 1]
+       [#-- [@navigation_list navigationGroupId = 1]
             [#if navigations?has_content]
                 [#list navigations as navigation]
                     <li>
@@ -27,7 +27,7 @@
                     </li>
                 [/#list]
             [/#if]
-        [/@navigation_list]
+        [/@navigation_list]--]
     </ul>
     <%}%>
 </script>
@@ -186,7 +186,7 @@
                         [#if currentStoreUser?has_content]
                                 <ul class="list-inline">
                                     <li>
-                                        <a href="${base}/member/index">${message("shop.mainHeader.username")}${currentStoreUser.username}</a>
+                                        <a>${message("shop.mainHeader.username")}${currentStoreUser.username}</a>
                                     </li>
                                     <li>
                                         <a href="${base}/business/index/home" target="_blank">${message("shop.mainHeader.manager")}</a>
@@ -233,7 +233,7 @@
                                 </ul>
                         [#else]
                                 <li class="top-nav-dropdown">
-                                    <a href="javascript:;">
+                                    <a href="${base}/business/login">
                                         ${message("shop.mainHeader.business")}
                                         <span class="caret"></span>
                                     </a>
@@ -280,12 +280,12 @@
                         [/#if]
                         <!--供应商end-->
                     </ul>
-                    [#if !currentStoreUser?has_content]
+                   [#-- [#if !currentStoreUser?has_content]
                         <div class="dialog">
                             <p class="wrong">×</p>
                             <a href="${base}/business/login">${message("shop.mainHeader.businessIndex")}</a>
                         </div>
-                    [/#if]
+                    [/#if]--]
                 </div>
             </div>
         </div>

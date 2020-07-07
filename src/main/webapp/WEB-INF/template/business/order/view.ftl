@@ -1709,25 +1709,21 @@
                                         <tr>
                                             <th>${message("OrderPayment.sn")}</th>
                                             <th>${message("OrderPayment.method")}</th>
-                                            <th>${message("OrderPayment.paymentMethod")}</th>
-                                            <th>${message("OrderPayment.fee")}</th>
+                                            <th>${message("business.mainSidebar.shippingMethodList")}</th>
                                             <th>${message("OrderPayment.amount")}</th>
                                             <th>${message("common.createdDate")}</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        [#list order.orderPayments as orderPayment]
                                             <tr>
-                                                <td>${orderPayment.sn}</td>
-                                                <td>${message("OrderPayment.Method." + orderPayment.method)}</td>
-                                                <td>${orderPayment.paymentMethod!"-"}</td>
-                                                <td>${currency(orderPayment.fee, true)}</td>
-                                                <td>${currency(orderPayment.amount, true)}</td>
+                                                <td>${order.sn}</td>
+                                                <td>${order.paymentMethodName}</td>
+                                                <td>${order.shippingMethodName}</td>
+                                                <td>${order.amount}</td>
                                                 <td>
-                                                    <span title="${orderPayment.createdDate?string("yyyy-MM-dd HH:mm:ss")}" data-toggle="tooltip">${orderPayment.createdDate}</span>
+                                                    <span title="${order.createdDate?string("yyyy-MM-dd HH:mm:ss")}" data-toggle="tooltip">${order.createdDate}</span>
                                                 </td>
                                             </tr>
-                                        [/#list]
                                         </tbody>
                                     </table>
                                     [#if !order.orderPayments?has_content]

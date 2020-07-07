@@ -145,12 +145,12 @@
 													<input name="reviewEntryList[${orderItem_index}].review.score" class="rating rating-loading" value="5" data-size="lg"[#if !orderItem.sku?has_content] disabled[/#if]>
 												</div>
 											</div>
-											<div class="[#if !orderItem.sku?has_content]hidden-element [/#if]form-group">
+											[#--<div class="[#if !orderItem.sku?has_content]hidden-element [/#if]form-group">
 												<label class="col-xs-3 col-sm-2 control-label" for="content[${orderItem_index}]">${message("Review.content")}:</label>
 												<div class="col-xs-9 col-sm-4">
 													<textarea id="content[${orderItem_index}]" name="reviewEntryList[${orderItem_index}].review.content" class="content form-control" rows="5"></textarea>
 												</div>
-											</div>
+											</div>--]
 											[#if !orderItem?has_next && setting.captchaTypes?? && setting.captchaTypes?seq_contains("REVIEW")]
 												<div class="form-group">
 													<label class="col-xs-3 col-sm-2 control-label item-required">${message("common.captcha.name")}:</label>
