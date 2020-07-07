@@ -129,6 +129,7 @@ public class ProductController extends BaseController {
         Set<Sku> skuSet=product.getSkus();
         for(Sku temp:skuSet){
             List<SpecificationValue> specificationValues=temp.getSpecificationValues();
+            model.addAttribute("stock",temp.getStock());
             for(SpecificationValue spec:specificationValues){
                 if(spec.getValue().contains("mm")){
                     model.addAttribute("temp_commodity_length",spec.getValue());
@@ -140,6 +141,7 @@ public class ProductController extends BaseController {
                     model.addAttribute("temp_commodity_color",spec.getValue());
                 }
             }
+            break;
         }
         return "shop/product/detail";
     }

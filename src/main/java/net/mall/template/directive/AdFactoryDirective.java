@@ -51,7 +51,7 @@ public class AdFactoryDirective extends BaseDirective {
     @Override
     public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException, IOException {
         Pageable pageable = new Pageable();
-        pageable.setPageSize(6);
+        pageable.setPageSize(12);
         Page<Store> stores = storeService.findPage(pageable);
         setLocalVariable(VARIABLE_NAME, stores, env, body);
     }

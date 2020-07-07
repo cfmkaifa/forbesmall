@@ -507,6 +507,12 @@
                                 </div>
                                 <span class="unit">${message("Product.defaultUnit")}</span>
                             </dd>
+                            <dt>
+                                ${message("shop.product.stock")}:
+                            </dt>
+                            <dd>
+                                <span style="margin-left:42px;">${stock}  ${message("Product.defaultUnit")}</span>
+                            </dd>
                         </dl>
                     </div>
                     <div class="action">

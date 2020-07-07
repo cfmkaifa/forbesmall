@@ -44,7 +44,10 @@
 						<input name="hasExpired" type="hidden" value="${(hasExpired?string("true", "false"))!}">
 						<input name="pageNumber" type="hidden" value="${page.pageNumber}">
 						<div class="order-list panel panel-default">
-							<div class="panel-heading">${message("member.order.list")}</div>
+							<div class="panel-heading">
+								<span>${message("member.order.list")}</span>
+								<button type="button" class="btn btn-default">默认按钮</button>
+							</div>
 							<div class="panel-body">
 								[#if page.content?has_content]
 									<ul class="media-list">

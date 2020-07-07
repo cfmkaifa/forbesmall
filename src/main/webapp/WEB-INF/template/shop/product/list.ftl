@@ -792,17 +792,22 @@
                                                         <button type="button" class="button-3">${message("shop.product.detail")}</button>
                                                     </a>
                                                 [#else ]
-                                                    <object>
-                                                        <a href="${base}${product.path}" target="_blank">
-                                                            <button type="button"
-                                                                    class="button-3">${message("shop.product.detail")}</button>
-                                                        </a>
-                                                    </object>
                                                     [#if product.sample]
                                                         <object>
+                                                            <a href="${base}/product/sample-detail/${product.id}" target="_blank">
+                                                                <button type="button" class="button-3">${message("shop.product.detail")}</button>
+                                                            </a>
+                                                        </object>
+                                                        <object>
                                                             <a href="${base}/product/sample-detail/${product.id}"  target="_blank">
+                                                                <button type="button" class="button-4">${message("shop.product.sample")}</button>
+                                                            </a>
+                                                        </object>
+                                                    [#else ]
+                                                        <object>
+                                                            <a href="${base}${product.path}" target="_blank">
                                                                 <button type="button"
-                                                                        class="button-4">${message("shop.product.sample")}</button>
+                                                                        class="button-3">${message("shop.product.detail")}</button>
                                                             </a>
                                                         </object>
                                                     [/#if]
