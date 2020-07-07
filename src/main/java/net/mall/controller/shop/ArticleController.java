@@ -10,6 +10,8 @@ import java.util.*;
 
 import javax.inject.Inject;
 
+import net.mall.entity.*;
+import net.mall.security.CurrentStore;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -25,15 +27,6 @@ import net.mall.Filter;
 import net.mall.Page;
 import net.mall.Pageable;
 import net.mall.Results;
-import net.mall.entity.Article;
-import net.mall.entity.ArticleCategory;
-import net.mall.entity.BaseEntity;
-import net.mall.entity.Business;
-import net.mall.entity.Member;
-import net.mall.entity.MemberRank;
-import net.mall.entity.Sn;
-import net.mall.entity.StoreRank;
-import net.mall.entity.SubsNewsHuman;
 import net.mall.exception.ResourceNotFoundException;
 import net.mall.plugin.PaymentPlugin;
 import net.mall.security.CurrentUser;
@@ -463,7 +456,8 @@ public class ArticleController extends BaseController {
      * @return
      */
     @GetMapping(value = "/smart")
-    public String amrtFactory(){
+    public String amrtFactory(@CurrentUser Business currentUser, ModelMap model){
+        model.addAttribute("currentStoreUser",currentUser);
         return "/shop/declare/smart";
     }
 }

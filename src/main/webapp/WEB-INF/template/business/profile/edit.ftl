@@ -123,18 +123,18 @@
 								<dl class="items dl-horizontal clearfix">
 									<dt>${message("Business.username")}:</dt>
 									<dd>${currentUser.username}</dd>
-									<dt>${message("Business.balance")}:</dt>
+									[#--<dt>${message("Business.balance")}:</dt>
 									<dd>
 										<span class="text-red">${currency(currentUser.balance, true, true)}</span>
-									</dd>
-									[#if currentUser.frozenAmount > 0]
+									</dd>--]
+									[#--[#if currentUser.frozenAmount > 0]
 										<dt>${message("Business.frozenAmount")}:</dt>
 										<dd>
 											<span class="text-gray">${currency(currentUser.frozenAmount, true, true)}</span>
 										</dd>
-									[/#if]
-									<dt>${message("Store.bailPaid")}:</dt>
-									<dd>${currency(currentStore.bailPaid, true, true)}</dd>
+									[/#if]--]
+									[#--<dt>${message("Store.bailPaid")}:</dt>
+									<dd>${currency(currentStore.bailPaid, true, true)}</dd>--]
 									<dt>${message("common.createdDate")}:</dt>
 									<dd>${currentUser.createdDate?string("yyyy-MM-dd HH:mm:ss")}</dd>
 								</dl>

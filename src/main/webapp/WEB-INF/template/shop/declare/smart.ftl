@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="author" content="huanghy">
+	<meta name="copyright" content="">
 		<title>智能工厂</title>
 		<link rel="stylesheet" type="text/css" href="/resources/shop/css/common.css"/>
 		<link rel="stylesheet" type="text/css" href="/resources/shop/css/smart.css"/>
@@ -14,8 +19,17 @@
 		<link href="${base}/resources/shop/css/base.css" rel="stylesheet">
 		<link href="${base}/resources/shop/css/iconfont.css" rel="stylesheet">
 		<link href="${base}/resources/shop/css/index.css?version=0.3" rel="stylesheet">
-
+	    <!--[if lt IE 9]>
+		<script src="${base}/resources/common/js/html5shiv.js"></script>
+		<script src="${base}/resources/common/js/respond.js"></script>
+	    <![endif]-->
 		<script src="${base}/resources/common/js/jquery.js"></script>
+		<script src="${base}/resources/common/js/bootstrap.js"></script>
+		<script src="${base}/resources/common/js/jquery.lazyload.js"></script>
+		<script src="${base}/resources/common/js/jquery.bxslider.js"></script>
+		<script src="${base}/resources/common/js/jquery.qrcode.js"></script>
+		<script src="${base}/resources/common/js/base.js"></script>
+		<script src="${base}/resources/common/js/underscore.js"></script>
 	</head>
 	<body>
 	[#include "/shop/include/main_header.ftl" /]
@@ -200,7 +214,6 @@
 		</div>
 	 [#include "/shop/include/main_footer.ftl" /]
 	</body>
-	<script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.js"></script>
 	<script type="text/javascript">
 		$(function(){
 			$(".smartnav-ul li").click(function(){

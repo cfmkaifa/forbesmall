@@ -14,9 +14,11 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.fasterxml.jackson.annotation.JsonView;
@@ -91,4 +93,18 @@ public class StoreController extends BaseController {
         Pageable pageable = new Pageable(pageNumber, PAGE_SIZE);
         return ResponseEntity.ok(storeService.search(keyword, pageable).getContent());
     }
+
+
+   /* *//***
+     * 首页工厂资源轮播
+     *//*
+    @PostMapping("/factory")
+        public String factory(ModelMap model){
+        Pageable pageable = new Pageable();
+        pageable.setPageSize(12);
+        Page<Store> stores = storeService.findPage(pageable);
+        model.addAttribute(stores);
+        model.addAttribute("number",pageable.getPageNumber());
+        return "/shop/index";
+    }*/
 }

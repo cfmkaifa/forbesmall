@@ -290,7 +290,6 @@
 			</div>
 		</div>
 	</body>
-	<script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.js"></script>
 	<script src="js/echarts.min.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript">
 		var myChart = echarts.init(document.getElementById('ymain'));

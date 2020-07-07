@@ -75,7 +75,7 @@ public class IndexController extends BaseController {
      * 首页
      */
     @GetMapping
-    public String index(@CurrentStore Store currentStore, ModelMap model, HttpServletRequest request) throws InvalidArgumentException, UnsupportedEncodingException {
+    public String index(@CurrentStore Store currentStore, @CurrentUser Business currentUser,ModelMap model, HttpServletRequest request) throws InvalidArgumentException, UnsupportedEncodingException {
         model.addAttribute("currentStore", currentStore);
         /***供应商登录
          * **/
@@ -86,7 +86,9 @@ public class IndexController extends BaseController {
         properties.put("is_success",true);
         properties.put("fail_reason","");
         sensorsAnalyticsUtils.reportData(String.valueOf(business.getId()),"LoginResult",properties);
-
+        if (currentUser !=null){
+            model.addAttribute("currentStoreUser",currentUser);
+        }
         /***
          * 上报数据调用登录接口
          */
@@ -104,6 +106,15 @@ public class IndexController extends BaseController {
             JSONObject jsonObject= JSON.parseObject(tempObj);
             sensorsAnalyticsUtils.reportSignUp(business.getId().toString(),jsonObject.getString("distinct_id"));
         }
+        return "shop/index";
+    }
+
+    /**
+     * 商家首页
+     */
+    @GetMapping("/home")
+    public String home(@CurrentStore Store currentStore,ModelMap model){
+        model.addAttribute("currentStore", currentStore);
         return "business/index";
     }
 

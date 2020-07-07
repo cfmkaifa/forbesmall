@@ -292,7 +292,6 @@
 			</div>
 		</div>
 	</body>
-	<script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.js"></script>
 	<script src="/resources/shop/js/echarts.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="/resources/shop/js/stack.js" type="text/javascript" charset="utf-8"></script>
 </html>

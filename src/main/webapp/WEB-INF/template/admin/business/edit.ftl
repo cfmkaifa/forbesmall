@@ -168,12 +168,12 @@
 										<input id="mobile" name="mobile" class="form-control" type="text" value="${business.mobile}" maxlength="200">
 									</div>
 								</div>
-								<div class="form-group">
+								[#--<div class="form-group">
 									<label class="col-xs-3 col-sm-2 control-label">${message("Business.balance")}:</label>
 									<div class="col-xs-9 col-sm-4">
 										<p class="form-control-static text-red">${currency(business.balance, true, true)}</p>
 									</div>
-								</div>
+								</div>--]
 								[#if business.frozenAmount > 0]
 									<div class="form-group">
 										<label class="col-xs-3 col-sm-2 control-label">${message("Business.frozenAmount")}:</label>

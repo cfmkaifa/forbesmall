@@ -84,12 +84,12 @@
 								<input id="name" name="name" class="form-control" type="text" value="${storeCategory.name}" maxlength="200">
 							</div>
 						</div>
-						<div class="form-group">
+						[#--<div class="form-group">
 							<label class="col-xs-3 col-sm-2 control-label item-required" for="bail">${message("StoreCategory.bail")}:</label>
 							<div class="col-xs-9 col-sm-4">
 								<input id="bail" name="bail" class="form-control" type="text" value="${storeCategory.bail}" maxlength="16">
 							</div>
-						</div>
+						</div>--]
 						<div class="form-group">
 							<label class="col-xs-3 col-sm-2 control-label" for="order">${message("common.order")}:</label>
 							<div class="col-xs-9 col-sm-4">

@@ -43,6 +43,7 @@ public class LoginController extends BaseController {
     @RequestMapping(value = "/login", method = {RequestMethod.GET, RequestMethod.POST})
     public String index(@CurrentUser Business currentUser, ModelMap model) {
         if (currentUser != null) {
+            model.addAttribute("currentUser",currentUser);
             return "redirect:" + businessLoginSuccessUrl;
         }
         model.addAttribute("businessLoginSuccessUrl", businessLoginSuccessUrl);

@@ -7,7 +7,6 @@
 package net.mall.template.directive;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -22,8 +21,6 @@ import freemarker.core.Environment;
 import freemarker.template.TemplateDirectiveBody;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
-import net.mall.entity.AdPosition;
-import net.mall.service.AdPositionService;
 
 /**
  * 模板指令 - 广告位
@@ -54,7 +51,7 @@ public class AdFactoryDirective extends BaseDirective {
     @Override
     public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException, IOException {
         Pageable pageable = new Pageable();
-        pageable.setPageSize(12);
+        pageable.setPageSize(6);
         Page<Store> stores = storeService.findPage(pageable);
         setLocalVariable(VARIABLE_NAME, stores, env, body);
     }

@@ -31,7 +31,6 @@
 		<script src="${base}/resources/common/js/respond.js"></script>
 	<![endif]-->
     <script src="${base}/resources/common/js/jquery.js"></script>
-    <script src="https://cdn.bootcss.com/jquery/2.2.1/jquery.js"></script>
     <script src="${base}/resources/common/js/bootstrap.js"></script>
     <script src="${base}/resources/common/js/jquery.lazyload.js"></script>
     <script src="${base}/resources/common/js/jquery.bxslider.js"></script>
@@ -390,7 +389,6 @@
                                                                 [#else]
                                                                    ${stores.capacity}${message("shop.index.capacity")}
                                                                 [/#if]
-
                                                             </p>
                                                             <p class="themain-2">${message("shop.index.main")}</p>
                                                             <p class="varieties-2">${stores.keyword}</p>
@@ -398,25 +396,18 @@
                                                     </div>
                                                     [/#if]
                                                 [/#list]
+                                                <a style="float: right; margin-right: 14px; cursor: pointer; font-size: 14px;"
+                                                   href="[@pattern?replace('${adFactory.pageable.pageNumber}', '${nextPageNumber}')?interpret /]"
+                                                   data-page-number="${nextPageNumber}">更多 ${adFactory.pageable.pageNumber}</a>
                                             [/@ad_factory]
                                         </div>
                                     </div>
                                 </div>
-                                <!-- 轮播（Carousel）导航 -->
-[#--                                <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">--]
-[#--                                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>--]
-[#--                                    <span class="sr-only">Previous</span>--]
-[#--                                </a>--]
-[#--                                <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">--]
-[#--                                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>--]
-[#--                                    <span class="sr-only">Next</span>--]
-[#--                                </a>--]
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         [/@product_category_root_list]
         <div class="row">
             [@product_category_root_list count = 3]
@@ -490,7 +481,6 @@
         }, function () {
             $('.carousel-control').stop().fadeOut("slow");
         })
-
     })
 
     //顶部运营位点击埋点事件

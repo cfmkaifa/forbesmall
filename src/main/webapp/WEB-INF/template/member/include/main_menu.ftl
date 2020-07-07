@@ -18,9 +18,9 @@
 			<dd[#if .main_template_name?matches(".*/coupon_code/exchange.*")] class="active"[/#if]>
 				<a href="${base}/member/coupon_code/exchange">${message("member.mainMenu.couponCodeExchange")}</a>
 			</dd>--]
-			<dd[#if .main_template_name?matches(".*/point_log/.*")] class="active"[/#if]>
+			[#--<dd[#if .main_template_name?matches(".*/point_log/.*")] class="active"[/#if]>
 				<a href="${base}/member/point_log/list">${message("member.mainMenu.pointLogList")}</a>
-			</dd>
+			</dd>--]
 		</dl>
 		<dl>
 			<dt>
@@ -82,7 +82,7 @@
 				<a href="${base}/member/social_user/list">${message("member.mainMenu.socialUserList")}</a>
 			</dd>
 		</dl>
-		<dl>
+		[#--<dl>
 			<dt>
 				<i class="iconfont icon-recharge"></i>
 				${message("member.mainMenu.memberDeposit")}
@@ -93,7 +93,7 @@
 			<dd[#if .main_template_name?matches(".*/member_deposit/log.*")] class="active"[/#if]>
 				<a href="${base}/member/member_deposit/log">${message("member.mainMenu.memberDepositLog")}</a>
 			</dd>
-		</dl>
+		</dl>--]
 		<dl>
 			<dt>
 				<i class="iconfont icon-text"></i>
@@ -103,7 +103,7 @@
 				<a href="${base}/member/aftersales/list">${message("member.mainMenu.aftersalesList")}</a>
 			</dd>
 		</dl>
-		[#if currentUser.isDistributor]
+		[#--[#if currentUser.isDistributor]
 			<dl>
 				<dt>
 					<i class="iconfont icon-friend"></i>
@@ -116,6 +116,6 @@
 					<a href="${base}/member/distribution_commission/list">${message("member.mainMenu.distributionCommissionList")}</a>
 				</dd>
 			</dl>
-		[/#if]
+		[/#if]--]
 	</div>
 </div>

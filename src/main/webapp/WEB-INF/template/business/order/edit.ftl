@@ -85,7 +85,6 @@
 				// 开具发票
 				$isInvoice.change(function() {
 					var checked = $(this).prop("checked");
-					
 					$invoiceTitle.prop("disabled", !checked);
 					$invoiceTaxNumber.prop("disabled", !checked);
 					[#if order.status == "PENDING_PAYMENT" && order.amountPaid <= 0]
@@ -222,16 +221,16 @@
 											<dd id="amount">${currency(order.amount, true, true)}</dd>
 											<dt>${message("Order.weight")}:</dt>
 											<dd>${order.weight}</dd>
-											<dt>${message("business.order.promotion")}:</dt>
+											[#--<dt>${message("business.order.promotion")}:</dt>
 											<dd>
 												[#if order.promotionNames?has_content]
 													${order.promotionNames?join(", ")}
 												[#else]
 													-
 												[/#if]
-											</dd>
-											<dt>${message("business.order.coupon")}:</dt>
-											<dd>${(order.couponCode.coupon.name)!"-"}</dd>
+											</dd>--]
+											[#--<dt>${message("business.order.coupon")}:</dt>
+											<dd>${(order.couponCode.coupon.name)!"-"}</dd>--]
 											<dt>${message("Order.fee")}:</dt>
 											<dd>${currency(order.fee, true, true)}</dd>
 										</dl>
@@ -247,10 +246,10 @@
 													<span class="text-orange">(${message("Order.expire")}: ${order.expire?string("yyyy-MM-dd HH:mm:ss")})</span>
 												[/#if]
 											</dd>
-											<dt>${message("Member.memberRank")}:</dt>
-											<dd>${order.member.memberRank.name}</dd>
-											<dt>${message("Order.exchangePoint")}:</dt>
-											<dd>${order.exchangePoint}</dd>
+											[#--<dt>${message("Member.memberRank")}:</dt>
+											<dd>${order.member.memberRank.name}</dd>--]
+											[#--<dt>${message("Order.exchangePoint")}:</dt>
+											<dd>${order.exchangePoint}</dd>--]
 											<dt>${message("Order.amountPaid")}:</dt>
 											<dd>
 												<span class="text-red">${currency(order.amountPaid, true, true)}</span>
@@ -260,10 +259,10 @@
 											</dd>
 											<dt>${message("Order.quantity")}:</dt>
 											<dd>${order.quantity}</dd>
-											<dt>${message("Order.promotionDiscount")}:</dt>
+											[#--<dt>${message("Order.promotionDiscount")}:</dt>
 											<dd>${currency(order.promotionDiscount, true, true)}</dd>
 											<dt>${message("Order.couponDiscount")}:</dt>
-											<dd>${currency(order.couponDiscount, true, true)}</dd>
+											<dd>${currency(order.couponDiscount, true, true)}</dd>--]
 										</dl>
 									</div>
 									<div class="col-xs-12 col-sm-6">
@@ -274,22 +273,22 @@
 											</div>
 										</div>
 									</div>
-									<div class="col-xs-12 col-sm-6">
+									[#--<div class="col-xs-12 col-sm-6">
 										<div class="form-group">
 											<label class="col-xs-3 col-sm-4 control-label item-required" for="offsetAmount">${message("Order.offsetAmount")}:</label>
 											<div class="col-xs-9 col-sm-4">
 												<input id="offsetAmount" name="offsetAmount" class="form-control" type="text" value="${order.offsetAmount}" maxlength="16"[#if order.status == "PENDING_REVIEW" || order.amountPaid > 0] disabled[/#if]>
 											</div>
 										</div>
-									</div>
-									<div class="col-xs-12 col-sm-6">
+									</div>--]
+									[#--<div class="col-xs-12 col-sm-6">
 										<div class="form-group">
 											<label class="col-xs-3 col-sm-4 control-label item-required" for="rewardPoint">${message("Order.rewardPoint")}:</label>
 											<div class="col-xs-9 col-sm-4">
 												<input id="rewardPoint" name="rewardPoint" class="form-control" type="text" value="${order.rewardPoint}" maxlength="9">
 											</div>
 										</div>
-									</div>
+									</div>--]
 									<div class="col-xs-12 col-sm-6">
 										<div class="form-group">
 											<label class="col-xs-3 col-sm-4 control-label">${message("Order.paymentMethod")}:</label>

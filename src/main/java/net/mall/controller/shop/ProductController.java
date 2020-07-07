@@ -377,12 +377,12 @@ public class ProductController extends BaseController {
      * 列表
      */
     @GetMapping("/list")
-    public String list(HttpServletRequest request,Product.Type type, Store.Type storeType, Long storeProductCategoryId, Long brandId, Long promotionId, Long productTagId, BigDecimal startPrice, BigDecimal endPrice, Boolean isOutOfStock, Product.OrderType orderType, Integer pageNumber, Integer pageSize, ModelMap model) {
+    public String list(@CurrentUser Business currentUser,HttpServletRequest request,Product.Type type, Store.Type storeType, Long storeProductCategoryId, Long brandId, Long promotionId, Long productTagId, BigDecimal startPrice, BigDecimal endPrice, Boolean isOutOfStock, Product.OrderType orderType, Integer pageNumber, Integer pageSize, ModelMap model) {
         StoreProductCategory storeProductCategory = storeProductCategoryService.find(storeProductCategoryId);
         Brand brand = brandService.find(brandId);
         Promotion promotion = promotionService.find(promotionId);
         ProductTag productTag = productTagService.find(productTagId);
-
+        model.addAttribute("currentStoreUser",currentUser);
         if (startPrice != null && endPrice != null && startPrice.compareTo(endPrice) > 0) {
             BigDecimal tempPrice = startPrice;
             startPrice = endPrice;
@@ -551,9 +551,10 @@ public class ProductController extends BaseController {
      * 团购列表
      */
     @GetMapping("/pro_purch/list")
-    public String proPurchlist(Product.Type type, Store.Type storeType, Long storeProductCategoryId, Long brandId, Long promotionId, Long productTagId, BigDecimal startPrice, BigDecimal endPrice, Boolean isOutOfStock, Product.OrderType orderType, Integer pageNumber, Integer pageSize, ModelMap model) {
+    public String proPurchlist(@CurrentUser Business currentUser,Product.Type type, Store.Type storeType, Long storeProductCategoryId, Long brandId, Long promotionId, Long productTagId, BigDecimal startPrice, BigDecimal endPrice, Boolean isOutOfStock, Product.OrderType orderType, Integer pageNumber, Integer pageSize, ModelMap model) {
         StoreProductCategory storeProductCategory = storeProductCategoryService.find(storeProductCategoryId);
         Brand brand = brandService.find(brandId);
+        model.addAttribute("currentStoreUser",currentUser);
         Promotion promotion = promotionService.find(promotionId);
         ProductTag productTag = productTagService.find(productTagId);
 
@@ -589,8 +590,9 @@ public class ProductController extends BaseController {
      */
     @GetMapping(path = "/pro_purch/list", produces = MediaType.APPLICATION_JSON_VALUE)
     @JsonView(BaseEntity.BaseView.class)
-    public ResponseEntity<?> proPurchlist(Long productCategoryId, Product.Type type, Long storeProductCategoryId, Long brandId, Long promotionId, Long productTagId, BigDecimal startPrice, BigDecimal endPrice, Product.OrderType orderType, Integer pageNumber, Integer pageSize, HttpServletRequest request) {
+    public ResponseEntity<?> proPurchlist(@CurrentUser Business currentUser,ModelMap model,Long productCategoryId, Product.Type type, Long storeProductCategoryId, Long brandId, Long promotionId, Long productTagId, BigDecimal startPrice, BigDecimal endPrice, Product.OrderType orderType, Integer pageNumber, Integer pageSize, HttpServletRequest request) {
         ProductCategory productCategory = productCategoryService.find(productCategoryId);
+        model.addAttribute("currentStoreUser",currentUser);
         StoreProductCategory storeProductCategory = storeProductCategoryService.find(storeProductCategoryId);
         Brand brand = brandService.find(brandId);
         Promotion promotion = promotionService.find(promotionId);
@@ -626,7 +628,7 @@ public class ProductController extends BaseController {
      * 团购列表
      */
     @GetMapping("/group_purch/list")
-    public String groupPurchlist(Product.Type type, Store.Type storeType, Long storeProductCategoryId, Long brandId, Long promotionId, Long productTagId, BigDecimal startPrice, BigDecimal endPrice, Boolean isOutOfStock, Product.OrderType orderType, Integer pageNumber, Integer pageSize, ModelMap model) {
+    public String groupPurchlist(@CurrentUser Business currentUser,Product.Type type, Store.Type storeType, Long storeProductCategoryId, Long brandId, Long promotionId, Long productTagId, BigDecimal startPrice, BigDecimal endPrice, Boolean isOutOfStock, Product.OrderType orderType, Integer pageNumber, Integer pageSize, ModelMap model) {
         StoreProductCategory storeProductCategory = storeProductCategoryService.find(storeProductCategoryId);
         Brand brand = brandService.find(brandId);
         Promotion promotion = promotionService.find(promotionId);
@@ -636,6 +638,7 @@ public class ProductController extends BaseController {
             startPrice = endPrice;
             endPrice = tempPrice;
         }
+        model.addAttribute("currentStoreUser",currentUser);
         if(ConvertUtils.isEmpty(orderType)){
             orderType = Product.OrderType.DATE_DESC;
         }
@@ -663,8 +666,9 @@ public class ProductController extends BaseController {
      */
     @GetMapping(path = "/group_purch/list", produces = MediaType.APPLICATION_JSON_VALUE)
     @JsonView(BaseEntity.BaseView.class)
-    public ResponseEntity<?> groupPurchlist(Long productCategoryId, Product.Type type, Long storeProductCategoryId, Long brandId, Long promotionId, Long productTagId, BigDecimal startPrice, BigDecimal endPrice, Product.OrderType orderType, Integer pageNumber, Integer pageSize, HttpServletRequest request) {
+    public ResponseEntity<?> groupPurchlist(@CurrentUser Business currentUser,ModelMap model,Long productCategoryId, Product.Type type, Long storeProductCategoryId, Long brandId, Long promotionId, Long productTagId, BigDecimal startPrice, BigDecimal endPrice, Product.OrderType orderType, Integer pageNumber, Integer pageSize, HttpServletRequest request) {
         ProductCategory productCategory = productCategoryService.find(productCategoryId);
+        model.addAttribute("currentStoreUser",currentUser);
         StoreProductCategory storeProductCategory = storeProductCategoryService.find(storeProductCategoryId);
         Brand brand = brandService.find(brandId);
         Promotion promotion = promotionService.find(promotionId);

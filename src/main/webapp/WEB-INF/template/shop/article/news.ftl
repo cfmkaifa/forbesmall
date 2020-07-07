@@ -14,7 +14,6 @@
 		<script src="${base}/resources/common/js/respond.js"></script>
         <![endif]-->
     <script src="${base}/resources/common/js/jquery.js"></script>
-    <script src="https://cdn.bootcss.com/jquery/2.2.1/jquery.js"></script>
     <script src="${base}/resources/common/js/bootstrap.js?version=0.1"></script>
     <script src="${base}/resources/common/js/underscore.js"></script>
     <script src="${base}/resources/common/js/base.js?version=0.1"></script>
