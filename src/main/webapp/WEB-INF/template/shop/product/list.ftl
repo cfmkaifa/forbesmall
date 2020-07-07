@@ -698,8 +698,8 @@
 																	<a href="${base}${product.path}" target="_blank">
                                                                         <h5 class="text-overflow"  title="${product.name}">
                                                                             ${product.name}
+                                                                            <span class="iconfont" onmouseover="blockChain(this)" dataId="${product.id}" dataUrl="/business/product/chain"  style="color: #ff0000">&#xe746;</span>
                                                                         </h5>
-                                                                        <img src="${base}/resources/shop/images/block.png" onmouseover="blockChain(this)"   dataId="${product.id}" dataUrl="/business/product/chain" >
                                                                         [#if product.caption?has_content]
                                                                             <h6 class="text-overflow" title="${product.caption}">${product.caption}</h6>
                                                                         [/#if]
@@ -740,10 +740,12 @@
                                                             <p class="text-center">
                                                                 [#if product.purch ]
                                                                     ${product.member.name}
-                                                                    <img src="${base}/resources/shop/images/block.png" onmouseover="blockChain(this)"   dataId="${product.member.id}" dataUrl="/business/index/chain" >
+                                                                    <span class="iconfont" onmouseover="blockChain(this)" dataId="${product.member.id}" dataUrl="/business/index/chain"   style="color: #ff0000">&#xe746;</span>
                                                                 [#else ]
-                                                                <object><a href="${base}${product.store.path}" title="${product.store.name}" target="_blank">${product.store.name}</a>
-                                                                    <img src="${base}/resources/shop/images/block.png" onmouseover="blockChain(this)"   dataId="${product.store.business.id}" dataUrl="/business/index/chain" >
+                                                                <object>
+                                                                    <a href="${base}${product.store.path}" title="${product.store.name}" target="_blank">${product.store.name}
+                                                                        <span class="iconfont" onmouseover="blockChain(this)" dataId="${product.store.business.id}" dataUrl="/business/index/chain"   style="color: #ff0000">&#xe746;</span>
+                                                                    </a>
                                                                 </object>
                                                                 [/#if]
                                                                 [#if product.store?has_content ]

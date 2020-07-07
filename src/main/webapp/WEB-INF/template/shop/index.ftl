@@ -35,6 +35,7 @@
     <script src="${base}/resources/common/js/jquery.lazyload.js"></script>
     <script src="${base}/resources/common/js/jquery.bxslider.js"></script>
     <script src="${base}/resources/common/js/jquery.qrcode.js"></script>
+    <script src="${base}/resources/common/js/jquery.cookie.js"></script>
     <script src="${base}/resources/common/js/underscore.js"></script>
     <script src="${base}/resources/common/js/url.js"></script>
     <script src="${base}/resources/common/js/velocity.js"></script>
@@ -114,6 +115,7 @@
 <body class="shop index">
 [#include "/shop/include/main_header.ftl" /]
 [#include "/shop/include/main_sidebar.ftl" /]
+[#include "/common/block_chain.ftl" /]
 <main style="background:#f4f4f4;">
     <div id="topbar" class="topbar">
         <div class="container">
@@ -381,16 +383,19 @@
                                                         <a href="${base}/store/${stores.id}" onclick="factory(this)">
 																<span class="swiper_title-2">
 																	  <img src="${stores.logo}" class="logo-2">
-																	<p>${stores.name}</p>
+																	  <p>${stores.name}</p>
 																</span>
                                                             <p class="tonsof-2">
                                                                 [#if stores.capacity ==0]
 
                                                                 [#else]
-                                                                   ${stores.capacity}${message("shop.index.capacity")}
+                                                                    ${stores.capacity}${message("shop.index.capacity")}
                                                                 [/#if]
                                                             </p>
-                                                            <p class="themain-2">${message("shop.index.main")}</p>
+                                                            <p class="themain-2">
+                                                                <span class="iconfont" onmouseover="blockChain(this)" dataId="${stores.business.id}" dataUrl="/business/index/chain"  style="color: #ff0000;z-index:1000">&#xe746;</span>
+                                                                ${message("shop.index.main")}
+                                                            </p>
                                                             <p class="varieties-2">${stores.keyword}</p>
                                                         </a>
                                                     </div>

@@ -543,7 +543,7 @@
 																<b>
 																	<a href="${base}${product.path}" target="_blank">
 																	<h5 class="text-overflow" title="${product.name}">${product.name}</h5>
-                                                                        <img src="${base}/resources/shop/images/block.png" onmouseover="blockChain(this)"   dataId="${product.id}" dataUrl="/business/product/chain" >
+                                                                        <span class="iconfont" onmouseover="blockChain(this)" dataId="${product.id}" dataUrl="/business/product/chain"  style="color: #ff0000">&#xe746;</span>
 																	[#if product.caption?has_content]
                                                                         <h6 class="text-overflow" title="${product.caption}">${product.caption}</h6>
                                                                     [/#if]
@@ -581,7 +581,7 @@
                                                         <div class="company-2">
                                                             <p class="text-center">
                                                                 ${abbreviate(product.member.name, 15)}
-                                                                <img src="${base}/resources/shop/images/block.png" onmouseover="blockChain(this)"   dataId="${product.member.id}" dataUrl="/business/index/chain" >
+                                                                <span class="iconfont" onmouseover="blockChain(this)" dataId="${product.member.id}" dataUrl="/business/index/chain" style="color: #ff0000">&#xe746;</span>
                                                                 [#if product.store.type == "SELF"]
                                                                     <span class="label label-primary">${message("Store.Type.SELF")}</span>
                                                                 [/#if]
