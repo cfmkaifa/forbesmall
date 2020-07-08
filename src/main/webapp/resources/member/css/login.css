@@ -112,3 +112,21 @@
 .bannera{
 	margin-top: 28px !important;
 }
+.login-switch {
+	display: flex;
+	margin: 0px 0px 10px 46%;
+}
+.login-switch li {
+	font-size: 14px;
+	color: #666666;
+	cursor: pointer;
+}
+.login-switch li:nth-child(n+2) {
+	margin-left: 10px;
+}
+.iphone-login {
+	display: none;
+}
+.login-weight {
+	font-weight: 600;
+}

@@ -39,7 +39,7 @@
 		[#escape x as x?js_string]
 			<script>
 			$().ready(function() {
-				
+
 				var $document = $(document);
 				var $loginForm = $("#loginForm");
 				var $username = $("#username");
@@ -128,13 +128,29 @@
 				$loginForm.on("error.mall.ajaxSubmit", function() {
 					$captchaImage.captchaImage("refresh");
 				});
-				
+
 				// 验证码图片
 				$captchaImage.on("refreshed.mall.captchaImage", function() {
 					$captcha.val("");
 				});
 			
 			});
+			var countdown=60;
+			function codeButton() {
+				if (countdown == 0) {
+					$("#code").attr("disabled", false);
+					$("#code").text("获取验证码");
+					countdown = 60;
+					return false;
+				} else {
+					$("#code").attr("disabled", true);
+					$("#code").text(countdown + "秒后重新获取");
+					countdown--;
+				}
+				setTimeout(function () {
+					codeButton();
+				}, 1000);
+			}
 			</script>
 		[/#escape]
 	[/#noautoesc]
@@ -158,57 +174,93 @@
 						<div class="panel panel-default">
 							<div class="panel-heading">
 								<div class="panel-title">
-									<h1 class="text-red">
+									<h1 class="">
 										[#if socialUserId?has_content && uniqueId?has_content]
 											${message("member.login.bind")}
-											<small>USER BIND</small>
+[#--											<small>USER BIND</small>--]
 										[#else]
 											${message("member.login.title")}
-											<small>USER LOGIN</small>
+[#--											<small>USER LOGIN</small>--]
 										[/#if]
 									</h1>
 								</div>
 							</div>
 							<div class="panel-body">
-								<div class="form-group">
-									<div class="input-group">
+								<ul class="login-switch">
+									<li class="login-switcli login-weight">账号密码登录</li>
+									<li class="login-switcli2">手机验证码登录</li>
+								</ul>
+								<div class="passwords-login">
+									<div class="form-group">
+										<div class="input-group">
 										<span class="input-group-addon">
 											<i class="iconfont icon-people"></i>
 										</span>
-										<input id="username" name="username" class="form-control" type="text" maxlength="200" placeholder="${message("member.login.usernamePlaceholder")}" autocomplete="off">
+											<input id="username" name="username" class="form-control" type="text" maxlength="200" placeholder="${message("member.login.usernamePlaceholder")}" autocomplete="off">
+										</div>
 									</div>
-								</div>
-								<div class="form-group">
-									<div class="input-group">
+									<div class="form-group">
+										<div class="input-group">
 										<span class="input-group-addon">
 											<i class="iconfont icon-lock"></i>
 										</span>
-										<input id="password" name="password" class="form-control" type="password" maxlength="200" placeholder="${message("member.login.passwordPlaceholder")}" autocomplete="off">
+											<input id="password" name="password" class="form-control" type="password" maxlength="200" placeholder="${message("member.login.passwordPlaceholder")}" autocomplete="off">
+										</div>
 									</div>
-								</div>
-								[#if setting.captchaTypes?? && setting.captchaTypes?seq_contains("MEMBER_LOGIN")]
-									<div class="form-group">
-										<div class="input-group">
+									[#if setting.captchaTypes?? && setting.captchaTypes?seq_contains("MEMBER_LOGIN")]
+										<div class="form-group">
+											<div class="input-group">
 											<span class="input-group-addon">
 												<i class="iconfont icon-pic"></i>
 											</span>
-											<input id="captcha" name="captcha" class="captcha form-control" type="text" maxlength="4" placeholder="${message("common.captcha.name")}" autocomplete="off">
-											<div class="input-group-btn">
-												<img class="captcha-image" src="${base}/resources/common/images/transparent.png" title="${message("common.captcha.imageTitle")}" data-toggle="captchaImage">
+												<input id="captcha" name="captcha" class="captcha form-control" type="text" maxlength="4" placeholder="${message("common.captcha.name")}" autocomplete="off">
+												<div class="input-group-btn">
+													<img class="captcha-image" src="${base}/resources/common/images/transparent.png" title="${message("common.captcha.imageTitle")}" data-toggle="captchaImage">
+												</div>
 											</div>
 										</div>
+									[/#if]
+									<div class="form-group">
+										<div class="checkbox">
+											<input id="rememberUsername" name="rememberUsername" type="checkbox" value="true">
+											<label for="rememberUsername">${message("member.login.rememberUsername")}</label>
+										</div>
 									</div>
-								[/#if]
-								<div class="form-group">
-									<div class="checkbox">
-										<input id="rememberUsername" name="rememberUsername" type="checkbox" value="true">
-										<label for="rememberUsername">${message("member.login.rememberUsername")}</label>
+									<div class="form-group">
+										<button class="btn btn-primary btn-lg btn-block" type="submit">
+											[#if socialUserId?has_content && uniqueId?has_content]${message("member.login.bind")}[#else]${message("member.login.submit")}[/#if]
+										</button>
 									</div>
 								</div>
-								<div class="form-group">
-									<button class="btn btn-primary btn-lg btn-block" type="submit">
-										[#if socialUserId?has_content && uniqueId?has_content]${message("member.login.bind")}[#else]${message("member.login.submit")}[/#if]
-									</button>
+[#--								手机验证--]
+								<div class="iphone-login">
+									<div class="form-group">
+										<div class="input-group">
+										<span class="input-group-addon">
+											<i class="iconfont icon-people"></i>
+										</span>
+											<input id="username" name="username" class="form-control" type="text" maxlength="200" placeholder="${message("member.login.iPhone")}" autocomplete="off">
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="input-group">
+										<span class="input-group-addon">
+											<i class="iconfont icon-lock"></i>
+										</span>
+											<input id="verification" name="verification" class="form-control" type="text" maxlength="200" placeholder="${message("member.login.verification")}" autocomplete="off">
+										</div>
+									</div>
+									<div class="form-group">
+										<div style="width:369px; height:32px;">
+											<button type="button" id="code" onclick="codeButton()" class="btn btn-default btn-lg btn-block" style="width: 369px; height: 32px;  line-height: 14px; font-size: 13px;">获取验证码</button>
+										</div>
+									</div>
+
+									<div class="form-group">
+										<button class="btn btn-primary btn-lg btn-block" type="submit">
+											[#if socialUserId?has_content && uniqueId?has_content]${message("member.login.bind")}[#else]${message("member.login.submit")}[/#if]
+										</button>
+									</div>
 								</div>
 								<div class="row">
 									<div class="col-xs-6 text-left">

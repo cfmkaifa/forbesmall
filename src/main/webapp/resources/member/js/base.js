@@ -50,5 +50,16 @@ $().ready(function() {
 		$pageNumber.val($element.data("page-number")).closest("form").submit();
 		return false;
 	});
+	$(".login-switcli").click(function () {
+		$(".passwords-login").show();
+		$(".iphone-login").hide();
 
+	})
+	$(".login-switcli2").click(function () {
+		$(".passwords-login").hide();
+		$(".iphone-login").show();
+	})
+	$(".login-switch li").click(function () {
+		$(this).addClass("login-weight").siblings().removeClass('login-weight')
+	})
 });
