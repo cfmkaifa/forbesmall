@@ -127,7 +127,7 @@ public class Member extends User {
      * 父级ID
      */
     @Column(name = "parent_id")
-    private String parentId;
+    private Long parentId;
 
 
 
@@ -143,7 +143,7 @@ public class Member extends User {
     @NotEmpty
     @Email
     @Length(max = 200)
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String email;
 
     /**
@@ -716,11 +716,11 @@ public class Member extends User {
         this.phone = phone;
     }
 
-    public String getParentId() {
+    public Long getParentId() {
         return parentId;
     }
 
-    public void setParentId(String parentId) {
+    public void setParentId(Long parentId) {
         this.parentId = parentId;
     }
 

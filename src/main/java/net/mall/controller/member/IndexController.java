@@ -68,8 +68,6 @@ public class IndexController extends BaseController {
     private ReviewService reviewService;
     @Inject
     private ConsultationService consultationService;
-    @Inject
-    private MemberService memberService;
 
 
     private final String ONE_ONE_ID_F = "a%s%s";
@@ -109,29 +107,5 @@ public class IndexController extends BaseController {
         model.addAttribute("consultationCount", consultationService.count(currentUser, null, null));
         model.addAttribute("newOrders", orderService.findList(null, null, null, currentUser, null, null, null, null, null, null, null, NEW_ORDER_SIZE, null, null));
         return "member/index";
-    }
-
-
-    /**
-     * 首页
-     */
-    @GetMapping(value = "/account/list")
-    public String accountList(@CurrentUser Member currentUser, ModelMap model) {
-        return "member/account/list";
-    }
-
-
-    /***
-     * 查询账号
-     * @param member
-     * @param request
-     * @return
-     */
-    @PostMapping("/account/list")
-    public ResponseEntity<List<Member>> accountList(@CurrentUser Member member,HttpServletRequest request) {
-        List<Filter> filters = new ArrayList<Filter>();
-        filters.add(new Filter("parentId",Filter.Operator.EQ,member.getId()));
-        List<Member>  members =    memberService.findList(null,filters,null);
-        return ResponseEntity.ok(members);
     }
 }

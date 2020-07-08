@@ -72,6 +72,9 @@
 			<dd[#if .main_template_name?matches(".*/profile/.*")] class="active"[/#if]>
 				<a href="${base}/member/profile/edit">${message("member.mainMenu.profileEdit")}</a>
 			</dd>
+			<dd[#if .main_template_name?matches(".*/account/.*")] class="active"[/#if]>
+				<a href="${base}/member/account/list">${message("member.mainMenu.account")}</a>
+			</dd>
 			<dd[#if .main_template_name?matches(".*/password/.*")] class="active"[/#if]>
 				<a href="${base}/member/password/edit">${message("member.mainMenu.passwordEdit")}</a>
 			</dd>

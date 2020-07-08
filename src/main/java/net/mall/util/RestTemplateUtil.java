@@ -21,7 +21,7 @@ public class RestTemplateUtil {
 
     /***服务器地址
      */
-    private static final String serviceUrl = "https://fubu-chain-svc-test.zhongan.io/chainQuery";
+    private static final String serviceUrl = "http://fubu-chain.zhongan.io/chainQuery";
 
 
 
