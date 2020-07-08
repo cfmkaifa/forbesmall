@@ -75,7 +75,9 @@ public class AuthenticationFilter extends FormAuthenticationFilter {
                 && "1".equalsIgnoreCase(isPhone)){
             ForbesContext.setReqUri(isPhone);
             Object oldPhoneCode = request.getSession().getAttribute(String.format(PHONE_FORMAT,username));
-            ForbesContext.setSessionPhoneCode(oldPhoneCode.toString());
+            if(ConvertUtils.isNotEmpty(oldPhoneCode)){
+                ForbesContext.setSessionPhoneCode(oldPhoneCode.toString());
+            }
         }
         String password = getPassword(servletRequest);
         boolean rememberMe = isRememberMe(servletRequest);
@@ -98,7 +100,8 @@ public class AuthenticationFilter extends FormAuthenticationFilter {
         if (principal != null && !getUserClass().isAssignableFrom(principal.getClass())) {
             return false;
         }
-        return super.isAccessAllowed(servletRequest, servletResponse, mappedValue);
+        boolean isaccess = super.isAccessAllowed(servletRequest, servletResponse, mappedValue);
+        return isaccess;
     }
 
     /**

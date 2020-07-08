@@ -112,9 +112,10 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements User
         if (authenticationToken instanceof UserAuthenticationToken) {
             Object credentials = authenticationToken.getCredentials();
             String reqUri = ForbesContext.getReqUri();
+            String oldPhoneCode = ForbesContext.getSessionPhoneCode();
             if(ConvertUtils.isNotEmpty(reqUri)
-                    && "1".equalsIgnoreCase(reqUri)){
-                String oldPhoneCode = ForbesContext.getSessionPhoneCode();
+                    && "1".equalsIgnoreCase(reqUri)
+                    && ConvertUtils.isNotEmpty(oldPhoneCode)){
                 ForbesContext.clearThread();
                 if(!oldPhoneCode.equalsIgnoreCase(String.valueOf((char[]) credentials) )){
                     throw new IncorrectCredentialsException();

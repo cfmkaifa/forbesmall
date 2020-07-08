@@ -211,56 +211,56 @@
 									<li class="login-switcli login-weight">账号密码登录</li>
 									<li class="login-switcli2">手机验证码登录</li>
 								</ul>
-								<form id="loginForm" action="${base}/member/login" method="post">
-									<input name="socialUserId" type="hidden" value="${socialUserId}">
-									<input name="uniqueId" type="hidden" value="${uniqueId}">
-									<div class="passwords-login">
-										<div class="form-group">
-											<div class="input-group">
-											<span class="input-group-addon">
-												<i class="iconfont icon-people"></i>
-											</span>
-												<input id="username" name="username" class="form-control" type="text" maxlength="200" placeholder="${message("member.login.usernamePlaceholder")}" autocomplete="off">
-											</div>
-										</div>
-										<div class="form-group">
-											<div class="input-group">
-											<span class="input-group-addon">
-												<i class="iconfont icon-lock"></i>
-											</span>
-												<input id="password" name="password" class="form-control" type="password" maxlength="200" placeholder="${message("member.login.passwordPlaceholder")}" autocomplete="off">
-											</div>
-										</div>
-										[#if setting.captchaTypes?? && setting.captchaTypes?seq_contains("MEMBER_LOGIN")]
-											<div class="form-group">
-												<div class="input-group">
-												<span class="input-group-addon">
-													<i class="iconfont icon-pic"></i>
-												</span>
-													<input id="captcha" name="captcha" class="captcha form-control" type="text" maxlength="4" placeholder="${message("common.captcha.name")}" autocomplete="off">
-													<div class="input-group-btn">
-														<img class="captcha-image" src="${base}/resources/common/images/transparent.png" title="${message("common.captcha.imageTitle")}" data-toggle="captchaImage">
-													</div>
-												</div>
-											</div>
-										[/#if]
-										<div class="form-group">
-											<div class="checkbox">
-												<input id="rememberUsername" name="rememberUsername" type="checkbox" value="true">
-												<label for="rememberUsername">${message("member.login.rememberUsername")}</label>
-											</div>
-										</div>
-										<div class="form-group">
-											<button class="btn btn-primary btn-lg btn-block" type="submit">
-												[#if socialUserId?has_content && uniqueId?has_content]${message("member.login.bind")}[#else]${message("member.login.submit")}[/#if]
-											</button>
-										</div>
-									</div>
+[#--								<form id="loginForm" action="${base}/member/login" method="post">--]
+[#--									<input name="socialUserId" type="hidden" value="${socialUserId}">--]
+[#--									<input name="uniqueId" type="hidden" value="${uniqueId}">--]
+[#--									<div class="passwords-login">--]
+[#--										<div class="form-group">--]
+[#--											<div class="input-group">--]
+[#--											<span class="input-group-addon">--]
+[#--												<i class="iconfont icon-people"></i>--]
+[#--											</span>--]
+[#--												<input id="username" name="username" class="form-control" type="text" maxlength="200" placeholder="${message("member.login.usernamePlaceholder")}" autocomplete="off">--]
+[#--											</div>--]
+[#--										</div>--]
+[#--										<div class="form-group">--]
+[#--											<div class="input-group">--]
+[#--											<span class="input-group-addon">--]
+[#--												<i class="iconfont icon-lock"></i>--]
+[#--											</span>--]
+[#--												<input id="password" name="password" class="form-control" type="password" maxlength="200" placeholder="${message("member.login.passwordPlaceholder")}" autocomplete="off">--]
+[#--											</div>--]
+[#--										</div>--]
+[#--										[#if setting.captchaTypes?? && setting.captchaTypes?seq_contains("MEMBER_LOGIN")]--]
+[#--											<div class="form-group">--]
+[#--												<div class="input-group">--]
+[#--												<span class="input-group-addon">--]
+[#--													<i class="iconfont icon-pic"></i>--]
+[#--												</span>--]
+[#--													<input id="captcha" name="captcha" class="captcha form-control" type="text" maxlength="4" placeholder="${message("common.captcha.name")}" autocomplete="off">--]
+[#--													<div class="input-group-btn">--]
+[#--														<img class="captcha-image" src="${base}/resources/common/images/transparent.png" title="${message("common.captcha.imageTitle")}" data-toggle="captchaImage">--]
+[#--													</div>--]
+[#--												</div>--]
+[#--											</div>--]
+[#--										[/#if]--]
+[#--										<div class="form-group">--]
+[#--											<div class="checkbox">--]
+[#--												<input id="rememberUsername" name="rememberUsername" type="checkbox" value="true">--]
+[#--												<label for="rememberUsername">${message("member.login.rememberUsername")}</label>--]
+[#--											</div>--]
+[#--										</div>--]
+[#--										<div class="form-group">--]
+[#--											<button class="btn btn-primary btn-lg btn-block" type="submit">--]
+[#--												[#if socialUserId?has_content && uniqueId?has_content]${message("member.login.bind")}[#else]${message("member.login.submit")}[/#if]--]
+[#--											</button>--]
+[#--										</div>--]
+[#--									</div>--]
 
-								</form>
+[#--								</form>--]
 								[#--手机验证--]
 								<form id="loginForm" action="${base}/member/login" method="post">
-									<div class="iphone-login">
+									<div >
 										<div class="form-group">
 											<div class="input-group" style="display: flex;border: 1px solid #d8d8d8; border-radius: 4px">
 												<span class="input-group-addon" style="border: none">
