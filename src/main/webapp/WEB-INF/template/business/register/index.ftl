@@ -168,112 +168,145 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<div class="panel-title">
-							<h1 class="text-blue">${message("business.register.title")}</h1>
+							<h1 class="">${message("business.register.title")}</h1>
 						</div>
 					</div>
 					<div class="panel-body">
-						<div class="form-group">
-							<label class="col-xs-3 control-label item-required" for="username">${message("business.register.username")}:</label>
-							<div class="col-xs-6">
-								<input id="username" name="username" class="form-control" type="text" maxlength="20" autocomplete="off">
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="col-xs-3 control-label item-required" for="password">${message("business.register.password")}:</label>
-							<div class="col-xs-6">
-								<input id="password" name="password" class="form-control" type="password" maxlength="20" autocomplete="off">
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="col-xs-3 control-label item-required" for="rePassword">${message("business.register.rePassword")}:</label>
-							<div class="col-xs-6">
-								<input id="rePassword" name="rePassword" class="form-control" type="password" maxlength="20" autocomplete="off">
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="col-xs-3 control-label item-required" for="email">${message("business.register.email")}:</label>
-							<div class="col-xs-6">
-								<input id="email" name="email" class="form-control" type="text" maxlength="200">
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="col-xs-3 control-label item-required" for="mobile">${message("business.register.mobile")}:</label>
-							<div class="col-xs-6">
-								<input id="mobile" name="mobile" class="form-control" type="text" maxlength="200">
-							</div>
-						</div>
-						[@business_attribute_list]
-							[#list businessAttributes as businessAttribute]
-								<div class="form-group">
-									<label class="col-xs-3 control-label[#if businessAttribute.isRequired] item-required[/#if]" for="businessAttribute_${businessAttribute.id}">${businessAttribute.name}:</label>
-									[#if businessAttribute.type == "NAME" || businessAttribute.type == "LICENSE_NUMBER" || businessAttribute.type == "LEGAL_PERSON" || businessAttribute.type == "ID_CARD" || businessAttribute.type == "PHONE" || businessAttribute.type == "ORGANIZATION_CODE" || businessAttribute.type == "IDENTIFICATION_NUMBER" || businessAttribute.type == "BANK_NAME" || businessAttribute.type == "BANK_ACCOUNT" || businessAttribute.type == "TEXT"  || businessAttribute.type == "ADDRESS"|| businessAttribute.type == "ZIP_CODE" || businessAttribute.type == "BANK_ADDRESS"]
+						<ul class="Information">
+							<li class="Information_active"> ${message("common.captcha.personal1")}</li>
+							<li>${message("common.captcha.personal2")}</li>
+							<li>${message("common.captcha.personal3")}</li>
+						</ul>
+						<div class="Information_main">
+							<div class="Information-left">
+								<div class="Informationone">
+									<div class="form-group">
+										<label class="col-xs-3 control-label item-required" for="username">${message("business.register.username")}:</label>
 										<div class="col-xs-6">
-											<input id="businessAttribute_${businessAttribute.id}" name="businessAttribute_${businessAttribute.id}" class="form-control" type="text" maxlength="200">
+											<input id="username" name="username" class="form-control" type="text" maxlength="20" autocomplete="off">
 										</div>
-									[#elseif businessAttribute.type == "LICENSE_IMAGE" || businessAttribute.type == "ID_CARD_IMAGE" || businessAttribute.type == "ORGANIZATION_IMAGE" || businessAttribute.type == "TAX_IMAGE" || businessAttribute.type == "IMAGE"]
+									</div>
+									<div class="form-group">
+										<label class="col-xs-3 control-label item-required" for="password">${message("business.register.password")}:</label>
 										<div class="col-xs-6">
-											<input name="businessAttribute_${businessAttribute.id}" type="hidden" data-provide="fileinput" data-file-type="IMAGE">
+											<input id="password" name="password" class="form-control" type="password" maxlength="20" autocomplete="off">
 										</div>
-									[#elseif businessAttribute.type == "SELECT"]
+									</div>
+									<div class="form-group">
+										<label class="col-xs-3 control-label item-required" for="rePassword">${message("business.register.rePassword")}:</label>
 										<div class="col-xs-6">
-											<select name="businessAttribute_${businessAttribute.id}" class="selectpicker form-control" data-size="5">
-												<option value="">${message("common.choose")}</option>
-												[#list businessAttribute.options as option]
-													<option value="${option}">${option}</option>
-												[/#list]
-											</select>
+											<input id="rePassword" name="rePassword" class="form-control" type="password" maxlength="20" autocomplete="off">
 										</div>
-									[#elseif businessAttribute.type == "CHECKBOX"]
+									</div>
+									<div class="form-group">
+										<label class="col-xs-3 control-label item-required" for="email">${message("business.register.email")}:</label>
 										<div class="col-xs-6">
-											[#list businessAttribute.options as option]
-												<div class="checkbox checkbox-inline">
-													<input id="${option}_${businessAttribute.id}" name="businessAttribute_${businessAttribute.id}" type="checkbox" value="${option}">
-													<label for="${option}_${businessAttribute.id}">${option}</label>
-												</div>
-											[/#list]
+											<input id="email" name="email" class="form-control" type="text" maxlength="200">
 										</div>
-									[#elseif businessAttribute.type == "DATE"]
+									</div>
+									<div class="form-group">
+										<label class="col-xs-3 control-label item-required" for="mobile">${message("business.register.mobile")}:</label>
 										<div class="col-xs-6">
-											<div class="input-group">
-												<input id="businessAttribute_${businessAttribute.id}" name="businessAttribute_${businessAttribute.id}" class="form-control" type="text" data-provide="datetimepicker">
-												<span class="input-group-addon">
+											<input id="mobile" name="mobile" class="form-control" type="text" maxlength="200">
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-xs-6 col-xs-offset-3">
+											<div class="checkbox">
+												<input id="agree" name="agree" type="checkbox" value="true" checked>
+												<label for="agree">${message("business.register.agree")}</label>
+												<a class="text-red" href="${base}/article/detail/17_1" target="_blank">${message("business.register.agreement", setting.siteName)}</a>
+											</div>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-xs-6 col-xs-offset-3">
+											<button class="btn btn-primary btn-lg btn-block" type="submit">${message("business.register.submit")}</button>
+										</div>
+									</div>
+								</div>
+								<div class="Informationtwo">
+									[@business_attribute_list]
+										[#list businessAttributes as businessAttribute]
+											<div class="form-group">
+												<label class="col-xs-3 control-label[#if businessAttribute.isRequired] item-required[/#if]" for="businessAttribute_${businessAttribute.id}">${businessAttribute.name}:</label>
+												[#if businessAttribute.type == "NAME" || businessAttribute.type == "LICENSE_NUMBER" || businessAttribute.type == "LEGAL_PERSON" || businessAttribute.type == "ID_CARD" || businessAttribute.type == "PHONE" || businessAttribute.type == "ORGANIZATION_CODE" || businessAttribute.type == "IDENTIFICATION_NUMBER" || businessAttribute.type == "BANK_NAME" || businessAttribute.type == "BANK_ACCOUNT" || businessAttribute.type == "TEXT"  || businessAttribute.type == "ADDRESS"|| businessAttribute.type == "ZIP_CODE" || businessAttribute.type == "BANK_ADDRESS"]
+													<div class="col-xs-6">
+														<input id="businessAttribute_${businessAttribute.id}" name="businessAttribute_${businessAttribute.id}" class="form-control" type="text" maxlength="200">
+													</div>
+												[#elseif businessAttribute.type == "LICENSE_IMAGE" || businessAttribute.type == "ID_CARD_IMAGE" || businessAttribute.type == "ORGANIZATION_IMAGE" || businessAttribute.type == "TAX_IMAGE" || businessAttribute.type == "IMAGE"]
+													<div class="col-xs-6">
+														<input name="businessAttribute_${businessAttribute.id}" type="hidden" data-provide="fileinput" data-file-type="IMAGE">
+													</div>
+												[#elseif businessAttribute.type == "SELECT"]
+													<div class="col-xs-6">
+														<select name="businessAttribute_${businessAttribute.id}" class="selectpicker form-control" data-size="5">
+															<option value="">${message("common.choose")}</option>
+															[#list businessAttribute.options as option]
+																<option value="${option}">${option}</option>
+															[/#list]
+														</select>
+													</div>
+												[#elseif businessAttribute.type == "CHECKBOX"]
+													<div class="col-xs-6">
+														[#list businessAttribute.options as option]
+															<div class="checkbox checkbox-inline">
+																<input id="${option}_${businessAttribute.id}" name="businessAttribute_${businessAttribute.id}" type="checkbox" value="${option}">
+																<label for="${option}_${businessAttribute.id}">${option}</label>
+															</div>
+														[/#list]
+													</div>
+												[#elseif businessAttribute.type == "DATE"]
+													<div class="col-xs-6">
+														<div class="input-group">
+															<input id="businessAttribute_${businessAttribute.id}" name="businessAttribute_${businessAttribute.id}" class="form-control" type="text" data-provide="datetimepicker">
+															<span class="input-group-addon">
 													<i class="iconfont icon-calendar"></i>
 												</span>
+														</div>
+													</div>
+												[/#if]
+											</div>
+										[/#list]
+									[/@business_attribute_list]
+									[#if setting.captchaTypes?? && setting.captchaTypes?seq_contains("BUSINESS_REGISTER")]
+										<div class="form-group">
+											<label class="col-xs-3 control-label item-required" for="captcha">${message("common.captcha.name")}:</label>
+											<div class="col-xs-6">
+												<div class="input-group">
+													<input id="captcha" name="captcha" class="captcha form-control" type="text" maxlength="4" autocomplete="off">
+													<div class="input-group-btn">
+														<img class="captcha-image" src="${base}/resources/common/images/transparent.png" title="${message("common.captcha.imageTitle")}" data-toggle="captchaImage">
+													</div>
+												</div>
 											</div>
 										</div>
 									[/#if]
 								</div>
-							[/#list]
-						[/@business_attribute_list]
-						[#if setting.captchaTypes?? && setting.captchaTypes?seq_contains("BUSINESS_REGISTER")]
-							<div class="form-group">
-								<label class="col-xs-3 control-label item-required" for="captcha">${message("common.captcha.name")}:</label>
-								<div class="col-xs-6">
-									<div class="input-group">
-										<input id="captcha" name="captcha" class="captcha form-control" type="text" maxlength="4" autocomplete="off">
-										<div class="input-group-btn">
-											<img class="captcha-image" src="${base}/resources/common/images/transparent.png" title="${message("common.captcha.imageTitle")}" data-toggle="captchaImage">
-										</div>
-									</div>
+								<div class="InformationThree">
+
 								</div>
 							</div>
-						[/#if]
-					</div>
-					<div class="panel-footer">
-						<div class="form-group">
-							<div class="col-xs-6 col-xs-offset-3">
-								<div class="checkbox">
-									<input id="agree" name="agree" type="checkbox" value="true" checked>
-									<label for="agree">${message("business.register.agree")}</label>
-									<a class="text-red" href="${base}/article/detail/17_1" target="_blank">${message("business.register.agreement", setting.siteName)}</a>
-								</div>
+							<div class="Information_right">
+								<p class="iphones">${message("common.captcha.already")}：</p>
+								<button type="button" class="btn btn-default ccccc">${message("common.captcha.rightoff")}</button>
+								<p class="platform">${message("common.captcha.platform")}</p>
+								<p class="platforms"></p>
+								<ul class="datazz">
+									<li>${message("common.captcha.service")}</li>
+									<li>${message("common.captcha.servicetwo")}</li>
+									<li>${message("common.captcha.serviceone")}</li>
+									<li>${message("common.captcha.domestic")}</li>
+									<ul class="dian">
+										<li></li>
+										<li></li>
+										<li></li>
+										<li></li>
+									</ul>
+								</ul>
 							</div>
 						</div>
-						<div class="form-group">
-							<div class="col-xs-6 col-xs-offset-3">
-								<button class="btn btn-primary btn-lg btn-block" type="submit">${message("business.register.submit")}</button>
-							</div>
-						</div>
+ 					<div class="panel-footer">
 					</div>
 				</div>
 			</form>
