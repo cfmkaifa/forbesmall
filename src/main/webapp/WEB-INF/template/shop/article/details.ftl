@@ -35,24 +35,40 @@
     <div class="detail">
         <div class="details">
             <div class="detailsNav">
-                <ul>
-                    [#list page.content as temparticle]
-                        <li>
-                            <div style="padding-top: 20px">
-                                <p><a href="${base}${temparticle.path}">${temparticle.title}</a></p>
-                            </div>
-                            <div class="detailsTime">
-                                <span>${temparticle.createdDate}</span>
-                            </div>
-                        </li>
-                    [/#list]
+[#--                <ul>--]
+[#--                    [#list page.content as temparticle]--]
+[#--                        <li>--]
+[#--                            <div style="padding-top: 20px">--]
+[#--                                <p><a href="${base}${temparticle.path}">${temparticle.title}</a></p>--]
+[#--                            </div>--]
+[#--                            <div class="detailsTime">--]
+[#--                                <span>${temparticle.createdDate}</span>--]
+[#--                            </div>--]
+[#--                        </li>--]
+[#--                    [/#list]--]
+[#--                </ul>--]
+                <ul class="detailsul">
+                    <p style="margin: 16px 0px 10px 0px;">采购商服务</p>
+                    <li class="actives">买家服务协议</li>
+                    <li style="margin-bottom: 10px;">买家交易规则</li>
+                    <p style=" border-top: 1px solid #EEEEEE; padding-top: 16px;  height: 50px;">合同模板</p>
+                    <li style="margin-bottom: 10px;">产品采购合同</li>
+                    <p style="border-top: 1px solid #EEEEEE; padding-top: 16px; height: 50px;">支付方式</p>
+                    <li>在线支付</li>
+                    <li style="margin-bottom: 10px;">支付常见问题</li>
+                    <p style=" border-top: 1px solid #EEEEEE; padding-top: 16px;  height: 50px;">供应商服务</p>
+                    <li>会员入驻</li>
+                    <li>商家服务协议</li>
+                    <li style="margin-bottom: 10px;">商家交易规则</li>
                 </ul>
             </div>
             <div class="detailsContent">
                 <div class="content_title">
-                    <h2 label="label">${article.title}</h2>
+                    <h2 label="label" class="contenth2">
+                        <p>${article.title}</p>
+                    </h2>
                     <span class="content_time">
-					        <p>${message("shop.article.author")}${article.author}</p>
+					        <p>${message("shop.article.author")}</p>
 					        <p>${article.createdDate}</p>
 					    </span>
                     <div class="content_img">

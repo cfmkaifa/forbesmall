@@ -71,19 +71,19 @@
             </div>
             <div class="col-xs-2">
                 <dl class="help">
-                    <dt>平台规则</dt>
+                    <dt>采购商服务</dt>
                     <dd>
-                        <a href="${base}/article/detail/17_1">平台服务协议</a>
+                        <a href="${base}/article/detail/17_1">买家服务协议</a>
                     </dd>
                     <dd>
-                        <a href="${base}/article/detail/16_1">平台交易规则</a>
+                        <a href="${base}/article/detail/16_1">买家交易规则</a>
                     </dd>
-                    <dd>
-                        <a href="${base}/article/detail/15_1">购物流程</a>
-                    </dd>
-                    <dd>
-                        <a href="${base}/article/detail/14_1">会员等级</a>
-                    </dd>
+[#--                    <dd>--]
+[#--                        <a href="${base}/article/detail/15_1">购物流程</a>--]
+[#--                    </dd>--]
+[#--                    <dd>--]
+[#--                        <a href="${base}/article/detail/14_1">会员等级</a>--]
+[#--                    </dd>--]
                 </dl>
             </div>
             <div class="col-xs-2">
@@ -92,49 +92,49 @@
                     <dd>
                         <a href="${base}/article/detail/22_1">产品采购合同</a>
                     </dd>
-                    <dd>
-                        <a href="${base}/article/detail/21_1">货到付款</a>
-                    </dd>
-                    <dd>
-                        <a href="${base}/article/detail/20_1">网银支付</a>
-                    </dd>
-                    <dd>
-                        <a href="${base}/article/detail/19_1">银行转帐</a>
-                    </dd>
+[#--                    <dd>--]
+[#--                        <a href="${base}/article/detail/21_1">货到付款</a>--]
+[#--                    </dd>--]
+[#--                    <dd>--]
+[#--                        <a href="${base}/article/detail/20_1">网银支付</a>--]
+[#--                    </dd>--]
+[#--                    <dd>--]
+[#--                        <a href="${base}/article/detail/19_1">银行转帐</a>--]
+[#--                    </dd>--]
                 </dl>
             </div>
             <div class="col-xs-2">
                 <dl class="help">
                     <dt>支付方式</dt>
                     <dd>
-                        <a href="${base}/article/detail/30_1">线下打款</a>
+                        <a href="${base}/article/detail/30_1">在线支付</a>
                     </dd>
                     <dd>
-                        <a href="${base}/article/detail/27_1">银行承兑汇票</a>
+                        <a href="${base}/article/detail/27_1">支付常见问题</a>
                     </dd>
-                    <dd>
-                        <a href="${base}/article/detail/28_1">退换货政策</a>
-                    </dd>
-                    <dd>
-                        <a href="${base}/article/detail/29_1">退换货申请</a>
-                    </dd>
-                    <dd>
-                        <a href="${base}/article/detail/10466_1">退款说明</a>
-                    </dd>
+[#--                    <dd>--]
+[#--                        <a href="${base}/article/detail/28_1">退换货政策</a>--]
+[#--                    </dd>--]
+[#--                    <dd>--]
+[#--                        <a href="${base}/article/detail/29_1">退换货申请</a>--]
+[#--                    </dd>--]
+[#--                    <dd>--]
+[#--                        <a href="${base}/article/detail/10466_1">退款说明</a>--]
+[#--                    </dd>--]
                 </dl>
             </div>
             <div class="col-xs-2">
                 <dl class="help">
-                    <dt>供应商服务</dt>
+                    <dt>供应商入驻</dt>
                     <dd>
                         [#--<a href="${base}/article/member">会员入驻</a>--]
                         <a href="${base}/article/member">会员入驻</a>
                     </dd>
                     <dd>
-                        <a href="${base}/article/detail/10470_1">服务热线</a>
+                        <a href="${base}/article/detail/10470_1">商家服务协议</a>
                     </dd>
                     <dd>
-                        <a href="${base}/article/detail/10469_1">商家帮助</a>
+                        <a href="${base}/article/detail/10469_1">商家交易规则</a>
                     </dd>
                 </dl>
             </div>

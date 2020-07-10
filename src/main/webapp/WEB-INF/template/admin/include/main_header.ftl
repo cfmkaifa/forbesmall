@@ -11,7 +11,6 @@
 	</button>
 	<ul class="nav pull-right">
 		<li class="palette_color__main">换肤</li>
-		<li class="palette_color_mainTwo" style="display: none">换肤</li>
 		<li>
 			<a href="${base}/admin/profile/edit">${message("admin.mainHeader.profile")}</a>
 		</li>
@@ -45,7 +44,7 @@
 			<div data-color="#6ce169" class="palette_color"></div>
 			<div data-color="#bee169" class="palette_color"></div>
 			<div data-color="#e1a169" class="palette_color"></div>
-			<div data-color="#83091d" class="palette_color"></div>
+			<div data-color="#108EE9" class="palette_color"></div>
 		</div>
 [#--		<div class="palette_color__main">换肤</div>--]
 	</div>
@@ -54,7 +53,9 @@
 	[#escape x as x?js_string]
 		<script>
 		$().ready(function() {
-			
+			var coco= localStorage.getItem("color");
+			// $(".main-header .title").css()
+			$('.main-header').css('background',coco);
 			var $document = $(document);
 			var $mainHeaderLogout = $("#mainHeaderLogout");
 			// 用户注销
@@ -62,7 +63,6 @@
 				$document.trigger("loggedOut.mall.user", $.getCurrentUser());
 			});
 		});
-
 		// 换肤
 		var _$paletteElement = $('.palette_color');
 
@@ -96,8 +96,9 @@
 		}
 
 		function _setColor(color){
-			$('.palette_color__main').css('background', color);
+			localStorage.setItem("color",color);
 			$('.main-header').css('background', color);
+
 		}
 
 		_colorizePaletteItems();

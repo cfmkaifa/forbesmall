@@ -184,164 +184,170 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<div class="panel-title">
-							<h1 class="text-red">
+							<h1 class="">
 								[#if socialUserId?has_content && uniqueId?has_content]
 									${message("member.register.bind")}
-									<small>REGISTER BIND</small>
+[#--									<small>REGISTER BIND</small>--]
 								[#else]
 									${message("member.register.title")}
-									<small>USER REGISTER</small>
+[#--									<small>USER REGISTER</small>--]
 								[/#if]
 							</h1>
 						</div>
 					</div>
 					<div class="panel-body">
-						<div class="row">
-							<div class="col-xs-8">
-								<div class="form-group">
-									<label class="col-xs-3 control-label item-required" for="username">${message("member.register.username")}:</label>
-									<div class="col-xs-8">
-										<input id="username" name="username" class="form-control" type="text" maxlength="20" autocomplete="off">
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-xs-3 control-label item-required" for="password">${message("member.register.password")}:</label>
-									<div class="col-xs-8">
-										<input id="password" name="password" class="form-control" type="password" maxlength="20" autocomplete="off">
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-xs-3 control-label item-required" for="rePassword">${message("member.register.rePassword")}:</label>
-									<div class="col-xs-8">
-										<input id="rePassword" name="rePassword" class="form-control" type="password" maxlength="20" autocomplete="off">
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-xs-3 control-label item-required" for="email">${message("member.register.email")}:</label>
-									<div class="col-xs-8">
-										<input id="email" name="email" class="form-control" type="text" maxlength="200">
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-xs-3 control-label item-required" for="mobile">${message("member.register.mobile")}:</label>
-									<div class="col-xs-8">
-										<input id="mobile" name="mobile" class="form-control" type="text" maxlength="200">
-									</div>
-								</div>
-								[@member_attribute_list]
-									[#list memberAttributes as memberAttribute]
-										<div class="form-group">
-											<label class="col-xs-3 control-label[#if memberAttribute.isRequired] item-required[/#if]" for="memberAttribute_${memberAttribute.id}">${memberAttribute.name}:</label>
-											[#if memberAttribute.type == "NAME" || memberAttribute.type == "ADDRESS" || memberAttribute.type == "ZIP_CODE" || memberAttribute.type == "PHONE" || memberAttribute.type == "TEXT" || memberAttribute.type == "LICENSE_NUMBER" || memberAttribute.type == "LEGAL_PERSON" || memberAttribute.type == "ID_CARD" || memberAttribute.type == "ORGANIZATION_CODE" || memberAttribute.type == "IDENTIFICATION_NUMBER" || memberAttribute.type == "BANK_NAME" || memberAttribute.type == "BANK_ACCOUNT" ||memberAttribute.type == "BANK_ADDRESS" ]
-												<div class="col-xs-8">
-													<input id="memberAttribute_${memberAttribute.id}" name="memberAttribute_${memberAttribute.id}" class="form-control" type="text" maxlength="200">
-												</div>
-											[#elseif memberAttribute.type == "LICENSE_IMAGE" || memberAttribute.type == "ID_CARD_IMAGE" || memberAttribute.type == "ORGANIZATION_IMAGE" || memberAttribute.type == "TAX_IMAGE" || memberAttribute.type == "IMAGE"]
-												<div class="col-xs-8">
-													<input name="memberAttribute_${memberAttribute.id}" type="hidden" value="" data-provide="fileinput" data-file-type="IMAGE">
-												</div>
-											[#elseif memberAttribute.type == "GENDER"]
-												<div class="col-xs-8">
-													[#list genders as gender]
-														<div class="radio radio-inline">
-															<input id="${gender}" name="memberAttribute_${memberAttribute.id}" type="radio" value="${gender}">
-															<label for="${gender}">${message("Member.Gender." + gender)}</label>
-														</div>
-													[/#list]
-												</div>
-											[#elseif memberAttribute.type == "BIRTH"]
-												<div class="col-xs-8">
-													<div class="input-group">
-														<input name="memberAttribute_${memberAttribute.id}" class="form-control" type="text" data-provide="datetimepicker">
-														<span class="input-group-addon">
-															<i class="iconfont icon-calendar"></i>
-														</span>
-													</div>
-												</div>
-											[#elseif memberAttribute.type == "AREA"]
-												<div class="col-xs-8">
-													<div class="input-group">
-														<input id="areaId" name="memberAttribute_${memberAttribute.id}" type="hidden">
-													</div>
-												</div>
-											[#elseif memberAttribute.type == "SELECT"]
-												<div class="col-xs-8">
-													<select name="memberAttribute_${memberAttribute.id}" class="form-control">
-														<option value="">${message("common.choose")}</option>
-														[#list memberAttribute.options as option]
-															<option value="${option}">${option}</option>
-														[/#list]
-													</select>
-												</div>
-											[#elseif memberAttribute.type == "CHECKBOX"]
-												<div class="col-xs-8">
-													[#list memberAttribute.options as option]
-														<div class="checkbox checkbox-inline">
-															<input id="${option}_${memberAttribute.id}" name="memberAttribute_${memberAttribute.id}" type="checkbox" value="${option}">
-															<label for="${option}_${memberAttribute.id}">${option}</label>
-														</div>
-													[/#list]
-												</div>
-											[/#if]
-										</div>
-									[/#list]
-								[/@member_attribute_list]
-								[#if setting.captchaTypes?? && setting.captchaTypes?seq_contains("MEMBER_REGISTER")]
+						<ul class="Information">
+							<li class="Information_active"> ${message("common.captcha.personal1")}</li>
+							<li>${message("common.captcha.personal2")}</li>
+							<li>${message("common.captcha.personal3")}</li>
+						</ul>
+
+						<div class="Information_main">
+							<div class="Information-left">
+								<div class="Informationone">
 									<div class="form-group">
-										<label class="col-xs-3 control-label item-required" for="captcha">${message("common.captcha.name")}:</label>
+										<label class="col-xs-3 control-label item-required" for="username">${message("member.register.username")}:</label>
 										<div class="col-xs-8">
-											<div class="input-group">
-												<input id="captcha" name="captcha" class="captcha form-control" type="text" maxlength="4" autocomplete="off">
-												<div class="input-group-btn">
-													<img class="captcha-image" src="${base}/resources/common/images/transparent.png" title="${message("common.captcha.imageTitle")}" data-toggle="captchaImage">
-												</div>
+											<input id="username" name="username" class="form-control" type="text" maxlength="20" autocomplete="off">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-xs-3 control-label item-required" for="password">${message("member.register.password")}:</label>
+										<div class="col-xs-8">
+											<input id="password" name="password" class="form-control" type="password" maxlength="20" autocomplete="off">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-xs-3 control-label item-required" for="rePassword">${message("member.register.rePassword")}:</label>
+										<div class="col-xs-8">
+											<input id="rePassword" name="rePassword" class="form-control" type="password" maxlength="20" autocomplete="off">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-xs-3 control-label item-required" for="email">${message("member.register.email")}:</label>
+										<div class="col-xs-8">
+											<input id="email" name="email" class="form-control" type="text" maxlength="200">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-xs-3 control-label item-required" for="mobile">${message("member.register.mobile")}:</label>
+										<div class="col-xs-8">
+											<input id="mobile" name="mobile" class="form-control" type="text" maxlength="200">
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-xs-8 col-xs-offset-3">
+											<div class="checkbox">
+												<input id="agree" name="agree" type="checkbox" value="true" checked>
+												<label for="agree">${message("member.register.agree")}</label>
+												<a class="text-red" href="${base}/article/detail/17_1" target="_blank">${message("member.register.agreement")}</a>
 											</div>
 										</div>
 									</div>
-								[/#if]
-							</div>
-							<div class="col-xs-3">
-								<div class="login">
-									<h2>${message("member.register.loginTitle")}</h2>
-									<a class="btn btn-default btn-lg btn-block" href="${base}/member/login">${message("member.register.login")}</a>
-									[#if loginPlugins?has_content && !socialUserId?has_content && !uniqueId?has_content]
-										<ul class="clearfix">
-											[#list loginPlugins as loginPlugin]
-												<li>
-													<a href="${base}/social_user_login?loginPluginId=${loginPlugin.id}"[#if loginPlugin.description??] title="${loginPlugin.description}"[/#if]>
-														[#if loginPlugin.logo?has_content]
-															<img src="${loginPlugin.logo}" alt="${loginPlugin.displayName}">
-														[#else]
-															${loginPlugin.displayName}
-														[/#if]
-													</a>
-												</li>
-											[/#list]
-										</ul>
+									<div class="form-group">
+										<div class="col-xs-8 col-xs-offset-3">
+											<button class="btn btn-primary btn-lg btn-block" type="submit">${message("member.register.submit")}</button>
+										</div>
+									</div>
+								</div>
+								<div class="Informationtwo">
+									[@member_attribute_list]
+										[#list memberAttributes as memberAttribute]
+											<div class="form-group">
+												<label class="col-xs-3 control-label[#if memberAttribute.isRequired] item-required[/#if]" for="memberAttribute_${memberAttribute.id}">${memberAttribute.name}:</label>
+												[#if memberAttribute.type == "NAME" || memberAttribute.type == "ADDRESS" || memberAttribute.type == "ZIP_CODE" || memberAttribute.type == "PHONE" || memberAttribute.type == "TEXT" || memberAttribute.type == "LICENSE_NUMBER" || memberAttribute.type == "LEGAL_PERSON" || memberAttribute.type == "ID_CARD" || memberAttribute.type == "ORGANIZATION_CODE" || memberAttribute.type == "IDENTIFICATION_NUMBER" || memberAttribute.type == "BANK_NAME" || memberAttribute.type == "BANK_ACCOUNT" ||memberAttribute.type == "BANK_ADDRESS" ]
+													<div class="col-xs-8">
+														<input id="memberAttribute_${memberAttribute.id}" name="memberAttribute_${memberAttribute.id}" class="form-control" type="text" maxlength="200">
+													</div>
+												[#elseif memberAttribute.type == "LICENSE_IMAGE" || memberAttribute.type == "ID_CARD_IMAGE" || memberAttribute.type == "ORGANIZATION_IMAGE" || memberAttribute.type == "TAX_IMAGE" || memberAttribute.type == "IMAGE"]
+													<div class="col-xs-8">
+														<input name="memberAttribute_${memberAttribute.id}" type="hidden" value="" data-provide="fileinput" data-file-type="IMAGE">
+													</div>
+												[#elseif memberAttribute.type == "GENDER"]
+													<div class="col-xs-8">
+														[#list genders as gender]
+															<div class="radio radio-inline">
+																<input id="${gender}" name="memberAttribute_${memberAttribute.id}" type="radio" value="${gender}">
+																<label for="${gender}">${message("Member.Gender." + gender)}</label>
+															</div>
+														[/#list]
+													</div>
+												[#elseif memberAttribute.type == "BIRTH"]
+													<div class="col-xs-8">
+														<div class="input-group">
+															<input name="memberAttribute_${memberAttribute.id}" class="form-control" type="text" data-provide="datetimepicker">
+															<span class="input-group-addon">
+															<i class="iconfont icon-calendar"></i>
+														</span>
+														</div>
+													</div>
+												[#elseif memberAttribute.type == "AREA"]
+													<div class="col-xs-8">
+														<div class="input-group">
+															<input id="areaId" name="memberAttribute_${memberAttribute.id}" type="hidden">
+														</div>
+													</div>
+												[#elseif memberAttribute.type == "SELECT"]
+													<div class="col-xs-8">
+														<select name="memberAttribute_${memberAttribute.id}" class="form-control">
+															<option value="">${message("common.choose")}</option>
+															[#list memberAttribute.options as option]
+																<option value="${option}">${option}</option>
+															[/#list]
+														</select>
+													</div>
+												[#elseif memberAttribute.type == "CHECKBOX"]
+													<div class="col-xs-8">
+														[#list memberAttribute.options as option]
+															<div class="checkbox checkbox-inline">
+																<input id="${option}_${memberAttribute.id}" name="memberAttribute_${memberAttribute.id}" type="checkbox" value="${option}">
+																<label for="${option}_${memberAttribute.id}">${option}</label>
+															</div>
+														[/#list]
+													</div>
+												[/#if]
+											</div>
+										[/#list]
+									[/@member_attribute_list]
+									[#if setting.captchaTypes?? && setting.captchaTypes?seq_contains("MEMBER_REGISTER")]
+										<div class="form-group">
+											<label class="col-xs-3 control-label item-required" for="captcha">${message("common.captcha.name")}:</label>
+											<div class="col-xs-8">
+												<div class="input-group">
+													<input id="captcha" name="captcha" class="captcha form-control" type="text" maxlength="4" autocomplete="off">
+													<div class="input-group-btn">
+														<img class="captcha-image" src="${base}/resources/common/images/transparent.png" title="${message("common.captcha.imageTitle")}" data-toggle="captchaImage">
+													</div>
+												</div>
+											</div>
+										</div>
 									[/#if]
 								</div>
+								<div class="InformationThree">
+
+								</div>
+							</div>
+							<div class="Information_right">
+								<p class="iphones">${message("common.captcha.already")}：</p>
+								<button type="button" class="btn btn-default ccccc">${message("common.captcha.rightoff")}</button>
+								<p class="platform">${message("common.captcha.platform")}</p>
+								<p class="platforms"></p>
+								<ul class="datazz">
+									<li>${message("common.captcha.service")}</li>
+									<li>${message("common.captcha.servicetwo")}</li>
+									<li>${message("common.captcha.serviceone")}</li>
+									<li>${message("common.captcha.domestic")}</li>
+									<ul class="dian">
+										<li></li>
+										<li></li>
+										<li></li>
+										<li></li>
+									</ul>
+								</ul>
 							</div>
 						</div>
 					</div>
 					<div class="panel-footer">
-						<div class="row">
-							<div class="col-xs-8">
-								<div class="form-group">
-									<div class="col-xs-8 col-xs-offset-3">
-										<div class="checkbox">
-											<input id="agree" name="agree" type="checkbox" value="true" checked>
-											<label for="agree">${message("member.register.agree")}</label>
-											<a class="text-red" href="${base}/article/detail/17_1" target="_blank">${message("member.register.agreement")}</a>
-										</div>
-									</div>
-								</div>
-								<div class="form-group">
-									<div class="col-xs-8 col-xs-offset-3">
-										<button class="btn btn-primary btn-lg btn-block" type="submit">${message("member.register.submit")}</button>
-									</div>
-								</div>
-							</div>
-						</div>
 					</div>
 				</div>
 			</form>

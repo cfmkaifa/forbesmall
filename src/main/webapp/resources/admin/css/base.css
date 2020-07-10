@@ -371,23 +371,31 @@ main {
 	color: #FFFFFF;
 	cursor: pointer;
 }
-
 .palette {
-	/*width: 100px;*/
-	/*position: absolute;*/
+	width: 300px;
+	height: 300px;
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	margin: auto;
 }
 .palette .palette_item_wrapper {
 	-webkit-transition: -webkit-transform .4s;
 	transition: -webkit-transform .4s;
 	transition: transform .4s;
 	transition: transform .4s, -webkit-transform .4s;
-	width: 100%;
-	height: 100%;
+	width: 300px;
+	height: 300px;
 	border-radius: 50%;
 	-webkit-transform: translateX(100px);
 	transform: translateX(100px);
 	-webkit-transition-delay: .4s;
 	transition-delay: .4s;
+	position: fixed;
+	top: 23%;
+	display: none;
 }
 .palette.palette__opened .palette_item_wrapper {
 	-webkit-transform: translateX(0);
@@ -441,21 +449,25 @@ main {
 }
 .palette .palette_color, .palette .palette_color__main {
 	position: absolute;
+	border-radius: 50%;
 	cursor: pointer;
-	color: #FFFFFF;
-
+	border-style: solid;
+	border-color: #ffffff;
+	-webkit-box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.6);
+	box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.6);
 }
 .palette .palette_color__main {
-	width: 30px;
-	/*height: 100px;*/
-	/*-webkit-transition: background .3s;*/
-	/*transition: background .3s;*/
-	/*border-width: 6px;*/
-	/*left: 0;*/
-	right: 16px;
-	/*top: 0;*/
-	/*bottom: 0;*/
-	/*margin: auto;*/
+	/*background-color: #e16969;*/
+	width: 100px;
+	height: 100px;
+	-webkit-transition: background .3s;
+	transition: background .3s;
+	border-width: 6px;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	margin: auto;
 }
 .palette .palette_color {
 	width: 50px;

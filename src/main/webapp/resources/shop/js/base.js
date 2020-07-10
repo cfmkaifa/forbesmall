@@ -23,7 +23,9 @@
 })(jQuery);
 
 $().ready(function() {
-
+	$(".detailsul li").click(function () {
+		$(this).addClass("actives").siblings().removeClass('actives');
+	})
 	var $pageNumberItem = $("[data-page-number]");
 	
 	// 页码

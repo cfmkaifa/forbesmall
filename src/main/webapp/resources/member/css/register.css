@@ -81,3 +81,96 @@
 	border-width: 1px 0px 0px 0px;
 	border-top: 1px solid #e8e8e8;
 }
+.Information {
+	display: flex;
+	width: 510px;
+	height: 30px;
+	margin: 0px 0px 20px 11%;
+}
+.Information li {
+	width: 33.3%;
+	text-align: center;
+	line-height: 30px;
+	color: #666666;
+	background: #f5f5f5;
+}
+.Information_active {
+	background: #EE3834 !important;
+	color: #FFFFFF !important;
+	text-align: center;
+}
+.Information_main {
+	display: flex;
+}
+.Information-left {
+	width: 85%;
+}
+.Information_right {
+	width: 30%;
+}
+.iphones {
+	font-size: 16px;
+	color: #333333;
+}
+.iphone {
+	font-size: 14px;
+	color: #333333;
+	margin: 14px 0px 4px 0px;
+}
+.iphonepossword {
+	font-size: 12px;
+	color: #666666;
+}
+.platform {
+	font-size: 16px;
+	color: #333333;
+	margin-top: 30px;
+}
+.Informationtwo {
+	display: none;
+}
+.platforms {
+	width:80px;
+	height:4px;
+	background:linear-gradient(90deg,rgba(238,56,52,1) 0%,rgba(255,229,229,0.01) 100%);
+	opacity:1;
+	border-radius:4px;
+}
+.datazz {
+	margin-top: 20px;
+	height: 110px;
+	border-left: 1px solid #EAEAEA;
+	position: relative;
+}
+.datazz>li {
+	font-size: 12px;
+	color: #333333;
+	padding-left: 12px;
+}
+.datazz li:nth-child(n+2){
+	margin-top: 15px;
+}
+.dian {
+	height: 110px;
+	position: absolute;
+	top: 0;
+	left: -3px;
+}
+.dian li {
+	width:5px;
+	height:5px;
+	background:#EE3834;
+	border-radius:50%;
+	opacity:1;
+}
+.dian li:nth-child(n+2){
+	margin-top: 29px;
+}
+.ccccc {
+	width:217px;
+	height:37px;
+	border:1px solid rgba(209,209,209,1);
+	opacity:1;
+	border-radius:4px;
+	margin-top: 11px;
+}

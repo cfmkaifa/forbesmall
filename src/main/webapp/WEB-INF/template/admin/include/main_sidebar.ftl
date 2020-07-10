@@ -2,7 +2,7 @@
 	[#escape x as x?js_string]
 		<script>
 		$().ready(function() {
-			
+			var coco= localStorage.getItem("color");
 			var $window = $(window);
 			var $body = $("body");
 			var $mainSidebarCollapseToggle = $("[data-toggle='mainSidebarCollapse']");
@@ -10,7 +10,7 @@
 			var $searchForm = $("#mainSidebar .search form");
 			var $searchValue = $("#mainSidebar .search input[name='searchValue']");
 			var $panelCollapse = $("#mainSidebar .panel-collapse");
-			
+			$(".collapsed").css("background-color",coco);
 			// 主侧边栏折叠
 			$mainSidebarCollapseToggle.click(function() {
 				var niceScroll = $mainSidebar.getNiceScroll();
