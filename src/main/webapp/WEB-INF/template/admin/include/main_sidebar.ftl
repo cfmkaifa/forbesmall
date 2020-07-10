@@ -10,8 +10,10 @@
 			var $searchForm = $("#mainSidebar .search form");
 			var $searchValue = $("#mainSidebar .search input[name='searchValue']");
 			var $panelCollapse = $("#mainSidebar .panel-collapse");
-			$(".collapsed").css("background-color",coco);
+				$(".main-sidebar .panel-group .panel .panel-heading a").css("background-color",coco);
+
 			// 主侧边栏折叠
+			// $(".main-sidebar .panel-group .panel .panel-heading a.aria-expanded")
 			$mainSidebarCollapseToggle.click(function() {
 				var niceScroll = $mainSidebar.getNiceScroll();
 				var interval = setInterval(function() {

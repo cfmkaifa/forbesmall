@@ -371,15 +371,20 @@ main {
 	color: #FFFFFF;
 	cursor: pointer;
 }
+
+
+
+
 .palette {
-	width: 300px;
-	height: 300px;
 	position: absolute;
 	left: 0;
 	right: 0;
 	top: 0;
 	bottom: 0;
 	margin: auto;
+	width: 300px;
+	height: 300px;
+
 }
 .palette .palette_item_wrapper {
 	-webkit-transition: -webkit-transform .4s;
