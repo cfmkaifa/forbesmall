@@ -26,6 +26,11 @@ $().ready(function() {
 	$(".detailsul li").click(function () {
 		$(this).addClass("actives").siblings().removeClass('actives');
 	})
+	$(".detailsul a").each(function(){
+		if($(this)[0].href==String(window.location)){
+
+		}
+	});
 	var $pageNumberItem = $("[data-page-number]");
 	
 	// 页码

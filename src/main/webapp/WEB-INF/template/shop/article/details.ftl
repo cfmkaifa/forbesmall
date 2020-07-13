@@ -49,10 +49,10 @@
 [#--                </ul>--]
                 <ul class="detailsul">
                     <p style="margin: 16px 0px 10px 0px;">采购商服务</p>
-                    <li class="actives">买家服务协议</li>
-                    <li style="margin-bottom: 10px;">买家交易规则</li>
+                    <li class=""><a href="${base}/article/detail/17_1">平台服务协议</a></li>
+                    <li style="margin-bottom: 10px;"><a href="${base}/article/detail/16_1">买家交易规则</a></li>
                     <p style=" border-top: 1px solid #EEEEEE; padding-top: 16px;  height: 50px;">合同模板</p>
-                    <li style="margin-bottom: 10px;">产品采购合同</li>
+                    <li style="margin-bottom: 10px;"><a href="${base}/article/detail/22_1">产品采购合同</a></li>
                     <p style="border-top: 1px solid #EEEEEE; padding-top: 16px; height: 50px;">支付方式</p>
                     <li>在线支付</li>
                     <li style="margin-bottom: 10px;">支付常见问题</li>
