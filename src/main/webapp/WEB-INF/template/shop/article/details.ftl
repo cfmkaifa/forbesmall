@@ -54,12 +54,12 @@
                     <p style=" border-top: 1px solid #EEEEEE; padding-top: 16px;  height: 50px;">合同模板</p>
                     <li style="margin-bottom: 10px;"><a href="${base}/article/detail/22_1">产品采购合同</a></li>
                     <p style="border-top: 1px solid #EEEEEE; padding-top: 16px; height: 50px;">支付方式</p>
-                    <li>在线支付</li>
-                    <li style="margin-bottom: 10px;">支付常见问题</li>
+                    <li><a href="${base}/article/detail/30_1">在线支付</a></li>
+                    <li style="margin-bottom: 10px;"><a href="${base}/article/detail/27_1">支付常见问题</a></li>
                     <p style=" border-top: 1px solid #EEEEEE; padding-top: 16px;  height: 50px;">供应商服务</p>
-                    <li>会员入驻</li>
-                    <li>商家服务协议</li>
-                    <li style="margin-bottom: 10px;">商家交易规则</li>
+                    <li><a href="${base}/article/member">会员入驻</a></li>
+                    <li><a href="${base}/article/detail/10470_1">商家服务协议</a></li>
+                    <li style="margin-bottom: 10px;"><a href="${base}/article/detail/10469_1">商家交易规则</a></li>
                 </ul>
             </div>
             <div class="detailsContent">

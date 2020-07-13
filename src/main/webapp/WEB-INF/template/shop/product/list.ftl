@@ -477,11 +477,11 @@
                             [#noautoesc]${adPosition.resolveTemplate()}[/#noautoesc]
                         [/#if]
                     [/@ad_position]
-                    [@ad_position id = 10054]
-                        [#if adPosition??]
-                            [#noautoesc]${adPosition.resolveTemplate()}[/#noautoesc]
-                        [/#if]
-                    [/@ad_position]
+[#--                    [@ad_position id = 10054]--]
+[#--                        [#if adPosition??]--]
+[#--                            [#noautoesc]${adPosition.resolveTemplate()}[/#noautoesc]--]
+[#--                        [/#if]--]
+[#--                    [/@ad_position]--]
                 </div>
             </div>
             <div class="col-xs-10">
