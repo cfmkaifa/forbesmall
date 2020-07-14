@@ -48,6 +48,9 @@
                                 required: true,
                                 email: true
                             },
+                            mobile: {
+                                remote: "${message("member.register.mobileExist")}"
+                            },
                             captcha: "required"
                         },
                         submitHandler: function (form) {
@@ -108,9 +111,9 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="col-xs-3 control-label item-required"
-                                           for="email">${message("common.captcha.iPhone")}:</label>
+                                           for="mobile">${message("common.captcha.iPhone")}:</label>
                                     <div class="col-xs-6">
-                                        <input id="email" name="email" class="form-control" type="text" maxlength="200">
+                                        <input id="mobile" name="mobile" class="form-control" type="text" maxlength="200">
                                     </div>
                                 </div>
                                 [#if setting.captchaTypes?? && setting.captchaTypes?seq_contains("FORGOT_PASSWORD")]

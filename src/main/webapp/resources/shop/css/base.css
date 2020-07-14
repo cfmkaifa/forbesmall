@@ -1058,3 +1058,13 @@
 	margin-left: 10px;
 	margin-top: 10px;
 }
+.ordercode {
+	margin-top: 13px;
+}
+.ordercode span {
+	margin-left: 16px;
+	font-size: 12px;
+}
+.text-gay {
+	color: #666666;
+}

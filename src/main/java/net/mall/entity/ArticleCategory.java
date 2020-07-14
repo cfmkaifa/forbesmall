@@ -60,7 +60,12 @@ public class ArticleCategory extends OrderedEntity<Long> {
         /**
          * 平台说明
          */
-        INST
+        INST,
+
+        /***
+         * 视频
+         */
+        VIDEO
     }
 
 

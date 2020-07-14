@@ -105,6 +105,13 @@ public class Article extends BaseEntity<Long> {
     @Lob
     private String content;
 
+
+    /***
+     * 缩略图
+     */
+    @Length(max = 200)
+    private String thumbnail;
+
     /**
      * 页面标题
      */
@@ -214,6 +221,18 @@ public class Article extends BaseEntity<Long> {
      */
     public void setContent(String content) {
         this.content = content;
+    }
+
+    /***
+     * 缩略图
+     * @return
+     */
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
     }
 
     /**

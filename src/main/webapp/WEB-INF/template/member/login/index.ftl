@@ -39,7 +39,6 @@
 		[#escape x as x?js_string]
 			<script>
 				$().ready(function() {
-
 					var $document = $(document);
 					var $loginForm = $("#loginForm");
 					var $username = $("#username");
@@ -49,8 +48,8 @@
 					var $captchaImage = $("[data-toggle='captchaImage']");
 					var $rememberUsername = $("#rememberUsername");
 					var rememberedUsernameLocalStorageKey = "rememberedMemberUsername";
+					var $phoneForm = $("#phoneForm");
 					var loginSuccessUrl = "${base}${memberLoginSuccessUrl}";
-
 					// 记住用户名
 					if (localStorage.getItem(rememberedUsernameLocalStorageKey) != null) {
 						$username.val(localStorage.getItem(rememberedUsernameLocalStorageKey));
@@ -69,7 +68,7 @@
 						prevText: "&#xe679;"
 					});
 
-					// 表单验证
+					// 账号密码表单验证
 					$loginForm.validate({
 						rules: {
 							username: "required",
@@ -81,6 +80,7 @@
 							},
 							captcha: "required"
 						},
+
 						messages: {
 							username: {
 								required: "${message("member.login.usernameRequired")}"
@@ -109,7 +109,42 @@
 						},
 						errorPlacement: $.noop
 					});
+					$phoneForm.validate({
+						rules: {
+							username: "required",
+							password: {
+								required: true,
+								normalizer: function(value) {
+									return value;
+								}
+							},
+						},
 
+						messages: {
+							username: {
+								required: "${message("member.login.usernameRequired")}"
+							},
+							password: {
+								required: "${message("member.login.passwordRequired")}"
+							}
+						},
+						submitHandler: function(form) {
+							$(form).ajaxSubmit({
+								successMessage: false,
+								successRedirectUrl: function(redirectUrlParameterName) {
+									var redirectUrl = Url.queryString(redirectUrlParameterName);
+									var baseUrl = "${base}";
+									return $.trim(redirectUrl) != "" ? (baseUrl+redirectUrl) : loginSuccessUrl;
+								}
+							});
+						},
+						invalidHandler: function(event, validator) {
+							$.bootstrapGrowl(validator.errorList[0].message, {
+								type: "warning"
+							});
+						},
+						errorPlacement: $.noop
+					});
 					// 用户登录成功、记住用户名
 					$loginForm.on("success.mall.ajaxSubmit", function() {
 						$document.trigger("loggedIn.mall.user", [{
@@ -123,7 +158,19 @@
 							localStorage.removeItem(rememberedUsernameLocalStorageKey);
 						}
 					});
+					// 用户登录成功、记住用户名
+					$phoneForm.on("success.mall.ajaxSubmit", function() {
+						$document.trigger("loggedIn.mall.user", [{
+							type: "member",
+							username: $username.val()
+						}]);
 
+						if ($rememberUsername.prop("checked")) {
+							localStorage.setItem(rememberedUsernameLocalStorageKey, $username.val());
+						} else {
+							localStorage.removeItem(rememberedUsernameLocalStorageKey);
+						}
+					});
 					// 验证码图片
 					$loginForm.on("error.mall.ajaxSubmit", function() {
 						$captchaImage.captchaImage("refresh");
@@ -135,6 +182,7 @@
 					});
 
 				});
+
 				var countdown=60;
 				function submits() {
 					if (countdown == 0) {
@@ -144,12 +192,11 @@
 						return false;
 					} else {
 						$("#code").attr("disabled", true);
-						$("#code").text(countdown + "秒后重新获取");
+						$("#code").text(countdown + "秒");
 						countdown--;
 
 					};
 					setTimeout(function () {
-						console.log(111);
 						submits();
 					}, 1000);
 				};
@@ -172,6 +219,8 @@
 					})
 
 				};
+
+
 			</script>
 		[/#escape]
 	[/#noautoesc]
@@ -189,9 +238,7 @@
 					[/@ad_position]
 				</div>
 				<div class="col-xs-4">
-[#--					<form id="loginForm" action="${base}/member/login" method="post">--]
-[#--						<input name="socialUserId" type="hidden" value="${socialUserId}">--]
-[#--						<input name="uniqueId" type="hidden" value="${uniqueId}">--]
+[#--					<form id="loginForm">--]
 						<div class="panel panel-default">
 							<div class="panel-heading">
 								<div class="panel-title">
@@ -211,62 +258,61 @@
 									<li class="login-switcli login-weight">账号密码登录</li>
 									<li class="login-switcli2">手机验证码登录</li>
 								</ul>
-[#--								<form id="loginForm" action="${base}/member/login" method="post">--]
-[#--									<input name="socialUserId" type="hidden" value="${socialUserId}">--]
-[#--									<input name="uniqueId" type="hidden" value="${uniqueId}">--]
-[#--									<div class="passwords-login">--]
-[#--										<div class="form-group">--]
-[#--											<div class="input-group">--]
-[#--											<span class="input-group-addon">--]
-[#--												<i class="iconfont icon-people"></i>--]
-[#--											</span>--]
-[#--												<input id="username" name="username" class="form-control" type="text" maxlength="200" placeholder="${message("member.login.usernamePlaceholder")}" autocomplete="off">--]
-[#--											</div>--]
-[#--										</div>--]
-[#--										<div class="form-group">--]
-[#--											<div class="input-group">--]
-[#--											<span class="input-group-addon">--]
-[#--												<i class="iconfont icon-lock"></i>--]
-[#--											</span>--]
-[#--												<input id="password" name="password" class="form-control" type="password" maxlength="200" placeholder="${message("member.login.passwordPlaceholder")}" autocomplete="off">--]
-[#--											</div>--]
-[#--										</div>--]
-[#--										[#if setting.captchaTypes?? && setting.captchaTypes?seq_contains("MEMBER_LOGIN")]--]
-[#--											<div class="form-group">--]
-[#--												<div class="input-group">--]
-[#--												<span class="input-group-addon">--]
-[#--													<i class="iconfont icon-pic"></i>--]
-[#--												</span>--]
-[#--													<input id="captcha" name="captcha" class="captcha form-control" type="text" maxlength="4" placeholder="${message("common.captcha.name")}" autocomplete="off">--]
-[#--													<div class="input-group-btn">--]
-[#--														<img class="captcha-image" src="${base}/resources/common/images/transparent.png" title="${message("common.captcha.imageTitle")}" data-toggle="captchaImage">--]
-[#--													</div>--]
-[#--												</div>--]
-[#--											</div>--]
-[#--										[/#if]--]
-[#--										<div class="form-group">--]
-[#--											<div class="checkbox">--]
-[#--												<input id="rememberUsername" name="rememberUsername" type="checkbox" value="true">--]
-[#--												<label for="rememberUsername">${message("member.login.rememberUsername")}</label>--]
-[#--											</div>--]
-[#--										</div>--]
-[#--										<div class="form-group">--]
-[#--											<button class="btn btn-primary btn-lg btn-block" type="submit">--]
-[#--												[#if socialUserId?has_content && uniqueId?has_content]${message("member.login.bind")}[#else]${message("member.login.submit")}[/#if]--]
-[#--											</button>--]
-[#--										</div>--]
-[#--									</div>--]
-
-[#--								</form>--]
+								<form id="loginForm" name="loginForm" action="${base}/member/login" method="post">
+									<div class="passwords-login">
+										<div class="form-group">
+											<div class="input-group">
+											<span class="input-group-addon">
+												<i class="iconfont icon-people"></i>
+											</span>
+												<input type="hidden" name="isPhone" value="0" />
+												<input id="username" name="username" class="form-control" type="text" maxlength="200" placeholder="${message("member.login.usernamePlaceholder")}" autocomplete="off">
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="input-group">
+											<span class="input-group-addon">
+												<i class="iconfont icon-lock"></i>
+											</span>
+												<input id="password" name="password" class="form-control" type="password" maxlength="200" placeholder="${message("member.login.passwordPlaceholder")}" autocomplete="off">
+											</div>
+										</div>
+										[#if setting.captchaTypes?? && setting.captchaTypes?seq_contains("MEMBER_LOGIN")]
+											<div class="form-group">
+												<div class="input-group">
+												<span class="input-group-addon">
+													<i class="iconfont icon-pic"></i>
+												</span>
+													<input id="captcha" name="captcha" class="captcha form-control" type="text" maxlength="4" placeholder="${message("common.captcha.name")}" autocomplete="off">
+													<div class="input-group-btn">
+														<img class="captcha-image" src="${base}/resources/common/images/transparent.png" title="${message("common.captcha.imageTitle")}" data-toggle="captchaImage">
+													</div>
+												</div>
+											</div>
+										[/#if]
+										<div class="form-group">
+											<div class="checkbox">
+												<input id="rememberUsername" name="rememberUsername" type="checkbox" value="true">
+												<label for="rememberUsername">${message("member.login.rememberUsername")}</label>
+											</div>
+										</div>
+										<div class="form-group">
+											<button class="btn btn-primary btn-lg btn-block" type="submit" id="passworkButton">
+												[#if socialUserId?has_content && uniqueId?has_content]${message("member.login.bind")}[#else]${message("member.login.submit")}[/#if]
+											</button>
+										</div>
+									</div>
+								</form>
 								[#--手机验证--]
-								<form id="loginForm" action="${base}/member/login" method="post">
-									<div >
+								<form id="phoneForm" name="phoneForm" action="${base}/member/login" method="post">
+									<div class="iphone-login">
 										<div class="form-group">
 											<div class="input-group" style="display: flex;border: 1px solid #d8d8d8; border-radius: 4px">
 												<span class="input-group-addon" style="border: none">
 													<i class="iconfont icon-people"></i>
 												</span>
-												<input id="isPhone" name="isPhone" value="1" type="hidden">
+												<input id="csrfToken" name="csrfToken" type="hidden">
+												<input type="hidden" name="isPhone" value="1" />
 												<input id="phone" name="username" class="form-control" type="text" maxlength="200" placeholder="${message("member.login.iPhone")}" autocomplete="off" style="width: 62%;border: none;border-left: 1px solid #d8d8d8;">
 												<div style="width:100px; height:32px;border-left: 1px solid #d8d8d8">
 													<button type="button" id="code" onclick="codeButton()" class="btn btn-default btn-lg btn-block" style="width: 99px; height: 32px;  line-height: 14px; font-size: 13px;border: none;">获取验证码</button>
@@ -282,18 +328,12 @@
 											</div>
 										</div>
 										<div class="form-group">
-											<button class="btn btn-primary btn-lg btn-block" type="submit">
+											<button class="btn btn-primary btn-lg btn-block" type="submit" id="loginButton">
 												[#if socialUserId?has_content && uniqueId?has_content]${message("member.login.bind")}[#else]${message("member.login.submit")}[/#if]
 											</button>
 										</div>
 									</div>
-
 								</form>
-[#--								<div class="form-group">--]
-[#--									<button class="btn btn-primary btn-lg btn-block" type="submit">--]
-[#--										[#if socialUserId?has_content && uniqueId?has_content]${message("member.login.bind")}[#else]${message("member.login.submit")}[/#if]--]
-[#--									</button>--]
-[#--								</div>--]
 								<div class="row">
 									<div class="col-xs-6 text-left">
 										[#if socialUserId?has_content && uniqueId?has_content]
