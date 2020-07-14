@@ -61,7 +61,12 @@ a{
 .videos {
 	width:234px;
 	height:150px;
-	border: 1px solid red;
+	position: relative;
+}
+.videos video {
+	position: absolute;
+	top: 0;
+	left: 0;
 }
 .video-title {
 	color: #222222;
