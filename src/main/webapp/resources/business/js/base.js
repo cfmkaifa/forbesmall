@@ -32,7 +32,18 @@ $().ready(function() {
 			loginType: "business"
 		});
 	}
-	
+	$(".login-switcli").click(function () {
+		$(".passwords-login").show();
+		$(".iphone-login").hide();
+
+	})
+	$(".login-switcli2").click(function () {
+		$(".passwords-login").hide();
+		$(".iphone-login").show();
+	})
+	$(".login-switch li").click(function () {
+		$(this).addClass("login-weight").siblings().removeClass('login-weight')
+	})
 	// 按钮
 	$button.click(function() {
 		var $element = $(this);

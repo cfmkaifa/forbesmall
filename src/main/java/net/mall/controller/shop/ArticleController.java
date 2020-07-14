@@ -460,4 +460,14 @@ public class ArticleController extends BaseController {
         model.addAttribute("currentStoreUser",currentUser);
         return "/shop/declare/smart";
     }
+
+
+    /***
+     * 关于我们
+     */
+    @GetMapping(value = "/contract")
+    public String contract(@CurrentUser Business currentUser,ModelMap model){
+        model.addAttribute("currentStoreUser",currentUser);
+        return "/shop/contract/about";
+    }
 }

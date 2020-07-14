@@ -41,7 +41,7 @@
 			$().ready(function() {
 			
 				var $articleForm = $("#articleForm");
-				
+
 				// 表单验证
 				$articleForm.validate({
 					rules: {
@@ -134,6 +134,18 @@
 								<textarea name="content" class="form-control" data-provide="editor"></textarea>
 							</div>
 						</div>
+						<!--缩略图strat-->
+						<div class="form-group">
+							<label class="col-xs-3 col-sm-2 control-label">${message("Article.thumbnail")}:</label>
+							<div id="productImage" class="tab-pane">
+								<div class="form-group">
+									<div class="col-xs-12 col-sm-6">
+										<input id="thumbnail" name="thumbnail" type="file" multiple>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--缩略图end-->
 						<div class="form-group">
 							<label class="col-xs-3 col-sm-2 control-label" for="seoTitle">${message("Article.seoTitle")}:</label>
 							<div class="col-xs-9 col-sm-4">

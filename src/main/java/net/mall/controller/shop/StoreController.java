@@ -8,18 +8,18 @@ package net.mall.controller.shop;
 
 import javax.inject.Inject;
 
+import net.mall.Filter;
 import net.mall.Page;
 import net.mall.entity.Product;
+import net.mall.security.CurrentStore;
+import net.mall.service.ProductService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
@@ -29,6 +29,11 @@ import net.mall.entity.BaseEntity;
 import net.mall.entity.Store;
 import net.mall.exception.ResourceNotFoundException;
 import net.mall.service.StoreService;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Controller - 店铺
@@ -42,6 +47,9 @@ public class StoreController extends BaseController {
 
     @Inject
     private StoreService storeService;
+
+    @Inject
+    private ProductService productService;
 
     /**
      * 每页记录数
@@ -58,6 +66,7 @@ public class StoreController extends BaseController {
             throw new ResourceNotFoundException();
         }
         model.addAttribute("store", store);
+        model.addAttribute("page", productService.findPage(null, 0,false, null, store,null, null, null, null, null, null, null, null, null, null, true, true, null, true, null, null, null, null, null));
         return "shop/store/index";
     }
 
@@ -89,22 +98,7 @@ public class StoreController extends BaseController {
         if (StringUtils.isEmpty(keyword)) {
             return Results.NOT_FOUND;
         }
-
         Pageable pageable = new Pageable(pageNumber, PAGE_SIZE);
         return ResponseEntity.ok(storeService.search(keyword, pageable).getContent());
     }
-
-
-   /* *//***
-     * 首页工厂资源轮播
-     *//*
-    @PostMapping("/factory")
-        public String factory(ModelMap model){
-        Pageable pageable = new Pageable();
-        pageable.setPageSize(12);
-        Page<Store> stores = storeService.findPage(pageable);
-        model.addAttribute(stores);
-        model.addAttribute("number",pageable.getPageNumber());
-        return "/shop/index";
-    }*/
 }

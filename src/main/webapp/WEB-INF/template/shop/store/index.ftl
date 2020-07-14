@@ -101,7 +101,43 @@
                     <h5>店铺简介</h5>
                 </div>
                 <p class="hot-introduction">${store.introduction}</p>
-                [@store_product_tag_list storeId = store.id count = 10]
+
+                    <div class="hot-product">
+                        <div class="hot-product-heading">
+                            <h5>${storeProductTag.name}</h5>
+                        </div>
+                        <div class="hot-product-body">
+                            <ul class="clearfix">
+                                [#list page.content as product]
+                                    [#assign defaultSku = product.defaultSku /]
+                                    <li>
+                                        <a href="${base}${product.path}">
+                                            <img class="lazy-load img-responsive center-block"
+                                                 src="${base}/resources/common/images/transparent.png"
+                                                 alt="${product.name}"
+                                                 data-original="${product.thumbnail!setting.defaultThumbnailProductImage}">
+                                        </a>
+                                        <strong>
+                                            [#if product.type == "GENERAL"]
+                                                ￥${product.price}
+                                            [#elseif product.type == "EXCHANGE"]
+                                                ${message("Sku.exchangePoint")}: ${defaultSku.exchangePoint}
+                                            [/#if]
+                                        </strong>
+                                        <a href="${base}${product.path}">
+                                            <h5 class="text-overflow"
+                                                title="${product.name}">${product.name}</h5>
+                                            [#if product.caption?has_content]
+                                                <h6 class="text-overflow"
+                                                    title="${product.caption}">${product.caption}</h6>
+                                            [/#if]
+                                        </a>
+                                    </li>
+                                [/#list]
+                            </ul>
+                        </div>
+                    </div>
+                [@store_product_tag_list storeId = store.id count = 20]
                     [#if storeProductTags?has_content]
                         [#list storeProductTags as storeProductTag]
                             [@product_list storeId = store.id storeProductTagId = storeProductTag.id count = 20]
@@ -146,13 +182,6 @@
                 [/@store_product_tag_list]
             </div>
         </div>
-        [@pagination pageNumber = page.pageNumber totalPages = page.totalPages]
-            [#if totalPages > 1]
-                <div class="panel-footer text-right">
-                    [#include "/business/include/pagination.ftl" /]
-                </div>
-            [/#if]
-        [/@pagination]
     </div>
 </main>
 [#include "/shop/include/main_footer.ftl" /]

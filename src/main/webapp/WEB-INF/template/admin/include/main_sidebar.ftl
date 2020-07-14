@@ -10,8 +10,10 @@
 			var $searchForm = $("#mainSidebar .search form");
 			var $searchValue = $("#mainSidebar .search input[name='searchValue']");
 			var $panelCollapse = $("#mainSidebar .panel-collapse");
-				$(".main-sidebar .panel-group .panel .panel-heading a").css("background-color",coco);
 
+			var $expande = $(".main-sidebar .panel-group .panel .panel-heading a[aria-expanded='true']")[0];
+			$(".collapsed").css("background-color",coco);
+			$expande.style.backgroundColor = coco;
 			// 主侧边栏折叠
 			// $(".main-sidebar .panel-group .panel .panel-heading a.aria-expanded")
 			$mainSidebarCollapseToggle.click(function() {

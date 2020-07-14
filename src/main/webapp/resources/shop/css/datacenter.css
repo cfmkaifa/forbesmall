@@ -1,0 +1,99 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+li {
+	list-style: none;
+}
+a{
+	text-decoration: none;
+	color: #666666;
+}
+ button{
+   outline:none;
+  }
+  .conter {
+  width: 1200px;
+  margin: 30px auto;
+  display: flex;
+  
+  }
+  .right {
+	  width: 1000px;
+  }
+  .videotop {
+	  display: flex;
+	  justify-content: flex-end;
+  }
+  .videoinput {
+	width:228px;
+	height:30px;
+	background:rgba(255,255,255,1);
+	border:1px solid rgba(204,204,204,1);
+	opacity:1;
+	border-radius:4px;
+	outline:none;
+	padding-left: 10px;
+  }
+  .videolost {
+	  display: flex;
+	  flex-wrap: wrap;
+  }
+.navul {
+	width: 184px;
+}
+.navul li {
+	height: 50px;
+	text-align: left;
+	line-height: 50px;
+	padding-left: 55px;
+	border: 1px dashed #F8F8F8;
+	cursor:pointer;
+}
+.active {
+	background: #F8F8F8;
+	color: #EC3031;
+}
+.video {
+	width: 234px;
+	margin: 15px 0px 0px 15px;
+}
+.videos {
+	width:234px;
+	height:150px;
+	border: 1px solid red;
+}
+.video-title {
+	color: #222222;
+	font-size: 14px;
+	font-weight:600;
+	margin: 10px 0px 5px 0px;
+}
+.video-conter {
+	font-size: 12px;
+	color: #666666;
+	overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+.videotopdet{
+	display: flex;
+}
+.videotopdet li {
+	margin-left: 10px;
+}
+.ttt {
+	font-size: 28px;
+	color: #33363F;
+}
+.sss {
+	font-size: 12px;
+	color: #333333;
+	line-height: 43px;
+}
+.videolostdet {
+	margin-top: 10px;
+	height: 530px;
+}

@@ -172,6 +172,8 @@
 				<entry key="order_count" value-ref="orderCountDirective" />
 				<entry key="order_count" value-ref="orderCountDirective" />
 				<entry key="pagination" value-ref="paginationDirective" />
+				<entry key="video" value-ref="videoDirective" />
+				<entry key="video_category" value-ref="videoCategoryDirective" />
 				<entry key="product_category_children_list" value-ref="productCategoryChildrenListDirective" />
 				<entry key="product_category_parent_list" value-ref="productCategoryParentListDirective" />
 				<entry key="product_category_root_list" value-ref="productCategoryRootListDirective" />

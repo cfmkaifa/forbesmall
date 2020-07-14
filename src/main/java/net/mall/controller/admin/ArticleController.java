@@ -10,6 +10,9 @@ import java.util.HashSet;
 
 import javax.inject.Inject;
 
+import net.mall.FileType;
+import net.mall.entity.ProductImage;
+import net.mall.service.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -20,9 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import net.mall.Pageable;
 import net.mall.Results;
 import net.mall.entity.Article;
-import net.mall.service.ArticleCategoryService;
-import net.mall.service.ArticleService;
-import net.mall.service.ArticleTagService;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * Controller - 文章
@@ -40,6 +41,10 @@ public class ArticleController extends BaseController {
     private ArticleCategoryService articleCategoryService;
     @Inject
     private ArticleTagService articleTagService;
+    @Inject
+    private FileService fileService;
+    @Inject
+    private ProductImageService productImageService;
 
     /**
      * 添加

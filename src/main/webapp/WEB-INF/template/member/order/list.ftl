@@ -46,7 +46,13 @@
 						<div class="order-list panel panel-default">
 							<div class="panel-heading">
 								<span>${message("member.order.list")}</span>
-								<button type="button" class="btn btn-default">默认按钮</button>
+							</div>
+							<div class="ordercode">
+								<span><a href="${base}/member/order/list?status=PENDING_PAYMENT">等待付款</a></span>
+								<span><a href="${base}/member/order/list?status=MERCHANT_CONFIRM">商家确认</a></span>
+								<span><a href="${base}/member/order/list?status=PENDING_SHIPMENT">等待发货</a></span>
+								<span><a href="${base}/member/order/list?status=RECEIVED">已收货</a></span>
+								<span><a href="${base}/member/order/list?status=COMPLETED">已完成</a></span>
 							</div>
 							<div class="panel-body">
 								[#if page.content?has_content]
@@ -75,9 +81,9 @@
 																		[/#if]
 																	</h5>
 																	[#if orderItem.specifications?has_content]
-																		<span class="text-gray">[${orderItem.specifications?join(", ")}]</span>
+																		<span class="text-gay">[${orderItem.specifications?join(", ")}]</span>
 																	[/#if]
-																	<p class="text-gray-dark">${currency(orderItem.price, true)} &times; ${orderItem.quantity}</p>
+																	<p class="text-gay">${currency(orderItem.price, true)} &times; ${orderItem.quantity}</p>
 																</div>
 															</li>
 															[#if orderItem_index == 2]
