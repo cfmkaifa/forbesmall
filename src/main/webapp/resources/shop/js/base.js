@@ -50,5 +50,4 @@ $().ready(function() {
 			return false;
 		}
 	});
-
 });

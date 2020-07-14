@@ -57,7 +57,22 @@
 				$agree.change(function() {
 					$submit.prop("disabled", !$agree.prop("checked"));
 				});
-				
+				$(".nexta").click(function() {
+					$(".Informationone").hide();
+					$(".Informationtwo").show();
+					$(".axsaxatwo").addClass("Information_active").siblings().removeClass("Information_active");
+				})
+				$(".Information li").click(function () {
+					$(this).addClass("Information_active").siblings().removeClass("Information_active");
+				})
+				$(".axsaxaone").click(function () {
+					$(".Informationone").show();
+					$(".Informationtwo").hide();
+				})
+				$(".axsaxatwo").click(function () {
+					$(".Informationone").hide();
+					$(".Informationtwo").show();
+				})
 				// 表单验证
 				$registerForm.validate({
 					rules: {
@@ -173,9 +188,9 @@
 					</div>
 					<div class="panel-body">
 						<ul class="Information">
-							<li class="Information_active"> ${message("common.captcha.personal1")}</li>
-							<li>${message("common.captcha.personal2")}</li>
-							<li>${message("common.captcha.personal3")}</li>
+							<li class="axsaxaone Information_active"> ${message("common.captcha.personal1")}</li>
+							<li class="axsaxatwo">${message("common.captcha.personal2")}</li>
+[#--							<li>${message("common.captcha.personal3")}</li>--]
 						</ul>
 						<div class="Information_main">
 							<div class="Information-left">
@@ -221,7 +236,7 @@
 									</div>
 									<div class="form-group">
 										<div class="col-xs-6 col-xs-offset-3">
-											<button class="btn btn-primary btn-lg btn-block" type="submit">${message("business.register.submit")}</button>
+											<button class="btn btn-primary btn-lg btn-block nexta" id="">下一步</button>
 										</div>
 									</div>
 								</div>
@@ -282,6 +297,12 @@
 											</div>
 										</div>
 									[/#if]
+
+									<div class="form-group">
+										<div class="col-xs-6 col-xs-offset-3">
+											<button class="btn btn-primary btn-lg btn-block" type="submit">${message("business.register.submit")}</button>
+										</div>
+									</div>
 								</div>
 								<div class="InformationThree">
 
@@ -289,7 +310,7 @@
 							</div>
 							<div class="Information_right">
 								<p class="iphones">${message("common.captcha.already")}：</p>
-								<button type="button" class="btn btn-default ccccc">${message("common.captcha.rightoff")}</button>
+								<a href="${base}/business/index/home" target="_blank"><button type="button" class="btn btn-default ccccc">${message("common.captcha.rightoff")}</button></a>
 								<p class="platform">${message("common.captcha.platform")}</p>
 								<p class="platforms"></p>
 								<ul class="datazz">
