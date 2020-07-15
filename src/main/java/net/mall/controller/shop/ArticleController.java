@@ -125,7 +125,7 @@ public class ArticleController extends BaseController {
             model.addAttribute("vip_type","暂未登录");
         }
         String tempStr="shop/index";
-        if (article.getArticleCategory().getType().equals("INST")){
+        if (article.getArticleCategory().getType().equals(ArticleCategory.Type.INST)){
             tempStr="shop/article/instdetails";
         }else {
             tempStr="shop/article/details";
