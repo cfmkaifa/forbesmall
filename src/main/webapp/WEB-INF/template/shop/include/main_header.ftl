@@ -226,7 +226,7 @@
                                             </li>
 
                                             <li>
-                                                <a href="${base}/resources/shop/html/we.html" target="_blank">${message("shop.mainHeader.aboutus")}</a>
+                                                <a href="${base}/article/contract" target="_blank">${message("shop.mainHeader.aboutus")}</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -273,7 +273,7 @@
                                     </li>
 
                                     <li>
-                                        <a href="${base}/resources/shop/html/we.html" target="_blank">${message("shop.mainHeader.aboutus")}</a>
+                                        <a href="${base}/article/contract" target="_blank">${message("shop.mainHeader.aboutus")}</a>
                                     </li>
                                 </ul>
                             </li>

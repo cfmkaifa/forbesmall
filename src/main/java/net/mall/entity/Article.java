@@ -106,7 +106,7 @@ public class Article extends BaseEntity<Long> {
     private String content;
 
 
-    /***
+   /***
      * 缩略图
      */
     @Length(max = 200)

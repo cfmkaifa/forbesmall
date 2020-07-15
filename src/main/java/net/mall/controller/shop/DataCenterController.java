@@ -20,6 +20,10 @@ import javax.inject.Inject;
 @Controller("dataCenterController")
 @RequestMapping("/datacenter")
 public class DataCenterController extends BaseController{
+    /**
+     * 每页记录数
+     */
+    private static final int PAGE_SIZE = 20;
 
     @Inject
     private ArticleCategoryService articleCategoryService;
@@ -37,16 +41,15 @@ public class DataCenterController extends BaseController{
     @GetMapping("/videos/{articleCategoryId}")
     public String videoCategory(@PathVariable Long articleCategoryId, @CurrentUser Business currentUser,  Integer pageNumber, ModelMap model){
         model.addAttribute("currentStoreUser",currentUser);
-        Pageable pageable = new Pageable();
-        pageable.setPageSize(12);
-            Page<Article> articlePage=articleService.findPage(articleCategoryService.find(articleCategoryId), null, true, pageable);
-            articlePage.getContent().stream().forEach(temp->{
-                int start=temp.getContent().indexOf("http");
-                int end=temp.getContent().indexOf("mp4");
-                String tempsubStr=temp.getContent().substring(start,end+3);
-                temp.setContent(tempsubStr);
-            });
-            model.addAttribute("fiber",articlePage);
+        Pageable pageable = new Pageable(pageNumber, PAGE_SIZE);
+        Page<Article> articlePage=articleService.findPage(articleCategoryService.find(articleCategoryId), null, true, pageable);
+        articlePage.getContent().stream().forEach(temp->{
+            int start=temp.getContent().indexOf("http");
+            int end=temp.getContent().indexOf("mp4");
+            String tempsubStr=temp.getContent().substring(start,end+3);
+            temp.setContent(tempsubStr);
+        });
+        model.addAttribute("fiber",articlePage);
         return "/shop/datacenter/datacenter";
     }
 

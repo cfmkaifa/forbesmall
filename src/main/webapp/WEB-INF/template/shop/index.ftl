@@ -344,7 +344,7 @@
                         </li>
                         <li>
                             <img src="${base}/resources/shop/images/6.png">
-                            <p><a href="http://www.chinafibermarketing.cn/resources/shop/html/we.html?v=1.0" onclick="Quick_Entry(this)">${message("shop.index.aboutus")}</a></p>
+                            <p><a href="http://www.chinafibermarketing.cn/article/contract" onclick="Quick_Entry(this)">${message("shop.index.aboutus")}</a></p>
                         </li>
                     </ul>
                 </div>

@@ -8,6 +8,7 @@
     <link href="${base}/resources/common/css/iconfont.css" rel="stylesheet">
     <link href="${base}/resources/common/css/demo.css" rel="stylesheet">
     <link href="${base}/resources/shop/css/articledetails.css" rel="stylesheet">
+    <link href="${base}/resources/shop/css/articleindex.css" rel="stylesheet">
     <!--[if lt IE 9]>
 		<script src="${base}/resources/common/js/html5shiv.js"></script>
 		<script src="${base}/resources/common/js/respond.js"></script>
@@ -20,75 +21,110 @@
     <title>${message("shop.product.logo")}</title>
 </head>
 <body>
-      [#if article.articleCategory.name == '平台规则']
-          [#include "/shop/include/main_header.ftl" /]
-      [#elseif article.articleCategory.name == '合同模板']
-          [#include "/shop/include/main_header.ftl" /]
-      [#elseif article.articleCategory.name == '支付方式']
-          [#include "/shop/include/main_header.ftl" /]
-      [#elseif article.articleCategory.name == '供应商服务']
-          [#include "/shop/include/main_header.ftl" /]
-      [#else]
-           [#include "/shop/include/main_newheader.ftl" /]
-      [/#if]
+[#include "/shop/include/main_header.ftl" /]
 <main>
-    <div class="detail">
-        <div class="details">
-            <div class="detailsNav">
-[#--                <ul>--]
-[#--                    [#list page.content as temparticle]--]
-[#--                        <li>--]
-[#--                            <div style="padding-top: 20px">--]
-[#--                                <p><a href="${base}${temparticle.path}">${temparticle.title}</a></p>--]
-[#--                            </div>--]
-[#--                            <div class="detailsTime">--]
-[#--                                <span>${temparticle.createdDate}</span>--]
-[#--                            </div>--]
-[#--                        </li>--]
-[#--                    [/#list]--]
-[#--                </ul>--]
-                <ul class="detailsul">
-                    <p style="margin: 16px 0px 10px 0px;">采购商服务</p>
-                    <li class=""><a href="${base}/article/detail/17_1">平台服务协议</a></li>
-                    <li style="margin-bottom: 10px;"><a href="${base}/article/detail/16_1">买家交易规则</a></li>
-                    <p style=" border-top: 1px solid #EEEEEE; padding-top: 16px;  height: 50px;">合同模板</p>
-                    <li style="margin-bottom: 10px;"><a href="${base}/article/detail/22_1">产品采购合同</a></li>
-                    <p style="border-top: 1px solid #EEEEEE; padding-top: 16px; height: 50px;">支付方式</p>
-                    <li><a href="${base}/article/detail/30_1">在线支付</a></li>
-                    <li style="margin-bottom: 10px;"><a href="${base}/article/detail/27_1">支付常见问题</a></li>
-                    <p style=" border-top: 1px solid #EEEEEE; padding-top: 16px;  height: 50px;">供应商服务</p>
-                    <li><a href="${base}/article/member">会员入驻</a></li>
-                    <li><a href="${base}/article/detail/10470_1">商家服务协议</a></li>
-                    <li style="margin-bottom: 10px;"><a href="${base}/article/detail/10469_1">商家交易规则</a></li>
-                </ul>
-            </div>
-            <div class="detailsContent">
-                <div class="content_title">
-                    <h2 label="label" class="contenth2">
-                        <p>${article.title}</p>
-                    </h2>
-                    <span class="content_time">
-					        <p>${message("shop.article.author")}</p>
-					        <p>${article.createdDate}</p>
-					    </span>
-                    <div class="content_img">
+    <div class="arti-main">
+        <div class="conter">
+            <div class="conter-left">
+                <div class="arti-title">${article.title}</div>
+                <div class="source">
+                    <p class="">
+                        <span>${message("shop.article.author")}:</span>
+                        <span>${article.author}</span>
+                    </p>
+                    <p class="source-data">${article.createdDate}</p>
+                </div>
+                [#if isPerm]
+                    <div class="details-b">
+                            [#noautoesc]
+                                ${article.getPageContent(pageNumber)}
+                            [/#noautoesc]
+                    </div>
+                [#else ]
+                    <div class="details-a">
                         [#noautoesc]
                             ${article.getPageContent(pageNumber)}
                         [/#noautoesc]
+                        <div class="get_ct_more">
+                            <button id="get_ct_more" type="button" >点击购买全文阅读</button>
+                        </div>
                     </div>
+                [/#if]
+            </div>
+            <div class="conter-right">
+                <p class="widths">${article.articleCategory.name}</p>
+                <div class="newsrilists">
+                    [#list page.content as articles]
+                        <div class="newss">
+                            <div class="newss-top">
+                                <span></span>
+                                <p title="${articles.title}"> <a href="${base}${articles.path}">${articles.title}</a></p>
+                            </div>
+                            <div class="newssdata">
+                                <p>${articles.createdDate}</p >
+                                [#if articles.articleCategory.weekSubFee?has_content]
+                                     <p class="week">周报</p >
+                                [#elseif articles.articleCategory.monthSubFee?has_content]
+                                     <p class="month">月报</p >
+                                [#elseif articles.articleCategory.quarterSubFee?has_content]
+                                     <p class="quarter">季报</p >
+                                [#elseif articles.articleCategory.yearSubFee?has_content]
+                                    <p class="year">年报</p >
+                                [/#if]
+                            </div>
+                        </div>
+                    [/#list]
+                </div>
+                <div class="Hot">
+                    <p class="widths">热门产品</p>
+                    <ul class="Hotlist">
+                        [#list product.content as product]
+                            <li>
+                                <a href="${base}${product.path}">
+                                    ${product.name}
+                                </a>
+                            </li>
+                        [/#list]
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
+    <div id="cover"></div>
+    <div class="modoe">
+        <div class="modoe-title">
+            <p>提示</p>
+            <p class="xx">×</p>
+        </div>
+        <div class="modoe-conter">
+            <p class="modoe-P">您当前尚未登录，如需购买当前文章，请立即登录</p>
+            <div class="modoe-button">
+                <button type="button" class=" abuttn btn btn-default">采购商登录入口</button>
+                <button type="button" class="btn btn-default">供应商登录入口</button>
+            </div>
+        </div>
+    </div>
+    <div class="modoemoney">
+        <div class="modoe-title">
+            <p>提示</p>
+            <p class="xx">×</p>
+        </div>
+        <div class="modoemoney-conter">
+            <p>您当前正在进行支付操作，请确认购买商品信息：</p>
+            <p>[周报]风从柯桥来｜新迷彩花型赋予更多创意与可能，来源：万方数据库</p>
+            <p class="money-color">应付金额：¥25</p>
+        </div>
+    </div>
+</body>
 </main>
 [#include "/shop/include/main_footer.ftl" /]
 </body>
 
 <script type="text/javascript">
+
     //新闻资讯详情浏览埋点事件
     $(function () {
         var refer=document.referrer;
-
         try {
             sensors.track('newsClick',{
                 news_from_page:refer,

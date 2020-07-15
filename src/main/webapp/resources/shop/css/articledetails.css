@@ -114,8 +114,6 @@ a {
 	font-weight:600;
 	width: 100%;
 	display: inline-block;
-} */
-.active{
     height: 100%;
     background: #ed0000;
     color: #FFFFFF;
@@ -133,8 +131,17 @@ a {
     color: #454545;
     border-bottom: 1px solid #D1D1D1;
 }
+.contenth2-1 p{
+    padding-bottom: 9px;
+    text-align: center;
+    border-bottom: 2px solid #EC3031;
+}
 .contenth2 p {
     padding-bottom: 9px;
     width: 162px;
     border-bottom: 2px solid #EC3031;
+}
+.detailsContent-1 {
+    width: 65%;
+    padding: 7px 22px;
 }
