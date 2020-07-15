@@ -97,7 +97,7 @@
 		function _setColor(color){
 			localStorage.setItem("color",color);
 			$('.main-header').css('background', color);
-
+			window.location.reload()
 		}
 
 		_colorizePaletteItems();
