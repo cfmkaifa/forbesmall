@@ -73,17 +73,11 @@
                 <dl class="help">
                     <dt>采购商服务</dt>
                     <dd>
-                        <a href="${base}/article/detail/17_1">买家服务协议</a>
+                        <a href="${base}/article/detail/14005_1">买家服务协议</a>
                     </dd>
                     <dd>
-                        <a href="${base}/article/detail/16_1">买家交易规则</a>
+                        <a href="${base}/article/detail/14006_1">买家交易规则</a>
                     </dd>
-[#--                    <dd>--]
-[#--                        <a href="${base}/article/detail/15_1">购物流程</a>--]
-[#--                    </dd>--]
-[#--                    <dd>--]
-[#--                        <a href="${base}/article/detail/14_1">会员等级</a>--]
-[#--                    </dd>--]
                 </dl>
             </div>
             <div class="col-xs-2">
@@ -92,25 +86,16 @@
                     <dd>
                         <a href="${base}/article/detail/22_1">产品采购合同</a>
                     </dd>
-[#--                    <dd>--]
-[#--                        <a href="${base}/article/detail/21_1">货到付款</a>--]
-[#--                    </dd>--]
-[#--                    <dd>--]
-[#--                        <a href="${base}/article/detail/20_1">网银支付</a>--]
-[#--                    </dd>--]
-[#--                    <dd>--]
-[#--                        <a href="${base}/article/detail/19_1">银行转帐</a>--]
-[#--                    </dd>--]
                 </dl>
             </div>
             <div class="col-xs-2">
                 <dl class="help">
                     <dt>支付方式</dt>
                     <dd>
-                        <a href="${base}/article/detail/30_1">在线支付</a>
+                        <a href="${base}/article/detail/14009_1">在线支付</a>
                     </dd>
                     <dd>
-                        <a href="${base}/article/detail/27_1">支付常见问题</a>
+                        <a href="${base}/article/detail/14011_1">支付常见问题</a>
                     </dd>
 [#--                    <dd>--]
 [#--                        <a href="${base}/article/detail/28_1">退换货政策</a>--]
@@ -131,10 +116,10 @@
                         <a href="${base}/article/member">会员入驻</a>
                     </dd>
                     <dd>
-                        <a href="${base}/article/detail/10470_1">商家服务协议</a>
+                        <a href="${base}/article/detail/14007_1">商家服务协议</a>
                     </dd>
                     <dd>
-                        <a href="${base}/article/detail/10469_1">商家交易规则</a>
+                        <a href="${base}/article/detail/14008_1">商家交易规则</a>
                     </dd>
                 </dl>
             </div>

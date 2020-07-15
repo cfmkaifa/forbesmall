@@ -188,5 +188,15 @@
 	</div>
 </div>
 [#include "/shop/include/main_footer.ftl" /]
+
+<script type="text/javascript">
+	$(window).scroll(function(){
+		if($(window).scrollTop() >= 270){
+			$(".nav-pills").css("top","20px");
+		} else{
+			$(".nav-pills").css("top","270px");
+		}
+	});
+</script>
 </body>
 </html>

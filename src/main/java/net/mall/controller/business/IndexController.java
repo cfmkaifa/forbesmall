@@ -80,12 +80,11 @@ public class IndexController extends BaseController {
         /***供应商登录
          * **/
         Map<String,Object> properties = new HashMap<String,Object>();
-        Business business = currentStore.getBusiness();
-        properties.put("account",business.getUsername());
+        properties.put("account",currentUser.getName());
         properties.put("is_quick_login",false);
         properties.put("is_success",true);
         properties.put("fail_reason","");
-        sensorsAnalyticsUtils.reportData(String.valueOf(business.getId()),"LoginResult",properties);
+        sensorsAnalyticsUtils.reportData(String.valueOf(currentUser.getId()),"LoginResult",properties);
         if (currentUser !=null){
             model.addAttribute("currentStoreUser",currentUser);
         }
@@ -104,7 +103,7 @@ public class IndexController extends BaseController {
         if(cookieMap.containsKey(temp)){
             tempObj=java.net.URLDecoder.decode(cookieMap.get(temp).getValue(), "UTF-8");
             JSONObject jsonObject= JSON.parseObject(tempObj);
-            sensorsAnalyticsUtils.reportSignUp(business.getId().toString(),jsonObject.getString("distinct_id"));
+            sensorsAnalyticsUtils.reportSignUp(currentUser.getId().toString(),jsonObject.getString("distinct_id"));
         }
         return "shop/index";
     }
