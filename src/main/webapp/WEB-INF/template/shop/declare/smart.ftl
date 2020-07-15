@@ -33,6 +33,17 @@
 	</head>
 	<body>
 	[#include "/shop/include/main_header.ftl" /]
+		<div style="width: 1200px; margin: 10px auto;">
+			<ol class="breadcrumb">
+				<li>
+					<a href="${base}/admin/index">
+						<i class="iconfont icon-homefill"></i>
+						${message("common.breadcrumb.index")}
+					</a>
+				</li>
+				<li class="active">智能工厂</li>
+			</ol>
+		</div>
 		<div class="smart-top">
 			<ul>
 				<li><h2>智能工厂</h2></li>

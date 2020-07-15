@@ -186,7 +186,9 @@ main {
 	border-left: 3px solid transparent;
 	background-color: #333333;
 }
-
+.main-sidebar .panel-group .panel .panel-heading a:active {
+	background-color: #108ee9;
+}
 .main-sidebar .panel-group .panel .panel-heading a:hover {
 	border-left-color: #108ee9;
 	background-color: #222222;

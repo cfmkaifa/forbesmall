@@ -63,6 +63,15 @@
 			</div>		
 		</nav>
 		<div class="col-sm-9">
+			<ol class="breadcrumb">
+				<li>
+					<a href="${base}/admin/index">
+						<i class="iconfont icon-homefill"></i>
+						${message("common.breadcrumb.index")}
+					</a>
+				</li>
+				<li class="active">关于我们</li>
+			</ol>
 			<div id="section1"> 
 			   <!-- 分割线 -->
 				<div class="division">

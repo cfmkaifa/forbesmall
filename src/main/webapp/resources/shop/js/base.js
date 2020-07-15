@@ -31,6 +31,13 @@ $().ready(function() {
 
 		}
 	});
+	$(window).scroll(function(){
+		if($(window).scrollTop() >= 270){
+			$(".nav-pills").css("top","20px");
+		} else{
+			$(".nav-pills").css("top","270px");
+		}
+	});
 	var $pageNumberItem = $("[data-page-number]");
 	
 	// 页码

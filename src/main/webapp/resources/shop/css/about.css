@@ -10,7 +10,7 @@ body {
 	position: relative;
 }
 ul.nav-pills {
-	top: 240px;
+	top: 254px;
 	position: fixed;
 }
 @media screen and (max-width: 810px) {

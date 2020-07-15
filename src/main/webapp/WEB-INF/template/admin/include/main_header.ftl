@@ -46,7 +46,6 @@
 			<div data-color="#e1a169" class="palette_color"></div>
 			<div data-color="#108EE9" class="palette_color"></div>
 		</div>
-[#--		<div class="palette_color__main">换肤</div>--]
 	</div>
 </header>
 [#noautoesc]

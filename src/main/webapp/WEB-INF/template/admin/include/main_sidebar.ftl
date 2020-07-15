@@ -10,10 +10,17 @@
 			var $searchForm = $("#mainSidebar .search form");
 			var $searchValue = $("#mainSidebar .search input[name='searchValue']");
 			var $panelCollapse = $("#mainSidebar .panel-collapse");
-
-			var $expande = $(".main-sidebar .panel-group .panel .panel-heading a[aria-expanded='true']")[0];
+			var $expande = $(".main-sidebar .panel-group .panel .panel-heading a");
 			$(".collapsed").css("background-color",coco);
-			$expande.style.backgroundColor = coco;
+			// $expande.style.backgroundColor = coco;
+			for(var i=0;i<$expande.length;i++){
+				console.log($expande[i].ariaExpanded);
+				if ($expande[i].ariaExpanded=='true'){
+					$expande[i].style.backgroundColor = coco;
+				}else {
+					$expande[i].style.backgroundColor = '';
+				}
+			};
 			// 主侧边栏折叠
 			// $(".main-sidebar .panel-group .panel .panel-heading a.aria-expanded")
 			$mainSidebarCollapseToggle.click(function() {
@@ -53,7 +60,17 @@
 			$panelCollapse.on("shown.bs.collapse hidden.bs.collapse", function() {
 				$mainSidebar.getNiceScroll().resize();
 			});
-		
+			// 面板展开
+			$panelCollapse.on("shown.bs.collapse", function() {
+				for(var i=0;i<$expande.length;i++){
+					console.log($expande[i].ariaExpanded);
+					if ($expande[i].ariaExpanded=='true'){
+						$expande[i].style.backgroundColor = coco;
+					}else {
+						$expande[i].style.backgroundColor = '';
+					}
+				};
+			});
 		});
 		</script>
 	[/#escape]

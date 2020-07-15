@@ -71,6 +71,15 @@
 			</ul>
 		</div>
 		<div class="right">
+			<ol class="breadcrumb">
+				<li>
+					<a href="${base}/admin/index">
+						<i class="iconfont icon-homefill"></i>
+						${message("common.breadcrumb.index")}
+					</a>
+				</li>
+				<li class="active">数据中心</li>
+			</ol>
 			<div class="videolost">
 				[#list fiber.content as video]
 					<div class="video">

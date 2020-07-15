@@ -20,6 +20,7 @@ a{
   }
   .right {
 	  width: 1000px;
+	  padding-left: 10px;
   }
   .videotop {
 	  display: flex;

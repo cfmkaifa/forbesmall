@@ -80,6 +80,15 @@
                 [#include "/shop/include/store_product_category.ftl" /]
             </div>
             <div class="col-xs-10">
+                <ol class="breadcrumb">
+                    <li>
+                        <a href="${base}/admin/index">
+                            <i class="iconfont icon-homefill"></i>
+                            ${message("common.breadcrumb.index")}
+                        </a>
+                    </li>
+                    <li class="active">店铺首页</li>
+                </ol>
                 [@store_ad_image_list storeId = store.id]
                     [#if storeAdImages?has_content]
                         <ul id="mainSlider">
