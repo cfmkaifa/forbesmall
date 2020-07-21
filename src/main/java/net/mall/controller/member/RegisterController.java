@@ -20,6 +20,8 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.sensorsdata.analytics.javasdk.exceptions.InvalidArgumentException;
 import net.mall.entity.*;
+import net.mall.security.CurrentUser;
+import net.mall.util.ConvertUtils;
 import net.mall.util.SensorsAnalyticsUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
@@ -115,6 +117,70 @@ public class RegisterController extends BaseController {
         return "member/register/index";
     }
 
+    /***
+     * 增加账号
+     * @param username
+     * @param password
+     * @param member
+     * @param request
+     * @return
+     * @throws UnsupportedEncodingException
+     * @throws InvalidArgumentException
+     */
+   /* @PostMapping("/add_account")
+    public ResponseEntity<?> submit(String username, String password, @CurrentUser Member member, HttpServletRequest request)
+            throws UnsupportedEncodingException, InvalidArgumentException {
+        Setting setting = SystemUtils.getSetting();
+        if (!ArrayUtils.contains(setting.getAllowedRegisterTypes(), Setting.RegisterType.MEMBER)) {
+            return Results.unprocessableEntity("member.register.disabled");
+        }
+        if (!isValid(Member.class, "username", username, BaseEntity.Save.class) || !isValid(Member.class, "password", password, BaseEntity.Save.class)) {
+            return Results.UNPROCESSABLE_ENTITY;
+        }
+        if (memberService.usernameExists(username)) {
+            return Results.unprocessableEntity("member.register.usernameExist");
+        }
+        if (memberService.mobileExists(username)) {
+            return Results.unprocessableEntity("member.register.mobileExist");
+        }
+        Member tmember = new Member();
+        tmember.removeAttributeValue();
+        for (MemberAttribute memberAttribute : memberAttributeService.findList(true, true)) {
+            Object  memberAttributeValue =  member.getAttributeValue(memberAttribute);
+            if(ConvertUtils.isNotEmpty(memberAttributeValue)){
+                tmember.setAttributeValue(memberAttribute, memberAttributeValue);
+            }
+        }
+        tmember.setUsername(username);
+        tmember.setPassword(password);
+        tmember.setPoint(member.getPoint());
+        tmember.setBalance(BigDecimal.ZERO);
+        tmember.setFrozenAmount(BigDecimal.ZERO);
+        tmember.setAmount(BigDecimal.ZERO);
+        tmember.setIsEnabled(true);
+        tmember.setIsLocked(false);
+        tmember.setLockDate(null);
+        tmember.setLastLoginIp(request.getRemoteAddr());
+        tmember.setLastLoginDate(new Date());
+        tmember.setSafeKey(null);
+        tmember.setMemberRank(member.getMemberRank());
+        tmember.setDistributor(null);
+        tmember.setCart(null);
+        tmember.setOrders(null);
+        tmember.setPaymentTransactions(null);
+        tmember.setMemberDepositLogs(null);
+        tmember.setCouponCodes(null);
+        tmember.setReceivers(null);
+        tmember.setReviews(null);
+        tmember.setConsultations(null);
+        tmember.setProductFavorites(null);
+        tmember.setProductNotifies(null);
+        tmember.setSocialUsers(null);
+        tmember.setPointLogs(null);
+        tmember.setIsAudit(User.CheckStatus.SUCCESS);
+        userService.register(tmember);
+        return Results.OK;
+    }*/
     /**
      * 注册提交
      */

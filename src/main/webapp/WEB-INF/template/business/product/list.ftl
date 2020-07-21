@@ -244,7 +244,7 @@
 										</select>
 									</div>
 								</div>
-								<div class="form-group">
+								[#--<div class="form-group">
 									<label class="col-xs-3 control-label">${message("Product.type")}:</label>
 									<div class="col-xs-9 col-sm-7">
 										<select name="type" class="selectpicker form-control" data-live-search="true" data-size="10">
@@ -254,8 +254,8 @@
 											[/#list]
 										</select>
 									</div>
-								</div>
-								<div class="form-group">
+								</div>--]
+								[#--<div class="form-group">
 									<label class="col-xs-3 control-label">${message("Product.brand")}:</label>
 									<div class="col-xs-9 col-sm-7">
 										<select name="brandId" class="selectpicker form-control" data-live-search="true" data-size="10">
@@ -265,7 +265,7 @@
 											[/#list]
 										</select>
 									</div>
-								</div>
+								</div>--]
 								<div class="form-group">
 									<label class="col-xs-3 control-label">${message("Product.productTags")}:</label>
 									<div class="col-xs-9 col-sm-7">
@@ -288,7 +288,7 @@
 										</select>
 									</div>
 								</div>
-								<div class="form-group">
+								[#--<div class="form-group">
 									<label class="col-xs-3 control-label">${message("Product.promotions")}:</label>
 									<div class="col-xs-9 col-sm-7">
 										<select name="promotionId" class="selectpicker form-control" data-live-search="true" data-size="10">
@@ -298,7 +298,7 @@
 											[/#list]
 										</select>
 									</div>
-								</div>
+								</div>--]
 							</div>
 							<div class="modal-footer">
 								<button class="btn btn-primary" type="submit">${message("common.ok")}</button>

@@ -276,6 +276,7 @@
 <body class="shop product-detail" data-spy="scroll" data-target="#topbar">
 [#include "/shop/include/main_header.ftl" /]
 [#include "/shop/include/main_sidebar.ftl" /]
+[#include "/common/block_chain.ftl" /]
 <main>
     <div class="container">
         <form id="productNotifyForm" class="form-horizontal" action="${base}/product_notify/save" method="post">
@@ -387,6 +388,7 @@
             <div class="col-xs-6">
                 <div class="name">
                     <h1 style="font-size: 18px; font-weight: 600; text-align: left;">${product.name}</h1>
+                    <span class="iconfont" onmouseover="blockChain(this)" dataId="${product.id}" dataUrl="/business/product/chain"   style="color: #ff0000">&#xe746;</span>
                     [#if product.caption?has_content]
                         <strong>${product.caption}</strong>
                     [/#if]

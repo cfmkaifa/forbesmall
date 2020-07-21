@@ -9,9 +9,13 @@ package net.mall.controller.member;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
+import net.mall.Filter;
 import net.mall.Results;
+import net.mall.model.ResultModel;
+import net.mall.service.*;
 import net.mall.util.BusTypeEnum;
 import net.mall.util.RestTemplateUtil;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -23,14 +27,10 @@ import net.mall.controller.shop.BaseController;
 import net.mall.entity.Member;
 import net.mall.entity.Order;
 import net.mall.security.CurrentUser;
-import net.mall.service.ConsultationService;
-import net.mall.service.CouponCodeService;
-import net.mall.service.MessageService;
-import net.mall.service.OrderService;
-import net.mall.service.ProductFavoriteService;
-import net.mall.service.ProductNotifyService;
-import net.mall.service.ReviewService;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Controller - 首页
@@ -61,6 +61,8 @@ public class IndexController extends BaseController {
     private ReviewService reviewService;
     @Inject
     private ConsultationService consultationService;
+    @Inject
+    private MemberService memberService;
 
     private final String ONE_ONE_ID_F = "b%s%s";
 
@@ -73,8 +75,10 @@ public class IndexController extends BaseController {
     @ResponseBody
     public ResponseEntity<?> chain(Long dataId, HttpServletRequest request) {
         try {
-            ResponseEntity<RestTemplateUtil.BusResult>  responseEntity = RestTemplateUtil.reqTemplate(String.format(ONE_ONE_ID_F,"m",dataId), BusTypeEnum.SUPPLIER.getCode());
-            return responseEntity;
+            ResultModel responseEntity =  RestTemplateUtil.reqTemplate(String.format(ONE_ONE_ID_F,"m",dataId), BusTypeEnum.SUPPLIER.getCode());
+            if("000000".equals(responseEntity.getResultCode())){
+                return Results.status(HttpStatus.OK,responseEntity.getData());
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -99,4 +103,27 @@ public class IndexController extends BaseController {
         model.addAttribute("newOrders", orderService.findList(null, null, null, currentUser, null, null, null, null, null, null, null, NEW_ORDER_SIZE, null, null));
         return "member/index";
     }
+
+   /* *//**
+     * 首页
+     *//*
+    @GetMapping(value = "/account/list")
+    public String accountList(@CurrentUser Member currentUser, ModelMap model) {
+        return "member/account/list";
+    }
+
+
+    *//***
+     * 查询账号
+     * @param member
+     * @param request
+     * @return
+     *//*
+    @PostMapping("/account/list")
+    public ResponseEntity<List<Member>> accountList(@CurrentUser Member member, HttpServletRequest request) {
+        List<Filter> filters = new ArrayList<Filter>();
+        filters.add(new Filter("parentId",Filter.Operator.EQ,member.getId()));
+        List<Member>  members =    memberService.findList(null,filters,null);
+        return ResponseEntity.ok(members);
+    }*/
 }

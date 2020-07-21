@@ -166,7 +166,7 @@
 	text-align: center;
 	border-radius: 10px;
 	top: 60%;
-	right: 10%;
+	right: 16%;
 	z-index: 9;
 }
 .dialog a{
@@ -259,20 +259,22 @@
 .main-header .top-nav .top-nav-dropdown>ul.business li a {
 	height: 30px;
 	line-height: 30px;
-	padding: 0px 10px;
+	padding: 0px 4px;
 }
 
 .main-header .top-nav .top-nav-dropdown>ul.qrcode {
-	width: 320px;
+	width: 270px;
 	padding: 20px 0px;
 	right: 0px;
 }
 
 .main-header .top-nav .top-nav-dropdown>ul.qrcode li {
 	float: left;
-	padding: 0px 20px;
+	padding: 2px 20px;
 	text-align: center;
+	/*
 	border-right: 1px solid #eeeeee;
+	*/
 }
 
 .main-header .top-nav .top-nav-dropdown>ul.qrcode li:last-child {
@@ -402,7 +404,7 @@
 	height: 35px;
 	line-height: 35px;
 	display: inline-block;
-	margin: -1px;
+	margin: -1px 0px 0px -21px;
 	color: #ffffff;
 	font-size: 16px;
 	text-align: center;
@@ -437,7 +439,7 @@
 	position: absolute;
 	top: -11px;
 	/* right: -20px; */
-	left: 96px;
+	left: 84px;
 	border-radius: 8px;
 	background-color: #ee3834;
 }
@@ -1016,16 +1018,18 @@
 }
 
 .record {
-	width: 288px;
+	width: 588px;
 	margin: 0 auto;
 	display: flex;
+	justify-content: space-between;
 }
 .record p {
-	color: #63C6F2;
+	color: #333333;
+	line-height: 48px;
 	/*margin: 21px auto auto 10px;*/
 }
 .record p a {
-	color: #000000 !important;
+	color: #333333 !important;
 	text-decoration: underline;
 }
 .pay>.active {
@@ -1055,4 +1059,14 @@
 .foots{
 	margin-left: 10px;
 	margin-top: 10px;
+}
+.ordercode {
+	margin-top: 13px;
+}
+.ordercode span {
+	margin-left: 16px;
+	font-size: 12px;
+}
+.text-gay {
+	color: #666666;
 }

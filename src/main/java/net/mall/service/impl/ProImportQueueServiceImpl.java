@@ -62,7 +62,7 @@ public class ProImportQueueServiceImpl extends BaseServiceImpl<ProImportQueue, L
                     tfilters.clear();
                     String categoryName = proImportQueue.getCategoryName();
                     tfilters.add(new Filter("name", Filter.Operator.EQ,categoryName.trim()));
-                    List<ProductCategory> productCategorys = productCategoryService.findList(0,1,tfilters,null);
+                    List<ProductCategory> productCategorys = productCategoryService.findList(0,null,tfilters,null);
                     if(ConvertUtils.isNotEmpty(productCategorys)){
                         ProductCategory productCategory = productCategorys.get(0);
                         Product product = new Product();
@@ -72,6 +72,9 @@ public class ProImportQueueServiceImpl extends BaseServiceImpl<ProImportQueue, L
                         if(ConvertUtils.isNotEmpty(productImgs)){
                            String[]  proImgArray = productImgs.split(";");
                             for (String fileStr : proImgArray) {
+                                if(fileStr.contains("\\")){
+                                    fileStr = fileStr.replaceAll("\\\\","/");
+                                }
                                 String filePath = uploadDir +"/"+ fileStr;
                                 File tempFile = new File(filePath);
                                 if(tempFile.exists()){
@@ -132,7 +135,7 @@ public class ProImportQueueServiceImpl extends BaseServiceImpl<ProImportQueue, L
                                 specfilters.clear();
                                 specfilters.add(new Filter("productCategory", Filter.Operator.EQ,productCategory));
                                 specfilters.add(new Filter("name", Filter.Operator.EQ,specName));
-                                List<Specification> specifications = specificationService.findList(0,1,specfilters,null);
+                                List<Specification> specifications = specificationService.findList(null,null,specfilters,null);
                                 SpecificationItem.Entry specEntry = new SpecificationItem.Entry();
                                 if(ConvertUtils.isNotEmpty(specifications)){
                                     Specification specification = specifications.get(0);

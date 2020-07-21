@@ -148,6 +148,9 @@
 												<i class="iconfont icon-biaotou-kepaixu"></i>
 											</a>
 										</th>
+										<th>
+											${message("common.action")}
+										</th>
 									</tr>
 									</thead>
 									[#if page.content?has_content]
@@ -199,6 +202,9 @@
 												<td>
 													<span title="${product.createdDate?string("yyyy-MM-dd HH:mm:ss")}" data-toggle="tooltip">${product.createdDate}</span>
 												</td>
+												<td>
+													<span data-toggle="tooltip" onclick="delPro(${product.id})">${message("common.delete")}</span>
+												</td>
 											</tr>
 										[/#list]
 										</tbody>
@@ -224,4 +230,22 @@
 </main>
 [#include "/shop/include/main_footer.ftl" /]
 </body>
+<script type="text/javascript">
+	function delPro(proId) {
+		$.ajax({
+			type: "POST",
+			url: "${base}/member/product/del-pro",
+			data: {
+				"id": proId
+			},
+			contentType: "application/x-www-form-urlencoded",
+			dataType: "json",
+			success: function (result) {//返回数据根据结果进行相应的处理
+				if(result.result){
+					location.href = "${base}/member/product/list";
+				}
+			}
+		});
+	}
+</script>
 </html>

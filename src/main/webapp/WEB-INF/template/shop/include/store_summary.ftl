@@ -46,7 +46,7 @@
         [/@instant_message_list]
     </div>
     <div class="store-summary-footer">
-        <a class="btn btn-default" href="${base}${store.path}" target="_blank">${message("shop.store.viewStore")}</a>
+        [#--<a class="btn btn-default" href="${base}${store.path}" target="_blank">${message("shop.store.viewStore")}</a>--]
         <a class="btn btn-default" href="javascript:;" data-action="addStoreFavorite"
            data-store-id="${store.id}">${message("shop.store.addStoreFavorite")}</a>
     </div>

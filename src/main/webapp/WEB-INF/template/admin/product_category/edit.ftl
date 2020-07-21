@@ -146,7 +146,7 @@
 								</select>
 							</div>
 						</div>
-						<div class="form-group">
+						[#--<div class="form-group">
 							<label class="col-xs-3 col-sm-2 control-label item-required" for="generalRate">${message("ProductCategory.generalRate")}:</label>
 							<div class="col-xs-9 col-sm-4">
 								<div class="input-group">
@@ -183,7 +183,7 @@
 									[/#list]
 								</select>
 							</div>
-						</div>
+						</div>--]
 						<div class="form-group">
 							<label class="col-xs-3 col-sm-2 control-label" for="seoTitle">${message("ProductCategory.seoTitle")}:</label>
 							<div class="col-xs-9 col-sm-4">

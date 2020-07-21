@@ -12,7 +12,8 @@ public enum BusTypeEnum {
     ORDER("order","订单"),
     PAYORDER("payorder","支付订单"),
     DELIVERY("delivery","发货"),
-    GROUPBUY("groupbuy","申请");
+    GROUPBUY("groupbuy","申请"),
+    FILE("file","文件");
 
     private String code;
     private String name;

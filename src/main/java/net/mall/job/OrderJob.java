@@ -22,8 +22,8 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  * @author huanghy
  * @version 6.1
  */
-@Lazy(false)
-@Component
+/*@Lazy(false)
+@Component*/
 public class OrderJob {
 
     private ReentrantReadWriteLock ORDER_LOCK = new ReentrantReadWriteLock();

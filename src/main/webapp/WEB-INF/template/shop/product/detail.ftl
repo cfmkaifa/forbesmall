@@ -297,8 +297,9 @@
 </head>
 <body class="shop product-detail" data-spy="scroll" data-target="#topbar">
 [#include "/shop/include/main_header.ftl" /]
-[#include "/shop/include/main_sidebar.ftl" /]
+[#include "/common/block_chain.ftl" /]
 <main>
+    [#include "/shop/include/main_sidebar.ftl" /]
     <div class="container">
         <form id="productNotifyForm" class="form-horizontal" action="${base}/product_notify/save" method="post">
             <div id="productNotifyModal" class="product-notify-modal modal fade" tabindex="-1">
@@ -414,7 +415,9 @@
             </div>
             <div class="col-xs-6">
                 <div class="name">
-                    <h1 style="font-size: 18px; font-weight: 600; text-align: left;">${product.name}</h1>
+                    <h1 style="font-size: 18px; font-weight: 600; text-align: left;">${product.name}
+                        <span class="iconfont" onmouseover="blockChain(this)" dataId="${product.id}" dataUrl="/business/product/chain"  style="color: #ff0000">&#xe746;</span>
+                    </h1>
                     [#if product.caption?has_content]
                         <strong>${product.caption}</strong>
                     [/#if]
@@ -505,6 +508,12 @@
 										</span>
                                 </div>
                                 <span class="unit">${message("Product.defaultUnit")}</span>
+                            </dd>
+                            <dt>
+                                ${message("shop.product.stock")}:
+                            </dt>
+                            <dd>
+                                <span style="margin-left:42px;">${stock}  ${message("Product.defaultUnit")}</span>
                             </dd>
                         </dl>
                     </div>
@@ -631,11 +640,11 @@
                                         <a href="#reviewAnchor">${message("shop.product.review")}</a>
                                     </li>
                                 [/#if]
-                                [#if setting.isConsultationEnabled]
+                               [#-- [#if setting.isConsultationEnabled]
                                     <li>
                                         <a href="#consultationAnchor">${message("shop.product.consultation")}</a>
                                     </li>
-                                [/#if]
+                                [/#if]--]
                             </ul>
                         </div>
                     </div>
@@ -769,9 +778,9 @@
                         </div>
                     </div>
                 [/#if]
-                [#if setting.isConsultationEnabled]
+               [#-- [#if setting.isConsultationEnabled]
                     <div class="consultation">
-                        [#--<span id="consultationAnchor" class="consultation-anchor"></span>--]
+                        --][#--<span id="consultationAnchor" class="consultation-anchor"></span>--][#--
                         <a href="#" name="consultationAnchor"></a>
                         <div class="consultation-heading">
                             <h4>${message("shop.product.consultation")}</h4>
@@ -815,7 +824,7 @@
                                 ]</a>
                         </div>
                     </div>
-                [/#if]
+                [/#if]--]
             </div>
         </div>
     </div>

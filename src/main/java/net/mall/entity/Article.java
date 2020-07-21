@@ -111,6 +111,11 @@ public class Article extends BaseEntity<Long> {
     @Length(max = 200)
     private String seoTitle;
 
+    /***
+     * 缩略图
+     */
+    @Length(max = 200)
+    private String thumbnail;
     /**
      * 页面关键词
      */
@@ -187,6 +192,18 @@ public class Article extends BaseEntity<Long> {
      */
     public String getAuthor() {
         return author;
+    }
+
+    /***
+     * 缩略图
+     * @return
+     */
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
     }
 
     /**

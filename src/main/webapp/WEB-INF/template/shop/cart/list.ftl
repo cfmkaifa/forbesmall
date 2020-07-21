@@ -241,10 +241,10 @@
                             <a id="redirectLogin" class="redirect-login"
                                href="javascript:;">${message("shop.cart.redirectLogin")}</a>
                         [/#if]
-                        <span[#if currentCart.rewardPoint <= 0] class="hidden-element"[/#if]>
+                       [#-- <span[#if currentCart.rewardPoint <= 0] class="hidden-element"[/#if]>
 								${message("shop.cart.rewardPoint")}:
 								<strong id="rewardPoint">${currentCart.rewardPoint}</strong>
-							</span>
+							</span>--]
                         <span[#if currentCart.discount <= 0] class="hidden-element"[/#if]>
 								${message("shop.cart.discount")}:
 								<strong id="discount">${currency(currentCart.discount, true, true)}</strong>

@@ -203,7 +203,7 @@
                         <h5 class="modal-title">${message("business.index.modalTitle")}</h5>
                     </div>
                     <div class="modal-body">
-                        <h1 style="margin: 20px; font-size: 18px;">请前往采购商会员中心上传支付凭证！</h1>
+                        <h1 style="margin: 20px; font-size: 18px;">请前往订单详情上传支付凭证！</h1>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">关闭

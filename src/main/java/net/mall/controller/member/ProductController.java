@@ -11,6 +11,7 @@ import net.mall.Pageable;
 import net.mall.Results;
 import net.mall.controller.admin.BaseController;
 import net.mall.entity.*;
+import net.mall.exception.ResourceNotFoundException;
 import net.mall.exception.UnauthorizedException;
 import net.mall.security.CurrentUser;
 import net.mall.service.*;
@@ -395,6 +396,22 @@ public class ProductController extends BaseController {
             sensorsAnalyticsUtils.reportData(String.valueOf(currentMember.getId()),"FiberpurchApply",map);
         }
         return Results.OK;
+    }
+
+    /***
+     * 删除采购申请
+     */
+    @ResponseBody
+    @RequestMapping("/del-pro")
+    public Map<String,Object> delProduct(Long id){
+        Map<String,Object> map=new HashMap<>();
+        Product product = productService.find(id);
+        if (product == null) {
+            throw new ResourceNotFoundException();
+        }
+        productService.delete(id);
+        map.put("result",true);
+        return map;
     }
 
 

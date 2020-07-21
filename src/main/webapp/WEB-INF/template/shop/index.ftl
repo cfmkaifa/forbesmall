@@ -31,11 +31,11 @@
 		<script src="${base}/resources/common/js/respond.js"></script>
 	<![endif]-->
     <script src="${base}/resources/common/js/jquery.js"></script>
-    <script src="https://cdn.bootcss.com/jquery/2.2.1/jquery.js"></script>
     <script src="${base}/resources/common/js/bootstrap.js"></script>
     <script src="${base}/resources/common/js/jquery.lazyload.js"></script>
     <script src="${base}/resources/common/js/jquery.bxslider.js"></script>
     <script src="${base}/resources/common/js/jquery.qrcode.js"></script>
+    <script src="${base}/resources/common/js/jquery.cookie.js"></script>
     <script src="${base}/resources/common/js/underscore.js"></script>
     <script src="${base}/resources/common/js/url.js"></script>
     <script src="${base}/resources/common/js/velocity.js"></script>
@@ -115,6 +115,7 @@
 <body class="shop index">
 [#include "/shop/include/main_header.ftl" /]
 [#include "/shop/include/main_sidebar.ftl" /]
+[#include "/common/block_chain.ftl" /]
 <main style="background:#f4f4f4;">
     <div id="topbar" class="topbar">
         <div class="container">
@@ -325,15 +326,15 @@
                     <ul class="listbarul" id="right_third_banner" onclick="BannerClick('right_third_banner')">
                         <li>
                             <img src="${base}/resources/shop/images/1.png">
-                            <p><a href="http://www.chinafibermarketing.cn/article/smart" onclick="Quick_Entry(this)">${message("shop.index.smart")}</a></p>
+                            <p><a href="http://www.chinafibermarketing.com/article/smart" onclick="Quick_Entry(this)">${message("shop.index.smart")}</a></p>
                         </li>
                         <li>
                             <img src="${base}/resources/shop/images/2.png">
-                            <p><a href="http://www.chinafibermarketing.cn/article/articleindex" onclick="Quick_Entry(this)">${message("shop.index.industry")}</a></p>
+                            <p><a href="http://www.chinafibermarketing.com/article/articleindex" onclick="Quick_Entry(this)">${message("shop.index.industry")}</a></p>
                         </li>
                         <li>
                             <img src="${base}/resources/shop/images/5.png">
-                            <p><a href="http://www.chinafibermarketing.cn/article/declarecenter" onclick="Quick_Entry(this)">${message("shop.index.marketanalyze")}</a></p>
+                            <p><a href="http://www.chinafibermarketing.com/article/declarecenter" onclick="Quick_Entry(this)">${message("shop.index.marketanalyze")}</a></p>
                         </li>
                         <li>
                             <img src="${base}/resources/shop/images/3.png">
@@ -345,7 +346,7 @@
                         </li>
                         <li>
                             <img src="${base}/resources/shop/images/6.png">
-                            <p><a href="http://www.chinafibermarketing.cn/resources/shop/html/we.html?v=1.0" onclick="Quick_Entry(this)">${message("shop.index.aboutus")}</a></p>
+                            <p><a href="http://www.chinafibermarketing.com/resources/shop/html/we.html?v=1.0" onclick="Quick_Entry(this)">${message("shop.index.aboutus")}</a></p>
                         </li>
                     </ul>
                 </div>
@@ -375,14 +376,14 @@
                                 <div class="carousel-inner">
                                     <div class="item active">
                                         <div class="factory-2">
-                                            [@ad_factory]
+                                            [@ad_factory id=1]
                                                 [#list adFactory.content as stores]
                                                     [#if stores.id !=10551 && stores.id != 10451 && stores.id != 10651]
                                                         <div class="swiper-2">
                                                             <a href="${base}/store/${stores.id}" onclick="factory(this)">
 																<span class="swiper_title-2">
 																	  <img src="${stores.logo}" class="logo-2">
-																	<p>${stores.name}</p>
+																	  <p>${stores.name}</p>
 																</span>
                                                                 <p class="tonsof-2">
                                                                     [#if stores.capacity ==0]
@@ -392,31 +393,62 @@
                                                                     [/#if]
 
                                                                 </p>
-                                                                <p class="themain-2">${message("shop.index.main")}</p>
+                                                                <p class="themain-2">
+                                                                    <span class="iconfont" onmouseover="blockChain(this)" dataId="${stores.business.id}" dataUrl="/business/index/chain"  style="color: #ff0000;z-index:1000">&#xe746;</span>
+                                                                    ${message("shop.index.main")}
+                                                                </p>
                                                                 <p class="varieties-2">${stores.keyword}</p>
                                                             </a>
                                                         </div>
                                                     [/#if]
                                                 [/#list]
+                                                <a style="float: right; margin-right: 14px; cursor: pointer; font-size: 14px;"
+                                                   href="[@pattern?replace('${adFactory.pageable.pageNumber}', '${nextPageNumber}')?interpret /]"
+                                                   data-page-number="${nextPageNumber}">更多</a>
                                             [/@ad_factory]
                                         </div>
                                     </div>
+                                    [#--<div class="item">
+                                           <div class="factory-2">
+                                               [@ad_factory id=2]
+                                                   [#list adFactory.content as stores]
+                                                       [#if stores.id !=10551 && stores.id != 10451 && stores.id != 10651]
+                                                           <div class="swiper-2">
+                                                               <a href="${base}/store/${stores.id}" onclick="factory(this)">
+                                                                   <span class="swiper_title-2">
+                                                                         <img src="${stores.logo}" class="logo-2">
+                                                                       <p>${stores.name}</p>
+                                                                   </span>
+                                                                   <p class="tonsof-2">
+                                                                       [#if stores.capacity ==0]
+
+                                                                       [#else]
+                                                                           ${stores.capacity}${message("shop.index.capacity")}
+                                                                       [/#if]
+                                                                   </p>
+                                                                   <p class="themain-2">${message("shop.index.main")}</p>
+                                                                   <p class="varieties-2">${stores.keyword}</p>
+                                                               </a>
+                                                           </div>
+                                                       [/#if]
+                                                   [/#list]
+                                               [/@ad_factory]
+                                           </div>
+                                       </div>--]
                                 </div>
-                                <!-- 轮播（Carousel）导航 -->
-                                [#--                                <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">--]
-                                [#--                                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>--]
-                                [#--                                    <span class="sr-only">Previous</span>--]
-                                [#--                                </a>--]
-                                [#--                                <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">--]
-                                [#--                                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>--]
-                                [#--                                    <span class="sr-only">Next</span>--]
-                                [#--                                </a>--]
+                                <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev" style="background-image: none;width: 20px;color: #999;opacity: 0.3;display: block;">
+                                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next" style="background-image: none;width: 20px;color: #999;opacity: 0.3;display: block;">
+                                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         [/@product_category_root_list]
         <div class="row">
             [@product_category_root_list count = 3]
@@ -484,14 +516,6 @@
 [#include "/shop/include/main_footer.ftl" /]
 </body>
 <script type="text/javascript">
-    $(function () {
-        $(".factory-2").hover(function () {
-            $('.carousel-control').stop().fadeIn("slow");
-        }, function () {
-            $('.carousel-control').stop().fadeOut("slow");
-        })
-
-    })
 
     //顶部运营位点击埋点事件
     function Top_Banner() {

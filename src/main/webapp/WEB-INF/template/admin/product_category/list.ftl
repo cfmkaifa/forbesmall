@@ -97,8 +97,8 @@
 							<thead>
 								<tr>
 									<th>${message("ProductCategory.name")}</th>
-									<th>${message("ProductCategory.generalRate")}</th>
-									<th>${message("ProductCategory.selfRate")}</th>
+									[#--<th>${message("ProductCategory.generalRate")}</th>
+									<th>${message("ProductCategory.selfRate")}</th>--]
 									<th>${message("common.order")}</th>
 									<th>${message("common.action")}</th>
 								</tr>
@@ -109,8 +109,8 @@
 										<td>
 											<span style="margin-left: ${productCategory.grade * 20}px;[#if productCategory.grade == 0] color: #000000;[/#if]">${productCategory.name}</span>
 										</td>
-										<td>${productCategory.generalRate}</td>
-										<td>${productCategory.selfRate}</td>
+										[#--<td>${productCategory.generalRate}</td>
+										<td>${productCategory.selfRate}</td>--]
 										<td>${productCategory.order}</td>
 										<td>
 											<a class="btn btn-default btn-xs btn-icon" href="${base}${productCategory.path}" title="${message("common.view")}" data-toggle="tooltip" target="_blank">

@@ -7,7 +7,21 @@
 package net.mall.controller.admin;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
+import com.alibaba.excel.ExcelReader;
+import com.alibaba.excel.metadata.ExcelColumnProperty;
+import com.alibaba.excel.metadata.ExcelHeadProperty;
+import com.alibaba.excel.read.context.AnalysisContext;
+import com.alibaba.excel.read.event.AnalysisEventListener;
+import com.alibaba.excel.support.ExcelTypeEnum;
+import com.alibaba.excel.util.TypeUtil;
+import com.alibaba.excel.write.exception.ExcelGenerateException;
+import net.mall.Setting;
+import net.mall.entity.*;
+import net.mall.excel.ProImportQueueExcelMode;
+import net.mall.service.*;
+import net.mall.util.SystemUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -17,15 +31,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import net.mall.Pageable;
 import net.mall.Results;
-import net.mall.entity.Brand;
-import net.mall.entity.Product;
-import net.mall.entity.ProductCategory;
-import net.mall.entity.ProductTag;
-import net.mall.service.BrandService;
-import net.mall.service.ProductCategoryService;
-import net.mall.service.ProductService;
-import net.mall.service.ProductTagService;
-import net.mall.service.StoreService;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * Controller - 商品
@@ -47,6 +58,8 @@ public class ProductController extends BaseController {
     private ProductTagService productTagService;
     @Inject
     private StoreService storeService;
+    @Inject
+    ProImportQueueService proImportQueueService;
 
     /**
      * 列表
@@ -60,6 +73,7 @@ public class ProductController extends BaseController {
         model.addAttribute("types", Product.Type.values());
         model.addAttribute("productCategoryTree", productCategoryService.findTree());
         model.addAttribute("brands", brandService.findAll());
+        model.addAttribute("stores", storeService.findAll());
         model.addAttribute("productTags", productTagService.findAll());
         model.addAttribute("type", type);
         model.addAttribute("productCategoryId", productCategoryId);
@@ -75,6 +89,95 @@ public class ProductController extends BaseController {
         return "admin/product/list";
     }
 
+    /****
+     * 商品导入
+     * @param productFilePath
+     * @param request
+     * @param storeId
+     * @return
+     */
+    @PostMapping("/import-product")
+    public ResponseEntity<?> importProduct(@RequestParam(value = "productFilePath",required = true)String productFilePath,
+                                           @RequestParam(value = "storeId",required = true) Long storeId,
+                                           HttpServletRequest request) {
+        Setting setting = SystemUtils.getSetting();
+        String uploadDir = setting.getUploadDir();
+        String fileUrl = setting.getFileUrl();
+        if(productFilePath.startsWith(fileUrl)){
+            productFilePath = productFilePath.substring(fileUrl.lastIndexOf(fileUrl)+fileUrl.length(),productFilePath.length());
+        }
+        File file = new File(uploadDir,productFilePath);
+        if(file.exists()){
+            try {
+                AnalysisEventListener<List<String>> analysisEventListener =  new AnalysisEventListener<List<String>>(){
+                    @Override
+                    public void invoke(List<String> row, AnalysisContext analysisContext) {
+                        analysisContext.buildExcelHeadProperty(ProImportQueueExcelMode.class,row);
+                        if (analysisContext.getExcelHeadProperty() != null && analysisContext.getExcelHeadProperty().getHeadClazz() != null) {
+                            ProImportQueueExcelMode resultModel = (ProImportQueueExcelMode) this.buildUserModel(analysisContext, (List)row);
+                            /***批量导入
+                             * **/
+                            if(!resultModel.getCategoryName().trim().equals("分类名称")){
+                                ProImportQueue proImportQueue = new ProImportQueue();
+                                proImportQueue.setCategoryName(resultModel.getCategoryName());
+                                proImportQueue.setProName(resultModel.getProName());
+                                proImportQueue.setProSn(resultModel.getProSn());
+                                proImportQueue.setUnit(resultModel.getUnit());
+                                proImportQueue.setWeight(Integer.parseInt(resultModel.getWeight()));
+                                proImportQueue.setPrice(new BigDecimal(resultModel.getPrice()));
+                                proImportQueue.setIntroduction(resultModel.getIntroduction());
+                                proImportQueue.setProductImgs(resultModel.getProductImgs());
+                                proImportQueue.setProductParameters(resultModel.getProductParameters());
+                                proImportQueue.setProductAttributes(resultModel.getProductAttributes());
+                                proImportQueue.setProductSpecs(resultModel.getProductSpecs());
+                                proImportQueue.setInStorage(0);
+                                proImportQueue.setStoreId(storeId);
+                                proImportQueueService.save(proImportQueue);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void doAfterAllAnalysed(AnalysisContext analysisContext) {
+
+                    }
+
+
+                    private Object buildUserModel(AnalysisContext context, List<String> stringList) {
+                        ExcelHeadProperty excelHeadProperty = context.getExcelHeadProperty();
+                        Object resultModel;
+                        try {
+                            resultModel = excelHeadProperty.getHeadClazz().newInstance();
+                        } catch (Exception var10) {
+                            throw new ExcelGenerateException(var10);
+                        }
+
+                        if (excelHeadProperty != null) {
+                            for(int i = 0; i < stringList.size(); ++i) {
+                                ExcelColumnProperty columnProperty = excelHeadProperty.getExcelColumnProperty(i);
+                                if (columnProperty != null) {
+                                    Object value = TypeUtil.convert((String)stringList.get(i), columnProperty.getField(), columnProperty.getFormat(), context.use1904WindowDate());
+                                    if (value != null) {
+                                        try {
+                                            org.apache.commons.beanutils.BeanUtils.setProperty(resultModel, columnProperty.getField().getName(), value);
+                                        } catch (Exception var9) {
+                                            throw new ExcelGenerateException(columnProperty.getField().getName() + " can not set value " + value, var9);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        return resultModel;
+                    }
+                };
+                ExcelReader excelReader = new ExcelReader(new FileInputStream(file), ExcelTypeEnum.XLSX,null,analysisEventListener,true);
+                excelReader.read();
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        return Results.OK;
+    }
     /**
      * 删除
      */

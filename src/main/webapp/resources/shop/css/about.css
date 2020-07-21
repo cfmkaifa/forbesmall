@@ -1,0 +1,145 @@
+
+.nav a {
+	color: #666666;
+	font-size: 14px !important;
+}
+ button{
+	outline:none;
+}
+body {
+	position: relative;
+}
+ul.nav-pills {
+	top: 254px;
+	position: fixed;
+}
+@media screen and (max-width: 810px) {
+	#section1, #section2, #section3, #section41, #section42  {
+		margin-left: 150px;
+	}
+}
+.container {
+	width: 1200px;
+	margin: 0 auto;
+}
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover{
+		background-color: #EE3834 !important;
+}
+#section1 {
+	width: 880px;
+	margin-top: 10px;
+	padding-bottom: 30px;
+}
+#section2 {
+	width: 880px;
+	padding-bottom: 40px;
+}
+#section3 {
+	width: 880px;
+}
+#section4 {
+	width: 880px;
+	margin-top:50px;
+}
+#section5 {
+	width: 880px;
+}
+ .division {
+	width: 880px;
+	height: 80px;
+	display: flex;
+	justify-content: space-between;
+}
+#section1 .division_x {
+	width:337px;
+	height:1px;
+	background:#AAAAAA;
+	margin-top: 5%;
+}
+.division_eng {
+	color: #CCCCCC;
+	font-size: 30px;
+	text-align: center;
+	margin: 0;
+}
+.division_title {
+	font-size: 26px;
+	color: #333333;
+	text-align: center;
+}
+.introduce p{
+	text-indent: 2em;
+	font-size: 14px;
+	color: #333333;
+}
+#section2 .division_x {
+	width:261px;
+	height:1px;
+	background:#AAAAAA;
+	margin-top: 5%;
+}
+#section2 .division_eng {
+	color: #CCCCCC;
+	font-size: 30px;
+	text-align: center;
+	margin: 0;
+}
+#section3 .division_x {
+	width:251px;
+	height:1px;
+	background:#AAAAAA;
+	margin-top: 5%;
+}
+.background {
+	margin-top: 52px;
+	display: flex;
+	justify-content: space-between;
+}
+.background p {
+	width: 440px;
+	text-indent: 2em;
+	color: #333333;
+	font-size: 14px;
+}
+.choice {
+	margin: 35px 0px 55px 0px;
+	display: flex;
+	justify-content: space-between;
+}
+.choice div {
+	width: 126px;
+}
+.choice img {
+	margin-left: 15px;
+}
+.choice-title {
+	font-size: 20px;
+	color: #333333;
+}
+.choice-conter {
+	font-size: 14px;
+	color: #999999;
+	text-align: center;
+}
+#section5 .division_x {
+	width:320px;
+	height:1px;
+	background:#AAAAAA;
+	margin-top: 5%;
+}
+.iphone {
+	display: flex;
+	margin-top: 40px;
+}
+.iphoneimg {
+	width: 422px;
+	height: 316px;
+}
+.address {
+	margin-left: 36px;
+	font-size: 16px;
+	color: #333333;
+}
+.address li {
+	margin-top: 22px;
+}

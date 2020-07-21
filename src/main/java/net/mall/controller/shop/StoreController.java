@@ -9,6 +9,7 @@ package net.mall.controller.shop;
 import javax.inject.Inject;
 
 import net.mall.Page;
+import net.mall.service.ProductService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -40,6 +41,9 @@ public class StoreController extends BaseController {
     @Inject
     private StoreService storeService;
 
+    @Inject
+    private ProductService productService;
+
     /**
      * 每页记录数
      */
@@ -55,6 +59,7 @@ public class StoreController extends BaseController {
             throw new ResourceNotFoundException();
         }
         model.addAttribute("store", store);
+        model.addAttribute("page", productService.findPage(null, 0,false, null, store,null, null, null, null, null, null, null, null, null, null, true, true, null, true, null, null, null, null, null));
         return "shop/store/index";
     }
 

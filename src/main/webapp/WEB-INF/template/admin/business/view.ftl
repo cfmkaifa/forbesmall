@@ -75,13 +75,13 @@
 										<dd>${business.email}</dd>
 										<dt>${message("Business.mobile")}:</dt>
 										<dd>${business.mobile}</dd>
-										<dt>${message("Business.balance")}:</dt>
+										[#--<dt>${message("Business.balance")}:</dt>
 										<dd>
 											<span class="text-red">${currency(business.balance, true, true)}</span>
 											<a class="btn btn-default btn-xs btn-icon" href="${base}/admin/business_deposit/log?businessId=${business.id}" title="${message("common.view")}" data-toggle="tooltip">
 												<i class="iconfont icon-search"></i>
 											</a>
-										</dd>
+										</dd>--]
 										[#if business.frozenAmount > 0]
 											<dt>${message("Business.frozenAmount")}:</dt>
 											<dd>

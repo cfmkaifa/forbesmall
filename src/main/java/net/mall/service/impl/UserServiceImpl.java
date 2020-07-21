@@ -16,6 +16,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import javax.inject.Inject;
 import javax.persistence.LockModeType;
 
+import net.mall.util.ConvertUtils;
+import net.mall.util.ForbesContext;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.time.DateUtils;
@@ -111,10 +113,22 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements User
         }
         if (authenticationToken instanceof UserAuthenticationToken) {
             Object credentials = authenticationToken.getCredentials();
-            if (!user.isValidCredentials(credentials)) {
-                addFailedLoginAttempt(user);
-                tryLock(user);
-                throw new IncorrectCredentialsException();
+            String reqUri = ForbesContext.getReqUri();
+            String oldPhoneCode = ForbesContext.getSessionPhoneCode();
+            if(ConvertUtils.isNotEmpty(reqUri)
+                    && "1".equalsIgnoreCase(reqUri)
+                    && ConvertUtils.isNotEmpty(oldPhoneCode)){
+                ForbesContext.clearThread();
+                if(!oldPhoneCode.equalsIgnoreCase(String.valueOf((char[]) credentials) )){
+                    throw new IncorrectCredentialsException();
+                }
+            }/***密码登录**/
+            else {
+                if (!user.isValidCredentials(credentials)) {
+                    addFailedLoginAttempt(user);
+                    tryLock(user);
+                    throw new IncorrectCredentialsException();
+                }
             }
         }
         if (authenticationToken instanceof HostAuthenticationToken) {

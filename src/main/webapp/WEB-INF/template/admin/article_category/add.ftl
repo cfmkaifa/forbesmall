@@ -176,6 +176,7 @@
 								<select name="type" class="selectpicker form-control" data-live-search="true" data-size="10">
 									<option value="NEWS" title="${message("ArticleCategory.news")}">${message("ArticleCategory.news")}</option>
 									<option value="INST" title="${message("ArticleCategory.inst")}">${message("ArticleCategory.inst")}</option>
+									<option value="VIDEO" title="${message("ArticleCategory.video")}">${message("ArticleCategory.video")}</option>
 								</select>
 							</div>
 						</div>

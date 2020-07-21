@@ -14,6 +14,8 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.mall.util.ConvertUtils;
+import net.mall.util.ForbesContext;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.DisabledAccountException;
@@ -56,6 +58,8 @@ public class AuthenticationFilter extends FormAuthenticationFilter {
     @Inject
     private UserService userService;
 
+    private String PHONE_FORMAT = "phone%s";
+
     /**
      * 创建令牌
      *
@@ -66,6 +70,16 @@ public class AuthenticationFilter extends FormAuthenticationFilter {
     @Override
     protected org.apache.shiro.authc.AuthenticationToken createToken(ServletRequest servletRequest, ServletResponse servletResponse) {
         String username = getUsername(servletRequest);
+        HttpServletRequest request = (HttpServletRequest) servletRequest;
+        String isPhone = org.apache.shiro.web.util.WebUtils.getCleanParam(request, "isPhone");
+        if(ConvertUtils.isNotEmpty(isPhone)
+                && "1".equalsIgnoreCase(isPhone)){
+            ForbesContext.setReqUri(isPhone);
+            Object oldPhoneCode = request.getSession().getAttribute(String.format(PHONE_FORMAT,username));
+            if(ConvertUtils.isNotEmpty(oldPhoneCode)){
+                ForbesContext.setSessionPhoneCode(oldPhoneCode.toString());
+            }
+        }
         String password = getPassword(servletRequest);
         boolean rememberMe = isRememberMe(servletRequest);
         String host = getHost(servletRequest);
@@ -87,8 +101,8 @@ public class AuthenticationFilter extends FormAuthenticationFilter {
         if (principal != null && !getUserClass().isAssignableFrom(principal.getClass())) {
             return false;
         }
-        return super.isAccessAllowed(servletRequest, servletResponse, mappedValue);
-    }
+        boolean isaccess = super.isAccessAllowed(servletRequest, servletResponse, mappedValue);
+        return isaccess;    }
 
     /**
      * 拒绝访问处理

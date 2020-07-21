@@ -133,12 +133,12 @@
 												<i class="iconfont icon-biaotou-kepaixu"></i>
 											</a>
 										</th>
-										<th>
+										[#--<th>
 											<a href="javascript:;" data-order-property="bail">
 												${message("StoreCategory.bail")}
 												<i class="iconfont icon-biaotou-kepaixu"></i>
 											</a>
-										</th>
+										</th>--]
 										<th>
 											<a href="javascript:;" data-order-property="order">
 												${message("common.order")}
@@ -159,7 +159,7 @@
 													</div>
 												</td>
 												<td>${storeCategory.name}</td>
-												<td>${currency(storeCategory.bail, true)}</td>
+												[#--<td>${currency(storeCategory.bail, true)}</td>--]
 												<td>${storeCategory.order}</td>
 												<td>
 													<a class="btn btn-default btn-xs btn-icon" href="${base}/admin/store_category/edit?id=${storeCategory.id}" title="${message("common.edit")}" data-toggle="tooltip" data-redirect-url>

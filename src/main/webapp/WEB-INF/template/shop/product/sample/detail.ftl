@@ -384,6 +384,7 @@
             <div class="col-xs-6">
                 <div class="name">
                     <h1 style="font-size: 18px; font-weight: 600; text-align: left">${product.name}</h1>
+                    <span class="iconfont" onmouseover="blockChain(this)" dataId="${product.id}" dataUrl="/business/product/chain"  style="color: #ff0000">&#xe746;</span>
                     [#if product.caption?has_content]
                         <strong>${product.caption}</strong>
                     [/#if]

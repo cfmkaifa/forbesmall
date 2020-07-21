@@ -168,16 +168,16 @@
 										<dd>${order.weight}</dd>
 										<dt>${message("Order.shippedQuantity")}:</dt>
 										<dd>${order.shippedQuantity}</dd>
-										<dt>${message("admin.order.promotion")}:</dt>
+										[#--<dt>${message("admin.order.promotion")}:</dt>
 										<dd>
 											[#if order.promotionNames?has_content]
 												${order.promotionNames?join(", ")}
 											[#else]
 												-
 											[/#if]
-										</dd>
-										<dt>${message("admin.order.coupon")}:</dt>
-										<dd>${(order.couponCode.coupon.name)!"-"}</dd>
+										</dd>--]
+										[#--<dt>${message("admin.order.coupon")}:</dt>
+										<dd>${(order.couponCode.coupon.name)!"-"}</dd>--]
 										<dt>${message("Order.fee")}:</dt>
 										<dd>${currency(order.fee, true, true)}</dd>
 										<dt>${message("Order.offsetAmount")}:</dt>
@@ -207,12 +207,12 @@
 												[/#if]
 											[/#if]
 										</dd>
-										<dt>${message("Member.memberRank")}:</dt>
-										<dd>${order.member.memberRank.name}</dd>
+										[#--<dt>${message("Member.memberRank")}:</dt>
+										<dd>${order.member.memberRank.name}</dd>--]
 										<dt>${message("Store.storeRank")}:</dt>
 										<dd>${order.store.storeRank.name}</dd>
-										<dt>${message("Order.exchangePoint")}:</dt>
-										<dd>${order.exchangePoint}</dd>
+										[#--<dt>${message("Order.exchangePoint")}:</dt>
+										<dd>${order.exchangePoint}</dd>--]
 										<dt>${message("Order.amountPaid")}:</dt>
 										<dd>
 											<span class="text-red">${currency(order.amountPaid, true, true)}</span>
@@ -234,14 +234,14 @@
 										<dd>${order.quantity}</dd>
 										<dt>${message("Order.returnedQuantity")}:</dt>
 										<dd>${order.returnedQuantity}</dd>
-										<dt>${message("Order.promotionDiscount")}:</dt>
+										[#--<dt>${message("Order.promotionDiscount")}:</dt>
 										<dd>${currency(order.promotionDiscount, true, true)}</dd>
 										<dt>${message("Order.couponDiscount")}:</dt>
-										<dd>${currency(order.couponDiscount, true, true)}</dd>
+										<dd>${currency(order.couponDiscount, true, true)}</dd>--]
 										<dt>${message("Order.freight")}:</dt>
 										<dd>${currency(order.freight, true, true)}</dd>
-										<dt>${message("Order.rewardPoint")}:</dt>
-										<dd>${order.rewardPoint}</dd>
+										[#--<dt>${message("Order.rewardPoint")}:</dt>
+										<dd>${order.rewardPoint}</dd>--]
 										<dt>${message("Order.shippingMethod")}:</dt>
 										<dd>${order.shippingMethodName!"-"}</dd>
 										<dt>${message("Order.area")}:</dt>
@@ -259,7 +259,7 @@
 								<table class="table table-hover">
 									<thead>
 										<tr>
-											<th>${message("OrderItem.sn")}</th>
+											<th>${message("OrderItem.prosn")}</th>
 											<th>${message("OrderItem.name")}</th>
 											<th>${message("OrderItem.price")}</th>
 											<th>${message("OrderItem.quantity")}</th>
@@ -453,7 +453,7 @@
 									<thead>
 										<tr>
 											<th>${message("OrderLog.type")}</th>
-											<th>${message("OrderLog.detail")}</th>
+											[#--<th>${message("OrderLog.detail")}</th>--]
 											<th>${message("common.createdDate")}</th>
 										</tr>
 									</thead>
@@ -461,13 +461,13 @@
 										[#list order.orderLogs as orderLog]
 											<tr>
 												<td>${message("OrderLog.Type." + orderLog.type)}</td>
-												<td>
+												[#--<td>
 													[#if orderLog.detail??]
 														<span title="${orderLog.detail}">${abbreviate(orderLog.detail, 30, "...")}</span>
 													[#else]
 														-
 													[/#if]
-												</td>
+												</td>--]
 												<td>
 													<span title="${orderLog.createdDate?string("yyyy-MM-dd HH:mm:ss")}" data-toggle="tooltip">${orderLog.createdDate}</span>
 												</td>

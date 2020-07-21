@@ -83,21 +83,21 @@
 										[#if member.isLocked]
 											<dt>${message("User.lockDate")}:</dt>
 											<dd>${member.lockDate?string("yyyy-MM-dd HH:mm:ss")}</dd>
-										[/#if]
+										[#--[/#if]
 										<dt>${message("Member.point")}:</dt>
 										<dd>
 											${member.point}
 											<a class="btn btn-default btn-xs btn-icon" href="${base}/admin/point/log?memberId=${member.id}" title="${message("common.view")}" data-toggle="tooltip">
 												<i class="iconfont icon-search"></i>
 											</a>
-										</dd>
-										<dt>${message("Member.balance")}:</dt>
+										</dd>--]
+										[#--<dt>${message("Member.balance")}:</dt>
 										<dd>
 											<span class="text-red">${currency(member.balance, true, true)}</span>
 											<a class="btn btn-default btn-xs btn-icon" href="${base}/admin/member_deposit/log?memberId=${member.id}" title="${message("common.view")}" data-toggle="tooltip">
 												<i class="iconfont icon-search"></i>
 											</a>
-										</dd>
+										</dd>--]
 										<dt>${message("Member.amount")}:</dt>
 										<dd>${currency(member.amount, true, true)}</dd>
 										<dt>${message("common.createdDate")}:</dt>
@@ -106,10 +106,10 @@
 										<dd>${member.lastLoginIp!"-"}</dd>
 										<dt>${message("User.lastLoginDate")}:</dt>
 										<dd>${(member.lastLoginDate?string("yyyy-MM-dd HH:mm:ss"))!"-"}</dd>
-										<dt>${message("admin.member.reviewCount")}:</dt>
+										[#--<dt>${message("admin.member.reviewCount")}:</dt>
 										<dd>${member.reviews?size}</dd>
 										<dt>${message("admin.member.consultationCount")}:</dt>
-										<dd>${member.consultations?size}</dd>
+										<dd>${member.consultations?size}</dd>--]
 										<dt>${message("admin.member.productFavoriteCount")}:</dt>
 										<dd>${member.productFavorites?size}</dd>
 									</dl>

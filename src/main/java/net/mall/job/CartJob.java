@@ -23,8 +23,8 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  * @author huanghy
  * @version 6.1
  */
-@Component
-@Lazy(false)
+/*@Component
+@Lazy(false)*/
 public class CartJob {
 
     private ReentrantReadWriteLock CART_LOCK = new ReentrantReadWriteLock();

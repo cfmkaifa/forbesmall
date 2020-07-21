@@ -2222,20 +2222,23 @@
 			});
 			
 			// 设置当前购物车数量
+		try {
 			if ($.getCurrentCartQuantity() == null) {
 				$.getCurrentCart().done(function(data) {
-					var quantity = data.quantity != null ? data.quantity : 0;
-					var beforeEvent = $.Event("before.mall.setCurrentCartQuantity");
-					
-					$document.trigger(beforeEvent);
-					if (beforeEvent.isDefaultPrevented()) {
-						return;
-					}
-					
+				var quantity = data.quantity != null ? data.quantity : 0;
+				var beforeEvent = $.Event("before.mall.setCurrentCartQuantity");
+
+				$document.trigger(beforeEvent);
+				if (beforeEvent.isDefaultPrevented()) {
+				    return;
+				}
 					$.setCurrentCartQuantity(quantity);
 					$document.trigger("complete.mall.setCurrentCartQuantity", quantity);
 				});
 			}
+		}catch(e){
+
+		}
 			
 			// 加入/修改/移除/清空购物车
 			$document.on("success.mall.addCart success.mall.modifyCart success.mall.removeCart success.mall.clearCart", function(event, data) {

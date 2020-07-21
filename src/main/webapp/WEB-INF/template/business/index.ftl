@@ -212,13 +212,13 @@
 								<p>${message("Store.storeRank")}: ${currentStore.storeRank.name}</p>
 							</div>
 							<div class="col-xs-12 col-sm-6">
-								<p>
+								[#--<p>
 									${message("Business.balance")}:
 									<span class="text-red">${currency(currentUser.balance, true, true)}</span>
 									[#if currentUser.frozenAmount > 0]
 										<span class="text-gray">(${message("Business.frozenAmount")}: ${currency(currentUser.frozenAmount, true, true)})</span>
 									[/#if]
-								</p>
+								</p>--]
 								<p>
 									${message("Store.endDate")}:
 									<span class="text-red"[#if currentStore.endDate??] title="${currentStore.endDate?string("yyyy-MM-dd HH:mm:ss")}" data-toggle="tooltip"[/#if]>${(currentStore.endDate)!message("business.index.infinite")}</span>

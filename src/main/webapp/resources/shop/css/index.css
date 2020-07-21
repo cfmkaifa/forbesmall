@@ -117,9 +117,9 @@
 }
 
 .index .product-category-menu {
+	width: 225px;
 	height: 500px;
-	margin-top: -500px;
-	margin-bottom: 20px;
+	margin: -500px 0px 20px -10px;
 	position: relative;
 	z-index: 200;
 	background-color: #000000;
