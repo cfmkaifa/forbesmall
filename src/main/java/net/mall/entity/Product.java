@@ -761,6 +761,35 @@ public class Product extends BaseEntity<Long> {
     private Date expire;
 
     /**
+     * 质量保障书
+     */
+//    @JsonView(BaseView.class)
+//    @Field(store = Store.YES, index = Index.YES, analyze = Analyze.NO)
+//    @Boost(1.5F)
+    @NotEmpty
+    @Length(max = 200)
+    @Column(nullable = false)
+    private String quality;
+
+    /**
+     * 获取质量保障书
+     *
+     * @return 质量保障书
+     */
+    public String getQuality() {
+        return quality;
+    }
+
+    /**
+     * 设置质量保障书
+     *
+     * @param quality 质量保障书
+     */
+    public void setQuality(String quality) {
+        this.quality = quality;
+    }
+
+    /**
      * 获取编号
      *
      * @return 编号

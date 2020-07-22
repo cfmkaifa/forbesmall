@@ -432,51 +432,6 @@
 					}
 				}
 				
-				// 商品图片
-				$productImageFile.fileinput({
-					uploadUrl: "${base}/business/product/upload_product_image",
-					allowedFileExtensions: "${setting.uploadImageExtension}".split(","),
-					[#if setting.uploadMaxSize != 0]
-						maxFileSize: ${setting.uploadMaxSize} * 1024,
-					[/#if]
-					showRemove: false,
-					showClose: false,
-					dropZoneEnabled: false,
-					overwriteInitial: false,
-					previewClass: "multiple-file-preview",
-					previewThumbTags: {
-						"{inputs}": function() {
-							return productImageInputTemplate({
-								productImageIndex: productImageIndex ++
-							});
-						}
-					},
-					layoutTemplates: {
-						footer: '<div class="file-thumbnail-footer">{inputs}{actions}</div>',
-						actions: '<div class="file-actions"><div class="file-footer-buttons">{upload} {download} {delete} {zoom} {other}</div>{drag}<div class="clearfix"></div></div>'
-					},
-					fileActionSettings: {
-						showUpload: false,
-						showRemove: true,
-						showDrag: false
-					},
-					removeFromPreviewOnError: true,
-					showAjaxErrorDetails: false
-				}).on("fileuploaded", function(event, data, previewId, index) {
-					var $preview = $("#" + previewId);
-					var productImage = data.response;
-					
-					$preview.find("input[name$='.source']").val(productImage.source);
-					$preview.find("input[name$='.large']").val(productImage.large);
-					$preview.find("input[name$='.medium']").val(productImage.medium);
-					$preview.find("input[name$='.thumbnail']").val(productImage.thumbnail);
-				});
-				
-				// 商品图片排序
-				Sortable.create($productImage.find(".file-preview-thumbnails")[0], {
-					animation: 300
-				});
-				
 				// 增加参数
 				$addParameterButton.click(function() {
 					var parameterIndex = $parameterContent.children(".item").size();
@@ -1087,6 +1042,14 @@
 										</select>
 									</div>
 								</div>
+								<!--质量保障书start-->
+								<div class="form-group">
+									<label class="col-xs-3 col-sm-2 control-label item-required">${message("Product.quality")}:</label>
+									<div class="col-xs-9 col-sm-4">
+										<input name="quality" type="hidden" value="" data-provide="fileinput" data-file-type="PDF">
+									</div>
+								</div>
+								<!--质量保障书end-->
 								[#if promotions?has_content]
 									<div class="form-group">
 										<label class="col-xs-3 col-sm-2 control-label">${message("Product.promotions")}:</label>

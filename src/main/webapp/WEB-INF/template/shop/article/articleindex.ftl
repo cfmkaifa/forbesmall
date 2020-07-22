@@ -93,7 +93,11 @@
 
 							<div class="newslist">
 								<div class="img">
-									<img src="/resources/shop/images/arti1.png">
+									[#if article.thumbnail?? && article.thumbnail != ""]
+										<img src="${article.thumbnail}">
+									[#else]
+										<img src="/resources/shop/images/arti1.png">
+									[/#if]
 								</div>
 								<ul>
 									<li class="lefttop">${article.title}</li>
