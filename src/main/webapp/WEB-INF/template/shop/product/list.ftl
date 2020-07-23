@@ -769,13 +769,13 @@
                                                         <span class="unit">/${product.unit!message("shop.product.defaultUnit")}</span>
                                                     </b>
                                                 </p>
-
+                                                <object>
                                                     [#if product.quality?has_content]
-                                                        <p><a class="guarantee" href="${product.quality}">${message("shop.product.report")}</a></p>
+                                                        <p><a href="${product.quality}">${message("shop.product.report")}</a></p>
                                                     [#else]
-                                                        <p><a class="guarantee" href="javascript:;"style="pointer-events:none;">${message("shop.product.report")}</a></p>
+                                                        <p><a href="javascript:;"style="pointer-events:none;">${message("shop.product.report")}</a></p>
                                                     [/#if]
-
+                                                </object>
                                             </div>
                                             <div class="icon-2">
                                                 <ul>
