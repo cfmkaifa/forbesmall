@@ -27,17 +27,17 @@
             <div class="detailsNav">
                     <ul class="detailsul">
                         <p style="margin: 16px 0px 10px 0px;">采购商服务</p>
-                        <li class="actives"><a href="${base}/article/detail/14005_1">买家服务协议</a></li>
-                        <li style="margin-bottom: 10px;"><a href="${base}/article/detail/14006_1">买家交易规则</a></li>
+                        <li class="actives"><a href="${base}/article/detail/10903_1">买家服务协议</a></li>
+                        <li style="margin-bottom: 10px;"><a href="${base}/article/detail/10902_1">买家交易规则</a></li>
                         <p style=" border-top: 1px solid #EEEEEE; padding-top: 16px;  height: 50px;">合同模板</p>
-                        <li style="margin-bottom: 10px;"><a href="${base}/article/detail/22_1">产品采购合同</a></li>
+                        <li style="margin-bottom: 10px;"><a href="${base}/article/detail/10914_1">产品采购合同</a></li>
                         <p style="border-top: 1px solid #EEEEEE; padding-top: 16px; height: 50px;">支付方式</p>
-                           <li><a href="${base}/article/detail/14009_1">在线支付</a></li>
-                        <li style="margin-bottom: 10px;"><a href="${base}/article/detail/14011_1">支付常见问题</a></li>
+                           <li><a href="${base}/article/detail/13253_1">在线支付</a></li>
+                        <li style="margin-bottom: 10px;"><a href="${base}/article/detail/13254_1">支付常见问题</a></li>
                         <p style=" border-top: 1px solid #EEEEEE; padding-top: 16px;  height: 50px;">供应商服务</p>
                         <li><a href="${base}/article/member">会员入驻</a></li>
-                        <li><a href="${base}/article/detail/14007_1">商家服务协议</a></li>
-                        <li style="margin-bottom: 10px;"><a href="${base}/article/detail/14008_1">商家交易规则</a></li>
+                        <li><a href="${base}/article/detail/13256_1">商家服务协议</a></li>
+                        <li style="margin-bottom: 10px;"><a href="${base}/article/detail/13257_1">商家交易规则</a></li>
                     </ul>
             </div>
             <div class="detailsContent">

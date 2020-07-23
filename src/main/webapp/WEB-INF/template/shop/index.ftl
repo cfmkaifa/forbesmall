@@ -330,11 +330,11 @@
                         </li>
                         <li>
                             <img src="${base}/resources/shop/images/2.png">
-                            <p><a href="http://www.chinafibermarketing.com/article/articleindex" onclick="Quick_Entry(this)">${message("shop.index.industry")}</a></p>
+                            <p><a href="http://www.chinafibermarketing.com/article/articlelist/1" onclick="Quick_Entry(this)">${message("shop.index.industry")}</a></p>
                         </li>
                         <li>
                             <img src="${base}/resources/shop/images/5.png">
-                            <p><a href="http://www.chinafibermarketing.com/article/declarecenter" onclick="Quick_Entry(this)">${message("shop.index.marketanalyze")}</a></p>
+                            <p><a href="http://analysis.chinafibermarketing.net/" onclick="Quick_Entry(this)">${message("shop.index.marketanalyze")}</a></p>
                         </li>
                         <li>
                             <img src="${base}/resources/shop/images/3.png">
@@ -342,11 +342,11 @@
                         </li>
                         <li>
                             <img src="${base}/resources/shop/images/7.png">
-                            <p><a href="#" onclick="Quick_Entry(this)" >${message("shop.index.datacenter")}</a></p>
+                            <p><a href="http://www.chinafibermarketing.com/datacenter/videos/10252" onclick="Quick_Entry(this)" >${message("shop.index.datacenter")}</a></p>
                         </li>
                         <li>
                             <img src="${base}/resources/shop/images/6.png">
-                            <p><a href="http://www.chinafibermarketing.com/resources/shop/html/we.html?v=1.0" onclick="Quick_Entry(this)">${message("shop.index.aboutus")}</a></p>
+                            <p><a href="http://www.chinafibermarketing.com/article/contract" onclick="Quick_Entry(this)">${message("shop.index.aboutus")}</a></p>
                         </li>
                     </ul>
                 </div>
@@ -402,13 +402,10 @@
                                                         </div>
                                                     [/#if]
                                                 [/#list]
-                                                <a style="float: right; margin-right: 14px; cursor: pointer; font-size: 14px;"
-                                                   href="[@pattern?replace('${adFactory.pageable.pageNumber}', '${nextPageNumber}')?interpret /]"
-                                                   data-page-number="${nextPageNumber}">更多</a>
                                             [/@ad_factory]
                                         </div>
                                     </div>
-                                    [#--<div class="item">
+                                    <div class="item">
                                            <div class="factory-2">
                                                [@ad_factory id=2]
                                                    [#list adFactory.content as stores]
@@ -434,7 +431,7 @@
                                                    [/#list]
                                                [/@ad_factory]
                                            </div>
-                                       </div>--]
+                                       </div>
                                 </div>
                                 <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev" style="background-image: none;width: 20px;color: #999;opacity: 0.3;display: block;">
                                     <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>

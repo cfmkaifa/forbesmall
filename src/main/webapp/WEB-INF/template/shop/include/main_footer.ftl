@@ -73,10 +73,10 @@
                 <dl class="help">
                     <dt>采购商服务</dt>
                     <dd>
-                        <a href="${base}/article/detail/14005_1">买家服务协议</a>
+                        <a href="${base}/article/detail/10903_1">买家服务协议</a>
                     </dd>
                     <dd>
-                        <a href="${base}/article/detail/14006_1">买家交易规则</a>
+                        <a href="${base}/article/detail/10902_1">买家交易规则</a>
                     </dd>
                 </dl>
             </div>
@@ -92,10 +92,10 @@
                 <dl class="help">
                     <dt>支付方式</dt>
                     <dd>
-                        <a href="${base}/article/detail/14009_1">在线支付</a>
+                        <a href="${base}/article/detail/13253_1">在线支付</a>
                     </dd>
                     <dd>
-                        <a href="${base}/article/detail/14011_1">支付常见问题</a>
+                        <a href="${base}/article/detail/13254_1">支付常见问题</a>
                     </dd>
                 </dl>
             </div>
@@ -107,10 +107,10 @@
                         <a href="${base}/article/member">会员入驻</a>
                     </dd>
                     <dd>
-                        <a href="${base}/article/detail/14007_1">商家服务协议</a>
+                        <a href="${base}/article/detail/13256_1">商家服务协议</a>
                     </dd>
                     <dd>
-                        <a href="${base}/article/detail/14008_1">商家交易规则</a>
+                        <a href="${base}/article/detail/13257_1">商家交易规则</a>
                     </dd>
                 </dl>
             </div>
