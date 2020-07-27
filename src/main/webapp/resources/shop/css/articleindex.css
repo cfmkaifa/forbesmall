@@ -50,6 +50,9 @@ button{
 	-webkit-line-clamp: 2;
 	-webkit-box-orient: vertical;
 }
+.arti-top a {
+	color:#fff;
+}
 .arti-top img {
 	width:386px;
 	height:234px;
