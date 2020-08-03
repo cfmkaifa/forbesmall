@@ -23,14 +23,10 @@
 })(jQuery);
 
 $().ready(function() {
-
-	$("#get_ct_more").click(function(){
-		$(".get_ct_more").hide();
-		$(".details-a").css("height","auto");
-	})
 	$(".xx").click(function(){
 		$(".modoe").hide();
 		$("#cover").hide();
+		$("#modoemoneys").hide();
 	})
 	$(".detailsul li").click(function () {
 		$(this).addClass("actives").siblings().removeClass('actives');

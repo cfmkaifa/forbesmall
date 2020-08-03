@@ -36,7 +36,7 @@
 		<div style="width: 1200px; margin: 10px auto;">
 			<ol class="breadcrumb">
 				<li>
-					<a href="${base}/admin/index">
+					<a href="${base}">
 						<i class="iconfont icon-homefill"></i>
 						${message("common.breadcrumb.index")}
 					</a>

@@ -174,6 +174,25 @@
             [#noautoesc]${adPosition.resolveTemplate()}[/#noautoesc]
         [/#if]
     [/@ad_position]
+
+    <style>
+        .rights{
+            position: fixed;
+            right: 114px;
+            top: 28%;
+            z-index: 999;
+            width: 120px;
+            height: 407px;
+
+        }
+        .rights > img {
+            max-width: 100%;
+            height: 100%;
+        }
+    </style>
+    <div class="rights">
+        <img src="${base}/resources/common/images/right.png" alt="">
+    </div>
     <div class="top-nav">
         <div class="container">
             <div class="row">

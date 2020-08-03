@@ -19,79 +19,87 @@
     <script src="${base}/resources/common/js/base.js?version=0.1"></script>
     <script src="${base}/resources/shop/js/base.js"></script>
     <title>${message("shop.product.logo")}</title>
+    [#noautoesc]
+        [#escape x as x?js_string]
+            <script>
+                $().ready(function () {
+                    var $articlePayForm = $("#articlePayForm");
+                    var articleId = ${articleId};
+                    var is_login = ${is_login};
+                    $("#get_ct_more").click(function(){
+                        if(is_login==""){
+                            $("#modoes").show(); //未登录情况弹框
+                            $("#cover").show();	//遮罩层弹框
+                        }else{
+                            document.getElementById("articlePayForm").submit();
+                        }
+                    });
+                    $articlePayForm.validate({
+                        rules: {
+                            email: {
+                                required: true,
+                                email: true
+                            }
+                        },
+                        submitHandler: function (form) {
+                            $.ajax({
+                                url: $articlePayForm.attr("action"),
+                                type: $articlePayForm.attr("method"),
+                                data: {
+                                    articleId: articleId
+                                },
+                                dataType: "json",
+                                cache: false,
+                                success: function (data) {
+                                    $.bootstrapGrowl(data.message);
+                                    // $productNotifyModal.modal("hide");
+                                }
+                            });
+                        }
+                    });
+                });
+            </script>
+        [/#escape]
+    [/#noautoesc]
 </head>
 <body>
 [#include "/shop/include/main_header.ftl" /]
+[#--[#include "/common/rights.ftl" /]--]
 <main>
     <div class="arti-main">
         <div class="conter">
-            <div class="conter-left">
-                <div class="arti-title">${article.title}</div>
-                <div class="source">
-                    <p class="">
-                        <span>${message("shop.article.author")}:</span>
-                        <span>${article.author}</span>
-                    </p>
-                    <p class="source-data">${article.createdDate}</p>
-                </div>
-                [#if isPerm]
-                    <div class="details-b">
+            <form id="articlePayForm" class="form-horizontal" action="${base}/article/articlePay/${articleId}" method="get">
+                <div class="conter-left">
+                    <div class="arti-title">${article.title}</div>
+                    <div class="source">
+                        <p class="">
+                            <span>${message("shop.article.author")}:</span>
+                            <span>${article.author}</span>
+                        </p>
+                        <p class="source-data">${article.createdDate}</p>
+                    </div>
+                    [#if isPerm]
+                        <div class="details-b">
+                                [#noautoesc]
+                                    ${article.getPageContent(pageNumber)}
+                                [/#noautoesc]
+                        </div>
+                    [#else ]
+                        <div class="details-a" id="details-a">
                             [#noautoesc]
                                 ${article.getPageContent(pageNumber)}
                             [/#noautoesc]
-                    </div>
-                [#else ]
-                    <div class="details-a">
-                        [#noautoesc]
-                            ${article.getPageContent(pageNumber)}
-                        [/#noautoesc]
-                        <div class="get_ct_more">
-                            <button id="get_ct_more" type="button" >点击购买全文阅读</button>
-                        </div>
-                    </div>
-                [/#if]
-            </div>
-            <div class="conter-right">
-                <p class="widths">${article.articleCategory.name}</p>
-                <div class="newsrilists">
-                    [#list page.content as articles]
-                        <div class="newss">
-                            <div class="newss-top">
-                                <span></span>
-                                <p title="${articles.title}"> <a href="${base}${articles.path}">${articles.title}</a></p>
-                            </div>
-                            <div class="newssdata">
-                                <p>${articles.createdDate}</p >
-                                [#if articles.articleCategory.weekSubFee?has_content]
-                                     <p class="week">周报</p >
-                                [#elseif articles.articleCategory.monthSubFee?has_content]
-                                     <p class="month">月报</p >
-                                [#elseif articles.articleCategory.quarterSubFee?has_content]
-                                     <p class="quarter">季报</p >
-                                [#elseif articles.articleCategory.yearSubFee?has_content]
-                                    <p class="year">年报</p >
-                                [/#if]
+                            <div class="get_ct_more">
+                                <button id="get_ct_more" type="button">点击购买全文阅读</button>
                             </div>
                         </div>
-                    [/#list]
+                    [/#if]
                 </div>
-                <div class="Hot">
-                    <p class="widths">热门产品</p>
-                    <ul class="Hotlist">
-                        [#list product.content as product]
-                            <li>
-                                <a href="${base}${product.path}">
-                                    ${product.name}
-                                </a>
-                            </li>
-                        [/#list]
-                    </ul>
-                </div>
-            </div>
+            </form>
         </div>
     </div>
     <div id="cover"></div>
-    <div class="modoe">
+    <div class="modoe" id="modoes">
         <div class="modoe-title">
             <p>提示</p>
             <p class="xx">×</p>
@@ -99,23 +107,15 @@
         <div class="modoe-conter">
             <p class="modoe-P">您当前尚未登录，如需购买当前文章，请立即登录</p>
             <div class="modoe-button">
-                <button type="button" class=" abuttn btn btn-default">采购商登录入口</button>
-                <button type="button" class="btn btn-default">供应商登录入口</button>
+                <object>
+                    <a href="${base}/member/login"><button type="button" class=" abuttn btn btn-default">采购商登录入口</button></a>
+                </object>
+                <object>
+                    <a href="${base}/business/login"><button type="button" class="btn btn-default">供应商登录入口</button></a>
+                </object>
             </div>
         </div>
     </div>
-    <div class="modoemoney">
-        <div class="modoe-title">
-            <p>提示</p>
-            <p class="xx">×</p>
-        </div>
-        <div class="modoemoney-conter">
-            <p>您当前正在进行支付操作，请确认购买商品信息：</p>
-            <p>[周报]风从柯桥来｜新迷彩花型赋予更多创意与可能，来源：万方数据库</p>
-            <p class="money-color">应付金额：¥25</p>
-        </div>
-    </div>
-</body>
 </main>
 [#include "/shop/include/main_footer.ftl" /]
 </body>

@@ -280,6 +280,7 @@ public class PaymentTransactionServiceImpl extends BaseServiceImpl<PaymentTransa
                                 subsNewsHuman.setExpd(DateUtils.addYears(new Date(), 1));
                                 newsBuyType = "年报";
                             }
+                            subsNewsHuman.setStatus((long)1);
                             subsNewsHumanService.update(subsNewsHuman);
                             /**订阅**/
                             /****上报神策数据****/

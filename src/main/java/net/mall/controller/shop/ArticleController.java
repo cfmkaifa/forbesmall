@@ -6,6 +6,7 @@
  */
 package net.mall.controller.shop;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 import javax.inject.Inject;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.fasterxml.jackson.annotation.JsonView;
@@ -81,6 +83,9 @@ public class ArticleController extends BaseController {
             model.addAttribute("product",productPage);
         }
         Article article = articleService.find(articleId);
+        if(ConvertUtils.isNotEmpty(article.getContent())){
+
+        }
         if (article == null || pageNumber < 1 || pageNumber > article.getTotalPages()) {
             throw new ResourceNotFoundException();
         }
@@ -96,12 +101,22 @@ public class ArticleController extends BaseController {
                 humanId = currentMember.getId();
             }
             Filter humanIdFilter = new Filter("humanId", Filter.Operator.EQ, humanId);
-            Filter articleCategoryIdFilter = new Filter("dataId", Filter.Operator.EQ, article.getArticleCategory().getId());
-            Filter expdFilter = new Filter("expd", Filter.Operator.LE, new Date());
-            long subsCount = subsNewsHumanService.count(humanIdFilter, articleCategoryIdFilter, expdFilter);
-            if (subsCount > 0) {
-                model.addAttribute("isPerm", true);
-            } else {
+            Filter articleCategoryIdFilter = new Filter("dataId", Filter.Operator.EQ, article.getId());
+            List<Filter> filters = new ArrayList<>();
+            filters.add(humanIdFilter);
+            filters.add(articleCategoryIdFilter);
+            List<SubsNewsHuman> subsNewsHumanList = subsNewsHumanService.findList(1,filters,null);
+            if(subsNewsHumanList.size()>0){
+                if(ConvertUtils.isNotEmpty(subsNewsHumanList.get(0).getStatus())){
+                    if (subsNewsHumanList.get(0).getStatus()==1) {
+                        model.addAttribute("isPerm", true);
+                    } else {
+                        model.addAttribute("isPerm", false);
+                        List<MemberRank> memberRanks = memberRankService.findAll();
+                        model.addAttribute("memberRanks", memberRanks);
+                    }
+                }
+            }else {
                 model.addAttribute("isPerm", false);
                 List<MemberRank> memberRanks = memberRankService.findAll();
                 model.addAttribute("memberRanks", memberRanks);
@@ -118,11 +133,16 @@ public class ArticleController extends BaseController {
         model.addAttribute("articleCategories",articleCategories);
         model.addAttribute("articleCategoryId",articleCategory.getId());
         if(ConvertUtils.isNotEmpty(currentMember) && ConvertUtils.isNotEmpty(currentMember.getMemberRank())){
-            model.addAttribute("is_vip",true);
+            model.addAttribute("is_vip","true");
             model.addAttribute("vip_type",currentMember.getMemberRank().getName());
+            model.addAttribute("is_login","1");
         }else{
-            model.addAttribute("is_vip",false);
+            model.addAttribute("is_vip","false");
             model.addAttribute("vip_type","暂未登录");
+            model.addAttribute("is_login","0");
+        }
+        if(ConvertUtils.isNotEmpty(currentBusiness) && ConvertUtils.isNotEmpty(currentBusiness.getId())){
+            model.addAttribute("is_login","1");
         }
         String tempStr="shop/index";
         if (article.getArticleCategory().getType().equals(ArticleCategory.Type.INST)){
@@ -334,81 +354,58 @@ public class ArticleController extends BaseController {
     }
 
 
-    /***
-     * subscribe方法慨述:订阅方法
-     * @param articleCategoryId
-     * @param model
-     * @return String
-     * @创建人 huanghy
-     * @创建时间 2020年1月4日 下午12:02:05
-     * @修改人 (修改了该文件 ， 请填上修改人的名字)
-     * @修改日期 (请填上修改该文件时的日期)
-     */
-    @GetMapping(value = {"/subscribe-supplier/{articleCategoryId}/{subType}", "" +
-            "" +
-            "" +
-            "" +
-            "" +
-            "" +
-            "" +
-            "" +
-            "/subscribe-purchaser/{articleCategoryId}/{subType}"})
-    public String subscribe(@PathVariable Long articleCategoryId,
-                            @PathVariable String subType,
+    @GetMapping("/articlePay/{articleId}")
+    public String articlePay(@PathVariable Long articleId,
                             @CurrentUser Business currentBusiness,
                             @CurrentUser Member currentMember,
                             ModelMap model) {
+        if(ConvertUtils.isNotEmpty(currentBusiness)&&ConvertUtils.isNotEmpty(currentMember)){
+            model.addAttribute("articleId",articleId);
+            model.addAttribute("userisnot","1");
+        }
         if(ConvertUtils.isNotEmpty(currentBusiness)){
             model.addAttribute("news_buy_user","供应商");
             model.addAttribute("is_vip",true);
             model.addAttribute("vip_type",currentBusiness.getStore().getStoreRank().getName());
-        }else{
+        }if(ConvertUtils.isNotEmpty(currentMember)){
             model.addAttribute("news_buy_user","采购商");
             model.addAttribute("is_vip",true);
             model.addAttribute("vip_type",currentMember.getMemberRank().getName());
-        }
-        ArticleCategory articleCategory = articleCategoryService.find(articleCategoryId);
-        if (articleCategory == null) {
-            throw new ResourceNotFoundException();
         }
         List<PaymentPlugin> paymentPlugins = pluginService.getActivePaymentPlugins(WebUtils.getRequest());
         if (!paymentPlugins.isEmpty()) {
             model.addAttribute("defaultPaymentPlugin", paymentPlugins.get(0));
             model.addAttribute("paymentPlugins", paymentPlugins);
         }
-        model.addAttribute("articleCategory", articleCategory);
-        if (subType.equals("weekSubFee")) {
-            model.addAttribute("subFee", articleCategory.getWeekSubFee());
-            model.addAttribute("news_buy_price",articleCategory.getWeekSubFee());
-            model.addAttribute("news_buy_type","周报");
-        }
-        if (subType.equals("monthSubFee")) {
-            model.addAttribute("subFee", articleCategory.getMonthSubFee());
-            model.addAttribute("news_buy_price",articleCategory.getMonthSubFee());
-            model.addAttribute("news_buy_type","月报");
-        }
-        if (subType.equals("quarterSubFee")) {
-            model.addAttribute("subFee", articleCategory.getQuarterSubFee());
-            model.addAttribute("news_buy_price",articleCategory.getQuarterSubFee());
-            model.addAttribute("news_buy_type","季报");
-        }
-        if (subType.equals("yearSubFee")) {
-            model.addAttribute("subFee", articleCategory.getYearSubFee());
-            model.addAttribute("news_buy_price",articleCategory.getYearSubFee());
-            model.addAttribute("news_buy_type","年报");
-        }
-        model.addAttribute("articleCategory", articleCategory);
+        // 订单项
+        String orderSn = snService.generate(Sn.Type.NEWS_SUBSCRIBE_PAYMENT);
+        Article article = articleService.find(articleId);
         SubsNewsHuman subsNewsHuman = new SubsNewsHuman();
+        ArticleCategory articleCategory = articleCategoryService.find(article.getArticleCategory().getId());
         if (ConvertUtils.isNotEmpty(currentMember)) {
             subsNewsHuman.setHumanId(currentMember.getId());
         }
         if (ConvertUtils.isNotEmpty(currentBusiness)) {
             subsNewsHuman.setHumanId(currentBusiness.getId());
         }
-        // 订单项
-        String orderSn = snService.generate(Sn.Type.NEWS_SUBSCRIBE_PAYMENT);
-        subsNewsHuman.setDataType(subType);
-        subsNewsHuman.setDataId(articleCategoryId);
+        if(ConvertUtils.isNotEmpty(article.getDataType())){
+            subsNewsHuman.setDataType(article.getDataType());
+            model.addAttribute("news_buy_type",article.getDataType());
+        }else{
+            subsNewsHuman.setDataType("weekSubFee");
+            model.addAttribute("news_buy_type","weekSubFee");
+        }
+        if(ConvertUtils.isNotEmpty(article.getMoney())){
+            subsNewsHuman.setMoney(article.getMoney());
+            model.addAttribute("news_buy_price",article.getMoney());
+            model.addAttribute("subFee",article.getMoney());
+        }else{
+            subsNewsHuman.setMoney(BigDecimal.valueOf(0.01));
+            model.addAttribute("news_buy_price",BigDecimal.valueOf(0.01));
+            model.addAttribute("subFee",BigDecimal.valueOf(0.01));
+        }
+        model.addAttribute("articleCategory",articleCategory);
+        subsNewsHuman.setDataId(articleId);
         subsNewsHuman.setSn(orderSn);
         subsNewsHumanService.save(subsNewsHuman);
         model.addAttribute("orderSn", orderSn);
