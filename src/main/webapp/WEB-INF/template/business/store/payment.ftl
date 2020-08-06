@@ -192,6 +192,7 @@
 			</script>
 		[/#escape]
 	[/#noautoesc]
+	[#include "/common/js/buried_point.ftl"]
 </head>
 <body class="business">
 	[#include "/business/include/main_header.ftl" /]
@@ -324,4 +325,21 @@
 		</div>
 	</main>
 </body>
+<script type="text/javascript">
+	//点击会员采购申请埋点事件
+	$(function () {
+		var refer=document.referrer;
+		try {
+			sensors.track('vipSubmit',{
+				page_from:refer,
+				vip_type:"${vip_type}",
+				vip_price:${vip_price},
+				store_id:${store_id},
+				store_name:"${store_name}"
+			})
+		}catch (e) {
+			console.log(e)
+		}
+	})
+</script>
 </html>

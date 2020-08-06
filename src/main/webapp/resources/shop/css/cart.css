@@ -97,7 +97,7 @@
 .cart-list .bar .clear {
 	display: block;
 	text-align: center;
-	border-right: 1px solid #eeeeee;
+	background: #eeeeee;
 }
 
 .cart-list .bar .redirect-login {

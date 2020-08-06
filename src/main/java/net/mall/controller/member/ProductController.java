@@ -11,11 +11,15 @@ import net.mall.Pageable;
 import net.mall.Results;
 import net.mall.controller.admin.BaseController;
 import net.mall.entity.*;
+import net.mall.exception.ResourceNotFoundException;
 import net.mall.exception.UnauthorizedException;
 import net.mall.security.CurrentUser;
 import net.mall.service.*;
+import net.mall.util.ConvertUtils;
+import net.mall.util.SensorsAnalyticsUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.time.DateUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -61,6 +65,8 @@ public class ProductController extends BaseController {
     private ProductImageService productImageService;
     @Inject
     private FileService fileService;
+    @Inject
+    SensorsAnalyticsUtils sensorsAnalyticsUtils;
 
 
 
@@ -293,11 +299,19 @@ public class ProductController extends BaseController {
         if (productCategory == null) {
             return Results.UNPROCESSABLE_ENTITY;
         }
+        if(ConvertUtils.isNotEmpty(productForm.getExpire())){
+            if(productForm.getExpire().before(new Date())){
+                return Results.UNPROCESSABLE_ENTITY;
+            }
+        } else {
+            productForm.setExpire(DateUtils.addMonths(new Date(),1));
+        }
         productForm.setPurch(true);
         productForm.setIsAudit(Product.ProApplyStatus.PENDING);
         productForm.setMember(currentMember);
         productForm.setIsMarketable(true);
         productForm.setIsTop(true);
+        productForm.setGroup(false);
         productForm.setIsList(true);
         productForm.setIsActive(true);
         productForm.setIsDelivery(false);
@@ -330,7 +344,74 @@ public class ProductController extends BaseController {
             }
             productService.create(productForm, sku);
         }
+        //神策提交采购埋点上报神策
+        if(ConvertUtils.isNotEmpty(productForm)){
+            Map<String,Object> map=new HashMap<String,Object>();
+            map.put("commodity_name",productForm.getName());
+            map.put("first_commodity",productForm.getProductCategory().getName());
+            map.put("second_commodity",productForm.getProductCategory().getParent().getName());
+            map.put("present_price",productForm.getPrice());
+            map.put("receiver_id",currentMember.getId());
+            map.put("member_name",currentMember.getName());
+            List<Sku> skus=skuListForm.getSkuList();
+            for(Sku item:skus){
+                map.put("goods_amount",item.getStock());
+                break;
+            }
+            List<SpecificationItem> specificationItems=productForm.getSpecificationItems();
+            for(SpecificationItem temp:specificationItems){
+                if(temp.getName().contains("颜色")){
+                    List<SpecificationItem.Entry> entries=temp.getEntries();
+                    for (SpecificationItem.Entry tempEntry:entries){
+                        if(tempEntry.getIsSelected()){
+                            map.put("commodity_color",tempEntry.getValue());
+                        }
+                    }
+                }
+                if(temp.getName().contains("cm")){
+                    List<SpecificationItem.Entry> entries=temp.getEntries();
+                    for (SpecificationItem.Entry tempEntry:entries){
+                        if(tempEntry.getIsSelected()){
+                            map.put("commodity_cm",tempEntry.getValue());
+                        }
+                    }
+                }
+                if(temp.getName().contains("gsm")){
+                    List<SpecificationItem.Entry> entries=temp.getEntries();
+                    for (SpecificationItem.Entry tempEntry:entries){
+                        if(tempEntry.getIsSelected()){
+                            map.put("commodity_gsm",tempEntry.getValue());
+                        }
+                    }
+                }
+                if(temp.getName().contains("纤维")){
+                    List<SpecificationItem.Entry> entries=temp.getEntries();
+                    for (SpecificationItem.Entry tempEntry:entries){
+                        if(tempEntry.getIsSelected()){
+                            map.put("commodity_fiber",tempEntry.getValue());
+                        }
+                    }
+                }
+            }
+            sensorsAnalyticsUtils.reportData(String.valueOf(currentMember.getId()),"FiberpurchApply",map);
+        }
         return Results.OK;
+    }
+
+    /***
+     * 删除采购申请
+     */
+    @ResponseBody
+    @RequestMapping("/del-pro")
+    public Map<String,Object> delProduct(Long id){
+        Map<String,Object> map=new HashMap<>();
+        Product product = productService.find(id);
+        if (product == null) {
+            throw new ResourceNotFoundException();
+        }
+        productService.delete(id);
+        map.put("result",true);
+        return map;
     }
 
 

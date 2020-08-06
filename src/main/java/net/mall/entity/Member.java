@@ -122,6 +122,12 @@ public class Member extends User {
     @Transient
     private String password;
 
+    /***
+     * 父级ID
+     */
+    @Column(name = "parent_id")
+    private Long parentId;
+
     /**
      * 加密密码
      */
@@ -134,7 +140,7 @@ public class Member extends User {
     @NotEmpty
     @Email
     @Length(max = 200)
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String email;
 
     /**
@@ -1139,6 +1145,13 @@ public class Member extends User {
         this.productNotifies = productNotifies;
     }
 
+    public Long getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
+    }
     /**
      * 获取积分记录
      *

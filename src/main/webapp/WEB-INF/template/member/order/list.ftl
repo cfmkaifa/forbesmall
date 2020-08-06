@@ -44,7 +44,16 @@
 						<input name="hasExpired" type="hidden" value="${(hasExpired?string("true", "false"))!}">
 						<input name="pageNumber" type="hidden" value="${page.pageNumber}">
 						<div class="order-list panel panel-default">
-							<div class="panel-heading">${message("member.order.list")}</div>
+							<div class="panel-heading">
+								<span>${message("member.order.list")}</span>
+							</div>
+							<div class="ordercode">
+								<span><a href="${base}/member/order/list?status=PENDING_PAYMENT">等待付款</a></span>
+								<span><a href="${base}/member/order/list?status=MERCHANT_CONFIRM">商家确认</a></span>
+								<span><a href="${base}/member/order/list?status=PENDING_SHIPMENT">等待发货</a></span>
+								<span><a href="${base}/member/order/list?status=RECEIVED">已收货</a></span>
+								<span><a href="${base}/member/order/list?status=COMPLETED">已完成</a></span>
+							</div>
 							<div class="panel-body">
 								[#if page.content?has_content]
 									<ul class="media-list">
@@ -72,9 +81,9 @@
 																		[/#if]
 																	</h5>
 																	[#if orderItem.specifications?has_content]
-																		<span class="text-gray">[${orderItem.specifications?join(", ")}]</span>
+																		<span class="text-gay">[${orderItem.specifications?join(", ")}]</span>
 																	[/#if]
-																	<p class="text-gray-dark">${currency(orderItem.price, true)} &times; ${orderItem.quantity}</p>
+																	<p class="text-gay">${currency(orderItem.price, true)} &times; ${orderItem.quantity}</p>
 																</div>
 															</li>
 															[#if orderItem_index == 2]
@@ -103,7 +112,7 @@
 														</li>
 													</ul>
 												</div>
-												<div class="media-right media-middle">
+												<div class="media-right media-middle mediaa">
 													<strong class="text-red pull-left">${currency(order.amount, true)}</strong>
 													<a class="btn btn-default btn-icon pull-right" href="${base}/member/order/view?orderSn=${order.sn}" title="${message("common.view")}">
 														<i class="iconfont icon-search"></i>

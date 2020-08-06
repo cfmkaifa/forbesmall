@@ -89,8 +89,14 @@ a,a:hover{
 	height: 18px;
 	margin-top: 6px;
 }
-.newsTitle_text h3{
+.newsTitle_text{
+	width: 50%;
 	font-size: 17px;
 	color: #333;
 	line-height: 30px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
 }

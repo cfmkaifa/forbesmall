@@ -196,12 +196,12 @@
 												<i class="iconfont icon-biaotou-kepaixu"></i>
 											</a>
 										</th>
-										<th>
+										[#--<th>
 											<a href="javascript:;" data-order-property="rate">
 												${message("CategoryApplication.rate")}
 												<i class="iconfont icon-biaotou-kepaixu"></i>
 											</a>
-										</th>
+										</th>--]
 										<th>
 											<a href="javascript:;" data-order-property="store.name">
 												${message("CategoryApplication.store")}
@@ -226,7 +226,7 @@
 														${categoryApplication.productCategory.name}
 													[/#if]
 												</td>
-												<td>${categoryApplication.rate}</td>
+												[#--<td>${categoryApplication.rate}</td>--]
 												<td>${categoryApplication.store.name}</td>
 												<td>
 													<span class="[#if categoryApplication.status == "PENDING"]text-orange[#elseif categoryApplication.status == "FAILED"]text-red[#else]text-green[/#if]">${message("CategoryApplication.Status." + categoryApplication.status)}</span>

@@ -8,7 +8,7 @@
             <div class="industryContent">
                 <ul class="content">
                     <li class="span3">
-                        <h4>${articleCategory.name}${message("shop.article.weekly")}</h4>
+                        <h4>${articleCategory.name}${message("shop.article.day")}</h4>
                         <span class="price"><p>${articleCategory.weekSubFee}${message("shop.article.unit")}</p></span>
                         <p>${articleCategory.seoKeywords}</p>
                         <a class="immediately" subType="weekSubFee">${message("shop.article.subscribeNow")}</a>
@@ -103,8 +103,8 @@
             </div>
             <div class="modalBody">
                 <form>
-                    <a id="supplierPay" class="btna btn-defaulta btnava" href="">${message("shop.article.supplier")}</a>
-                    <a id="purchaserPay" class="btna btn-defaulta" href="">${message("shop.article.purchaser")}</a>
+                    <a id="supplierPay" class="btna btn-defaulta btnava" href="" onclick="buyNews()">${message("shop.article.supplier")}</a>
+                    <a id="purchaserPay" class="btna btn-defaulta" href="" onclick="buyNews()" >${message("shop.article.purchaser")}</a>
                 </form>
             </div>
         </div>

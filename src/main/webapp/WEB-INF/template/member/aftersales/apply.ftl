@@ -654,6 +654,7 @@
 															<th>${message("member.aftersalesItem.sku")}</th>
 															<th>${message("member.aftersalesItem.name")}</th>
 															<th>${message("AftersalesItem.quantity")}</th>
+															<th>${message("AftersalesItem.weight")}(kg)</th>
 															<th>${message("member.aftersalesItem.price")}</th>
 														</tr>
 													</thead>
@@ -699,6 +700,9 @@
 																				</a>
 																			</span>
 																		</div>
+																	</td>
+																	<td>
+																		<input name="aftersalesItems[${orderItem_index}].weight" class="price form-control" type="text" maxlength="5"  data-min="1" data-max="[#if orderItem.weight > 0]${orderItem.weight}[#else]1[/#if]">
 																	</td>
 																	<td>${currency(orderItem.price, true)}</td>
 																</tr>

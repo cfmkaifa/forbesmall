@@ -331,10 +331,27 @@ public interface ProductService extends BaseService<Product, Long> {
 
 
     /***
+     * 修改上下架
+     * @param marketable
+     * @param productId
+     */
+    public void modifyMarketable(Boolean marketable, Long productId);
+
+    /***
      * 修改审核状态
      * @param isAudit
      * @param productId
      */
     public void modifyProductAudit(Product.ProApplyStatus isAudit, Long productId);
 
+
+    /***
+     * 查询快过期团购
+     * @param isPurch
+     * @param isAudit
+     * @param isMarketable
+     * @param expire
+     * @return
+     */
+    public List<Product> searchProApply(Boolean isPurch, Product.ProApplyStatus isAudit, Boolean isMarketable, Date expire);
 }

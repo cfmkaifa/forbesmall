@@ -37,11 +37,9 @@
         [#escape x as x?js_string]
             <script>
                 $().ready(function () {
-
                     var $passwordForm = $("#passwordForm");
                     var $captcha = $("#captcha");
                     var $captchaImage = $("[data-toggle='captchaImage']");
-
                     // 表单验证
                     $passwordForm.validate({
                         rules: {
@@ -49,6 +47,9 @@
                             email: {
                                 required: true,
                                 email: true
+                            },
+                            mobile: {
+                                remote: "${message("member.register.mobileExist")}"
                             },
                             captcha: "required"
                         },
@@ -84,50 +85,143 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="panel-title">
-                        <h1 class="text-red">
+                        [#--                        text-red--]
+                        <h1 class="">
                             ${message("shop.password.forgot")}
-                            <small>FORGET PASSWORD</small>
+                            [#--                            <small>FORGET PASSWORD</small>--]
                         </h1>
                     </div>
                 </div>
                 <div class="panel-body">
-                    <div class="form-group">
-                        <label class="col-xs-3 control-label item-required"
-                               for="username">${message("shop.password.username")}:</label>
-                        <div class="col-xs-6">
-                            <input id="username" name="username" class="form-control" type="text" maxlength="20"
-                                   autocomplete="off">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-xs-3 control-label item-required"
-                               for="email">${message("shop.password.email")}:</label>
-                        <div class="col-xs-6">
-                            <input id="email" name="email" class="form-control" type="text" maxlength="200">
-                        </div>
-                    </div>
-                    [#if setting.captchaTypes?? && setting.captchaTypes?seq_contains("FORGOT_PASSWORD")]
-                        <div class="form-group">
-                            <label class="col-xs-3 control-label item-required"
-                                   for="captcha">${message("common.captcha.name")}:</label>
-                            <div class="col-xs-6">
-                                <div class="input-group">
-                                    <input id="captcha" name="captcha" class="captcha form-control" type="text"
-                                           maxlength="4" autocomplete="off">
-                                    <div class="input-group-btn">
-                                        <img class="captcha-image" src="${base}/resources/common/images/transparent.png"
-                                             title="${message("common.captcha.imageTitle")}" data-toggle="captchaImage">
+                    <ul class="Information">
+                        <li class="Information_active"> ${message("common.captcha.verification1")}</li>
+                        <li>${message("common.captcha.verification2")}</li>
+                        <li>${message("common.captcha.verification3")}</li>
+                    </ul>
+                    <div class="Information_main">
+                        <div class="Information-left">
+                            <div class="Informationone">
+                                <div class="form-group">
+                                    <label class="col-xs-3 control-label item-required"
+                                           for="username">${message("shop.password.username")}:</label>
+                                    <div class="col-xs-6">
+                                        <input id="username" name="username" class="form-control" type="text" maxlength="20"
+                                               autocomplete="off">
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <label class="col-xs-3 control-label item-required"
+                                           for="mobile">${message("common.captcha.iPhone")}:</label>
+                                    <div class="col-xs-6">
+                                        <input id="mobile" name="mobile" class="form-control" type="text" maxlength="200">
+                                    </div>
+                                </div>
+                                [#if setting.captchaTypes?? && setting.captchaTypes?seq_contains("FORGOT_PASSWORD")]
+                                    <div class="form-group">
+                                        <label class="col-xs-3 control-label item-required"
+                                               for="captcha">${message("common.captcha.name")}:</label>
+                                        <div class="col-xs-6">
+                                            <div class="input-group">
+                                                <input id="captcha" name="captcha" class="captcha form-control" type="text"
+                                                       maxlength="4" autocomplete="off">
+                                                <div class="input-group-btn">
+                                                    <img class="captcha-image" src="${base}/resources/common/images/transparent.png"
+                                                         title="${message("common.captcha.imageTitle")}" data-toggle="captchaImage">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                [/#if]
+                            </div>
+                            <div class="Informationtwo">
+                                <div class="form-group">
+                                    <label class="col-xs-3 control-label item-required"
+                                           for="email">${message("shop.password.email")}:</label>
+                                    <div class="col-xs-6">
+                                        <input id="email" name="email" class="form-control" type="text" maxlength="200">
+                                    </div>
+                                </div>
+                                [#if setting.captchaTypes?? && setting.captchaTypes?seq_contains("FORGOT_PASSWORD")]
+                                    <div class="form-group">
+                                        <label class="col-xs-3 control-label item-required"
+                                               for="captcha">${message("common.captcha.name")}:</label>
+                                        <div class="col-xs-6">
+                                            <div class="input-group">
+                                                <input id="captcha" name="captcha" class="captcha form-control" type="text"
+                                                       maxlength="4" autocomplete="off">
+                                                <div class="input-group-btn">
+                                                    <img class="captcha-image" src="${base}/resources/common/images/transparent.png"
+                                                         title="${message("common.captcha.imageTitle")}" data-toggle="captchaImage">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                [/#if]
+                            </div>
+                            <div class="InformationThree">
+                                <div class="form-group">
+                                    <label class="col-xs-3 control-label item-required"
+                                           for="email">${message("common.captcha.password")}:</label>
+                                    <div class="col-xs-6">
+                                        <input id="email" name="email" class="form-control" type="text" maxlength="200">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-xs-3 control-label item-required"
+                                           for="email">${message("common.captcha.passwords")}:</label>
+                                    <div class="col-xs-6">
+                                        <input id="email" name="email" class="form-control" type="text" maxlength="200">
+                                    </div>
+                                </div>
+                                [#if setting.captchaTypes?? && setting.captchaTypes?seq_contains("FORGOT_PASSWORD")]
+                                    <div class="form-group">
+                                        <label class="col-xs-3 control-label item-required"
+                                               for="captcha">${message("common.captcha.name")}:</label>
+                                        <div class="col-xs-6">
+                                            <div class="input-group">
+                                                <input id="captcha" name="captcha" class="captcha form-control" type="text"
+                                                       maxlength="4" autocomplete="off">
+                                                <div class="input-group-btn">
+                                                    <img class="captcha-image" src="${base}/resources/common/images/transparent.png"
+                                                         title="${message("common.captcha.imageTitle")}" data-toggle="captchaImage">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                [/#if]
+                            </div>
+                            <div class="submitbutton">
+                                <button class="btn btn-primary btn-lg btn-block "
+                                        type="submit">${message("shop.password.submit")}</button>
                             </div>
                         </div>
-                    [/#if]
+                        <div class="Information_right">
+                            <p class="iphones">${message("common.captcha.customer")}：</p>
+                            <p class="iphone">
+                                <span></span>
+                                ${message("common.captcha.number")}
+                            </p>
+                            <p class="iphonepossword">${message("common.captcha.contact")}</p>
+                            <p class="platform">${message("common.captcha.platform")}</p>
+                            <p class="platforms"></p>
+                            <ul class="datazz">
+                                <li>${message("common.captcha.service")}</li>
+                                <li>${message("common.captcha.servicetwo")}</li>
+                                <li>${message("common.captcha.serviceone")}</li>
+                                <li>${message("common.captcha.domestic")}</li>
+                                <ul class="dian">
+                                    <li></li>
+                                    <li></li>
+                                    <li></li>
+                                    <li></li>
+                                </ul>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
                 <div class="panel-footer">
                     <div class="row">
                         <div class="col-xs-6 col-xs-offset-3">
-                            <button class="btn btn-primary btn-lg btn-block"
-                                    type="submit">${message("shop.password.submit")}</button>
                         </div>
                     </div>
                 </div>

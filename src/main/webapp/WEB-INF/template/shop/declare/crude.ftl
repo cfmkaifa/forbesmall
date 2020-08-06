@@ -111,5 +111,4 @@
 			</div>
 		</div>
 	</body>
-	<script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.js"></script>
 </html>

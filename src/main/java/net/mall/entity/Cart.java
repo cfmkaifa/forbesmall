@@ -106,6 +106,11 @@ public class Cart extends BaseEntity<Long> implements Iterable<CartItem> {
     @JoinColumn(updatable = false)
     private Member member;
 
+    /***订单来源
+     */
+    @Transient
+    private String entrance;
+
     /**
      * 购物车项
      */
@@ -1027,6 +1032,14 @@ public class Cart extends BaseEntity<Long> implements Iterable<CartItem> {
     @Transient
     public Iterator<CartItem> iterator() {
         return getCartItems() != null ? getCartItems().iterator() : Collections.<CartItem>emptyIterator();
+    }
+
+    public String getEntrance() {
+        return entrance;
+    }
+
+    public void setEntrance(String entrance) {
+        this.entrance = entrance;
     }
 
     /**

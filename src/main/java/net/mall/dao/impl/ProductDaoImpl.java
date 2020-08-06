@@ -554,6 +554,17 @@ public class ProductDaoImpl extends BaseDaoImpl<Product, Long> implements Produc
     }
 
 
+    /***
+     * 修改上下架
+     * @param marketable
+     * @param productId
+     */
+    public void modifyMarketable(Boolean marketable, Long productId){
+        String jpql = "UPDATE Product SET isMarketable = :marketable WHERE id = :id";
+        entityManager.createQuery(jpql).setParameter("marketable", marketable).setParameter("id", productId).executeUpdate();
+    }
+
+
 
     /***
      * 根据sourceID更新新产品ID
@@ -586,5 +597,24 @@ public class ProductDaoImpl extends BaseDaoImpl<Product, Long> implements Produc
     public void modifyProductAudit(Product.ProApplyStatus isAudit, Long productId){
         String jpql = "UPDATE Product SET isAudit = :isAudit WHERE id = :id";
         entityManager.createQuery(jpql).setParameter("isAudit", isAudit).setParameter("id", productId).executeUpdate();
+    }
+
+
+    /***
+     * 查询快过期团购
+     * @param isPurch
+     * @param isAudit
+     * @param isMarketable
+     * @param expire
+     * @return
+     */
+    public List<Product> searchProApply(Boolean isPurch, Product.ProApplyStatus isAudit, Boolean isMarketable, Date expire){
+        String jpql = "select pro from  Product pro where  pro.isAudit = :isAudit and pro.isPurch = :isPurch and pro.isMarketable = :isMarketable and pro.expire < :expire";
+        return  entityManager.createQuery(jpql)
+                .setParameter("isAudit", isAudit)
+                .setParameter("isPurch", isPurch)
+                .setParameter("isMarketable", isMarketable)
+                .setParameter("expire", expire)
+                .setParameter("isAudit", isAudit).getResultList();
     }
 }

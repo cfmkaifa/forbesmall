@@ -43,161 +43,185 @@
 	[#noautoesc]
 		[#escape x as x?js_string]
 			<script>
-			$().ready(function() {
-				
-				var $document = $(document);
-				var $registerForm = $("#registerForm");
-				var $spreadMemberUsername = $("input[name='spreadMemberUsername']");
-				var $username = $("#username");
-				var $areaId = $("#areaId");
-				var $captcha = $("#captcha");
-				var $captchaImage = $("[data-toggle='captchaImage']");
-				var $agree = $("#agree");
-				var $submit = $("#registerForm button:submit");
-				
-				// 推广用户
-				var spreadUser = $.getSpreadUser();
-				if (spreadUser != null) {
-					$spreadMemberUsername.val(spreadUser.username);
-				}
-				
-				// 地区选择
-				$areaId.lSelect({
-					url: "${base}/common/area"
-				});
-				
-				// 同意注册协议
-				$agree.change(function() {
-					$submit.prop("disabled", !$agree.prop("checked"));
-				});
-				
-				// 表单验证
-				$registerForm.validate({
-					rules: {
-						username: {
-							required: true,
-							minlength: 4,
-							username: true,
-							notAllNumber: true,
-							remote: {
-								url: "${base}/member/register/check_username",
-								cache: false
-							}
-						},
-						password: {
-							required: true,
-							minlength: 4,
-							normalizer: function(value) {
-								return value;
-							}
-						},
-						rePassword: {
-							required: true,
-							equalTo: "#password",
-							normalizer: function(value) {
-								return value;
-							}
-						},
-						email: {
-							required: true,
-							email: true,
-							remote: {
-								url: "${base}/member/register/check_email",
-								cache: false
-							}
-						},
-						mobile: {
-							required: true,
-							mobile: true,
-							remote: {
-								url: "${base}/member/register/check_mobile",
-								cache: false
-							}
-						},
-						captcha: "required"
-						[@member_attribute_list]
-							[#list memberAttributes as memberAttribute]
-								[#if memberAttribute.isRequired || memberAttribute.pattern?has_content]
-									,"memberAttribute_${memberAttribute.id}": {
-										[#if memberAttribute.isRequired]
-											required: true
-											[#if memberAttribute.pattern?has_content],[/#if]
-										[/#if]
-										[#if memberAttribute.pattern?has_content]
-											pattern: new RegExp("${memberAttribute.pattern}")
-										[/#if]
-									}
-								[/#if]
-							[/#list]
-						[/@member_attribute_list]
-					},
-					messages: {
-						username: {
-							remote: "${message("member.register.usernameExist")}"
-						},
-						email: {
-							remote: "${message("member.register.emailExist")}"
-						},
-						mobile: {
-							remote: "${message("member.register.mobileExist")}"
-						}
-					},
-					submitHandler: function(form) {
-						$(form).ajaxSubmit({
-							successMessage: false,
-							successRedirectUrl: "${base}/"
-						});
+				$().ready(function() {
+
+					var $document = $(document);
+					var $registerForm = $("#registerForm");
+					var $spreadMemberUsername = $("input[name='spreadMemberUsername']");
+					var $username = $("#username");
+					var $areaId = $("#areaId");
+					var $captcha = $("#captcha");
+					var $captchaImage = $("[data-toggle='captchaImage']");
+					var $agree = $("#agree");
+					var $submit = $("#registerForm button:submit");
+
+					// 推广用户
+					var spreadUser = $.getSpreadUser();
+					if (spreadUser != null) {
+						$spreadMemberUsername.val(spreadUser.username);
 					}
+
+					// 地区选择
+					$areaId.lSelect({
+						url: "${base}/common/area"
+					});
+
+					// 同意注册协议
+					$agree.change(function() {
+						$submit.prop("disabled", !$agree.prop("checked"));
+					});
+
+					$(".nexta").click(function() {
+						$(".Informationone").hide();
+						$(".Informationtwo").show();
+						$(".axsaxatwo").addClass("Information_active").siblings().removeClass("Information_active");
+					})
+					$(".Information li").click(function () {
+						$(this).addClass("Information_active").siblings().removeClass("Information_active");
+					})
+					$(".axsaxaone").click(function () {
+						$(".Informationone").show();
+						$(".Informationtwo").hide();
+					})
+					$(".axsaxatwo").click(function () {
+						$(".Informationone").hide();
+						$(".Informationtwo").show();
+					})
+
+					// 表单验证
+					$registerForm.validate({
+						rules: {
+							username: {
+								required: true,
+								minlength: 4,
+								username: true,
+								notAllNumber: true,
+								remote: {
+									url: "${base}/member/register/check_username",
+									cache: false
+								}
+							},
+							password: {
+								required: true,
+								minlength: 4,
+								normalizer: function(value) {
+									return value;
+								}
+							},
+							rePassword: {
+								required: true,
+								equalTo: "#password",
+								normalizer: function(value) {
+									return value;
+								}
+							},
+							email: {
+								required: true,
+								email: true,
+								remote: {
+									url: "${base}/member/register/check_email",
+									cache: false
+								}
+							},
+							mobile: {
+								required: true,
+								mobile: true,
+								remote: {
+									url: "${base}/member/register/check_mobile",
+									cache: false
+								}
+							},
+							captcha: "required"
+							[@member_attribute_list]
+							[#list memberAttributes as memberAttribute]
+							[#if memberAttribute.isRequired || memberAttribute.pattern?has_content]
+							,"memberAttribute_${memberAttribute.id}": {
+								[#if memberAttribute.isRequired]
+								required: true
+								[#if memberAttribute.pattern?has_content],[/#if]
+								[/#if]
+								[#if memberAttribute.pattern?has_content]
+								pattern: new RegExp("${memberAttribute.pattern}")
+								[/#if]
+							}
+							[/#if]
+							[/#list]
+							[/@member_attribute_list]
+						},
+						messages: {
+							username: {
+								remote: "${message("member.register.usernameExist")}"
+							},
+							email: {
+								remote: "${message("member.register.emailExist")}"
+							},
+							mobile: {
+								remote: "${message("member.register.mobileExist")}"
+							}
+						},
+						submitHandler: function(form) {
+							$(form).ajaxSubmit({
+								successMessage: false,
+								successRedirectUrl: "${base}/"
+							});
+						}
+					});
+
+					// 用户注册成功
+					$registerForm.on("success.mall.ajaxSubmit", function() {
+						$document.trigger("registered.mall.user", [{
+							type: "member",
+							username: $username.val()
+						}]);
+					});
+
+					// 验证码图片
+					$registerForm.on("error.mall.ajaxSubmit", function() {
+						$captchaImage.captchaImage("refresh");
+					});
+
+					// 验证码图片
+					$captchaImage.on("refreshed.mall.captchaImage", function() {
+						$captcha.val("");
+					});
+
 				});
-				
-				// 用户注册成功
-				$registerForm.on("success.mall.ajaxSubmit", function() {
-					$document.trigger("registered.mall.user", [{
-						type: "member",
-						username: $username.val()
-					}]);
-				});
-				
-				// 验证码图片
-				$registerForm.on("error.mall.ajaxSubmit", function() {
-					$captchaImage.captchaImage("refresh");
-				});
-				
-				// 验证码图片
-				$captchaImage.on("refreshed.mall.captchaImage", function() {
-					$captcha.val("");
-				});
-			
-			});
 			</script>
 		[/#escape]
 	[/#noautoesc]
 </head>
 <body class="register">
-	[#include "/shop/include/main_header.ftl" /]
-	<main>
-		<div class="container">
-			<form id="registerForm" class="form-horizontal" action="${base}/member/register/submit" method="post">
-				<input name="socialUserId" type="hidden" value="${socialUserId}">
-				<input name="uniqueId" type="hidden" value="${uniqueId}">
-				<input name="spreadMemberUsername" type="hidden">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<div class="panel-title">
-							<h1 class="text-red">
-								[#if socialUserId?has_content && uniqueId?has_content]
-									${message("member.register.bind")}
-									<small>REGISTER BIND</small>
-								[#else]
-									${message("member.register.title")}
-									<small>USER REGISTER</small>
-								[/#if]
-							</h1>
-						</div>
+[#include "/shop/include/main_header.ftl" /]
+<main>
+	<div class="container">
+		<form id="registerForm" class="form-horizontal" action="${base}/member/register/submit" method="post">
+			<input name="socialUserId" type="hidden" value="${socialUserId}">
+			<input name="uniqueId" type="hidden" value="${uniqueId}">
+			<input name="spreadMemberUsername" type="hidden">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="panel-title">
+						<h1 class="">
+							[#if socialUserId?has_content && uniqueId?has_content]
+								${message("member.register.bind")}
+							[#--									<small>REGISTER BIND</small>--]
+							[#else]
+								${message("member.register.title")}
+							[#--									<small>USER REGISTER</small>--]
+							[/#if]
+						</h1>
 					</div>
-					<div class="panel-body">
-						<div class="row">
-							<div class="col-xs-8">
+				</div>
+				<div class="panel-body">
+					<ul class="Information">
+						<li class="axsaxaone Information_active"> ${message("common.captcha.personal1")}</li>
+						<li class="axsaxatwo">${message("common.captcha.personal2")}</li>
+						[#--							<li>${message("common.captcha.personal3")}</li>--]
+					</ul>
+
+					<div class="Information_main">
+						<div class="Information-left">
+							<div class="Informationone">
 								<div class="form-group">
 									<label class="col-xs-3 control-label item-required" for="username">${message("member.register.username")}:</label>
 									<div class="col-xs-8">
@@ -228,11 +252,27 @@
 										<input id="mobile" name="mobile" class="form-control" type="text" maxlength="200">
 									</div>
 								</div>
+								<div class="form-group">
+									<div class="col-xs-8 col-xs-offset-3">
+										<div class="checkbox">
+											<input id="agree" name="agree" type="checkbox" value="true" checked>
+											<label for="agree">${message("member.register.agree")}</label>
+											<a class="text-red" href="${base}/article/detail/17_1" target="_blank">${message("member.register.agreement")}</a>
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-xs-8 col-xs-offset-3">
+										<button class="btn btn-primary btn-lg btn-block nexta" id="">下一步</button>
+									</div>
+								</div>
+							</div>
+							<div class="Informationtwo">
 								[@member_attribute_list]
 									[#list memberAttributes as memberAttribute]
 										<div class="form-group">
 											<label class="col-xs-3 control-label[#if memberAttribute.isRequired] item-required[/#if]" for="memberAttribute_${memberAttribute.id}">${memberAttribute.name}:</label>
-											[#if memberAttribute.type == "NAME" || memberAttribute.type == "ADDRESS" || memberAttribute.type == "ZIP_CODE" || memberAttribute.type == "PHONE" || memberAttribute.type == "TEXT" || memberAttribute.type == "LICENSE_NUMBER" || memberAttribute.type == "LEGAL_PERSON" || memberAttribute.type == "ID_CARD" || memberAttribute.type == "ORGANIZATION_CODE" || memberAttribute.type == "IDENTIFICATION_NUMBER" || memberAttribute.type == "BANK_NAME" || memberAttribute.type == "BANK_ACCOUNT" || memberAttribute.type == "BANK_ADDRESS" ]
+											[#if memberAttribute.type == "NAME" || memberAttribute.type == "ADDRESS" || memberAttribute.type == "ZIP_CODE" || memberAttribute.type == "PHONE" || memberAttribute.type == "TEXT" || memberAttribute.type == "LICENSE_NUMBER" || memberAttribute.type == "LEGAL_PERSON" || memberAttribute.type == "ID_CARD" || memberAttribute.type == "ORGANIZATION_CODE" || memberAttribute.type == "IDENTIFICATION_NUMBER" || memberAttribute.type == "BANK_NAME" || memberAttribute.type == "BANK_ACCOUNT" ||memberAttribute.type == "BANK_ADDRESS" ]
 												<div class="col-xs-8">
 													<input id="memberAttribute_${memberAttribute.id}" name="memberAttribute_${memberAttribute.id}" class="form-control" type="text" maxlength="200">
 												</div>
@@ -299,54 +339,43 @@
 										</div>
 									</div>
 								[/#if]
-							</div>
-							<div class="col-xs-3">
-								<div class="login">
-									<h2>${message("member.register.loginTitle")}</h2>
-									<a class="btn btn-default btn-lg btn-block" href="${base}/member/login">${message("member.register.login")}</a>
-									[#if loginPlugins?has_content && !socialUserId?has_content && !uniqueId?has_content]
-										<ul class="clearfix">
-											[#list loginPlugins as loginPlugin]
-												<li>
-													<a href="${base}/social_user_login?loginPluginId=${loginPlugin.id}"[#if loginPlugin.description??] title="${loginPlugin.description}"[/#if]>
-														[#if loginPlugin.logo?has_content]
-															<img src="${loginPlugin.logo}" alt="${loginPlugin.displayName}">
-														[#else]
-															${loginPlugin.displayName}
-														[/#if]
-													</a>
-												</li>
-											[/#list]
-										</ul>
-									[/#if]
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="panel-footer">
-						<div class="row">
-							<div class="col-xs-8">
-								<div class="form-group">
-									<div class="col-xs-8 col-xs-offset-3">
-										<div class="checkbox">
-											<input id="agree" name="agree" type="checkbox" value="true" checked>
-											<label for="agree">${message("member.register.agree")}</label>
-											<a class="text-red" href="${base}/article/detail/10903_1" target="_blank">${message("member.register.agreement")}</a>
-										</div>
-									</div>
-								</div>
 								<div class="form-group">
 									<div class="col-xs-8 col-xs-offset-3">
 										<button class="btn btn-primary btn-lg btn-block" type="submit">${message("member.register.submit")}</button>
+										[#--											<button class="btn btn-primary btn-lg btn-block" id="nexta">下一步</button>--]
 									</div>
 								</div>
 							</div>
+							<div class="InformationThree">
+
+							</div>
+						</div>
+						<div class="Information_right">
+							<p class="iphones">${message("common.captcha.already")}：</p>
+							<a href="${base}/member/login"><button type="button" class="btn btn-default ccccc">${message("common.captcha.rightoff")}</button></a>
+							<p class="platform">${message("common.captcha.platform")}</p>
+							<p class="platforms"></p>
+							<ul class="datazz">
+								<li>${message("common.captcha.service")}</li>
+								<li>${message("common.captcha.servicetwo")}</li>
+								<li>${message("common.captcha.serviceone")}</li>
+								<li>${message("common.captcha.domestic")}</li>
+								<ul class="dian">
+									<li></li>
+									<li></li>
+									<li></li>
+									<li></li>
+								</ul>
+							</ul>
 						</div>
 					</div>
 				</div>
-			</form>
-		</div>
-	</main>
-	[#include "/shop/include/main_footer.ftl" /]
+				<div class="panel-footer">
+				</div>
+			</div>
+		</form>
+	</div>
+</main>
+[#include "/shop/include/main_footer.ftl" /]
 </body>
 </html>

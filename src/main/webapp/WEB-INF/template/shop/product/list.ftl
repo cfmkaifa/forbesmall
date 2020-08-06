@@ -40,6 +40,7 @@
     <link href="${base}/resources/shop/css/base.css" rel="stylesheet">
     <link href="${base}/resources/shop/css/store.css" rel="stylesheet">
     <link href="${base}/resources/shop/css/product.css?version=0.2" rel="stylesheet">
+    <link href="${base}/resources/shop/css/product.css" rel="stylesheet">
     <!--[if lt IE 9]>
 		<script src="${base}/resources/common/js/html5shiv.js"></script>
 		<script src="${base}/resources/common/js/respond.js"></script>
@@ -304,6 +305,9 @@
                         return false;
                     });
 
+                    //提示框
+                    $('[data-toggle="tooltip"]').tooltip();
+
                 });
             </script>
         [/#escape]
@@ -313,6 +317,7 @@
 [#include "/shop/include/main_header.ftl" /]
 [#include "/shop/include/main_sidebar.ftl" /]
 <main>
+    [#include "/common/block_chain.ftl" /]
     <div class="container">
         <form id="compareForm" action="${base}/product/compare" method="get">
             <div id="compareBar" class="compare-bar">
@@ -338,7 +343,148 @@
                     [#include "/shop/include/store_product_category.ftl" /]
                 [#else]
                 [#--[#include "/shop/include/featured_product.ftl" /]--]
+                    [@product_category_root_list count = 6]
+                        <div class="product-category-menu">
+                            <ul>
+                                [#list productCategories as productCategory]
+                                    <li>
+                                        [#switch productCategory_index]
+                                            [#case 0]
+                                                <span class="iconfont">&#xe651;</span>
+                                                [#break /]
+                                            [#case 1]
+                                                <span class="iconfont">&#xe642;</span>
+                                                [#break /]
+                                            [#case 2]
+                                                <span class="iconfont">&#xe681;</span>
+                                                [#break /]
+                                            [#case 3]
+                                                <span class="iconfont">&#xe650;</span>
+                                                [#break /]
+                                            [#case 4]
+                                                <span class="iconfont">&#xe697;</span>
+                                                [#break /]
+                                            [#case 5]
+                                                <span class="iconfont">&#xe61a;</span>
+                                                [#break /]
+                                            [#case 6]
+                                                <i class="iconfont icon-favor"></i>
+                                                [#break /]
+                                            [#case 7]
+                                                <i class="iconfont icon-like"></i>
+                                                [#break /]
+                                            [#default]
+                                                <i class="iconfont icon-goodsfavor"></i>
+                                        [/#switch]
+                                        <a href="${base}${productCategory.path}">${productCategory.name}</a>
+                                        [@product_category_children_list productCategoryId = productCategory.id recursive = false count = 4]
+                                            <p>
+                                                [#list productCategories as productCategory]
+                                                    <a href="${base}${productCategory.path}" id="left_banner" onclick="Left_Banner(this)" value="${productCategory.name}">${productCategory.name}</a>
+                                                [/#list]
+                                            </p>
+                                        [/@product_category_children_list]
+                                        [@product_category_children_list productCategoryId = productCategory.id recursive = false count = 8]
+                                            <div class="product-category-menu-content">
+                                                <div class="row">
+                                                    <div class="col-xs-9" style=" display: flex;">
+                                                        [@promotion_list productCategoryId = productCategory.id hasEnded = false count = 6]
+                                                            [#if promotions?has_content]
+                                                                <ul class="promotion clearfix">
+                                                                    [#list promotions as promotion]
+                                                                        <li>
+                                                                            <a href="${base}${promotion.path}"
+                                                                               title="${promotion.title}">${promotion.name}</a>
+                                                                            <i class="iconfont icon-right"></i>
+                                                                        </li>
+                                                                    [/#list]
+                                                                </ul>
+                                                            [/#if]
+                                                        [/@promotion_list]
+                                                        [#list productCategories as productCategory]
+                                                            <dl class="product-category clearfix">
+                                                                <dt class="text-overflow">
+                                                                    <a href="${base}${productCategory.path}"
+                                                                       title="${productCategory.name}">${productCategory.name}</a>
+                                                                </dt>
+                                                                [@product_category_children_list productCategoryId = productCategory.id recursive = false]
+                                                                    [#list productCategories as productCategory]
+                                                                        <dd>
+                                                                            <a href="${base}${productCategory.path}">${productCategory.name}</a>
+                                                                        </dd>
+                                                                    [/#list]
+                                                                [/@product_category_children_list]
+                                                            </dl>
+                                                        [/#list]
+                                                    </div>
+                                                    <div class="col-xs-3">
+                                                        [@brand_list productCategoryId = productCategory.id type = "IMAGE" count = 10]
+                                                            [#if brands?has_content]
+                                                                <ul class="brand clearfix">
+                                                                    [#list brands as brand]
+                                                                        <li>
+                                                                            <a href="${base}${brand.path}"
+                                                                               title="${brand.name}">
+                                                                                <img class="img-responsive center-block"
+                                                                                     src="${brand.logo}"
+                                                                                     alt="${brand.name}">
+                                                                            </a>
+                                                                        </li>
+                                                                    [/#list]
+                                                                </ul>
+                                                            [/#if]
+                                                        [/@brand_list]
+                                                        [@promotion_list productCategoryId = productCategory.id hasEnded = false count = 2]
+                                                            [#if promotions?has_content]
+                                                                <ul class="promotion-image">
+                                                                    [#list promotions as promotion]
+                                                                        <li>
+                                                                            [#if promotion.image?has_content]
+                                                                                <a href="${base}${promotion.path}"
+                                                                                   title="${promotion.title}">
+                                                                                    <img class="img-responsive center-block"
+                                                                                         src="${promotion.image}"
+                                                                                         alt="${promotion.title}">
+                                                                                </a>
+                                                                            [/#if]
+                                                                        </li>
+                                                                    [/#list]
+                                                                </ul>
+                                                            [/#if]
+                                                        [/@promotion_list]
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        [/@product_category_children_list]
+                                    </li>
+                                [/#list]
+                            </ul>
+                        </div>
+                    [/@product_category_root_list]
                 [/#if]
+                <div class="lefiimg">
+                    [@ad_position id = 10051]
+                        [#if adPosition??]
+                            [#noautoesc]${adPosition.resolveTemplate()}[/#noautoesc]
+                        [/#if]
+                    [/@ad_position]
+                    [#--<img src="${base}/resources/shop/images/bg5.png" class="lefiimg">--]
+                    [@ad_position id = 10052]
+                        [#if adPosition??]
+                            [#noautoesc]${adPosition.resolveTemplate()}[/#noautoesc]
+                        [/#if]
+                    [/@ad_position]
+                    [@ad_position id = 10053]
+                        [#if adPosition??]
+                            [#noautoesc]${adPosition.resolveTemplate()}[/#noautoesc]
+                        [/#if]
+                    [/@ad_position]
+                   [#-- [@ad_position id = 10054]
+                        [#if adPosition??]
+                            [#noautoesc]${adPosition.resolveTemplate()}[/#noautoesc]
+                        [/#if]
+                    [/@ad_position]--]
+                </div>
             </div>
             <div class="col-xs-10">
                 <ol class="breadcrumb">
@@ -390,7 +536,7 @@
                                 <div class="filter-body filter-adl">
                                     <dl class="dl-horizontal">
                                         [#if filterProductCategories?has_content]
-                                            <dt>${message("shop.product.productCategory")}:</dt>
+                                            <dt data-toggle="tooltip" data-placement="bottom" title="${message("shop.product.productCategory")}">${message("shop.product.productCategory")}:</dt>
                                             <dd>
                                                 <ul class="text-filter-group clearfix">
                                                     [#list filterProductCategories as filterProductCategory]
@@ -479,6 +625,11 @@
                             ${message("shop.product.priceAsc")}
                             <i class="iconfont icon-fold"></i>
                         </a>
+                        <a class="bar-item[#if orderType == "PRICE_DESC"] active[/#if]" href="javascript:;"
+                           data-order-type="PRICE_DESC">
+                            ${message("shop.product.priceDesc")}
+                            <i class="iconfont icon-fold"></i>
+                        </a>
                         <div class="bar-item bg-white">
                             <div class="checkbox checkbox-inline">
                                 <input name="storeType" type="checkbox"
@@ -525,6 +676,7 @@
                                 [#list page.content as product]
                                     [#assign defaultSku = product.defaultSku /]
                                     <li class="list-item">
+                                        <a href="${base}${product.path}" target="_blank">
                                         <div class="list-item-body"
                                              style="display: flex;justify-content: space-around;">
                                             [#if product.purch ]
@@ -532,21 +684,28 @@
                                             [#else ]
                                                 <div class="supply-1">${message("shop.mainHeader.supply")}</div>
                                             [/#if]
-                                            <a href="${base}${product.path}" target="_blank" class="aaaa">
-                                                <img id="productImage${product.id}" class="listimg lazy-load img-responsive" src="${base}/resources/common/images/transparent.png" alt="${product.name}" data-original="${product.thumbnail!setting.defaultThumbnailProductImage}" />
-                                                <img [#if product.sample ] src="/resources/shop/images/biao.png" class="active-3" [/#if] />
-                                            </a>
+                                            <object>
+                                                <a href="${base}${product.path}" target="_blank" class="aaaa">
+                                                    <img id="productImage${product.id}" class="listimg lazy-load img-responsive" src="${base}/resources/common/images/transparent.png" alt="${product.name}" data-original="${product.thumbnail!setting.defaultThumbnailProductImage}" />
+                                                    <img [#if product.sample ] src="/resources/shop/images/biao.png" class="active-3" [/#if] />
+                                                </a>
+                                            </object>
                                             <div class="product-left-2">
                                                 <ul>
                                                     <li class="product-li-12">
 															<span class="product-name">
 																<b>
-																	<a href="${base}${product.path}" target="_blank">
-                                                                        <h5 class="text-overflow"  title="${product.name}">${product.name}</h5>
-                                                                        [#if product.caption?has_content]
-                                                                            <h6 class="text-overflow" title="${product.caption}">${product.caption}</h6>
-                                                                        [/#if]
-																	</a>
+                                                                     <object>
+                                                                           <a href="${base}${product.path}" target="_blank">
+                                                                                <h5 class="text-overflow"  title="${product.name}">
+                                                                                    ${product.name}
+                                                                                    <span class="iconfont" onmouseover="blockChain(this)" dataId="${product.id}" dataUrl="/business/product/chain"  style="color: #ff0000">&#xe746;</span>
+                                                                                </h5>
+                                                                                [#if product.caption?has_content]
+                                                                                    <h6 class="text-overflow" title="${product.caption}">${product.caption}</h6>
+                                                                                [/#if]
+                                                                            </a>
+                                                                     </object>
 																</b>
 															</span>
                                                         <span class="product-specifications">
@@ -582,8 +741,13 @@
                                                             <p class="text-center">
                                                                 [#if product.purch ]
                                                                     ${product.member.name}
+                                                                    <span class="iconfont" onmouseover="blockChain(this)" dataId="${product.member.id}" dataUrl="/business/index/chain"   style="color: #ff0000">&#xe746;</span>
                                                                 [#else ]
-                                                                    <a href="${base}${product.store.path}" title="${product.store.name}" target="_blank">${product.store.name}</a>
+                                                                    <object>
+                                                                        <a href="${base}${product.store.path}" title="${product.store.name}" target="_blank">${product.store.name}
+                                                                            <span class="iconfont" onmouseover="blockChain(this)" dataId="${product.store.business.id}" dataUrl="/business/index/chain"   style="color: #ff0000">&#xe746;</span>
+                                                                        </a>
+                                                                    </object>
                                                                 [/#if]
                                                                 [#if product.store?has_content ]
                                                                     [#if product.store.type == "SELF"]
@@ -609,7 +773,11 @@
                                                         <span class="unit">/${product.unit!message("shop.product.defaultUnit")}</span>
                                                     </b>
                                                 </p>
-                                                <p class="guarantee">${message("shop.product.report")}</p>
+                                                [#if product.quality?has_content]
+                                                    <p><a class="guarantee" href="${product.quality}">${message("shop.product.report")}</a></p>
+                                                [#else]
+                                                    <p><a class="guarantee" href="javascript:;"style="pointer-events:none;">${message("shop.product.report")}</a></p>
+                                                [/#if]
                                             </div>
                                             <div class="icon-2">
                                                 <ul>
@@ -634,19 +802,29 @@
                                                         <button type="button" class="button-3">${message("shop.product.detail")}</button>
                                                     </a>
                                                 [#else ]
-                                                    <a href="${base}${product.path}" target="_blank">
-                                                        <button type="button"
-                                                                class="button-3">${message("shop.product.detail")}</button>
-                                                    </a>
                                                     [#if product.sample]
-                                                        <a href="${base}/product/sample-detail/${product.id}"  target="_blank">
-                                                            <button type="button"
-                                                                    class="button-4">${message("shop.product.sample")}</button>
-                                                        </a>
+                                                        <object>
+                                                            <a href="${base}/product/sample-detail/${product.id}" target="_blank">
+                                                                <button type="button" class="button-3">${message("shop.product.detail")}</button>
+                                                            </a>
+                                                        </object>
+                                                        <object>
+                                                            <a href="${base}/product/sample-detail/${product.id}"  target="_blank">
+                                                                <button type="button" class="button-4">${message("shop.product.sample")}</button>
+                                                            </a>
+                                                        </object>
+                                                    [#else ]
+                                                        <object>
+                                                            <a href="${base}${product.path}" target="_blank">
+                                                                <button type="button"
+                                                                        class="button-3">${message("shop.product.detail")}</button>
+                                                            </a>
+                                                        </object>
                                                     [/#if]
                                                 [/#if]
                                             </div>
                                         </div>
+                                     </a>
                                     </li>
                                 [/#list]
                             </ul>

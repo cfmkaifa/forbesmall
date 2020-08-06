@@ -7,7 +7,244 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bc5e5ed1-96c1-46e3-948c-a8aa1ccb6836" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/mall/controller/member/AccountController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/mall/controller/shop/DataCenterController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/mall/dao/ProImportQueueDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/mall/dao/impl/ProImportQueueDaoImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/mall/entity/ProImportQueue.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/mall/excel/ProImportQueueExcelMode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/mall/job/ProPurchJob.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/mall/model/BusResult.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/mall/model/ResultModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/mall/service/ProImportQueueService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/mall/service/impl/ProImportQueueServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/mall/template/directive/VideoCategoryDirective.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/mall/template/directive/VideoDirective.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/mall/util/BusTypeEnum.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/mall/util/ForbesContext.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/mall/util/GroupProBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/mall/util/MemberBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/mall/util/OrderBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/mall/util/OrderShippingBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/mall/util/PayOrderBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/mall/util/ProductBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/mall/util/ProductCategoryBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/mall/util/ReconContractBuildImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/mall/util/ReconContractModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/mall/util/RestTemplateUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/mall/util/SensorsAnalyticsUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/library/ambiguity.dic" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/upload/image/watermark.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/dic/synonyms.dic.bak" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/common/block_chain.ftl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/member/account/list.ftl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/article/articledetails.ftl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/article/articleindex.ftl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/article/instdetails.ftl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/contract/about.ftl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/datacenter/datacenter.ftl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/datacenter/detail.ftl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/sms/login_phone.ftl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/common/images/blockBackground.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/shop/css/about.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/shop/css/articleindex.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/shop/css/datacenter.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/shop/css/fonts/iconfont.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/shop/css/fonts/iconfont.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/shop/images/635.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/shop/images/636.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/shop/images/637.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/shop/images/638.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/shop/images/arti1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/shop/images/arti10.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/shop/images/arti2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/shop/images/arti3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/shop/images/arti4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/shop/images/arti5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/shop/images/arti6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/shop/images/arti7.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/shop/images/arti8.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/shop/images/arti9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/shop/images/block.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/shop/images/police.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/shop/images/technological.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/shop/images/technological2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/AnsjAnalyzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/AnsjAnalyzer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/Page.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/Page.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/Results.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/Results.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/captcha/CaptchaFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/captcha/CaptchaFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/controller/admin/ArticleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/controller/admin/ArticleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/controller/admin/ProPurchApplyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/controller/admin/ProPurchApplyController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/controller/admin/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/controller/admin/ProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/controller/business/IndexController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/controller/business/IndexController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/controller/business/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/controller/business/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/controller/business/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/controller/business/OrderController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/controller/business/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/controller/business/ProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/controller/business/RegisterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/controller/business/RegisterController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/controller/business/StoreController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/controller/business/StoreController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/controller/common/CaptchaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/controller/common/CaptchaController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/controller/common/FileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/controller/common/FileController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/controller/member/IndexController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/controller/member/IndexController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/controller/member/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/controller/member/OrderController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/controller/member/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/controller/member/ProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/controller/member/RegisterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/controller/member/RegisterController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/controller/shop/ArticleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/controller/shop/ArticleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/controller/shop/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/controller/shop/OrderController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/controller/shop/PaymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/controller/shop/PaymentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/controller/shop/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/controller/shop/ProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/controller/shop/StoreController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/controller/shop/StoreController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/dao/OrderDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/dao/OrderDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/dao/ProductDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/dao/ProductDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/dao/impl/ArticleDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/dao/impl/ArticleDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/dao/impl/OrderDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/dao/impl/OrderDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/dao/impl/ProductDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/dao/impl/ProductDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/entity/AftersalesItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/entity/AftersalesItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/entity/Article.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/entity/Article.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/entity/ArticleCategory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/entity/ArticleCategory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/entity/Cart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/entity/Cart.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/entity/Member.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/entity/Member.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/entity/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/entity/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/entity/OrderItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/entity/OrderItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/entity/OrderShippingItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/entity/OrderShippingItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/entity/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/entity/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/entity/Sku.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/entity/Sku.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/entity/Store.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/entity/Store.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/job/CartJob.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/job/CartJob.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/job/GroupPurchJob.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/job/GroupPurchJob.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/job/OrderJob.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/job/OrderJob.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/job/StatisticJob.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/job/StatisticJob.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/job/StoreJob.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/job/StoreJob.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/listener/UserEventListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/listener/UserEventListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/plugin/AlipayPagePaymentPlugin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/plugin/AlipayPagePaymentPlugin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/security/AuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/security/AuthenticationFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/security/CurrentUserHandlerInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/security/CurrentUserHandlerInterceptor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/service/ProductImageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/service/ProductImageService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/service/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/service/ProductService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/service/impl/AftersalesServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/service/impl/AftersalesServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/service/impl/OrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/service/impl/OrderServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/service/impl/PaymentTransactionServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/service/impl/PaymentTransactionServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/service/impl/ProductImageServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/service/impl/ProductImageServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/service/impl/ProductServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/service/impl/ProductServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/service/impl/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/template/directive/ProductListDirective.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/template/directive/ProductListDirective.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/applicationContext-mvc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/applicationContext-mvc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/applicationContext-shiro.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/applicationContext-shiro.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mall.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mall.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mall.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mall.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/dic/ambiguity.dic" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/dic/ambiguity.dic" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/dic/default.dic" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/dic/default.dic" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/dic/synonyms.dic" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/dic/synonyms.dic" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/language/business/message_zh_CN.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/language/business/message_zh_CN.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/language/common/message_zh_CN.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/language/common/message_zh_CN.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/language/member/message_zh_CN.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/language/member/message_zh_CN.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/language/shop/message_zh_CN.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/language/shop/message_zh_CN.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/admin/article/add.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/admin/article/add.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/admin/article/edit.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/admin/article/edit.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/admin/article_category/add.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/admin/article_category/add.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/admin/article_category/edit.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/admin/article_category/edit.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/admin/business/edit.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/admin/business/edit.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/admin/business/view.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/admin/business/view.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/admin/business_attribute/add.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/admin/business_attribute/add.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/admin/business_attribute/edit.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/admin/business_attribute/edit.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/admin/category_application/list.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/admin/category_application/list.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/admin/include/main_header.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/admin/include/main_header.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/admin/include/main_sidebar.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/admin/include/main_sidebar.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/admin/member/view.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/admin/member/view.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/admin/member_attribute/add.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/admin/member_attribute/add.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/admin/member_attribute/edit.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/admin/member_attribute/edit.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/admin/order/view.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/admin/order/view.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/admin/print/order.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/admin/print/order.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/admin/product/list.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/admin/product/list.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/admin/product_category/add.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/admin/product_category/add.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/admin/product_category/edit.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/admin/product_category/edit.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/admin/product_category/list.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/admin/product_category/list.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/admin/setting/edit.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/admin/setting/edit.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/admin/store_category/edit.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/admin/store_category/edit.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/admin/store_category/list.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/admin/store_category/list.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/business/aftersales/view.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/business/aftersales/view.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/business/include/main_header.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/business/include/main_header.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/business/include/main_sidebar.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/business/include/main_sidebar.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/business/index.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/business/index.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/business/login/index.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/business/login/index.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/business/order/edit.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/business/order/edit.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/business/order/view.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/business/order/view.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/business/product/add.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/business/product/add.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/business/product/edit.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/business/product/edit.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/business/product/list.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/business/product/list.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/business/profile/edit.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/business/profile/edit.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/business/register/index.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/business/register/index.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/business/store/payment.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/business/store/payment.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/common/js/base.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/common/js/base.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/common/js/buried_point.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/common/js/buried_point.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/member/aftersales/apply.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/member/aftersales/apply.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/member/include/main_menu.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/member/include/main_menu.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/member/index.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/member/index.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/member/login/index.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/member/login/index.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/member/order/list.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/member/order/list.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/member/order/view.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/member/order/view.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/member/pro_purch_apply/pro_add.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/member/pro_purch_apply/pro_add.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/member/pro_purch_apply/pro_list.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/member/pro_purch_apply/pro_list.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/member/register/index.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/member/register/index.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/member/review/add.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/member/review/add.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/mobile/member/aftersales/apply.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/mobile/member/aftersales/apply.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/article/attention.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/article/attention.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/article/details.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/article/details.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/article/members.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/article/members.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/article/subscribe.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/article/subscribe.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/cart/list.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/cart/list.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/declare/crude.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/declare/crude.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/declare/gasoline.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/declare/gasoline.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/declare/index.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/declare/index.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/declare/smart.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/declare/smart.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/declare/top.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/declare/top.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/include/main_footer.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/include/main_footer.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/include/main_header.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/include/main_header.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/include/main_newheader.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/include/main_newheader.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/include/main_sidebar.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/include/main_sidebar.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/include/noperm.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/include/noperm.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/include/store_summary.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/include/store_summary.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/index.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/index.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/order/checkout.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/order/checkout.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/order/payment.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/order/payment.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/password/forgot.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/password/forgot.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/payment/pay_result.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/payment/pay_result.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/product/detail.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/product/detail.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/product/group_purch/detail.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/product/group_purch/detail.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/product/group_purch/list.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/product/group_purch/list.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/product/list.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/product/list.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/product/purch/detail.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/product/purch/detail.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/product/purch/list.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/product/purch/list.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/product/sample/detail.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/product/sample/detail.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/product/search.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/product/search.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/store/index.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/store/index.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/admin/css/base.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/admin/css/base.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/business/css/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/business/css/login.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/business/css/register.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/business/css/register.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/business/js/base.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/business/js/base.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/common/css/base.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/common/css/base.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/common/css/demo.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/common/css/demo.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/member/css/base.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/member/css/base.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/member/css/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/member/css/login.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/member/css/register.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/member/css/register.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/member/js/base.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/member/js/base.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/shop/css/articledetails.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/shop/css/articledetails.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/shop/css/articlenews.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/shop/css/articlenews.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/shop/css/attention.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/shop/css/attention.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/shop/css/base.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/shop/css/base.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/shop/css/cart.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/shop/css/cart.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/shop/css/fonts/iconfont.eot" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/shop/css/fonts/iconfont.eot" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/shop/css/fonts/iconfont.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/shop/css/fonts/iconfont.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/shop/css/fonts/iconfont.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/shop/css/fonts/iconfont.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/shop/css/fonts/iconfont.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/shop/css/fonts/iconfont.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/shop/css/fonts/iconfont.woff" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/shop/css/fonts/iconfont.woff" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/shop/css/fonts/iconfont.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/shop/css/fonts/iconfont.woff2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/shop/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/shop/css/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/shop/css/members.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/shop/css/members.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/shop/css/order.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/shop/css/order.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/shop/css/password.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/shop/css/password.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/shop/css/product.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/shop/css/product.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/shop/js/base.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/shop/js/base.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -321,7 +558,7 @@
       <workItem from="1587686771107" duration="12000" />
       <workItem from="1587692914502" duration="256000" />
       <workItem from="1587696044114" duration="1801000" />
-      <workItem from="1596696127721" duration="109000" />
+      <workItem from="1596696127721" duration="430000" />
     </task>
     <task id="LOCAL-00001" summary="中文替换">
       <created>1583208192749</created>

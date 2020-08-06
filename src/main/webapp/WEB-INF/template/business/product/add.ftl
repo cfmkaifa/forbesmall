@@ -1088,6 +1088,14 @@
 										</select>
 									</div>
 								</div>
+								<!--质量保障书start-->
+								<div class="form-group">
+									<label class="col-xs-3 col-sm-2 control-label item-required">${message("Product.quality")}:</label>
+									<div class="col-xs-9 col-sm-4">
+										<input name="quality" type="hidden" value="" data-provide="fileinput" data-file-type="FILE">
+									</div>
+								</div>
+								<!--质量保障书end-->
 								[#if promotions?has_content]
 									<div class="form-group">
 										<label class="col-xs-3 col-sm-2 control-label">${message("Product.promotions")}:</label>
@@ -1107,7 +1115,7 @@
 										<div class="col-xs-9 col-sm-10">
 											[#list productTags as productTag]
 												<div class="checkbox checkbox-inline">
-													<input id="productTag_${productTag.id}" name="productTagIds" type="checkbox" value="true" checked>
+													<input id="productTag_${productTag.id}" name="productTagIds" type="checkbox" value="${productTag.id}" checked>
 													<label for="productTag_${productTag.id}">${productTag.name}</label>
 												</div>
 											[/#list]

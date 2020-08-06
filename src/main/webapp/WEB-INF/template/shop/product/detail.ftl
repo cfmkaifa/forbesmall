@@ -297,8 +297,9 @@
 </head>
 <body class="shop product-detail" data-spy="scroll" data-target="#topbar">
 [#include "/shop/include/main_header.ftl" /]
-[#include "/shop/include/main_sidebar.ftl" /]
+[#include "/common/block_chain.ftl" /]
 <main>
+    [#include "/shop/include/main_sidebar.ftl" /]
     <div class="container">
         <form id="productNotifyForm" class="form-horizontal" action="${base}/product_notify/save" method="post">
             <div id="productNotifyModal" class="product-notify-modal modal fade" tabindex="-1">
@@ -354,7 +355,7 @@
                             </a>
                         [#else]
                             <a id="zoom" href="${setting.defaultLargeProductImage}" rel="gallery">
-                                <img src="${setting.defaultMediumProductImage}" alt="${product.name}" style="width: 100%">
+                                <img src="${setting.defaultMediumProductImage}" alt="${product.name}" style="width:580px;height: 580px">
                                 [#if product.sample]
                                     <img src="/resources/shop/images/biao.png" class="active-2">
                                 [/#if]
@@ -406,7 +407,7 @@
                         <a class="bds_more" data-cmd="more"></a>
                     </div>
                     <a class="add-product-favorite" href="javascript:;" data-action="addProductFavorite"
-                       data-product-id="${product.id}">
+                       data-product-id="${product.id}"onclick="collect()">
                         <i class="iconfont icon-like"></i>
                         ${message("shop.product.addProductFavorite")}
                     </a>
@@ -414,7 +415,9 @@
             </div>
             <div class="col-xs-6">
                 <div class="name">
-                    <h1 style="font-size: 18px; font-weight: 600; text-align: left;">${product.name}</h1>
+                    <h1 style="font-size: 18px; font-weight: 600; text-align: left;">${product.name}
+                        <span class="iconfont" onmouseover="blockChain(this)" dataId="${product.id}" dataUrl="/business/product/chain"  style="color: #ff0000">&#xe746;</span>
+                    </h1>
                     [#if product.caption?has_content]
                         <strong>${product.caption}</strong>
                     [/#if]
@@ -505,6 +508,12 @@
 										</span>
                                 </div>
                                 <span class="unit">${message("Product.defaultUnit")}</span>
+                            </dd>
+                            <dt>
+                                ${message("shop.product.stock")}:
+                            </dt>
+                            <dd>
+                                <span style="margin-left:42px;">${stock}  ${message("Product.defaultUnit")}</span>
                             </dd>
                         </dl>
                     </div>
@@ -631,11 +640,11 @@
                                         <a href="#reviewAnchor">${message("shop.product.review")}</a>
                                     </li>
                                 [/#if]
-                                [#if setting.isConsultationEnabled]
+                               [#-- [#if setting.isConsultationEnabled]
                                     <li>
                                         <a href="#consultationAnchor">${message("shop.product.consultation")}</a>
                                     </li>
-                                [/#if]
+                                [/#if]--]
                             </ul>
                         </div>
                     </div>
@@ -769,9 +778,9 @@
                         </div>
                     </div>
                 [/#if]
-                [#if setting.isConsultationEnabled]
+               [#-- [#if setting.isConsultationEnabled]
                     <div class="consultation">
-                        [#--<span id="consultationAnchor" class="consultation-anchor"></span>--]
+                        --][#--<span id="consultationAnchor" class="consultation-anchor"></span>--][#--
                         <a href="#" name="consultationAnchor"></a>
                         <div class="consultation-heading">
                             <h4>${message("shop.product.consultation")}</h4>
@@ -815,7 +824,7 @@
                                 ]</a>
                         </div>
                     </div>
-                [/#if]
+                [/#if]--]
             </div>
         </div>
     </div>
@@ -839,4 +848,58 @@
     [/#escape]
 [/#noautoesc]
 </body>
+
+<script type="text/javascript">
+    $(function () {
+        var refer=document.referrer;
+        //浏览商品详情埋点事件
+        try {
+            sensors.track('FiberCommodityDetail',{
+                //商品id
+                commodity_detail_souce:refer,
+                commodity_id:${product.id},
+                commodity_name:"${product.name}",
+                first_commodity:"${product.productCategory.parent.name}",
+                second_commodity:"${product.productCategory.name}",
+                present_price:${product.price},
+                commodity_gsm:"${temp_commodity_gsm}",
+                commodity_cm:"${temp_commodity_cm}",
+                commodity_color:"${temp_commodity_color}",
+                commodity_fiber:"${temp_commodity_fiber}",
+                store_id:${product.store.id},
+                store_name:"${product.store.name}",
+                is_group:${temp_is_group?string ("true","false")},
+                is_purch:${temp_is_purch?string ("true","false")},
+                is_sample:${temp_is_sample?string ("true","false")}
+            })
+        }catch (e) {
+            console.log(e);
+        }
+    })
+
+
+    //商品收藏埋点事件
+    function collect() {
+        try {
+            sensors.track('FiberGoodsFavorite',{
+                commodity_id:${product.id},
+                commodity_name:"${product.name}",
+                first_commodity:"${product.productCategory.parent.name}",
+                second_commodity:"${product.productCategory.name}",
+                present_price:${product.price},
+                commodity_gsm:"${temp_commodity_gsm}",
+                commodity_cm:"${temp_commodity_cm}",
+                commodity_color:"${temp_commodity_color}",
+                commodity_fiber:"${temp_commodity_fiber}",
+                store_id:${product.store.id},
+                store_name:"${product.store.name}",
+                is_group:${temp_is_group?string ("true","false")},
+                is_purch:${temp_is_purch?string ("true","false")},
+                is_sample:${temp_is_sample?string ("true","false")}
+            })
+        }catch (e) {
+            console.log(e)
+        }
+    }
+</script>
 </html>

@@ -10,6 +10,8 @@ import java.util.*;
 
 import javax.inject.Inject;
 
+import net.mall.entity.*;
+import net.mall.service.*;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -25,25 +27,9 @@ import net.mall.Filter;
 import net.mall.Page;
 import net.mall.Pageable;
 import net.mall.Results;
-import net.mall.entity.Article;
-import net.mall.entity.ArticleCategory;
-import net.mall.entity.BaseEntity;
-import net.mall.entity.Business;
-import net.mall.entity.Member;
-import net.mall.entity.MemberRank;
-import net.mall.entity.Sn;
-import net.mall.entity.StoreRank;
-import net.mall.entity.SubsNewsHuman;
 import net.mall.exception.ResourceNotFoundException;
 import net.mall.plugin.PaymentPlugin;
 import net.mall.security.CurrentUser;
-import net.mall.service.ArticleCategoryService;
-import net.mall.service.ArticleService;
-import net.mall.service.MemberRankService;
-import net.mall.service.PluginService;
-import net.mall.service.SnService;
-import net.mall.service.StoreRankService;
-import net.mall.service.SubsNewsHumanService;
 import net.mall.util.ConvertUtils;
 import net.mall.util.WebUtils;
 
@@ -77,6 +63,9 @@ public class ArticleController extends BaseController {
     @Inject
     private StoreRankService storeRankService;
 
+    @Inject
+    private ProductService productService;
+
     /**
      * 详情
      */
@@ -84,6 +73,13 @@ public class ArticleController extends BaseController {
     public String detail(@PathVariable Long articleId, @PathVariable Integer pageNumber,
                          @CurrentUser Business currentBusiness,
                          @CurrentUser Member currentMember, ModelMap model) {
+        Pageable tempPageable = new Pageable(1, 10);
+        final Boolean[] isSample = {false};
+        Product.OrderType orderType=Product.OrderType.DATE_DESC;
+        Page<Product> productPage=productService.findPage(null, 3,isSample[0], null, null, null,null, null, null, null, null, null, null, null, null, true, true, null, true, null, null, null, orderType, tempPageable);
+        if(ConvertUtils.isNotEmpty(productPage)){
+            model.addAttribute("product",productPage);
+        }
         Article article = articleService.find(articleId);
         if (article == null || pageNumber < 1 || pageNumber > article.getTotalPages()) {
             throw new ResourceNotFoundException();
@@ -118,10 +114,23 @@ public class ArticleController extends BaseController {
         model.addAttribute("pageNumber", pageNumber);
         Pageable pageable = new Pageable(pageNumber, 10);
         ArticleCategory articleCategory = articleCategoryService.find(article.getArticleCategory().getId());
-        model.addAttribute("page", articleService.findPage(articleCategory, null, true, pageable));
+        model.addAttribute("page",articleService.findPage(articleCategory, null, true, pageable));
         model.addAttribute("articleCategories",articleCategories);
         model.addAttribute("articleCategoryId",articleCategory.getId());
-        return "shop/article/details";
+        if(ConvertUtils.isNotEmpty(currentMember) && ConvertUtils.isNotEmpty(currentMember.getMemberRank())){
+            model.addAttribute("is_vip",true);
+            model.addAttribute("vip_type",currentMember.getMemberRank().getName());
+        }else{
+            model.addAttribute("is_vip",false);
+            model.addAttribute("vip_type","暂未登录");
+        }
+        String tempStr="shop/index";
+        if (article.getArticleCategory().getType().equals(ArticleCategory.Type.INST)){
+            tempStr="shop/article/instdetails";
+        }else {
+            tempStr="shop/article/details";
+        }
+        return tempStr;
     }
 
     /****
@@ -176,12 +185,14 @@ public class ArticleController extends BaseController {
             model.addAttribute("isPerm", true);
         }
         List<ArticleCategory> articleCategories = articleCategoryService.findRoots(6, ArticleCategory.Type.NEWS);
-        Pageable pageable = new Pageable(pageNumber, PAGE_SIZE);
+        Pageable pageable = new Pageable(pageNumber, 5);
         model.addAttribute("articleCategory", articleCategory);
         model.addAttribute("page", articleService.findPage(articleCategory, null, true, pageable));
         model.addAttribute("articleCategories", articleCategories);
         model.addAttribute("articleCategoryId",articleCategoryId);
-        return "shop/article/attention";
+        Pageable tempPageable = new Pageable(1, 10);
+        model.addAttribute("articles", articleService.findPage(articleCategory, null, true, tempPageable));
+        return "shop/article/articleindex";
     }
 
     /**
@@ -223,13 +234,15 @@ public class ArticleController extends BaseController {
         } else {
             model.addAttribute("isPerm", true);
         }
-        List<ArticleCategory> articleCategories = articleCategoryService.findRoots(6, ArticleCategory.Type.NEWS);
-        Pageable pageable = new Pageable(pageNumber, PAGE_SIZE);
+        Pageable pageable = new Pageable(pageNumber, 5);
+        List<ArticleCategory> articleCategories = articleCategoryService.findRoots(5, ArticleCategory.Type.NEWS);
         model.addAttribute("articleCategory", articleCategory);
         model.addAttribute("page", articleService.findPage(articleCategory, null, true, pageable));
         model.addAttribute("articleCategories", articleCategories);
         model.addAttribute("articleCategoryId",articleCategoryId);
-        return "shop/article/attention";
+        Pageable tempPageable = new Pageable(1, 10);
+        model.addAttribute("articles", articleService.findPage(articleCategory, null, true, tempPageable));
+        return "shop/article/articleindex";
     }
 
     /**
@@ -331,12 +344,29 @@ public class ArticleController extends BaseController {
      * @修改人 (修改了该文件 ， 请填上修改人的名字)
      * @修改日期 (请填上修改该文件时的日期)
      */
-    @GetMapping(value = {"/subscribe-supplier/{articleCategoryId}/{subType}", "/subscribe-purchaser/{articleCategoryId}/{subType}"})
+    @GetMapping(value = {"/subscribe-supplier/{articleCategoryId}/{subType}", "" +
+            "" +
+            "" +
+            "" +
+            "" +
+            "" +
+            "" +
+            "" +
+            "/subscribe-purchaser/{articleCategoryId}/{subType}"})
     public String subscribe(@PathVariable Long articleCategoryId,
                             @PathVariable String subType,
                             @CurrentUser Business currentBusiness,
                             @CurrentUser Member currentMember,
-                            ModelMap model) {
+                            ModelMap model)  {
+        if(ConvertUtils.isNotEmpty(currentBusiness)){
+            model.addAttribute("news_buy_user","供应商");
+            model.addAttribute("is_vip",true);
+            model.addAttribute("vip_type",currentBusiness.getStore().getStoreRank().getName());
+        }else{
+            model.addAttribute("news_buy_user","采购商");
+            model.addAttribute("is_vip",true);
+            model.addAttribute("vip_type",currentMember.getMemberRank().getName());
+        }
         ArticleCategory articleCategory = articleCategoryService.find(articleCategoryId);
         if (articleCategory == null) {
             throw new ResourceNotFoundException();
@@ -349,15 +379,23 @@ public class ArticleController extends BaseController {
         model.addAttribute("articleCategory", articleCategory);
         if (subType.equals("weekSubFee")) {
             model.addAttribute("subFee", articleCategory.getWeekSubFee());
+            model.addAttribute("news_buy_price",articleCategory.getWeekSubFee());
+            model.addAttribute("news_buy_type","周报");
         }
         if (subType.equals("monthSubFee")) {
             model.addAttribute("subFee", articleCategory.getMonthSubFee());
+            model.addAttribute("news_buy_price",articleCategory.getMonthSubFee());
+            model.addAttribute("news_buy_type","月报");
         }
         if (subType.equals("quarterSubFee")) {
             model.addAttribute("subFee", articleCategory.getQuarterSubFee());
+            model.addAttribute("news_buy_price",articleCategory.getQuarterSubFee());
+            model.addAttribute("news_buy_type","季报");
         }
         if (subType.equals("yearSubFee")) {
             model.addAttribute("subFee", articleCategory.getYearSubFee());
+            model.addAttribute("news_buy_price",articleCategory.getYearSubFee());
+            model.addAttribute("news_buy_type","年报");
         }
         model.addAttribute("articleCategory", articleCategory);
         SubsNewsHuman subsNewsHuman = new SubsNewsHuman();
@@ -431,8 +469,19 @@ public class ArticleController extends BaseController {
      * @return
      */
     @GetMapping(value = "/smart")
-    public String amrtFactory(){
+    public String amrtFactory(@CurrentUser Business currentUser, ModelMap model){
+        model.addAttribute("currentStoreUser",currentUser);
         return "/shop/declare/smart";
+    }
+
+
+    /***
+     * 关于我们
+     */
+    @GetMapping(value = "/contract")
+    public String contract(@CurrentUser Business currentUser,ModelMap model){
+        model.addAttribute("currentStoreUser",currentUser);
+        return "/shop/contract/about";
     }
 
 }

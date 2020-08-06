@@ -41,11 +41,16 @@
 			<artifactId>chinapaysecure</artifactId>
 			<version>0.0.1</version>
 			<scope>system</scope>
-			<systemPath>C:/Users/hankh/.m2/repository/other/chinapaysecure1_5.jar</systemPath>
+			<systemPath>D:/maven/localRepository/other/chinapaysecure1_5.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aop</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>easyexcel</artifactId>
+			<version>1.0.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -66,6 +71,11 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-expression</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.sensorsdata.analytics.javasdk</groupId>
+			<artifactId>SensorsAnalyticsSDK</artifactId>
+			<version>3.1.15</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>

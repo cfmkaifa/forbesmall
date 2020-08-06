@@ -26,7 +26,7 @@ a {
 .navigation li{
 	width: 100px;
 	height: 34px;
-	font-size: 17px;
+	font-size: 20px;
 	line-height: 37px;
 	text-align: center;
 	font-weight: 600;
@@ -55,7 +55,7 @@ a {
 
 }
 .content{
-	width: 1100px;
+	width: 1200px;
 	margin: 0 auto;
 	font-size: 16px;
 	color: #333;
@@ -85,7 +85,7 @@ a {
 
 }
 .hotAttention_title h3{
-	font-size: 26px;
+	font-size: 22px;
 	margin: 20px 0 5px 0;
 
 }
@@ -112,7 +112,7 @@ a {
 	width: 100%;
 }
 .hotAttention_content2{
-	width: 64%;
+	width: 37%;
 }
 .hotAttention_content span p{
 	width: 100%;
@@ -135,7 +135,7 @@ a {
 	margin-top: 20px;
 }
 .information_img{
-	width: 30%;
+	width: 54%;
 }
 .information_img img{
 	width: 100%;

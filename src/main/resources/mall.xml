@@ -22,7 +22,7 @@
 	<setting name="defaultStoreLogo" value="" />
 	<setting name="watermarkAlpha" value="50" />
 	<setting name="watermarkImage" value="/upload/image/watermark.png" />
-	<setting name="watermarkPosition" value="NO" />
+	<setting name="watermarkPosition" value="BOTTOM_RIGHT" />
 	<setting name="priceScale" value="2" />
 	<setting name="priceRoundType" value="ROUND_HALF_UP" />
 	<setting name="isShowMarketPrice" value="true" />
@@ -65,7 +65,7 @@
 	<setting name="isConsultationCheck" value="true" />
 	<setting name="isInvoiceEnabled" value="true" />
 	<setting name="isTaxPriceEnabled" value="true" />
-	<setting name="taxRate" value="0.06" />
+	<setting name="taxRate" value="0.13" />
 	<setting name="cookiePath" value="/" />
 	<setting name="cookieDomain" value="" />
 	<setting name="kuaidi100Customer" value="" />

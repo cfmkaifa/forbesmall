@@ -17,7 +17,6 @@
     <link href="${base}/resources/common/css/bootstrap-select.css" rel="stylesheet">
     <link href="${base}/resources/common/css/bootstrap-fileinput.css" rel="stylesheet">
     <link href="${base}/resources/common/css/summernote.css" rel="stylesheet">
-    <link href="${base}/resources/common/css/bootstrap-fileinput.css" rel="stylesheet">
     <link href="${base}/resources/common/css/base.css" rel="stylesheet">
     <link href="${base}/resources/shop/css/base.css" rel="stylesheet">
     <link href="${base}/resources/member/css/base.css" rel="stylesheet">
@@ -191,19 +190,19 @@
                     <th><%-specificationItem.name%></th>
                     <%});%>
                     <%if (type == "GENERAL") {%>
-                    <th>${message("Sku.price")}</th>
+                    <th>${message("Product.accept.price")}</th>
                     <%}%>
-                    <th>${message("Sku.cost")}</th>
-                    <th>${message("Sku.marketPrice")}</th>
+                    <th style="display: none">${message("Sku.cost")}</th>
+                    <th style="display: none">${message("Sku.marketPrice")}</th>
                     <%if (type == "GENERAL") {%>
-                    <th>${message("Sku.maxCommission")}</th>
+                    <th style="display: none">${message("Sku.maxCommission")}</th>
                     <%}%>
                     <%if (type == "GENERAL") {%>
                     <th>${message("Sku.rewardPoint")}</th>
                     <%} else if (type == "EXCHANGE") {%>
                     <th>${message("Sku.exchangePoint")}</th>
                     <%}%>
-                    <th>${message("Sku.stock")}</th>
+                    <th>${message("Sku.purQuantity")}</th>
                     <th>${message("Product.unit")}</th>
                     <th id="parentUnit">${message("Product.unit.data")}</th>
                     <th>${message("Sku.isDefault")}</th>
@@ -245,15 +244,15 @@
                     <input name="skuList[<%-i%>].price" class="price form-control" type="text" value="<%-price%>" maxlength="16"<%-!isEnabled ? " disabled" : ""%>>
                 </td>
                 <%}%>
-                <td>
+                <td style="display: none">
                     <input name="skuList[<%-i%>].cost" class="cost form-control" type="text" value="<%-cost%>" maxlength="16"<%-!isEnabled ? " disabled" : ""%>>
                 </td>
-                <td>
+                <td style="display: none">
                     <input name="skuList[<%-i%>].marketPrice" class="market-price form-control" type="text" value="<%-marketPrice%>" maxlength="16"<%-!isEnabled ? " disabled" : ""%>>
                 </td>
                 <%if (type == "GENERAL") {%>
-                <td>
-                    <input name="skuList[<%-i%>].maxCommission" class="max-commission form-control" type="text" value="<%-maxCommission%>" maxlength="16"<%-!isEnabled ? " disabled" : ""%>>
+                <td style="display: none">
+                    <input name="skuList[<%-i%>].maxCommission" value="0" class="max-commission form-control" type="text" value="<%-maxCommission%>" maxlength="16"<%-!isEnabled ? " disabled" : ""%>>
                 </td>
                 <%}%>
                 <%if (type == "GENERAL") {%>
@@ -833,20 +832,24 @@
                                     fraction: ${setting.priceScale}
                                 }
                             },
-                            "sku.maxCommission": {
-                                required: true,
-                                number: true,
-                                min: 0,
-                                max: function() {
-                                    var price = $price.val();
-
-                                    return $.isNumeric(price) ? parseFloat(price) : 999999999;
-                                },
-                                decimal: {
-                                    integer: 12,
-                                    fraction: ${setting.priceScale}
-                                }
+                            "Sku.totalUnit":{
+                                number:true,
+                                min:1
                             },
+                            /* "sku.maxCommission": {
+                                 required: true,
+                                 number: true,
+                                 min: 0,
+                                 max: function() {
+                                     var price = $price.val();
+
+                                     return $.isNumeric(price) ? parseFloat(price) : 999999999;
+                                 },
+                                 decimal: {
+                                     integer: 12,
+                                     fraction: ${setting.priceScale}
+                                }
+                            },*/
                             weight: "digits",
                             "sku.rewardPoint": {
                                 digits: true,
@@ -990,12 +993,12 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-xs-3 col-sm-2 control-label item-required" for="price">${message("Sku.price")}:</label>
+                                        <label class="col-xs-3 col-sm-2 control-label item-required" for="price">${message("Sku.accept")}:</label>
                                         <div class="col-xs-9 col-sm-4">
                                             <input id="price" name="sku.price" class="form-control" type="text" maxlength="16">
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    [#--<div class="form-group">
                                         <label class="col-xs-3 col-sm-2 control-label" for="cost">${message("Sku.cost")}:</label>
                                         <div class="col-xs-9 col-sm-4" title="${message("business.product.costTitle")}" data-toggle="tooltip">
                                             <input id="cost" name="sku.cost" class="form-control" type="text" maxlength="16">
@@ -1006,7 +1009,7 @@
                                         <div class="col-xs-9 col-sm-4" title="${message("business.product.marketPriceTitle")}" data-toggle="tooltip">
                                             <input id="marketPrice" name="sku.marketPrice" class="form-control" type="text" maxlength="16">
                                         </div>
-                                    </div>
+                                    </div>--]
                                     <div class="form-group">
                                         <label class="col-xs-3 col-sm-2 control-label item-required" for="unit">${message("Product.addunit")}:</label>
                                         <div class="col-xs-9 col-sm-4">
@@ -1023,12 +1026,18 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-xs-3 col-sm-2 control-label item-required" for="stock">${message("Sku.stock")}:</label>
+                                        <label class="col-xs-3 col-sm-2 control-label item-required" for="stock">${message("Sku.purQuantity")}:</label>
                                         <div class="col-xs-9 col-sm-4">
                                             <input id="stock" name="sku.stock" class="form-control" type="text" value="1" maxlength="9">
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <label class="col-xs-3 col-sm-2 control-label item-required" for="expire">${message("Product.expire")}:</label>
+                                        <div class="col-xs-9 col-sm-4">
+                                            <input id="expire" name="expire" class="form-control" type="text"  data-provide="datetimepicker" data-date-format="YYYY-MM-DD">
+                                        </div>
+                                    </div>
+                                    [#--<div class="form-group">
                                         <label class="col-xs-3 col-sm-2 control-label">${message("Product.brand")}:</label>
                                         <div class="col-xs-9 col-sm-4">
                                             <select name="brandId" class="selectpicker form-control" data-live-search="true" data-size="10">
@@ -1038,7 +1047,7 @@
                                                 [/#list]
                                             </select>
                                         </div>
-                                    </div>
+                                    </div>--]
                                     [#if promotions?has_content]
                                         <div class="form-group">
                                             <label class="col-xs-3 col-sm-2 control-label">${message("Product.promotions")}:</label>
@@ -1052,19 +1061,19 @@
                                             </div>
                                         </div>
                                     [/#if]
-                                    [#if productTags?has_content]
-                                        <div class="form-group">
-                                            <label class="col-xs-3 col-sm-2 control-label">${message("Product.productTags")}:</label>
-                                            <div class="col-xs-9 col-sm-10">
-                                                [#list productTags as productTag]
-                                                    <div class="checkbox checkbox-inline">
-                                                        <input id="productTag_${productTag.id}" name="productTagIds" type="checkbox" value="true" checked>
-                                                        <label for="productTag_${productTag.id}">${productTag.name}</label>
-                                                    </div>
-                                                [/#list]
-                                            </div>
-                                        </div>
-                                    [/#if]
+                                    [#-- [#if productTags?has_content]
+                                         <div class="form-group">
+                                             <label class="col-xs-3 col-sm-2 control-label">${message("Product.productTags")}:</label>
+                                             <div class="col-xs-9 col-sm-10">
+                                                 [#list productTags as productTag]
+                                                     <div class="checkbox checkbox-inline">
+                                                         <input id="productTag_${productTag.id}" name="productTagIds" type="checkbox" value="true" checked>
+                                                         <label for="productTag_${productTag.id}">${productTag.name}</label>
+                                                     </div>
+                                                 [/#list]
+                                             </div>
+                                         </div>
+                                     [/#if]--]
                                     <div class="form-group">
                                         <label class="col-xs-3 col-sm-2 control-label" for="memo">${message("Product.memo")}:</label>
                                         <div class="col-xs-9 col-sm-4">
@@ -1131,5 +1140,5 @@
             </div>
         </div>
     </div>
-    </main>
+</main>
 </body>

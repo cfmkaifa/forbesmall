@@ -462,6 +462,7 @@
             </div>
         </form>
         <form id="orderForm" class="ajax-form form-horizontal" action="${base}/order/create" method="post">
+            <input name="entrance" type="hidden" value="${entrance}">
             [#if skuId??]
                 <input name="skuId" type="hidden" value="${skuId}">
                 <input name="quantity" type="hidden" value="${quantity}">
@@ -547,11 +548,11 @@
                     </div>
                 </div>
             [/#if]
-            <div class="panel panel-default">
+            [#--<div class="panel panel-default">
                 <div class="panel-body">
                     [#if orderType == "GENERAL"]
                         [#if setting.isInvoiceEnabled]
-                            <div id="invoiceWrapper">
+                            --][#--<div id="invoiceWrapper">
                                 <div class="form-group">
                                     <label class="col-xs-1 control-label">${message("shop.order.isInvoice")}</label>
                                     <div class="col-xs-1">
@@ -566,8 +567,8 @@
                                                 : ${setting.taxRate * 100}%</p>
                                         </div>
                                     [/#if]
-                                </div>
-                                <div class="form-group hidden-element">
+                                </div>--][#--
+                                --][#--<div class="form-group hidden-element">
                                     <label class="col-xs-1 control-label">${message("shop.order.invoiceTitle")}</label>
                                     <div class="col-xs-4">
                                         <input id="invoiceTitle" name="invoiceTitle" class="form-control" type="text"
@@ -579,19 +580,19 @@
                                     <label class="col-xs-1 control-label">${message("shop.order.invoiceTaxNumber")}</label>
                                     <div class="col-xs-4">
                                         <input id="invoiceTaxNumber" name="invoiceTaxNumber" class="form-control"
-                                               type="text" maxlength="200"  value="${member.identificationNumber}" disabled>
+                                               type="text" maxlength="200" value="${member.identificationNumber}" disabled>
                                     </div>
-                                </div>
-                            </div>
+                                </div>--][#--
+                           --][#-- </div>--][#--
                         [/#if]
-                        <div class="form-group">
+                       --][#-- <div class="form-group">
                             <label class="col-xs-1 control-label">${message("shop.order.coupon")}</label>
                             <div class="col-xs-4">
                                 <span id="couponName" class="coupon-name"></span>
                                 <input id="couponCode" name="code" class="form-control" type="text" maxlength="200"
                                        placeholder="${message("shop.order.couponCodePlaceholder")}">
                             </div>
-                        </div>
+                        </div>--][#--
                     [/#if]
                     [#if currentUser.availableBalance > 0]
                         <div id="balanceWrapper"[#if amount <= 0] class="hidden-element"[/#if]>
@@ -625,7 +626,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>--]
             <table>
                 <thead>
                 <tr>
@@ -684,7 +685,7 @@
                 <div class="panel-body">
                     <dl class="dl-horizontal">
                         [#if orderType == "GENERAL"]
-                            [#if rewardPoint > 0]
+                            [#--[#if rewardPoint > 0]
                                 <dt>${message("Order.rewardPoint")}:</dt>
                                 <dd>${rewardPoint}</dd>
                             [/#if]
@@ -695,7 +696,7 @@
                             <dt>${message("Order.couponDiscount")}:</dt>
                             <dd>
                                 <span id="couponDiscount">${currency(couponDiscount, true, true)}</span>
-                            </dd>
+                            </dd>--]
                             [#if setting.isInvoiceEnabled && setting.isTaxPriceEnabled]
                                 <dt>${message("Order.tax")}:</dt>
                                 <dd>
@@ -741,4 +742,31 @@
 </main>
 [#include "/shop/include/main_footer.ftl" /]
 </body>
+
+<script type="text/javascript">
+    //立即购买埋点事件
+    $(function () {
+        try {
+            sensors.track('FiberbuyNow',{
+                commodity_id:${sku.product.id},
+                commodity_name:"${sku.product.name}",
+                first_commodity:"${sku.product.productCategory.parent.name}",
+                second_commodity:"${sku.product.productCategory.name}",
+                present_price:${sku.product.price},
+                commodity_gsm:"${temp_commodity_gsm}",
+                commodity_cm:"${temp_commodity_cm}",
+                quantity:"${quantity}",
+                commodity_color:"${temp_commodity_color}",
+                commodity_fiber:"${temp_commodity_fiber}",
+                store_id:${sku.product.store.id},
+                store_name:"${sku.product.store.name}",
+                is_group:${temp_is_group?string ("true","false")},
+                is_purch:${temp_is_purch?string ("true","false")},
+                is_sample:${temp_is_sample?string ("true","false")}
+            })
+        }catch (e) {
+            console.log(e)
+        }
+    })
+</script>
 </html>

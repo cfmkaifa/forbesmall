@@ -221,8 +221,8 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
             Query keywordPhraseQuery = queryBuilder.phrase().withSlop(3).onField("keyword").sentence(keyword).createQuery();
             subJunction.should(namePhraseQuery).should(keywordPhraseQuery);
         } else {
-            Query nameFuzzyQuery = queryBuilder.keyword().fuzzy().onField("name").ignoreAnalyzer().matching(keyword).createQuery();
-            Query keywordFuzzyQuery = queryBuilder.keyword().fuzzy().onField("keyword").ignoreAnalyzer().matching(keyword).createQuery();
+            Query nameFuzzyQuery = queryBuilder.keyword().fuzzy().withPrefixLength(5).onField("name").matching(keyword).createQuery();
+            Query keywordFuzzyQuery = queryBuilder.keyword().fuzzy().withPrefixLength(5).onField("keyword").matching(keyword).createQuery();
             subJunction.should(nameFuzzyQuery).should(keywordFuzzyQuery);
         }
         junction.must(subJunction.createQuery());
@@ -567,7 +567,6 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
         product.setWeekSales(0L);
         product.setMonthSales(0L);
         product.setIsAudit(Product.ProApplyStatus.PENDING);
-        product.setPurch(false);
         product.setWeekHitsDate(new Date());
         product.setMonthHitsDate(new Date());
         product.setWeekSalesDate(new Date());
@@ -1337,11 +1336,35 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
     }
 
     /***
+     * 修改上下架
+     * @param marketable
+     * @param productId
+     */
+    public void modifyMarketable(Boolean marketable, Long productId){
+        productDao.modifyMarketable(marketable,productId);
+    }
+
+
+
+    /***
      * 修改审核状态
      * @param isAudit
      * @param productId
      */
     public void modifyProductAudit(Product.ProApplyStatus isAudit, Long productId){
         productDao.modifyProductAudit(isAudit,productId);
+    }
+
+
+    /***
+     * 查询快过期团购
+     * @param isPurch
+     * @param isAudit
+     * @param isMarketable
+     * @param expire
+     * @return
+     */
+    public List<Product> searchProApply(Boolean isPurch, Product.ProApplyStatus isAudit, Boolean isMarketable, Date expire){
+        return  productDao.searchProApply(isPurch,isAudit,isMarketable,expire);
     }
 }

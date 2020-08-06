@@ -1119,6 +1119,14 @@
 										</select>
 									</div>
 								</div>
+								<!--质量保障书start-->
+								<div class="form-group">
+									<label class="col-xs-3 col-sm-2 control-label item-required">${message("Product.quality")}:</label>
+									<div class="col-xs-9 col-sm-4">
+										<input name="quality" type="hidden" value="${product.quality}" data-provide="fileinput" data-file-type="FILE">
+									</div>
+								</div>
+								<!--质量保障书end-->
 								[#if product.type == "GENERAL" && promotions?has_content]
 									<div class="form-group">
 										<label class="col-xs-3 col-sm-2 control-label">${message("Product.promotions")}:</label>

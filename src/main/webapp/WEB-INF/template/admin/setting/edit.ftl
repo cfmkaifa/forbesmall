@@ -940,12 +940,12 @@
 										<input id="businessMinimumCashAmount" name="businessMinimumCashAmount" class="form-control" type="text" value="${setting.businessMinimumCashAmount}" maxlength="16">
 									</div>
 								</div>
-								<div class="form-group">
+								[#--<div class="form-group">
 									<label class="col-xs-3 col-sm-2 control-label">${message("Setting.distributionCommissionRates")}:</label>
 									<div class="col-xs-9 col-sm-4">
 										<button class="btn btn-default" type="button" data-toggle="modal" data-target="#distributionCommissionRateModal">${message("common.setting")}</button>
 									</div>
-								</div>
+								</div>--]
 								<div class="form-group">
 									<label class="col-xs-3 col-sm-2 control-label" for="isDevelopmentEnabled">${message("Setting.isDevelopmentEnabled")}:</label>
 									<div class="col-xs-9 col-sm-4">

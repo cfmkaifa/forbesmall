@@ -6,6 +6,9 @@
  */
 package net.mall.controller.business;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -13,20 +16,33 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolation;
 
+import com.alibaba.excel.ExcelReader;
+import com.alibaba.excel.metadata.ExcelColumnProperty;
+import com.alibaba.excel.metadata.ExcelHeadProperty;
+import com.alibaba.excel.read.context.AnalysisContext;
+import com.alibaba.excel.read.event.AnalysisEventListener;
+import com.alibaba.excel.support.ExcelTypeEnum;
+import com.alibaba.excel.util.TypeUtil;
+import com.alibaba.excel.write.exception.ExcelGenerateException;
 import com.alibaba.fastjson.JSON;
+import net.mall.Setting;
+import net.mall.entity.*;
+import net.mall.excel.ProImportQueueExcelMode;
+import net.mall.model.ResultModel;
+import net.mall.service.*;
+import net.mall.util.BusTypeEnum;
 import net.mall.util.ConvertUtils;
+import net.mall.util.RestTemplateUtil;
+import net.mall.util.SystemUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.Assert;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.multipart.MultipartFile;
@@ -34,39 +50,8 @@ import org.springframework.web.multipart.MultipartFile;
 import net.mall.FileType;
 import net.mall.Pageable;
 import net.mall.Results;
-import net.mall.entity.Attribute;
-import net.mall.entity.BaseEntity;
-import net.mall.entity.Brand;
-import net.mall.entity.Parameter;
-import net.mall.entity.ParameterValue;
-import net.mall.entity.Product;
-import net.mall.entity.ProductCategory;
-import net.mall.entity.ProductImage;
-import net.mall.entity.ProductTag;
-import net.mall.entity.Promotion;
-import net.mall.entity.Sku;
-import net.mall.entity.Specification;
-import net.mall.entity.SpecificationItem;
-import net.mall.entity.Store;
-import net.mall.entity.StoreProductCategory;
-import net.mall.entity.StoreProductTag;
 import net.mall.exception.UnauthorizedException;
 import net.mall.security.CurrentStore;
-import net.mall.service.AttributeService;
-import net.mall.service.BrandService;
-import net.mall.service.FileService;
-import net.mall.service.ParameterValueService;
-import net.mall.service.ProductCategoryService;
-import net.mall.service.ProductImageService;
-import net.mall.service.ProductService;
-import net.mall.service.ProductTagService;
-import net.mall.service.PromotionService;
-import net.mall.service.SkuService;
-import net.mall.service.SpecificationItemService;
-import net.mall.service.SpecificationService;
-import net.mall.service.StoreProductCategoryService;
-import net.mall.service.StoreProductTagService;
-import net.mall.service.StoreService;
 
 /**
  * Controller - 商品
@@ -108,6 +93,159 @@ public class ProductController extends BaseController {
     private SpecificationService specificationService;
     @Inject
     private FileService fileService;
+    @Inject
+    ProImportQueueService proImportQueueService;
+
+    private final String ONE_ID_F = "b%s";
+
+
+    /****
+     * 商品导入
+     * @param productFilePath
+     * @param request
+     * @param currentStore
+     * @return
+     */
+    @PostMapping("/import-product")
+    public ResponseEntity<?> importProduct(@RequestParam(value = "productFilePath",required = true)String productFilePath, HttpServletRequest request, @CurrentStore Store currentStore) {
+        Setting setting = SystemUtils.getSetting();
+        String uploadDir = setting.getUploadDir();
+        String fileUrl = setting.getFileUrl();
+        if(productFilePath.startsWith(fileUrl)){
+            productFilePath = productFilePath.substring(fileUrl.lastIndexOf(fileUrl)+fileUrl.length(),productFilePath.length());
+        }
+        File file = new File(uploadDir,productFilePath);
+        if(file.exists()){
+            try {
+                AnalysisEventListener<List<String>> analysisEventListener =  new AnalysisEventListener<List<String>>(){
+                    @Override
+                    public void invoke(List<String> row, AnalysisContext analysisContext) {
+                        analysisContext.buildExcelHeadProperty(ProImportQueueExcelMode.class,row);
+                        if (analysisContext.getExcelHeadProperty() != null && analysisContext.getExcelHeadProperty().getHeadClazz() != null) {
+                            ProImportQueueExcelMode resultModel = (ProImportQueueExcelMode) this.buildUserModel(analysisContext, (List)row);
+                            /***批量导入
+                             * **/
+                            if(!resultModel.getCategoryName().trim().equals("分类名称")){
+                                ProImportQueue proImportQueue = new ProImportQueue();
+                                proImportQueue.setCategoryName(resultModel.getCategoryName());
+                                proImportQueue.setProName(resultModel.getProName());
+                                proImportQueue.setProSn(resultModel.getProSn());
+                                proImportQueue.setUnit(resultModel.getUnit());
+                                proImportQueue.setWeight(Integer.parseInt(resultModel.getWeight()));
+                                proImportQueue.setPrice(new BigDecimal(resultModel.getPrice()));
+                                proImportQueue.setIntroduction(resultModel.getIntroduction());
+                                proImportQueue.setProductImgs(resultModel.getProductImgs());
+                                proImportQueue.setProductParameters(resultModel.getProductParameters());
+                                proImportQueue.setProductAttributes(resultModel.getProductAttributes());
+                                proImportQueue.setProductSpecs(resultModel.getProductSpecs());
+                                proImportQueue.setInStorage(0);
+                                proImportQueue.setStoreId(currentStore.getId());
+                                proImportQueueService.save(proImportQueue);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void doAfterAllAnalysed(AnalysisContext analysisContext) {
+
+                    }
+
+
+                    private Object buildUserModel(AnalysisContext context, List<String> stringList) {
+                        ExcelHeadProperty excelHeadProperty = context.getExcelHeadProperty();
+                        Object resultModel;
+                        try {
+                            resultModel = excelHeadProperty.getHeadClazz().newInstance();
+                        } catch (Exception var10) {
+                            throw new ExcelGenerateException(var10);
+                        }
+
+                        if (excelHeadProperty != null) {
+                            for(int i = 0; i < stringList.size(); ++i) {
+                                ExcelColumnProperty columnProperty = excelHeadProperty.getExcelColumnProperty(i);
+                                if (columnProperty != null) {
+                                    Object value = TypeUtil.convert((String)stringList.get(i), columnProperty.getField(), columnProperty.getFormat(), context.use1904WindowDate());
+                                    if (value != null) {
+                                        try {
+                                            org.apache.commons.beanutils.BeanUtils.setProperty(resultModel, columnProperty.getField().getName(), value);
+                                        } catch (Exception var9) {
+                                            throw new ExcelGenerateException(columnProperty.getField().getName() + " can not set value " + value, var9);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        return resultModel;
+                    }
+                };
+                ExcelReader excelReader = new ExcelReader(new FileInputStream(file), ExcelTypeEnum.XLSX,null,analysisEventListener,true);
+                excelReader.read();
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        return Results.OK;
+    }
+
+    /***查询链详情
+     * @param dataId
+     * @param request
+     * @return
+     */
+    @PostMapping("/chain")
+    @ResponseBody
+    public ResponseEntity<?> chain(Long dataId,HttpServletRequest request) {
+        try {
+            String  strDataId = String.format(ONE_ID_F,dataId);
+            ResultModel responseEntity = RestTemplateUtil.reqTemplate(strDataId, BusTypeEnum.PRODUCT.getCode());
+            if("000000".equals(responseEntity.getResultCode())){
+                return Results.status(HttpStatus.OK,responseEntity.getData());
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return Results.OK;
+    }
+
+
+    /***分类查询链详情
+     * @param dataId
+     * @param request
+     * @return
+     */
+    @PostMapping("/categroy-chain")
+    @ResponseBody
+    public ResponseEntity<?> categroyChain(Long dataId,HttpServletRequest request) {
+        try {
+            ResultModel responseEntity = RestTemplateUtil.reqTemplate(String.format(ONE_ID_F,dataId), BusTypeEnum.CATEGROY.getCode());
+            if("000000".equals(responseEntity.getResultCode())){
+                return Results.status(HttpStatus.OK,responseEntity.getData());
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return Results.OK;
+    }
+
+    /***团购查询链详情
+     * @param dataId
+     * @param request
+     * @return
+     */
+    @PostMapping("/groupbuy-chain")
+    @ResponseBody
+    public ResponseEntity<?> groupbuyChain(Long dataId,HttpServletRequest request) {
+        try {
+            ResultModel responseEntity =  RestTemplateUtil.reqTemplate(String.format(ONE_ID_F,dataId), BusTypeEnum.GROUPBUY.getCode());
+            if("000000".equals(responseEntity.getResultCode())){
+                return Results.status(HttpStatus.OK,responseEntity.getData());
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return Results.OK;
+    }
+
 
     /**
      * 添加属性
@@ -274,6 +412,7 @@ public class ProductController extends BaseController {
         }
         productForm.setPurch(false);
         productForm.setIsAudit(Product.ProApplyStatus.PENDING);
+        productForm.setGroup(false);
         productForm.setStore(currentStore);
         productForm.setProductCategory(productCategory);
         productForm.setBrand(brandService.find(brandId));
@@ -465,7 +604,7 @@ public class ProductController extends BaseController {
      */
     @PostMapping("/update-product")
     public ResponseEntity<?> updateProduct(Long[] ids, @CurrentStore final Store currentStore){
-        for(Long id:ids){
+        for(Long id:ids) {
             Product product = productService.find(id);
             if (product == null) {
                 return Results.unprocessableEntity("business.product.notProduct");
@@ -473,14 +612,14 @@ public class ProductController extends BaseController {
             if (!currentStore.equals(product.getStore())) {
                 return Results.unprocessableEntity("business.product.notStoreProduct");
             }
-            if(ConvertUtils.isNotEmpty(product)
-                    && !product.getGroup()){
+
+            if (!product.getGroup()) {
                 /***新商品
                  * */
                 Product newProduct = new Product();
-                BeanUtils.copyProperties(product,newProduct,"id","sn","createdDate","lastModifiedDate",
-                        "productImages","productCategory","brand","parameterValues","specificationItems","promotions","productTags",
-                        "storeProductTags","reviews","consultations","productFavorites","skus");
+                BeanUtils.copyProperties(product, newProduct, "id", "sn", "createdDate", "lastModifiedDate",
+                        "productImages", "productCategory", "brand", "parameterValues", "specificationItems", "promotions", "productTags",
+                        "storeProductTags", "reviews", "consultations", "productFavorites", "skus");
                 newProduct.setProductImages(product.getProductImages());
                 newProduct.setParameterValues(product.getParameterValues());
                 newProduct.setSpecificationItems(product.getSpecificationItems());
@@ -527,6 +666,9 @@ public class ProductController extends BaseController {
                 }
                 Long sourceProductId = product.getId();
                 if(ConvertUtils.isNotEmpty(product.getSourceProId())){
+                    return Results.unprocessableEntity("business.product.productSn", newProduct.getSn());
+                }
+                if (ConvertUtils.isNotEmpty(product.getSourceProId())) {
                     sourceProductId = product.getSourceProId();
                 }
                 /***清除游离态数据

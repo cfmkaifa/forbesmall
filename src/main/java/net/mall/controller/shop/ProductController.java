@@ -117,11 +117,54 @@ public class ProductController extends BaseController {
             model.addAttribute("product", product);
         }else {
             /*product.setCreatedDate(sourceProduct.getCreatedDate());*/
-            model.addAttribute("product", product);
-        }
+            model.addAttribute("product", sourceProduct);        }
         if(currentUser!=null){
             String checkresult= String.valueOf(currentUser.getIsAudit());
             model.addAttribute("checkresult",checkresult);
+        }
+        model.addAttribute("temp_is_group",ConvertUtils.isNotEmpty(product.getGroup())?product.getGroup():false);
+        model.addAttribute("temp_is_purch",ConvertUtils.isNotEmpty(product.getPurch())?product.getPurch():false);
+        model.addAttribute("temp_is_sample",ConvertUtils.isNotEmpty(product.getSample())?product.getSample():false);
+        Set<Sku> skuSet=product.getSkus();
+        for(Sku temp:skuSet){
+            model.addAttribute("stock",temp.getStock());
+            break;
+        }
+        List<SpecificationItem> specificationItems=product.getSpecificationItems();
+        for(SpecificationItem temp:specificationItems){
+            if(temp.getName().contains("颜色")){
+                List<SpecificationItem.Entry> entries=temp.getEntries();
+                for (SpecificationItem.Entry tempEntry:entries){
+                    if(tempEntry.getIsSelected()){
+                        model.addAttribute("temp_commodity_color",tempEntry.getValue());
+                    }
+                }
+            }
+            if(temp.getName().contains("cm")){
+                List<SpecificationItem.Entry> entries=temp.getEntries();
+                for (SpecificationItem.Entry tempEntry:entries){
+                    if(tempEntry.getIsSelected()){
+                        model.addAttribute("temp_commodity_cm",tempEntry.getValue());
+                    }
+                }
+            }
+            if(temp.getName().contains("gsm")){
+                List<SpecificationItem.Entry> entries=temp.getEntries();
+                for (SpecificationItem.Entry tempEntry:entries){
+                    if(tempEntry.getIsSelected()){
+                        model.addAttribute("temp_commodity_gsm",tempEntry.getValue());
+                    }
+                }
+            }
+            if(temp.getName().contains("纤维")){
+                List<SpecificationItem.Entry> entries=temp.getEntries();
+                for (SpecificationItem.Entry tempEntry:entries){
+                    if(tempEntry.getIsSelected()){
+                        model.addAttribute("temp_commodity_fiber",tempEntry.getValue());
+                    }
+                }
+            }
+            break;
         }
         return "shop/product/detail";
     }
@@ -131,7 +174,7 @@ public class ProductController extends BaseController {
      * 详情
      */
     @GetMapping("/sample-detail/{productId}")
-    public String sampleDetail(@PathVariable Long productId, HttpServletRequest request,
+    public String sampleDetail(@PathVariable Long productId, HttpServletRequest request,@CurrentUser Member currentUser,
                                ModelMap model) {
         Product product = productService.find(productId);
         if (product == null || BooleanUtils.isNotTrue(product.getIsActive()) || BooleanUtils.isNotTrue(product.getIsMarketable())) {
@@ -139,6 +182,55 @@ public class ProductController extends BaseController {
         }
         product.setSample(true);
         model.addAttribute("product", product);
+        Product sourceProduct=productService.find(product.getSourceProId());
+        if(sourceProduct == null){
+            model.addAttribute("product", product);
+        }else {
+            /*product.setCreatedDate(sourceProduct.getCreatedDate());*/
+            model.addAttribute("product", product);
+        }
+        if(currentUser!=null){
+            String checkresult= String.valueOf(currentUser.getIsAudit());
+            model.addAttribute("checkresult",checkresult);
+        }
+        model.addAttribute("temp_is_group",ConvertUtils.isNotEmpty(product.getGroup())?product.getGroup():false);
+        model.addAttribute("temp_is_purch",ConvertUtils.isNotEmpty(product.getPurch())?product.getPurch():false);
+        model.addAttribute("temp_is_sample",ConvertUtils.isNotEmpty(product.getSample())?product.getSample():false);
+        List<SpecificationItem> specificationItems=product.getSpecificationItems();
+        for(SpecificationItem temp:specificationItems){
+            if(temp.getName().contains("颜色")){
+                List<SpecificationItem.Entry> entries=temp.getEntries();
+                for (SpecificationItem.Entry tempEntry:entries){
+                    if(tempEntry.getIsSelected()){
+                        model.addAttribute("temp_commodity_color",tempEntry.getValue());
+                    }
+                }
+            }
+            if(temp.getName().contains("cm")){
+                List<SpecificationItem.Entry> entries=temp.getEntries();
+                for (SpecificationItem.Entry tempEntry:entries){
+                    if(tempEntry.getIsSelected()){
+                        model.addAttribute("temp_commodity_cm",tempEntry.getValue());
+                    }
+                }
+            }
+            if(temp.getName().contains("gsm")){
+                List<SpecificationItem.Entry> entries=temp.getEntries();
+                for (SpecificationItem.Entry tempEntry:entries){
+                    if(tempEntry.getIsSelected()){
+                        model.addAttribute("temp_commodity_gsm",tempEntry.getValue());
+                    }
+                }
+            }
+            if(temp.getName().contains("纤维")){
+                List<SpecificationItem.Entry> entries=temp.getEntries();
+                for (SpecificationItem.Entry tempEntry:entries){
+                    if(tempEntry.getIsSelected()){
+                        model.addAttribute("temp_commodity_fiber",tempEntry.getValue());
+                    }
+                }
+            }
+        }
         return "shop/product/sample/detail";
     }
 
@@ -146,7 +238,7 @@ public class ProductController extends BaseController {
      * 详情
      */
     @GetMapping("/purch-detail/{productId}")
-    public String purchDetail(@PathVariable Long productId, HttpServletRequest request,
+    public String purchDetail(@PathVariable Long productId, HttpServletRequest request,@CurrentUser Member currentUser,
                               ModelMap model) {
         Product product = productService.find(productId);
         if (product == null || BooleanUtils.isNotTrue(product.getIsActive()) || BooleanUtils.isNotTrue(product.getIsMarketable())) {
@@ -154,6 +246,55 @@ public class ProductController extends BaseController {
         }
         product.setSample(true);
         model.addAttribute("product", product);
+        Product sourceProduct=productService.find(product.getSourceProId());
+        if(sourceProduct == null){
+            model.addAttribute("product", product);
+        }else {
+            /*product.setCreatedDate(sourceProduct.getCreatedDate());*/
+            model.addAttribute("product", product);
+        }
+        if(currentUser!=null){
+            String checkresult= String.valueOf(currentUser.getIsAudit());
+            model.addAttribute("checkresult",checkresult);
+        }
+        model.addAttribute("temp_is_group",ConvertUtils.isNotEmpty(product.getGroup())?product.getGroup():false);
+        model.addAttribute("temp_is_purch",ConvertUtils.isNotEmpty(product.getPurch())?product.getPurch():false);
+        model.addAttribute("temp_is_sample",ConvertUtils.isNotEmpty(product.getSample())?product.getSample():false);
+        List<SpecificationItem> specificationItems=product.getSpecificationItems();
+        for(SpecificationItem temp:specificationItems){
+            if(temp.getName().contains("颜色")){
+                List<SpecificationItem.Entry> entries=temp.getEntries();
+                for (SpecificationItem.Entry tempEntry:entries){
+                    if(tempEntry.getIsSelected()){
+                        model.addAttribute("temp_commodity_color",tempEntry.getValue());
+                    }
+                }
+            }
+            if(temp.getName().contains("cm")){
+                List<SpecificationItem.Entry> entries=temp.getEntries();
+                for (SpecificationItem.Entry tempEntry:entries){
+                    if(tempEntry.getIsSelected()){
+                        model.addAttribute("temp_commodity_cm",tempEntry.getValue());
+                    }
+                }
+            }
+            if(temp.getName().contains("gsm")){
+                List<SpecificationItem.Entry> entries=temp.getEntries();
+                for (SpecificationItem.Entry tempEntry:entries){
+                    if(tempEntry.getIsSelected()){
+                        model.addAttribute("temp_commodity_gsm",tempEntry.getValue());
+                    }
+                }
+            }
+            if(temp.getName().contains("纤维")){
+                List<SpecificationItem.Entry> entries=temp.getEntries();
+                for (SpecificationItem.Entry tempEntry:entries){
+                    if(tempEntry.getIsSelected()){
+                        model.addAttribute("temp_commodity_fiber",tempEntry.getValue());
+                    }
+                }
+            }
+        }
         return "shop/product/purch/detail";
     }
 
@@ -161,13 +302,62 @@ public class ProductController extends BaseController {
      * 详情
      */
     @GetMapping("/group-purch-detail/{productId}")
-    public String groupPurchDetail(@PathVariable Long productId, HttpServletRequest request,
+    public String groupPurchDetail(@PathVariable Long productId, HttpServletRequest request,@CurrentUser Member currentUser,
                                    ModelMap model) {
         Product product = productService.find(productId);
         if (product == null || BooleanUtils.isNotTrue(product.getIsActive()) || BooleanUtils.isNotTrue(product.getIsMarketable())) {
             throw new ResourceNotFoundException();
         }
         model.addAttribute("product", product);
+        Product sourceProduct=productService.find(product.getSourceProId());
+        if(sourceProduct == null){
+            model.addAttribute("product", product);
+        }else {
+            /*product.setCreatedDate(sourceProduct.getCreatedDate());*/
+            model.addAttribute("product", product);
+        }
+        if(currentUser!=null){
+            String checkresult= String.valueOf(currentUser.getIsAudit());
+            model.addAttribute("checkresult",checkresult);
+        }
+        model.addAttribute("temp_is_group",ConvertUtils.isNotEmpty(product.getGroup())?product.getGroup():false);
+        model.addAttribute("temp_is_purch",ConvertUtils.isNotEmpty(product.getPurch())?product.getPurch():false);
+        model.addAttribute("temp_is_sample",ConvertUtils.isNotEmpty(product.getSample())?product.getSample():false);
+        List<SpecificationItem> specificationItems=product.getSpecificationItems();
+        for(SpecificationItem temp:specificationItems){
+            if(temp.getName().contains("颜色")){
+                List<SpecificationItem.Entry> entries=temp.getEntries();
+                for (SpecificationItem.Entry tempEntry:entries){
+                    if(tempEntry.getIsSelected()){
+                        model.addAttribute("temp_commodity_color",tempEntry.getValue());
+                    }
+                }
+            }
+            if(temp.getName().contains("cm")){
+                List<SpecificationItem.Entry> entries=temp.getEntries();
+                for (SpecificationItem.Entry tempEntry:entries){
+                    if(tempEntry.getIsSelected()){
+                        model.addAttribute("temp_commodity_cm",tempEntry.getValue());
+                    }
+                }
+            }
+            if(temp.getName().contains("gsm")){
+                List<SpecificationItem.Entry> entries=temp.getEntries();
+                for (SpecificationItem.Entry tempEntry:entries){
+                    if(tempEntry.getIsSelected()){
+                        model.addAttribute("temp_commodity_gsm",tempEntry.getValue());
+                    }
+                }
+            }
+            if(temp.getName().contains("纤维")){
+                List<SpecificationItem.Entry> entries=temp.getEntries();
+                for (SpecificationItem.Entry tempEntry:entries){
+                    if(tempEntry.getIsSelected()){
+                        model.addAttribute("temp_commodity_fiber",tempEntry.getValue());
+                    }
+                }
+            }
+        }
         return "shop/product/group_purch/detail";
     }
 
@@ -275,9 +465,12 @@ public class ProductController extends BaseController {
         final Boolean[] isSample = {false};
         /**判断手机
          * */
-        isMobile(request,o->{
+        /*isMobile(request,o->{
             isSample[0] = true;
-        });
+        });*/
+        if(ConvertUtils.isEmpty(orderType)){
+            orderType = Product.OrderType.DATE_DESC;
+        }
         model.addAttribute("orderTypes", Product.OrderType.values());
         model.addAttribute("productCategory", productCategory);
         model.addAttribute("type", type);
@@ -293,7 +486,7 @@ public class ProductController extends BaseController {
         model.addAttribute("orderType", orderType);
         model.addAttribute("pageNumber", pageNumber);
         model.addAttribute("pageSize", pageSize);
-        model.addAttribute("page", productService.findPage(type, 3, isSample[0], storeType, null,null, productCategory, null, brand, promotion, productTag, null, attributeValueMap, startPrice, endPrice, true, true, null, true, isOutOfStock, null, null, Product.OrderType.DATE_DESC, pageable));
+        model.addAttribute("page", productService.findPage(type, 3, isSample[0], storeType, null,null, productCategory, null, brand, promotion, productTag, null, attributeValueMap, startPrice, endPrice, true, true, null, true, isOutOfStock, null, null, orderType, pageable));
         return "shop/product/list";
     }
 
@@ -301,12 +494,12 @@ public class ProductController extends BaseController {
      * 列表
      */
     @GetMapping("/list")
-    public String list(HttpServletRequest request,Product.Type type, Store.Type storeType, Long storeProductCategoryId, Long brandId, Long promotionId, Long productTagId, BigDecimal startPrice, BigDecimal endPrice, Boolean isOutOfStock, Product.OrderType orderType, Integer pageNumber, Integer pageSize, ModelMap model) {
+    public String list(@CurrentUser Business currentUser,HttpServletRequest request,Product.Type type, Store.Type storeType, Long storeProductCategoryId, Long brandId, Long promotionId, Long productTagId, BigDecimal startPrice, BigDecimal endPrice, Boolean isOutOfStock, Product.OrderType orderType, Integer pageNumber, Integer pageSize, ModelMap model) {
         StoreProductCategory storeProductCategory = storeProductCategoryService.find(storeProductCategoryId);
         Brand brand = brandService.find(brandId);
         Promotion promotion = promotionService.find(promotionId);
         ProductTag productTag = productTagService.find(productTagId);
-
+        model.addAttribute("currentStoreUser",currentUser);
         if (startPrice != null && endPrice != null && startPrice.compareTo(endPrice) > 0) {
             BigDecimal tempPrice = startPrice;
             startPrice = endPrice;
@@ -315,9 +508,12 @@ public class ProductController extends BaseController {
         final Boolean[] isSample = {false};
         /**判断手机
          * */
-        isMobile(request,o->{
+        /*isMobile(request,o->{
             isSample[0] = true;
-        });
+        });*/
+        if(ConvertUtils.isEmpty(orderType)){
+            orderType = Product.OrderType.DATE_DESC;
+        }
         Pageable pageable = new Pageable(pageNumber, pageSize);
         model.addAttribute("orderTypes", Product.OrderType.values());
         model.addAttribute("type", type);
@@ -332,7 +528,7 @@ public class ProductController extends BaseController {
         model.addAttribute("orderType", orderType);
         model.addAttribute("pageNumber", pageNumber);
         model.addAttribute("pageSize", pageSize);
-        model.addAttribute("page", productService.findPage(type, 3,isSample[0], storeType, null, null,null, storeProductCategory, brand, promotion, productTag, null, null, startPrice, endPrice, true, true, null, true, isOutOfStock, null, null, Product.OrderType.DATE_DESC, pageable));
+        model.addAttribute("page", productService.findPage(type, 3,isSample[0], storeType, null, null,null, storeProductCategory, brand, promotion, productTag, null, null, startPrice, endPrice, true, true, null, true, isOutOfStock, null, null, orderType, pageable));
         return "shop/product/list";
     }
 
@@ -363,9 +559,9 @@ public class ProductController extends BaseController {
         /**判断手机
          * */
         final Boolean[] isSample = {false};
-        isMobile(request,o->{
+       /* isMobile(request,o->{
             isSample[0] = true;
-        });
+        });*/
         if (startPrice != null && endPrice != null && startPrice.compareTo(endPrice) > 0) {
             BigDecimal tempPrice = startPrice;
             startPrice = endPrice;
@@ -402,7 +598,10 @@ public class ProductController extends BaseController {
         model.addAttribute("endPrice", endPrice);
         model.addAttribute("orderType", orderType);
         model.addAttribute("searchType", "PRODUCT");
-        model.addAttribute("page", productService.search(keyword, null, storeType, store, isOutOfStock, null, startPrice, endPrice, orderType, pageable));
+        Page<Product> page=productService.search(keyword, null, storeType, store, isOutOfStock, null, startPrice, endPrice, orderType, pageable);
+        model.addAttribute("page",page);
+        model.addAttribute("key_word",keyword);
+        model.addAttribute("result_number",page.getContent().size());
         return "shop/product/search";
     }
 
@@ -470,9 +669,10 @@ public class ProductController extends BaseController {
      * 团购列表
      */
     @GetMapping("/pro_purch/list")
-    public String proPurchlist(Product.Type type, Store.Type storeType, Long storeProductCategoryId, Long brandId, Long promotionId, Long productTagId, BigDecimal startPrice, BigDecimal endPrice, Boolean isOutOfStock, Product.OrderType orderType, Integer pageNumber, Integer pageSize, ModelMap model) {
+    public String proPurchlist(@CurrentUser Business currentUser,Product.Type type, Store.Type storeType, Long storeProductCategoryId, Long brandId, Long promotionId, Long productTagId, BigDecimal startPrice, BigDecimal endPrice, Boolean isOutOfStock, Product.OrderType orderType, Integer pageNumber, Integer pageSize, ModelMap model) {
         StoreProductCategory storeProductCategory = storeProductCategoryService.find(storeProductCategoryId);
         Brand brand = brandService.find(brandId);
+        model.addAttribute("currentStoreUser",currentUser);
         Promotion promotion = promotionService.find(promotionId);
         ProductTag productTag = productTagService.find(productTagId);
         if (startPrice != null && endPrice != null && startPrice.compareTo(endPrice) > 0) {
@@ -481,6 +681,9 @@ public class ProductController extends BaseController {
             endPrice = tempPrice;
         }
         Pageable pageable = new Pageable(pageNumber, pageSize);
+        if(ConvertUtils.isEmpty(orderType)){
+            orderType = Product.OrderType.DATE_DESC;
+        }
         model.addAttribute("orderTypes", Product.OrderType.values());
         model.addAttribute("type", type);
         model.addAttribute("storeType", storeType);
@@ -504,9 +707,10 @@ public class ProductController extends BaseController {
      */
     @GetMapping(path = "/pro_purch/list", produces = MediaType.APPLICATION_JSON_VALUE)
     @JsonView(BaseEntity.BaseView.class)
-    public ResponseEntity<?> proPurchlist(Long productCategoryId, Product.Type type, Long storeProductCategoryId, Long brandId, Long promotionId, Long productTagId, BigDecimal startPrice, BigDecimal endPrice, Product.OrderType orderType, Integer pageNumber, Integer pageSize, HttpServletRequest request) {
+    public ResponseEntity<?> proPurchlist(@CurrentUser Business currentUser,ModelMap model,Long productCategoryId, Product.Type type, Long storeProductCategoryId, Long brandId, Long promotionId, Long productTagId, BigDecimal startPrice, BigDecimal endPrice, Product.OrderType orderType, Integer pageNumber, Integer pageSize, HttpServletRequest request) {
         ProductCategory productCategory = productCategoryService.find(productCategoryId);
         StoreProductCategory storeProductCategory = storeProductCategoryService.find(storeProductCategoryId);
+        model.addAttribute("currentStoreUser",currentUser);
         Brand brand = brandService.find(brandId);
         Promotion promotion = promotionService.find(promotionId);
         ProductTag productTag = productTagService.find(productTagId);
@@ -530,6 +734,9 @@ public class ProductController extends BaseController {
             endPrice = tempPrice;
         }
         Pageable pageable = new Pageable(pageNumber, pageSize);
+        if(ConvertUtils.isEmpty(orderType)){
+            orderType = Product.OrderType.DATE_DESC;
+        }
         pageable.getFilters().add(new Filter("isAudit", Filter.Operator.EQ, Product.ProApplyStatus.APPROVED));
         return ResponseEntity.ok(productService.findPage(type, 2,false,null, null,null, productCategory, storeProductCategory, brand, promotion, productTag, null, attributeValueMap, startPrice, endPrice, true, true, null, true, null, null, null, orderType, pageable).getContent());
     }
@@ -539,7 +746,7 @@ public class ProductController extends BaseController {
      * 团购列表
      */
     @GetMapping("/group_purch/list")
-    public String groupPurchlist(Product.Type type, Store.Type storeType, Long storeProductCategoryId, Long brandId, Long promotionId, Long productTagId, BigDecimal startPrice, BigDecimal endPrice, Boolean isOutOfStock, Product.OrderType orderType, Integer pageNumber, Integer pageSize, ModelMap model) {
+    public String groupPurchlist(@CurrentUser Business currentUser,Product.Type type, Store.Type storeType, Long storeProductCategoryId, Long brandId, Long promotionId, Long productTagId, BigDecimal startPrice, BigDecimal endPrice, Boolean isOutOfStock, Product.OrderType orderType, Integer pageNumber, Integer pageSize, ModelMap model) {
         StoreProductCategory storeProductCategory = storeProductCategoryService.find(storeProductCategoryId);
         Brand brand = brandService.find(brandId);
         Promotion promotion = promotionService.find(promotionId);
@@ -550,6 +757,10 @@ public class ProductController extends BaseController {
             startPrice = endPrice;
             endPrice = tempPrice;
         }
+        if(ConvertUtils.isEmpty(orderType)){
+            orderType = Product.OrderType.DATE_DESC;
+        }
+        model.addAttribute("currentStoreUser",currentUser);
         Pageable pageable = new Pageable(pageNumber, pageSize);
         model.addAttribute("orderTypes", Product.OrderType.values());
         model.addAttribute("type", type);
@@ -574,8 +785,9 @@ public class ProductController extends BaseController {
      */
     @GetMapping(path = "/group_purch/list", produces = MediaType.APPLICATION_JSON_VALUE)
     @JsonView(BaseEntity.BaseView.class)
-    public ResponseEntity<?> groupPurchlist(Long productCategoryId, Product.Type type, Long storeProductCategoryId, Long brandId, Long promotionId, Long productTagId, BigDecimal startPrice, BigDecimal endPrice, Product.OrderType orderType, Integer pageNumber, Integer pageSize, HttpServletRequest request) {
+    public ResponseEntity<?> groupPurchlist(@CurrentUser Business currentUser,ModelMap model,Long productCategoryId, Product.Type type, Long storeProductCategoryId, Long brandId, Long promotionId, Long productTagId, BigDecimal startPrice, BigDecimal endPrice, Product.OrderType orderType, Integer pageNumber, Integer pageSize, HttpServletRequest request) {
         ProductCategory productCategory = productCategoryService.find(productCategoryId);
+        model.addAttribute("currentStoreUser",currentUser);
         StoreProductCategory storeProductCategory = storeProductCategoryService.find(storeProductCategoryId);
         Brand brand = brandService.find(brandId);
         Promotion promotion = promotionService.find(promotionId);
@@ -597,6 +809,9 @@ public class ProductController extends BaseController {
             BigDecimal tempPrice = startPrice;
             startPrice = endPrice;
             endPrice = tempPrice;
+        }
+        if(ConvertUtils.isEmpty(orderType)){
+            orderType = Product.OrderType.DATE_DESC;
         }
         Pageable pageable = new Pageable(pageNumber, pageSize);
         pageable.getFilters().add(new Filter("isGroup", Filter.Operator.EQ, true));

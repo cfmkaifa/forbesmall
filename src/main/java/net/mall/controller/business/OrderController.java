@@ -7,12 +7,15 @@
 package net.mall.controller.business;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
+import net.mall.util.SensorsAnalyticsUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -81,6 +84,8 @@ public class OrderController extends BaseController {
     private OrderShippingService orderShippingService;
     @Inject
     private MemberService memberService;
+    @Inject
+    private SensorsAnalyticsUtils sensorsAnalyticsUtils;
 
     /**
      * 添加属性
@@ -206,6 +211,8 @@ public class OrderController extends BaseController {
         }
         orderService.modify(order);
 
+        /**释放订单锁***/
+        orderService.releaseLock(order);
         return Results.OK;
     }
 
@@ -242,6 +249,9 @@ public class OrderController extends BaseController {
         }
         orderService.review(order, passed);
 
+        /**释放订单锁***/
+        orderService.releaseLock(order);
+
         return Results.OK;
     }
 
@@ -270,6 +280,33 @@ public class OrderController extends BaseController {
             return Results.UNPROCESSABLE_ENTITY;
         }
         orderService.confirmPayment(order);
+        /****上报神策数据****/
+        Map<String,Object> properties = new HashMap<String,Object>();
+        properties.put("order_id",order.getSn());
+        properties.put("order_amount",order.getAmount().setScale(2, RoundingMode.UP));
+        properties.put("payment_method",order.getPaymentMethodName());
+        properties.put("pay_type",order.getPaymentMethodName());
+        Long memberId = order.getMember().getId();
+        properties.put("store_id",String.valueOf(order.getStore().getBusiness().getId()));
+        properties.put("receiver_id",String.valueOf(memberId));
+        Area area = order.getArea();
+        if(ConvertUtils.isNotEmpty(area)){
+            if(ConvertUtils.isNotEmpty(area.getParent())){
+                properties.put("receiver_province",area.getParent().getName());
+            } else {
+                properties.put("receiver_province",area.getName());
+            }
+            properties.put("receiver_city",order.getArea().getName());
+        }
+        /****设置省市区**/
+        else {
+            properties.put("receiver_province",order.getAreaName());
+            properties.put("receiver_city",order.getAreaName());
+        }
+        properties.put("delivery_method",order.getShippingMethodName());
+        sensorsAnalyticsUtils.reportData(String.valueOf(memberId),"PayOrder",properties);
+        /**释放订单锁***/
+        orderService.releaseLock(order);
         return Results.OK;
     }
 
@@ -301,6 +338,28 @@ public class OrderController extends BaseController {
         return Results.OK;
     }
 
+    /***
+     * 上传发票
+     * @param orderId
+     * @param invoicePath
+     * @return
+     */
+    @PostMapping("/invoicePath")
+    public ResponseEntity<?> invoicePath(Long orderId, String invoicePath) {
+        if (null == orderId
+                || null == invoicePath
+                || invoicePath.trim().length() == 0) {
+            return Results.UNPROCESSABLE_ENTITY;
+        }
+        Order order = orderService.find(orderId);
+        if (order.getStatus().equals(Status.RECEIVED)) {
+            order.setInvoicePath(invoicePath);
+            orderService.update(order);
+        } else {
+            return Results.UNPROCESSABLE_ENTITY;
+        }
+        return Results.OK;
+    }
 
     /**
      * 收款
@@ -320,6 +379,8 @@ public class OrderController extends BaseController {
         }
         orderPaymentForm.setFee(BigDecimal.ZERO);
         orderService.payment(order, orderPaymentForm);
+        /**释放订单锁***/
+        orderService.releaseLock(order);
 
         return Results.OK;
     }
@@ -335,7 +396,9 @@ public class OrderController extends BaseController {
         if (order.getRefundableAmount().compareTo(BigDecimal.ZERO) <= 0 && !order.getIsAllowRefund()) {
             return Results.UNPROCESSABLE_ENTITY;
         }
-        if (orderRefundsForm.getAmount().compareTo(order.getAmountPaid()) > 0 || order.getAmountPaid().compareTo(BigDecimal.ZERO) <= 0) {
+        if (orderRefundsForm.getAmount().compareTo(order.getAmountPaid()) > 0
+                || orderRefundsForm.getAmount().compareTo(order.aftersalesItemAmount()) >0
+                || order.getAmountPaid().compareTo(BigDecimal.ZERO) <= 0) {
             return Results.UNPROCESSABLE_ENTITY;
         }
 
@@ -352,6 +415,8 @@ public class OrderController extends BaseController {
         }
         orderService.refunds(order, orderRefundsForm);
 
+        /**释放订单锁***/
+        orderService.releaseLock(order);
         return Results.OK;
     }
 
@@ -359,15 +424,26 @@ public class OrderController extends BaseController {
      * 发货
      */
     @PostMapping("/shipping")
-    public ResponseEntity<?> shipping(OrderShipping orderShippingForm, @ModelAttribute(binding = false) Order order, Long shippingMethodId, Long deliveryCorpId, Long areaId, @CurrentUser Business currentUser) {
+    public ResponseEntity<?> shipping(HttpServletRequest request,OrderShipping orderShippingForm, @ModelAttribute(binding = false) Order order, Long shippingMethodId, Long deliveryCorpId, Long areaId, @CurrentUser Business currentUser) {
+        if(ConvertUtils.isNotEmpty(orderShippingForm.getFreight())){
+            orderShippingForm.setFreight(BigDecimal.ZERO);
+        }
+        String plate=request.getParameter("plate");
+        order.setPlate(plate);
+        String driver=request.getParameter("driver");
+        order.setDriver(driver);
+        String driverPhone=request.getParameter("driverPhone");
+        order.setDriverPhone(driverPhone);
         if (order == null
-                || ConvertUtils.isEmpty(orderShippingForm.getWeightMemo())
                 || order.getShippableQuantity() <= 0) {
             return Results.UNPROCESSABLE_ENTITY;
         }
         boolean isDelivery = false;
         for (Iterator<OrderShippingItem> iterator = orderShippingForm.getOrderShippingItems().iterator(); iterator.hasNext(); ) {
             OrderShippingItem orderShippingItem = iterator.next();
+            if(ConvertUtils.isEmpty(orderShippingItem.getTotalWeight())){
+                return Results.UNPROCESSABLE_TOTAL_WEIGHT_ENTITY;
+            }
             if (orderShippingItem == null || StringUtils.isEmpty(orderShippingItem.getSn()) || orderShippingItem.getQuantity() == null || orderShippingItem.getQuantity() <= 0) {
                 iterator.remove();
                 continue;
@@ -417,7 +493,8 @@ public class OrderController extends BaseController {
             return Results.UNPROCESSABLE_ENTITY;
         }
         orderService.shipping(order, orderShippingForm);
-
+        /***释放锁**/
+        orderService.releaseLock(order);
         return Results.OK;
     }
 
@@ -455,6 +532,8 @@ public class OrderController extends BaseController {
         }
         orderService.returns(order, orderReturnsForm);
 
+        /**释放订单锁***/
+        orderService.releaseLock(order);
         return Results.OK;
     }
 
@@ -470,7 +549,8 @@ public class OrderController extends BaseController {
             return Results.UNPROCESSABLE_ENTITY;
         }
         orderService.complete(order);
-
+        /**释放订单锁***/
+        orderService.releaseLock(order);
         return Results.OK;
     }
 
@@ -486,6 +566,8 @@ public class OrderController extends BaseController {
             return Results.UNPROCESSABLE_ENTITY;
         }
         orderService.fail(order);
+        /**释放订单锁***/
+        orderService.releaseLock(order);
 
         return Results.OK;
     }
@@ -531,6 +613,8 @@ public class OrderController extends BaseController {
                 if (!order.canDelete()) {
                     return Results.unprocessableEntity("business.order.deleteStatusNotAllowed", order.getSn());
                 }
+                /**释放订单锁***/
+                orderService.releaseLock(order);
             }
             orderService.delete(ids);
         }

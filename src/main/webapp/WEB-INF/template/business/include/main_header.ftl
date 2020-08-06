@@ -8,6 +8,7 @@
 		<span class="icon-bar"></span>
 	</button>
 	<ul class="nav pull-right">
+		<li><a href="${base}/member/logout" target="_blank">${message("business.mainHeade.return")}</a></li>
 		<li>
 			<a href="${base}/business/store/setting">${currentUser.username}</a>
 		</li>

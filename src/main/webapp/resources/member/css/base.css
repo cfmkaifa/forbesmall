@@ -29,6 +29,11 @@
 	border: none;
 }
 
+.mediaa .btn {
+	margin-left: 0px !important;
+}
+
+
 .member main .panel > .panel-heading {
 	border-image: -webkit-linear-gradient(left, #f0f0f0, #f8f8f8) 1;
 	border-image: -moz-linear-gradient(left, #f0f0f0, #f8f8f8) 1;
@@ -103,7 +108,7 @@
 
 /* ---------- button ---------- */
 .media .media-right .btn {
-	margin-left: 10px;
+	margin-left: 62px;
 }
 
 /* ---------- payment-plugin ---------- */
@@ -204,7 +209,7 @@
 }
 
 .panel .panel-body > .media-list > .media > .media-right {
-	min-width: 300px;
+	min-width: 270px;
 }
 
 .panel .panel-body > .media-list > .media > .media-right strong {

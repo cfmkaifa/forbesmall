@@ -196,4 +196,22 @@
 </main>
 [#include "/shop/include/main_footer.ftl" /]
 </body>
+
+<script type="text/javascript">
+    //点击购买行业资讯埋点事件
+    $(function () {
+        try {
+            sensors.track('newsBuy',{
+                news_buy_type:"${news_buy_type}",
+                news_buy_price:${news_buy_price},
+                news_buy_user:"${news_buy_user}",
+                is_vip:${is_vip},
+                vip_type:"${vip_type}"
+            })
+        }catch (e) {
+            console.log(e)
+        }
+    })
+</script>
+
 </html>	

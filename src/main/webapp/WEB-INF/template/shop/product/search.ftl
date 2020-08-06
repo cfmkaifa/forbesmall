@@ -221,6 +221,7 @@
 [#include "/shop/include/main_header.ftl" /]
 [#include "/shop/include/main_sidebar.ftl" /]
 <main>
+    [#include "/common/block_chain.ftl" /]
     <div class="container">
         <form id="compareForm" action="${base}/product/compare" method="get">
             <div id="compareBar" class="compare-bar">
@@ -346,6 +347,7 @@
 																<b>
 																	<a href="${base}${product.path}" target="_blank">
                                                                         <h5 class="text-overflow"  title="${product.name}">${product.name}</h5>
+                                                                          <span class="iconfont" onmouseover="blockChain(this)" dataId="${product.id}" dataUrl="/business/product/chain"  style="color: #ff0000">&#xe746;</span>
                                                                         [#if product.caption?has_content]
                                                                             <h6 class="text-overflow" title="${product.caption}">${product.caption}</h6>
                                                                         [/#if]
@@ -385,8 +387,10 @@
                                                             <p class="text-center">
                                                                 [#if product.purch ]
                                                                     ${product.member.name}
+                                                                    <span class="iconfont" onmouseover="blockChain(this)" dataId="${product.member.id}" dataUrl="/business/index/chain"  style="color: #ff0000">&#xe746;</span>
                                                                 [#else ]
                                                                     <a href="${base}${product.store.path}" title="${product.store.name}" target="_blank">${product.store.name}</a>
+                                                                    <span class="iconfont" onmouseover="blockChain(this)" dataId="${product.store.business.id}" dataUrl="/business/index/chain"  style="color: #ff0000">&#xe746;</span>
                                                                 [/#if]
                                                                 [#if product.store?has_content ]
                                                                     [#if product.store.type == "SELF"]
@@ -433,18 +437,16 @@
                                             <div class="detailsbutton-2">
                                                 <p class="data-2">${product.createdDate}</p>
                                                 [#if product.purch ]
-                                                    <a href="${base}/product/purch-detail/${product.id}" target="_blank">
-                                                        <button type="button" class="button-3">${message("shop.product.detail")}</button>
+                                                    <a href="${base}/product/purch-detail/${product.id}" target="_blank" onclick="productDeatail(${product_index},${product.id},'${product.name}','${product.store.name}',${product.store.id})" />
+                                                    <button type="button" class="button-3">${message("shop.product.detail")}</button>
                                                     </a>
                                                 [#else ]
-                                                    <a href="${base}${product.path}" target="_blank">
-                                                        <button type="button"
-                                                                class="button-3">${message("shop.product.detail")}</button>
+                                                    <a href="${base}${product.path}" target="_blank" onclick="productDeatail(${product_index},${product.id},'${product.name}','${product.store.name}',${product.store.id})" />
+                                                    <button type="button" class="button-3" >${message("shop.product.detail")}</button>
                                                     </a>
                                                     [#if product.sample]
                                                         <a href="${base}/product/sample-detail/${product.id}"  target="_blank">
-                                                            <button type="button"
-                                                                    class="button-4">${message("shop.product.sample")}</button>
+                                                            <button type="button" class="button-4">${message("shop.product.sample")}</button>
                                                         </a>
                                                     [/#if]
                                                 [/#if]
@@ -473,4 +475,37 @@
 </main>
 [#include "/shop/include/main_footer.ftl" /]
 </body>
+<script type="text/javascript">
+    //搜索返回结果埋点事件
+    $(function () {
+        try {
+            sensors.track('SearchRequest',{
+                key_word:"${key_word}",
+                key_word_classify:"${searchType}",
+                result_number:${result_number}
+            })
+        }catch (e) {
+            console.log(e);
+        }
+    })
+
+
+    //点击搜索结果埋点事件
+    function productDeatail(no,productId,productName,storeName,storeId){
+        var str=no+1;
+        try {
+            sensors.track('SearchResultClick',{
+                key_word:"${key_word}",
+                key_word_classify:"${searchType}",
+                position_number:str,
+                commodity_id:productId,
+                commodity_name:productName,
+                store_name:storeName,
+                store_id:storeId
+            })
+        }catch (e) {
+            console.log(e);
+        }
+    }
+</script>
 </html>

@@ -57,6 +57,10 @@ public final class Results {
      */
     public static final String DEFAULT_UNPROCESSABLE_ENTITY_MESSAGE = "common.message.unprocessableEntity";
 
+
+    public static final String DEFAULT_ORDER_LOCK_MESSAGE = "common.message.order.lock";
+
+
     /**
      * 200状态ResponseEntity
      */
@@ -86,6 +90,9 @@ public final class Results {
      * 422状态ResponseEntity
      */
     public static final ResponseEntity<Map<String, String>> UNPROCESSABLE_ENTITY = Results.unprocessableEntity(DEFAULT_UNPROCESSABLE_ENTITY_MESSAGE);
+
+    public static final  ResponseEntity<Map<String, String>> UNPROCESSABLE_TOTAL_WEIGHT_ENTITY = Results.unprocessableEntity("common.message.order.totalWeight");
+
 
     /**
      * JSON内容类型

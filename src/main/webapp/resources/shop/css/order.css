@@ -14,6 +14,11 @@
 	margin-bottom: 0px;
 }
 
+.looklook {
+	margin-top: 13px;
+	border-radius: 6px;
+}
+
 .order-checkout main {
 	padding: 10px 0px;
 	background-color: #f8f8f8;
@@ -367,7 +372,7 @@
 }
 
 .payment .order-payment-detail .summary {
-	display: none;
+	/*display: none;*/
 	padding-top: 20px;
 	margin: 15px 0px 0px 140px;
 	color: #888888;

@@ -6,13 +6,23 @@
  */
 package net.mall.controller.member;
 
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.sensorsdata.analytics.javasdk.exceptions.InvalidArgumentException;
 import net.mall.entity.*;
+import net.mall.security.CurrentUser;
+import net.mall.util.ConvertUtils;
+import net.mall.util.SensorsAnalyticsUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.http.ResponseEntity;
@@ -59,6 +69,8 @@ public class RegisterController extends BaseController {
     private MemberAttributeService memberAttributeService;
     @Inject
     private SocialUserService socialUserService;
+    @Inject
+    private SensorsAnalyticsUtils sensorsAnalyticsUtils;
 
     /**
      * 检查用户名是否存在
@@ -105,11 +117,75 @@ public class RegisterController extends BaseController {
         return "member/register/index";
     }
 
+    /***
+     * 增加账号
+     * @param username
+     * @param password
+     * @param member
+     * @param request
+     * @return
+     * @throws UnsupportedEncodingException
+     * @throws InvalidArgumentException
+     */
+   /* @PostMapping("/add_account")
+    public ResponseEntity<?> submit(String username, String password, @CurrentUser Member member, HttpServletRequest request)
+            throws UnsupportedEncodingException, InvalidArgumentException {
+        Setting setting = SystemUtils.getSetting();
+        if (!ArrayUtils.contains(setting.getAllowedRegisterTypes(), Setting.RegisterType.MEMBER)) {
+            return Results.unprocessableEntity("member.register.disabled");
+        }
+        if (!isValid(Member.class, "username", username, BaseEntity.Save.class) || !isValid(Member.class, "password", password, BaseEntity.Save.class)) {
+            return Results.UNPROCESSABLE_ENTITY;
+        }
+        if (memberService.usernameExists(username)) {
+            return Results.unprocessableEntity("member.register.usernameExist");
+        }
+        if (memberService.mobileExists(username)) {
+            return Results.unprocessableEntity("member.register.mobileExist");
+        }
+        Member tmember = new Member();
+        tmember.removeAttributeValue();
+        for (MemberAttribute memberAttribute : memberAttributeService.findList(true, true)) {
+            Object  memberAttributeValue =  member.getAttributeValue(memberAttribute);
+            if(ConvertUtils.isNotEmpty(memberAttributeValue)){
+                tmember.setAttributeValue(memberAttribute, memberAttributeValue);
+            }
+        }
+        tmember.setUsername(username);
+        tmember.setPassword(password);
+        tmember.setPoint(member.getPoint());
+        tmember.setBalance(BigDecimal.ZERO);
+        tmember.setFrozenAmount(BigDecimal.ZERO);
+        tmember.setAmount(BigDecimal.ZERO);
+        tmember.setIsEnabled(true);
+        tmember.setIsLocked(false);
+        tmember.setLockDate(null);
+        tmember.setLastLoginIp(request.getRemoteAddr());
+        tmember.setLastLoginDate(new Date());
+        tmember.setSafeKey(null);
+        tmember.setMemberRank(member.getMemberRank());
+        tmember.setDistributor(null);
+        tmember.setCart(null);
+        tmember.setOrders(null);
+        tmember.setPaymentTransactions(null);
+        tmember.setMemberDepositLogs(null);
+        tmember.setCouponCodes(null);
+        tmember.setReceivers(null);
+        tmember.setReviews(null);
+        tmember.setConsultations(null);
+        tmember.setProductFavorites(null);
+        tmember.setProductNotifies(null);
+        tmember.setSocialUsers(null);
+        tmember.setPointLogs(null);
+        tmember.setIsAudit(User.CheckStatus.SUCCESS);
+        userService.register(tmember);
+        return Results.OK;
+    }*/
     /**
      * 注册提交
      */
     @PostMapping("/submit")
-    public ResponseEntity<?> submit(String username, String password, String email, String mobile, String spreadMemberUsername, HttpServletRequest request) {
+    public ResponseEntity<?> submit(String username, String password, String email, String mobile, String spreadMemberUsername, HttpServletRequest request) throws UnsupportedEncodingException, InvalidArgumentException {
         Setting setting = SystemUtils.getSetting();
         if (!ArrayUtils.contains(setting.getAllowedRegisterTypes(), Setting.RegisterType.MEMBER)) {
             return Results.unprocessableEntity("member.register.disabled");
@@ -172,6 +248,34 @@ public class RegisterController extends BaseController {
         Member spreadMember = memberService.findByUsername(spreadMemberUsername);
         if (spreadMember != null) {
             distributorService.create(member, spreadMember);
+        }
+        /***会员注册
+         * **/
+        Map<String,Object> properties = new HashMap<String,Object>();
+        properties.put("account",member.getUsername());
+        properties.put("email",member.getEmail());
+        properties.put("phone",member.getPhone());
+        properties.put("company",member.getName());
+        properties.put("is_success",true);
+        properties.put("fail_reason","");
+        sensorsAnalyticsUtils.reportData(String.valueOf(member.getId()),"RegisterResult",properties);
+
+        /***
+         * 上报数据调用登录接口
+         */
+        Map<String,Cookie> cookieMap = new HashMap<String, Cookie>();
+        Cookie[] cookies =request.getCookies();
+        if (null != cookies){
+            for(Cookie cookie:cookies){
+                cookieMap.put(cookie.getName(),cookie);
+            }
+        }
+        String temp="sensorsdata2015jssdkcross";
+        String tempObj=null;
+        if(cookieMap.containsKey(temp)){
+            tempObj=java.net.URLDecoder.decode(cookieMap.get(temp).getValue(), "UTF-8");
+            JSONObject jsonObject=JSON.parseObject(tempObj);
+            sensorsAnalyticsUtils.reportSignUp(member.getId().toString(),jsonObject.getString("distinct_id"));
         }
         return Results.OK;
     }

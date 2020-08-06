@@ -22,15 +22,38 @@
         sdk_url: 'https://cdn.jsdelivr.net/npm/sa-sdk-javascript@1.15.1/sensorsdata.min.js',
         heatmap_url: 'https://cdn.jsdelivr.net/npm/sa-sdk-javascript@1.15.1/heatmap.min.js',
         name: 'sensors',
-        server_url: 'http://fiber.datasink.sensorsdata.cn/sa?token=59f587d85e2799d7'
+        server_url: 'http://fiber.datasink.sensorsdata.cn/sa?project=production&token=59f587d85e2799d7',
+        heatmap: {
+            //是否开启点击图，默认 default 表示开启，自动采集 $WebClick 事件，可以设置 'not_collect' 表示关闭
+            //需要 Web JS SDK 版本号大于 1.7
+            clickmap:'default'
+        }
     });
-    sensors.quick('autoTrack');
+
+    // 公共属性
+    sensors.registerPage({
+        platform: "${base}",
+        user_type:"${Session.userType}",
+        is_login:"${Session.isLogin}"
+    });
+
     // 如果需要调用 login 来重新设置用户标识，必须在此之前调用
     sensors.quick('autoTrack', {
-        platform:'h5'
-    })
-    //以异步加载 SDK 为例，神策 SDK 初始化完成，此时调用设置公共属性的方法，来保证之后的事件都有这两个属性。
-    sensors.registerPage({
         platform: "${base}"
+    })
+
+    sensors.login("${Session.user_id}");
+
+    //设置用户表内容
+    sensors.setProfile({
+        email:"${Session.email}",
+        user_name:"${Session.username}",
+        last_login_date:"${Session.lastLoginDate}",
+        phone_number:"${Session.phone_number}",
+        register_time:"${Session.register_time}",
+        first_order_time:"${Session.first_order_time}",
+        last_order_time:"${Session.last_order_time}",
+        vip_level:"${Session.vip_level}",
+        user_type:"${Session.userType}"
     });
 </script>

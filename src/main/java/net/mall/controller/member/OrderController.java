@@ -6,30 +6,35 @@
  */
 package net.mall.controller.member;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
+import net.mall.Filter;
+import net.mall.entity.*;
+import net.mall.model.ResultModel;
+import net.mall.service.ProductService;
+import net.mall.util.BusTypeEnum;
+import net.mall.util.ConvertUtils;
+import net.mall.util.RestTemplateUtil;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
 import net.mall.Pageable;
 import net.mall.Results;
 import net.mall.Setting;
-import net.mall.entity.BaseEntity;
-import net.mall.entity.Member;
-import net.mall.entity.Order;
-import net.mall.entity.OrderShipping;
 import net.mall.exception.UnauthorizedException;
 import net.mall.security.CurrentUser;
 import net.mall.service.OrderService;
@@ -55,6 +60,73 @@ public class OrderController extends BaseController {
     private OrderService orderService;
     @Inject
     private OrderShippingService orderShippingService;
+    @Inject
+    private ProductService productService;
+
+    private final String ONE_ID_F = "b%s";
+
+
+    /***查询链详情
+     * @param dataId
+     * @param request
+     * @return
+     */
+    @PostMapping("/chain")
+    @ResponseBody
+    public ResponseEntity<?> chain(Long dataId, HttpServletRequest request) {
+        try {
+            ResultModel responseEntity = RestTemplateUtil.reqTemplate(String.format(ONE_ID_F,dataId), BusTypeEnum.ORDER.getCode());
+            if("000000".equals(responseEntity.getResultCode())){
+                return Results.status(HttpStatus.OK,responseEntity.getData());
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return Results.OK;
+    }
+
+
+
+    /***发货单查询链详情
+     * @param dataId
+     * @param request
+     * @return
+     */
+    @PostMapping("/delivery-chain")
+    @ResponseBody
+    public ResponseEntity<?> deliveryChain(Long dataId, HttpServletRequest request) {
+        try {
+            ResultModel responseEntity = RestTemplateUtil.reqTemplate(String.format(ONE_ID_F,dataId), BusTypeEnum.DELIVERY.getCode());
+            if("000000".equals(responseEntity.getResultCode())){
+                return Results.status(HttpStatus.OK,responseEntity.getData());
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return Results.OK;
+    }
+
+
+    /***发货单查询链详情
+     * @param dataId
+     * @param request
+     * @return
+     */
+    @PostMapping("/payorder-chain")
+    @ResponseBody
+    public ResponseEntity<?> payorderChain(Long dataId, HttpServletRequest request) {
+        try {
+            ResultModel responseEntity = RestTemplateUtil.reqTemplate(String.format(ONE_ID_F,dataId), BusTypeEnum.PAYORDER.getCode());
+            if("000000".equals(responseEntity.getResultCode())){
+                return Results.status(HttpStatus.OK,responseEntity.getData());
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return Results.OK;
+    }
+
+
 
     /**
      * 添加属性
@@ -142,6 +214,88 @@ public class OrderController extends BaseController {
         Setting setting = SystemUtils.getSetting();
         model.addAttribute("isKuaidi100Enabled", StringUtils.isNotEmpty(setting.getKuaidi100Customer()) && StringUtils.isNotEmpty(setting.getKuaidi100Key()));
         model.addAttribute("order", order);
+        List<Filter> filters = new ArrayList<Filter>();
+        filters.add(new Filter("parentId",Filter.Operator.EQ,order.getId()));
+        filters.add(new Filter("status",Filter.Operator.EQ,Order.Status.PENDING_PAYMENT));
+        List<Order> orderts = orderService.findList(0,1,filters,null);
+        BigDecimal tempAmount=null;
+        tempAmount=order.getAmount();
+        if(ConvertUtils.isNotEmpty(orderts)){
+            model.addAttribute("subOrder", orderts.get(0));
+        }
+
+        List<Filter> parfilter = new ArrayList<Filter>();
+        parfilter.add(new Filter("parentId",Filter.Operator.EQ,order.getId()));
+        List<Order> tempOrder = orderService.findList(0,1,parfilter,null);
+        if(ConvertUtils.isNotEmpty(tempOrder)){
+            tempAmount=tempAmount.add(tempOrder.get(0).getAmount());
+        }
+        if(ConvertUtils.isNotEmpty(order.getParentId())){
+            Long parOrderId=order.getParentId();
+            List<Filter> parentFilters = new ArrayList<Filter>();
+            parentFilters.add(new Filter("id",Filter.Operator.EQ,parOrderId));
+            List<Order> parOrder = orderService.findList(0,1,parentFilters,null);
+            model.addAttribute("parOrder",parOrder.get(0));
+            tempAmount=tempAmount.add(parOrder.get(0).getAmount());
+        }
+        model.addAttribute("tempAmount",tempAmount);
+        List<OrderItem> orderItems=order.getOrderItems();
+        for(OrderItem itemTemp:orderItems){
+            model.addAttribute("product",itemTemp);
+            model.addAttribute("temp_is_group",ConvertUtils.isNotEmpty(itemTemp.getProduct().getGroup())?itemTemp.getProduct().getGroup():false);
+            model.addAttribute("temp_is_purch",ConvertUtils.isNotEmpty(itemTemp.getProduct().getPurch())?itemTemp.getProduct().getPurch():false);
+            model.addAttribute("temp_is_sample",ConvertUtils.isNotEmpty(itemTemp.getProduct().getSample())?itemTemp.getProduct().getSample():false);
+            model.addAttribute("quantity",itemTemp.getQuantity());
+            model.addAttribute("commodity_name",itemTemp.getProduct().getName());
+            model.addAttribute("present_price",itemTemp.getProduct().getPrice());
+            model.addAttribute("commodity_id",itemTemp.getProduct().getId());
+            if(ConvertUtils.isEmpty(itemTemp.getSku().getProduct().getProductCategory().getParent())){
+                model.addAttribute("first_commodity","无");
+            }else {
+                model.addAttribute("first_commodity",itemTemp.getSku().getProduct().getProductCategory().getParent().getName());
+            }
+            model.addAttribute("second_commodity",itemTemp.getProduct().getProductCategory().getName());
+            model.addAttribute("store_id",itemTemp.getOrder().getStore().getId());
+            model.addAttribute("store_name",itemTemp.getOrder().getStore().getName());
+            Product product=itemTemp.getProduct();
+            List<SpecificationItem> specificationItems=product.getSpecificationItems();
+            for(SpecificationItem temp:specificationItems){
+                if(temp.getName().contains("颜色")){
+                    List<SpecificationItem.Entry> entries=temp.getEntries();
+                    for (SpecificationItem.Entry tempEntry:entries){
+                        if(tempEntry.getIsSelected()){
+                            model.addAttribute("temp_commodity_color",tempEntry.getValue());
+                        }
+                    }
+                }
+                if(temp.getName().contains("cm")){
+                    List<SpecificationItem.Entry> entries=temp.getEntries();
+                    for (SpecificationItem.Entry tempEntry:entries){
+                        if(tempEntry.getIsSelected()){
+                            model.addAttribute("temp_commodity_cm",tempEntry.getValue());
+                        }
+                    }
+                }
+                if(temp.getName().contains("gsm")){
+                    List<SpecificationItem.Entry> entries=temp.getEntries();
+                    for (SpecificationItem.Entry tempEntry:entries){
+                        if(tempEntry.getIsSelected()){
+                            model.addAttribute("temp_commodity_gsm",tempEntry.getValue());
+                        }
+                    }
+                }
+                if(temp.getName().contains("纤维")){
+                    List<SpecificationItem.Entry> entries=temp.getEntries();
+                    for (SpecificationItem.Entry tempEntry:entries){
+                        if(tempEntry.getIsSelected()){
+                            model.addAttribute("temp_commodity_fiber",tempEntry.getValue());
+                        }
+                    }
+                }
+            }
+            model.addAttribute("orderCancel",order);
+            break;
+        }
         return "member/order/view";
     }
 
@@ -161,6 +315,8 @@ public class OrderController extends BaseController {
             return Results.unprocessableEntity("member.order.locked");
         }
         orderService.cancel(order);
+        /**释放订单锁***/
+        orderService.releaseLock(order);
         return Results.OK;
     }
 
@@ -172,14 +328,24 @@ public class OrderController extends BaseController {
         if (order == null) {
             return Results.NOT_FOUND;
         }
-
+        long subOrderCount = orderService
+                .count(new Filter("parentId",Filter.Operator.EQ,order.getId()));
+        if(subOrderCount > 0 ){
+            long subOrderCompletedCount = orderService
+                    .count(new Filter("parentId",Filter.Operator.EQ,order.getId()),new Filter("status",Filter.Operator.EQ,Order.Status.COMPLETED));
+            if(0 == subOrderCompletedCount){
+                return  Results.unprocessableEntity("common.message.subOrderParent");
+            }
+        }
         if (order.hasExpired() || !Order.Status.SHIPPED.equals(order.getStatus())) {
             return Results.NOT_FOUND;
         }
         if (!orderService.acquireLock(order, currentUser)) {
-            return Results.unprocessableEntity("member.order.locked");
+            return Results.unprocessableEntity("member.order.locked.receive");
         }
         orderService.receive(order);
+        /**释放订单锁***/
+        orderService.releaseLock(order);
         return Results.OK;
     }
 

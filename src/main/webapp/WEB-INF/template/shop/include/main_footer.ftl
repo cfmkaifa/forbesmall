@@ -42,7 +42,7 @@
         </div>
         <div class="row">
             <div class="col-xs-2">
-                <ul class="contact">
+               [#-- <ul class="contact">
                     <li>
                         <i class="iconfont icon-phone"></i>
                         <strong>${setting.phone}</strong>
@@ -55,31 +55,28 @@
                         <i class="iconfont icon-location"></i>
                         ${setting.address}
                     </li>
-                </ul>
+                </ul>--]
             </div>
             <div class="col-xs-2">
                 <ul style="margin: 0 auto">
                     <li style="text-align: center;font-size: 14px;height: 30px;line-height: 30px;font-weight: 600;">
                         客服热线
                     </li>
-                    <li><img src="${base}/resources/shop/images/kfdh.gif" class="imggif1"
-                             style="width: 75px;  height: 75px;  margin: 13px 0px 0px 66px;"></li>
+                    <li><img src="${base}/resources/shop/images/kfdh.gif" class="imggif1"  style="width: 75px;  height: 75px;  margin: 4px 0px 0px 63px;">
+                    </li>
+                    <li style="text-align: center;font-size: 14px;height: 30px;line-height: 30px;font-weight: 600;">
+                        021-61833518
+                    </li>
                 </ul>
             </div>
             <div class="col-xs-2">
                 <dl class="help">
-                    <dt>平台规则</dt>
+                    <dt>采购商服务</dt>
                     <dd>
-                        <a href="${base}/article/detail/10903_1">平台服务协议</a>
+                        <a href="${base}/article/detail/10903_1">买家服务协议</a>
                     </dd>
                     <dd>
-                        <a href="${base}/article/detail/10902_1">平台交易规则</a>
-                    </dd>
-                    <dd>
-                        <a href="${base}/article/detail/10901_1">购物流程</a>
-                    </dd>
-                    <dd>
-                        <a href="${base}/article/detail/17_1">会员等级</a>
+                        <a href="${base}/article/detail/10902_1">买家交易规则</a>
                     </dd>
                 </dl>
             </div>
@@ -89,50 +86,31 @@
                     <dd>
                         <a href="${base}/article/detail/10914_1">产品采购合同</a>
                     </dd>
-                    <dd>
-                        <a href="${base}/article/detail/10915_1">货到付款</a>
-                    </dd>
-                    <dd>
-                        <a href="${base}/article/detail/10916_1">网银支付</a>
-                    </dd>
-                    <dd>
-                        <a href="${base}/article/detail/10917_1">银行转帐</a>
-                    </dd>
                 </dl>
             </div>
             <div class="col-xs-2">
                 <dl class="help">
                     <dt>支付方式</dt>
                     <dd>
-                        <a href="${base}/article/detail/10918_1">线下打款</a>
+                        <a href="${base}/article/detail/13253_1">在线支付</a>
                     </dd>
                     <dd>
-                        <a href="${base}/article/detail/10919_1">银行承兑汇票</a>
+                        <a href="${base}/article/detail/13254_1">支付常见问题</a>
                     </dd>
-                    <dd>
-                        <a href="${base}/article/detail/10920_1">退换货政策</a>
-                    </dd>
-                    <dd>
-                        <a href="${base}/article/detail/10921_1">退换货申请</a>
-                    </dd>
-                    <dd>
-                        <a href="${base}/article/detail/10922_1">退款说明</a>
-                    </dd>
-
                 </dl>
             </div>
             <div class="col-xs-2">
                 <dl class="help">
-                    <dt>供应商服务</dt>
+                    <dt>供应商入驻</dt>
                     <dd>
                         [#--<a href="${base}/article/member">会员入驻</a>--]
                         <a href="${base}/article/member">会员入驻</a>
                     </dd>
                     <dd>
-                        <a href="${base}/article/detail/10923_1">服务热线</a>
+                        <a href="${base}/article/detail/13256_1">商家服务协议</a>
                     </dd>
                     <dd>
-                        <a href="${base}/article/detail/10924_1">商家帮助</a>
+                        <a href="${base}/article/detail/13257_1">商家交易规则</a>
                     </dd>
                 </dl>
             </div>
@@ -159,7 +137,16 @@
                     <img src="https://rz.ce9000.org/cec/qxrz.png" alt="企信验证实名网站" width="128" height="47" border="0" />
                 </a>
             </div>
-            <p><a href="http://www.miit.gov.cn/" target="_blank">沪ICP备17024305号-2</a></p>
+           [#-- <div class="foots">--]
+                <p><a href="https://tsm.miit.gov.cn" target="_blank">沪B2-20200070</a></p>
+                <p><a href="http://www.beian.miit.gov.cn/" target="_blank">沪ICP备17024305号-2</a></p>
+        [#--    </div>--]
+            <div style=" padding:15px 0; color: #333333">
+                <a target="_blank" href=" " style="display:inline-block;text-decoration:none;height:20px;line-height:20px;">
+                    <img src="${base}/resources/shop/images/police.png" style="float:left;"/>
+                    <p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#333333;">沪公网安备 31011802004050号</p >
+                </a>
+            </div>
         </div>
     </div>
 </footer>

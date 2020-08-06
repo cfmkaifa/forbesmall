@@ -27,7 +27,7 @@ public class Page<T> implements Serializable {
     /**
      * 内容
      */
-    private final List<T> content = new ArrayList<>();
+    private List<T> content = new ArrayList<>();
 
     /**
      * 总记录数
@@ -78,6 +78,12 @@ public class Page<T> implements Serializable {
         return pageable.getPageSize();
     }
 
+    /***
+     * 设置内容
+     */
+    public void setContent(List<T> content) {
+        this.content = content;
+    }
     /**
      * 获取搜索属性
      *

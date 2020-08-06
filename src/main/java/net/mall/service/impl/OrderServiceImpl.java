@@ -17,10 +17,7 @@ import net.mall.entity.Order.CommissionType;
 import net.mall.entity.Order.Status;
 import net.mall.entity.Order.Type;
 import net.mall.service.*;
-import net.mall.util.ContractBuildImpl;
-import net.mall.util.ConvertUtils;
-import net.mall.util.PdfUtil;
-import net.mall.util.SystemUtils;
+import net.mall.util.*;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Element;
@@ -33,6 +30,7 @@ import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.Search;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
@@ -42,6 +40,7 @@ import javax.persistence.PersistenceContext;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -100,7 +99,8 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
     private MailService mailService;
     @Inject
     private SmsService smsService;
-
+    @Inject
+    SensorsAnalyticsUtils sensorsAnalyticsUtils;
 
     @Override
     @Transactional(readOnly = true)
@@ -260,7 +260,6 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
     public void releaseLock(Order order) {
         Assert.notNull(order, "[Assertion failed] - order is required; it must not be null");
         Assert.isTrue(!order.isNew(), "[Assertion failed] - order must not be new");
-
         Ehcache cache = cacheManager.getEhcache(Order.ORDER_LOCK_CACHE_NAME);
         cache.remove(order.getId());
     }
@@ -488,7 +487,6 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
         Assert.notNull(cart, "[Assertion failed] - cart is required; it must not be null");
         Assert.notNull(cart.getMember(), "[Assertion failed] - cart member is required; it must not be null");
         Assert.state(!cart.isEmpty(), "[Assertion failed] - cart must not be empty");
-
         if (cart.getIsDelivery()) {
             Assert.notNull(receiver, "[Assertion failed] - receiver is required; it must not be null");
             Assert.notNull(shippingMethod, "[Assertion failed] - shippingMethod is required; it must not be null");
@@ -504,7 +502,6 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
                 throw new IllegalArgumentException();
             }
         }
-
         List<Order> orders = new ArrayList<>();
         for (Map.Entry<Store, Set<CartItem>> entry : cart.getCartItemGroup().entrySet()) {
             Store store = entry.getKey();
@@ -559,7 +556,6 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
             order.setStore(store);
             order.setPromotionNames(cart.getPromotionNames(store));
             order.setCoupons(new ArrayList<>(cart.getCoupons(store)));
-
             if (couponCode != null && couponCode.getCoupon().getStore().equals(store)) {
                 if (!cart.isCouponAllowed(store) || !cart.isValid(store, couponCode)) {
                     throw new IllegalArgumentException();
@@ -571,7 +567,6 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
             } else {
                 order.setCouponDiscount(BigDecimal.ZERO);
             }
-
             order.setTax(calculateTax(order));
             order.setAmount(calculateAmount(order));
             if (balance != null && (balance.compareTo(BigDecimal.ZERO) < 0 || balance.compareTo(member.getAvailableBalance()) > 0)) {
@@ -591,7 +586,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
                 order.setStatus(Order.Status.PENDING_REVIEW);
                 order.setPaymentMethod(null);
             }
-
+            BigDecimal totalWeight = BigDecimal.ZERO;
             List<OrderItem> orderItems = order.getOrderItems();
             for (CartItem cartItem : cartItems) {
                 Sku sku = cartItem.getSku();
@@ -600,7 +595,9 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
                 orderItem.setName(sku.getName());
                 orderItem.setType(sku.getType());
                 orderItem.setPrice(cartItem.getPrice());
-                orderItem.setWeight(sku.getWeight());
+                BigDecimal skuTotalWeight = sku.getTotalUnit().multiply(new BigDecimal(cartItem.getQuantity()));
+                totalWeight = totalWeight.add(skuTotalWeight);
+                orderItem.setWeight(skuTotalWeight.setScale(0,RoundingMode.UP).intValue());
                 orderItem.setIsDelivery(sku.getIsDelivery());
                 orderItem.setThumbnail(sku.getThumbnail());
                 orderItem.setQuantity(cartItem.getQuantity());
@@ -613,14 +610,16 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
                 orderItem.setSpecifications(sku.getSpecifications());
                 orderItems.add(orderItem);
             }
-
+            /*****赠品****/
             for (Sku gift : cart.getGifts(store)) {
                 OrderItem orderItem = new OrderItem();
                 orderItem.setSn(gift.getSn());
                 orderItem.setName(gift.getName());
                 orderItem.setType(gift.getType());
                 orderItem.setPrice(BigDecimal.ZERO);
-                orderItem.setWeight(gift.getWeight());
+                BigDecimal giftTotalWeight = gift.getTotalUnit().multiply(new BigDecimal(gift.getProduct().getWeight())).multiply(new BigDecimal(1));
+                orderItem.setWeight(giftTotalWeight.setScale(0,RoundingMode.UP).intValue());
+                totalWeight = totalWeight.add(giftTotalWeight);
                 orderItem.setIsDelivery(gift.getIsDelivery());
                 orderItem.setThumbnail(gift.getThumbnail());
                 orderItem.setQuantity(1);
@@ -695,6 +694,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            order.setWeight(totalWeight.setScale(0,RoundingMode.UP).intValue());
             orderDao.persist(order);
             OrderLog orderLog = new OrderLog();
             orderLog.setType(OrderLog.Type.CREATE);
@@ -721,6 +721,28 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
             mailService.sendCreateOrderMail(order);
             smsService.sendCreateOrderSms(order);
             orders.add(order);
+            /****上报神策数据****/
+            Map<String,Object> properties = new HashMap<String,Object>();
+            properties.put("order_id",order.getSn());
+            properties.put("order_amount",order.getAmount().setScale(2,RoundingMode.UP));
+            properties.put("receiver_id",String.valueOf(member.getId()));
+            Area  area = order.getArea();
+            if(ConvertUtils.isNotEmpty(area)){
+                if(ConvertUtils.isNotEmpty(area.getParent())){
+                    properties.put("receiver_province",area.getParent().getName());
+                } else {
+                    properties.put("receiver_province",area.getName());
+                }
+                properties.put("receiver_city",order.getArea().getName());
+            }
+            /****设置省市区**/
+            else {
+                properties.put("receiver_province",order.getAreaName());
+                properties.put("receiver_city",order.getAreaName());
+            }
+            properties.put("delivery_method",order.getShippingMethodName());
+            properties.put("entrance",cart.getEntrance());
+            sensorsAnalyticsUtils.reportData(String.valueOf(member.getId()),"SubmitOrder",properties);
         }
 
         if (!cart.isNew()) {
@@ -788,12 +810,18 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
         Assert.notNull(order, "[Assertion failed] - order is required; it must not be null");
         Assert.isTrue(!order.isNew(), "[Assertion failed] - order must not be new");
         Assert.state(!order.hasExpired() && Order.Status.PENDING_REVIEW.equals(order.getStatus()), "[Assertion failed] - order must not be expired and order status must be PENDING_REVIEW");
-
         if (passed) {
+            if(ConvertUtils.isNotEmpty(order.getParentId())){
+                order.setStatus(Order.Status.COMPLETED);
+                Order parentOrder = orderDao.find(order.getParentId());
+                String statPath = this.createReconContract(parentOrder,null,"订单已完结",true);
+                orderDao.modifyStatPath(statPath,order.getId());
+                orderDao.modifyStatPath(statPath,order.getParentId());
+            } else {
             order.setStatus(Order.Status.PENDING_SHIPMENT);
+        }
         } else {
             order.setStatus(Order.Status.DENIED);
-
             if (order.getRefundableAmount().compareTo(BigDecimal.ZERO) > 0) {
                 businessService.addBalance(order.getStore().getBusiness(), order.getRefundableAmount(), BusinessDepositLog.Type.ORDER_REFUNDS, null);
             }
@@ -891,16 +919,13 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
         Assert.notNull(orderShipping, "[Assertion failed] - orderShipping is required; it must not be null");
         Assert.isTrue(orderShipping.isNew(), "[Assertion failed] - orderShipping must be new");
         Assert.notEmpty(orderShipping.getOrderShippingItems(), "[Assertion failed] - orderShippingItems must not be empty: it must contain at least 1 element");
-
         orderShipping.setSn(snDao.generate(Sn.Type.ORDER_SHIPPING));
         orderShipping.setOrder(order);
         orderShippingDao.persist(orderShipping);
-
         Setting setting = SystemUtils.getSetting();
         if (Setting.StockAllocationTime.SHIP.equals(setting.getStockAllocationTime())) {
             allocateStock(order);
         }
-
         for (OrderShippingItem orderShippingItem : orderShipping.getOrderShippingItems()) {
             OrderItem orderItem = order.getOrderItem(orderShippingItem.getSn());
             if (orderItem == null || orderShippingItem.getQuantity() > orderItem.getShippableQuantity()) {
@@ -918,21 +943,238 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
                 }
             }
         }
-
         order.setShippedQuantity(order.getShippedQuantity() + orderShipping.getQuantity());
         if (order.getShippedQuantity() >= order.getQuantity()) {
             order.setStatus(Order.Status.SHIPPED);
             order.setIsAllocatedStock(false);
         }
-
+        /***补款
+         * */
+        this.create(order,orderShipping);
         OrderLog orderLog = new OrderLog();
         orderLog.setType(OrderLog.Type.SHIPPING);
         orderLog.setOrder(order);
         orderLogDao.persist(orderLog);
-
         mailService.sendShippingOrderMail(order);
         smsService.sendShippingOrderSms(order);
     }
+
+
+    /****
+     * 设置补款单
+     * @param order
+     * @param orderShipping
+     */
+    @Transactional(rollbackFor = Exception.class,propagation = Propagation.MANDATORY)
+    private void create(Order order, OrderShipping orderShipping) {
+        boolean isAdd = false;
+        Order newOrder = new Order();
+        newOrder.setSn(snDao.generate(Sn.Type.ORDER));
+        newOrder.setType(order.getType());
+        newOrder.setPrice(order.getPrice());
+        newOrder.setFee(BigDecimal.ZERO);
+        newOrder.setFreight(order.getFreight());
+        newOrder.setPromotionDiscount(order.getPromotionDiscount());
+        newOrder.setOffsetAmount(BigDecimal.ZERO);
+        newOrder.setAmountPaid(BigDecimal.ZERO);
+        newOrder.setRefundAmount(BigDecimal.ZERO);
+        newOrder.setRewardPoint(order.getRewardPoint());
+        newOrder.setExchangePoint(order.getExchangePoint());
+        newOrder.setGroup(false);
+        newOrder.setShippedQuantity(0);
+        newOrder.setReturnedQuantity(0);
+        newOrder.setConsignee(order.getConsignee());
+        newOrder.setAreaName(order.getAreaName());
+        newOrder.setAddress(order.getAddress());
+        newOrder.setZipCode(order.getZipCode());
+        newOrder.setPhone(order.getPhone());
+        newOrder.setArea(order.getArea());
+        newOrder.setShippingMethod(order.getShippingMethod());
+        newOrder.setMemo(order.getMemo());
+        newOrder.setIsUseCouponCode(false);
+        newOrder.setIsReviewed(false);
+        newOrder.setIsExchangePoint(false);
+        newOrder.setIsAllocatedStock(false);
+        newOrder.setInvoice(order.getInvoice());
+        newOrder.setMember(order.getMember());
+        newOrder.setStore(order.getStore());
+        newOrder.setCouponDiscount(BigDecimal.ZERO);
+        newOrder.setTax(order.getTax());
+        newOrder.setStatus(Order.Status.PENDING_PAYMENT);
+        newOrder.setPaymentMethod(order.getPaymentMethod());
+        /****计算发货数量
+         * ***/
+        BigDecimal orderTotalWeight = BigDecimal.ZERO;
+        BigDecimal orderTotalAmount = BigDecimal.ZERO;
+        Integer totalQuantity = 0;
+        List<OrderItem> orderItems =  order.getOrderItems();
+        List<OrderItem> listOrderItems = newOrder.getOrderItems();
+        for (OrderShippingItem orderShippingItem : orderShipping.getOrderShippingItems()) {
+            Sku sku = orderShippingItem.getSku();
+            BigDecimal unitWeight = sku.getTotalUnit();
+            BigDecimal skuTotalWeightBig = orderItems.stream().filter(orderItem -> orderItem.getSku().getSn().equals(sku.getSn())).map(orderItem -> {
+                Sku orderItemSku = orderItem.getSku();
+                return  orderItemSku.getTotalUnit().multiply(new BigDecimal(orderItem.getQuantity()));
+            }).reduce(BigDecimal::add).orElse(BigDecimal.ZERO);
+            BigDecimal shipTotalWeight = orderShippingItem.getTotalWeight();
+            if(shipTotalWeight.compareTo(skuTotalWeightBig) <= 0 ){
+                continue;
+            }
+            isAdd = true;
+            BigDecimal difShipWeight = shipTotalWeight.subtract(skuTotalWeightBig);
+            BigDecimal difShipPrice = difShipWeight.multiply(sku.getPrice());
+            orderTotalAmount = orderTotalAmount.add(difShipPrice);
+            orderTotalWeight = orderTotalWeight.add(difShipWeight);
+            Integer difShipQuantity = difShipWeight.divide(unitWeight,2,RoundingMode.UP).setScale(0,RoundingMode.UP).intValue();
+            totalQuantity = totalQuantity + difShipQuantity;
+            OrderItem orderItem = new OrderItem();
+            orderItem.setSn(sku.getSn());
+            orderItem.setName(sku.getName());
+            orderItem.setType(sku.getType());
+            orderItem.setPrice(difShipPrice);
+            orderItem.setWeight(difShipWeight.setScale(0, RoundingMode.UP).intValue());
+            orderItem.setIsDelivery(sku.getIsDelivery());
+            orderItem.setThumbnail(sku.getThumbnail());
+            orderItem.setQuantity(difShipQuantity);
+            orderItem.setShippedQuantity(difShipQuantity);
+            orderItem.setReturnedQuantity(0);
+            orderItem.setPlatformCommissionTotals(BigDecimal.ZERO);
+            orderItem.setDistributionCommissionTotals(BigDecimal.ZERO);
+            orderItem.setSku(orderShippingItem.getSku());
+            orderItem.setOrder(newOrder);
+            orderItem.setSpecifications(sku.getSpecifications());
+            listOrderItems.add(orderItem);
+        }
+        /***增加补款单**/
+        if(isAdd){
+            newOrder.setParentId(order.getId());
+            newOrder.setWeight(orderTotalWeight.setScale(0,RoundingMode.UP).intValue());
+            newOrder.setQuantity(totalQuantity);
+            if(ConvertUtils.isNotEmpty(orderShipping.getFreight())){
+                newOrder.setFreight(orderShipping.getFreight());
+                orderTotalAmount = orderTotalAmount.add(orderShipping.getFreight());
+            }
+            newOrder.setAmount(orderTotalAmount);
+            newOrder.setAmountPaid(orderTotalAmount);
+            /***生成合同***/
+            String statPath = this.createReconContract(order,newOrder,"补款单未付款",false);
+            orderDao.modifyStatPath(statPath,order.getId());
+            newOrder.setStatPath(statPath);
+            orderDao.persist(newOrder);
+            OrderLog orderLog = new OrderLog();
+            orderLog.setType(OrderLog.Type.CREATE);
+            orderLog.setOrder(newOrder);
+            orderLogDao.persist(orderLog);
+            mailService.sendCreateOrderMail(newOrder);
+            smsService.sendCreateOrderSms(newOrder);
+        } else {
+            /***生成合同***/
+            String statPath = this.createReconContract(order,null,"订单已完结",true);
+            orderDao.modifyStatPath(statPath,order.getId());
+        }
+    }
+
+
+    /***
+     * 对账单
+     * @param order
+     * @param orderStatus
+     */
+    private String createReconContract(Order  order,Order newOrder,String orderStatus,boolean complete){
+        try {
+            /***************/
+            Store store = order.getStore();
+            Member member = order.getMember();
+            List<OrderItem> orderItems = order.getOrderItems();
+            /***供应商**/
+            Business business = store.getBusiness();
+            String storeName = (null !=  business.getName() ?  business.getName() : store.getName());
+            /***采购商*/
+            String memberName = (null != member.getName() ? member.getName() : "");
+            /*******/
+            List<ReconContractModel.ReconContractProduct> reconContractProducts =  orderItems.stream().map(orderItem -> {
+                Sku orderSku = orderItem.getSku();
+                ReconContractModel.ReconContractProduct reconContractProduct = new ReconContractModel.ReconContractProduct();
+                reconContractProduct.setPrice(orderSku.getPrice());
+                reconContractProduct.setProName(orderItem.getName());
+                String specsJson = JsonUtils.toJson(orderItem.getSpecifications());
+                reconContractProduct.setSpecs(specsJson);
+                return reconContractProduct;
+            }).collect(Collectors.toList());
+            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy年MM月dd日");
+            String orderDate = sdf.format(order.getCreatedDate());
+            String orderAddress = order.getAreaName() + order.getAddress();
+            Set<OrderShipping> orderShippings = order.getOrderShippings();
+            OrderShipping orderShipping = orderShippings.stream().findFirst().orElse(null);
+            String deliveryDate = sdf.format(orderShipping.getCreatedDate());
+            /***发货数量*/
+            List<OrderShippingItem> orderShippingItems = orderShipping.getOrderShippingItems();
+            List<ReconContractModel.DeliveryPro> deliveryPros = orderShippingItems.stream().map(orderShippingItem -> {
+                Sku shippingSku = orderShippingItem.getSku();
+                ReconContractModel.DeliveryPro deliveryPro = new ReconContractModel.DeliveryPro();
+                deliveryPro.setProName(shippingSku.getName());
+                String specsJson = JsonUtils.toJson(shippingSku.getSpecifications());
+                deliveryPro.setSpcecs(specsJson);
+                deliveryPro.setPrice(shippingSku.getPrice());
+                BigDecimal totalWeight = orderShippingItem.getTotalWeight();
+                deliveryPro.setDeliveryTotalWeight(totalWeight.setScale(2,RoundingMode.UP).toString());
+                return deliveryPro;
+            }).collect(Collectors.toList());
+            BigDecimal deliveryTotalWeight = deliveryPros.stream().map(deliveryPro -> new BigDecimal(deliveryPro.getDeliveryTotalWeight()))
+                    .reduce(BigDecimal::add).orElse(BigDecimal.ZERO);
+            BigDecimal deliveryTotalAmount  = order.getAmountPaid();
+            if(ConvertUtils.isNotEmpty(newOrder)){
+                deliveryTotalAmount = deliveryTotalAmount.add(newOrder.getAmountPaid());
+            } else {
+                List<Filter> filters = new ArrayList<Filter>();
+                filters.add(new Filter("parentId",Filter.Operator.EQ,order.getId()));
+                List<Order> subOrders = orderDao.findList(0,1,filters,null);
+                if(ConvertUtils.isNotEmpty(subOrders)){
+                    deliveryTotalAmount = deliveryTotalAmount.add(subOrders.get(0).getAmountPaid());
+                }
+            }
+            ReconContractBuildImpl reconContractBuildImpl = new ReconContractBuildImpl();
+            reconContractBuildImpl
+                    .setTitle("化纤平台")
+                    .setSellerName(storeName)
+                    .setBuyerName(memberName)
+                    .setOrderSn(order.getSn())
+                    .setTotalWeight(String.valueOf(order.getWeight()))
+                    .setOrderTotalAmount(order.getAmountPaid())
+                    .setOrderAdownPayment(order.getAmountPaid())
+                    .setOrderFinalAmount(BigDecimal.ZERO)
+                    .setUnitName("kg")
+                    .setReconContractProducts(reconContractProducts)
+                    .setDeliveryPros(deliveryPros)
+                    .setOrderDate(orderDate)
+                    .setDeliveryDate(deliveryDate)
+                    .setDifAmount(BigDecimal.ZERO)
+                    .setFreight(orderShipping.getFreight())
+                    .setDeliveryTotalAmount(deliveryTotalAmount)
+                    .setPaidDeliveryAmount(deliveryTotalAmount)
+                    .setReceHuman(order.getConsignee())
+                    .setRecePhone(order.getPhone())
+                    .setReceAddress(orderAddress)
+                    .setOrderStasuts(orderStatus);
+            if(complete){
+                reconContractBuildImpl.setPaidInAmount(deliveryTotalAmount);
+                reconContractBuildImpl.setDifAmount(BigDecimal.ZERO);
+            } else {
+                reconContractBuildImpl.setPaidInAmount(order.getAmountPaid());
+                reconContractBuildImpl.setDifAmount(deliveryTotalAmount.subtract(order.getAmountPaid()));
+            }
+            String contractPath = reconContractBuildImpl.generateContract();
+            return  contractPath;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
 
     @Override
     public void returns(Order order, OrderReturns orderReturns) {
@@ -955,14 +1197,11 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
             skuService.addStock(orderItem.getSku(), orderReturnsItem.getQuantity(), StockLog.Type.STOCK_IN, null);
             orderItem.setReturnedQuantity(orderItem.getReturnedQuantity() + orderReturnsItem.getQuantity());
         }
-
         order.setReturnedQuantity(order.getReturnedQuantity() + orderReturns.getQuantity());
-
         OrderLog orderLog = new OrderLog();
         orderLog.setType(OrderLog.Type.RETURNS);
         orderLog.setOrder(order);
         orderLogDao.persist(orderLog);
-
         mailService.sendReturnsOrderMail(order);
         smsService.sendReturnsOrderSms(order);
     }
@@ -972,14 +1211,11 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
         Assert.notNull(order, "[Assertion failed] - order is required; it must not be null");
         Assert.isTrue(!order.isNew(), "[Assertion failed] - order must not be new");
         Assert.state(!order.hasExpired() && Order.Status.SHIPPED.equals(order.getStatus()), "[Assertion failed] - order must not be expired and order status must be SHIPPED");
-
         order.setStatus(Order.Status.RECEIVED);
-
         OrderLog orderLog = new OrderLog();
         orderLog.setType(OrderLog.Type.RECEIVE);
         orderLog.setOrder(order);
         orderLogDao.persist(orderLog);
-
         mailService.sendReceiveOrderMail(order);
         smsService.sendReceiveOrderSms(order);
     }
@@ -1217,7 +1453,14 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
             allocateStock(order);
         }
         order.setAmountPaid(order.getAmount());
-        order.setStatus(Order.Status.PENDING_SHIPMENT);
+        if(ConvertUtils.isNotEmpty(order.getParentId())){
+            order.setStatus(Order.Status.COMPLETED);
+            String statPath = this.createReconContract(order,null,"订单已完结",true);
+            orderDao.modifyStatPath(statPath,order.getId());
+            orderDao.modifyStatPath(statPath,order.getParentId());
+        } else {
+            order.setStatus(Order.Status.PENDING_SHIPMENT);
+        }
         OrderLog orderLog = new OrderLog();
         orderLog.setType(OrderLog.Type.REVIEW);
         orderLog.setOrder(order);

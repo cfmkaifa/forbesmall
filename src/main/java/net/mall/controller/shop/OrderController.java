@@ -261,6 +261,48 @@ public class OrderController extends BaseController {
         if (skuId != null) {
             Sku sku = skuService.find(skuId);
             model.addAttribute("sku",sku);
+            Set<Sku> skuSet=sku.getProduct().getSkus();
+            for(Sku temp:skuSet){
+                List<SpecificationItem> specificationItems=temp.getProduct().getSpecificationItems();
+                for(SpecificationItem tempSpec:specificationItems){
+                    if(tempSpec.getName().contains("颜色")){
+                        List<SpecificationItem.Entry> entries=tempSpec.getEntries();
+                        for (SpecificationItem.Entry tempEntry:entries){
+                            if(tempEntry.getIsSelected()){
+                                model.addAttribute("temp_commodity_color",tempEntry.getValue());
+                            }
+                        }
+                    }
+                    if(tempSpec.getName().contains("纤维")){
+                        List<SpecificationItem.Entry> entries=tempSpec.getEntries();
+                        for (SpecificationItem.Entry tempEntry:entries){
+                            if(tempEntry.getIsSelected()){
+                                model.addAttribute("temp_commodity_fiber",tempEntry.getValue());
+                            }
+                        }
+                    }
+                    if(tempSpec.getName().contains("gsm")){
+                        List<SpecificationItem.Entry> entries=tempSpec.getEntries();
+                        for (SpecificationItem.Entry tempEntry:entries){
+                            if(tempEntry.getIsSelected()){
+                                model.addAttribute("temp_commodity_gsm",tempEntry.getValue());
+                            }
+                        }
+                    }
+                    if(tempSpec.getName().contains("cm")){
+                        List<SpecificationItem.Entry> entries=tempSpec.getEntries();
+                        for (SpecificationItem.Entry tempEntry:entries){
+                            if(tempEntry.getIsSelected()){
+                                model.addAttribute("temp_commodity_cm",tempEntry.getValue());
+                            }
+                        }
+                    }
+                }
+
+            }
+            model.addAttribute("temp_is_group",ConvertUtils.isNotEmpty(sku.getProduct().getGroup())?sku.getProduct().getGroup():false);
+            model.addAttribute("temp_is_purch",ConvertUtils.isNotEmpty(sku.getProduct().getPurch())?sku.getProduct().getPurch():false);
+            model.addAttribute("temp_is_sample",ConvertUtils.isNotEmpty(sku.getProduct().getSample())?sku.getProduct().getSample():false);
             if (sku == null) {
                 return UNPROCESSABLE_ENTITY_VIEW;
             }
@@ -284,6 +326,54 @@ public class OrderController extends BaseController {
             }
         } else {
             cart = currentCart;
+            Set<CartItem> cartItems=cart.getCartItems();
+            cartItems.stream().forEach(sub->{
+                Sku sku = skuService.find(sub.getSku().getId());
+                model.addAttribute("sku",sku);
+                Set<Sku> skuSet=sku.getProduct().getSkus();
+                for(Sku temp:skuSet){
+                    List<SpecificationItem> specificationItems=temp.getProduct().getSpecificationItems();
+                    for(SpecificationItem tempSpec:specificationItems){
+                        if(tempSpec.getName().contains("颜色")){
+                            List<SpecificationItem.Entry> entries=tempSpec.getEntries();
+                            for (SpecificationItem.Entry tempEntry:entries){
+                                if(tempEntry.getIsSelected()){
+                                    model.addAttribute("temp_commodity_color",tempEntry.getValue());
+                                }
+                            }
+                        }
+                        if(tempSpec.getName().contains("纤维")){
+                            List<SpecificationItem.Entry> entries=tempSpec.getEntries();
+                            for (SpecificationItem.Entry tempEntry:entries){
+                                if(tempEntry.getIsSelected()){
+                                    model.addAttribute("temp_commodity_fiber",tempEntry.getValue());
+                                }
+                            }
+                        }
+                        if(tempSpec.getName().contains("gsm")){
+                            List<SpecificationItem.Entry> entries=tempSpec.getEntries();
+                            for (SpecificationItem.Entry tempEntry:entries){
+                                if(tempEntry.getIsSelected()){
+                                    model.addAttribute("temp_commodity_gsm",tempEntry.getValue());
+                                }
+                            }
+                        }
+                        if(tempSpec.getName().contains("cm")){
+                            List<SpecificationItem.Entry> entries=tempSpec.getEntries();
+                            for (SpecificationItem.Entry tempEntry:entries){
+                                if(tempEntry.getIsSelected()){
+                                    model.addAttribute("temp_commodity_cm",tempEntry.getValue());
+                                }
+                            }
+                        }
+                    }
+
+                }
+                Product product = sku.getProduct();
+                model.addAttribute("temp_is_group",ConvertUtils.isNotEmpty(product.getGroup())?product.getGroup():false);
+                model.addAttribute("temp_is_purch",ConvertUtils.isNotEmpty(product.getPurch())?product.getPurch():false);
+                model.addAttribute("temp_is_sample",ConvertUtils.isNotEmpty(product.getSample())?product.getSample():false);
+            });
             orderType = Order.Type.GENERAL;
         }
         /***团购申请
@@ -381,6 +471,16 @@ public class OrderController extends BaseController {
         model.addAttribute("paymentMethods", paymentMethods);
         model.addAttribute("shippingMethods", shippingMethodService.findAll());
         model.addAttribute("member",currentUser);
+        String refererUrl = request.getHeader("Referer");
+        if(ConvertUtils.isNotEmpty(refererUrl)
+                && refererUrl.contains("/cart/list")){
+            model.addAttribute("entrance", "cart");
+        } else if (ConvertUtils.isNotEmpty(refererUrl)
+                && refererUrl.contains("/product/sample-detail")) {
+            model.addAttribute("entrance", "sample");
+        } else {
+            model.addAttribute("entrance", "buyNow");
+        }
         return "shop/order/checkout";
     }
 
@@ -551,7 +651,7 @@ public class OrderController extends BaseController {
      * 创建
      */
     @PostMapping("/create")
-    public ResponseEntity<?> create(Long skuId, Integer quantity, String methodCode,
+    public ResponseEntity<?> create(Long skuId, Integer quantity, String methodCode,String entrance,
                                     String cartTag, Long receiverId, Long paymentMethodId, Long shippingMethodId, String code, String invoiceTitle, String invoiceTaxNumber, BigDecimal balance, String memo, @CurrentUser Member currentUser,
                                     @CurrentCart Cart currentCart) {
         Map<String, Object> data = new HashMap<>();
@@ -637,6 +737,11 @@ public class OrderController extends BaseController {
         if (ConvertUtils.isNotEmpty(methodCode)) {
             cart.setMethodCode(methodCode);
         }
+        /***订单入口
+         * */
+        if(ConvertUtils.isNotEmpty(entrance)){
+            cart.setEntrance(entrance);
+        }
         List<Order> orders = orderService.create(orderType, cart, receiver, paymentMethod, shippingMethod, couponCode, invoice, balance, memo);
         List<String> orderSns = new ArrayList<>();
         for (Order order : orders) {
@@ -691,10 +796,10 @@ public class OrderController extends BaseController {
             amount = amount.add(amountPayable);
             orders.add(order);
         }
+        model.addAttribute("online", online);
         if (online && defaultPaymentPlugin != null) {
             fee = defaultPaymentPlugin.calculateFee(amount).add(fee);
             amount = fee.add(amount);
-            model.addAttribute("online", online);
             model.addAttribute("defaultPaymentPlugin", defaultPaymentPlugin);
             model.addAttribute("paymentPlugins", paymentPlugins);
         }
@@ -709,6 +814,46 @@ public class OrderController extends BaseController {
         model.addAttribute("amount", amount);
         model.addAttribute("orders", orders);
         model.addAttribute("orderSns", Arrays.asList(orderSns));
+        for(Order orderTemp:orders){
+            model.addAttribute("orderTemp",orderTemp);
+            List<OrderItem> orderItems=orderTemp.getOrderItems();
+            for(OrderItem itemTemp:orderItems){
+                model.addAttribute("product",itemTemp);
+                model.addAttribute("temp_is_group",ConvertUtils.isNotEmpty(itemTemp.getProduct().getGroup())?itemTemp.getProduct().getGroup():false);
+                model.addAttribute("temp_is_purch",ConvertUtils.isNotEmpty(itemTemp.getProduct().getPurch())?itemTemp.getProduct().getPurch():false);
+                model.addAttribute("temp_is_sample",ConvertUtils.isNotEmpty(itemTemp.getProduct().getSample())?itemTemp.getProduct().getSample():false);
+                model.addAttribute("commodity_name",itemTemp.getProduct().getName());
+                model.addAttribute("quantity",itemTemp.getQuantity());
+                model.addAttribute("present_price",itemTemp.getProduct().getPrice());
+                model.addAttribute("commodity_id",itemTemp.getProduct().getId());
+                if(ConvertUtils.isEmpty(itemTemp.getSku().getProduct().getProductCategory().getParent())){
+                    model.addAttribute("first_commodity","无");
+                }else {
+                    model.addAttribute("first_commodity",itemTemp.getSku().getProduct().getProductCategory().getParent().getName());
+                }
+                model.addAttribute("second_commodity",itemTemp.getProduct().getProductCategory().getName());
+                model.addAttribute("store_id",itemTemp.getOrder().getStore().getId());
+                model.addAttribute("store_name",itemTemp.getOrder().getStore().getName());
+                List<String> specifications=itemTemp.getSpecifications();
+                for(String spec:specifications){
+                    if(spec.contains("gsm")){
+                        model.addAttribute("temp_commodity_gsm",spec);
+                    }else if(spec.contains("cm")){
+                        model.addAttribute("temp_commodity_cm",spec);
+                    } else if(spec.contains("纤维")){
+                        model.addAttribute("temp_commodity_fiber",spec);
+                    }else if(spec.contains("颜色")){
+                        model.addAttribute("temp_commodity_color",spec);
+                    }else{
+                        model.addAttribute("temp_commodity_gsm",spec);
+                        model.addAttribute("temp_commodity_cm",spec);
+                        model.addAttribute("temp_commodity_fiber",spec);
+                        model.addAttribute("temp_commodity_color",spec);
+                    }
+                }
+                break;
+            }
+        }
         return "shop/order/payment";
     }
 
@@ -766,9 +911,9 @@ public class OrderController extends BaseController {
 
     /****
      * certificatePayment方法慨述:支付订单
-     * @param paymentPluginId
-     * @param orderSns
-     * @param currentUser
+     * @param
+     * @param
+     * @param
      * @return ResponseEntity<?>
      * @创建人 huanghy
      * @创建时间 2019年12月26日 下午3:18:01
@@ -800,7 +945,7 @@ public class OrderController extends BaseController {
 
     /***
      * sealContract方法慨述:
-     * @param orderSn
+     * @param
      * @param sealContractPath
      * @return ResponseEntity<?>
      * @创建人 huanghy

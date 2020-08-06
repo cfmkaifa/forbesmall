@@ -24,6 +24,30 @@
 
 $().ready(function() {
 
+	$("#get_ct_more").click(function(){
+		$(".get_ct_more").hide();
+		$(".details-a").css("height","auto");
+	})
+	$(".xx").click(function(){
+		$(".modoe").hide();
+		$("#cover").hide();
+	})
+
+	$(".detailsul li").click(function () {
+		$(this).addClass("actives").siblings().removeClass('actives');
+	})
+	$(".detailsul a").each(function(){
+		if($(this)[0].href==String(window.location)){
+
+		}
+	});
+	$(window).scroll(function(){
+		if($(window).scrollTop() >= 270){
+			$(".nav-pills").css("top","20px");
+		} else{
+			$(".nav-pills").css("top","270px");
+		}
+	});
 	var $pageNumberItem = $("[data-page-number]");
 	
 	// 页码

@@ -2,7 +2,6 @@
 	[#escape x as x?js_string]
 		<script>
 		$().ready(function() {
-			
 			var $window = $(window);
 			var $body = $("body");
 			var $mainSidebarCollapseToggle = $("[data-toggle='mainSidebarCollapse']");
@@ -10,7 +9,6 @@
 			var $searchForm = $("#mainSidebar .search form");
 			var $searchValue = $("#mainSidebar .search input[name='searchValue']");
 			var $panelCollapse = $("#mainSidebar .panel-collapse");
-			
 			// 主侧边栏折叠
 			$mainSidebarCollapseToggle.click(function() {
 				var niceScroll = $mainSidebar.getNiceScroll();
@@ -108,7 +106,7 @@
 								${message("business.mainSidebar.stockLog")}
 							</a>
 						</li>
-						<li class="list-group-item[#if .main_template_name?matches("business/product_notify/.*")] active[/#if]">
+						[#--<li class="list-group-item[#if .main_template_name?matches("business/product_notify/.*")] active[/#if]">
 							<a href="${base}/business/product_notify/list">
 								<i class="iconfont icon-weixuanzhong"></i>
 								${message("business.mainSidebar.productNotifyList")}
@@ -119,13 +117,13 @@
 								<i class="iconfont icon-weixuanzhong"></i>
 								${message("business.mainSidebar.consultationList")}
 							</a>
-						</li>
-						<li class="list-group-item[#if .main_template_name?matches("business/review/.*")] active[/#if]">
+						</li>--]
+						[#--<li class="list-group-item[#if .main_template_name?matches("business/review/.*")] active[/#if]">
 							<a href="${base}/business/review/list">
 								<i class="iconfont icon-weixuanzhong"></i>
 								${message("business.mainSidebar.reviewList")}
 							</a>
-						</li>
+						</li>--]
 					</ul>
 				</div>
 			</div>
@@ -152,24 +150,24 @@
 								[/@order_count]
 							</a>
 						</li>
-						<li class="list-group-item[#if .main_template_name?matches("business/delivery_template/.*")] active[/#if]">
+						[#--<li class="list-group-item[#if .main_template_name?matches("business/delivery_template/.*")] active[/#if]">
 							<a href="${base}/business/delivery_template/list">
 								<i class="iconfont icon-weixuanzhong"></i>
 								${message("business.mainSidebar.deliveryTemplateList")}
 							</a>
-						</li>
+						</li>--]
 						<li class="list-group-item[#if .main_template_name?matches("business/delivery_center/.*")] active[/#if]">
 							<a href="${base}/business/delivery_center/list">
 								<i class="iconfont icon-weixuanzhong"></i>
 								${message("business.mainSidebar.deliveryCenterList")}
 							</a>
 						</li>
-						<li class="list-group-item[#if .main_template_name?matches("business/aftersales/.*")] active[/#if]">
+						[#--<li class="list-group-item[#if .main_template_name?matches("business/aftersales/.*")] active[/#if]">
 							<a href="${base}/business/aftersales/list">
 								<i class="iconfont icon-weixuanzhong"></i>
 								${message("business.mainSidebar.aftersalesList")}
 							</a>
-						</li>
+						</li>--]
 					</ul>
 				</div>
 			</div>
@@ -193,12 +191,12 @@
 								${message("business.mainSidebar.storeSetting")}
 							</a>
 						</li>
-						<li class="list-group-item[#if .main_template_name?matches("business/store_product_category/.*")] active[/#if]">
+						[#--<li class="list-group-item[#if .main_template_name?matches("business/store_product_category/.*")] active[/#if]">
 							<a href="${base}/business/store_product_category/list">
 								<i class="iconfont icon-weixuanzhong"></i>
 								${message("business.mainSidebar.storeProductCategoryList")}
 							</a>
-						</li>
+						</li>--]
 						<li class="list-group-item[#if .main_template_name?matches("business/store_product_tag/.*")] active[/#if]">
 							<a href="${base}/business/store_product_tag/list">
 								<i class="iconfont icon-weixuanzhong"></i>
@@ -224,7 +222,7 @@
 							</a>
 						</li>
 						<li class="list-group-item[#if .main_template_name?matches("business/store/payment.*")] active[/#if]">
-							<a href="${base}/business/store/payment">
+							<a href="${base}/business/store/payment/${currentStore.storeRank.id}">
 								<i class="iconfont icon-weixuanzhong"></i>
 								${message("business.mainSidebar.storePayment")}
 							</a>
@@ -252,7 +250,7 @@
 			</div>
 		</div>
 		<div class="panel panel-default">
-			<div class="panel-heading">
+			[#--<div class="panel-heading">
 				<h4 class="panel-title">
 					<a href="#promotionPanelCollapse" data-toggle="collapse" data-parent="#mainSidebarPanelGroup"[#if .main_template_name?matches("business/promotion_plugin.*|business/promotion_plugin/.*|business/.*promotion/.*|business/coupon/.*")] aria-expanded="true"[/#if]>
 						<i class="iconfont icon-like"></i>
@@ -260,7 +258,7 @@
 						<i class="iconfont icon-unfold"></i>
 					</a>
 				</h4>
-			</div>
+			</div>--]
 			<div id="promotionPanelCollapse" class="panel-collapse collapse[#if .main_template_name?matches("business/promotion_plugin.*|business/promotion_plugin/.*|business/.*promotion/.*|business/coupon/.*")] in[/#if]">
 				<div class="panel-body">
 					<ul class="list-group">
@@ -285,7 +283,7 @@
 			</div>
 		</div>
 		<div class="panel panel-default">
-			<div class="panel-heading">
+			[#--<div class="panel-heading">
 				<h4 class="panel-title">
 					<a href="#depositPanelCollapse" data-toggle="collapse" data-parent="#mainSidebarPanelGroup"[#if .main_template_name?matches("business/business_deposit/.*|business/business_cash/.*")] aria-expanded="true"[/#if]>
 						<i class="iconfont icon-recharge"></i>
@@ -293,7 +291,7 @@
 						<i class="iconfont icon-unfold"></i>
 					</a>
 				</h4>
-			</div>
+			</div>--]
 			<div id="depositPanelCollapse" class="panel-collapse collapse[#if .main_template_name?matches("business/business_deposit/.*|business/business_cash/.*")] in[/#if]">
 				<div class="panel-body">
 					<ul class="list-group">
@@ -349,7 +347,7 @@
 			</div>
 		</div>
 		<div class="panel panel-default">
-			<div class="panel-heading">
+			[#--<div class="panel-heading">
 				<h4 class="panel-title">
 					<a href="#messagePanelCollapse" data-toggle="collapse" data-parent="#mainSidebarPanelGroup"[#if .main_template_name?matches("business/message/.*|business/message_group/.*")] aria-expanded="true"[/#if]>
 						<i class="iconfont icon-message"></i>
@@ -357,7 +355,7 @@
 						<i class="iconfont icon-unfold"></i>
 					</a>
 				</h4>
-			</div>
+			</div>--]
 			<div id="messagePanelCollapse" class="panel-collapse collapse[#if .main_template_name?matches("business/message/.*|business/message_group/.*")] in[/#if]">
 				<div class="panel-body">
 					<ul class="list-group">
@@ -379,12 +377,12 @@
 		</div>
 	</div>
 	<ul class="list-group">
-		<li class="list-group-item[#if .main_template_name?matches("business/instant_message/.*")] active[/#if]">
+		[#--<li class="list-group-item[#if .main_template_name?matches("business/instant_message/.*")] active[/#if]">
 			<a href="${base}/business/instant_message/list">
 				<i class="iconfont icon-wang"></i>
 				<span>${message("business.mainSidebar.instantMessageList")}</span>
 			</a>
-		</li>
+		</li>--]
 		<li class="list-group-item">
 			<p>${message("business.mainSidebar.statistics")}</p>
 		</li>

@@ -116,7 +116,7 @@ public class ArticleDaoImpl extends BaseDaoImpl<Article, Long> implements Articl
         }
         criteriaQuery.where(restrictions);
         if (pageable == null || ((StringUtils.isEmpty(pageable.getOrderProperty()) || pageable.getOrderDirection() == null) && CollectionUtils.isEmpty(pageable.getOrders()))) {
-            criteriaQuery.orderBy(criteriaBuilder.desc(root.get("isTop")), criteriaBuilder.desc(root.get("createdDate")));
+            criteriaQuery.orderBy(criteriaBuilder.desc(root.get("createdDate")));
         }
         return super.findPage(criteriaQuery, pageable);
     }

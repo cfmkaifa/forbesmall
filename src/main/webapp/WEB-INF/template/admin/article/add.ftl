@@ -14,6 +14,7 @@
 	<link href="${base}/resources/common/css/font-awesome.css" rel="stylesheet">
 	<link href="${base}/resources/common/css/awesome-bootstrap-checkbox.css" rel="stylesheet">
 	<link href="${base}/resources/common/css/bootstrap-select.css" rel="stylesheet">
+	<link href="${base}/resources/common/css/bootstrap-fileinput.css" rel="stylesheet">
 	<link href="${base}/resources/common/css/summernote.css" rel="stylesheet">
 	<link href="${base}/resources/common/css/base.css" rel="stylesheet">
 	<link href="${base}/resources/admin/css/base.css" rel="stylesheet">
@@ -25,6 +26,7 @@
 	<script src="${base}/resources/common/js/bootstrap.js"></script>
 	<script src="${base}/resources/common/js/bootstrap-growl.js"></script>
 	<script src="${base}/resources/common/js/bootstrap-select.js"></script>
+	<script src="${base}/resources/common/js/bootstrap-fileinput.js"></script>
 	<script src="${base}/resources/common/js/summernote.js"></script>
 	<script src="${base}/resources/common/js/jquery.nicescroll.js"></script>
 	<script src="${base}/resources/common/js/jquery.validate.js"></script>
@@ -134,6 +136,14 @@
 								<textarea name="content" class="form-control" data-provide="editor"></textarea>
 							</div>
 						</div>
+						<!--缩略图strat-->
+						<div class="form-group">
+							<label class="col-xs-3 col-sm-2 control-label">${message("Article.thumbnail")}:</label>
+							<div class="col-xs-9 col-sm-4">
+								<input id="thumbnail" name="thumbnail" type="hidden" value="" data-provide="fileinput" data-file-type="IMAGE">
+							</div>
+						</div>
+						<!--缩略图end-->
 						<div class="form-group">
 							<label class="col-xs-3 col-sm-2 control-label" for="seoTitle">${message("Article.seoTitle")}:</label>
 							<div class="col-xs-9 col-sm-4">

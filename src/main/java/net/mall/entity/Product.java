@@ -234,6 +234,7 @@ public class Product extends BaseEntity<Long> {
          */
         FAILED
     }
+
     /**
      * 编号
      */
@@ -248,7 +249,7 @@ public class Product extends BaseEntity<Long> {
      * 名称
      */
     @JsonView(BaseView.class)
-    @Field(store = Store.YES, index = Index.YES, analyze = Analyze.YES)
+    @Field(store = Store.YES, index = Index.YES, analyze = Analyze.NO)
     @Boost(1.5F)
     @NotEmpty
     @Length(max = 200)
@@ -304,7 +305,7 @@ public class Product extends BaseEntity<Long> {
      */
     @Min(0)
     @Digits(integer = 12, fraction = 3)
-    @Column(nullable = false, precision = 21, scale = 6)
+    @Column(nullable = true, precision = 21, scale = 6)
     private BigDecimal maxCommission;
 
     /**
@@ -462,6 +463,18 @@ public class Product extends BaseEntity<Long> {
     @Column(nullable = false)
     private Long monthSales;
 
+
+    /***源商品ID
+     */
+    @Column(name = "source_pro_id")
+    private Long sourceProId;
+
+
+    /***新商品ID
+     */
+    @Column(name = "new_pro_id")
+    private Long newProId;
+
     /**
      * 销量
      */
@@ -616,17 +629,6 @@ public class Product extends BaseEntity<Long> {
     @Length(max = 200)
     private String attributeValue19;
 
-    /***源商品ID
-     */
-    @Column(name = "source_pro_id")
-    private Long sourceProId;
-
-
-    /***新商品ID
-     */
-    @Column(name = "new_pro_id")
-    private Long newProId;
-
     /**
      * 店铺
      */
@@ -644,7 +646,6 @@ public class Product extends BaseEntity<Long> {
     @NotNull(groups = Purchase.class)
     @JoinColumn(updatable = false,name = "member_id")
     Member member;
-
 
 
     /****样品店铺
@@ -753,6 +754,37 @@ public class Product extends BaseEntity<Long> {
     @Transient
     private boolean sample = false;
 
+
+    /**
+     * 过期时间
+     */
+    private Date expire;
+
+    /**
+     * 质量保障书
+     */
+    @NotEmpty
+    @Length(max = 200)
+    @Column(nullable = false)
+    private String quality;
+
+    /**
+     * 获取质量保障书
+     *
+     * @return 质量保障书
+     */
+    public String getQuality() {
+        return quality;
+    }
+
+    /**
+     * 设置质量保障书
+     *
+     * @param quality 质量保障书
+     */
+    public void setQuality(String quality) {
+        this.quality = quality;
+    }
     /**
      * 获取编号
      *
@@ -924,6 +956,9 @@ public class Product extends BaseEntity<Long> {
      * @return 重量
      */
     public Integer getWeight() {
+        if(ConvertUtils.isEmpty(weight)){
+            return 0;
+        }
         return weight;
     }
 
@@ -2072,7 +2107,7 @@ public class Product extends BaseEntity<Long> {
         return (Sku) CollectionUtils.find(getSkus(), new Predicate() {
             public boolean evaluate(Object object) {
                 Sku sku = (Sku) object;
-                return sku != null && sku.getGroup();
+                return sku != null && ConvertUtils.isNotEmpty(sku.getGroup()) && sku.getGroup();
             }
         });
     }
@@ -2302,6 +2337,7 @@ public class Product extends BaseEntity<Long> {
         this.newProId = newProId;
     }
 
+
     public Boolean getPurch() {
         return isPurch;
     }
@@ -2324,5 +2360,13 @@ public class Product extends BaseEntity<Long> {
 
     public void setMember(Member member) {
         this.member = member;
+    }
+
+    public Date getExpire() {
+        return expire;
+    }
+
+    public void setExpire(Date expire) {
+        this.expire = expire;
     }
 }

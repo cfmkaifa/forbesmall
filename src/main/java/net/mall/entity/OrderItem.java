@@ -429,19 +429,6 @@ public class OrderItem extends BaseEntity<Long> {
         this.specifications = specifications;
     }
 
-    /**
-     * 获取总重量
-     *
-     * @return 总重量
-     */
-    @Transient
-    public int getTotalWeight() {
-        if (getWeight() != null && getQuantity() != null) {
-            return getWeight() * getQuantity();
-        } else {
-            return 0;
-        }
-    }
 
     /**
      * 获取小计

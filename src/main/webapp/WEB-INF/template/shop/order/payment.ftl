@@ -11,6 +11,7 @@
     <link href="${base}/favicon.ico" rel="icon">
     <link href="${base}/resources/common/css/bootstrap.css" rel="stylesheet">
     <link href="${base}/resources/common/css/iconfont.css" rel="stylesheet">
+    <link href="${base}/resources/common/css/bootstrap-fileinput.css" rel="stylesheet">
     <link href="${base}/resources/common/css/font-awesome.css" rel="stylesheet">
     <link href="${base}/resources/common/css/base.css" rel="stylesheet">
     <link href="${base}/resources/shop/css/base.css" rel="stylesheet">
@@ -24,6 +25,7 @@
     <script src="${base}/resources/common/js/bootstrap.js"></script>
     <script src="${base}/resources/common/js/jquery.qrcode.js"></script>
     <script src="${base}/resources/common/js/underscore.js"></script>
+    <script src="${base}/resources/common/js/bootstrap-fileinput.js?version=0.5"></script>
     <script src="${base}/resources/common/js/url.js"></script>
     <script src="${base}/resources/common/js/velocity.js"></script>
     <script src="${base}/resources/common/js/velocity.ui.js"></script>
@@ -33,7 +35,6 @@
         [#escape x as x?js_string]
             <script>
                 $().ready(function () {
-
                     var $payConfirmModal = $("#payConfirmModal");
                     var $paymentPluginId = $("#paymentPluginId");
                     var $paymentPluginItem = $("#paymentPlugin .media");
@@ -42,18 +43,76 @@
                     var $orderCollapse = $("#orderCollapse");
                     var $summary = $("#summary");
                     var $rePayUrl = $("#rePayUrl");
+                    var $modal = $("#modal");
+
+                    [#if online == false ]
+                    $modal.modal({
+                        backdrop: "static",
+                        keyboard: false
+                    }).modal("show");
+                    [/#if]
+
+                    // 电子合同
+                    [#list orders as order]
+                    $("#sealContractFile${order.id}").fileinput({
+                        uploadUrl: "${base}/common/file/upload",
+                        uploadExtraData: {
+                            fileType: "FILE"
+                        },
+                        allowedFileExtensions: "${setting.uploadImageExtension}".split(","),
+                        [#if setting.uploadMaxSize != 0]
+                        maxFileSize: ${setting.uploadMaxSize} * 1024,
+                        [/#if]
+                        maxFileCount: 1,
+                        autoReplace: true,
+                        showClose: false,
+                        [#if order.hasExpired() || (order.status != "PENDING_PAYMENT" && order.status != "PENDING_REVIEW") ]
+                        showRemove: false,
+                        showBrowse:false,
+                        showUpload:false,
+                        showCaption:false,
+                        [/#if]
+                        showPreview:true,
+                        dropZoneEnabled: false,
+                        overwriteInitial: false,
+                        initialPreviewAsData: true,
+                        previewClass: "multiple-file-preview",
+                        [#if order.contractPath?has_content]
+                        [#if order.contractPath?contains("pdf")]
+                        initialPreviewFileType:"pdf",
+                        [#else]
+                        initialPreviewFileType:"image",
+                        [/#if]
+                        initialPreview:"${order.contractPath}",
+                        [/#if]
+                        layoutTemplates: {
+                            footer: '<div class="file-thumbnail-footer">{actions}</div>',
+                            actions: '<div class="file-actions"><div class="file-footer-buttons">{upload} {download} {delete} {zoom} {other}</div>{drag}<div class="clearfix"></div></div>'
+                        },
+                        fileActionSettings: {
+                            showUpload: false,
+                            showRemove: false,
+                            showDrag: false
+                        },
+                        removeFromPreviewOnError: true,
+                        showAjaxErrorDetails: false
+                    }).on("fileloaded", function(event, file, previewId, index, reader) {
+                    }).on("fileuploaded", function(event, data, previewId, index) {
+                        $("#sealContractPath${order.id}").val(data.response.url);
+                    }).on("filecleared fileerror fileuploaderror", function() {
+                    });
+                    [/#list]
+
                     var orderSns = [
                         [#list orderSns as orderSn]
                         "${orderSn}"[#if orderSn_has_next], [/#if]
                         [/#list]
                     ];
-
                     if (orderSns.length > 0) {
                         $rePayUrl.val("${base}/order/payment?" + $.param({
                             orderSns: orderSns
                         }));
                     }
-
                     // 订单信息显示或隐藏
                     $orderCollapse.click(function () {
                         var $element = $(this);
@@ -61,7 +120,6 @@
                         $element.find(".iconfont").toggleClass("icon-fold");
                         $summary.slideToggle();
                     });
-
                     [#if online]
                     // 订单锁定
                     setInterval(function () {
@@ -124,7 +182,6 @@
                             }
                         });
                     });
-
                 });
             </script>
         [/#escape]
@@ -135,6 +192,51 @@
 [#include "/shop/include/main_sidebar.ftl" /]
 <main>
     <div class="container">
+        <!--提示框-->
+        <div id="modal" class="modal fade" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header ">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                        <h5 class="modal-title">${message("business.index.modalTitle")}</h5>
+                    </div>
+                    <div class="modal-body">
+                        <h1 style="margin: 20px; font-size: 18px;">请前往订单详情上传支付凭证！</h1>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--订单合同start-->
+        [#list orders as order]
+            <div id="sealContractModal${order.id}" class="modal fade" tabindex="-1">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button class="close" type="button" data-dismiss="modal">&times;</button>
+                            <h5 class="modal-title">${message("member.order.sealContract")}</h5>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12">
+                                    <input  id="sealContractPath${order.id}"  type="hidden" value="" >
+                                    <input  class="btn btn-primary"  id="sealContractFile${order.id}" name="file" type="file" >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-default" type="button" data-dismiss="modal">${message("common.cancel")}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        [/#list]
+        <!--订单合同end-->
         <div id="payConfirmModal" class="pay-confirm-modal modal fade" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -171,7 +273,7 @@
                             </div>
                             <div class="media-body media-middle">
                                 <div class="row">
-                                    <div class="col-xs-7">
+                                    <div class="col-xs-6">
                                         [#if order.status == "PENDING_PAYMENT"]
                                             <h3>${message("shop.order.pendingPayment")}</h3>
                                         [#elseif order.status == "PENDING_REVIEW"]
@@ -203,7 +305,7 @@
                                 <a id="orderCollapse" class="text-overflow" href="javascript:;"
                                    title="${message("shop.order.info")}">
                                     ${message("shop.order.info")}
-                                    <i class="iconfont icon-unfold"></i>
+                                    <i class="iconfont icon-fold"></i>
                                 </a>
                             </div>
                         </div>
@@ -214,8 +316,8 @@
                                     [#list orders as order]
                                         <li>
                                             <strong class="text-orange">${order.sn}</strong>
-                                            <a href="${base}/member/order/view?orderSn=${order.sn}">[${message("shop.order.view")}
-                                                ]</a>
+                                            <a class="btn btn-primary" href="${base}/member/order/view?orderSn=${order.sn}">${message("shop.order.view")}</a>
+                                            <a class="btn btn-primary" href="javascript:;" data-toggle="modal" data-target="#sealContractModal${order.id}">${message("shop.compact")}</a>
                                         </li>
                                     [/#list]
                                 </ul>
@@ -278,4 +380,57 @@
 </main>
 [#include "/shop/include/main_footer.ftl" /]
 </body>
+<script type="text/javascript">
+    //提交订单详情埋点事件
+    $(function () {
+        try {
+            sensors.track('FiberSubmitOrderDetail',{
+                order_id:"${orderTemp.sn}",
+                commodity_id:${commodity_id},
+                commodity_name:"${commodity_name}",
+                first_commodity:"${first_commodity}",
+                second_commodity:"${second_commodity}",
+                quantity:"${quantity}",
+                present_price:${present_price},
+                order_amount:${product.price},
+                commodity_gsm:"${temp_commodity_gsm}",
+                commodity_cm:"${temp_commodity_cm}",
+                commodity_color:"${temp_commodity_color}",
+                commodity_fiber:"${temp_commodity_fiber}",
+                store_id:${store_id},
+                store_name:"${store_name}",
+                is_group:${temp_is_group?string ("true","false")},
+                is_purch:${temp_is_purch?string ("true","false")},
+                is_sample:${temp_is_sample?string ("true","false")}
+            })
+        }catch (e) {
+            console.log(e);
+        }
+
+        try {
+            sensors.track('FiberPayOrderDetail',{
+                order_id:"${orderTemp.sn}",
+                commodity_id:${commodity_id},
+                commodity_name:"${commodity_name}",
+                first_commodity:"${first_commodity}",
+                second_commodity:"${second_commodity}",
+                present_price:${present_price},
+                quantity:"${quantity}",
+                order_amount:${product.price},
+                commodity_gsm:"${temp_commodity_gsm}",
+                commodity_cm:"${temp_commodity_cm}",
+                commodity_color:"${temp_commodity_color}",
+                commodity_fiber:"${temp_commodity_fiber}",
+                store_id:${store_id},
+                store_name:"${store_name}",
+                is_group:${temp_is_group?string ("true","false")},
+                is_purch:${temp_is_purch?string ("true","false")},
+                is_sample:${temp_is_sample?string ("true","false")},
+                total_price_of_commodity:${amount}
+            })
+        }catch (e) {
+            console.log(e);
+        }
+    })
+</script>
 </html>

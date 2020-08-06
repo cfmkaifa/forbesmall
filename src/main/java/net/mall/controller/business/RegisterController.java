@@ -8,10 +8,13 @@ package net.mall.controller.business;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
+import net.mall.util.SensorsAnalyticsUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.http.ResponseEntity;
@@ -49,6 +52,8 @@ public class RegisterController extends BaseController {
     private BusinessService businessService;
     @Inject
     private BusinessAttributeService businessAttributeService;
+    @Inject
+    private SensorsAnalyticsUtils sensorsAnalyticsUtils;
 
     /**
      * 检查用户名是否存在
@@ -135,6 +140,16 @@ public class RegisterController extends BaseController {
 
         userService.register(business);
         userService.login(new UserAuthenticationToken(Business.class, username, password, false, request.getRemoteAddr()));
+        /***供应商注册
+         * **/
+        Map<String,Object> properties = new HashMap<String,Object>();
+        properties.put("account",business.getUsername());
+        properties.put("email",business.getEmail());
+        properties.put("phone",business.getPhone());
+        properties.put("company",business.getName());
+        properties.put("is_success",true);
+        properties.put("fail_reason","");
+        sensorsAnalyticsUtils.reportData(String.valueOf(business.getId()),"RegisterResult",properties);
         return Results.OK;
     }
 

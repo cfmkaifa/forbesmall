@@ -205,12 +205,12 @@
 								</select>
 							</div>
 						</div>
-						<div class="form-group">
+						[#--<div class="form-group">
 							<label class="col-xs-3 col-sm-2 control-label" for="pattern">${message("MemberAttribute.pattern")}:</label>
 							<div class="col-xs-9 col-sm-4">
 								<input id="pattern" name="pattern" class="form-control" type="text" maxlength="200">
 							</div>
-						</div>
+						</div>--]
 						<div class="form-group">
 							<label class="col-xs-3 col-sm-2 control-label">${message("common.setting")}:</label>
 							<div class="col-xs-9 col-sm-4">
