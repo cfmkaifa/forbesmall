@@ -83,9 +83,6 @@ public class ArticleController extends BaseController {
             model.addAttribute("product",productPage);
         }
         Article article = articleService.find(articleId);
-        if(ConvertUtils.isNotEmpty(article.getContent())){
-
-        }
         if (article == null || pageNumber < 1 || pageNumber > article.getTotalPages()) {
             throw new ResourceNotFoundException();
         }

@@ -180,7 +180,7 @@
 						</li>
 						<li>
 							<span>电子邮箱：</span>
-							<span>lisa.zhang.@shdbr.com</span>
+							<span>lisa.zhang@shdbr.com</span>
 						</li>
 						<li>
 							<span>公司电话：</span>
