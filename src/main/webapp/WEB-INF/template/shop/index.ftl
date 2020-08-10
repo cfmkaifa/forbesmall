@@ -283,7 +283,7 @@
                             <div class="login-a">
                                 <p class="login-ap">Hi，欢迎来到福布云商</p>
                                 <p class="login-ap1"><a href="${base}/member/login">采购商登录</a></p>
-                                <p class="login-ap1"><a href="${base}/member/register">供应商登录</a></p>
+                                <p class="login-ap1"><a href="${base}/business/login">供应商登录</a></p>
                             </div>
                             <ul class="nav nav-pills nav-justified pay">
                                 [#list articleCategories as articleCategory]
