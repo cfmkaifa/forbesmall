@@ -38,10 +38,9 @@ button{
 	height:234px;
 	position: relative;
 }
-.arti-top p {
-	color: #FFFFFF;
+.arti-top a {
+	color: #FFFFFF !important;
 	font-size: 16px;
-	position: absolute;
 	bottom: 20px;
 	left: 16px;
 	overflow: hidden;

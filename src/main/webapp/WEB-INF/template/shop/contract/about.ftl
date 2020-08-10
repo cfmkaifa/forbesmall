@@ -65,7 +65,7 @@
 		<div class="col-sm-9">
 			<ol class="breadcrumb">
 				<li>
-					<a href="${base}/admin/index">
+					<a href="${base}">
 						<i class="iconfont icon-homefill"></i>
 						${message("common.breadcrumb.index")}
 					</a>
@@ -84,7 +84,7 @@
 				</div>
 				<!-- 分割线 -->
 				<div class="introduce">
-					<p>CFM诞生于2015年2月8号，由上海智能科技有限公司创建。</p>
+					<p>CFM诞生于2015年2月8号，由上海让雷智能科技有限公司创建。</p>
 					<p>上海让雷智能科技有限公司根据市场调查，目前中国市场还没有一款完善的与纺织品企业对接原材料采购平台，尤其是无纺布生产企业对接的原材料采购平台。同时应对与各个化纤工厂。</p>
 					<p>由于化纤是传统纺织行业，属于大宗物资交易交流，化纤工厂与纺织品企业交流交易方式仍然采用传统的方式进行，鉴于此市场信息交流更新缓慢，信息不集中等特点。</p>
 					<p>上海让雷智能科技有限公司联合上海缔荣纺织品有限公司投资开发CFM平台，真诚服务于纺织品企业原材料采购，尤其是无纺布生产企业对于原材料采购的需求服务。</p>
@@ -180,7 +180,7 @@
 						</li>
 						<li>
 							<span>电子邮箱：</span>
-							<span>lisa.zhang.@shdbr.com</span>
+							<span>lisa.zhang@shdbr.com</span>
 						</li>
 						<li>
 							<span>公司电话：</span>

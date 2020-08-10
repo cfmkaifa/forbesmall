@@ -612,7 +612,8 @@ public class ProductController extends BaseController {
             if (!currentStore.equals(product.getStore())) {
                 return Results.unprocessableEntity("business.product.notStoreProduct");
             }
-            if (!product.getGroup()) {
+            if(ConvertUtils.isNotEmpty(product.getGroup())
+                    && ! product.getGroup()){
                 /***新商品
                  * */
                 Product newProduct = new Product();

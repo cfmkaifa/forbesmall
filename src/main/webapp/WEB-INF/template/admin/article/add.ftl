@@ -105,6 +105,24 @@
 							</div>
 						</div>
 						<div class="form-group">
+							<label class="col-xs-3 col-sm-2 control-label" for="dataType">${message("Article.dataType")}:</label>
+							<div class="col-xs-9 col-sm-4">
+								<select name="dataType" class="author form-control" data-size="10">
+									<option value="" title="请选择报告类型" selected>请选择报告类型</option>
+									<option value="weekSubFee" title="周报">周报</option>
+									<option value="monthSubFee" title="月报">月报</option>
+									<option value="quarterSubFee" title="季报">季报</option>
+									<option value="yearSubFee" title="年报">年报</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-3 col-sm-2 control-label" for="money">${message("Article.money")}:</label>
+							<div class="col-xs-9 col-sm-4">
+								<input id="money" name="money" class="form-control" type="text" maxlength="28" oninput ="value=value.replace(/[^\d]/g,'')">
+							</div>
+						</div>
+						<div class="form-group">
 							<label class="col-xs-3 col-sm-2 control-label">${message("common.setting")}:</label>
 							<div class="col-xs-9 col-sm-4">
 								<div class="checkbox checkbox-inline">

@@ -6,6 +6,7 @@
  */
 package net.mall.entity;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -152,6 +153,17 @@ public class Article extends BaseEntity<Long> {
     private Long hits;
 
     /**
+     * 报告类型
+     */
+    @Length(max = 18)
+    private String dataType;
+    /**
+     * 收费金额
+     */
+    @Column(nullable = false, updatable = false, precision = 28, scale = 6)
+    private BigDecimal money;
+
+    /**
      * 文章分类
      */
     @NotNull
@@ -166,6 +178,23 @@ public class Article extends BaseEntity<Long> {
     @ManyToMany(fetch = FetchType.LAZY)
     @OrderBy("order asc")
     private Set<ArticleTag> articleTags = new HashSet<>();
+
+
+    public String getDataType() {
+        return dataType;
+    }
+
+    public void setDataType(String dataType) {
+        this.dataType = dataType;
+    }
+
+    public BigDecimal getMoney() {
+        return money;
+    }
+
+    public void setMoney(BigDecimal money) {
+        this.money = money;
+    }
 
     /**
      * 获取标题
