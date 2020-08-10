@@ -279,6 +279,12 @@
                 [@article_category_root_list]
                     [#if articleCategories?has_content]
                         <div class="article">
+
+                            <div class="login-a">
+                                <p class="login-ap">Hi，欢迎来到福布云商</p>
+                                <p class="login-ap1"><a href="${base}/member/login">采购商登录</a></p>
+                                <p class="login-ap1"><a href="${base}/member/register">供应商登录</a></p>
+                            </div>
                             <ul class="nav nav-pills nav-justified pay">
                                 [#list articleCategories as articleCategory]
                                     <li[#if articleCategory_index == 0] class="active"[/#if]>
@@ -320,34 +326,34 @@
                         [#noautoesc]${adPosition.resolveTemplate()}[/#noautoesc]
                     [/#if]
                 [/@ad_position]
-                <div class="listbar">
-                    <ul class="listbarul" id="right_third_banner" onclick="BannerClick('right_third_banner')">
-                        <li>
-                            <img src="${base}/resources/shop/images/1.png">
-                            <p><a href="http://www.chinafibermarketing.cn/article/smart" onclick="Quick_Entry(this)">${message("shop.index.smart")}</a></p>
-                        </li>
-                        <li>
-                            <img src="${base}/resources/shop/images/2.png">
-                            <p><a href="http://www.chinafibermarketing.cn/article/articleindex" onclick="Quick_Entry(this)">${message("shop.index.industry")}</a></p>
-                        </li>
-                        <li>
-                            <img src="${base}/resources/shop/images/5.png">
-                            <p><a href="http://www.chinafibermarketing.cn/article/declarecenter" onclick="Quick_Entry(this)">${message("shop.index.marketanalyze")}</a></p>
-                        </li>
-                        <li>
-                            <img src="${base}/resources/shop/images/3.png">
-                            <p><a href="http://www.ymm56.com/" onclick="Quick_Entry(this)">${message("shop.index.transport")} </a></p>
-                        </li>
-                        <li>
-                            <img src="${base}/resources/shop/images/7.png">
-                            <p><a href="#" onclick="Quick_Entry(this)" >${message("shop.index.datacenter")}</a></p>
-                        </li>
-                        <li>
-                            <img src="${base}/resources/shop/images/6.png">
-                            <p><a href="http://www.chinafibermarketing.cn/article/contract" onclick="Quick_Entry(this)">${message("shop.index.aboutus")}</a></p>
-                        </li>
-                    </ul>
-                </div>
+[#--                <div class="listbar">--]
+[#--                    <ul class="listbarul" id="right_third_banner" onclick="BannerClick('right_third_banner')">--]
+[#--                        <li>--]
+[#--                            <img src="${base}/resources/shop/images/1.png">--]
+[#--                            <p><a href="http://www.chinafibermarketing.cn/article/smart" onclick="Quick_Entry(this)">${message("shop.index.smart")}</a></p>--]
+[#--                        </li>--]
+[#--                        <li>--]
+[#--                            <img src="${base}/resources/shop/images/2.png">--]
+[#--                            <p><a href="http://www.chinafibermarketing.cn/article/articleindex" onclick="Quick_Entry(this)">${message("shop.index.industry")}</a></p>--]
+[#--                        </li>--]
+[#--                        <li>--]
+[#--                            <img src="${base}/resources/shop/images/5.png">--]
+[#--                            <p><a href="http://www.chinafibermarketing.cn/article/declarecenter" onclick="Quick_Entry(this)">${message("shop.index.marketanalyze")}</a></p>--]
+[#--                        </li>--]
+[#--                        <li>--]
+[#--                            <img src="${base}/resources/shop/images/3.png">--]
+[#--                            <p><a href="http://www.ymm56.com/" onclick="Quick_Entry(this)">${message("shop.index.transport")} </a></p>--]
+[#--                        </li>--]
+[#--                        <li>--]
+[#--                            <img src="${base}/resources/shop/images/7.png">--]
+[#--                            <p><a href="#" onclick="Quick_Entry(this)" >${message("shop.index.datacenter")}</a></p>--]
+[#--                        </li>--]
+[#--                        <li>--]
+[#--                            <img src="${base}/resources/shop/images/6.png">--]
+[#--                            <p><a href="http://www.chinafibermarketing.cn/article/contract" onclick="Quick_Entry(this)">${message("shop.index.aboutus")}</a></p>--]
+[#--                        </li>--]
+[#--                    </ul>--]
+[#--                </div>--]
             </div>
         </div>
         [@ad_position id = 4]

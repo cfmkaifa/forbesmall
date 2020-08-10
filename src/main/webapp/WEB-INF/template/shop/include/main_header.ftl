@@ -77,6 +77,18 @@
                 var $mainHeaderMainNavActiveItem = $("#mainHeaderMainNav li.active");
                 var mainHeaderMemberInfoTemplate = _.template($("#mainHeaderMemberInfoTemplate").html());
                 var mainHeaderCartDetailTemplate = _.template($("#mainHeaderCartDetailTemplate").html());
+                // var advertisement = $(".rights").css("display");
+                // sessionStorage.setItem("lastname", "none");
+                $(".off").click(function () {
+                    $('.rights').css('display','none');
+                    var cocos =sessionStorage.setItem('cocos',$(".rights").css("display"))
+                })
+                var two=sessionStorage.setItem("two","none");
+                var asr=sessionStorage.getItem('cocos');
+                if (asr!==null){
+
+                    $('.rights').css('display',asr);
+                }
                 // 顶部广告
                 if (sessionStorage.getItem("mainHeaderTopAdHidden") == null) {
                     $mainHeaderTopAd.show();
@@ -178,7 +190,7 @@
     <style>
         .rights{
             position: fixed;
-            right: 114px;
+            left: 114px;
             top: 28%;
             z-index: 999;
             width: 120px;
@@ -189,9 +201,24 @@
             max-width: 100%;
             height: 100%;
         }
+        .off{
+            position: absolute;
+            top: -24px;
+            right: 2px;
+            width:16px;
+            height:16px;
+            font-size: 12px;
+            text-align: center;
+            border: 1px solid #999999;
+            background: #ABABAB;
+            color: #FFFFFF;
+            cursor: pointer;
+            border-radius: 50%;
+        }
     </style>
     <div class="rights">
         <img src="${base}/resources/common/images/right.png" alt="">
+        <div class="off">×</div>
     </div>
     <div class="top-nav">
         <div class="container">
