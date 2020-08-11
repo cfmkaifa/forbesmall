@@ -652,7 +652,7 @@ public class ProductController extends BaseController {
                     RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
                     Set<ConstraintViolation<Object>> constraintViolations = (Set<ConstraintViolation<Object>>) requestAttributes.getAttribute("constraintViolations",RequestAttributes.SCOPE_REQUEST);
                     if(ConvertUtils.isNotEmpty(constraintViolations)){
-                        return Results.unprocessableEntity("business.product.valdateError", JSON.toJSONString(constraintViolations));
+                        return Results.unprocessableEntity("business.product.valdateError", constraintViolations);
                     } else {
                         return Results.unprocessableEntity("business.product.valdateError", "");
                     }

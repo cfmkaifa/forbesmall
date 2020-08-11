@@ -216,10 +216,10 @@
             border-radius: 50%;
         }
     </style>
-    <div class="rights">
-        <img src="${base}/resources/common/images/right.png" alt="">
-        <div class="off">×</div>
-    </div>
+[#--    <div class="rights">--]
+[#--        <img src="${base}/resources/common/images/right.png" alt="">--]
+[#--        <div class="off">×</div>--]
+[#--    </div>--]
     <div class="top-nav">
         <div class="container">
             <div class="row">
