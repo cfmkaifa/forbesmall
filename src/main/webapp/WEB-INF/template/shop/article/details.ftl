@@ -67,7 +67,7 @@
 <main>
     <div class="arti-main">
         <div class="conter">
-            <form id="articlePayForm" class="form-horizontal" action="${base}/article/articlePay/${articleId}" method="get">
+            <form id="articlePayForm" class="form-horizontal" action="${base}/article/articlePay/${articleId}" method="get" style=" margin: 0 auto; ">
                 <div class="conter-left">
                     <div class="arti-title">${article.title}</div>
                     <div class="source">

@@ -297,7 +297,7 @@
                                 [#list articleCategories as articleCategory]
                                     <div id="articleCategory_${articleCategory.id}"
                                          class="tab-pane fade[#if articleCategory_index == 0] active in[/#if]">
-                                        [@article_list articleCategoryId = articleCategory.id count = 5]
+                                        [@article_list articleCategoryId = articleCategory.id count = 6]
                                             <ul class="payli">
                                                 [#list articles as article]
                                                     [#if articleCategory.name =="行业报告"]
