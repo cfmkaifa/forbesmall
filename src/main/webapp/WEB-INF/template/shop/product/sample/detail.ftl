@@ -546,13 +546,11 @@
                     </div>
                 </div>
                 <div class="xinagqingqq">
-                    <ul id="slider">
-                        [#list product.store.storeAdImages as storeImgs]
-                            <li>
-                                <img src="${storeImgs.image}">
-                            </li>
-                        [/#list]
-                    </ul>
+                    [@ad_position id = 10105]
+                        [#if adPosition??]
+                            [#noautoesc]${adPosition.resolveTemplate()}[/#noautoesc]
+                        [/#if]
+                    [/@ad_position]
                 </div>
             </div>
         </div>
