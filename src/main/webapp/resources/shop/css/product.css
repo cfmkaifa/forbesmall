@@ -1437,7 +1437,7 @@ a:hover {
 }
 .region-2 {
 	font-size: 12px;
-	color: #00000;
+	color: #000000;
 }
 .site-2 {
 	font-size: 12px;
@@ -1597,7 +1597,7 @@ a:hover {
 }
 .region-2 {
 	font-size: 12px;
-	color: #00000;
+	color: #000000;
 }
 .site-2 {
 	font-size: 12px;
@@ -1822,7 +1822,7 @@ a:hover {
 	height: 500px;
 	z-index: 200;
 	background-color: #FFFFFF;
-	border: 1px solid #e9e9e9;
+	border: 1px solid #e9e9e9;
 	border-radius: 0px 0px 6px 6px;
 	margin: -15px 0px 0px -10px;
 	padding-left: 10px;
@@ -1869,7 +1869,7 @@ a:hover {
 }
 
 .index .product-category-menu>ul>li>p>a:hover {
-	color: #666666;
+	color: #000000;
 }
 
 .product-category-menu>ul>li>p {
@@ -1877,7 +1877,7 @@ a:hover {
 }
 .product-category-menu>ul>li>p>a{
 	line-height: 30px;
-	color: #666666;
+	color: #000000;
 	margin-right: 10px;
 	white-space: nowrap;
 	-webkit-transition: color 0.3s;
@@ -1887,13 +1887,13 @@ a:hover {
 	color: #000000;
 }
 .product-category-menu .product-category-menu-content {
-	width: 870px;
-	height: 180px;
+	/*width: 870px;*/
+	/*height: 180px;*/
 	display: none;
 	padding: 20px;
 	position: absolute;
 	top: -15px;
-	left: 200px;
+	left: 160px;
 	z-index: 9;
 	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 	border: 1px solid #dddddd;
@@ -1987,7 +1987,13 @@ a:hover {
 	border-right: 1px solid #f8f8f8;
 	border-bottom: 1px solid #f8f8f8;
 }
-
+.product-category-menu  {
+	background: #e9e9e9;
+	padding-left: 10px;
+}
+.product-category-menu li {
+	position: relative;
+}
 .product-category-menu .product-category-menu-content .brand li:nth-child(-n+2) {
 	border-top: 1px solid #f8f8f8;
 }
@@ -2231,7 +2237,6 @@ a:hover {
 
 .lefiimg {
 	width: 100%;
-	height: 600px;
 	margin-top: 7px;
 }
 .lefiimg1 {

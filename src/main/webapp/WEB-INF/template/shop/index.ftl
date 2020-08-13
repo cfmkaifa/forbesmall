@@ -279,7 +279,7 @@
                 [@article_category_root_list]
                     [#if articleCategories?has_content]
                         <div class="article">
-
+                            <a href="${base}/article/member" style="position: absolute; top: -32px; left: 61px; text-align: center; font-size: 16px;color: red;">会员入驻</a>
                             <div class="login-a">
                                 <p class="login-ap">Hi，欢迎来到福布云商</p>
                                 <p class="login-ap1"><a href="${base}/member/login">采购商登录</a></p>
