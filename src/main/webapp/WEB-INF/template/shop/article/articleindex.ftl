@@ -72,13 +72,13 @@
 					[/@ad_position]
 				</div>
 			</div>
-			<div class="advertisement">
-				[@ad_position id = 10151]
-					[#if adPosition??]
-						[#noautoesc]${adPosition.resolveTemplate()}[/#noautoesc]
-					[/#if]
-				[/@ad_position]
-			</div>
+[#--			<div class="advertisement">--]
+[#--				[@ad_position id = 10151]--]
+[#--					[#if adPosition??]--]
+[#--						[#noautoesc]${adPosition.resolveTemplate()}[/#noautoesc]--]
+[#--					[/#if]--]
+[#--				[/@ad_position]--]
+[#--			</div>--]
 			<div class="nav">
 					<ul class="navul">
 						[#list articleCategories as articleCategories]
