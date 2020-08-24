@@ -72,9 +72,9 @@
 					[/@ad_position]
 				</div>
 			</div>
-			<div class="advertisement">
-				
-			</div>
+[#--			<div class="advertisement">--]
+[#--				--]
+[#--			</div>--]
 			<div class="nav">
 					<ul class="navul">
 						[#list articleCategories as articleCategories]

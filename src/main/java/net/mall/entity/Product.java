@@ -766,9 +766,9 @@ public class Product extends BaseEntity<Long> {
 //    @JsonView(BaseView.class)
 //    @Field(store = Store.YES, index = Index.YES, analyze = Analyze.NO)
 //    @Boost(1.5F)
-    @NotEmpty
+//    @NotEmpty
+//    @Column(nullable = false)
     @Length(max = 200)
-    @Column(nullable = false)
     private String quality;
 
     /**
