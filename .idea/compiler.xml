@@ -13,16 +13,4 @@
       <module name="forbesmall" target="1.8" />
     </bytecodeTargetLevel>
   </component>
-<<<<<<< HEAD
-=======
-  <component name="JavacSettings">
-    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="msg-utils" options="-parameters" />
-<<<<<<< HEAD
-=======
-      <module name="smartwork_gateway" options="-parameters" />
->>>>>>> fabric_mall
-    </option>
-  </component>
->>>>>>> 9f1538bf2f97be8ff9c6657bceddcfa59cb02772
 </project>

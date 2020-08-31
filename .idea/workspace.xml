@@ -7,7 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bc5e5ed1-96c1-46e3-948c-a8aa1ccb6836" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/controller/business/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/controller/business/ProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -323,7 +323,7 @@
       <workItem from="1587696044114" duration="1801000" />
       <workItem from="1596696127721" duration="645000" />
       <workItem from="1598248471278" duration="2732000" />
-      <workItem from="1598914480684" duration="465000" />
+      <workItem from="1598914480684" duration="889000" />
     </task>
     <task id="LOCAL-00001" summary="中文替换">
       <created>1583208192749</created>

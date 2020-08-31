@@ -39,7 +39,7 @@
     <orderEntry type="module-library">
       <library name="Maven: com.chinapay:chinapaysecure:0.0.1">
         <CLASSES>
-          <root url="jar://D:/maven/localRepository/other/chinapaysecure1_5.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/other/chinapaysecure1_5.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
