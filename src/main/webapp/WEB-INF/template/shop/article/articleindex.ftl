@@ -72,13 +72,13 @@
 					[/@ad_position]
 				</div>
 			</div>
-			<div class="advertisement">
-				[@ad_position id = 10151]
-					[#if adPosition??]
-						[#noautoesc]${adPosition.resolveTemplate()}[/#noautoesc]
-					[/#if]
-				[/@ad_position]
-			</div>
+[#--			<div class="advertisement">--]
+[#--				[@ad_position id = 10151]--]
+[#--					[#if adPosition??]--]
+[#--						[#noautoesc]${adPosition.resolveTemplate()}[/#noautoesc]--]
+[#--					[/#if]--]
+[#--				[/@ad_position]--]
+[#--			</div>--]
 			<div class="nav">
 					<ul class="navul">
 						[#list articleCategories as articleCategories]
@@ -103,19 +103,21 @@
 										<img src="/resources/shop/images/arti1.png">
 									[/#if]
 								</div>
-								<ul>
-									<li class="lefttop">${article.title}</li>
-									<li class="data">
-										<span>${article.createdDate}</span>
-										<span>${article.author}</span>
-									</li>
-									<li class="newsconter">
+								<a href="${base}${article.path}">
+									<ul>
+										<li class="lefttop">${article.title}</li>
+										<li class="data">
+											<span>${article.createdDate}</span>
+											<span>${article.author}</span>
+										</li>
+										<li class="newsconter">
 											${article.seoDescription}
-									</li>
-									<li class="see">
-										<a href="${base}${article.path}">查看全文</a>
-									</li>
-								</ul>
+										</li>
+										<li class="see">
+											查看全文
+										</li>
+									</ul>
+								</a>
 							</div>
 					[/#list]
 				</div>

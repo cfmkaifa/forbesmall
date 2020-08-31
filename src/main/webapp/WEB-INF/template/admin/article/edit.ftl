@@ -83,6 +83,28 @@
 							</div>
 						</div>
 						<div class="form-group">
+							<label class="col-xs-3 col-sm-2 control-label" for="dataType">${message("Article.dataType")}:</label>
+							<div class="col-xs-9 col-sm-4">
+								<select name="dataType" class="author form-control" data-size="10">
+									[#if article.dataType??]
+										<option value="" title="请选择报告类型">请选择报告类型</option>
+									[#else]
+										<option value="" title="请选择报告类型"  checked>请选择报告类型</option>
+									[/#if]
+									<option value="weekSubFee" title="周报" [#if article.dataType == weekSubFee] checked[/#if]>周报</option>
+									<option value="monthSubFee" title="月报" [#if article.dataType == monthSubFee] checked[/#if]>月报</option>
+									<option value="quarterSubFee" title="季报" [#if article.dataType == quarterSubFee] checked[/#if]>季报</option>
+									<option value="yearSubFee" title="年报" [#if article.dataType == yearSubFee] checked[/#if]>年报</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-3 col-sm-2 control-label" for="money">${message("Article.money")}:</label>
+							<div class="col-xs-9 col-sm-4">
+								<input id="money" name="money" class="form-control" type="text" value="${article.money}" maxlength="28" oninput ="value=value.replace(/[^\d]/g,'')">
+							</div>
+						</div>
+						<div class="form-group">
 							<label class="col-xs-3 col-sm-2 control-label item-required">${message("Article.articleCategory")}:</label>
 							<div class="col-xs-9 col-sm-4">
 								<select name="articleCategoryId" class="selectpicker form-control" data-size="10">

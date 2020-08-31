@@ -612,9 +612,8 @@ public class ProductController extends BaseController {
             if (!currentStore.equals(product.getStore())) {
                 return Results.unprocessableEntity("business.product.notStoreProduct");
             }
-
-            if (ConvertUtils.isNotEmpty(product.getGroup())
-                    && !product.getGroup()) {
+            if(ConvertUtils.isNotEmpty(product.getGroup())
+                    && ! product.getGroup()){
                 /***新商品
                  * */
                 Product newProduct = new Product();
@@ -625,10 +624,10 @@ public class ProductController extends BaseController {
                 newProduct.setParameterValues(product.getParameterValues());
                 newProduct.setSpecificationItems(product.getSpecificationItems());
                 Set<Sku> skus = product.getSkus();
-                List<Sku> newSkus =  skus.stream().map(sku -> {
+                List<Sku> newSkus = skus.stream().filter(sku -> ConvertUtils.isEmpty(sku.getGroup()) || !sku.getGroup()).map(sku -> {
                     Sku newsku = new Sku();
-                    BeanUtils.copyProperties(sku,newsku,"id","sn","createdDate","lastModifiedDate",
-                            "product","cartItems","orderItems","orderShippingItems","productNotifies","stockLogs","giftAttributes");
+                    BeanUtils.copyProperties(sku, newsku, "id", "sn", "createdDate", "lastModifiedDate",
+                            "product", "cartItems", "orderItems", "orderShippingItems", "productNotifies", "stockLogs", "giftAttributes");
                     return newsku;
                 }).collect(Collectors.toList());
                 productImageService.filter(newProduct.getProductImages());
@@ -655,27 +654,24 @@ public class ProductController extends BaseController {
                 newProduct.setStoreProductTags(product.getStoreProductTags());
                 if (!isValid(newProduct, BaseEntity.Save.class)) {
                     RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
-                    Set<ConstraintViolation<Object>> constraintViolations = (Set<ConstraintViolation<Object>>) requestAttributes.getAttribute("constraintViolations",RequestAttributes.SCOPE_REQUEST);
-                    if(ConvertUtils.isNotEmpty(constraintViolations)){
+                    Set<ConstraintViolation<Object>> constraintViolations = (Set<ConstraintViolation<Object>>) requestAttributes.getAttribute("constraintViolations", RequestAttributes.SCOPE_REQUEST);
+                    if (ConvertUtils.isNotEmpty(constraintViolations)) {
                         return Results.unprocessableEntity("business.product.valdateError", JSON.toJSONString(constraintViolations));
                     } else {
                         return Results.unprocessableEntity("business.product.valdateError", "");
                     }
                 }
                 if (StringUtils.isNotEmpty(newProduct.getSn()) && productService.snExists(newProduct.getSn())) {
-                    return Results.unprocessableEntity("business.product.productSn",newProduct.getSn());
-                }
-                Long sourceProductId = product.getId();
-                if(ConvertUtils.isNotEmpty(product.getSourceProId())){
                     return Results.unprocessableEntity("business.product.productSn", newProduct.getSn());
                 }
+                Long sourceProductId = product.getId();
                 if (ConvertUtils.isNotEmpty(product.getSourceProId())) {
                     sourceProductId = product.getSourceProId();
                 }
                 /***清除游离态数据
                  * ***/
                 productService.clearProduct(product);
-                productService.copyProduct(newProduct,newSkus,sourceProductId);
+                productService.copyProduct(newProduct, newSkus, sourceProductId);
             }
         }
         return Results.OK;

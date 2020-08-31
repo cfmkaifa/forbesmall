@@ -6,11 +6,13 @@
  */
 package net.mall.controller.admin;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 
 import javax.inject.Inject;
 
 import net.mall.service.*;
+import net.mall.util.ConvertUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -62,6 +64,12 @@ public class ArticleController extends BaseController {
         article.setArticleTags(new HashSet<>(articleTagService.findList(articleTagIds)));
         if (!isValid(article)) {
             return Results.UNPROCESSABLE_ENTITY;
+        }
+        if(ConvertUtils.isEmpty(article.getMoney())){
+            article.setMoney(BigDecimal.valueOf(0));
+        }
+        if(ConvertUtils.isEmpty(article.getDataType())){
+            article.setDataType("weekSubFee");
         }
         article.setHits(0L);
         articleService.save(article);

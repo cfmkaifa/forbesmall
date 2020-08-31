@@ -146,10 +146,6 @@
 					});
 				});
 			});
-			
-			});
-
-
 			// 一键更新
 			function updateProduct(){
 				var ids = [];

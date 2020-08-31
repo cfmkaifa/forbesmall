@@ -7,7 +7,33 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bc5e5ed1-96c1-46e3-948c-a8aa1ccb6836" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/common/images/right.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/controller/admin/ArticleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/controller/admin/ArticleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/controller/business/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/controller/business/ProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/controller/shop/ArticleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/controller/shop/ArticleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/entity/Article.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/entity/Article.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/entity/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/entity/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/entity/SubsNewsHuman.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/entity/SubsNewsHuman.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/mall/service/impl/PaymentTransactionServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/mall/service/impl/PaymentTransactionServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mall.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mall.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/language/common/message_zh_CN.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/language/common/message_zh_CN.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/admin/article/add.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/admin/article/add.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/admin/article/edit.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/admin/article/edit.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/business/product/list.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/business/product/list.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/article/articleindex.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/article/articleindex.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/article/details.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/article/details.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/contract/about.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/contract/about.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/declare/smart.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/declare/smart.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/include/main_header.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/include/main_header.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/index.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/index.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/product/list.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template/shop/product/list.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/common/css/demo.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/common/css/demo.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/shop/css/articleindex.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/shop/css/articleindex.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/shop/css/base.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/shop/css/base.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/shop/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/shop/css/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/shop/css/product.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/shop/css/product.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/shop/html/we.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/shop/html/we.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/shop/js/base.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/shop/js/base.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -323,7 +349,7 @@
       <workItem from="1587696044114" duration="1801000" />
       <workItem from="1596696127721" duration="645000" />
       <workItem from="1598248471278" duration="2732000" />
-      <workItem from="1598914480684" duration="889000" />
+      <workItem from="1598914480684" duration="1064000" />
     </task>
     <task id="LOCAL-00001" summary="中文替换">
       <created>1583208192749</created>
@@ -562,10 +588,10 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="332" y="95" width="617" height="490" key="find.popup/0.0.1280.680@0.0.1280.680" timestamp="1598249319797" />
-    <state x="303" y="1" width="672" height="678" key="search.everywhere.popup" timestamp="1598249800180">
+    <state x="303" y="1" width="672" height="678" key="search.everywhere.popup" timestamp="1598915524677">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="303" y="1" width="672" height="678" key="search.everywhere.popup/0.0.1280.680@0.0.1280.680" timestamp="1598249800180" />
+    <state x="303" y="1" width="672" height="678" key="search.everywhere.popup/0.0.1280.680@0.0.1280.680" timestamp="1598915524677" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -78,6 +78,18 @@
                 var $mainHeaderMainNavActiveItem = $("#mainHeaderMainNav li.active");
                 var mainHeaderMemberInfoTemplate = _.template($("#mainHeaderMemberInfoTemplate").html());
                 var mainHeaderCartDetailTemplate = _.template($("#mainHeaderCartDetailTemplate").html());
+                // var advertisement = $(".rights").css("display");
+                // sessionStorage.setItem("lastname", "none");
+                $(".off").click(function () {
+                    $('.rights').css('display','none');
+                    var cocos =sessionStorage.setItem('cocos',$(".rights").css("display"))
+                })
+                var two=sessionStorage.setItem("two","none");
+                var asr=sessionStorage.getItem('cocos');
+                if (asr!==null){
+
+                    $('.rights').css('display',asr);
+                }
                 // 顶部广告
                 if (sessionStorage.getItem("mainHeaderTopAdHidden") == null) {
                     $mainHeaderTopAd.show();
@@ -175,6 +187,40 @@
             [#noautoesc]${adPosition.resolveTemplate()}[/#noautoesc]
         [/#if]
     [/@ad_position]
+
+    <style>
+        .rights{
+            position: fixed;
+            left: 114px;
+            top: 28%;
+            z-index: 999;
+            width: 120px;
+            height: 407px;
+
+        }
+        .rights > img {
+            max-width: 100%;
+            height: 100%;
+        }
+        .off{
+            position: absolute;
+            top: -24px;
+            right: 2px;
+            width:16px;
+            height:16px;
+            font-size: 12px;
+            text-align: center;
+            border: 1px solid #999999;
+            background: #ABABAB;
+            color: #FFFFFF;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+    </style>
+[#--    <div class="rights">--]
+[#--        <img src="${base}/resources/common/images/right.png" alt="">--]
+[#--        <div class="off">×</div>--]
+[#--    </div>--]
     <div class="top-nav">
         <div class="container">
             <div class="row">
@@ -185,63 +231,63 @@
                     <ul class="list-inline pull-right">
                         <!--供应商start-->
                         [#if currentStoreUser?has_content]
-                            <ul class="list-inline">
-                                <li>
-                                    <a>${message("shop.mainHeader.username")}${currentStoreUser.username}</a>
-                                </li>
-                                <li>
-                                    <a href="${base}/business/index/home" target="_blank">${message("shop.mainHeader.manager")}</a>
-                                </li>
-                                <li>
-                                    <a class="logout" href="${base}/business/logout">${message("shop.mainHeader.memberLogout")}</a>
-                                </li>
+                                <ul class="list-inline">
+                                    <li>
+                                        <a>${message("shop.mainHeader.username")}${currentStoreUser.username}</a>
+                                    </li>
+                                    <li>
+                                        <a href="${base}/business/index/home" target="_blank">${message("shop.mainHeader.manager")}</a>
+                                    </li>
+                                    <li>
+                                        <a class="logout" href="${base}/business/logout">${message("shop.mainHeader.memberLogout")}</a>
+                                    </li>
+                                    <li class="top-nav-dropdown">
+                                        <a href="${base}/business/login">
+                                            ${message("shop.mainHeader.navigation")}
+                                            <span class="caret"></span>
+                                        </a>
+                                        <ul class="qrcode">
+                                            <li>
+                                                <a href="${base}/product/list" target="_blank">${message("shop.mainHeader.marketing")}</a>
+                                            </li>
+                                            <li>
+                                                <a href="http://analysis.chinafibermarketing.net/" target="_blank">${message("shop.mainHeader.declare")}</a>
+                                            </li>
+                                            <li>
+                                                <a href="${base}/article/articleindex" target="_blank">${message("shop.mainHeader.industry")}</a>
+                                            </li>
+                                            <li>
+                                                <a href="${base}/product/group_purch/list" target="_blank">${message("shop.mainHeader.group")}</a>
+                                            </li>
+                                            <li>
+                                                <a href="${base}/product/pro_purch/list" target="_blank">${message("shop.mainHeader.purch")}</a>
+                                            </li>
+                                            <li>
+                                                <a href="https://static.ymm56.com/ymm-outdoor/pc-register?source=SEM_baidu_myrj_myrjpinpai_PC%E9%80%9A%E7%94%A8-%E7%BD%91%E5%9D%80_%E5%AE%98%E7%BD%91_%E8%BF%90%E6%BB%A1%E6%BB%A1%20%E5%AE%98%E7%BD%91&sdclkid=AL2615FG152_xSDNb-" target="_blank">${message("shop.mainHeader.transport")}</a>
+                                            </li>
+                                            <li>
+                                                <a href="${base}/datacenter" target="_blank">${message("shop.mainHeader.datacenter")}</a>
+                                            </li>
+                                            <li>
+                                                <a href="${base}/article/smart" target="_blank">${message("shop.mainHeader.smartfac")}</a>
+                                            </li>
+
+                                            <li>
+                                                <a href="${base}/article/contract" target="_blank">${message("shop.mainHeader.aboutus")}</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                        [#else]
                                 <li class="top-nav-dropdown">
                                     <a href="${base}/business/login">
-                                        ${message("shop.mainHeader.navigation")}
+                                        ${message("shop.mainHeader.business")}
                                         <span class="caret"></span>
                                     </a>
-                                    <ul class="qrcode">
-                                        <li>
-                                            <a href="${base}/product/list" target="_blank">${message("shop.mainHeader.marketing")}</a>
-                                        </li>
-                                        <li>
-                                            <a href="http://analysis.chinafibermarketing.net/" target="_blank">${message("shop.mainHeader.declare")}</a>
-                                        </li>
-                                        <li>
-                                            <a href="${base}/article/articleindex" target="_blank">${message("shop.mainHeader.industry")}</a>
-                                        </li>
-                                        <li>
-                                            <a href="${base}/product/group_purch/list" target="_blank">${message("shop.mainHeader.group")}</a>
-                                        </li>
-                                        <li>
-                                            <a href="${base}/product/pro_purch/list" target="_blank">${message("shop.mainHeader.purch")}</a>
-                                        </li>
-                                        <li>
-                                            <a href="https://static.ymm56.com/ymm-outdoor/pc-register?source=SEM_baidu_myrj_myrjpinpai_PC%E9%80%9A%E7%94%A8-%E7%BD%91%E5%9D%80_%E5%AE%98%E7%BD%91_%E8%BF%90%E6%BB%A1%E6%BB%A1%20%E5%AE%98%E7%BD%91&sdclkid=AL2615FG152_xSDNb-" target="_blank">${message("shop.mainHeader.transport")}</a>
-                                        </li>
-                                        <li>
-                                            <a href="${base}/datacenter" target="_blank">${message("shop.mainHeader.datacenter")}</a>
-                                        </li>
-                                        <li>
-                                            <a href="${base}/article/smart" target="_blank">${message("shop.mainHeader.smartfac")}</a>
-                                        </li>
-
-                                        <li>
-                                            <a href="${base}/article/contract" target="_blank">${message("shop.mainHeader.aboutus")}</a>
-                                        </li>
-                                    </ul>
                                 </li>
-                            </ul>
-                        [#else]
-                            <li class="top-nav-dropdown">
-                                <a href="${base}/business/login">
-                                    ${message("shop.mainHeader.business")}
-                                    <span class="caret"></span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="${base}/business/register">${message("shop.mainHeader.businessRegister")}</a>
-                            </li>
+                                <li>
+                                    <a href="${base}/business/register">${message("shop.mainHeader.businessRegister")}</a>
+                                </li>
                             <li class="top-nav-dropdown">
                                 <a href="javascript:;">
                                     ${message("shop.mainHeader.navigation")}
@@ -358,7 +404,7 @@
                 <div class="totality-2">
                     ${message("shop.product.amount")}
                     [@pro_amount ]
-                        <span>
+                    <span>
                        ${proAmount}
                     </span>
                     [/@pro_amount ]
@@ -376,8 +422,8 @@
         </div>
         <div class="row">
             <div class="col-xs-2 product-category">
-                <i class="iconfont icon-sort"></i>
-                ${message("shop.mainHeader.productCategory")}
+                    <i class="iconfont icon-sort"></i>
+                    ${message("shop.mainHeader.productCategory")}
                 </a>
             </div>
             <div class="col-xs-10">
@@ -389,7 +435,6 @@
                                 [#list navigations as navigation]
                                     <li[#if navigation.url?contains(requestContext.requestUri) && requestContext.requestUri != "/"] class="active"[/#if]>
                                         <a href="${navigation.url}"[#if navigation.isBlankTarget] target="_blank"[/#if] onclick="mall_navigation(this)">${navigation.name}</a>
-                                    </li>
                                 [/#list]
                             [/#if]
                         [/@navigation_list]

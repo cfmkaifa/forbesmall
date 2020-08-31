@@ -763,9 +763,7 @@ public class Product extends BaseEntity<Long> {
     /**
      * 质量保障书
      */
-    @NotEmpty
     @Length(max = 200)
-    @Column(nullable = false)
     private String quality;
 
     /**

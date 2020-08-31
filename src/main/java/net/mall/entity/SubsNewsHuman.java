@@ -1,5 +1,6 @@
 package net.mall.entity;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -43,6 +44,27 @@ public class SubsNewsHuman extends BaseEntity<Long> {
     @Column(name = "expd")
     private Date expd;
 
+    @Column(name = "money")
+    private BigDecimal money;
+
+    @Column(name = "status")
+    private Long status;
+
+    public Long getStatus() {
+        return status;
+    }
+
+    public void setStatus(Long status) {
+        this.status = status;
+    }
+
+    public BigDecimal getMoney() {
+        return money;
+    }
+
+    public void setMoney(BigDecimal money) {
+        this.money = money;
+    }
 
     /**
      * @return humanId

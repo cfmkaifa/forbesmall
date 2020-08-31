@@ -47,7 +47,6 @@
         [#escape x as x?js_string]
             <script>
                 $().ready(function () {
-
                     var $window = $(window);
                     var $topbar = $("#topbar");
                     var $topbarProductSearchForm = $("#topbar form");
@@ -107,7 +106,6 @@
                     });
 
                 });
-
             </script>
         [/#escape]
     [/#noautoesc]
@@ -249,7 +247,7 @@
                                     [@product_category_children_list productCategoryId = productCategory.id recursive = false count = 4]
                                         <p>
                                             [#list productCategories as productCategory]
-                                                <a href="${base}${productCategory.path}" id="left_banner" onclick="Left_Banner(this)" >${productCategory.name}</a>
+                                                <a href="${base}${productCategory.path}" id="left_banner" onclick="Left_Banner(this)" value="${productCategory.name}">${productCategory.name}</a>
                                             [/#list]
                                         </p>
                                     [/@product_category_children_list]
@@ -335,6 +333,12 @@
                 [@article_category_root_list]
                     [#if articleCategories?has_content]
                         <div class="article">
+                            <a href="${base}/article/member" style="position: absolute; top: -32px; left: 61px; text-align: center; font-size: 16px;color: red;">会员入驻</a>
+                            <div class="login-a">
+                                <p class="login-ap">Hi，欢迎来到福布云商</p>
+                                <p class="login-ap1"><a href="${base}/member/login">采购商登录</a></p>
+                                <p class="login-ap1"><a href="${base}/business/login">供应商登录</a></p>
+                            </div>
                             <ul class="nav nav-pills nav-justified pay">
                                 [#list articleCategories as articleCategory]
                                     <li[#if articleCategory_index == 0] class="active"[/#if]>
@@ -347,7 +351,7 @@
                                 [#list articleCategories as articleCategory]
                                     <div id="articleCategory_${articleCategory.id}"
                                          class="tab-pane fade[#if articleCategory_index == 0] active in[/#if]">
-                                        [@article_list articleCategoryId = articleCategory.id count = 5]
+                                        [@article_list articleCategoryId = articleCategory.id count = 6]
                                             <ul class="payli">
                                                 [#list articles as article]
                                                     [#if articleCategory.name =="行业报告"]
@@ -376,34 +380,34 @@
                         [#noautoesc]${adPosition.resolveTemplate()}[/#noautoesc]
                     [/#if]
                 [/@ad_position]
-                <div class="listbar">
-                    <ul class="listbarul" id="right_third_banner" onclick="BannerClick('right_third_banner')">
-                        <li>
-                            <img src="${base}/resources/shop/images/1.png">
-                            <p><a href="http://www.chinafibermarketing.com/article/smart" onclick="Quick_Entry(this)">${message("shop.index.smart")}</a></p>
-                        </li>
-                        <li>
-                            <img src="${base}/resources/shop/images/2.png">
-                            <p><a href="http://www.chinafibermarketing.com/article/articlelist/1" onclick="Quick_Entry(this)">${message("shop.index.industry")}</a></p>
-                        </li>
-                        <li>
-                            <img src="${base}/resources/shop/images/5.png">
-                            <p><a href="http://analysis.chinafibermarketing.net/" onclick="Quick_Entry(this)">${message("shop.index.marketanalyze")}</a></p>
-                        </li>
-                        <li>
-                            <img src="${base}/resources/shop/images/3.png">
-                            <p><a href="http://www.ymm56.com/" onclick="Quick_Entry(this)">${message("shop.index.transport")} </a></p>
-                        </li>
-                        <li>
-                            <img src="${base}/resources/shop/images/7.png">
-                            <p><a href="http://www.chinafibermarketing.com/datacenter/videos/10252" onclick="Quick_Entry(this)" >${message("shop.index.datacenter")}</a></p>
-                        </li>
-                        <li>
-                            <img src="${base}/resources/shop/images/6.png">
-                            <p><a href="http://www.chinafibermarketing.com/article/contract" onclick="Quick_Entry(this)">${message("shop.index.aboutus")}</a></p>
-                        </li>
-                    </ul>
-                </div>
+[#--                <div class="listbar">--]
+[#--                    <ul class="listbarul" id="right_third_banner" onclick="BannerClick('right_third_banner')">--]
+[#--                        <li>--]
+[#--                            <img src="${base}/resources/shop/images/1.png">--]
+[#--                            <p><a href="http://www.chinafibermarketing.cn/article/smart" onclick="Quick_Entry(this)">${message("shop.index.smart")}</a></p>--]
+[#--                        </li>--]
+[#--                        <li>--]
+[#--                            <img src="${base}/resources/shop/images/2.png">--]
+[#--                            <p><a href="http://www.chinafibermarketing.cn/article/articleindex" onclick="Quick_Entry(this)">${message("shop.index.industry")}</a></p>--]
+[#--                        </li>--]
+[#--                        <li>--]
+[#--                            <img src="${base}/resources/shop/images/5.png">--]
+[#--                            <p><a href="http://www.chinafibermarketing.cn/article/declarecenter" onclick="Quick_Entry(this)">${message("shop.index.marketanalyze")}</a></p>--]
+[#--                        </li>--]
+[#--                        <li>--]
+[#--                            <img src="${base}/resources/shop/images/3.png">--]
+[#--                            <p><a href="http://www.ymm56.com/" onclick="Quick_Entry(this)">${message("shop.index.transport")} </a></p>--]
+[#--                        </li>--]
+[#--                        <li>--]
+[#--                            <img src="${base}/resources/shop/images/7.png">--]
+[#--                            <p><a href="#" onclick="Quick_Entry(this)" >${message("shop.index.datacenter")}</a></p>--]
+[#--                        </li>--]
+[#--                        <li>--]
+[#--                            <img src="${base}/resources/shop/images/6.png">--]
+[#--                            <p><a href="http://www.chinafibermarketing.cn/article/contract" onclick="Quick_Entry(this)">${message("shop.index.aboutus")}</a></p>--]
+[#--                        </li>--]
+[#--                    </ul>--]
+[#--                </div>--]
             </div>
         </div>
         [@ad_position id = 4]
@@ -431,7 +435,38 @@
                                 <div class="carousel-inner">
                                     <div class="item active">
                                         <div class="factory-2">
-                                            [@ad_factory id=1]
+                                          [@ad_factory id=1]
+                                                [#list adFactory.content as stores]
+                                                    [#if stores.id !=10551 && stores.id != 10451 && stores.id != 10651]
+                                                    <div class="swiper-2">
+                                                        <a href="${base}/store/${stores.id}" onclick="factory(this)">
+																<span class="swiper_title-2">
+																	  <img src="${stores.logo}" class="logo-2">
+																	  <p>${stores.name}</p>
+																</span>
+                                                            <p class="tonsof-2">
+                                                                [#if stores.capacity ==0]
+
+                                                                [#else]
+                                                                    ${stores.capacity}${message("shop.index.capacity")}
+                                                                [/#if]
+                                                            </p>
+                                                            <p class="themain-2">
+                                                                <span class="iconfont" onmouseover="blockChain(this)" dataId="${stores.business.id}" dataUrl="/business/index/chain"  style="color: #ff0000;z-index:1000">&#xe746;</span>
+                                                                ${message("shop.index.main")}
+                                                            </p>
+                                                            <p class="varieties-2">${stores.keyword}</p>
+                                                        </a>
+                                                    </div>
+                                                    [/#if]
+                                                [/#list]
+                                            [/@ad_factory]
+                                        </div>
+
+                                    </div>
+                                    [#--<div class="item">
+                                        <div class="factory-2">
+                                            [@ad_factory id=2]
                                                 [#list adFactory.content as stores]
 <<<<<<< HEAD
                                                     [#if stores.id !=10551 && stores.id != 10451 && stores.id != 10651]
@@ -461,7 +496,7 @@
 >>>>>>> 9f1538bf2f97be8ff9c6657bceddcfa59cb02772
 																<span class="swiper_title-2">
 																	  <img src="${stores.logo}" class="logo-2">
-																	  <p>${stores.name}</p>
+																	<p>${stores.name}</p>
 																</span>
 <<<<<<< HEAD
                                                                 <p class="tonsof-2">
@@ -470,12 +505,8 @@
                                                                     [#else]
                                                                         ${stores.capacity}${message("shop.index.capacity")}
                                                                     [/#if]
-
                                                                 </p>
-                                                                <p class="themain-2">
-                                                                    <span class="iconfont" onmouseover="blockChain(this)" dataId="${stores.business.id}" dataUrl="/business/index/chain"  style="color: #ff0000;z-index:1000">&#xe746;</span>
-                                                                    ${message("shop.index.main")}
-                                                                </p>
+                                                                <p class="themain-2">${message("shop.index.main")}</p>
                                                                 <p class="varieties-2">${stores.keyword}</p>
                                                             </a>
                                                         </div>
@@ -500,34 +531,7 @@
                                                 [/#list]
                                             [/@ad_factory]
                                         </div>
-                                    </div>
-                                    <div class="item">
-                                           <div class="factory-2">
-                                               [@ad_factory id=2]
-                                                   [#list adFactory.content as stores]
-                                                       [#if stores.id !=10551 && stores.id != 10451 && stores.id != 10651]
-                                                           <div class="swiper-2">
-                                                               <a href="${base}/store/${stores.id}" onclick="factory(this)">
-                                                                   <span class="swiper_title-2">
-                                                                         <img src="${stores.logo}" class="logo-2">
-                                                                       <p>${stores.name}</p>
-                                                                   </span>
-                                                                   <p class="tonsof-2">
-                                                                       [#if stores.capacity ==0]
-
-                                                                       [#else]
-                                                                           ${stores.capacity}${message("shop.index.capacity")}
-                                                                       [/#if]
-                                                                   </p>
-                                                                   <p class="themain-2">${message("shop.index.main")}</p>
-                                                                   <p class="varieties-2">${stores.keyword}</p>
-                                                               </a>
-                                                           </div>
-                                                       [/#if]
-                                                   [/#list]
-                                               [/@ad_factory]
-                                           </div>
-                                       </div>
+                                    </div>--]
                                 </div>
                                 <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev" style="background-image: none;width: 20px;color: #999;opacity: 0.3;display: block;">
                                     <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
@@ -609,7 +613,6 @@
 [#include "/shop/include/main_footer.ftl" /]
 </body>
 <script type="text/javascript">
-
     //顶部运营位点击埋点事件
     function Top_Banner() {
         try {
@@ -625,7 +628,7 @@
             console.log(e)
         }
     }
-
+    
     //左侧运营位埋点事件
     function Left_Banner(data) {
         var url=data.href;
@@ -656,7 +659,7 @@
             console.log(e)
         }
     }
-
+    
     //右侧新闻运营位点击事件
     function News(data) {
         var name=data.innerHTML;
@@ -684,6 +687,7 @@
         }catch (e) {
             console.log(e)
         }
+
     }
 
     //右侧快捷入口侧轮播
@@ -696,9 +700,10 @@
         }catch (e) {
             console.log(e)
         }
+
     }
-
-
+    
+    
     //工厂资源轮播运营位埋点
     function factory(data) {
         var url=data.href;

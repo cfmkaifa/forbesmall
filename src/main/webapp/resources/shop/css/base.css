@@ -2,9 +2,9 @@
 
 /*
  *
+ * 
  *
- *
- *
+ * 
  * Style - Base
  * Version: 6.1
  */
@@ -142,11 +142,11 @@
 	background-color: #f5f5f5;
 }
 .advertis {
-	width: 1410px;
+	width: 1355px;
 	margin: 0 auto;
 }
 .advertising {
-	width: 1410px;
+	width: 99%;
 	height: 76px;
 	margin: 0 auto;
 	margin-bottom: 20px;
@@ -271,9 +271,7 @@
 	float: left;
 	padding: 2px 20px;
 	text-align: center;
-	/*
-	border-right: 1px solid #eeeeee;
-	*/
+	/*border-right: 1px solid #eeeeee;*/
 }
 
 .main-header .top-nav .top-nav-dropdown>ul.qrcode li:last-child {
@@ -614,7 +612,7 @@
 		-webkit-transform: scale(0, 0);
 		transform: scale(0, 0);
 	}
-
+	
 	to {
 		-webkit-transform: scale(1, 1);
 		transform: scale(1, 1);
@@ -626,7 +624,7 @@
 		-webkit-transform: scale(0, 0);
 		transform: scale(0, 0);
 	}
-
+	
 	to {
 		-webkit-transform: scale(1, 1);
 		transform: scale(1, 1);
@@ -835,7 +833,7 @@
 }
 
 .main-footer .promise {
-	padding: 20px 50px;
+	padding: 20px 0px;
 	margin-bottom: 20px;
 	border-image: -webkit-linear-gradient(left, #f8f8f8, #e8e8e8, #f8f8f8) 1;
 	border-image: -moz-linear-gradient(left, #f8f8f8, #e8e8e8, #f8f8f8) 1;
@@ -1015,7 +1013,6 @@
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
-
 .record {
 	width: 588px;
 	margin: 0 auto;
@@ -1036,11 +1033,11 @@
 	border-top: 2px solid #ee3834;
 }
 .advertis {
-	width: 1410px;
+	width: 1350px;
 	margin: 0 auto;
 }
 .advertising {
-	width: 1410px;
+	width: 99%;
 	height: 76px;
 	margin: 0 auto;
 	margin-bottom: 20px;
@@ -1068,4 +1065,9 @@
 }
 .text-gay {
 	color: #666666;
+}
+
+.center-block {
+	margin-left: 0;
+	margin-right: 0;
 }
