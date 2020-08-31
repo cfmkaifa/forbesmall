@@ -1,8 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mall>
+<<<<<<< HEAD
 	<setting name="siteName" value="福布无纺-服务于中国无纺市场" />
 	<setting name="siteUrl" value="http://localhost:8080" />
+=======
+<<<<<<< HEAD
+	<setting name="siteName" value="福布云商-服务于中国化纤市场" />
+	<!-- http://www.chinafibermarketing.cn -->
+	<setting name="siteUrl" value="http://www.chinafibermarketing.cn" />
+	<setting name="fileUrl" value="http://fds.chinafibermarketing.cn" />
+=======
+	<setting name="siteName" value="无纺平台" />
+	<!--http://www.chinafibermarketing.com-->
+	<setting name="siteUrl" value="http://www.chinafibermarketing.com" />
+>>>>>>> 9f1538bf2f97be8ff9c6657bceddcfa59cb02772
 	<setting name="fileUrl" value="http://fds.chinafibermarketing.com" />
+>>>>>>> fabric_mall
 	<setting name="logo" value="/resources/shop/images/logo.png" />
 	<setting name="hotSearch" value="" />
 	<setting name="address" value="" />
